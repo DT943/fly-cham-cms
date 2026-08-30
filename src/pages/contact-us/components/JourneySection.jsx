@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { typography } from '../../../styles/typography.js'
 import { journeySteps } from '../utils/journeySteps.js'
 import JourneyStep from './JourneyStep.jsx'
 
@@ -8,10 +9,10 @@ const JourneySection = () => {
   return (
     <section className="bg-background rounded-xl px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
       <div className="flex flex-col gap-2 mb-7">
-        <h2 className="text-xl md:text-[22px] font-bold text-700 m-0">
+        <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
           {t('help.journey.title')}
         </h2>
-        <p className="text-sm md:text-base text-600 m-0 max-w-4xl">
+        <p className={`${typography.sectionDescription} text-600 m-0 max-w-4xl`}>
           {t('help.journey.subtitle')}
         </p>
       </div>

@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next'
+import { typography } from '../../styles/typography.js'
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation()
   const current = (i18n.resolvedLanguage || i18n.language || 'en').split('-')[0]
 
   return (
-    <div className="flex items-center gap-2 text-sm font-semibold">
+    <div className={`flex items-center gap-2 ${typography.button} font-semibold`}>
       <button
         type="button"
         className={`cursor-pointer bg-transparent border-none p-0 ${current === 'en' ? 'text-primary-1' : 'text-600'}`}

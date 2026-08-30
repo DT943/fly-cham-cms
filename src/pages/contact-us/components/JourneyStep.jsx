@@ -1,4 +1,5 @@
 import { CaretRight } from '@phosphor-icons/react'
+import { typography } from '../../../styles/typography.js'
 import { getLinkHref } from '../utils/links.js'
 
 const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
@@ -7,7 +8,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
       <div className="w-10 h-10 rounded-full bg-100 flex items-center justify-center flex-shrink-0 text-700">
         <Icon size={20} weight="regular" />
       </div>
-      <span className="text-base font-bold text-700">
+      <span className={`${typography.itemTitle} font-bold text-700`}>
         {stepLabel}
       </span>
     </div>
@@ -16,7 +17,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
         <li key={link.text}>
           <a
             href={getLinkHref(link)}
-            className="text-sm font-medium text-primary-1 no-underline hover:underline inline-flex items-center gap-1"
+            className={`${typography.itemDescription} font-medium text-primary-1 no-underline hover:underline inline-flex items-center gap-1`}
           >
             {link.text}
             <CaretRight size={12} weight="bold" className="flex-shrink-0 rtl:-scale-x-100" />

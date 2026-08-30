@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { typography } from '../../../styles/typography.js'
 import { helpCategories } from '../utils/helpCategories.jsx'
 import HelpCategoryCard from './HelpCategoryCard.jsx'
 
@@ -8,10 +9,10 @@ const HelpCategories = () => {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h2 className="text-xl md:text-[22px] font-bold text-700 m-0">
+        <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
           {t('help.categories.title')}
         </h2>
-        <p className="text-sm md:text-base text-600 m-0 max-w-3xl">
+        <p className={`${typography.sectionDescription} text-600 m-0 max-w-3xl`}>
           {t('help.categories.subtitle')}
         </p>
       </div>
