@@ -3,6 +3,7 @@
     "home": "Home",
     "help": "Help",
     "contactUs": "Contact us",
+    "ourOffices": "Our offices",
     "english": "EN",
     "arabic": "AR"
   },
@@ -146,6 +147,63 @@
       "hoursMobile": "Hotline: Open from 9 AM to 9 PM",
       "note": "Call us anytime for urgent assistance with bookings, flight status, cancellations, and emergency support.",
       "imageAlt": "Fly Cham customer support"
+    }
+  },
+  "offices": {
+    "hero": {
+      "title": "Our offices",
+      "subtitle": "Planning to visit us? find Fly Cham office locations, and information, and working hours",
+      "imageAlt": "Fly Cham office"
+    },
+    "tabsLabel": "Office cities",
+    "call": "Call",
+    "email": "Email",
+    "weekend": "Weekend",
+    "cities": {
+      "damascus": "Damascus",
+      "aleppo": "Aleppo"
+    },
+    "locations": {
+      "freeZone": {
+        "name": "Free Zone",
+        "address": "Free Zone - Damascus",
+        "hours": "Sat-Thu: 09:00 AM - 05:00 PM",
+        "weekend": "Friday"
+      },
+      "fardous": {
+        "name": "Fardous",
+        "address": "Fardous - Damascus",
+        "hours": "Sat-Thu: 09:00 AM - 05:00 PM",
+        "weekend": "Friday"
+      },
+      "masaPlaza": {
+        "name": "Masa Plaza Mall - Midan",
+        "address": "Midan - Damascus",
+        "hours": "Mon-Thu: 11:00 AM - 09:00 PM",
+        "weekend": "Friday"
+      },
+      "damascusAirport": {
+        "name": "Damascus International Airport",
+        "address": "Damascus International Airport",
+        "hours": "Mon-Sun: 24 Hours"
+      },
+      "azizieh": {
+        "name": "Azizieh",
+        "address": "Azizieh - Aleppo",
+        "hours": "Sat-Thu: 09:00 AM - 05:00 PM",
+        "weekend": "Friday"
+      },
+      "jamiliyah": {
+        "name": "Al-Jamiliyah",
+        "address": "Al-Jamiliyah - Aleppo",
+        "hours": "Sat-Thu: 09:00 AM - 05:00 PM",
+        "weekend": "Friday"
+      },
+      "aleppoAirport": {
+        "name": "Aleppo International Airport",
+        "address": "Aleppo International Airport",
+        "hours": "Mon-Sun: 24 Hours"
+      }
     }
   }
 }
