@@ -12,7 +12,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
         {stepLabel}
       </span>
     </div>
-    <ul className="list-none m-0 ps-[52px] flex flex-col gap-3">
+    <ul className="list-none m-0 ps-[52px] flex flex-col gap-2.5 md:gap-3">
       {links.map((link) => (
         <li key={link.text}>
           <a

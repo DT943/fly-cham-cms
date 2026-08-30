@@ -7,8 +7,8 @@ const JourneySection = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="bg-background rounded-xl px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
-      <div className="flex flex-col gap-2 mb-7">
+    <section className="bg-background rounded-xl px-4 py-6 sm:px-8 sm:py-10 md:px-10 md:py-12">
+      <div className="flex flex-col gap-2 mb-6 md:mb-7">
         <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
           {t('help.journey.title')}
         </h2>
@@ -16,7 +16,7 @@ const JourneySection = () => {
           {t('help.journey.subtitle')}
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-10">
         {journeySteps.map((step) => (
           <JourneyStep
             key={step.id}

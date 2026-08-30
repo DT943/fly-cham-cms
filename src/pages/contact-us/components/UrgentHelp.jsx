@@ -8,12 +8,12 @@ const UrgentHelp = () => {
 
   return (
     <section
-      className="relative rounded-xl overflow-hidden w-full min-h-[300px] md:min-h-[415px] bg-cover bg-center flex items-center px-8 sm:px-12 md:px-20 py-12 md:py-16"
+      className="relative rounded-xl overflow-hidden w-full min-h-[260px] md:min-h-[415px] bg-cover bg-center flex items-end md:items-center px-5 py-8 sm:px-12 md:px-20 md:py-16"
       style={{ backgroundImage: `url(${urgentHelpBg})` }}
     >
       <div className="absolute inset-0 ltr:bg-gradient-to-r rtl:bg-gradient-to-l from-secondary-2/86 via-secondary-2/40 to-transparent z-[1]" />
 
-      <div className="relative z-[2] flex flex-col gap-6 max-w-xl">
+      <div className="relative z-[2] flex flex-col gap-4 md:gap-6 max-w-xl">
         <h2 className={`${typography.sectionTitle} font-semibold text-50 m-0`}>
           {t('help.urgent.title')}
         </h2>
