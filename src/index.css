@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --color-main: #054e72;
+  --color-main-dark: #01263b;
+  --color-secondary: #baa981;
+  --color-text: #3e3e3b;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
