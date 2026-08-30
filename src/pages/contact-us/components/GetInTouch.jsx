@@ -11,7 +11,7 @@ const GetInTouch = () => {
 
   return (
     <section className="bg-200 rounded-t-3xl">
-      <div className="max-w-[1222px] mx-auto px-6 py-10 md:px-10 md:py-14 flex flex-col items-center text-center gap-4 md:gap-5">
+      <div className="max-w-[1222px] mx-auto px-6 py-10 md:px-10 md:py-14 flex flex-col items-center text-center gap-4 md:gap-3">
         <h2 className={`${typography.sectionTitle} font-semibold text-700 m-0`}>
           {t('contact.getInTouch.title')}
         </h2>
@@ -31,11 +31,11 @@ const GetInTouch = () => {
         >
           {PHONE_DISPLAY}
         </a>
-        <p className={`${typography.caption} text-800 font-medium m-0 inline-flex items-center justify-center gap-1.5`}>
+        <p className={`${typography.caption} text-800 font-medium m-0 inline-flex items-center justify-center gap-1`}>
           <span>{t('contact.getInTouch.hours')}</span>
           <Clock size={15} weight="regular" className=" shrink-0" />
         </p>
-        <p className={`${typography.caption} text-700 m-0 max-w-md leading-relaxed`}>
+        <p className={`${typography.caption} text-700 m-0 w-full leading-relaxed md:whitespace-nowrap`}>
           {t('contact.getInTouch.note')}
         </p>
       </div>
