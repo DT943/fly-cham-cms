@@ -3,6 +3,8 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import ContactHero from './components/ContactHero.jsx'
 import ContactChannels from './components/ContactChannels.jsx'
+import ContactForms from './components/ContactForms.jsx'
+import GetInTouch from './components/GetInTouch.jsx'
 
 const ContactUs = () => {
   const { t } = useTranslation()
@@ -22,7 +24,9 @@ const ContactUs = () => {
         </div>
         <ContactHero />
         <ContactChannels />
+        <ContactForms />
       </div>
+      <GetInTouch />
     </main>
   )
 }

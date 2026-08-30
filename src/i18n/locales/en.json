@@ -115,6 +115,36 @@
           "cta": "Send a request"
         }
       }
+    },
+    "forms": {
+      "title": "Choose the right form",
+      "subtitle": "Use a quick form to reach the right team.",
+      "viewAll": "View all forms",
+      "items": {
+        "payment": {
+          "title": "Payment issue",
+          "description": "Report an unsuccessful payment, duplicate charge"
+        },
+        "refund": {
+          "title": "Refund request",
+          "description": "Request a refund for an eligible Fly Cham booking or service."
+        },
+        "baggage": {
+          "title": "Delayed baggage",
+          "description": "Submit details about checked baggage that did not arrive"
+        },
+        "assistance": {
+          "title": "Special assistance",
+          "description": "Request mobility assistance or another airport support service"
+        }
+      }
+    },
+    "getInTouch": {
+      "title": "Get in touch",
+      "label": "General enquiries",
+      "hours": "Customer Support Hotline: Open from 9 AM to 9 PM",
+      "note": "Call us anytime for urgent assistance with bookings, flight status, cancellations, and emergency support.",
+      "imageAlt": "Fly Cham customer support"
     }
   }
 }
