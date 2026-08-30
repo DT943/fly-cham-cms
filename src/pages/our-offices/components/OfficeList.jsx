@@ -5,7 +5,7 @@ const OfficeList = ({ locationIds }) => (
   <div className="relative">
     <span
       aria-hidden="true"
-      className="absolute top-8 bottom-8 start-0 w-11 flex justify-center pointer-events-none z-0"
+      className="absolute top-6 bottom-6 md:top-8 md:bottom-8 start-0 w-9 md:w-11 flex justify-center pointer-events-none z-0"
     >
       <span className="block w-0.5 h-full bg-[repeating-linear-gradient(to_bottom,var(--color-secondary-700)_0_6px,transparent_6px_12px)]" />
     </span>

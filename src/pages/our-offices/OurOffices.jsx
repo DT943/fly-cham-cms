@@ -18,7 +18,7 @@ const OurOffices = () => {
   return (
     <main className="bg-100 min-h-screen w-full">
       <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-5 md:py-10 flex flex-col gap-6 md:gap-10">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 min-w-0">
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
