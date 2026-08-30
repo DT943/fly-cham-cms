@@ -59,14 +59,14 @@ const OfficeItem = ({ locationId, phone, email, isLast }) => {
           <div className="flex items-center gap-4 shrink-0">
             <a
               href={getPhoneHref(phone)}
-              className={`${typography.button} font-medium text-primary-1 bg-transparent border border-primary-1 no-underline rounded-lg px-6 py-2.5 inline-flex items-center gap-2.5 hover:bg-100`}
+              className={`${typography.button} font-medium text-primary-1 bg-transparent border border-primary-1 no-underline rounded-lg px-10 py-2.5 inline-flex items-center gap-2.5 hover:bg-100`}
             >
               <Phone size={18} weight="regular" />
               {t('offices.call')}
             </a>
             <a
               href={`mailto:${email}`}
-              className={`${typography.button} font-medium text-primary-1 bg-transparent border border-primary-1 no-underline rounded-lg px-6 py-2.5 inline-flex items-center gap-2.5 hover:bg-100`}
+              className={`${typography.button} font-medium text-primary-1 bg-transparent border border-primary-1 no-underline rounded-lg px-10 py-2.5 inline-flex items-center gap-2.5 hover:bg-100`}
             >
               <EnvelopeSimple size={18} weight="regular" />
               {t('offices.email')}

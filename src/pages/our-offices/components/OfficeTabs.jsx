@@ -33,10 +33,10 @@ const OfficeTabs = () => {
               ref={setTabRef(city.id)}
               onClick={() => setActiveId(city.id)}
               onKeyDown={(event) => onTabKeyDown(event, city.id)}
-              className={`${typography.itemTitle} bg-transparent border-none cursor-pointer px-0 pb-2.5 m-0 -mb-px ${
+              className={`${typography.itemTitle} bg-transparent cursor-pointer px-0 pb-3 m-0 -mb-px border-0 border-b-[1px] border-solid ${
                 isActive
-                  ? 'font-semibold text-primary-1 border-b-[3px] border-primary-1'
-                  : 'font-medium text-600'
+                  ? 'font-semibold text-primary-1 border-primary-1'
+                  : 'font-medium text-600 border-transparent'
               }`}
             >
               {t(`offices.cities.${city.id}`)}
