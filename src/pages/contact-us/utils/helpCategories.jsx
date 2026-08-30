@@ -17,7 +17,7 @@ function TrackRequestIcon({ size = 22, weight = 'regular', ...props }) {
       <MagnifyingGlass
         size={Math.round(size * 0.48)}
         weight="bold"
-        className="absolute -bottom-0.5 -right-1 rounded-full bg-[#f0f0f0]"
+        className="absolute -bottom-0.5 -right-1 rounded-full bg-100"
         {...props}
       />
     </span>

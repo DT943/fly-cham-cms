@@ -4,10 +4,10 @@ import { getLinkHref } from '../utils/links.js'
 const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
   <div className="flex flex-col gap-4">
     <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full bg-[#f0f0f0] flex items-center justify-center flex-shrink-0 text-[#3e3e3b]">
+      <div className="w-10 h-10 rounded-full bg-100 flex items-center justify-center flex-shrink-0 text-700">
         <Icon size={20} weight="regular" />
       </div>
-      <span className="font-montserrat text-base font-bold text-[#3e3e3b]">
+      <span className="text-base font-bold text-700">
         {stepLabel}
       </span>
     </div>
@@ -16,7 +16,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
         <li key={link.text}>
           <a
             href={getLinkHref(link)}
-            className="font-montserrat text-sm font-medium text-[#006080] no-underline hover:underline inline-flex items-center gap-1"
+            className="text-sm font-medium text-primary-1 no-underline hover:underline inline-flex items-center gap-1"
           >
             {link.text}
             <CaretRight size={12} weight="bold" className="flex-shrink-0" />

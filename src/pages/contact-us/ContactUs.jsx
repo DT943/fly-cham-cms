@@ -11,7 +11,7 @@ const helpBreadcrumbs = [
 ]
 
 const ContactUs = () => (
-  <main className="bg-[#FFF] min-h-screen font-['Montserrat',sans-serif]">
+  <main className="bg-background min-h-screen">
     <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-6 md:py-10 flex flex-col gap-8">
       <Breadcrumbs items={helpBreadcrumbs} />
       <HeroText />
