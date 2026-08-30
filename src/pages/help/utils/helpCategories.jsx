@@ -25,7 +25,7 @@ function TrackRequestIcon({ size = 22, weight = 'regular', ...props }) {
 }
 
 export const helpCategories = [
-  { id: 'contact', icon: Phone },
+  { id: 'contact', icon: Phone, href: '/help/contact-us' },
   { id: 'faqs', icon: Question },
   { id: 'offices', icon: MapPin },
   { id: 'forms', icon: ClipboardText },

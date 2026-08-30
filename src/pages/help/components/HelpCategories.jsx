@@ -21,6 +21,7 @@ const HelpCategories = () => {
           <HelpCategoryCard
             key={cat.id}
             icon={cat.icon}
+            href={cat.href}
             title={t(`help.categories.items.${cat.id}.title`)}
             description={t(`help.categories.items.${cat.id}.description`)}
           />

@@ -2,6 +2,7 @@
   "common": {
     "home": "Home",
     "help": "Help",
+    "contactUs": "Contact us",
     "english": "EN",
     "arabic": "AR"
   },
@@ -87,6 +88,33 @@
       "title": "Need Urgent Help?",
       "description": "Chat directly with the Fly Cham Customer Service team and get immediate support for your questions and inquiries.",
       "cta": "Chat Now"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact Fly Cham",
+      "subtitle": "Choose the support channel that best matches what you need.",
+      "imageAlt": "Fly Cham customer service agent"
+    },
+    "channels": {
+      "title": "How you'd like to contact us",
+      "items": {
+        "call": {
+          "title": "Call for time-sensitive travel help",
+          "description": "Speak with our team for urgent travel changes or time-critical situations.",
+          "cta": "Call us"
+        },
+        "office": {
+          "title": "Visit an office",
+          "description": "Find your nearest Fly Cham office or airport desk for in-person support.",
+          "cta": "Find an office"
+        },
+        "request": {
+          "title": "Send a support request",
+          "description": "Tell us what happened and we'll get back to you with the right solution.",
+          "cta": "Send a request"
+        }
+      }
     }
   }
 }
