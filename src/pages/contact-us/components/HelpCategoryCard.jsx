@@ -17,7 +17,7 @@ const HelpCategoryCard = ({ icon: Icon, title, description }) => (
     </div>
     <div className="flex justify-end mt-6">
       <div className="w-8 h-8 bg-primary-1 rounded-full flex items-center justify-center">
-        <ArrowRight size={14} weight="bold" className="text-50" />
+        <ArrowRight size={14} weight="bold" className="text-50 rtl:-scale-x-100" />
       </div>
     </div>
   </div>

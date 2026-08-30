@@ -7,43 +7,23 @@ import {
 
 export const journeySteps = [
   {
+    id: 'before',
     icon: CalendarBlank,
-    stepLabel: '1. Before you travel',
-    links: [
-      { text: 'Baggage allowance' },
-      { text: 'Travel with children' },
-      { text: 'Seat selection' },
-      { text: 'Ya Marhaba service' },
-    ],
+    linkKeys: ['baggageAllowance', 'travelWithChildren', 'seatSelection', 'yaMarhaba'],
   },
   {
+    id: 'airport',
     icon: AirTrafficControl,
-    stepLabel: '2. At the airport',
-    links: [
-      { text: 'VIP Boarding' },
-      { text: 'Special Services' },
-      { text: 'Business Lounge' },
-      { text: 'Excess Baggage' },
-    ],
+    linkKeys: ['vipBoarding', 'specialServices', 'businessLounge', 'excessBaggage'],
   },
   {
+    id: 'onboard',
     icon: AirplaneTilt,
-    stepLabel: '3. On board',
-    links: [
-      { text: 'Meal service' },
-      { text: 'Birthday cake' },
-      { text: 'WiFi' },
-      { text: 'Entertainment' },
-    ],
+    linkKeys: ['mealService', 'birthdayCake', 'wifi', 'entertainment'],
   },
   {
+    id: 'after',
     icon: TrolleySuitcase,
-    stepLabel: '4. After your flight',
-    links: [
-      { text: 'Refunds & compensation' },
-      { text: 'Lost and found' },
-      { text: 'Baggage queries' },
-      { text: 'Feedback & complaints' },
-    ],
+    linkKeys: ['refunds', 'lostAndFound', 'baggageQueries', 'feedback'],
   },
 ]

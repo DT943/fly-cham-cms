@@ -11,7 +11,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
         {stepLabel}
       </span>
     </div>
-    <ul className="list-none m-0 pl-[52px] flex flex-col gap-3">
+    <ul className="list-none m-0 ps-[52px] flex flex-col gap-3">
       {links.map((link) => (
         <li key={link.text}>
           <a
@@ -19,7 +19,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
             className="text-sm font-medium text-primary-1 no-underline hover:underline inline-flex items-center gap-1"
           >
             {link.text}
-            <CaretRight size={12} weight="bold" className="flex-shrink-0" />
+            <CaretRight size={12} weight="bold" className="flex-shrink-0 rtl:-scale-x-100" />
           </a>
         </li>
       ))}

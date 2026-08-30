@@ -1,22 +1,34 @@
+import { useTranslation } from 'react-i18next'
 import { journeySteps } from '../utils/journeySteps.js'
 import JourneyStep from './JourneyStep.jsx'
 
-const JourneySection = () => (
-  <section className="bg-background rounded-xl px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
-    <h2 className="text-xl md:text-[22px] font-bold text-700 m-0 mb-7">
-      Start with your journey
-    </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-      {journeySteps.map((step) => (
-        <JourneyStep
-          key={step.stepLabel}
-          icon={step.icon}
-          stepLabel={step.stepLabel}
-          links={step.links}
-        />
-      ))}
-    </div>
-  </section>
-)
+const JourneySection = () => {
+  const { t } = useTranslation()
+
+  return (
+    <section className="bg-background rounded-xl px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
+      <div className="flex flex-col gap-2 mb-7">
+        <h2 className="text-xl md:text-[22px] font-bold text-700 m-0">
+          {t('help.journey.title')}
+        </h2>
+        <p className="text-sm md:text-base text-600 m-0 max-w-4xl">
+          {t('help.journey.subtitle')}
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        {journeySteps.map((step) => (
+          <JourneyStep
+            key={step.id}
+            icon={step.icon}
+            stepLabel={t(`help.journey.steps.${step.id}.title`)}
+            links={step.linkKeys.map((linkKey) => ({
+              text: t(`help.journey.steps.${step.id}.links.${linkKey}`),
+            }))}
+          />
+        ))}
+      </div>
+    </section>
+  )
+}
 
 export default JourneySection

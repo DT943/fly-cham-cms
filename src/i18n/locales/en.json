@@ -1,0 +1,91 @@
+{
+  "common": {
+    "home": "Home",
+    "help": "Help",
+    "english": "EN",
+    "arabic": "AR"
+  },
+  "help": {
+    "hero": {
+      "title": "Help Center",
+      "subtitle": "The Support You Deserve Every Step of The Way"
+    },
+    "search": {
+      "label": "Search By Topic, Question, Or Keyword",
+      "placeholder": "Search by topic, question, or keyword"
+    },
+    "journey": {
+      "title": "Your Journey, Supported at Every Step",
+      "subtitle": "Get clear guidance on reservations, baggage, airport procedures, payments, travel documents, onboard services, and assistance after your trip.",
+      "steps": {
+        "before": {
+          "title": "Before You Fly",
+          "links": {
+            "baggageAllowance": "Baggage allowance",
+            "travelWithChildren": "Travel with children",
+            "seatSelection": "Seat selection",
+            "yaMarhaba": "Ya Marhaba service"
+          }
+        },
+        "airport": {
+          "title": "At the Airport",
+          "links": {
+            "vipBoarding": "VIP Boarding",
+            "specialServices": "Special Services",
+            "businessLounge": "Business Lounge",
+            "excessBaggage": "Excess Baggage"
+          }
+        },
+        "onboard": {
+          "title": "Onboard",
+          "links": {
+            "mealService": "Meal service",
+            "birthdayCake": "Birthday cake",
+            "wifi": "WiFi",
+            "entertainment": "Entertainment"
+          }
+        },
+        "after": {
+          "title": "After Your Trip",
+          "links": {
+            "refunds": "Refunds & compensation",
+            "lostAndFound": "Lost and found",
+            "baggageQueries": "Baggage queries",
+            "feedback": "Feedback & complaints"
+          }
+        }
+      }
+    },
+    "categories": {
+      "title": "Choose how we can assist you",
+      "subtitle": "Select the support option that best matches what you need.",
+      "items": {
+        "contact": {
+          "title": "Contact us",
+          "description": "Need assistance? Contact our Customer Service team to get help."
+        },
+        "faqs": {
+          "title": "Frequently asked questions",
+          "description": "Find quick answers for all your question regarding your bookings and our services."
+        },
+        "offices": {
+          "title": "Our Sales Offices and GSA",
+          "description": "Find a contact information for our Sales Offices and General Sales Agents across our network."
+        },
+        "forms": {
+          "title": "Forms and requests",
+          "description": "Find and submit the right form request, or track an existing request."
+        },
+        "track": {
+          "title": "Track Your Request",
+          "description": "Already submitted a form request? Use your case number to check its status."
+        }
+      }
+    },
+    "urgent": {
+      "title": "Need Urgent Help?",
+      "description": "Chat directly with the Fly Cham Customer Service team and get immediate support for your questions and inquiries.",
+      "cta": "Chat Now"
+    }
+  }
+}
