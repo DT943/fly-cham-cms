@@ -8,10 +8,10 @@ const UrgentHelp = () => {
 
   return (
     <section
-      className="relative rounded-xl overflow-hidden w-full min-h-[260px] md:min-h-[415px] bg-cover bg-center flex items-end md:items-center px-5  sm:px-12 md:px-20 "
+      className="relative rounded-2xl overflow-hidden w-full min-h-[320px] sm:min-h-[360px] md:min-h-[415px] bg-cover bg-[position:25%_center] md:bg-center flex items-center px-5 py-8 sm:px-12 md:px-20 md:py-16"
       style={{ backgroundImage: `url(${urgentHelpBg})` }}
     >
-      <div className="absolute inset-0 z-[1] rtl:bg-[linear-gradient(to_right,rgb(5_78_114/0)_0%,#054E72_100%)] ltr:bg-[linear-gradient(to_left,rgb(5_78_114/0)_0%,#054E72_100%)]" />
+      <div className="absolute inset-0 z-[1] ltr:bg-[linear-gradient(to_right,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] rtl:bg-[linear-gradient(to_left,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] md:ltr:bg-[linear-gradient(to_right,#054E72_0%,rgb(5_78_114/0)_100%)] md:rtl:bg-[linear-gradient(to_left,#054E72_0%,rgb(5_78_114/0)_100%)]" />
 
       <div className="relative z-[2] flex flex-col gap-4 md:gap-6 max-w-xl">
         <h2 className={`${typography.sectionTitle} font-semibold text-50 m-0`}>

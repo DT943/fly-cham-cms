@@ -12,7 +12,8 @@
     },
     "search": {
       "label": "Search By Topic, Question, Or Keyword",
-      "placeholder": "Search by topic, question, or keyword"
+      "placeholder": "Search by topic, question, or keyword",
+      "submit": "Search"
     },
     "journey": {
       "title": "Your Journey, Supported at Every Step",
