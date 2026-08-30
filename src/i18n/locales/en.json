@@ -93,27 +93,37 @@
   },
   "contact": {
     "hero": {
-      "title": "Contact Fly Cham",
-      "subtitle": "Choose the support channel that best matches what you need.",
+      "title": "Contact Us",
+      "subtitle": "Choose the support channel that best matches what you need",
       "imageAlt": "Fly Cham customer service agent"
     },
     "channels": {
-      "title": "How you'd like to contact us",
+      "title": "How would you like to contact us?",
       "items": {
-        "call": {
-          "title": "Call for time-sensitive travel help",
-          "description": "Speak with our team for urgent travel changes or time-critical situations.",
-          "cta": "Call us"
+        "salesOffices": {
+          "title": "Visit Our Sales Offices",
+          "description": "Get in-person assistance through our sales office for bookings, flight changes, travel services, and others.",
+          "cta": "Discover Our Sales Offices"
         },
-        "office": {
-          "title": "Visit an office",
-          "description": "Find your nearest Fly Cham office or airport desk for in-person support.",
-          "cta": "Find an office"
+        "gsa": {
+          "title": "Contact General Sales Agent",
+          "description": "Discover our network of General Sales Agents located across various regions, dedicated to providing excellent services and meeting your needs.",
+          "cta": "Discover GSA Network"
         },
         "request": {
-          "title": "Send a support request",
-          "description": "Tell us what happened and we'll get back to you with the right solution.",
-          "cta": "Send a request"
+          "title": "Submit a Request Online",
+          "description": "Choose the right form for your request, refunds, baggage matters, special assistance, complaints, feedback, and other available requests.",
+          "cta": "Browse Forms"
+        },
+        "customerCare": {
+          "title": "Customer Care",
+          "description": "Get in touch with our Customer Care team for urgent assistance with bookings, flight status, and cancellations.",
+          "cta": "Call Customer Care"
+        },
+        "media": {
+          "title": "Media Center",
+          "description": "Check our latest news, press releases, events and activities on our Media Center.",
+          "cta": "Visit Media Center"
         }
       }
     },
