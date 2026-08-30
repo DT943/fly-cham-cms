@@ -7,7 +7,7 @@ import HelpCategories from './components/HelpCategories.jsx'
 import UrgentHelp from './components/UrgentHelp.jsx'
 import JourneySection from './components/JourneySection.jsx'
 
-const ContactUs = () => {
+const Help = () => {
   const { t } = useTranslation()
 
   const helpBreadcrumbs = [
@@ -32,4 +32,4 @@ const ContactUs = () => {
   )
 }
 
-export default ContactUs
+export default Help

@@ -9,16 +9,16 @@ export const typography = {
   pageTitle: "text-2xl sm:text-3xl md:text-4xl lg:text-5xl",
 
   /** Section heading — typically h2 */
-  sectionTitle: "text-xl sm:text-2xl md:text-3xl lg:text-3xl",
+  sectionTitle: "text-xl sm:text-2xl md:text-3xl lg:text-2xl",
 
   /** Supporting text under a section title — typically p */
-  sectionDescription: "text-sm sm:text-base md:text-lg lg:text-lg",
+  sectionDescription: "text-sm sm:text-base md:text-lg lg:text-base",
 
   /** Item / card / accordion question — typically h3 */
   itemTitle: "text-base sm:text-base md:text-lg lg:text-lg",
 
   /** Body under an item — typically p */
-  itemDescription: "text-sm sm:text-base md:text-base lg:text-base",
+  itemDescription: "text-sm sm:text-base md:text-base lg:text-sm",
 
   /** General paragraph body — typically p */
   body: "text-sm sm:text-base md:text-base lg:text-base",

@@ -11,7 +11,7 @@ const HelpCategoryCard = ({ icon: Icon, title, description }) => (
         <h3 className={`${typography.itemTitle} font-bold text-700 m-0`}>
           {title}
         </h3>
-        <p className={`${typography.itemDescription} font-normal text-600 m-0 leading-snug`}>
+        <p className={`${typography.caption} font-normal text-600 m-0 leading-snug`}>
           {description}
         </p>
       </div>
