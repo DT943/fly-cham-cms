@@ -114,16 +114,6 @@
           "title": "Submit a Request Online",
           "description": "Choose the right form for your request, refunds, baggage matters, special assistance, complaints, feedback, and other available requests.",
           "cta": "Browse Forms"
-        },
-        "customerCare": {
-          "title": "Customer Care",
-          "description": "Get in touch with our Customer Care team for urgent assistance with bookings, flight status, and cancellations.",
-          "cta": "Call Customer Care"
-        },
-        "media": {
-          "title": "Media Center",
-          "description": "Check our latest news, press releases, events and activities on our Media Center.",
-          "cta": "Visit Media Center"
         }
       }
     },
@@ -155,7 +145,7 @@
       "label": "General enquiries",
       "hours": "Customer Support Hotline: Open from 9 AM to 9 PM",
       "hoursMobile": "Hotline: Open from 9 AM to 9 PM",
-      "note": "Call us anytime for urgent assistance with bookings, flight status, cancellations, and emergency support.",
+      "note": "Get in touch with our Customer Care team for urgent assistance with bookings, flight status, and cancellations",
       "imageAlt": "Fly Cham customer support"
     }
   },
