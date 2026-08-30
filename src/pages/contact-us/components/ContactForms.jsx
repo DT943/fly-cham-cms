@@ -30,7 +30,7 @@ const ContactForms = () => {
       <div className="flex justify-center">
         <a
           href="#"
-          className={`${typography.button} font-semibold text-primary-1 bg-background border border-primary-1 hover:bg-100 no-underline rounded-lg px-6 py-3`}
+          className={`${typography.button} mt-0 md:mt-4 font-semibold text-primary-1 bg-background border border-primary-1 hover:bg-100 no-underline rounded-lg px-10 py-3`}
         >
           {t('contact.forms.viewAll')}
         </a>

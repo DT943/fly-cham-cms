@@ -1,7 +1,7 @@
-import { Phone, Globe, ClipboardText } from '@phosphor-icons/react'
+import { Phone, Globe, ClipboardText, GlobeHemisphereWestIcon } from '@phosphor-icons/react'
 
 export const contactChannels = [
   { id: 'call', icon: Phone, href: '#' },
-  { id: 'office', icon: Globe, href: '#' },
+  { id: 'office', icon: GlobeHemisphereWestIcon , href: '#' },
   { id: 'request', icon: ClipboardText, href: '#' },
 ]

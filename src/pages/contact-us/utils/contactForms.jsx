@@ -4,6 +4,7 @@ import {
   ArrowCounterClockwise,
   TrolleySuitcase,
   Wheelchair,
+  ArrowUUpLeftIcon,
 } from '@phosphor-icons/react'
 
 function PaymentIssueIcon({ size = 22, weight = 'regular', ...props }) {
@@ -25,7 +26,7 @@ function PaymentIssueIcon({ size = 22, weight = 'regular', ...props }) {
 
 export const contactForms = [
   { id: 'payment', icon: PaymentIssueIcon, href: '#' },
-  { id: 'refund', icon: ArrowCounterClockwise, href: '#' },
+  { id: 'refund', icon: ArrowUUpLeftIcon , href: '#' },
   { id: 'baggage', icon: TrolleySuitcase, href: '#' },
   { id: 'assistance', icon: Wheelchair, href: '#' },
 ]
