@@ -10,34 +10,38 @@ const GetInTouch = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="bg-200 rounded-t-3xl">
-      <div className="max-w-[1222px] mx-auto px-6 py-10 md:px-10 md:py-14 flex flex-col items-center text-center gap-4 md:gap-3">
-        <h2 className={`${typography.sectionTitle} font-semibold text-700 m-0`}>
-          {t('contact.getInTouch.title')}
-        </h2>
-        <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-background p-1.5 shrink-0">
-          <img
-            src={agentPhoto}
-            alt={t('contact.getInTouch.imageAlt')}
-            className="w-full h-full rounded-full object-cover object-center"
-          />
+    <section className="w-full bg-background md:bg-transparent px-4 pb-6 md:px-0 md:pb-0">
+      <div className="bg-200 rounded-3xl md:rounded-t-3xl md:rounded-b-none">
+        <div className="max-w-[1222px] mx-auto px-5 py-8 md:px-10 md:py-14 flex flex-col items-center text-center gap-3 md:gap-4">
+          <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
+            {t('contact.getInTouch.title')}
+          </h2>
+          <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-background p-1.5 shrink-0">
+            <img
+              src={agentPhoto}
+              alt={t('contact.getInTouch.imageAlt')}
+              className="w-full h-full rounded-full object-cover object-center"
+            />
+          </div>
+          <p className={`${typography.body} font-medium text-600 md:text-700 m-0`}>
+            {t('contact.getInTouch.label')}
+          </p>
+          <a
+            href={PHONE_HREF}
+            dir="ltr"
+            className={`${typography.pageTitle} font-bold text-primary-1 no-underline hover:underline leading-tight`}
+          >
+            {PHONE_DISPLAY}
+          </a>
+          <p className={`${typography.caption} text-700 font-medium m-0 inline-flex items-center justify-center gap-1.5`}>
+            <span className="md:hidden">{t('contact.getInTouch.hoursMobile')}</span>
+            <span className="hidden md:inline">{t('contact.getInTouch.hours')}</span>
+            <Clock size={14} weight="regular" className="shrink-0" />
+          </p>
+          <p className={`${typography.caption} text-500 m-0 w-full leading-relaxed md:text-700 md:whitespace-nowrap`}>
+            {t('contact.getInTouch.note')}
+          </p>
         </div>
-        <p className={`${typography.itemTitle} font-medium text-700 m-0`}>
-          {t('contact.getInTouch.label')}
-        </p>
-        <a
-          href={PHONE_HREF}
-          className={`${typography.pageTitle} font-semibold text-primary-1 no-underline hover:underline leading-tight`}
-        >
-          {PHONE_DISPLAY}
-        </a>
-        <p className={`${typography.caption} text-800 font-medium m-0 inline-flex items-center justify-center gap-1`}>
-          <span>{t('contact.getInTouch.hours')}</span>
-          <Clock size={15} weight="regular" className=" shrink-0" />
-        </p>
-        <p className={`${typography.caption} text-700 m-0 w-full leading-relaxed md:whitespace-nowrap`}>
-          {t('contact.getInTouch.note')}
-        </p>
       </div>
     </section>
   )
