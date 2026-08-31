@@ -5,6 +5,7 @@ import ContactHero from '../../shared/components/ContactHero.jsx'
 import heroPhoto from '../../assets/images/our-offices/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import OfficeTabs from './components/OfficeTabs.jsx'
+import LiveChatBanner from './components/LiveChatBanner.jsx'
 
 const OurOffices = () => {
   const { t } = useTranslation()
@@ -30,6 +31,7 @@ const OurOffices = () => {
           imageAlt={t('offices.hero.imageAlt')}
         />
         <OfficeTabs />
+        <LiveChatBanner />
       </div>
     </main>
   )

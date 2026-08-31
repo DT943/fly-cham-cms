@@ -155,6 +155,11 @@
       "subtitle": "Planning to visit us? find Fly Cham office locations, and information, and working hours",
       "imageAlt": "Fly Cham office"
     },
+    "liveChat": {
+      "title": "Start Live Chat",
+      "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
+      "cta": "Chat now"
+    },
     "tabsLabel": "Office cities",
     "call": "Call",
     "email": "Email",
