@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
-import { typography } from '../../../styles/typography.js'
+import { typography } from '../../styles/typography.js'
 
 const FaqItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false)

@@ -6,8 +6,10 @@ import heroPhoto from '../../assets/images/our-offices/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import OfficeTabs from './components/OfficeTabs.jsx'
 import GetHelp from './components/GetHelp.jsx'
-import OfficeFaqs from './components/OfficeFaqs.jsx'
+import Faqs from '../../shared/components/Faqs.jsx'
 import LiveChatBanner from './components/LiveChatBanner.jsx'
+
+const faqIds = ['baggageAllowance', 'infantWeight', 'extraBag']
 
 const OurOffices = () => {
   const { t } = useTranslation()
@@ -17,6 +19,12 @@ const OurOffices = () => {
     { label: t('common.help'), href: '/help' },
     { label: t('common.ourOffices') },
   ]
+
+  const faqs = faqIds.map((id) => ({
+    id,
+    question: t(`offices.faqs.items.${id}.question`),
+    answer: t(`offices.faqs.items.${id}.answer`),
+  }))
 
   return (
     <main className="bg-100 min-h-screen w-full">
@@ -35,7 +43,12 @@ const OurOffices = () => {
         <OfficeTabs />
         <LiveChatBanner />
         <GetHelp />
-        <OfficeFaqs />
+        <Faqs
+          title={t('offices.faqs.title')}
+          items={faqs}
+          browseLabel={t('offices.faqs.browse')}
+          browseHref="#"
+        />
       </div>
     </main>
   )
