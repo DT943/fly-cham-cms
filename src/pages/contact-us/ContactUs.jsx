@@ -6,7 +6,10 @@ import heroPhoto from '../../assets/images/contact-us/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import ContactChannels from './components/ContactChannels.jsx'
 import ContactForms from './components/ContactForms.jsx'
+import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
 import GetInTouch from './components/GetInTouch.jsx'
+import PromoBanner from '../../shared/components/PromoBanner.jsx'
+import flightBanner from '../../assets/images/contact-us/banner.png'
 
 const ContactUs = () => {
   const { t } = useTranslation()
@@ -33,8 +36,22 @@ const ContactUs = () => {
         />
         <ContactChannels />
         <ContactForms />
+        <LiveChatBanner
+          title={t('common.liveChat.title')}
+          description={t('common.liveChat.description')}
+          cta={t('common.liveChat.cta')}
+        />
       </div>
       <GetInTouch />
+      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 pb-6 md:pb-10">
+        <PromoBanner
+          title={t('contact.flightStatus.title')}
+          description={t('contact.flightStatus.description')}
+          cta={t('contact.flightStatus.cta')}
+          image={flightBanner}
+          imageAlt={t('contact.flightStatus.imageAlt')}
+        />
+      </div>
     </main>
   )
 }

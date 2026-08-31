@@ -7,7 +7,7 @@ import heroMask from '../../assets/images/contact-us/mask.png'
 import OfficeTabs from './components/OfficeTabs.jsx'
 import GetHelp from './components/GetHelp.jsx'
 import Faqs from '../../shared/components/Faqs.jsx'
-import LiveChatBanner from './components/LiveChatBanner.jsx'
+import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
 
 const faqIds = ['baggageAllowance', 'infantWeight', 'extraBag']
 
@@ -41,7 +41,11 @@ const OurOffices = () => {
           imageAlt={t('offices.hero.imageAlt')}
         />
         <OfficeTabs />
-        <LiveChatBanner />
+        <LiveChatBanner
+          title={t('common.liveChat.title')}
+          description={t('common.liveChat.description')}
+          cta={t('common.liveChat.cta')}
+        />
         <GetHelp />
         <Faqs
           title={t('offices.faqs.title')}

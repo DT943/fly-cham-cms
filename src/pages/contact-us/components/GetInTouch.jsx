@@ -10,8 +10,8 @@ const GetInTouch = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="w-full bg-background md:bg-transparent px-4 pb-6 md:px-0 md:pb-0">
-      <div className="bg-200 rounded-3xl md:rounded-t-3xl md:rounded-b-none">
+    <section className="w-full bg-background md:bg-transparent px-4 pb-6 md:px-0 md:pb-10">
+      <div className="bg-200 rounded-3xl">
         <div className="max-w-[1222px] mx-auto px-5 py-8 md:px-10 md:py-14 flex flex-col items-center text-center gap-3 md:gap-4">
           <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
             {t('contact.getInTouch.title')}

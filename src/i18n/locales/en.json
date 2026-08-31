@@ -5,7 +5,12 @@
     "contactUs": "Contact us",
     "ourOffices": "Our offices",
     "english": "EN",
-    "arabic": "AR"
+    "arabic": "AR",
+    "liveChat": {
+      "title": "Start Live Chat",
+      "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
+      "cta": "Chat now"
+    }
   },
   "help": {
     "hero": {
@@ -147,6 +152,12 @@
       "hoursMobile": "Hotline: Open from 9 AM to 9 PM",
       "note": "Get in touch with our Customer Care team for urgent assistance with bookings, flight status, and cancellations",
       "imageAlt": "Fly Cham customer support"
+    },
+    "flightStatus": {
+      "title": "Check your flight status",
+      "description": "Track departures, arrivals, and gate updates in real-time - anytime, anywhere.",
+      "cta": "Check status",
+      "imageAlt": "Airport terminal and aircraft at the gate"
     }
   },
   "offices": {
@@ -154,11 +165,6 @@
       "title": "Our offices",
       "subtitle": "Planning to visit us? find Fly Cham office locations, and information, and working hours",
       "imageAlt": "Fly Cham office"
-    },
-    "liveChat": {
-      "title": "Start Live Chat",
-      "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
-      "cta": "Chat now"
     },
     "getHelp": {
       "title": "Get Help",
