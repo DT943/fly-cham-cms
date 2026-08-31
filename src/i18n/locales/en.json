@@ -160,6 +160,38 @@
       "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
       "cta": "Chat now"
     },
+    "getHelp": {
+      "title": "Get Help",
+      "subtitle": "You can get support and assistance wherever you are.",
+      "items": {
+        "customerCare": {
+          "title": "Customer Care",
+          "description": "Contact our Customer Care team for urgent assistance with bookings, flight status, and cancellations."
+        },
+        "forms": {
+          "title": "Forms and Requests",
+          "description": "Submit a request, service request, complaint, or feedback."
+        }
+      }
+    },
+    "faqs": {
+      "title": "Frequently Asked Questions",
+      "browse": "Browse FAQs",
+      "items": {
+        "baggageAllowance": {
+          "question": "What is the baggage allowance for an adult and a child on direct flights?",
+          "answer": "Baggage allowance depends on your fare type and route. Check your booking or contact Customer Care for adult and child limits on direct flights."
+        },
+        "infantWeight": {
+          "question": "What is the permitted weight for an infant on direct flights?",
+          "answer": "Infant baggage limits depend on your fare and route. Check your booking or contact Customer Care for the permitted weight on direct flights."
+        },
+        "extraBag": {
+          "question": "How can I purchase an additional bag with a pre-determined weight?",
+          "answer": "You can add extra baggage during booking, later through Manage Booking, or by contacting Customer Care."
+        }
+      }
+    },
     "tabsLabel": "Office cities",
     "call": "Call",
     "email": "Email",

@@ -5,6 +5,8 @@ import ContactHero from '../../shared/components/ContactHero.jsx'
 import heroPhoto from '../../assets/images/our-offices/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import OfficeTabs from './components/OfficeTabs.jsx'
+import GetHelp from './components/GetHelp.jsx'
+import OfficeFaqs from './components/OfficeFaqs.jsx'
 import LiveChatBanner from './components/LiveChatBanner.jsx'
 
 const OurOffices = () => {
@@ -32,6 +34,8 @@ const OurOffices = () => {
         />
         <OfficeTabs />
         <LiveChatBanner />
+        <GetHelp />
+        <OfficeFaqs />
       </div>
     </main>
   )
