@@ -42,7 +42,7 @@ const FaqAccordionItem = ({ question, answer, image, imageAlt = '', open, onTogg
                   {paragraphs.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className={`${typography.itemDescription} text-600 m-0 leading-relaxed`}
+                      className={`${typography.itemDescription} text-600 m-0 leading-relaxed whitespace-pre-line`}
                     >
                       {paragraph}
                     </p>

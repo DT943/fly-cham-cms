@@ -2,16 +2,19 @@ import { useState } from 'react'
 import { faqCategories, findFaqCategory, findFaqTopic } from '../utils/faqCategories.js'
 
 const defaultCategory = faqCategories[0]
-const defaultTopicId = defaultCategory.topics[0]?.id || defaultCategory.id
+const defaultTopic = defaultCategory.topics[0] || null
+const defaultTopicId = defaultTopic?.id || defaultCategory.id
+const defaultQuestionIds = defaultTopic?.questions?.map((question) => question.id) || []
 
 const useFaqExplorer = () => {
   const [expandedId, setExpandedId] = useState(defaultCategory.id)
   const [topicId, setTopicId] = useState(defaultTopicId)
-  const [openIds, setOpenIds] = useState(['bookingNumber'])
+  const [openIds, setOpenIds] = useState(defaultQuestionIds.slice(0, 1))
 
   const category = findFaqCategory(faqCategories, topicId)
   const topic = findFaqTopic(category, topicId)
-  const questionIds = topic?.questionIds || []
+  const questions = topic?.questions || []
+  const questionIds = questions.map((question) => question.id)
   const allOpen = questionIds.length > 0 && questionIds.every((id) => openIds.includes(id))
 
   const selectCategory = (id) => {
@@ -25,10 +28,10 @@ const useFaqExplorer = () => {
 
     setExpandedId(id)
 
-    if (next.topics.length > 0) {
-      const firstTopic = next.topics[0]
+    const firstTopic = next.topics[0]
+    if (firstTopic) {
       setTopicId(firstTopic.id)
-      setOpenIds(firstTopic.questionIds.slice(0, 1))
+      setOpenIds(firstTopic.questions.slice(0, 1).map((question) => question.id))
       return
     }
 
@@ -36,10 +39,10 @@ const useFaqExplorer = () => {
     setOpenIds([])
   }
 
-  const selectTopic = (categoryId, nextTopicId, nextQuestionIds = []) => {
+  const selectTopic = (categoryId, nextTopicId, nextQuestions = []) => {
     setExpandedId(categoryId)
     setTopicId(nextTopicId)
-    setOpenIds(nextQuestionIds.slice(0, 1))
+    setOpenIds(nextQuestions.slice(0, 1).map((question) => question.id))
   }
 
   const toggleQuestion = (id) => {
@@ -58,7 +61,7 @@ const useFaqExplorer = () => {
     topicId,
     category,
     topic,
-    questionIds,
+    questions,
     openIds,
     allOpen,
     selectCategory,

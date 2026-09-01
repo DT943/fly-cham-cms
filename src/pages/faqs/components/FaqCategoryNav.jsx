@@ -1,9 +1,12 @@
 import { CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
+import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
+import { getFaqLabel, hasNestedTopics } from '../utils/faqCategories.js'
 
 const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onSelectTopic }) => {
   const { t } = useTranslation()
+  const language = useCurrentLanguage()
 
   return (
     <nav
@@ -13,7 +16,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
       <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
         {categories.map((category) => {
           const Icon = category.icon
-          const hasTopics = category.topics.length > 0
+          const nestedTopics = hasNestedTopics(category)
           const isExpanded = expandedId === category.id
           const isActiveCategory =
             topicId === category.id || category.topics.some((topic) => topic.id === topicId)
@@ -22,7 +25,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
             <li
               key={category.id}
               className={`rounded-xl overflow-hidden ${
-                isExpanded || (isActiveCategory && !hasTopics) ? 'bg-primary-1/10' : 'bg-transparent'
+                isExpanded || (isActiveCategory && !nestedTopics) ? 'bg-primary-1/10' : 'bg-transparent'
               }`}
             >
               <button
@@ -32,7 +35,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
               >
                 <Icon size={22} weight="regular" className="shrink-0 text-800" />
                 <span className={`${typography.body} font-medium text-800 flex-1 min-w-0`}>
-                  {t(`faq.categories.${category.id}.title`)}
+                  {getFaqLabel(category.title, language)}
                 </span>
                 <CaretDown
                   size={14}
@@ -41,7 +44,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
                 />
               </button>
 
-              {hasTopics && isExpanded && (
+              {nestedTopics && isExpanded && (
                 <ul className="list-none m-0 p-0 pb-3 flex flex-col bg-primary-1/5">
                   {category.topics.map((topic) => {
                     const isActiveTopic = topic.id === topicId
@@ -50,12 +53,12 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
                       <li key={topic.id}>
                         <button
                           type="button"
-                          onClick={() => onSelectTopic(category.id, topic.id, topic.questionIds)}
+                          onClick={() => onSelectTopic(category.id, topic.id, topic.questions)}
                           className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 ${
                             isActiveTopic ? 'text-primary-1 font-semibold' : 'text-600 font-medium hover:text-primary-1'
                           }`}
                         >
-                          {t(`faq.categories.${category.id}.topics.${topic.id}`)}
+                          {getFaqLabel(topic.title, language)}
                         </button>
                       </li>
                     )

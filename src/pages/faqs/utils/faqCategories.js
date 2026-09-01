@@ -1,4 +1,5 @@
 import faqPh1 from '../../../assets/images/faq/ph1.png'
+import { faqCategories as faqContent } from './faqData.js'
 import {
   AirTrafficControl,
   ArrowsClockwise,
@@ -8,6 +9,7 @@ import {
   Headset,
   Package,
   PawPrint,
+  Plugs,
   SealQuestion,
   Seat,
   Ticket,
@@ -15,32 +17,46 @@ import {
   UserCheck,
 } from '@phosphor-icons/react'
 
-export const faqCategories = [
-  {
-    id: 'booking',
-    icon: Ticket,
-    topics: [
-      { id: 'bookingOnline', questionIds: ['bookingNumber', 'beforeConfirming', 'transferTicket', 'addInfant', 'passengerAge', 'passengersPerBooking'] },
-      { id: 'classesFareTypes', questionIds: [] },
-      { id: 'manageBooking', questionIds: [] },
-    ],
-  },
-  { id: 'modifications', icon: ArrowsClockwise, topics: [] },
-  { id: 'cancellations', icon: CalendarX, topics: [] },
-  { id: 'baggage', icon: TrolleySuitcase, topics: [] },
-  { id: 'flightSchedules', icon: CalendarBlank, topics: [] },
-  { id: 'beforeYouTravel', icon: UserCheck, topics: [] },
-  { id: 'atTheAirport', icon: AirTrafficControl, topics: [] },
-  { id: 'onboardExperience', icon: Seat, topics: [] },
-  { id: 'cargo', icon: Package, topics: [] },
-  { id: 'becomePartner', icon: Handshake, topics: [] },
-  { id: 'travelInformation', icon: SealQuestion, topics: [] },
-  { id: 'travelWithPet', icon: PawPrint, topics: [] },
-  { id: 'support', icon: Headset, topics: [] },
-]
+const categoryIcons = {
+  booking: Ticket,
+  modifications: ArrowsClockwise,
+  cancellationsAndRefunds: CalendarX,
+  baggage: TrolleySuitcase,
+  flightSchedules: CalendarBlank,
+  beforeTravel: UserCheck,
+  atTheAirport: AirTrafficControl,
+  onboard: Seat,
+  travelInformation: SealQuestion,
+  petTravel: PawPrint,
+  support: Headset,
+  cargo: Package,
+  becomeAPartner: Handshake,
+  partnerships: Plugs,
+}
+
+export const faqCategories = faqContent.map((category) => ({
+  ...category,
+  icon: categoryIcons[category.id] || SealQuestion,
+}))
 
 export const faqQuestionImages = {
-  bookingNumber: faqPh1,
+  'booking-bookingOnline-1': {
+    src: faqPh1,
+    alt: {
+      en: 'Passenger holding a smartphone with a digital boarding pass',
+      ar: 'مسافر يمسك هاتفاً ذكياً يعرض بطاقة صعود رقمية',
+    },
+  },
+}
+
+export function getFaqLabel(value, language) {
+  if (!value) return ''
+  if (typeof value === 'string') return value
+  return value[language] || value.en || ''
+}
+
+export function hasNestedTopics(category) {
+  return category.topics.some((topic) => topic.id !== category.id)
 }
 
 export function findFaqCategory(categories, topicId) {
@@ -52,5 +68,26 @@ export function findFaqCategory(categories, topicId) {
 }
 
 export function findFaqTopic(category, topicId) {
-  return category.topics.find((topic) => topic.id === topicId) || null
+  return category.topics.find((topic) => topic.id === topicId) || category.topics[0] || null
+}
+
+export function groupFaqQuestions(questions, topicTitle) {
+  const groups = []
+
+  questions.forEach((question) => {
+    const last = groups[groups.length - 1]
+    if (last && getFaqLabel(last.branch, 'en') === getFaqLabel(question.branch, 'en')) {
+      last.questions.push(question)
+      return
+    }
+
+    groups.push({ branch: question.branch, questions: [question] })
+  })
+
+  const showHeadings = groups.length > 1
+
+  return groups.map((group) => ({
+    ...group,
+    showHeading: showHeadings && getFaqLabel(group.branch, 'en') !== getFaqLabel(topicTitle, 'en'),
+  }))
 }

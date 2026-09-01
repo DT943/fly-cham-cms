@@ -9,7 +9,7 @@ const FaqExplorer = () => {
     topicId,
     category,
     topic,
-    questionIds,
+    questions,
     openIds,
     allOpen,
     selectCategory,
@@ -32,7 +32,7 @@ const FaqExplorer = () => {
       <FaqTopicPanel
         category={category}
         topic={topic}
-        questionIds={questionIds}
+        questions={questions}
         openIds={openIds}
         allOpen={allOpen}
         onToggleQuestion={toggleQuestion}
