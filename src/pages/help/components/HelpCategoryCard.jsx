@@ -1,5 +1,6 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
+import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
 const HelpCategoryCard = ({ icon: Icon, title, description, href }) => {
   const className = "bg-background rounded-xl cursor-pointer flex flex-row items-center gap-3 p-4 border border-200 md:flex-col md:items-stretch md:justify-between md:gap-0 md:p-4 md:min-h-[220px] lg:min-h-[247px] md:border-0 md:shadow-[0_8px_24px_rgba(0,0,0,0.06)] md:hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)] transition-shadow no-underline text-inherit"
@@ -28,7 +29,7 @@ const HelpCategoryCard = ({ icon: Icon, title, description, href }) => {
   )
 
   if (href) {
-    return <a href={href} className={className}>{content}</a>
+    return <LocalizedLink href={href} className={className}>{content}</LocalizedLink>
   }
 
   return <div className={className}>{content}</div>

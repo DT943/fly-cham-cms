@@ -1,5 +1,6 @@
 import { typography } from '../../styles/typography.js'
 import FaqItem from './FaqItem.jsx'
+import LocalizedLink from './LocalizedLink.jsx'
 
 const Faqs = ({ title, items = [], browseLabel, browseHref = '#' }) => (
   <section className="flex flex-col gap-4 md:gap-6">
@@ -19,12 +20,12 @@ const Faqs = ({ title, items = [], browseLabel, browseHref = '#' }) => (
     </div>
     {browseLabel && (
       <div className="flex justify-center pt-1 md:pt-2">
-        <a
+        <LocalizedLink
           href={browseHref}
           className={`${typography.button} font-semibold text-50 bg-secondary hover:bg-secondary-800 no-underline rounded-lg px-8 py-3 md:px-10 md:py-3.5`}
         >
           {browseLabel}
-        </a>
+        </LocalizedLink>
       </div>
     )}
   </section>

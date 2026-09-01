@@ -1,5 +1,6 @@
 import { Chats } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
+import LocalizedLink from './LocalizedLink.jsx'
 
 const LiveChatBanner = ({ title, description, cta, href = '#' }) => (
   <section className="bg-primary-1/10 rounded-2xl px-5 py-5 md:px-8 md:py-6">
@@ -24,12 +25,12 @@ const LiveChatBanner = ({ title, description, cta, href = '#' }) => (
           </p>
         </div>
       </div>
-      <a
+      <LocalizedLink
         href={href}
         className={`${typography.button} font-medium text-50 bg-primary-1 hover:bg-primary-800 no-underline rounded-lg px-10 py-3 w-full md:w-auto inline-flex items-center justify-center shrink-0 transition-colors`}
       >
         {cta}
-      </a>
+      </LocalizedLink>
     </div>
   </section>
 )

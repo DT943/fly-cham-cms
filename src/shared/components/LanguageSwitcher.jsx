@@ -1,27 +1,31 @@
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { replaceLanguage } from '../../i18n/languages.js'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import { typography } from '../../styles/typography.js'
 
 const LanguageSwitcher = () => {
-  const { i18n, t } = useTranslation()
-  const current = (i18n.resolvedLanguage || i18n.language || 'en').split('-')[0]
+  const { t } = useTranslation()
+  const { pathname, search, hash } = useLocation()
+  const current = useCurrentLanguage()
+
+  const toLanguage = (lang) => `${replaceLanguage(pathname, lang)}${search}${hash}`
 
   return (
     <div className={`flex items-center gap-2 ${typography.button} font-semibold`}>
-      <button
-        type="button"
-        className={`cursor-pointer bg-transparent border-none p-0 ${current === 'en' ? 'text-primary-1' : 'text-600'}`}
-        onClick={() => i18n.changeLanguage('en')}
+      <Link
+        to={toLanguage('en')}
+        className={`no-underline ${current === 'en' ? 'text-primary-1' : 'text-600'}`}
       >
         {t('common.english')}
-      </button>
+      </Link>
       <span className="text-300">|</span>
-      <button
-        type="button"
-        className={`cursor-pointer bg-transparent border-none p-0 ${current === 'ar' ? 'text-primary-1' : 'text-600'}`}
-        onClick={() => i18n.changeLanguage('ar')}
+      <Link
+        to={toLanguage('ar')}
+        className={`no-underline ${current === 'ar' ? 'text-primary-1' : 'text-600'}`}
       >
         {t('common.arabic')}
-      </button>
+      </Link>
     </div>
   )
 }

@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import { footerLinkHrefs } from '../utils/footerLinks.js'
+import LocalizedLink from '../../../components/LocalizedLink.jsx'
 
 const FooterLinkList = ({ columnId, links }) => {
   const { t } = useTranslation()
@@ -15,15 +15,9 @@ const FooterLinkList = ({ columnId, links }) => {
 
         return (
           <li key={linkId}>
-            {href.startsWith('/') ? (
-              <Link to={href} className={className}>
-                {label}
-              </Link>
-            ) : (
-              <a href={href} className={className}>
-                {label}
-              </a>
-            )}
+            <LocalizedLink href={href} className={className}>
+              {label}
+            </LocalizedLink>
           </li>
         )
       })}

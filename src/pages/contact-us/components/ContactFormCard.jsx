@@ -1,8 +1,9 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
+import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
 const ContactFormCard = ({ icon: Icon, title, description, href }) => (
-  <a
+  <LocalizedLink
     href={href}
     className="bg-background rounded-lg p-5 flex flex-col gap-3 no-underline text-inherit "
   >
@@ -20,7 +21,7 @@ const ContactFormCard = ({ icon: Icon, title, description, href }) => (
         <ArrowRight size={14} weight="bold" className="text-50 rtl:-scale-x-100" />
       </div>
     </div>
-  </a>
+  </LocalizedLink>
 )
 
 export default ContactFormCard

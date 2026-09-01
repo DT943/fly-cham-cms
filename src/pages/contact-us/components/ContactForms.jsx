@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import { contactForms } from '../utils/contactForms.jsx'
 import ContactFormCard from './ContactFormCard.jsx'
+import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
 const ContactForms = () => {
   const { t } = useTranslation()
@@ -28,12 +29,12 @@ const ContactForms = () => {
         ))}
       </div>
       <div className="flex justify-center">
-        <a
+        <LocalizedLink
           href="/help/forms"
           className={`${typography.button} mt-0 md:mt-4 font-semibold text-primary-1 bg-background border border-primary-1 hover:bg-100 no-underline rounded-lg px-10 py-3`}
         >
           {t('contact.forms.viewAll')}
-        </a>
+        </LocalizedLink>
       </div>
     </section>
   )

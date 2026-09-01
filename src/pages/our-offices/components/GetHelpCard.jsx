@@ -1,8 +1,9 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
+import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
 const GetHelpCard = ({ icon: Icon, title, description, href }) => (
-  <a
+  <LocalizedLink
     href={href}
     className="bg-background rounded-2xl border border-200 p-5 md:p-6 flex flex-col justify-between gap-6 no-underline text-inherit hover:border-300 transition-colors"
   >
@@ -20,7 +21,7 @@ const GetHelpCard = ({ icon: Icon, title, description, href }) => (
     <div className="w-8 h-8 bg-primary-1 rounded-full flex items-center justify-center self-end shrink-0">
       <ArrowRight size={14} weight="bold" className="text-50 rtl:-scale-x-100" />
     </div>
-  </a>
+  </LocalizedLink>
 )
 
 export default GetHelpCard

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { CaretDown, Globe, List, User, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import logo from '../../assets/images/layout/logo.png'
 import Container from '../components/Container.jsx'
+import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
+import { stripLanguage } from '../../i18n/languages.js'
 import { headerNav } from './headerNav.js'
 
 const Header = () => {
@@ -19,13 +21,13 @@ const Header = () => {
   return (
     <header className="bg-primary-1 text-50">
       <Container className="h-16 md:h-20 flex items-center justify-between gap-4">
-        <Link to="/" className="shrink-0" aria-label="Fly Cham">
+        <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
           <img
             src={logo}
             alt="Fly Cham"
             className="h-8 md:h-10 w-auto mix-blend-screen"
           />
-        </Link>
+        </LocalizedLink>
 
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label={t('layout.header.navLabel')}>
           {headerNav.map((item) => (
@@ -80,14 +82,15 @@ const Header = () => {
                       {t(`layout.header.navItems.${child.id}`)}
                     </a>
                   ) : (
-                    <NavLink
+                    <LocalizedLink
                       key={child.id}
+                      nav
                       to={child.href}
                       end={child.href === '/help'}
                       className={`${typography.caption} text-50/80 no-underline ps-2`}
                     >
                       {t(`layout.header.navItems.${child.id}`)}
-                    </NavLink>
+                    </LocalizedLink>
                   )
                 )}
               </div>
@@ -112,10 +115,11 @@ const Header = () => {
 const HeaderMenu = ({ item }) => {
   const { t } = useTranslation()
   const location = useLocation()
+  const currentPath = stripLanguage(location.pathname)
   const isActive =
     item.id === 'help'
-      ? location.pathname.startsWith('/help')
-      : item.children.some((child) => child.href !== '#' && location.pathname === child.href)
+      ? currentPath === '/help' || currentPath.startsWith('/help/')
+      : item.children.some((child) => child.href !== '#' && currentPath === child.href)
 
   return (
     <div className="relative group">
@@ -138,8 +142,9 @@ const HeaderMenu = ({ item }) => {
                 {t(`layout.header.navItems.${child.id}`)}
               </a>
             ) : (
-              <NavLink
+              <LocalizedLink
                 key={child.id}
+                nav
                 to={child.href}
                 end={child.href === '/help'}
                 className={({ isActive: linkActive }) =>
@@ -147,7 +152,7 @@ const HeaderMenu = ({ item }) => {
                 }
               >
                 {t(`layout.header.navItems.${child.id}`)}
-              </NavLink>
+              </LocalizedLink>
             )
           )}
         </div>
