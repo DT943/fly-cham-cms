@@ -269,6 +269,14 @@
       "oman": "Oman",
       "turkey": "Turkey"
     },
+    "countriesShort": {
+      "kuwait": "Kuwait",
+      "uae": "UAE",
+      "iraq": "Iraq",
+      "armenia": "Armenia",
+      "oman": "Oman",
+      "turkey": "Turkey"
+    },
     "locations": {
       "kuwaitAviation": {
         "name": "Kuwait Aviation Services",

@@ -269,6 +269,14 @@
       "oman": "عُمان",
       "turkey": "تركيا"
     },
+    "countriesShort": {
+      "kuwait": "الكويت",
+      "uae": "الإمارات",
+      "iraq": "العراق",
+      "armenia": "أرمينيا",
+      "oman": "عُمان",
+      "turkey": "تركيا"
+    },
     "locations": {
       "kuwaitAviation": {
         "name": "خدمات الطيران الكويتية",
