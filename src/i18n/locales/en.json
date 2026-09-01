@@ -5,6 +5,7 @@
     "contactUs": "Contact us",
     "ourOffices": "Our offices",
     "ourGsa": "Our GSA",
+    "forms": "Forms & support request",
     "english": "EN",
     "arabic": "AR",
     "liveChat": {
@@ -435,6 +436,13 @@
           "answer": "After your partner account is approved, the integrations team will share API credentials, documentation, and a sandbox environment for testing."
         }
       }
+    }
+  },
+  "forms": {
+    "hero": {
+      "title": "Forms & support request",
+      "subtitle": "Find the right form for every stage of your journey, from booking to post-travel support. Provide complete and accurate details to help us process your request quickly.",
+      "imageAlt": "Hands typing on a laptop and holding a smartphone"
     }
   }
 }

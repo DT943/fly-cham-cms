@@ -28,6 +28,6 @@ export const helpCategories = [
   { id: 'contact', icon: Phone, href: '/help/contact-us' },
   { id: 'faqs', icon: Question },
   { id: 'offices', icon: MapPin, href: '/help/our-offices' },
-  { id: 'forms', icon: ClipboardText },
+  { id: 'forms', icon: ClipboardText, href: '/help/forms' },
   { id: 'track', icon: TrackRequestIcon },
 ]

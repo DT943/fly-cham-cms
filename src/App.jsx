@@ -4,6 +4,7 @@ import Help from './pages/help/Help.jsx'
 import ContactUs from './pages/contact-us/ContactUs.jsx'
 import OurOffices from './pages/our-offices/OurOffices.jsx'
 import OurGsa from './pages/our-gsa/OurGsa.jsx'
+import Forms from './pages/forms/Forms.jsx'
 import './pages/pages.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="contact-us" element={<ContactUs />} />
         <Route path="our-offices" element={<OurOffices />} />
         <Route path="our-gsa" element={<OurGsa />} />
+        <Route path="forms" element={<Forms />} />
       </Route>
     </Routes>
   )

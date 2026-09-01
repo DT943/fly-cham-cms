@@ -7,5 +7,5 @@ import {
 export const contactChannels = [
   { id: 'salesOffices', icon: Buildings, href: '/help/our-offices' },
   { id: 'gsa', icon: GlobeHemisphereWest, href: '/help/our-gsa' },
-  { id: 'request', icon: ClipboardText, href: '#' },
+  { id: 'request', icon: ClipboardText, href: '/help/forms' },
 ]
