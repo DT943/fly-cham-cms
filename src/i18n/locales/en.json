@@ -5,7 +5,7 @@
     "contactUs": "Contact us",
     "ourOffices": "Our offices",
     "ourGsa": "Our GSA",
-    "forms": "Forms & support request",
+    "forms": "Forms and Support Requests",
     "faqs": "FAQs",
     "english": "EN",
     "arabic": "AR",
@@ -441,13 +441,13 @@
   },
   "forms": {
     "hero": {
-      "title": "Forms & support request",
-      "subtitle": "Find the right form for every stage of your journey, from booking to post-travel support. Provide complete and accurate details to help us process your request quickly.",
+      "title": "Forms and Support Requests",
+      "subtitle": "Find the right form and provide complete and accurate details to help us process your request quickly",
       "imageAlt": "Hands typing on a laptop and holding a smartphone"
     },
     "search": {
       "label": "Ask Your Question",
-      "placeholder": "Search form by keyword or question",
+      "placeholder": "Search by form name, keyword, or question",
       "popular": "Popular search",
       "tags": {
         "baggage": "Baggage",
@@ -457,26 +457,16 @@
       }
     },
     "all": {
-      "title": "All forms",
+      "title": "All Forms",
       "empty": "No forms match your search."
     },
     "filters": {
       "label": "Filter forms",
-      "all": "All forms",
+      "all": "All Forms",
       "beforeTravel": "Before Travel",
       "atAirport": "At the Airport",
-      "onboard": "Onboard Experience",
+      "afterTravel": "After Travel",
       "others": "Others"
-    },
-    "categories": {
-      "booking": "Booking",
-      "refundCancel": "Refund & Cancellation",
-      "payment": "Payment",
-      "baggage": "Baggage",
-      "specialAssistance": "Special Assistance",
-      "groupTravel": "Group Travel",
-      "chamMiles": "Cham Miles",
-      "feedback": "Feedback"
     },
     "items": {
       "bookingChange": {
@@ -485,79 +475,89 @@
       },
       "transportation": {
         "title": "Transportation",
-        "description": "Arrange airport transfers with ease. A driver tracks your flight and meets you on arrival."
+        "description": "Arrange your transportation to and from the airport and local destination."
       },
       "nameCorrection": {
         "title": "Name Correction",
-        "description": "Request a correction to a passenger name when it does not match the passenger's travel document."
-      },
-      "ancillaryService": {
-        "title": "Ancillary Service",
-        "description": "Request a refund for an eligible seat, baggage, or other additional service."
-      },
-      "refund": {
-        "title": "Refund",
-        "description": "Request a refund for an eligible Fly Cham booking or service."
-      },
-      "flightCancellation": {
-        "title": "Flight Cancellation",
-        "description": "Cancel a confirmed flight booking and request a refund or credit for future travel with Fly Cham."
+        "description": "Request a correction to a passenger name when it does not match the passenger’s passport."
       },
       "paymentIssue": {
         "title": "Payment Issue",
-        "description": "Report an unsuccessful payment, duplicate charge, pending transaction, or payment confirmation issue."
-      },
-      "paymentReceipt": {
-        "title": "Payment Receipt",
-        "description": "Request a copy of an e-ticket receipt, itinerary, or payment confirmation."
-      },
-      "delayedBaggage": {
-        "title": "Report Delayed Baggage",
-        "description": "Submit details about checked baggage that did not arrive with your flight."
-      },
-      "lostBaggage": {
-        "title": "Lost Baggage",
-        "description": "Report lost checked baggage or an item left on board a Fly Cham aircraft."
+        "description": "Report an unsuccessful payment, pending transaction, or payment confirmation issue."
       },
       "unaccompaniedMinor": {
         "title": "Unaccompanied Minor",
-        "description": "Request the applicable service or guidance for a child travelling without an accompanying adult."
-      },
-      "specialAssistance": {
-        "title": "Special Assistance",
-        "description": "Request mobility assistance or another airport support service for an upcoming journey."
+        "description": "Arrange dedicated assistance for an eligible child travelling alone on a Fly Cham flight."
       },
       "groupTravel": {
         "title": "Group Travel",
-        "description": "Request a quotation for a group travelling together on the same itinerary."
+        "description": "Request travel arrangements for a group travelling on the same itinerary."
       },
-      "missingMiles": {
-        "title": "Missing Loyalty Miles",
-        "description": "Claim loyalty miles that are not showing in your Cham Miles account."
+      "corporateTravel": {
+        "title": "Corporate Travel",
+        "description": "Ask about travel arrangements for companies or business travelers."
       },
-      "compliment": {
-        "title": "Compliment Our Team",
-        "description": "Share a positive review about a Fly Cham employee or travel experience."
+      "wheelchair": {
+        "title": "Wheelchair",
+        "description": "Request wheelchair assistance at the airport for your upcoming journey."
+      },
+      "oxygenService": {
+        "title": "Oxygen Service",
+        "description": "Request onboard oxygen service, subject to medical requirements and availability."
+      },
+      "refund": {
+        "title": "Refund",
+        "description": "Request a refund for an eligible Fly Cham booking."
+      },
+      "ancillaryRefund": {
+        "title": "Ancillary Service Refund",
+        "description": "Request a refund for an eligible seat, baggage, or other additional service."
+      },
+      "lostBaggage": {
+        "title": "Lost Baggage/Item Left on Board",
+        "description": "Report checked baggage were lost at the airport."
+      },
+      "delayedBaggage": {
+        "title": "Delayed Baggage",
+        "description": "Report checked baggage that did not arrive with your flight."
+      },
+      "claimMiles": {
+        "title": "Claim Loyalty Miles",
+        "description": "Claim your loyalty miles that are not showing in a Cham Miles account."
+      },
+      "feedback": {
+        "title": "Share your Feedback",
+        "description": "Tell us about your experience flying with Fly Cham."
+      },
+      "apiIntegration": {
+        "title": "API Integration",
+        "description": "Submit your request for API integration to connect as an approved authorized OTA for Fly Cham."
+      },
+      "partnerGsa": {
+        "title": "Partner as GSA",
+        "description": "Become a General Sales Agent for Fly Cham in your region."
+      },
+      "cargo": {
+        "title": "Cargo",
+        "description": "Submit a request to transport goods or documents with Fly Cham Cargo."
       }
     },
     "guide": {
-      "title": "Not Sure Which Form to Choose?",
-      "description": "Tell us what you need help with, and we will guide you to the most relevant request form.",
-      "cta": "Contact us",
+      "title": "Need More Help?",
+      "description": "Get in touch with our Customer Care team for assistance with your request.",
+      "cta": "Contact Us",
       "imageAlt": "Fly Cham customer service agent"
     },
     "track": {
-      "title": "Continue an Existing Request",
-      "subtitle": "Already contacted us? Use your case number to check your request.",
+      "title": "Track an Existing Request",
+      "subtitle": "Already submitted a form request? Use your case number to check your request status.",
       "caseNumber": {
-        "label": "Case number*",
-        "placeholder": "Ex:for000152"
+        "label": "Case number *"
       },
-      "emailOrLastName": {
-        "label": "Email or last name*",
-        "placeholder": "Enter email or last name"
+      "lastName": {
+        "label": "Passenger last name *"
       },
-      "submit": "Track my request",
+      "submit": "Track My Request",
       "errors": {
         "required": "This field is required"
       }
@@ -604,7 +604,7 @@
         "indirect": "Indirect destinations",
         "helpCenter": "Help center",
         "contactUs": "Contact us",
-        "forms": "Forms & support request",
+        "forms": "Forms and Support Requests",
         "offices": "Our sales offices",
         "agents": "Our agents worldwide",
         "faqs": "FAQs"

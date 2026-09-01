@@ -12,7 +12,7 @@ const TrackRequest = () => {
     () =>
       yup.object({
         caseNumber: yup.string().trim().required(t('forms.track.errors.required')),
-        emailOrLastName: yup.string().trim().required(t('forms.track.errors.required')),
+        lastName: yup.string().trim().required(t('forms.track.errors.required')),
       }),
     [t]
   )
@@ -20,7 +20,7 @@ const TrackRequest = () => {
   const formik = useFormik({
     initialValues: {
       caseNumber: '',
-      emailOrLastName: '',
+      lastName: '',
     },
     validationSchema,
     validateOnChange: false,
@@ -56,13 +56,13 @@ const TrackRequest = () => {
             error={fieldError('caseNumber')}
           />
           <Input
-            id="emailOrLastName"
-            name="emailOrLastName"
-            label={t('forms.track.emailOrLastName.label')}
-            autoComplete="off"
-            value={formik.values.emailOrLastName}
+            id="lastName"
+            name="lastName"
+            label={t('forms.track.lastName.label')}
+            autoComplete="family-name"
+            value={formik.values.lastName}
             onChange={formik.handleChange}
-            error={fieldError('emailOrLastName')}
+            error={fieldError('lastName')}
           />
         </div>
         <button

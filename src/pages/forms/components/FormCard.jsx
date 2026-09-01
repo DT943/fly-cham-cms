@@ -14,7 +14,7 @@ const FormCard = ({ icon: Icon, category, title, description, href = '#' }) => (
         {category}
       </span>
     </div>
-    <h3 className={`${typography.itemTitle} font-semibold text-primary-1 m-0`}>
+    <h3 className={`${typography.itemTitle} font-semibold text-700 m-0`}>
       {title}
     </h3>
     <div className="flex items-end justify-between gap-3 mt-auto">
