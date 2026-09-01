@@ -8,7 +8,7 @@ const JourneyStep = ({ icon: Icon, stepLabel, links }) => (
       <div className="w-10 h-10 rounded-full bg-100 flex items-center justify-center flex-shrink-0 text-700">
         <Icon size={20} weight="regular" />
       </div>
-      <span className={`${typography.itemTitle} font-bold text-700`}>
+      <span className={`${typography.itemTitle} font-semibold text-700`}>
         {stepLabel}
       </span>
     </div>

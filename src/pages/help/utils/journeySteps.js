@@ -1,14 +1,14 @@
 import {
-  CalendarBlank,
   AirTrafficControl,
   AirplaneTilt,
   TrolleySuitcase,
+  CalendarIcon,
 } from '@phosphor-icons/react'
 
 export const journeySteps = [
   {
     id: 'before',
-    icon: CalendarBlank,
+    icon: CalendarIcon ,
     linkKeys: ['baggageAllowance', 'travelWithChildren', 'seatSelection', 'yaMarhaba'],
   },
   {
