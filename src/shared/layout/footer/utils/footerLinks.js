@@ -1,5 +1,4 @@
 import {
-  FacebookLogo,
   FacebookLogoIcon,
   InstagramLogo,
   LinkedinLogo,
@@ -7,7 +6,6 @@ import {
   ThreadsLogo,
   TiktokLogo,
   XLogo,
-  YoutubeLogo,
   YoutubeLogoIcon,
 } from '@phosphor-icons/react'
 
@@ -57,8 +55,8 @@ export const socialLinks = [
   { id: 'threads', icon: ThreadsLogo, href: '#' },
   { id: 'tiktok', icon: TiktokLogo, href: '#' },
   { id: 'instagram', icon: InstagramLogo, href: '#' },
-  { id: 'facebook', icon: FacebookLogoIcon , href: '#' },
-  { id: 'youtube', icon: YoutubeLogoIcon , href: '#' },
+  { id: 'facebook', icon: FacebookLogoIcon, href: '#' },
+  { id: 'youtube', icon: YoutubeLogoIcon, href: '#' },
   { id: 'linkedin', icon: LinkedinLogo, href: '#' },
   { id: 'x', icon: XLogo, href: '#' },
   { id: 'telegram', icon: TelegramLogo, href: '#' },
