@@ -156,3 +156,8 @@ body {
  .font-ar {
    font-family: 'MontserratArabic', var(--font-cairo), 'Cairo', sans-serif !important;
  }
+
+.gsa-map-pin {
+  background: transparent !important;
+  border: none !important;
+}

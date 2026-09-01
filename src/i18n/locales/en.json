@@ -4,6 +4,7 @@
     "help": "Help",
     "contactUs": "Contact us",
     "ourOffices": "Our offices",
+    "ourGsa": "Our GSA",
     "english": "EN",
     "arabic": "AR",
     "liveChat": {
@@ -246,6 +247,64 @@
         "name": "Aleppo International Airport",
         "address": "Aleppo International Airport",
         "hours": "Mon-Sun: 24 Hours"
+      }
+    }
+  },
+  "gsa": {
+    "hero": {
+      "title": "Our GSA",
+      "subtitle": "Find and connect with our authorized General Sales Agents",
+      "imageAlt": "Airport lounge overlooking the airfield"
+    },
+    "network": {
+      "title": "Our GSA (General Sales Agents)",
+      "countriesLabel": "GSA countries",
+      "openMap": "Open location in maps"
+    },
+    "countries": {
+      "kuwait": "Kuwait",
+      "uae": "United Arab Emirates",
+      "iraq": "Iraq",
+      "armenia": "Armenia",
+      "oman": "Oman",
+      "turkey": "Turkey"
+    },
+    "locations": {
+      "kuwaitAviation": {
+        "name": "Kuwait Aviation Services",
+        "address": "Al-Shuhada Street, Sharq, Kuwait City, Kuwait"
+      },
+      "kuwaitCto": {
+        "name": "CTO office",
+        "address": "Fahad Al-Salem Street, Kuwait City, Kuwait"
+      },
+      "uaeDubai": {
+        "name": "Fly Cham GSA Dubai",
+        "address": "Sheikh Zayed Road, Trade Centre, Dubai, UAE"
+      },
+      "uaeAbuDhabi": {
+        "name": "Fly Cham GSA Abu Dhabi",
+        "address": "Hamdan Street, Abu Dhabi, UAE"
+      },
+      "iraqBaghdad": {
+        "name": "Fly Cham GSA Baghdad",
+        "address": "Karrada Dakhil, Baghdad, Iraq"
+      },
+      "armeniaYerevan": {
+        "name": "Fly Cham GSA Yerevan",
+        "address": "Amiryan Street, Yerevan, Armenia"
+      },
+      "omanMuscat": {
+        "name": "Fly Cham GSA Muscat",
+        "address": "Ruwi High Street, Muscat, Oman"
+      },
+      "turkeyIstanbul": {
+        "name": "Fly Cham GSA Istanbul",
+        "address": "Halaskargazi Caddesi, Sisli, Istanbul, Turkey"
+      },
+      "turkeyAnkara": {
+        "name": "Fly Cham GSA Ankara",
+        "address": "Ataturk Boulevard, Cankaya, Ankara, Turkey"
       }
     }
   }

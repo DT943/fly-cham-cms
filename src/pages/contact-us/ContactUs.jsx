@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
-import ContactHero from '../../shared/components/ContactHero.jsx'
+import PageHero from '../../shared/components/PageHero.jsx'
 import heroPhoto from '../../assets/images/contact-us/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import ContactChannels from './components/ContactChannels.jsx'
@@ -27,7 +27,7 @@ const ContactUs = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <ContactHero
+        <PageHero
           title={t('contact.hero.title')}
           subtitle={t('contact.hero.subtitle')}
           image={heroPhoto}

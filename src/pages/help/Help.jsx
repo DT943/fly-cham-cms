@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
-import ContactHero from '../../shared/components/ContactHero.jsx'
+import PageHero from '../../shared/components/PageHero.jsx'
 import SearchConsole from './components/SearchConsole.jsx'
 import HelpCategories from './components/HelpCategories.jsx'
 import UrgentHelp from './components/UrgentHelp.jsx'
@@ -22,7 +22,7 @@ const Help = () => {
           <Breadcrumbs items={helpBreadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <ContactHero
+        <PageHero
           title={t('help.hero.title')}
           subtitle={t('help.hero.subtitle')}
         />

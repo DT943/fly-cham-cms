@@ -11,7 +11,7 @@ const maskStyle = (mask) => ({
   maskPosition: 'center',
 })
 
-const ContactHeroImage = ({ image, mask, imageAlt }) => (
+const PageHeroImage = ({ image, mask, imageAlt }) => (
   <div className="w-full">
     <img
       src={image}
@@ -34,11 +34,11 @@ const ContactHeroImage = ({ image, mask, imageAlt }) => (
   </div>
 )
 
-const ContactHero = ({ title, subtitle, image, mask, imageAlt = '' }) => (
+const PageHero = ({ title, subtitle, image, mask, imageAlt = '' }) => (
   <section className={image ? 'flex flex-col md:flex-row md:items-center gap-5 md:gap-10 lg:gap-14' : 'flex flex-col gap-2 md:gap-4'}>
     {image && (
       <div className="order-1 md:order-2 md:w-1/2 lg:w-[54%] shrink-0">
-        <ContactHeroImage image={image} mask={mask} imageAlt={imageAlt} />
+        <PageHeroImage image={image} mask={mask} imageAlt={imageAlt} />
       </div>
     )}
     <div className={image ? 'order-2 md:order-1 flex-1 flex flex-col gap-2 md:gap-4' : 'flex flex-col gap-2 md:gap-4'}>
@@ -54,4 +54,4 @@ const ContactHero = ({ title, subtitle, image, mask, imageAlt = '' }) => (
   </section>
 )
 
-export default ContactHero
+export default PageHero

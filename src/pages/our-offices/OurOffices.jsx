@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
-import ContactHero from '../../shared/components/ContactHero.jsx'
+import PageHero from '../../shared/components/PageHero.jsx'
 import heroPhoto from '../../assets/images/our-offices/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import OfficeTabs from './components/OfficeTabs.jsx'
@@ -33,7 +33,7 @@ const OurOffices = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <ContactHero
+        <PageHero
           title={t('offices.hero.title')}
           subtitle={t('offices.hero.subtitle')}
           image={heroPhoto}
