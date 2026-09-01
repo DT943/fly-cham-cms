@@ -4,6 +4,9 @@ import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
 import Container from '../../shared/components/Container.jsx'
 import SearchConsole from '../help/components/SearchConsole.jsx'
+import FaqExplorer from './components/FaqExplorer.jsx'
+import GetHelp from '../our-offices/components/GetHelp.jsx'
+import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
 
 const popularSearchIds = ['baggage', 'bookingOnline', 'checkIn', 'flightStatus']
 
@@ -37,6 +40,13 @@ const Faqs = () => {
             label: t(`faq.search.tags.${id}`),
           }))}
           showSuggestions={false}
+        />
+        <FaqExplorer />
+        <GetHelp />
+        <LiveChatBanner
+          title={t('common.liveChat.title')}
+          description={t('common.liveChat.description')}
+          cta={t('common.liveChat.cta')}
         />
       </Container>
     </main>

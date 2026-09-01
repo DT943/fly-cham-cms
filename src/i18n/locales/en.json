@@ -578,6 +578,85 @@
         "checkIn": "Check-in",
         "flightStatus": "Flight Status"
       }
+    },
+    "explorer": {
+      "navLabel": "FAQ topics",
+      "openAll": "Open all Questions",
+      "closeAll": "Close all Questions",
+      "empty": "Questions for this topic will appear here."
+    },
+    "categories": {
+      "booking": {
+        "title": "Booking",
+        "topics": {
+          "bookingOnline": "Booking Online",
+          "classesFareTypes": "Classes & Fare Types",
+          "manageBooking": "Manage Booking"
+        }
+      },
+      "modifications": {
+        "title": "Modifications"
+      },
+      "cancellations": {
+        "title": "Cancellations"
+      },
+      "baggage": {
+        "title": "Baggage"
+      },
+      "flightSchedules": {
+        "title": "Flights Schedules"
+      },
+      "beforeYouTravel": {
+        "title": "Before You Travel"
+      },
+      "atTheAirport": {
+        "title": "At the Airport"
+      },
+      "onboardExperience": {
+        "title": "Onboard Experience"
+      },
+      "cargo": {
+        "title": "Cargo"
+      },
+      "becomePartner": {
+        "title": "Became a partner"
+      },
+      "travelInformation": {
+        "title": "Travel information"
+      },
+      "travelWithPet": {
+        "title": "Travel with pet"
+      },
+      "support": {
+        "title": "Support"
+      }
+    },
+    "questions": {
+      "bookingNumber": {
+        "question": "What is a booking number/ reservation reference, and where can I find it?",
+        "answer": "A booking number or reference, also known as a PNR, is the unique code assigned to your reservation.\n\nYou can find it on the booking confirmation page, your e-ticket, and the confirmation message sent to your registered email address or mobile number.",
+        "imageAlt": "Passenger holding a smartphone with a digital boarding pass"
+      },
+      "beforeConfirming": {
+        "question": "What should I check before confirming my booking?",
+        "answer": ""
+      },
+      "transferTicket": {
+        "question": "Can I transfer my ticket to another passenger?",
+        "answer": ""
+      },
+      "addInfant": {
+        "question": "How do I add an infant to a booking?",
+        "answer": ""
+      },
+      "passengerAge": {
+        "question": "When is a passenger considered an infant, child, or adult?",
+        "answer": ""
+      },
+      "passengersPerBooking": {
+        "question": "How many passengers can I book for in one online transaction?",
+        "answer": ""
+      }
     }
   },
   "layout": {
