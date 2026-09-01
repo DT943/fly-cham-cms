@@ -18,7 +18,9 @@ const DetailRow = ({ icon: Icon, children }) => (
 const GsaOfficeCard = ({ office, locationId, isSelected, onSelect }) => {
   const { t } = useTranslation()
   const name = t(`gsa.locations.${locationId}.name`)
+  const city = t(`gsa.locations.${locationId}.city`)
   const address = t(`gsa.locations.${locationId}.address`)
+  const hours = t(`gsa.locations.${locationId}.hours`, { returnObjects: true })
 
   return (
     <article
@@ -39,16 +41,23 @@ const GsaOfficeCard = ({ office, locationId, isSelected, onSelect }) => {
       }}
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className={`${typography.itemTitle} font-semibold text-secondary-2 m-0`}>
-          {name}
-        </h3>
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <h3 className={`${typography.itemTitle} font-semibold text-secondary-2 m-0`}>
+            {name}
+          </h3>
+          {city && (
+            <p className={`${typography.caption} text-600 m-0`}>
+              {city}
+            </p>
+          )}
+        </div>
         {isSelected && (
           <a
             href={getMapsHref(office.lat, office.lng)}
             target="_blank"
             rel="noreferrer"
             onClick={(event) => event.stopPropagation()}
-            aria-label={t('gsa.openMap')}
+            aria-label={t('gsa.network.openMap')}
             className="w-8 h-8 shrink-0 no-underline grid place-items-center"
           >
             <span className="w-6 h-6 border border-primary-1 rotate-45 grid place-items-center">
@@ -85,9 +94,13 @@ const GsaOfficeCard = ({ office, locationId, isSelected, onSelect }) => {
         </DetailRow>
       </div>
 
-      <div className={`${typography.caption} text-primary-1 font-medium flex items-center justify-between gap-3 pt-3 border-t border-200`}>
-        <span>{office.days}</span>
-        <span dir="ltr">{office.hours}</span>
+      <div className={`${typography.caption} text-primary-1 font-medium flex flex-col gap-1 pt-3 border-t border-200`}>
+        {(Array.isArray(hours) ? hours : []).map((row) => (
+          <div key={`${row.days}-${row.time}`} className="flex items-center justify-between gap-3">
+            <span>{row.days}</span>
+            <span dir={/\d/.test(row.time) ? 'ltr' : undefined}>{row.time}</span>
+          </div>
+        ))}
       </div>
     </article>
   )

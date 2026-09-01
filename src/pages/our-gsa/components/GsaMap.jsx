@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import L from 'leaflet'
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -21,25 +21,41 @@ function createPinIcon(selected) {
 const selectedIcon = createPinIcon(true)
 const defaultIcon = createPinIcon(false)
 
-const MapSync = ({ lat, lng }) => {
+const MapSync = ({ countryId, offices, selected }) => {
   const map = useMap()
+  const previousCountryId = useRef(countryId)
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => map.invalidateSize())
     return () => cancelAnimationFrame(frame)
-  }, [map])
+  }, [map, countryId])
 
   useEffect(() => {
-    map.flyTo([lat, lng], 14, { duration: 0.55 })
-  }, [lat, lng, map])
+    if (!selected || offices.length === 0) return
+
+    const countryChanged = previousCountryId.current !== countryId
+    previousCountryId.current = countryId
+
+    if (countryChanged && offices.length > 1) {
+      const bounds = L.latLngBounds(offices.map((office) => [office.lat, office.lng]))
+      map.fitBounds(bounds, { padding: [48, 48], maxZoom: 12 })
+      return
+    }
+
+    map.flyTo([selected.lat, selected.lng], 14, { duration: 0.55 })
+  }, [countryId, offices, selected, map])
 
   return null
 }
 
-const GsaMap = ({ locationIds, selectedId, onSelect }) => {
+const GsaMap = ({ countryId, locationIds, selectedId, onSelect }) => {
   const selected = gsaLocations[selectedId]
+  const offices = useMemo(
+    () => locationIds.map((id) => gsaLocations[id]).filter(Boolean),
+    [locationIds]
+  )
   const center = useMemo(
-    () => [selected?.lat ?? 29.3759, selected?.lng ?? 47.9774],
+    () => [selected?.lat ?? 40.1772, selected?.lng ?? 44.5035],
     [selected]
   )
 
@@ -57,7 +73,7 @@ const GsaMap = ({ locationIds, selectedId, onSelect }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MapSync lat={selected.lat} lng={selected.lng} />
+        <MapSync countryId={countryId} offices={offices} selected={selected} />
         {locationIds.map((id) => {
           const office = gsaLocations[id]
           if (!office) return null

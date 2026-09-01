@@ -25,11 +25,12 @@ const GsaNetwork = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] gap-4 md:gap-6 items-start">
         <GsaMap
+          countryId={countryId}
           locationIds={locationIds}
           selectedId={officeId}
           onSelect={setOfficeId}
         />
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-4 w-full lg:max-h-[580px] lg:overflow-y-auto">
           {locationIds.map((id) => (
             <GsaOfficeCard
               key={id}

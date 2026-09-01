@@ -262,57 +262,150 @@
       "openMap": "Open location in maps"
     },
     "countries": {
-      "kuwait": "Kuwait",
-      "uae": "United Arab Emirates",
-      "iraq": "Iraq",
       "armenia": "Armenia",
+      "iraq": "Iraq",
+      "kuwait": "Kuwait",
+      "libya": "Libya",
       "oman": "Oman",
-      "turkey": "Turkey"
+      "pakistan": "Pakistan",
+      "sudan": "Sudan",
+      "turkey": "Türkiye",
+      "uae": "United Arab Emirates"
     },
     "countriesShort": {
-      "kuwait": "Kuwait",
-      "uae": "UAE",
-      "iraq": "Iraq",
       "armenia": "Armenia",
+      "iraq": "Iraq",
+      "kuwait": "Kuwait",
+      "libya": "Libya",
       "oman": "Oman",
-      "turkey": "Turkey"
+      "pakistan": "Pakistan",
+      "sudan": "Sudan",
+      "turkey": "Türkiye",
+      "uae": "UAE"
     },
     "locations": {
-      "kuwaitAviation": {
-        "name": "Kuwait Aviation Services",
-        "address": "Al-Shuhada Street, Sharq, Kuwait City, Kuwait"
-      },
-      "kuwaitCto": {
-        "name": "CTO office",
-        "address": "Fahad Al-Salem Street, Kuwait City, Kuwait"
-      },
-      "uaeDubai": {
-        "name": "Fly Cham GSA Dubai",
-        "address": "Sheikh Zayed Road, Trade Centre, Dubai, UAE"
-      },
-      "uaeAbuDhabi": {
-        "name": "Fly Cham GSA Abu Dhabi",
-        "address": "Hamdan Street, Abu Dhabi, UAE"
+      "armeniaYerevan": {
+        "name": "Wings Tour",
+        "city": "Yerevan",
+        "address": "3 Yeznik Koghbatsi Street",
+        "hours": [
+          { "days": "Mon–Fri", "time": "10:00 AM - 06:00 PM" },
+          { "days": "Sat–Sun", "time": "Weekend" }
+        ]
       },
       "iraqBaghdad": {
-        "name": "Fly Cham GSA Baghdad",
-        "address": "Karrada Dakhil, Baghdad, Iraq"
+        "name": "FLY CHAM",
+        "city": "Baghdad",
+        "address": "Saadoon Street",
+        "hours": [
+          { "days": "Mon–Thu", "time": "09:30 AM - 03:30 PM" },
+          { "days": "Fri", "time": "Weekend" },
+          { "days": "Sat–Sun", "time": "09:30 AM - 03:30 PM" }
+        ]
       },
-      "armeniaYerevan": {
-        "name": "Fly Cham GSA Yerevan",
-        "address": "Amiryan Street, Yerevan, Armenia"
+      "iraqBasrah": {
+        "name": "Al-Rafidin Company",
+        "city": "Basrah",
+        "address": "14 Tammoz St., Near Basra's International Hotel",
+        "hours": [
+          { "days": "Mon–Sun", "time": "09:00 AM - 09:00 PM" },
+          { "days": "Fri-Sat", "time": "Weekend" }
+        ]
+      },
+      "iraqErbil": {
+        "name": "Zozik Aviation",
+        "city": "Erbil",
+        "address": "Gullan Street, English Village Road, Behind Costa Rica Cafe",
+        "hours": [
+          { "days": "Mon–Thu", "time": "09:30 AM - 02:00 PM" },
+          { "days": "Fri", "time": "Weekend" },
+          { "days": "Sat–Sun", "time": "09:30 AM - 02:00 PM" }
+        ]
+      },
+      "iraqNajaf": {
+        "name": "Al-Rafidin Company",
+        "city": "Al Najaf",
+        "address": "Al-Rafidain Building, Muthanna St., Opposite Of Zain Company",
+        "hours": [
+          { "days": "Mon–Sun", "time": "09:00 AM - 10:00 PM" },
+          { "days": "Fri-Sat", "time": "Weekend" }
+        ]
+      },
+      "kuwaitMalek": {
+        "name": "Malek Travel & Tourism",
+        "city": "Kuwait",
+        "address": "Al Qibla, Ali Salem Street, Al Thuwaini Building, Next To The Fire Service Directorate",
+        "hours": [
+          { "days": "Mon–Thu", "time": "08:30 AM - 09:00 PM" },
+          { "days": "Fri", "time": "Weekend" },
+          { "days": "Sat–Sun", "time": "08:30 AM - 09:00 PM" }
+        ]
+      },
+      "libyaTripoli": {
+        "name": "Amman Star for Tourism and Travel",
+        "city": "Tripoli",
+        "address": "Omar Al-Mukhtar Complex Office No. 49",
+        "hours": [
+          { "days": "Mon–Thu", "time": "09:00 AM - 05:00 PM" },
+          { "days": "Fri", "time": "Weekend" },
+          { "days": "Sat–Sun", "time": "09:00 AM - 05:00 PM" }
+        ]
       },
       "omanMuscat": {
-        "name": "Fly Cham GSA Muscat",
-        "address": "Ruwi High Street, Muscat, Oman"
+        "name": "Jasmine Wings",
+        "city": "Muscat",
+        "address": "Muscat-Al Khuwair North -Ministries District Roundabout-A’Raya Complex -Ground Floor -Office G02",
+        "hours": [
+          { "days": "Mon–Thu", "time": "09:00 AM - 05:00 PM" },
+          { "days": "Fri–Sat", "time": "Weekend" },
+          { "days": "Sun", "time": "09:00 AM - 05:00 PM" }
+        ]
+      },
+      "pakistanKarachi": {
+        "name": "Quantum Aviation (Pvt.) Ltd",
+        "city": "Karachi",
+        "address": "U-1 Ground Floor, Trade Tower Opposite Services Mess Abdullah Haroon Road, Karachi-Pakistan",
+        "hours": [
+          { "days": "Mon–Sat", "time": "09:00 AM – 05:00 PM" },
+          { "days": "Sun", "time": "Weekend" }
+        ]
+      },
+      "pakistanLahore": {
+        "name": "Quantum Aviation (Pvt.) Ltd",
+        "city": "Lahore",
+        "address": "4-Ug Al-Hafeez Heights 65-D, Gulberg-3 Lahore-Pakistan",
+        "hours": [
+          { "days": "Mon–Sat", "time": "09:00 AM – 05:00 PM" },
+          { "days": "Sun", "time": "Weekend" }
+        ]
+      },
+      "sudanKhartoum": {
+        "name": "Sabra Two Tours",
+        "city": "Khartoum",
+        "address": "17 Mc Nimir St, Intersection Of Mc Nimir St & Baladia St",
+        "hours": [
+          { "days": "Mon–Thu", "time": "09:00 AM - 04:30 PM" },
+          { "days": "Fri–Sat", "time": "Weekend" },
+          { "days": "Sun", "time": "09:00 AM - 04:30 PM" }
+        ]
       },
       "turkeyIstanbul": {
-        "name": "Fly Cham GSA Istanbul",
-        "address": "Halaskargazi Caddesi, Sisli, Istanbul, Turkey"
+        "name": "Goknar Turizm",
+        "city": "Istanbul",
+        "address": "Ergenekon Mah. Halaskargazi Cad. No: 11 Daire No: 2 Şişli/ İstanbul",
+        "hours": [
+          { "days": "Mon–Fri", "time": "09:00 AM - 05:00 PM" },
+          { "days": "Sat–Sun", "time": "Weekend" }
+        ]
       },
-      "turkeyAnkara": {
-        "name": "Fly Cham GSA Ankara",
-        "address": "Ataturk Boulevard, Cankaya, Ankara, Turkey"
+      "uaeDubai": {
+        "name": "Fly & More Travel",
+        "city": "Dubai",
+        "address": "Office 110, Zeenah Bldg, Port Saeed, Dubai, UAE",
+        "hours": [
+          { "days": "Mon–Sun", "time": "09:00 AM - 07:00 PM" },
+          { "days": "Fri-Sat", "time": "Weekend" }
+        ]
       }
     },
     "partner": {
