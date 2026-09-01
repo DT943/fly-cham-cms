@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
+import Container from '../../shared/components/Container.jsx'
 import SearchConsole from './components/SearchConsole.jsx'
 import HelpCategories from './components/HelpCategories.jsx'
 import CtaBanner from '../../shared/components/CtaBanner.jsx'
@@ -17,7 +18,7 @@ const Help = () => {
 
   return (
     <main className="bg-100">
-      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-5 md:py-10 flex flex-col gap-6 md:gap-8">
+      <Container className="py-5 md:py-10 flex flex-col gap-6 md:gap-8">
         <div className="flex items-center justify-between gap-4">
           <Breadcrumbs items={helpBreadcrumbs} />
           <LanguageSwitcher />
@@ -34,7 +35,7 @@ const Help = () => {
           cta={t('help.urgent.cta')}
         />
         <JourneySection />
-      </div>
+      </Container>
     </main>
   )
 }

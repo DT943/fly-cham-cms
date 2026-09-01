@@ -1,6 +1,7 @@
 import { Clock } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import agentPhoto from '../../../assets/images/contact-us/ph2.png'
+import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
 
 const PHONE_DISPLAY = '+963 -11-2122222'
@@ -10,9 +11,9 @@ const GetInTouch = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="w-full bg-background md:bg-transparent px-4 pb-6 md:px-0 md:pb-10">
-      <div className="bg-200 rounded-3xl">
-        <div className="max-w-[1222px] mx-auto px-5 py-8 md:px-10 md:py-14 flex flex-col items-center text-center gap-3 md:gap-4">
+    <section className="w-full bg-background md:bg-transparent pb-6 md:pb-10">
+      <Container>
+        <div className="bg-200 rounded-3xl px-5 py-8 md:px-10 md:py-14 flex flex-col items-center text-center gap-3 md:gap-4">
           <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
             {t('contact.getInTouch.title')}
           </h2>
@@ -42,7 +43,7 @@ const GetInTouch = () => {
             {t('contact.getInTouch.note')}
           </p>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

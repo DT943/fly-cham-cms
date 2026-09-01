@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import logo from '../../assets/images/layout/logo.png'
+import Container from '../components/Container.jsx'
 import { typography } from '../../styles/typography.js'
 import { footerColumns, footerLegal, footerLinkHrefs, socialLinks } from './footerLinks.js'
 
@@ -9,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#054E72] text-50">
-      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-10 md:py-14 flex flex-col gap-10 md:gap-14">
+      <Container className="py-10 md:py-14 flex flex-col gap-10 md:gap-14">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <Link to="/" aria-label="Fly Cham">
             <img src={logo} alt="Fly Cham" className="h-9 md:h-11 w-auto " />
@@ -48,7 +49,7 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }

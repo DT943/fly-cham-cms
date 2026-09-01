@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { CaretDown, Globe, List, User, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import logo from '../../assets/images/layout/logo.png'
+import Container from '../components/Container.jsx'
 import { typography } from '../../styles/typography.js'
 import { headerNav } from './headerNav.js'
 
@@ -17,7 +18,7 @@ const Header = () => {
 
   return (
     <header className="bg-primary-1 text-50">
-      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4">
+      <Container className="h-16 md:h-20 flex items-center justify-between gap-4">
         <Link to="/" className="shrink-0" aria-label="Fly Cham">
           <img
             src={logo}
@@ -59,47 +60,49 @@ const Header = () => {
         >
           {menuOpen ? <X size={26} weight="bold" /> : <List size={26} weight="bold" />}
         </button>
-      </div>
+      </Container>
 
       {menuOpen && (
-        <div className="lg:hidden border-t border-50/20 px-4 sm:px-8 pb-6 pt-4 flex flex-col gap-4">
-          {headerNav.map((item) => (
-            <div key={item.id} className="flex flex-col gap-2">
-              <p className={`${typography.caption} font-semibold m-0 text-50`}>
-                {t(`layout.header.nav.${item.id}`)}
-              </p>
-              {item.children.map((child) =>
-                child.href === '#' ? (
-                  <a
-                    key={child.id}
-                    href="#"
-                    className={`${typography.caption} text-50/80 no-underline ps-2`}
-                  >
-                    {t(`layout.header.navItems.${child.id}`)}
-                  </a>
-                ) : (
-                  <NavLink
-                    key={child.id}
-                    to={child.href}
-                    end={child.href === '/help'}
-                    className={`${typography.caption} text-50/80 no-underline ps-2`}
-                  >
-                    {t(`layout.header.navItems.${child.id}`)}
-                  </NavLink>
-                )
-              )}
+        <div className="lg:hidden border-t border-50/20">
+          <Container className="pb-6 pt-4 flex flex-col gap-4">
+            {headerNav.map((item) => (
+              <div key={item.id} className="flex flex-col gap-2">
+                <p className={`${typography.caption} font-semibold m-0 text-50`}>
+                  {t(`layout.header.nav.${item.id}`)}
+                </p>
+                {item.children.map((child) =>
+                  child.href === '#' ? (
+                    <a
+                      key={child.id}
+                      href="#"
+                      className={`${typography.caption} text-50/80 no-underline ps-2`}
+                    >
+                      {t(`layout.header.navItems.${child.id}`)}
+                    </a>
+                  ) : (
+                    <NavLink
+                      key={child.id}
+                      to={child.href}
+                      end={child.href === '/help'}
+                      className={`${typography.caption} text-50/80 no-underline ps-2`}
+                    >
+                      {t(`layout.header.navItems.${child.id}`)}
+                    </NavLink>
+                  )
+                )}
+              </div>
+            ))}
+            <div className="flex items-center gap-5 pt-2 border-t border-50/20">
+              <span className={`flex items-center gap-2 ${typography.caption}`}>
+                <Globe size={18} />
+                {t('layout.header.region')}
+              </span>
+              <span className={`flex items-center gap-2 ${typography.caption}`}>
+                <User size={18} />
+                {t('layout.header.login')}
+              </span>
             </div>
-          ))}
-          <div className="flex items-center gap-5 pt-2 border-t border-50/20">
-            <span className={`flex items-center gap-2 ${typography.caption}`}>
-              <Globe size={18} />
-              {t('layout.header.region')}
-            </span>
-            <span className={`flex items-center gap-2 ${typography.caption}`}>
-              <User size={18} />
-              {t('layout.header.login')}
-            </span>
-          </div>
+          </Container>
         </div>
       )}
     </header>

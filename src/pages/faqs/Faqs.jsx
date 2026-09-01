@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
+import Container from '../../shared/components/Container.jsx'
 import SearchConsole from '../help/components/SearchConsole.jsx'
 
 const popularSearchIds = ['baggage', 'bookingOnline', 'checkIn', 'flightStatus']
@@ -17,7 +18,7 @@ const Faqs = () => {
 
   return (
     <main className="bg-100 w-full">
-      <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-5 md:py-10 flex flex-col gap-6 md:gap-10">
+      <Container className="py-5 md:py-10 flex flex-col gap-6 md:gap-10">
         <div className="flex items-center justify-between gap-2 sm:gap-4 min-w-0">
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
@@ -35,8 +36,9 @@ const Faqs = () => {
             id,
             label: t(`faq.search.tags.${id}`),
           }))}
+          showSuggestions={false}
         />
-      </div>
+      </Container>
     </main>
   )
 }

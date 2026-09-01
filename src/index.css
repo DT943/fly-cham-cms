@@ -72,6 +72,9 @@
   --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-family-base);
   --font-mono: var(--font-geist-mono);
+
+  /* Page content width — used by Container */
+  --max-width-page: 1360px;
 }
 
 /* Legacy names used in var(--primary-1), arbitrary values, and third-party CSS */
