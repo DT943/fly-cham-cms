@@ -17,7 +17,7 @@ const Input = ({
   const hasError = Boolean(error)
   const isTextarea = rows !== undefined
   const fieldId = id || name || 'floating-input'
-  const bgClass = transparentBg ? 'bg-100/60 backdrop-blur-sm' : 'bg-100'
+  const bgClass = transparentBg ? 'bg-100/60 backdrop-blur-sm' : 'bg-background'
   const borderClass = hasError
     ? 'border border-alert'
     : 'border border-200 focus:!border-primary-1 focus-within:!border-primary-1'

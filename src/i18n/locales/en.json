@@ -460,6 +460,14 @@
       "title": "All forms",
       "empty": "No forms match your search."
     },
+    "filters": {
+      "label": "Filter forms",
+      "all": "All forms",
+      "beforeTravel": "Before Travel",
+      "atAirport": "At the Airport",
+      "onboard": "Onboard Experience",
+      "others": "Others"
+    },
     "categories": {
       "booking": "Booking",
       "refundCancel": "Refund & Cancellation",

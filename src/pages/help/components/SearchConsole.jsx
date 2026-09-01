@@ -47,7 +47,7 @@ const SearchConsole = ({
         {resolvedLabel}
       </label>
       <div ref={containerRef} className="relative w-full">
-        <div className={`flex items-center gap-3 bg-background ${resolvedSubmit ? 'rounded-full md:rounded-lg pe-1.5 py-1.5' : 'rounded-lg pe-4 py-3'} ps-4`}>
+        <div className={`flex items-center gap-3 bg-background ${resolvedSubmit ? 'rounded-lg pe-4 py-3 md:pe-1.5 md:py-1.5' : 'rounded-lg pe-4 py-3'} ps-4`}>
           <FiSearch className="w-5 h-5 text-600 shrink-0" />
           <input
             type="text"
@@ -63,7 +63,7 @@ const SearchConsole = ({
           {resolvedSubmit && (
             <button
               type="button"
-              className={`${typography.button} shrink-0 font-semibold text-700 bg-secondary hover:bg-secondary-800 border-none rounded-lg px-6 py-2 cursor-pointer transition-colors`}
+              className={`${typography.button} hidden md:inline-flex shrink-0 font-semibold text-700 bg-secondary hover:bg-secondary-800 border-none rounded-lg px-6 py-2 cursor-pointer transition-colors`}
             >
               {resolvedSubmit}
             </button>

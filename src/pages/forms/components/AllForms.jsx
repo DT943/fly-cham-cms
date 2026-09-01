@@ -1,16 +1,20 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import { filterSupportForms, supportForms } from '../utils/supportForms.js'
 import FormCard from './FormCard.jsx'
+import FormTabs from './FormTabs.jsx'
 
 const AllForms = ({ query = '' }) => {
   const { t } = useTranslation()
-  const forms = filterSupportForms(supportForms, query, t)
+  const [stageId, setStageId] = useState('all')
+  const forms = filterSupportForms(supportForms, query, t, stageId)
 
   return (
     <section className="flex flex-col gap-4 md:gap-6">
+      <FormTabs activeId={stageId} onSelect={setStageId} />
       <h2 className={`${typography.sectionTitle} font-semibold text-primary-1 m-0`}>
-        {t('forms.all.title')}
+        {t(`forms.filters.${stageId}`)}
       </h2>
       {forms.length === 0 ? (
         <p className={`${typography.sectionDescription} text-600 m-0`}>
@@ -23,7 +27,7 @@ const AllForms = ({ query = '' }) => {
               key={form.id}
               icon={form.icon}
               href={form.href}
-              category={t(`forms.categories.${form.categoryId}`)}
+              category={t(`forms.filters.${form.stageId}`)}
               title={t(`forms.items.${form.id}.title`)}
               description={t(`forms.items.${form.id}.description`)}
             />

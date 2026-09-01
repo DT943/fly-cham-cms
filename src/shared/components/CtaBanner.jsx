@@ -4,7 +4,7 @@ import defaultImage from '../../assets/images/help/ph1.png'
 
 const CtaBanner = ({ title, description, cta, href, image = defaultImage }) => (
   <section
-    className="relative rounded-2xl overflow-hidden w-full min-h-[320px] sm:min-h-[360px] md:min-h-[415px] bg-cover bg-[position:25%_center] md:bg-center flex items-center px-5 py-8 sm:px-12 md:px-20 md:py-16"
+    className="relative rounded-2xl overflow-hidden w-full min-h-[220px] sm:min-h-[360px] md:min-h-[400px] bg-cover bg-no-repeat bg-center md:bg-center flex items-center px-5 py-8 sm:px-12 md:px-20 md:py-16"
     style={{ backgroundImage: `url(${image})` }}
   >
     <div className="absolute inset-0 z-[1] ltr:bg-[linear-gradient(to_right,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] rtl:bg-[linear-gradient(to_left,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] md:ltr:bg-[linear-gradient(to_right,#054E72_0%,rgb(5_78_114/0)_100%)] md:rtl:bg-[linear-gradient(to_left,#054E72_0%,rgb(5_78_114/0)_100%)]" />
