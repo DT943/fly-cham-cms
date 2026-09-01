@@ -306,6 +306,34 @@
         "name": "Fly Cham GSA Ankara",
         "address": "Ataturk Boulevard, Cankaya, Ankara, Turkey"
       }
+    },
+    "partner": {
+      "title": "Become a partner",
+      "description": "Join our partners' network and become our official regional representative. Complete the application form below to initiate our commercial vetting process.",
+      "cta": "Start application",
+      "imageAlt": "Fly Cham aircraft in flight"
+    },
+    "faqs": {
+      "title": "Frequently Asked Questions",
+      "browse": "Browse FAQs",
+      "items": {
+        "agencySupport": {
+          "question": "How can I contact Fly Cham for inquiries related to Travel Agency Support or OTA support?",
+          "answer": "Contact our partner support team through the application form or Customer Care. They will route Travel Agency and OTA inquiries to the right commercial team."
+        },
+        "setupFees": {
+          "question": "Are there any setup fees to join Fly Cham partner networks?",
+          "answer": "Setup fees depend on the partnership type and market. Details are shared during the commercial vetting process after you submit your application."
+        },
+        "complianceDocs": {
+          "question": "What are the required compliance documents needed to get new partner account approval?",
+          "answer": "Typical requirements include a valid trade license, tax registration, and authorized signatory documents. The partner team will confirm the full list for your country."
+        },
+        "apiAccess": {
+          "question": "How do I access the API Integration to join as a new OTA partner?",
+          "answer": "After your partner account is approved, the integrations team will share API credentials, documentation, and a sandbox environment for testing."
+        }
+      }
     }
   }
 }

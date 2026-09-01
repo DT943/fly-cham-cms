@@ -3,8 +3,13 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
 import GsaNetwork from './components/GsaNetwork.jsx'
+import PromoBanner from '../../shared/components/PromoBanner.jsx'
+import Faqs from '../../shared/components/Faqs.jsx'
 import heroPhoto from '../../assets/images/our-gsa/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
+import partnerBanner from '../../assets/images/our-gsa/ph2.png'
+
+const faqIds = ['agencySupport', 'setupFees', 'complianceDocs', 'apiAccess']
 
 const OurGsa = () => {
   const { t } = useTranslation()
@@ -14,6 +19,12 @@ const OurGsa = () => {
     { label: t('common.help'), href: '/help' },
     { label: t('common.ourGsa') },
   ]
+
+  const faqs = faqIds.map((id) => ({
+    id,
+    question: t(`gsa.faqs.items.${id}.question`),
+    answer: t(`gsa.faqs.items.${id}.answer`),
+  }))
 
   return (
     <main className="bg-100 min-h-screen w-full">
@@ -30,6 +41,19 @@ const OurGsa = () => {
           imageAlt={t('gsa.hero.imageAlt')}
         />
         <GsaNetwork />
+        <PromoBanner
+          title={t('gsa.partner.title')}
+          description={t('gsa.partner.description')}
+          cta={t('gsa.partner.cta')}
+          image={partnerBanner}
+          imageAlt={t('gsa.partner.imageAlt')}
+        />
+        <Faqs
+          title={t('gsa.faqs.title')}
+          items={faqs}
+          browseLabel={t('gsa.faqs.browse')}
+          browseHref="#"
+        />
       </div>
     </main>
   )
