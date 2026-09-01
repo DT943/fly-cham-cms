@@ -4,7 +4,7 @@ import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
 import SearchConsole from './components/SearchConsole.jsx'
 import HelpCategories from './components/HelpCategories.jsx'
-import UrgentHelp from './components/UrgentHelp.jsx'
+import CtaBanner from '../../shared/components/CtaBanner.jsx'
 import JourneySection from './components/JourneySection.jsx'
 
 const Help = () => {
@@ -16,7 +16,7 @@ const Help = () => {
   ]
 
   return (
-    <main className="bg-100 min-h-screen">
+    <main className="bg-100">
       <div className="max-w-[1222px] mx-auto px-4 sm:px-8 md:px-10 py-5 md:py-10 flex flex-col gap-6 md:gap-8">
         <div className="flex items-center justify-between gap-4">
           <Breadcrumbs items={helpBreadcrumbs} />
@@ -28,7 +28,11 @@ const Help = () => {
         />
         <SearchConsole />
         <HelpCategories />
-        <UrgentHelp />
+        <CtaBanner
+          title={t('help.urgent.title')}
+          description={t('help.urgent.description')}
+          cta={t('help.urgent.cta')}
+        />
         <JourneySection />
       </div>
     </main>

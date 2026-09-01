@@ -6,6 +6,7 @@
     "ourOffices": "Our offices",
     "ourGsa": "Our GSA",
     "forms": "Forms & support request",
+    "faqs": "FAQs",
     "english": "EN",
     "arabic": "AR",
     "liveChat": {
@@ -443,6 +444,254 @@
       "title": "Forms & support request",
       "subtitle": "Find the right form for every stage of your journey, from booking to post-travel support. Provide complete and accurate details to help us process your request quickly.",
       "imageAlt": "Hands typing on a laptop and holding a smartphone"
+    },
+    "search": {
+      "label": "Ask Your Question",
+      "placeholder": "Search form by keyword or question",
+      "popular": "Popular search",
+      "tags": {
+        "baggage": "Baggage",
+        "refund": "Refund",
+        "payment": "Payment issue",
+        "lostBaggage": "Lost baggage"
+      }
+    },
+    "all": {
+      "title": "All forms",
+      "empty": "No forms match your search."
+    },
+    "categories": {
+      "booking": "Booking",
+      "refundCancel": "Refund & Cancellation",
+      "payment": "Payment",
+      "baggage": "Baggage",
+      "specialAssistance": "Special Assistance",
+      "groupTravel": "Group Travel",
+      "chamMiles": "Cham Miles",
+      "feedback": "Feedback"
+    },
+    "items": {
+      "bookingChange": {
+        "title": "Booking Change",
+        "description": "Request assistance with changing the date, route, or flight details of an existing booking."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "description": "Arrange airport transfers with ease. A driver tracks your flight and meets you on arrival."
+      },
+      "nameCorrection": {
+        "title": "Name Correction",
+        "description": "Request a correction to a passenger name when it does not match the passenger's travel document."
+      },
+      "ancillaryService": {
+        "title": "Ancillary Service",
+        "description": "Request a refund for an eligible seat, baggage, or other additional service."
+      },
+      "refund": {
+        "title": "Refund",
+        "description": "Request a refund for an eligible Fly Cham booking or service."
+      },
+      "flightCancellation": {
+        "title": "Flight Cancellation",
+        "description": "Cancel a confirmed flight booking and request a refund or credit for future travel with Fly Cham."
+      },
+      "paymentIssue": {
+        "title": "Payment Issue",
+        "description": "Report an unsuccessful payment, duplicate charge, pending transaction, or payment confirmation issue."
+      },
+      "paymentReceipt": {
+        "title": "Payment Receipt",
+        "description": "Request a copy of an e-ticket receipt, itinerary, or payment confirmation."
+      },
+      "delayedBaggage": {
+        "title": "Report Delayed Baggage",
+        "description": "Submit details about checked baggage that did not arrive with your flight."
+      },
+      "lostBaggage": {
+        "title": "Lost Baggage",
+        "description": "Report lost checked baggage or an item left on board a Fly Cham aircraft."
+      },
+      "unaccompaniedMinor": {
+        "title": "Unaccompanied Minor",
+        "description": "Request the applicable service or guidance for a child travelling without an accompanying adult."
+      },
+      "specialAssistance": {
+        "title": "Special Assistance",
+        "description": "Request mobility assistance or another airport support service for an upcoming journey."
+      },
+      "groupTravel": {
+        "title": "Group Travel",
+        "description": "Request a quotation for a group travelling together on the same itinerary."
+      },
+      "missingMiles": {
+        "title": "Missing Loyalty Miles",
+        "description": "Claim loyalty miles that are not showing in your Cham Miles account."
+      },
+      "compliment": {
+        "title": "Compliment Our Team",
+        "description": "Share a positive review about a Fly Cham employee or travel experience."
+      }
+    },
+    "guide": {
+      "title": "Not Sure Which Form to Choose?",
+      "description": "Tell us what you need help with, and we will guide you to the most relevant request form.",
+      "cta": "Contact us",
+      "imageAlt": "Fly Cham customer service agent"
+    },
+    "track": {
+      "title": "Continue an Existing Request",
+      "subtitle": "Already contacted us? Use your case number to check your request.",
+      "caseNumber": {
+        "label": "Case number*",
+        "placeholder": "Ex:for000152"
+      },
+      "emailOrLastName": {
+        "label": "Email or last name*",
+        "placeholder": "Enter email or last name"
+      },
+      "submit": "Track my request",
+      "errors": {
+        "required": "This field is required"
+      }
+    }
+  },
+  "faq": {
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find quick answers to the most common questions"
+    },
+    "search": {
+      "label": "Ask Your Question",
+      "placeholder": "Search for a topic or question...",
+      "popular": "Popular search",
+      "tags": {
+        "baggage": "Baggage",
+        "bookingOnline": "Booking online",
+        "checkIn": "Check-in",
+        "flightStatus": "Flight Status"
+      }
+    }
+  },
+  "layout": {
+    "header": {
+      "navLabel": "Main",
+      "region": "SY",
+      "login": "Log in",
+      "menu": "Open menu",
+      "nav": {
+        "book": "Book",
+        "manage": "Manage",
+        "whereWeFly": "Where We Fly",
+        "help": "Help"
+      },
+      "navItems": {
+        "searchFlight": "Search a flight",
+        "schedules": "Flight schedules",
+        "groupTravel": "Group travel",
+        "checkIn": "Check-in",
+        "flightStatus": "Flight status",
+        "trackRequest": "Track your request",
+        "domestic": "Domestic destinations",
+        "international": "International destinations",
+        "indirect": "Indirect destinations",
+        "helpCenter": "Help center",
+        "contactUs": "Contact us",
+        "forms": "Forms & support request",
+        "offices": "Our sales offices",
+        "agents": "Our agents worldwide",
+        "faqs": "FAQs"
+      }
+    },
+    "footer": {
+      "copyright": "© All Rights Reserved. Fly Cham 2025",
+      "legal": {
+        "sitemap": "Site Map",
+        "privacy": "Privacy Policy",
+        "terms": "Terms and Conditions"
+      },
+      "social": {
+        "threads": "Threads",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube",
+        "linkedin": "LinkedIn",
+        "x": "X",
+        "telegram": "Telegram"
+      },
+      "columns": {
+        "about": {
+          "title": "About Fly Cham",
+          "links": {
+            "story": "Our Story",
+            "mission": "Our Mission",
+            "vision": "Our Vision",
+            "values": "Our Values",
+            "responsibility": "Our Responsibility",
+            "fleet": "Our Fleet",
+            "media": "Media Center",
+            "chairman": "Chairman's Message"
+          }
+        },
+        "book": {
+          "title": "Book Flights",
+          "links": {
+            "searchFlight": "Search A Flight",
+            "schedules": "Flight Schedules",
+            "hotel": "Hotel Booking",
+            "carRental": "Car Rental",
+            "visa": "Visa Information",
+            "groupTravel": "Group Travel",
+            "privateFlights": "Request Private Flights"
+          }
+        },
+        "destinations": {
+          "title": "Our Destinations Network",
+          "sections": {
+            "holidays": "Holidays"
+          },
+          "links": {
+            "domestic": "Domestic Destinations",
+            "international": "International Destinations",
+            "indirect": "Indirect Destinations",
+            "discoverSyria": "Discover Syria",
+            "tourism": "Tourism Programs",
+            "family": "Family Holidays Packages",
+            "honeymoon": "Honeymoon Packages"
+          }
+        },
+        "miles": {
+          "title": "Cham Miles Loyalty Program",
+          "links": {
+            "aboutMiles": "About Cham Miles",
+            "join": "Join The Program",
+            "claim": "Claim Miles",
+            "partners": "Cham Miles Partners",
+            "terms": "Terms And Conditions",
+            "calculator": "Miles Calculator"
+          }
+        },
+        "experience": {
+          "title": "Travel Experience",
+          "links": {
+            "before": "Before Travel",
+            "airport": "At The Airport",
+            "onBoard": "On Board",
+            "additional": "Additional Services"
+          }
+        },
+        "help": {
+          "title": "Help",
+          "links": {
+            "contactUs": "Contact Us",
+            "inquiries": "Inquiries & Complaints",
+            "offices": "Our Sales Offices",
+            "agents": "Our Agents Worldwide",
+            "partner": "Join As a Partner",
+            "faqs": "FAQs"
+          }
+        }
+      }
     }
   }
 }

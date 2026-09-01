@@ -22,6 +22,11 @@ function useHelpSearch() {
     setIsMenuOpen(false)
   }
 
+  function applyQuery(label) {
+    setQuery(label)
+    setIsMenuOpen(label.trim().length > 0)
+  }
+
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
   }, [])
@@ -33,6 +38,7 @@ function useHelpSearch() {
     handleQueryChange,
     handleFocus,
     handleSelect,
+    applyQuery,
     closeMenu,
   }
 }
