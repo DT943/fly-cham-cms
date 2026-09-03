@@ -7,7 +7,7 @@ function chipKey(type) {
   return type === 'faq' || type === 'form' ? type : 'page'
 }
 
-const SearchResultsMenu = ({ items, language, onSelect }) => {
+const SearchResultsMenu = ({ items, language, onSelect, showChips = false }) => {
   const { t } = useTranslation()
 
   if (!items.length) {
@@ -30,10 +30,12 @@ const SearchResultsMenu = ({ items, language, onSelect }) => {
           >
             <FiSearch className="w-4 h-4 text-700 shrink-0" />
             <span className="flex-1 min-w-0 truncate">{item.title?.[language] || item.title?.en}</span>
-            <SearchResultChip
-              type={item.type}
-              label={t(`help.search.chips.${chipKey(item.type)}`)}
-            />
+            {showChips && (
+              <SearchResultChip
+                type={item.type}
+                label={t(`help.search.chips.${chipKey(item.type)}`)}
+              />
+            )}
           </button>
         </li>
       ))}

@@ -15,6 +15,7 @@ const SearchConsole = ({
   showSuggestions = true,
   types,
   href,
+  showChips = false,
 }) => {
   const { t } = useTranslation()
   const containerRef = useRef(null)
@@ -90,6 +91,7 @@ const SearchConsole = ({
             items={results}
             language={language}
             onSelect={selectHit}
+            showChips={showChips}
           />
         )}
       </div>

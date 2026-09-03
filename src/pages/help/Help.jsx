@@ -30,7 +30,7 @@ const Help = () => {
             subtitle={t('help.hero.subtitle')}
           />
         </SearchAnchor>
-        <SearchConsole />
+        <SearchConsole showChips />
         <HelpCategories />
         <SearchAnchor hit="help-urgent">
           <CtaBanner
