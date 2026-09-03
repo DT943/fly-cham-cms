@@ -563,16 +563,24 @@
       }
     },
     "access": {
+      "title": "Find your booking",
+      "subtitle": "Enter your booking reference (PNR) and the passenger's last name. We will validate the reservation before you continue.",
       "pnr": {
-        "label": "PNR *"
+        "label": "Reservation number (PNR)",
+        "hint": "ex.4XKCT2"
       },
       "lastName": {
-        "label": "Last name *"
+        "label": "Last name"
       },
-      "submit": "Continue",
+      "note": "After we validate your booking, we'll show your passenger, flight and passenger-count details to help you complete your transportation request.",
+      "submit": "Find booking",
       "close": "Close",
       "errors": {
-        "required": "This field is required"
+        "pnrRequired": "Please enter your booking reference (PNR).",
+        "pnrAlphanumeric": "PNR must contain only letters and numbers.",
+        "pnrMin": "PNR must be at least 6 characters.",
+        "lastNameRequired": "Please enter the passenger's last name.",
+        "lastNameEnglish": "Last name must be in English letters only."
       }
     }
   },

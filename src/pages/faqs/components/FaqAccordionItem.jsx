@@ -15,7 +15,7 @@ const FaqAccordionItem = ({ question, answer, image, imageAlt = '', open, onTogg
           type="button"
           aria-expanded={open}
           onClick={onToggle}
-          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-center justify-between gap-6 cursor-pointer py-5 text-start ${
+          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-center justify-between gap-6 cursor-pointer py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
             open ? 'font-medium text-primary-1' : 'font-medium text-800'
           }`}
         >
@@ -36,7 +36,11 @@ const FaqAccordionItem = ({ question, answer, image, imageAlt = '', open, onTogg
       >
         <div className="overflow-hidden min-h-0">
           {hasBody && (
-            <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-8 pb-6">
+            <div
+              className={`flex flex-col md:flex-row md:items-start gap-5 md:gap-8 pb-6 transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${
+                open ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
               {paragraphs.length > 0 && (
                 <div className="flex flex-col gap-3 flex-1 min-w-0">
                   {paragraphs.map((paragraph) => (

@@ -24,14 +24,15 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
           return (
             <li
               key={category.id}
-              className={`overflow-hidden ${
+              className={`overflow-hidden transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
                 isExpanded || (isActiveCategory && !nestedTopics) ? 'bg-primary-100/30' : 'bg-transparent'
               }`}
             >
               <button
                 type="button"
+                aria-expanded={nestedTopics ? isExpanded : undefined}
                 onClick={() => onSelectCategory(category.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start ${
+                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
                   isExpanded || (isActiveCategory && !nestedTopics)
                     ? 'bg-primary-100/55'
                     : 'bg-transparent'
@@ -44,32 +45,39 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
                 <CaretDown
                   size={14}
                   weight="bold"
-                  className={`shrink-0 text-700 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                  className={`shrink-0 text-700 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${isExpanded ? 'rotate-180' : ''}`}
                 />
               </button>
 
-              {nestedTopics && isExpanded && (
-                <ul className="list-none m-0 p-0 pb-3 pt-1 flex flex-col">
-                  {category.topics.map((topic) => {
-                    const isActiveTopic = topic.id === topicId
+              {nestedTopics && (
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+                    isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                  }`}
+                >
+                  <ul className="overflow-hidden min-h-0 list-none m-0 p-0 pb-3 pt-1 flex flex-col">
+                    {category.topics.map((topic) => {
+                      const isActiveTopic = topic.id === topicId
 
-                    return (
-                      <li key={topic.id}>
-                        <button
-                          type="button"
-                          onClick={() => onSelectTopic(category.id, topic.id, topic.questions)}
-                          className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 ${
-                            isActiveTopic
-                              ? 'text-primary-1 font-bold'
-                              : 'text-800 font-normal hover:text-primary-1'
-                          }`}
-                        >
-                          {getFaqLabel(topic.title, language)}
-                        </button>
-                      </li>
-                    )
-                  })}
-                </ul>
+                      return (
+                        <li key={topic.id}>
+                          <button
+                            type="button"
+                            tabIndex={isExpanded ? 0 : -1}
+                            onClick={() => onSelectTopic(category.id, topic.id, topic.questions)}
+                            className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 transition-colors duration-200 ${
+                              isActiveTopic
+                                ? 'text-primary-1 font-bold'
+                                : 'text-800 font-normal hover:text-primary-1'
+                            }`}
+                          >
+                            {getFaqLabel(topic.title, language)}
+                          </button>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
               )}
             </li>
           )

@@ -12,6 +12,8 @@ const Input = ({
   error,
   rows,
   transparentBg = false,
+  icon: Icon,
+  hint,
   ...props
 }) => {
   const hasError = Boolean(error)
@@ -22,6 +24,42 @@ const Input = ({
     ? 'border border-alert'
     : 'border border-200 focus:!border-primary-1 focus-within:!border-primary-1'
   const textClass = hasError ? 'text-alert' : 'text-600'
+
+  if (Icon && !isTextarea) {
+    return (
+      <div className="relative w-full">
+        <div
+          className={`flex items-center gap-3 w-full bg-100 rounded-lg px-4 py-3 min-h-16 ${
+            hasError ? 'ring-1 ring-alert' : ''
+          }`}
+        >
+          <Icon size={22} weight="regular" className="shrink-0 text-800" />
+          <div className="flex-1 min-w-0">
+            <label
+              htmlFor={fieldId}
+              className={`${typography.caption} font-medium text-800 block m-0`}
+            >
+              {label}
+            </label>
+            <input
+              id={fieldId}
+              name={name}
+              type={type}
+              placeholder={hint || placeholder}
+              value={value}
+              onChange={onChange}
+              aria-invalid={hasError}
+              className={`block w-full bg-transparent border-0 p-0 ${typography.caption} text-800 placeholder:text-500 focus:outline-none focus:ring-0 ${className}`}
+              {...props}
+            />
+          </div>
+        </div>
+        {hasError && typeof error === 'string' && (
+          <p className={`${typography.caption} text-alert m-0 mt-1`}>{error}</p>
+        )}
+      </div>
+    )
+  }
 
   if (isTextarea) {
     return (
