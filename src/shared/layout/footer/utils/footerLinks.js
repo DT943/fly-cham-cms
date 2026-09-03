@@ -43,7 +43,7 @@ export const footerLinkHrefs = {
   groupTravel: '/help/forms',
   contactUs: '/help/contact-us',
   inquiries: '/help/forms',
-  offices: '/help/our-offices',
+  offices: '/help/contact-us/our-offices',
   agents: '/help/our-gsa',
   partner: '/help/our-gsa',
   faqs: '/help/faqs',

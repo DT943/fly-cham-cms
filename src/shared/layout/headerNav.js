@@ -13,7 +13,7 @@ export const helpMenuPanels = [
     links: [
       { id: 'faq', icon: Question, href: '/help/faqs' },
       { id: 'contactUs', icon: EnvelopeSimple, href: '/help/contact-us' },
-      { id: 'offices', icon: Buildings, href: '/help/our-offices' },
+      { id: 'offices', icon: Buildings, href: '/help/contact-us/our-offices' },
     ],
     ctaHref: '/help',
     quickLinks: [

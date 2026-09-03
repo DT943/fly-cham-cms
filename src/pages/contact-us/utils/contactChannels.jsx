@@ -5,7 +5,7 @@ import {
 } from '@phosphor-icons/react'
 
 export const contactChannels = [
-  { id: 'salesOffices', icon: Buildings, href: '/help/our-offices' },
+  { id: 'salesOffices', icon: Buildings, href: '/help/contact-us/our-offices' },
   { id: 'gsa', icon: GlobeHemisphereWest, href: '/help/our-gsa' },
   { id: 'request', icon: ClipboardText, href: '/help/forms' },
 ]
