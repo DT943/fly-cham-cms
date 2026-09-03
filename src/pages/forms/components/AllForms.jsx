@@ -4,10 +4,12 @@ import { typography } from '../../../styles/typography.js'
 import { filterSupportForms, supportForms } from '../utils/supportForms.js'
 import FormCard from './FormCard.jsx'
 import FormTabs from './FormTabs.jsx'
+import FormAccessModal from './FormAccessModal.jsx'
 
 const AllForms = ({ query = '' }) => {
   const { t } = useTranslation()
   const [stageId, setStageId] = useState('all')
+  const [selectedForm, setSelectedForm] = useState(null)
   const forms = filterSupportForms(supportForms, query, t, stageId)
 
   return (
@@ -26,13 +28,19 @@ const AllForms = ({ query = '' }) => {
             <FormCard
               key={form.id}
               icon={form.icon}
-              href={form.href}
+              onSelect={() => setSelectedForm(form)}
               category={t(`forms.filters.${form.stageId}`)}
               title={t(`forms.items.${form.id}.title`)}
               description={t(`forms.items.${form.id}.description`)}
             />
           ))}
         </div>
+      )}
+      {selectedForm && (
+        <FormAccessModal
+          form={selectedForm}
+          onClose={() => setSelectedForm(null)}
+        />
       )}
     </section>
   )

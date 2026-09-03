@@ -1,37 +1,37 @@
-export const headerNav = [
+import {
+  Buildings,
+  ClipboardText,
+  EnvelopeSimple,
+  MagnifyingGlass,
+  Question,
+} from '@phosphor-icons/react'
+
+export const helpMenuPanels = [
   {
-    id: 'book',
-    children: [
-      { id: 'searchFlight', href: '#' },
-      { id: 'schedules', href: '#' },
-      { id: 'groupTravel', href: '/help/forms' },
+    id: 'getHelp',
+    icon: Question,
+    links: [
+      { id: 'faq', icon: Question, href: '/help/faqs' },
+      { id: 'contactUs', icon: EnvelopeSimple, href: '/help/contact-us' },
+      { id: 'offices', icon: Buildings, href: '/help/our-offices' },
+    ],
+    ctaHref: '/help',
+    quickLinks: [
+      { id: 'faq', icon: Question, href: '/help/faqs' },
+      { id: 'contactUs', icon: EnvelopeSimple, href: '/help/contact-us' },
     ],
   },
   {
-    id: 'manage',
-    children: [
-      { id: 'checkIn', href: '#' },
-      { id: 'flightStatus', href: '#' },
-      { id: 'trackRequest', href: '/help/forms' },
+    id: 'requests',
+    icon: ClipboardText,
+    links: [
+      { id: 'forms', icon: ClipboardText, href: '/help/forms' },
+      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/forms' },
     ],
-  },
-  {
-    id: 'whereWeFly',
-    children: [
-      { id: 'domestic', href: '#' },
-      { id: 'international', href: '#' },
-      { id: 'indirect', href: '#' },
-    ],
-  },
-  {
-    id: 'help',
-    children: [
-      { id: 'helpCenter', href: '/help' },
-      { id: 'contactUs', href: '/help/contact-us' },
-      { id: 'forms', href: '/help/forms' },
-      { id: 'offices', href: '/help/our-offices' },
-      { id: 'agents', href: '/help/our-gsa' },
-      { id: 'faqs', href: '/help/faqs' },
+    ctaHref: '/help/forms',
+    quickLinks: [
+      { id: 'forms', icon: ClipboardText, href: '/help/forms' },
+      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/forms' },
     ],
   },
 ]

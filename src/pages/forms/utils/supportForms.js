@@ -132,6 +132,10 @@ export const supportForms = [
   },
 ]
 
+export function getSupportForm(id) {
+  return supportForms.find((form) => form.id === id) || null
+}
+
 export function filterSupportForms(forms, query, getText, stageId = 'all') {
   const byStage = stageId === 'all' ? forms : forms.filter((form) => form.stageId === stageId)
   const normalized = query.trim().toLowerCase()

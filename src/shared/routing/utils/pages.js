@@ -4,6 +4,7 @@ import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
 import Forms from '../../../pages/forms/Forms.jsx'
+import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
 
 export const pages = {
@@ -16,6 +17,10 @@ export const pages = {
   '/help/our-gsa': OurGsa,
 }
 
+const formDetailPath = /^\/help\/forms\/([^/]+)$/
+
 export function getPage(path) {
-  return pages[path] || null
+  if (pages[path]) return pages[path]
+  if (formDetailPath.test(path)) return FormDetail
+  return null
 }

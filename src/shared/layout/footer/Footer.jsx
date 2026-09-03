@@ -5,7 +5,7 @@ import FooterLegal from './components/FooterLegal.jsx'
 import { footerColumns } from './utils/footerLinks.js'
 
 const Footer = () => (
-  <footer className="bg-[#054E72] text-50">
+  <footer className="bg-secondary-2 text-50">
     <Container className="py-10 md:py-14 flex flex-col gap-10 md:gap-14">
       <FooterBrand />
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-6">

@@ -1,163 +1,94 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { CaretDown, Globe, List, User, X } from '@phosphor-icons/react'
+import { CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import logo from '../../assets/images/layout/logo.png'
+import logoDark from '../../assets/images/layout/logo-dark.png'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import { stripLanguage } from '../../i18n/languages.js'
-import { headerNav } from './headerNav.js'
+import { helpMenuPanels } from './headerNav.js'
+import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
 
 const Header = () => {
   const { t } = useTranslation()
   const location = useLocation()
+  const headerRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [panelId, setPanelId] = useState(helpMenuPanels[0].id)
 
   useEffect(() => {
     setMenuOpen(false)
+    setPanelId(helpMenuPanels[0].id)
   }, [location.pathname])
 
+  useEffect(() => {
+    if (!menuOpen) return undefined
+
+    const handlePointerDown = (event) => {
+      if (!headerRef.current?.contains(event.target)) {
+        setMenuOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [menuOpen])
+
   return (
-    <header className="bg-primary-1 text-50">
-      <Container className="h-16 md:h-20 flex items-center justify-between gap-4">
-        <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
-          <img
-            src={logo}
-            alt="Fly Cham"
-            className="h-8 md:h-10 w-auto mix-blend-screen"
-          />
-        </LocalizedLink>
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 bg-background border-t-0.75 border-secondary-2"
+    >
+      <div className="bg-background border-b border-200">
+        <Container className="h-16 md:h-18 flex items-center gap-4 md:gap-8">
+          <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
+            <img
+              src={logoDark}
+              alt="Fly Cham"
+              className="h-8 md:h-10 w-auto"
+            />
+          </LocalizedLink>
 
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label={t('layout.header.navLabel')}>
-          {headerNav.map((item) => (
-            <HeaderMenu key={item.id} item={item} />
-          ))}
-        </nav>
-
-        <div className="hidden lg:flex items-center gap-5">
-          <span className="w-px h-6 bg-50/40" aria-hidden="true" />
-          <button
-            type="button"
-            className={`flex items-center gap-2 bg-transparent border-none text-50 cursor-pointer p-0 ${typography.caption} font-medium`}
-          >
-            <Globe size={18} weight="regular" />
-            {t('layout.header.region')}
-          </button>
-          <button
-            type="button"
-            className={`flex items-center gap-2 bg-transparent border-none text-50 cursor-pointer p-0 ${typography.caption} font-medium`}
-          >
-            <User size={18} weight="regular" />
-            {t('layout.header.login')}
-          </button>
-        </div>
-
-        <button
-          type="button"
-          className="lg:hidden bg-transparent border-none text-50 p-1 cursor-pointer"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-label={t('layout.header.menu')}
-        >
-          {menuOpen ? <X size={26} weight="bold" /> : <List size={26} weight="bold" />}
-        </button>
-      </Container>
+          <nav aria-label={t('layout.header.navLabel')} className="flex items-stretch self-stretch">
+            <button
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="help-mega-menu"
+              onClick={() => setMenuOpen((open) => !open)}
+              className={`relative self-stretch flex items-center gap-1.5 bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium text-secondary-2 ${
+                menuOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''
+              }`}
+            >
+              {t('layout.header.nav.help')}
+              <CaretDown
+                size={12}
+                weight="bold"
+                className={`transition-transform ${menuOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+          </nav>
+        </Container>
+      </div>
 
       {menuOpen && (
-        <div className="lg:hidden border-t border-50/20">
-          <Container className="pb-6 pt-4 flex flex-col gap-4">
-            {headerNav.map((item) => (
-              <div key={item.id} className="flex flex-col gap-2">
-                <p className={`${typography.caption} font-semibold m-0 text-50`}>
-                  {t(`layout.header.nav.${item.id}`)}
-                </p>
-                {item.children.map((child) =>
-                  child.href === '#' ? (
-                    <a
-                      key={child.id}
-                      href="#"
-                      className={`${typography.caption} text-50/80 no-underline ps-2`}
-                    >
-                      {t(`layout.header.navItems.${child.id}`)}
-                    </a>
-                  ) : (
-                    <LocalizedLink
-                      key={child.id}
-                      nav
-                      to={child.href}
-                      end={child.href === '/help'}
-                      className={`${typography.caption} text-50/80 no-underline ps-2`}
-                    >
-                      {t(`layout.header.navItems.${child.id}`)}
-                    </LocalizedLink>
-                  )
-                )}
-              </div>
-            ))}
-            <div className="flex items-center gap-5 pt-2 border-t border-50/20">
-              <span className={`flex items-center gap-2 ${typography.caption}`}>
-                <Globe size={18} />
-                {t('layout.header.region')}
-              </span>
-              <span className={`flex items-center gap-2 ${typography.caption}`}>
-                <User size={18} />
-                {t('layout.header.login')}
-              </span>
-            </div>
-          </Container>
+        <div id="help-mega-menu">
+          <HelpMegaMenu
+            panels={helpMenuPanels}
+            activeId={panelId}
+            onSelectPanel={setPanelId}
+            onNavigate={() => setMenuOpen(false)}
+          />
         </div>
       )}
     </header>
-  )
-}
-
-const HeaderMenu = ({ item }) => {
-  const { t } = useTranslation()
-  const location = useLocation()
-  const currentPath = stripLanguage(location.pathname)
-  const isActive =
-    item.id === 'help'
-      ? currentPath === '/help' || currentPath.startsWith('/help/')
-      : item.children.some((child) => child.href !== '#' && currentPath === child.href)
-
-  return (
-    <div className="relative group">
-      <button
-        type="button"
-        className={`flex items-center gap-1 bg-transparent border-none text-50 cursor-pointer p-0 ${typography.caption} ${isActive ? 'font-semibold' : 'font-medium'}`}
-      >
-        {t(`layout.header.nav.${item.id}`)}
-        <CaretDown size={12} weight="bold" />
-      </button>
-      <div className="absolute top-full start-0 pt-3 hidden group-hover:block group-focus-within:block z-30">
-        <div className="min-w-48 bg-background rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.12)] py-2">
-          {item.children.map((child) =>
-            child.href === '#' ? (
-              <a
-                key={child.id}
-                href="#"
-                className={`block px-4 py-2 no-underline ${typography.caption} text-700 hover:bg-100`}
-              >
-                {t(`layout.header.navItems.${child.id}`)}
-              </a>
-            ) : (
-              <LocalizedLink
-                key={child.id}
-                nav
-                to={child.href}
-                end={child.href === '/help'}
-                className={({ isActive: linkActive }) =>
-                  `block px-4 py-2 no-underline ${typography.caption} ${linkActive ? 'text-primary-1 font-semibold' : 'text-700 hover:bg-100'}`
-                }
-              >
-                {t(`layout.header.navItems.${child.id}`)}
-              </LocalizedLink>
-            )
-          )}
-        </div>
-      </div>
-    </div>
   )
 }
 

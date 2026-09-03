@@ -561,6 +561,19 @@
       "errors": {
         "required": "This field is required"
       }
+    },
+    "access": {
+      "pnr": {
+        "label": "PNR *"
+      },
+      "lastName": {
+        "label": "Last name *"
+      },
+      "submit": "Continue",
+      "close": "Close",
+      "errors": {
+        "required": "This field is required"
+      }
     }
   },
   "faq": {
@@ -614,6 +627,65 @@
         "offices": "Our sales offices",
         "agents": "Our agents worldwide",
         "faqs": "FAQs"
+      },
+      "mega": {
+        "panelsLabel": "Help topics",
+        "panels": {
+          "getHelp": "Get help",
+          "requests": "Requests"
+        },
+        "links": {
+          "faq": {
+            "title": "FAQ",
+            "description": "Answers to common questions."
+          },
+          "contactUs": {
+            "title": "Contact us",
+            "description": "Ways to reach our teams."
+          },
+          "offices": {
+            "title": "Offices and agents",
+            "description": "Offices and appointed agents."
+          },
+          "forms": {
+            "title": "Forms and requests",
+            "description": "Find and submit the right form."
+          },
+          "trackRequest": {
+            "title": "Track your request",
+            "description": "Check the status of a submitted form."
+          }
+        },
+        "cta": {
+          "getHelp": {
+            "title": "Help, without the maze",
+            "description": "Clear routes to the right team for your question.",
+            "action": "See all help topics"
+          },
+          "requests": {
+            "title": "Forms and support requests",
+            "description": "Find the right form and provide complete and accurate details to help us process your request quickly.",
+            "action": "See all forms"
+          }
+        },
+        "quick": {
+          "faq": {
+            "title": "FAQ",
+            "description": "Common questions"
+          },
+          "contactUs": {
+            "title": "Contact us",
+            "description": "Reach our teams"
+          },
+          "forms": {
+            "title": "Forms",
+            "description": "Submit a request"
+          },
+          "trackRequest": {
+            "title": "Track request",
+            "description": "Check status"
+          }
+        }
       }
     },
     "footer": {
