@@ -572,7 +572,6 @@
       "lastName": {
         "label": "Last name"
       },
-      "note": "After we validate your booking, we'll show your passenger, flight and passenger-count details to help you complete your transportation request.",
       "submit": "Find booking",
       "close": "Close",
       "errors": {

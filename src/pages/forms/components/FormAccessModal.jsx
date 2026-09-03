@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { Info, Ticket, User, X } from '@phosphor-icons/react'
+import { Ticket, User, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Input from '../../../shared/components/Input.jsx'
 import Button from '../../../shared/components/Button.jsx'
@@ -15,7 +15,6 @@ const FormAccessModal = ({ form, onClose }) => {
   const navigate = useNavigate()
   const language = useCurrentLanguage()
   const titleId = 'form-access-title'
-  const noteId = 'form-access-note'
 
   const validationSchema = useMemo(
     () =>
@@ -143,7 +142,6 @@ const FormAccessModal = ({ form, onClose }) => {
               onChange={handlePnrChange}
               onBlur={formik.handleBlur}
               error={fieldError('pnr')}
-              aria-describedby={noteId}
             />
             <Input
               id="form-access-last-name"
@@ -160,13 +158,6 @@ const FormAccessModal = ({ form, onClose }) => {
               error={fieldError('lastName')}
             />
           </div>
-          <p
-            id={noteId}
-            className={`${typography.caption} text-primary-1 m-0 flex items-start gap-2`}
-          >
-            <Info size={16} weight="fill" className="shrink-0 mt-0.5" />
-            <span>{t('forms.access.note')}</span>
-          </p>
           <Button
             type="submit"
             disabled={!canSearch}
