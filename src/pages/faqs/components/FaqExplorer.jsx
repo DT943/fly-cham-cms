@@ -11,11 +11,11 @@ const FaqExplorer = () => {
     topic,
     questions,
     openIds,
-    allOpen,
     selectCategory,
     selectTopic,
     toggleQuestion,
     toggleAll,
+    focusQuestion,
   } = useFaqExplorer()
 
   return (
@@ -34,9 +34,9 @@ const FaqExplorer = () => {
         topic={topic}
         questions={questions}
         openIds={openIds}
-        allOpen={allOpen}
         onToggleQuestion={toggleQuestion}
         onToggleAll={toggleAll}
+        onFocusQuestion={focusQuestion}
       />
     </div>
   )

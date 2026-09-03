@@ -15,7 +15,6 @@ const useFaqExplorer = () => {
   const topic = findFaqTopic(category, topicId)
   const questions = topic?.questions || []
   const questionIds = questions.map((question) => question.id)
-  const allOpen = questionIds.length > 0 && questionIds.every((id) => openIds.includes(id))
 
   const selectCategory = (id) => {
     const next = faqCategories.find((item) => item.id === id)
@@ -51,8 +50,16 @@ const useFaqExplorer = () => {
     )
   }
 
-  const toggleAll = () => {
-    setOpenIds(allOpen ? [] : [...questionIds])
+  const toggleAll = (ids = questionIds) => {
+    const list = ids.length ? ids : questionIds
+    const everyOpen = list.length > 0 && list.every((id) => openIds.includes(id))
+    setOpenIds((current) =>
+      everyOpen ? current.filter((id) => !list.includes(id)) : [...new Set([...current, ...list])]
+    )
+  }
+
+  const focusQuestion = (id) => {
+    setOpenIds(id ? [id] : [])
   }
 
   return {
@@ -63,11 +70,11 @@ const useFaqExplorer = () => {
     topic,
     questions,
     openIds,
-    allOpen,
     selectCategory,
     selectTopic,
     toggleQuestion,
     toggleAll,
+    focusQuestion,
   }
 }
 
