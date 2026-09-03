@@ -24,27 +24,47 @@ function splitPath(path = '/') {
   }
 }
 
+function pathSegments(pathname) {
+  return pathname.split('/').filter(Boolean)
+}
+
 export function getLanguageFromPath(path) {
   const { pathname } = splitPath(path)
-  const segments = pathname.split('/').filter(Boolean)
+  const segments = pathSegments(pathname)
+  if (isSupportedLanguage(segments[0])) return segments[0]
   const last = segments[segments.length - 1]
   return isSupportedLanguage(last) ? last : null
 }
 
+export function hasLanguageSuffix(path) {
+  const { pathname } = splitPath(path)
+  const segments = pathSegments(pathname)
+  if (segments.length < 2) return false
+  return isSupportedLanguage(segments[segments.length - 1]) && !isSupportedLanguage(segments[0])
+}
+
 export function stripLanguage(path) {
   const { pathname, search, hash } = splitPath(path)
-  const lang = getLanguageFromPath(pathname)
-  if (!lang) return `${pathname}${search}${hash}`
+  const segments = pathSegments(pathname)
 
-  const stripped = pathname.replace(new RegExp(`/${lang}/?$`), '') || '/'
-  return `${stripped}${search}${hash}`
+  if (isSupportedLanguage(segments[0])) {
+    const stripped = `/${segments.slice(1).join('/')}`
+    return `${stripped === '/' ? '/' : stripped}${search}${hash}`
+  }
+
+  if (isSupportedLanguage(segments[segments.length - 1])) {
+    const stripped = `/${segments.slice(0, -1).join('/')}`
+    return `${stripped === '/' ? '/' : stripped}${search}${hash}`
+  }
+
+  return `${pathname}${search}${hash}`
 }
 
 export function withLanguage(path, lang) {
   const language = getPreferredLanguage(lang)
   const { pathname, search, hash } = splitPath(stripLanguage(path))
-  const base = pathname.replace(/\/+$/, '')
-  return `${base === '' || base === '/' ? '' : base}/${language}${search}${hash}`
+  const rest = pathname === '/' ? '' : pathname
+  return `/${language}${rest}${search}${hash}`
 }
 
 export function replaceLanguage(path, lang) {

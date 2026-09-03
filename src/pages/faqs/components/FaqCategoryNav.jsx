@@ -22,16 +22,15 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
             topicId === category.id || category.topics.some((topic) => topic.id === topicId)
 
           return (
-            <li
-              key={category.id}
-              className={`rounded-xl overflow-hidden ${
-                isExpanded || (isActiveCategory && !nestedTopics) ? 'bg-primary-1/10' : 'bg-transparent'
-              }`}
-            >
+            <li key={category.id} className="rounded-xl overflow-hidden">
               <button
                 type="button"
                 onClick={() => onSelectCategory(category.id)}
-                className="w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start bg-transparent"
+                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start ${
+                  isExpanded || (isActiveCategory && !nestedTopics)
+                    ? 'bg-primary-100/45'
+                    : 'bg-transparent'
+                }`}
               >
                 <Icon size={22} weight="regular" className="shrink-0 text-800" />
                 <span className={`${typography.body} font-medium text-800 flex-1 min-w-0`}>
@@ -45,7 +44,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
               </button>
 
               {nestedTopics && isExpanded && (
-                <ul className="list-none m-0 p-0 pb-3 flex flex-col bg-primary-1/5">
+                <ul className="list-none m-0 p-0 pb-3 flex flex-col bg-primary-100/20">
                   {category.topics.map((topic) => {
                     const isActiveTopic = topic.id === topicId
 
@@ -55,7 +54,9 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
                           type="button"
                           onClick={() => onSelectTopic(category.id, topic.id, topic.questions)}
                           className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 ${
-                            isActiveTopic ? 'text-primary-1 font-semibold' : 'text-600 font-medium hover:text-primary-1'
+                            isActiveTopic
+                              ? 'text-primary-1 font-bold'
+                              : 'text-800 font-normal hover:text-primary-1'
                           }`}
                         >
                           {getFaqLabel(topic.title, language)}

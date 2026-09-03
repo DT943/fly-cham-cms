@@ -17,7 +17,7 @@ export function applyDocumentDirection(lng) {
 
 const languageDetector = new LanguageDetector()
 languageDetector.addDetector({
-  name: 'urlSuffix',
+  name: 'urlPrefix',
   lookup() {
     if (typeof window === 'undefined') return undefined
     return getLanguageFromPath(window.location.pathname)
@@ -38,7 +38,7 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ['urlSuffix', 'localStorage', 'navigator'],
+      order: ['urlPrefix', 'localStorage', 'navigator'],
       caches: ['localStorage'],
     },
   })
