@@ -71,6 +71,19 @@ export function findFaqTopic(category, topicId) {
   return category.topics.find((topic) => topic.id === topicId) || category.topics[0] || null
 }
 
+export function findFaqQuestionLocation(questionId) {
+  if (!questionId) return null
+
+  for (const category of faqCategories) {
+    for (const topic of category.topics) {
+      const question = topic.questions.find((item) => item.id === questionId)
+      if (question) return { category, topic, question }
+    }
+  }
+
+  return null
+}
+
 export function groupFaqQuestions(questions, topicTitle) {
   const groups = []
 

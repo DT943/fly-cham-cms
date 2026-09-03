@@ -4,11 +4,13 @@ import { typography } from '../../../styles/typography.js'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import { faqQuestionImages, getFaqLabel, groupFaqQuestions } from '../utils/faqCategories.js'
 import {
+  getQuestionMethodTabId,
   getQuestionsForMethodTab,
   getTopicMethodTabs,
 } from '../utils/faqPaymentTabs.js'
 import FaqAccordionItem from './FaqAccordionItem.jsx'
 import FaqTabs from './FaqTabs.jsx'
+import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const FaqTopicPanel = ({
   category,
@@ -18,17 +20,20 @@ const FaqTopicPanel = ({
   onToggleQuestion,
   onToggleAll,
   onFocusQuestion,
+  focusQuestionId,
 }) => {
   const { t } = useTranslation()
   const language = useCurrentLanguage()
   const categoryTitle = getFaqLabel(category.title, language)
   const topicTitle = topic ? getFaqLabel(topic.title, language) : categoryTitle
   const methodTabs = getTopicMethodTabs(topic, questions, language)
-  const [methodTabId, setMethodTabId] = useState(methodTabs[0]?.id)
+  const focusedQuestion = questions.find((question) => question.id === focusQuestionId)
+  const focusedTabId = focusedQuestion ? getQuestionMethodTabId(focusedQuestion) : undefined
+  const [methodTabId, setMethodTabId] = useState(focusedTabId)
 
   useEffect(() => {
-    setMethodTabId(undefined)
-  }, [topic?.id])
+    setMethodTabId(focusedTabId)
+  }, [topic?.id, focusedTabId])
 
   const activeTabId = methodTabs.some((tab) => tab.id === methodTabId)
     ? methodTabId
@@ -102,6 +107,7 @@ const FaqTopicPanel = ({
                   return (
                     <FaqAccordionItem
                       key={question.id}
+                      id={searchHitId(question.id)}
                       question={getFaqLabel(question.question, language)}
                       answer={getFaqLabel(question.answer, language)}
                       image={image?.src}

@@ -2,12 +2,13 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import { journeySteps } from '../utils/journeySteps.js'
 import JourneyStep from './JourneyStep.jsx'
+import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
 
 const JourneySection = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="bg-background rounded-xl px-4 py-6 sm:px-8 sm:py-10 md:px-10 md:py-12">
+    <SearchAnchor hit="help-journey" as="section" className="bg-background rounded-xl px-4 py-6 sm:px-8 sm:py-10 md:px-10 md:py-12">
       <div className="flex flex-col gap-2 mb-6 md:mb-7">
         <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
           {t('help.journey.title')}
@@ -28,7 +29,7 @@ const JourneySection = () => {
           />
         ))}
       </div>
-    </section>
+    </SearchAnchor>
   )
 }
 

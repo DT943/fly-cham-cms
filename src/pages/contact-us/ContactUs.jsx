@@ -11,6 +11,7 @@ import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
 import GetInTouch from './components/GetInTouch.jsx'
 import PromoBanner from '../../shared/components/PromoBanner.jsx'
 import flightBanner from '../../assets/images/contact-us/banner.png'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const ContactUs = () => {
   const { t } = useTranslation()
@@ -28,13 +29,15 @@ const ContactUs = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('contact.hero.title')}
-          subtitle={t('contact.hero.subtitle')}
-          image={heroPhoto}
-          mask={heroMask}
-          imageAlt={t('contact.hero.imageAlt')}
-        />
+        <SearchAnchor hit="contact-hero">
+          <PageHero
+            title={t('contact.hero.title')}
+            subtitle={t('contact.hero.subtitle')}
+            image={heroPhoto}
+            mask={heroMask}
+            imageAlt={t('contact.hero.imageAlt')}
+          />
+        </SearchAnchor>
         <ContactChannels />
         <ContactForms />
         <LiveChatBanner
@@ -45,13 +48,15 @@ const ContactUs = () => {
       </Container>
       <GetInTouch />
       <Container className="pb-6 md:pb-10">
-        <PromoBanner
-          title={t('contact.flightStatus.title')}
-          description={t('contact.flightStatus.description')}
-          cta={t('contact.flightStatus.cta')}
-          image={flightBanner}
-          imageAlt={t('contact.flightStatus.imageAlt')}
-        />
+        <SearchAnchor hit="contact-flight-status">
+          <PromoBanner
+            title={t('contact.flightStatus.title')}
+            description={t('contact.flightStatus.description')}
+            cta={t('contact.flightStatus.cta')}
+            image={flightBanner}
+            imageAlt={t('contact.flightStatus.imageAlt')}
+          />
+        </SearchAnchor>
       </Container>
     </main>
   )

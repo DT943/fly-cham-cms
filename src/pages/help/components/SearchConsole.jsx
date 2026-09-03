@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
-import useHelpSearch from '../hooks/useHelpSearch.js'
-import SearchSuggestionsMenu from './SearchSuggestionsMenu.jsx'
+import useAppSearch from '../../../shared/search/hooks/useAppSearch.js'
+import SearchResultsMenu from '../../../shared/search/components/SearchResultsMenu.jsx'
 
 const SearchConsole = ({
   label,
@@ -14,23 +14,28 @@ const SearchConsole = ({
   onQueryChange,
   showSuggestions = true,
 }) => {
-  const { t, i18n } = useTranslation()
-  const language = (i18n.resolvedLanguage || i18n.language || 'en').split('-')[0]
+  const { t } = useTranslation()
   const containerRef = useRef(null)
   const {
     query,
-    suggestions,
+    results,
     isMenuOpen,
     handleQueryChange,
     handleFocus,
     handleSelect,
     applyQuery,
     closeMenu,
-  } = useHelpSearch()
+    language,
+  } = useAppSearch()
 
   const resolvedLabel = label ?? t('help.search.label')
   const resolvedPlaceholder = placeholder ?? t('help.search.placeholder')
   const resolvedSubmit = submit === undefined ? t('help.search.submit') : submit
+
+  const selectHit = (hit) => {
+    handleSelect(hit)
+    onQueryChange?.(hit.title?.[language] || hit.title?.en || '')
+  }
 
   useEffect(() => {
     function handlePointerDown(event) {
@@ -59,10 +64,19 @@ const SearchConsole = ({
               onQueryChange?.(event.target.value)
             }}
             onFocus={showSuggestions ? handleFocus : undefined}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && results[0]) {
+                event.preventDefault()
+                selectHit(results[0])
+              }
+            }}
           />
           {resolvedSubmit && (
             <button
               type="button"
+              onClick={() => {
+                if (results[0]) selectHit(results[0])
+              }}
               className={`${typography.button} hidden md:inline-flex shrink-0 font-semibold text-700 bg-secondary hover:bg-secondary-800 border-none rounded-lg px-6 py-2 cursor-pointer transition-colors`}
             >
               {resolvedSubmit}
@@ -70,10 +84,10 @@ const SearchConsole = ({
           )}
         </div>
         {showSuggestions && isMenuOpen && (
-          <SearchSuggestionsMenu
-            items={suggestions}
-            getLabel={(item) => item[language] || item.en}
-            onSelect={(item) => handleSelect(item[language] || item.en)}
+          <SearchResultsMenu
+            items={results}
+            language={language}
+            onSelect={selectHit}
           />
         )}
       </div>

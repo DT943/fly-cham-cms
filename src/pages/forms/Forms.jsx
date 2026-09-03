@@ -10,6 +10,7 @@ import TrackRequest from './components/TrackRequest.jsx'
 import CtaBanner from '../../shared/components/CtaBanner.jsx'
 import heroPhoto from '../../assets/images/forms/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const popularSearchIds = ['baggage', 'refund', 'payment', 'lostBaggage']
 
@@ -31,13 +32,15 @@ const Forms = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('forms.hero.title')}
-          subtitle={t('forms.hero.subtitle')}
-          image={heroPhoto}
-          mask={heroMask}
-          imageAlt={t('forms.hero.imageAlt')}
-        />
+        <SearchAnchor hit="forms-hero">
+          <PageHero
+            title={t('forms.hero.title')}
+            subtitle={t('forms.hero.subtitle')}
+            image={heroPhoto}
+            mask={heroMask}
+            imageAlt={t('forms.hero.imageAlt')}
+          />
+        </SearchAnchor>
         <SearchConsole
           label={t('forms.search.label')}
           placeholder={t('forms.search.placeholder')}
@@ -48,7 +51,6 @@ const Forms = () => {
             label: t(`forms.search.tags.${id}`),
           }))}
           onQueryChange={setSearchQuery}
-          showSuggestions={false}
         />
         <AllForms query={searchQuery} />
         <TrackRequest />

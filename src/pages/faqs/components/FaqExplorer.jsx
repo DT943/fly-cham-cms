@@ -11,6 +11,7 @@ const FaqExplorer = () => {
     topic,
     questions,
     openIds,
+    focusQuestionId,
     selectCategory,
     selectTopic,
     toggleQuestion,
@@ -37,6 +38,7 @@ const FaqExplorer = () => {
         onToggleQuestion={toggleQuestion}
         onToggleAll={toggleAll}
         onFocusQuestion={focusQuestion}
+        focusQuestionId={focusQuestionId}
       />
     </div>
   )

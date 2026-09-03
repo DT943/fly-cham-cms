@@ -7,6 +7,7 @@ import SearchConsole from './components/SearchConsole.jsx'
 import HelpCategories from './components/HelpCategories.jsx'
 import CtaBanner from '../../shared/components/CtaBanner.jsx'
 import JourneySection from './components/JourneySection.jsx'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const Help = () => {
   const { t } = useTranslation()
@@ -23,17 +24,21 @@ const Help = () => {
           <Breadcrumbs items={helpBreadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('help.hero.title')}
-          subtitle={t('help.hero.subtitle')}
-        />
+        <SearchAnchor hit="help-hero">
+          <PageHero
+            title={t('help.hero.title')}
+            subtitle={t('help.hero.subtitle')}
+          />
+        </SearchAnchor>
         <SearchConsole />
         <HelpCategories />
-        <CtaBanner
-          title={t('help.urgent.title')}
-          description={t('help.urgent.description')}
-          cta={t('help.urgent.cta')}
-        />
+        <SearchAnchor hit="help-urgent">
+          <CtaBanner
+            title={t('help.urgent.title')}
+            description={t('help.urgent.description')}
+            cta={t('help.urgent.cta')}
+          />
+        </SearchAnchor>
         <JourneySection />
       </Container>
     </main>

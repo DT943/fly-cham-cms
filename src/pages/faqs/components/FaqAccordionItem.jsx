@@ -1,7 +1,7 @@
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 
-const FaqAccordionItem = ({ question, answer, image, imageAlt = '', open, onToggle }) => {
+const FaqAccordionItem = ({ id, question, answer, image, imageAlt = '', open, onToggle }) => {
   const paragraphs = String(answer || '')
     .split('\n\n')
     .map((part) => part.trim())
@@ -9,7 +9,7 @@ const FaqAccordionItem = ({ question, answer, image, imageAlt = '', open, onTogg
   const hasBody = paragraphs.length > 0 || Boolean(image)
 
   return (
-    <div className="border-b border-200 last:border-b-0">
+    <div id={id} className="border-b border-200 last:border-b-0 scroll-mt-28">
       <h3 className="m-0">
         <button
           type="button"

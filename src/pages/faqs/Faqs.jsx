@@ -7,6 +7,7 @@ import SearchConsole from '../help/components/SearchConsole.jsx'
 import FaqExplorer from './components/FaqExplorer.jsx'
 import GetHelp from '../our-offices/components/GetHelp.jsx'
 import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const popularSearchIds = ['baggage', 'bookingOnline', 'checkIn', 'flightStatus']
 
@@ -26,10 +27,12 @@ const Faqs = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('faq.hero.title')}
-          subtitle={t('faq.hero.subtitle')}
-        />
+        <SearchAnchor hit="faqs-hero">
+          <PageHero
+            title={t('faq.hero.title')}
+            subtitle={t('faq.hero.subtitle')}
+          />
+        </SearchAnchor>
         <SearchConsole
           label={t('faq.search.label')}
           placeholder={t('faq.search.placeholder')}
@@ -39,7 +42,6 @@ const Faqs = () => {
             id,
             label: t(`faq.search.tags.${id}`),
           }))}
-          showSuggestions={false}
         />
         <FaqExplorer />
         <GetHelp />

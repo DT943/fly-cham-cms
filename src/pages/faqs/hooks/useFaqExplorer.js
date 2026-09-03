@@ -1,15 +1,45 @@
-import { useState } from 'react'
-import { faqCategories, findFaqCategory, findFaqTopic } from '../utils/faqCategories.js'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import {
+  faqCategories,
+  findFaqCategory,
+  findFaqQuestionLocation,
+  findFaqTopic,
+} from '../utils/faqCategories.js'
 
 const defaultCategory = faqCategories[0]
 const defaultTopic = defaultCategory.topics[0] || null
 const defaultTopicId = defaultTopic?.id || defaultCategory.id
 const defaultQuestionIds = defaultTopic?.questions?.map((question) => question.id) || []
 
+function getExplorerStateFromQuestion(questionId) {
+  const location = findFaqQuestionLocation(questionId)
+  if (!location) return null
+
+  return {
+    expandedId: location.category.id,
+    topicId: location.topic.id,
+    openIds: [location.question.id],
+  }
+}
+
 const useFaqExplorer = () => {
-  const [expandedId, setExpandedId] = useState(defaultCategory.id)
-  const [topicId, setTopicId] = useState(defaultTopicId)
-  const [openIds, setOpenIds] = useState(defaultQuestionIds.slice(0, 1))
+  const [searchParams] = useSearchParams()
+  const questionParam = searchParams.get('question')
+  const fromSearch = getExplorerStateFromQuestion(questionParam)
+
+  const [expandedId, setExpandedId] = useState(fromSearch?.expandedId ?? defaultCategory.id)
+  const [topicId, setTopicId] = useState(fromSearch?.topicId ?? defaultTopicId)
+  const [openIds, setOpenIds] = useState(fromSearch?.openIds ?? defaultQuestionIds.slice(0, 1))
+
+  useEffect(() => {
+    const next = getExplorerStateFromQuestion(questionParam)
+    if (!next) return
+
+    setExpandedId(next.expandedId)
+    setTopicId(next.topicId)
+    setOpenIds(next.openIds)
+  }, [questionParam])
 
   const category = findFaqCategory(faqCategories, topicId)
   const topic = findFaqTopic(category, topicId)
@@ -70,6 +100,7 @@ const useFaqExplorer = () => {
     topic,
     questions,
     openIds,
+    focusQuestionId: questionParam,
     selectCategory,
     selectTopic,
     toggleQuestion,

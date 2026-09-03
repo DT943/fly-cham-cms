@@ -3,12 +3,13 @@ import { typography } from '../../../styles/typography.js'
 import { contactForms } from '../utils/contactForms.jsx'
 import ContactFormCard from './ContactFormCard.jsx'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
 
 const ContactForms = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="flex flex-col gap-4 md:gap-6">
+    <SearchAnchor hit="contact-forms" as="section" className="flex flex-col gap-4 md:gap-6">
       <div className="flex flex-col gap-2">
         <h2 className={`${typography.sectionTitle} font-semibold text-700 m-0`}>
           {t('contact.forms.title')}
@@ -36,7 +37,7 @@ const ContactForms = () => {
           {t('contact.forms.viewAll')}
         </LocalizedLink>
       </div>
-    </section>
+    </SearchAnchor>
   )
 }
 

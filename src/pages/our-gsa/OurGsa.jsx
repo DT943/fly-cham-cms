@@ -9,6 +9,7 @@ import Faqs from '../../shared/components/Faqs.jsx'
 import heroPhoto from '../../assets/images/our-gsa/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
 import partnerBanner from '../../assets/images/our-gsa/ph2.png'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const faqIds = ['agencySupport', 'setupFees', 'complianceDocs', 'apiAccess']
 
@@ -35,13 +36,15 @@ const OurGsa = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('gsa.hero.title')}
-          subtitle={t('gsa.hero.subtitle')}
-          image={heroPhoto}
-          mask={heroMask}
-          imageAlt={t('gsa.hero.imageAlt')}
-        />
+        <SearchAnchor hit="gsa-hero">
+          <PageHero
+            title={t('gsa.hero.title')}
+            subtitle={t('gsa.hero.subtitle')}
+            image={heroPhoto}
+            mask={heroMask}
+            imageAlt={t('gsa.hero.imageAlt')}
+          />
+        </SearchAnchor>
         <GsaNetwork />
         <PromoBanner
           title={t('gsa.partner.title')}

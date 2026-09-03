@@ -4,6 +4,7 @@ import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
 import Input from '../../../shared/components/Input.jsx'
 import { typography } from '../../../styles/typography.js'
+import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
 
 const TrackRequest = () => {
   const { t } = useTranslation()
@@ -34,7 +35,7 @@ const TrackRequest = () => {
     formik.submitCount > 0 ? formik.errors[name] : undefined
 
   return (
-    <section className="flex flex-col gap-4 md:gap-6">
+    <SearchAnchor hit="forms-track" as="section" className="flex flex-col gap-4 md:gap-6">
       <div className="flex flex-col gap-1">
         <h2 className={`${typography.sectionTitle} font-semibold text-700 m-0`}>
           {t('forms.track.title')}
@@ -72,7 +73,7 @@ const TrackRequest = () => {
           {t('forms.track.submit')}
         </button>
       </form>
-    </section>
+    </SearchAnchor>
   )
 }
 

@@ -165,3 +165,8 @@ body {
   background: transparent !important;
   border: none !important;
 }
+
+.search-hit-flash {
+  box-shadow: 0 0 0 2px var(--color-primary-1);
+  border-radius: 0.75rem;
+}

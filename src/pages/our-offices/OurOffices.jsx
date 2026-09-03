@@ -9,6 +9,7 @@ import OfficeTabs from './components/OfficeTabs.jsx'
 import GetHelp from './components/GetHelp.jsx'
 import Faqs from '../../shared/components/Faqs.jsx'
 import LiveChatBanner from '../../shared/components/LiveChatBanner.jsx'
+import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 
 const faqIds = ['baggageAllowance', 'infantWeight', 'extraBag']
 
@@ -35,13 +36,15 @@ const OurOffices = () => {
           <Breadcrumbs items={breadcrumbs} />
           <LanguageSwitcher />
         </div>
-        <PageHero
-          title={t('offices.hero.title')}
-          subtitle={t('offices.hero.subtitle')}
-          image={heroPhoto}
-          mask={heroMask}
-          imageAlt={t('offices.hero.imageAlt')}
-        />
+        <SearchAnchor hit="offices-hero">
+          <PageHero
+            title={t('offices.hero.title')}
+            subtitle={t('offices.hero.subtitle')}
+            image={heroPhoto}
+            mask={heroMask}
+            imageAlt={t('offices.hero.imageAlt')}
+          />
+        </SearchAnchor>
         <OfficeTabs />
         <LiveChatBanner
           title={t('common.liveChat.title')}

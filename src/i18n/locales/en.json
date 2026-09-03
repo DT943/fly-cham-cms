@@ -23,7 +23,12 @@
     "search": {
       "label": "Search By Topic, Question, Or Keyword",
       "placeholder": "Search by topic, question, or keyword",
-      "submit": "Search"
+      "submit": "Search",
+      "empty": "No matching topics, questions, or pages.",
+      "chips": {
+        "faq": "FAQ",
+        "page": "Page"
+      }
     },
     "journey": {
       "title": "Your Journey, Supported at Every Step",
@@ -462,10 +467,10 @@
     },
     "filters": {
       "label": "Filter forms",
-      "all": "All Forms",
+      "all": "All forms",
       "beforeTravel": "Before Travel",
       "atAirport": "At the Airport",
-      "afterTravel": "After Travel",
+      "afterTravel": "Onboard Experience",
       "others": "Others"
     },
     "items": {

@@ -1,16 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import { filterSupportForms, supportForms } from '../utils/supportForms.js'
 import FormCard from './FormCard.jsx'
 import FormTabs from './FormTabs.jsx'
 import FormAccessModal from './FormAccessModal.jsx'
+import { getSearchHitKey, searchHitId } from '../../../shared/search/utils/searchHit.js'
+
+function getHashedFormId(hash) {
+  const key = getSearchHitKey(hash)
+  return key.startsWith('form-') ? key.slice('form-'.length) : ''
+}
 
 const AllForms = ({ query = '' }) => {
   const { t } = useTranslation()
+  const { hash } = useLocation()
   const [stageId, setStageId] = useState('all')
   const [selectedForm, setSelectedForm] = useState(null)
-  const forms = filterSupportForms(supportForms, query, t, stageId)
+  const hashedFormId = getHashedFormId(hash)
+
+  useEffect(() => {
+    if (!hashedFormId) return
+    const hashedForm = supportForms.find((form) => form.id === hashedFormId)
+    if (hashedForm) setStageId('all')
+  }, [hashedFormId])
+
+  const forms = useMemo(() => {
+    const filtered = filterSupportForms(supportForms, query, t, stageId)
+    if (!hashedFormId) return filtered
+
+    const hashedForm = supportForms.find((form) => form.id === hashedFormId)
+    if (hashedForm && !filtered.some((form) => form.id === hashedFormId)) {
+      return [hashedForm, ...filtered]
+    }
+
+    return filtered
+  }, [query, t, stageId, hashedFormId])
 
   return (
     <section className="flex flex-col gap-4 md:gap-6">
@@ -27,6 +53,7 @@ const AllForms = ({ query = '' }) => {
           {forms.map((form) => (
             <FormCard
               key={form.id}
+              id={searchHitId(`form-${form.id}`)}
               icon={form.icon}
               onSelect={() => setSelectedForm(form)}
               category={t(`forms.filters.${form.stageId}`)}

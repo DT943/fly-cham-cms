@@ -2,12 +2,13 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import { contactChannels } from '../utils/contactChannels.jsx'
 import ContactChannelCard from './ContactChannelCard.jsx'
+import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
 
 const ContactChannels = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="flex flex-col gap-4 md:gap-6">
+    <SearchAnchor hit="contact-channels" as="section" className="flex flex-col gap-4 md:gap-6">
       <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
         {t('contact.channels.title')}
       </h2>
@@ -23,7 +24,7 @@ const ContactChannels = () => {
           />
         ))}
       </div>
-    </section>
+    </SearchAnchor>
   )
 }
 

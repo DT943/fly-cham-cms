@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import agentPhoto from '../../../assets/images/contact-us/ph2.png'
 import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
+import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
 
 const PHONE_DISPLAY = '+963 -11-2122222'
 const PHONE_HREF = 'tel:+963112122222'
@@ -11,7 +12,7 @@ const GetInTouch = () => {
   const { t } = useTranslation()
 
   return (
-    <section className="w-full bg-200 mb-6 md:mb-10">
+    <SearchAnchor hit="contact-get-in-touch" as="section" className="w-full bg-200 mb-6 md:mb-10">
       <Container className="py-8 md:py-14 flex flex-col items-center text-center gap-3 md:gap-4">
         <h2 className={`${typography.sectionTitle} font-bold text-700 m-0`}>
           {t('contact.getInTouch.title')}
@@ -42,7 +43,7 @@ const GetInTouch = () => {
           {t('contact.getInTouch.note')}
         </p>
       </Container>
-    </section>
+    </SearchAnchor>
   )
 }
 
