@@ -15,7 +15,7 @@ const FaqAccordionItem = ({ id, question, answer, image, imageAlt = '', open, on
           type="button"
           aria-expanded={open}
           onClick={onToggle}
-          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-center justify-between gap-6 cursor-pointer py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
+          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
             open ? 'font-medium text-primary-1' : 'font-medium text-800'
           }`}
         >
@@ -23,7 +23,7 @@ const FaqAccordionItem = ({ id, question, answer, image, imageAlt = '', open, on
           <CaretDown
             size={16}
             weight="bold"
-            className={`shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+            className={`shrink-0 mt-1 md:mt-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
               open ? 'rotate-180 text-primary-1' : 'text-500'
             }`}
           />

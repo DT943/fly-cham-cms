@@ -54,7 +54,7 @@ const FaqTopicPanel = ({
   }
 
   return (
-    <section className="bg-background rounded-xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] px-5 py-6 sm:px-8 md:px-10 md:py-8 flex-1 min-w-0">
+    <section className="bg-background rounded-xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] px-4 py-5 sm:px-8 sm:py-6 md:px-10 md:py-8 flex-1 min-w-0 scroll-mt-28">
       <div className="flex flex-col">
         <div className="flex flex-col gap-4 pb-5 border-b border-200">
           <div className="flex flex-col gap-1">
@@ -63,15 +63,15 @@ const FaqTopicPanel = ({
                 {categoryTitle}
               </p>
             )}
-            <div className="flex items-center justify-between gap-4 min-w-0">
-              <h2 className={`${typography.sectionTitle} font-bold text-800 m-0`}>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4 min-w-0">
+              <h2 className={`${typography.sectionTitle} font-bold text-800 m-0 min-w-0`}>
                 {topicTitle}
               </h2>
               {visibleQuestions.length > 0 && (
                 <button
                   type="button"
                   onClick={() => onToggleAll(visibleIds)}
-                  className={`${typography.caption} font-medium text-primary-1 bg-transparent border-none cursor-pointer p-0 shrink-0`}
+                  className={`${typography.caption} font-medium text-primary-1 bg-transparent border-none cursor-pointer p-0 shrink-0 self-start`}
                 >
                   {visibleAllOpen ? t('faq.explorer.closeAll') : t('faq.explorer.openAll')}
                 </button>

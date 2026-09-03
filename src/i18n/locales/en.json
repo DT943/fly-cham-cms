@@ -607,6 +607,7 @@
     },
     "explorer": {
       "navLabel": "FAQ topics",
+      "changeTopic": "Change topic",
       "openAll": "Open all Questions",
       "closeAll": "Close all Questions",
       "empty": "Questions for this topic will appear here."

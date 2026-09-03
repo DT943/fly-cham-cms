@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import useFaqExplorer from '../hooks/useFaqExplorer.js'
+import { hasNestedTopics } from '../utils/faqCategories.js'
 import FaqCategoryNav from './FaqCategoryNav.jsx'
 import FaqTopicPanel from './FaqTopicPanel.jsx'
 
@@ -18,16 +20,33 @@ const FaqExplorer = () => {
     toggleAll,
     focusQuestion,
   } = useFaqExplorer()
+  const [navOpen, setNavOpen] = useState(false)
+
+  const closeMobileNav = () => setNavOpen(false)
+
+  const handleSelectCategory = (id) => {
+    const next = categories.find((item) => item.id === id)
+    const collapsing = expandedId === id
+    selectCategory(id)
+    if (next && !hasNestedTopics(next) && !collapsing) closeMobileNav()
+  }
+
+  const handleSelectTopic = (categoryId, nextTopicId, nextQuestions = []) => {
+    selectTopic(categoryId, nextTopicId, nextQuestions)
+    closeMobileNav()
+  }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 md:gap-5 items-start">
+    <div className="flex flex-col lg:flex-row gap-3 md:gap-5 items-stretch lg:items-start">
       <div className="w-full lg:w-72 xl:w-80 shrink-0">
         <FaqCategoryNav
           categories={categories}
           expandedId={expandedId}
           topicId={topicId}
-          onSelectCategory={selectCategory}
-          onSelectTopic={selectTopic}
+          onSelectCategory={handleSelectCategory}
+          onSelectTopic={handleSelectTopic}
+          mobileOpen={navOpen}
+          onToggleMobile={() => setNavOpen((open) => !open)}
         />
       </div>
       <FaqTopicPanel

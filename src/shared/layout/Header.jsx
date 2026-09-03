@@ -8,6 +8,7 @@ import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
 import { helpMenuPanels } from './headerNav.js'
 import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
+import useHideOnScroll from './hooks/useHideOnScroll.js'
 
 const Header = () => {
   const { t } = useTranslation()
@@ -15,6 +16,7 @@ const Header = () => {
   const headerRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [panelId, setPanelId] = useState(helpMenuPanels[0].id)
+  const hidden = useHideOnScroll({ enabled: !menuOpen, resetKey: location.pathname })
 
   useEffect(() => {
     setMenuOpen(false)
@@ -45,7 +47,9 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 bg-background border-t-0.75 border-secondary-2"
+      className={`sticky top-0 z-50 bg-background border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
     >
       <div className="bg-background border-b border-200">
         <Container className="h-16 md:h-18 flex items-center gap-4 md:gap-8">
