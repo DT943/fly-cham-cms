@@ -34,7 +34,7 @@ const FormAccessModal = ({ form, onClose }) => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      navigate(withLanguage(`/help/forms/${form.id}`, language), {
+      navigate(withLanguage(`/help/contact-us/forms/${form.id}`, language), {
         state: {
           pnr: values.pnr.trim(),
           lastName: values.lastName.trim(),

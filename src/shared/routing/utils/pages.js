@@ -6,23 +6,32 @@ import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
 import Forms from '../../../pages/forms/Forms.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
-import OurOfficesRedirect from '../components/OurOfficesRedirect.jsx'
+import {
+  FormsRedirect,
+  LegacyFormDetailRedirect,
+  OurGsaRedirect,
+  OurOfficesRedirect,
+} from '../components/OurOfficesRedirect.jsx'
 
 export const pages = {
   '/': Home,
   '/help': Help,
   '/help/contact-us': ContactUs,
   '/help/contact-us/our-offices': OurOffices,
+  '/help/contact-us/our-gsa': OurGsa,
+  '/help/contact-us/forms': Forms,
   '/help/our-offices': OurOfficesRedirect,
-  '/help/forms': Forms,
+  '/help/our-gsa': OurGsaRedirect,
+  '/help/forms': FormsRedirect,
   '/help/faqs': Faqs,
-  '/help/our-gsa': OurGsa,
 }
 
-const formDetailPath = /^\/help\/forms\/([^/]+)$/
+const formDetailPath = /^\/help\/contact-us\/forms\/([^/]+)$/
+const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
 
 export function getPage(path) {
   if (pages[path]) return pages[path]
   if (formDetailPath.test(path)) return FormDetail
+  if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
   return null
 }

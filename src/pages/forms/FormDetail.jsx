@@ -17,7 +17,7 @@ const FormDetail = () => {
   const form = getSupportForm(formId)
 
   if (!form) {
-    return <Navigate to={withLanguage('/help/forms', language)} replace />
+    return <Navigate to={withLanguage('/help/contact-us/forms', language)} replace />
   }
 
   const title = t(`forms.items.${form.id}.title`)
@@ -25,7 +25,8 @@ const FormDetail = () => {
   const breadcrumbs = [
     { label: t('common.home'), href: '/' },
     { label: t('common.help'), href: '/help' },
-    { label: t('common.forms'), href: '/help/forms' },
+    { label: t('common.contactUs'), href: '/help/contact-us' },
+    { label: t('common.forms'), href: '/help/contact-us/forms' },
     { label: title },
   ]
 

@@ -25,13 +25,13 @@ export const helpMenuPanels = [
     id: 'requests',
     icon: ClipboardText,
     links: [
-      { id: 'forms', icon: ClipboardText, href: '/help/forms' },
-      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/forms' },
+      { id: 'forms', icon: ClipboardText, href: '/help/contact-us/forms' },
+      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/contact-us/forms' },
     ],
-    ctaHref: '/help/forms',
+    ctaHref: '/help/contact-us/forms',
     quickLinks: [
-      { id: 'forms', icon: ClipboardText, href: '/help/forms' },
-      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/forms' },
+      { id: 'forms', icon: ClipboardText, href: '/help/contact-us/forms' },
+      { id: 'trackRequest', icon: MagnifyingGlass, href: '/help/contact-us/forms' },
     ],
   },
 ]

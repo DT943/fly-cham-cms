@@ -40,12 +40,12 @@ export const footerColumns = [
 ]
 
 export const footerLinkHrefs = {
-  groupTravel: '/help/forms',
+  groupTravel: '/help/contact-us/forms',
   contactUs: '/help/contact-us',
-  inquiries: '/help/forms',
+  inquiries: '/help/contact-us/forms',
   offices: '/help/contact-us/our-offices',
-  agents: '/help/our-gsa',
-  partner: '/help/our-gsa',
+  agents: '/help/contact-us/our-gsa',
+  partner: '/help/contact-us/our-gsa',
   faqs: '/help/faqs',
 }
 

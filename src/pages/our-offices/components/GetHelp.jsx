@@ -5,7 +5,7 @@ import GetHelpCard from './GetHelpCard.jsx'
 
 const items = [
   { id: 'customerCare', icon: Headset, href: '/help/contact-us' },
-  { id: 'forms', icon: ClipboardText, href: '/help/forms' },
+  { id: 'forms', icon: ClipboardText, href: '/help/contact-us/forms' },
 ]
 
 const GetHelp = () => {
