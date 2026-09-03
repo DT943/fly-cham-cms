@@ -11,9 +11,9 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
   return (
     <nav
       aria-label={t('faq.explorer.navLabel')}
-      className="bg-background rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] p-2 h-fit lg:sticky lg:top-6"
+      className="bg-background rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] overflow-hidden h-fit lg:sticky lg:top-6"
     >
-      <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
+      <ul className="list-none m-0 p-0 flex flex-col">
         {categories.map((category) => {
           const Icon = category.icon
           const nestedTopics = hasNestedTopics(category)
@@ -22,13 +22,18 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
             topicId === category.id || category.topics.some((topic) => topic.id === topicId)
 
           return (
-            <li key={category.id} className="rounded-xl overflow-hidden">
+            <li
+              key={category.id}
+              className={`overflow-hidden ${
+                isExpanded || (isActiveCategory && !nestedTopics) ? 'bg-primary-100/30' : 'bg-transparent'
+              }`}
+            >
               <button
                 type="button"
                 onClick={() => onSelectCategory(category.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start ${
                   isExpanded || (isActiveCategory && !nestedTopics)
-                    ? 'bg-primary-100/45'
+                    ? 'bg-primary-100/55'
                     : 'bg-transparent'
                 }`}
               >
@@ -44,7 +49,7 @@ const FaqCategoryNav = ({ categories, expandedId, topicId, onSelectCategory, onS
               </button>
 
               {nestedTopics && isExpanded && (
-                <ul className="list-none m-0 p-0 pb-3 flex flex-col bg-primary-100/20">
+                <ul className="list-none m-0 p-0 pb-3 pt-1 flex flex-col">
                   {category.topics.map((topic) => {
                     const isActiveTopic = topic.id === topicId
 
