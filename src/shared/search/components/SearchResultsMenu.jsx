@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import SearchResultChip from './SearchResultChip.jsx'
 
+function chipKey(type) {
+  return type === 'faq' || type === 'form' ? type : 'page'
+}
+
 const SearchResultsMenu = ({ items, language, onSelect }) => {
   const { t } = useTranslation()
 
@@ -28,7 +32,7 @@ const SearchResultsMenu = ({ items, language, onSelect }) => {
             <span className="flex-1 min-w-0 truncate">{item.title?.[language] || item.title?.en}</span>
             <SearchResultChip
               type={item.type}
-              label={t(`help.search.chips.${item.type === 'faq' ? 'faq' : 'page'}`)}
+              label={t(`help.search.chips.${chipKey(item.type)}`)}
             />
           </button>
         </li>

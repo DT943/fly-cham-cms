@@ -42,6 +42,7 @@ const Faqs = () => {
             id,
             label: t(`faq.search.tags.${id}`),
           }))}
+          types={['faq']}
         />
         <FaqExplorer />
         <GetHelp />

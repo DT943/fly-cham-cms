@@ -245,8 +245,8 @@ function buildPageRecords() {
 
   supportForms.forEach((form) => {
     records.push({
-      id: `page:form-${form.id}`,
-      type: 'page',
+      id: `form:${form.id}`,
+      type: 'form',
       href: '/help/contact-us/forms',
       targetId: searchHitId(`form-${form.id}`),
       title: localized(`forms.items.${form.id}.title`),

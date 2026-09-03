@@ -27,6 +27,7 @@
       "empty": "No matching topics, questions, or pages.",
       "chips": {
         "faq": "FAQ",
+        "form": "Form",
         "page": "Page"
       }
     },

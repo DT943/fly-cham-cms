@@ -12,11 +12,16 @@ function scoreRecord(record, query) {
   return 0
 }
 
-export function searchAppContent(query, { limit = RESULT_LIMIT } = {}) {
+export function searchAppContent(query, { limit = RESULT_LIMIT, types, href } = {}) {
   const normalized = query.trim().toLowerCase()
   if (!normalized) return []
 
   return searchIndex
+    .filter((record) => {
+      if (types?.length && !types.includes(record.type)) return false
+      if (href && record.href !== href) return false
+      return true
+    })
     .map((record) => ({ record, score: scoreRecord(record, normalized) }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)

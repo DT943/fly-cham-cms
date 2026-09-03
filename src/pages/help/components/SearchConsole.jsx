@@ -13,6 +13,8 @@ const SearchConsole = ({
   popularItems = [],
   onQueryChange,
   showSuggestions = true,
+  types,
+  href,
 }) => {
   const { t } = useTranslation()
   const containerRef = useRef(null)
@@ -26,7 +28,7 @@ const SearchConsole = ({
     applyQuery,
     closeMenu,
     language,
-  } = useAppSearch()
+  } = useAppSearch({ types, href })
 
   const resolvedLabel = label ?? t('help.search.label')
   const resolvedPlaceholder = placeholder ?? t('help.search.placeholder')

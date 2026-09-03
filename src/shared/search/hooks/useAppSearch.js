@@ -5,13 +5,13 @@ import useCurrentLanguage from '../../hooks/useCurrentLanguage.js'
 import { searchAppContent } from '../utils/searchContent.js'
 import { buildSearchHitHref, scrollToSearchHit } from '../utils/searchHit.js'
 
-function useAppSearch() {
+function useAppSearch({ types, href } = {}) {
   const navigate = useNavigate()
   const language = useCurrentLanguage()
   const [query, setQuery] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const results = searchAppContent(query)
+  const results = searchAppContent(query, { types, href })
 
   function handleQueryChange(event) {
     const value = event.target.value

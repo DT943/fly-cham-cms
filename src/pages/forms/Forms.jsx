@@ -51,6 +51,7 @@ const Forms = () => {
             label: t(`forms.search.tags.${id}`),
           }))}
           onQueryChange={setSearchQuery}
+          types={['form']}
         />
         <AllForms query={searchQuery} />
         <TrackRequest />
