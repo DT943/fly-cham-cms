@@ -34,30 +34,15 @@ const FareRowLabel = ({ row, language }) => {
         <Icon
           size={20}
           weight="regular"
-          className="shrink-0 text-800 mt-0.5"
+          className="shrink-0 text-800"
           aria-hidden="true"
         />
       )}
-      <span>{getFaqLabel(row.label, language)}</span>
+      <span className={`leading-5 ${row.id === 'within24h' ? 'break-words' : 'whitespace-nowrap'}`}>
+        {getFaqLabel(row.label, language)}
+      </span>
     </span>
   )
-}
-
-function highlightTone(value) {
-  const normalized = String(value || '').trim().toLowerCase()
-  if (['free', 'yes', 'مجاني', 'نعم'].includes(normalized)) return 'positive'
-  if (['chargeable', 'لقاء رسوم'].includes(normalized)) return 'fee'
-  if (['discounted', 'مخفّض'].includes(normalized)) return 'discount'
-  if (/usd|\$|\d/.test(normalized)) return 'value'
-  return 'neutral'
-}
-
-const highlightClass = {
-  positive: 'bg-green/15 text-green',
-  fee: 'bg-secondary-100 text-700',
-  discount: 'bg-primary-1/15 text-primary-1',
-  value: 'bg-primary-1/12 text-primary-1',
-  neutral: 'bg-100 text-800',
 }
 
 const FareCell = ({ value, language }) => {
@@ -66,14 +51,13 @@ const FareCell = ({ value, language }) => {
   const highlight = getFaqLabel(value.highlight, language)
   const detail = getFaqLabel(value.detail, language)
   const notes = value.notes.map((note) => getFaqLabel(note, language)).filter(Boolean)
-  const tone = highlightTone(highlight)
 
   return (
-    <div className="flex flex-col gap-2 min-w-0">
+    <div className="flex flex-col gap-1.5 min-w-0">
       {highlight && (
         <p
           dir={/\d/.test(highlight) ? 'ltr' : undefined}
-          className={`${typography.caption} font-semibold m-0 w-fit max-w-full rounded-full px-2.5 py-1 break-words ${highlightClass[tone]}`}
+          className={`${typography.caption} font-semibold text-800 m-0 break-words`}
         >
           {highlight}
         </p>
@@ -137,7 +121,7 @@ const FareTable = ({ table, language }) => {
       <table className="w-full table-fixed border-separate border-spacing-0 text-start">
         <caption className="sr-only">{title}</caption>
         <colgroup>
-          <col className="w-[22%]" />
+          <col className="w-[28%]" />
           {table.columns.map((column) => (
             <col key={column.id} />
           ))}
