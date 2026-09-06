@@ -10,19 +10,22 @@ import {
 } from '../utils/faqPaymentTabs.js'
 import FaqAccordionItem from './FaqAccordionItem.jsx'
 import FaqTabs from './FaqTabs.jsx'
+import EconomyCheckedBaggageTable from './EconomyCheckedBaggageTable.jsx'
 import EconomyRefundFeesTable from './EconomyRefundFeesTable.jsx'
 import FareComparisonTables from './FareComparisonTables.jsx'
 import FlightChangeFeesTable from './FlightChangeFeesTable.jsx'
+import { ECONOMY_CHECKED_BAGGAGE_QUESTION_ID } from '../utils/economyCheckedBaggage.js'
 import { ECONOMY_REFUND_FEES_QUESTION_ID } from '../utils/economyRefundFees.js'
 import { FARE_COMPARISON_QUESTION_ID } from '../utils/fareComparison.js'
 import { FLIGHT_CHANGE_FEES_QUESTION_ID } from '../utils/flightChangeFees.js'
+import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const faqTableExtras = {
   [FARE_COMPARISON_QUESTION_ID]: FareComparisonTables,
   [FLIGHT_CHANGE_FEES_QUESTION_ID]: FlightChangeFeesTable,
   [ECONOMY_REFUND_FEES_QUESTION_ID]: EconomyRefundFeesTable,
+  [ECONOMY_CHECKED_BAGGAGE_QUESTION_ID]: EconomyCheckedBaggageTable,
 }
-import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const FaqTopicPanel = ({
   category,

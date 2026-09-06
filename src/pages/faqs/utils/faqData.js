@@ -594,8 +594,8 @@ export const faqCategories = [
               "ar": "ما وزن الأمتعة المسجلة المشمولة في كل فئة من فئات الدرجة السياحية؟"
             },
             "answer": {
-              "en": "جدول متل تبع المقارنة وقت الحجز  Fly Light includes 20 kg of checked baggage per passenger. Fly Smart and Fly Elite each include 30 kg of checked baggage per passenger. Passengers can also purchase additional baggage allowance in advance during the booking process through our website or via Manage Booking.",
-              "ar": "جدول متل تبع المقارنة وقت الحجز   تشمل فئة فلاي لايت 20 كغ من الأمتعة المسجلة لكل مسافر، بينما تشمل كل من فلاي سمارت وفلاي إيليت 30 كغ لكل مسافر. كما يمكن شراء وزن إضافي مسبقاً أثناء الحجز عبر موقعنا الإلكتروني أو من خلال قسم «إدارة الحجز»."
+              "en": "The checked baggage allowance depends on your Economy Class fare type: Fly Light: 20 kg of checked baggage per passenger. Fly Smart: 30 kg of checked baggage per passenger. Fly Elite: 30 kg of checked baggage per passenger.",
+              "ar": "يختلف وزن الأمتعة المسجلة المسموح به حسب فئة السعر على الدرجة السياحية: فلاي لايت: وزن أمتعة مسجلة يصل إلى 20 كغ لكل مسافر. فلاي سمارت: وزن أمتعة مسجلة يصل إلى 30 كغ لكل مسافر. فلاي إيليت: وزن أمتعة مسجلة يصل إلى 30 كغ لكل مسافر."
             }
           },
           {

@@ -7,6 +7,7 @@ import { journeySteps } from '../../../pages/help/utils/journeySteps.js'
 import { contactChannels } from '../../../pages/contact-us/utils/contactChannels.jsx'
 import { contactForms } from '../../../pages/contact-us/utils/contactForms.jsx'
 import { searchHitId } from './searchHit.js'
+import { ECONOMY_CHECKED_BAGGAGE_QUESTION_ID, getEconomyCheckedBaggageSearchText } from '../../../pages/faqs/utils/economyCheckedBaggage.js'
 import { ECONOMY_REFUND_FEES_QUESTION_ID, getEconomyRefundFeesSearchText } from '../../../pages/faqs/utils/economyRefundFees.js'
 import { FARE_COMPARISON_QUESTION_ID, getFareComparisonSearchText } from '../../../pages/faqs/utils/fareComparison.js'
 import { FLIGHT_CHANGE_FEES_QUESTION_ID, getFlightChangeFeesSearchText } from '../../../pages/faqs/utils/flightChangeFees.js'
@@ -70,6 +71,7 @@ function buildFaqRecords() {
     [FARE_COMPARISON_QUESTION_ID]: getFareComparisonSearchText(),
     [FLIGHT_CHANGE_FEES_QUESTION_ID]: getFlightChangeFeesSearchText(),
     [ECONOMY_REFUND_FEES_QUESTION_ID]: getEconomyRefundFeesSearchText(),
+    [ECONOMY_CHECKED_BAGGAGE_QUESTION_ID]: getEconomyCheckedBaggageSearchText(),
   }
 
   faqCategories.forEach((category) => {
