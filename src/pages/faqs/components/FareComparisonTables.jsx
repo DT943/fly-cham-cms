@@ -1,6 +1,47 @@
+import {
+  ArrowUUpLeft,
+  ArrowsClockwise,
+  Briefcase,
+  Clock,
+  Coffee,
+  EyeSlash,
+  ForkKnife,
+  Seat,
+  TrolleySuitcase,
+} from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 import { getFaqLabel } from '../utils/faqCategories.js'
 import { fareComparisonTables } from '../utils/fareComparison.js'
+
+const rowIcons = {
+  checked: TrolleySuitcase,
+  carryOn: Briefcase,
+  change: ArrowsClockwise,
+  refund: ArrowUUpLeft,
+  seat: Seat,
+  beverage: Coffee,
+  meal: ForkKnife,
+  noShow: EyeSlash,
+  within24h: Clock,
+}
+
+const FareRowLabel = ({ row, language }) => {
+  const Icon = rowIcons[row.id]
+
+  return (
+    <span className="flex items-start gap-2.5 min-w-0">
+      {Icon && (
+        <Icon
+          size={20}
+          weight="regular"
+          className="shrink-0 text-800 mt-0.5"
+          aria-hidden="true"
+        />
+      )}
+      <span>{getFaqLabel(row.label, language)}</span>
+    </span>
+  )
+}
 
 function highlightTone(value) {
   const normalized = String(value || '').trim().toLowerCase()
@@ -54,7 +95,7 @@ const FareCell = ({ value, language }) => {
 }
 
 const FareCards = ({ table, language }) => (
-  <div className="flex flex-col gap-3 w-full md:hidden">
+  <div className="flex flex-col gap-3 w-full px-4 sm:px-8 md:hidden">
     {table.columns.map((column) => (
       <article
         key={column.id}
@@ -77,7 +118,7 @@ const FareCards = ({ table, language }) => (
               } ${index % 2 === 0 ? 'bg-background' : 'bg-100/70'}`}
             >
               <p className={`${typography.caption} font-semibold text-800 m-0`}>
-                {getFaqLabel(row.label, language)}
+                <FareRowLabel row={row} language={language} />
               </p>
               <FareCell value={row.cells[column.id]} language={language} />
             </div>
@@ -92,7 +133,7 @@ const FareTable = ({ table, language }) => {
   const title = getFaqLabel(table.title, language)
 
   return (
-    <div className="hidden md:block w-full rounded-2xl border border-200 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+    <div className="hidden md:block w-full border-y border-200 overflow-hidden">
       <table className="w-full table-fixed border-separate border-spacing-0 text-start">
         <caption className="sr-only">{title}</caption>
         <colgroup>
@@ -135,7 +176,7 @@ const FareTable = ({ table, language }) => {
                   scope="row"
                   className={`${typography.caption} font-semibold text-800 px-3 py-3.5 lg:px-4 align-top border-t border-200 ${zebra}`}
                 >
-                  {getFaqLabel(row.label, language)}
+                  <FareRowLabel row={row} language={language} />
                 </th>
                 {table.columns.map((column) => (
                   <td
@@ -159,7 +200,7 @@ const FareComparisonTables = ({ language }) => {
 
   return (
     <div className="flex flex-col gap-3 w-full min-w-0">
-      <p className={`${typography.caption} font-medium text-600 m-0`}>
+      <p className={`${typography.caption} font-medium text-600 m-0 px-4 sm:px-8 md:px-10`}>
         {getFaqLabel(table.title, language)}
       </p>
       <FareCards table={table} language={language} />

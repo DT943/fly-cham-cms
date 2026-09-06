@@ -56,9 +56,9 @@ const FaqTopicPanel = ({
   }
 
   return (
-    <section className="bg-background rounded-xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] px-4 py-5 sm:px-8 sm:py-6 md:px-10 md:py-8 flex-1 min-w-0 scroll-mt-28">
+    <section className="bg-background rounded-xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28">
       <div className="flex flex-col">
-        <div className="flex flex-col gap-4 pb-5 border-b border-200">
+        <div className="flex flex-col gap-4 px-4 sm:px-8 md:px-10 pb-5 border-b border-200">
           <div className="flex flex-col gap-1">
             {topic && topic.id !== category.id && (
               <p className={`${typography.caption} text-600 m-0`}>
@@ -91,7 +91,7 @@ const FaqTopicPanel = ({
         </div>
 
         {visibleQuestions.length === 0 ? (
-          <p className={`${typography.body} text-600 m-0 pt-5`}>
+          <p className={`${typography.body} text-600 m-0 px-4 sm:px-8 md:px-10 pt-5`}>
             {t('faq.explorer.empty')}
           </p>
         ) : (
@@ -99,7 +99,7 @@ const FaqTopicPanel = ({
             {groups.map((group) => (
               <div key={group.questions[0].id}>
                 {group.showHeading && !methodTabs.length && (
-                  <p className={`${typography.caption} font-semibold text-600 m-0 pt-5 pb-1`}>
+                  <p className={`${typography.caption} font-semibold text-600 m-0 px-4 sm:px-8 md:px-10 pt-5 pb-1`}>
                     {getFaqLabel(group.branch, language)}
                   </p>
                 )}

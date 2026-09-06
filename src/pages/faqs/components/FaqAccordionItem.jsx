@@ -15,7 +15,7 @@ const FaqAccordionItem = ({ id, question, answer, extra = null, open, onToggle }
           type="button"
           aria-expanded={open}
           onClick={onToggle}
-          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
+          className={`${typography.itemTitle} w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer px-4 sm:px-8 md:px-10 py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
             open ? 'font-medium text-primary-1' : 'font-medium text-800'
           }`}
         >
@@ -44,7 +44,7 @@ const FaqAccordionItem = ({ id, question, answer, extra = null, open, onToggle }
               {paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className={`${typography.itemDescription} text-600 m-0 leading-relaxed whitespace-pre-line`}
+                  className={`${typography.itemDescription} text-600 m-0 px-4 sm:px-8 md:px-10 leading-relaxed whitespace-pre-line`}
                 >
                   {paragraph}
                 </p>
