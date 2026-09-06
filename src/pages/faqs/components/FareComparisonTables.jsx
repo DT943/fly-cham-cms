@@ -47,31 +47,56 @@ const FareRowLabel = ({ row, language }) => {
   )
 }
 
+const latinUnitPattern = /(USD\s*\d+|\d+\s*kg)/gi
+
+function localizeHighlight(highlight, language) {
+  if (language !== 'ar') return highlight
+
+  return highlight
+    .replace(/^(\d+)\s*kg$/i, '$1 كلغ')
+    .replace(/^USD\s*(\d+)$/i, '$1 دولار')
+}
+
+function renderWithLatinUnits(text) {
+  latinUnitPattern.lastIndex = 0
+  if (!latinUnitPattern.test(text)) return text
+  latinUnitPattern.lastIndex = 0
+
+  return text.split(latinUnitPattern).map((part, index) =>
+    /^(USD\s*\d+|\d+\s*kg)$/i.test(part) ? (
+      <span key={`${part}-${index}`} dir="ltr" className="inline-block">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  )
+}
+
 const FareCell = ({ value, language }) => {
   if (!value) return null
 
-  const highlight = getFaqLabel(value.highlight, language)
+  const highlight = localizeHighlight(getFaqLabel(value.highlight, language), language)
   const detail = getFaqLabel(value.detail, language)
   const notes = value.notes.map((note) => getFaqLabel(note, language)).filter(Boolean)
 
   return (
-    <div className="flex flex-col gap-1.5 min-w-0">
+    <div className="flex flex-col gap-1.5 min-w-0 text-start">
       {highlight && (
-        <p
-          dir={/\d/.test(highlight) ? 'ltr' : undefined}
-          className={`${typography.caption} font-semibold text-800 m-0 break-words`}
-        >
-          {highlight}
+        <p className={`${typography.caption} font-semibold text-800 m-0 break-words`}>
+          {renderWithLatinUnits(highlight)}
         </p>
       )}
       {detail && (
-        <p className={`${typography.caption} text-600 m-0 leading-relaxed break-words`}>{detail}</p>
+        <p className={`${typography.caption} text-600 m-0 leading-relaxed break-words`}>
+          {renderWithLatinUnits(detail)}
+        </p>
       )}
       {notes.length > 0 && (
         <ul className="list-disc ps-4 m-0 flex flex-col gap-1.5">
           {notes.map((note) => (
             <li key={note} className={`${typography.caption} text-600 leading-relaxed break-words`}>
-              {note}
+              {renderWithLatinUnits(note)}
             </li>
           ))}
         </ul>
