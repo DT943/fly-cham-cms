@@ -1,10 +1,5 @@
 export const FARE_COMPARISON_QUESTION_ID = 'booking-classesAndFareTypes-3'
 
-export const fareComparisonTabsLabel = {
-  en: 'Fare class',
-  ar: 'درجة السفر',
-}
-
 const text = (en, ar) => ({ en, ar })
 
 const cell = (highlight, en, ar, notes = []) => ({
@@ -16,7 +11,6 @@ const cell = (highlight, en, ar, notes = []) => ({
 export const fareComparisonTables = [
   {
     id: 'economy',
-    tab: text('Economy', 'الدرجة السياحية'),
     title: text(
       'Fare benefits and fees per passenger',
       'مزايا ورسوم الدرجة السياحية لكل مسافر'
@@ -176,119 +170,6 @@ export const fareComparisonTables = [
             ],
           ]),
           elite: cell('USD 100', '', '', [
-            [
-              'Modification fee within 24 hours applies a no-show penalty of USD 100, plus any fare difference.',
-              'تطبّق غرامة التعديل بقيمة 100 دولار أمريكي عند إجراء تعديل على الرحلة خلال 24 ساعة من موعد المغادرة، بالإضافة إلى أي فرق في سعر التذكرة.',
-            ],
-            [
-              'Refund fee is USD 100 if you cancel your flight within 24 hours of departure.',
-              'تبلغ رسوم الاسترداد 100 دولاراً أمريكياً في حال الإلغاء خلال 24 ساعة من موعد المغادرة.',
-            ],
-          ]),
-        },
-      },
-    ],
-  },
-  {
-    id: 'business',
-    tab: text('Business', 'درجة رجال الأعمال'),
-    title: text(
-      'Business Class fare — benefits and fees per passenger',
-      'فئة درجة رجال الأعمال — المزايا والرسوم لكل مسافر'
-    ),
-    featureLabel: text('Benefits and fees', 'المزايا والرسوم'),
-    columns: [
-      {
-        id: 'business',
-        className: text('Business Class', 'درجة رجال الأعمال'),
-        name: text('BUSINESS', 'رجال الأعمال'),
-      },
-    ],
-    rows: [
-      {
-        id: 'carryOn',
-        label: text('Carry-on Bag', 'الأمتعة المحمولة باليد'),
-        cells: {
-          business: cell(
-            '7kg',
-            'One Carry-on Bag up to 7 kg per passenger. Must fit in the overhead bin or under the seat in front of you.',
-            'الأمتعة المحمولة باليد قطعة واحدة 7 كلغ، ويجب أن تتسع في الخزانة العلوية أو تحت المقعد.'
-          ),
-        },
-      },
-      {
-        id: 'checked',
-        label: text('Checked Baggage', 'الأمتعة المسجلة'),
-        cells: {
-          business: cell(
-            '40kg',
-            'Checked baggage allowance is 40 kg per passenger.',
-            'وزن الأمتعة المسجلة المسموح به لكل مسافر 40 كلغ.'
-          ),
-        },
-      },
-      {
-        id: 'seat',
-        label: text('Preferred Seat', 'المقعد المفضّل'),
-        cells: {
-          business: cell(text('Free', 'مجاني'), 'Enjoy a free preferred seat selection.', 'اختر مقعدك المفضّل مجاناً.'),
-        },
-      },
-      {
-        id: 'beverage',
-        label: text('Beverage', 'المشروبات'),
-        cells: {
-          business: cell(text('Yes', 'نعم'), '', ''),
-        },
-      },
-      {
-        id: 'meal',
-        label: text('Meal', 'الوجبة'),
-        cells: {
-          business: cell(text('Standard', 'قياسية'), '', ''),
-        },
-      },
-      {
-        id: 'change',
-        label: text('Flight Change', 'تعديل الرحلة'),
-        cells: {
-          business: cell(
-            text('Free', 'مجاني'),
-            'Free modification allowed. Any fare difference applies.',
-            'يمكنك التعديل مجاناً، مع تطبيق أي فرق في سعر التذكرة.'
-          ),
-        },
-      },
-      {
-        id: 'refund',
-        label: text('Refund Fee', 'رسوم الاسترداد'),
-        cells: {
-          business: cell(
-            'USD 50',
-            'Refund fee is USD 50 if you cancel or modify your flight at least 24 hours before departure.',
-            'تبلغ رسوم الاسترداد 50 دولار أمريكي في حال إلغاء الرحلة قبل 24 ساعة على الأقل من موعد الإقلاع.'
-          ),
-        },
-      },
-      {
-        id: 'noShow',
-        label: text('No-show Fee', 'رسوم عدم الحضور'),
-        cells: {
-          business: cell(
-            'USD 100',
-            'A USD 100 no-show fee applies if the passenger does not travel or fails to complete the required change or cancellation within the permitted time.',
-            'تُفرض رسوم قدرها 100 دولار أمريكي في حال عدم الحضور (عدم السفر)، أو في حال عدم إتمام إجراءات التعديل أو الإلغاء المطلوبة ضمن المهلة الزمنية المسموح بها.'
-          ),
-        },
-      },
-      {
-        id: 'within24h',
-        label: text(
-          'Modification/Refund within 24h from Departure',
-          'التعديل/الاسترداد خلال 24 ساعة من المغادرة'
-        ),
-        cells: {
-          business: cell('USD 100', '', '', [
             [
               'Modification fee within 24 hours applies a no-show penalty of USD 100, plus any fare difference.',
               'تطبّق غرامة التعديل بقيمة 100 دولار أمريكي عند إجراء تعديل على الرحلة خلال 24 ساعة من موعد المغادرة، بالإضافة إلى أي فرق في سعر التذكرة.',

@@ -1,11 +1,23 @@
-import { useState } from 'react'
 import { typography } from '../../../styles/typography.js'
 import { getFaqLabel } from '../utils/faqCategories.js'
-import {
-  fareComparisonTables,
-  fareComparisonTabsLabel,
-} from '../utils/fareComparison.js'
-import FaqTabs from './FaqTabs.jsx'
+import { fareComparisonTables } from '../utils/fareComparison.js'
+
+function highlightTone(value) {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (['free', 'yes', 'مجاني', 'نعم'].includes(normalized)) return 'positive'
+  if (['chargeable', 'لقاء رسوم'].includes(normalized)) return 'fee'
+  if (['discounted', 'مخفّض'].includes(normalized)) return 'discount'
+  if (/usd|\$|\d/.test(normalized)) return 'value'
+  return 'neutral'
+}
+
+const highlightClass = {
+  positive: 'bg-green/15 text-green',
+  fee: 'bg-secondary-100 text-700',
+  discount: 'bg-primary-1/15 text-primary-1',
+  value: 'bg-primary-1/12 text-primary-1',
+  neutral: 'bg-100 text-800',
+}
 
 const FareCell = ({ value, language }) => {
   if (!value) return null
@@ -13,24 +25,25 @@ const FareCell = ({ value, language }) => {
   const highlight = getFaqLabel(value.highlight, language)
   const detail = getFaqLabel(value.detail, language)
   const notes = value.notes.map((note) => getFaqLabel(note, language)).filter(Boolean)
+  const tone = highlightTone(highlight)
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2 min-w-0">
       {highlight && (
         <p
           dir={/\d/.test(highlight) ? 'ltr' : undefined}
-          className={`${typography.itemTitle} font-semibold text-800 m-0`}
+          className={`${typography.caption} font-semibold m-0 w-fit max-w-full rounded-full px-2.5 py-1 break-words ${highlightClass[tone]}`}
         >
           {highlight}
         </p>
       )}
       {detail && (
-        <p className={`${typography.caption} text-600 m-0 leading-relaxed`}>{detail}</p>
+        <p className={`${typography.caption} text-600 m-0 leading-relaxed break-words`}>{detail}</p>
       )}
       {notes.length > 0 && (
-        <ul className="list-disc ps-4 m-0 flex flex-col gap-1">
+        <ul className="list-disc ps-4 m-0 flex flex-col gap-1.5">
           {notes.map((note) => (
-            <li key={note} className={`${typography.caption} text-600 leading-relaxed`}>
+            <li key={note} className={`${typography.caption} text-600 leading-relaxed break-words`}>
               {note}
             </li>
           ))}
@@ -40,81 +53,116 @@ const FareCell = ({ value, language }) => {
   )
 }
 
+const FareCards = ({ table, language }) => (
+  <div className="flex flex-col gap-3 w-full md:hidden">
+    {table.columns.map((column) => (
+      <article
+        key={column.id}
+        className="rounded-2xl border border-200 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+      >
+        <header className="bg-primary-1 px-4 py-3.5">
+          <p className={`${typography.caption} font-medium m-0 text-primary-100`}>
+            {getFaqLabel(column.className, language)}
+          </p>
+          <p className={`${typography.itemTitle} font-bold text-50 m-0 mt-0.5`}>
+            {getFaqLabel(column.name, language)}
+          </p>
+        </header>
+        <div>
+          {table.rows.map((row, index) => (
+            <div
+              key={row.id}
+              className={`px-4 py-3.5 flex flex-col gap-2 ${
+                index > 0 ? 'border-t border-200' : ''
+              } ${index % 2 === 0 ? 'bg-background' : 'bg-100/70'}`}
+            >
+              <p className={`${typography.caption} font-semibold text-800 m-0`}>
+                {getFaqLabel(row.label, language)}
+              </p>
+              <FareCell value={row.cells[column.id]} language={language} />
+            </div>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+)
+
 const FareTable = ({ table, language }) => {
   const title = getFaqLabel(table.title, language)
-  const minWidth = table.columns.length > 1 ? 'min-w-[52rem]' : 'min-w-[28rem]'
 
   return (
-    <div className="flex flex-col gap-3">
-      <h4 className={`${typography.itemTitle} font-semibold text-800 m-0`}>{title}</h4>
-      <div className="overflow-x-auto overscroll-x-contain rounded-xl border border-200">
-        <table className={`w-full ${minWidth} border-collapse text-start`}>
-          <caption className="sr-only">{title}</caption>
-          <thead>
-            <tr className="bg-100">
+    <div className="hidden md:block w-full rounded-2xl border border-200 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+      <table className="w-full table-fixed border-separate border-spacing-0 text-start">
+        <caption className="sr-only">{title}</caption>
+        <colgroup>
+          <col className="w-[22%]" />
+          {table.columns.map((column) => (
+            <col key={column.id} />
+          ))}
+        </colgroup>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              className={`${typography.caption} font-semibold text-50 bg-primary-1 px-3 py-3.5 lg:px-4`}
+            >
+              {getFaqLabel(table.featureLabel, language)}
+            </th>
+            {table.columns.map((column) => (
               <th
+                key={column.id}
                 scope="col"
-                className={`${typography.caption} font-semibold text-700 sticky start-0 z-10 bg-100 px-3 py-3 md:px-4 border-e border-200 w-40 md:w-52`}
+                className={`${typography.caption} font-semibold text-50 bg-primary-1 px-3 py-3.5 lg:px-4`}
               >
-                {getFaqLabel(table.featureLabel, language)}
+                <span className="block font-medium text-primary-100">
+                  {getFaqLabel(column.className, language)}
+                </span>
+                <span className={`${typography.body} block mt-1 font-bold tracking-wide break-words`}>
+                  {getFaqLabel(column.name, language)}
+                </span>
               </th>
-              {table.columns.map((column) => (
-                <th
-                  key={column.id}
-                  scope="col"
-                  className={`${typography.caption} font-semibold text-800 px-3 py-3 md:px-4 border-e border-200 last:border-e-0`}
-                >
-                  <span className="block text-600 font-medium">
-                    {getFaqLabel(column.className, language)}
-                  </span>
-                  <span className="block mt-0.5">{getFaqLabel(column.name, language)}</span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {table.rows.map((row, index) => (
-              <tr key={row.id} className={index % 2 === 0 ? 'bg-background' : 'bg-50'}>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row, index) => {
+            const zebra = index % 2 === 0 ? 'bg-background' : 'bg-100/70'
+
+            return (
+              <tr key={row.id} className={`${zebra} hover:bg-primary-1/6 transition-colors`}>
                 <th
                   scope="row"
-                  className={`${typography.caption} font-semibold text-800 sticky start-0 z-10 px-3 py-3 md:px-4 border-t border-e border-200 align-top ${
-                    index % 2 === 0 ? 'bg-background' : 'bg-50'
-                  }`}
+                  className={`${typography.caption} font-semibold text-800 px-3 py-3.5 lg:px-4 align-top border-t border-200 ${zebra}`}
                 >
                   {getFaqLabel(row.label, language)}
                 </th>
                 {table.columns.map((column) => (
                   <td
                     key={column.id}
-                    className="px-3 py-3 md:px-4 border-t border-e border-200 last:border-e-0 align-top"
+                    className="px-3 py-3.5 lg:px-4 border-t border-s border-200 align-top"
                   >
                     <FareCell value={row.cells[column.id]} language={language} />
                   </td>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }
 
 const FareComparisonTables = ({ language }) => {
-  const [activeId, setActiveId] = useState(fareComparisonTables[0].id)
-  const table = fareComparisonTables.find((item) => item.id === activeId) || fareComparisonTables[0]
+  const table = fareComparisonTables[0]
 
   return (
-    <div className="flex flex-col gap-4 w-full min-w-0">
-      <FaqTabs
-        tabs={fareComparisonTables.map((item) => ({
-          id: item.id,
-          title: getFaqLabel(item.tab, language),
-        }))}
-        activeId={table.id}
-        onSelect={setActiveId}
-        label={getFaqLabel(fareComparisonTabsLabel, language)}
-      />
+    <div className="flex flex-col gap-3 w-full min-w-0">
+      <p className={`${typography.caption} font-medium text-600 m-0`}>
+        {getFaqLabel(table.title, language)}
+      </p>
+      <FareCards table={table} language={language} />
       <FareTable table={table} language={language} />
     </div>
   )
