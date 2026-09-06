@@ -8,6 +8,7 @@ import { contactChannels } from '../../../pages/contact-us/utils/contactChannels
 import { contactForms } from '../../../pages/contact-us/utils/contactForms.jsx'
 import { searchHitId } from './searchHit.js'
 import { FARE_COMPARISON_QUESTION_ID, getFareComparisonSearchText } from '../../../pages/faqs/utils/fareComparison.js'
+import { FLIGHT_CHANGE_FEES_QUESTION_ID, getFlightChangeFeesSearchText } from '../../../pages/faqs/utils/flightChangeFees.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -65,11 +66,17 @@ function pageRecord({ id, href, titlePath, textPaths = [], target }) {
 function buildFaqRecords() {
   const records = []
   const fareText = getFareComparisonSearchText()
+  const flightChangeText = getFlightChangeFeesSearchText()
 
   faqCategories.forEach((category) => {
     category.topics.forEach((topic) => {
       topic.questions.forEach((question) => {
-        const extraText = question.id === FARE_COMPARISON_QUESTION_ID ? fareText : null
+        const extraText =
+          question.id === FARE_COMPARISON_QUESTION_ID
+            ? fareText
+            : question.id === FLIGHT_CHANGE_FEES_QUESTION_ID
+              ? flightChangeText
+              : null
         records.push({
           id: `faq:${question.id}`,
           type: 'faq',

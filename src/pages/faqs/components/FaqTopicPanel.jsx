@@ -11,7 +11,9 @@ import {
 import FaqAccordionItem from './FaqAccordionItem.jsx'
 import FaqTabs from './FaqTabs.jsx'
 import FareComparisonTables from './FareComparisonTables.jsx'
+import FlightChangeFeesTable from './FlightChangeFeesTable.jsx'
 import { FARE_COMPARISON_QUESTION_ID } from '../utils/fareComparison.js'
+import { FLIGHT_CHANGE_FEES_QUESTION_ID } from '../utils/flightChangeFees.js'
 import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const FaqTopicPanel = ({
@@ -109,13 +111,16 @@ const FaqTopicPanel = ({
                       id={searchHitId(question.id)}
                       question={getFaqLabel(question.question, language)}
                       answer={
-                        question.id === FARE_COMPARISON_QUESTION_ID
+                        question.id === FARE_COMPARISON_QUESTION_ID ||
+                        question.id === FLIGHT_CHANGE_FEES_QUESTION_ID
                           ? ''
                           : getFaqLabel(question.answer, language)
                       }
                       extra={
                         question.id === FARE_COMPARISON_QUESTION_ID ? (
                           <FareComparisonTables language={language} />
+                        ) : question.id === FLIGHT_CHANGE_FEES_QUESTION_ID ? (
+                          <FlightChangeFeesTable language={language} />
                         ) : null
                       }
                       open={openIds.includes(question.id)}
