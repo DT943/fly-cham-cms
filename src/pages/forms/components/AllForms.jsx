@@ -5,7 +5,6 @@ import { typography } from '../../../styles/typography.js'
 import { filterSupportForms, supportForms } from '../utils/supportForms.js'
 import FormCard from './FormCard.jsx'
 import FormTabs from './FormTabs.jsx'
-import FormAccessModal from './FormAccessModal.jsx'
 import { getSearchHitKey, searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 function getHashedFormId(hash) {
@@ -17,7 +16,6 @@ const AllForms = ({ query = '' }) => {
   const { t } = useTranslation()
   const { hash } = useLocation()
   const [stageId, setStageId] = useState('all')
-  const [selectedForm, setSelectedForm] = useState(null)
   const hashedFormId = getHashedFormId(hash)
 
   useEffect(() => {
@@ -54,20 +52,14 @@ const AllForms = ({ query = '' }) => {
             <FormCard
               key={form.id}
               id={searchHitId(`form-${form.id}`)}
+              href={`/help/contact-us/forms/${form.id}/request`}
               icon={form.icon}
-              onSelect={() => setSelectedForm(form)}
               category={t(`forms.filters.${form.stageId}`)}
               title={t(`forms.items.${form.id}.title`)}
               description={t(`forms.items.${form.id}.description`)}
             />
           ))}
         </div>
-      )}
-      {selectedForm && (
-        <FormAccessModal
-          form={selectedForm}
-          onClose={() => setSelectedForm(null)}
-        />
       )}
     </section>
   )

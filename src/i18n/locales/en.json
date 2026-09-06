@@ -568,6 +568,10 @@
         "required": "This field is required"
       }
     },
+    "request": {
+      "title": "Request a form",
+      "subtitle": "Find your booking and continue with the selected support request"
+    },
     "access": {
       "title": "Find your booking",
       "subtitle": "Enter your booking reference (PNR) and the passenger's last name. We will validate the reservation before you continue.",

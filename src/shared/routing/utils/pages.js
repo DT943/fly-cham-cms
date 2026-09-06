@@ -5,6 +5,7 @@ import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
 import Forms from '../../../pages/forms/Forms.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
+import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
 import {
   FormsRedirect,
@@ -26,11 +27,13 @@ export const pages = {
   '/help/faqs': Faqs,
 }
 
+const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
 const formDetailPath = /^\/help\/contact-us\/forms\/([^/]+)$/
 const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
 
 export function getPage(path) {
   if (pages[path]) return pages[path]
+  if (formRequestPath.test(path)) return RequestAForm
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
   return null
