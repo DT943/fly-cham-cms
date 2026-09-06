@@ -1,4 +1,3 @@
-import faqPh1 from '../../../assets/images/faq/ph1.png'
 import { faqCategories as faqContent } from './faqData.js'
 import {
   AirTrafficControl,
@@ -38,16 +37,6 @@ export const faqCategories = faqContent.map((category) => ({
   ...category,
   icon: categoryIcons[category.id] || SealQuestion,
 }))
-
-export const faqQuestionImages = {
-  'booking-bookingOnline-1': {
-    src: faqPh1,
-    alt: {
-      en: 'Passenger holding a smartphone with a digital boarding pass',
-      ar: 'مسافر يمسك هاتفاً ذكياً يعرض بطاقة صعود رقمية',
-    },
-  },
-}
 
 export function getFaqLabel(value, language) {
   if (!value) return ''

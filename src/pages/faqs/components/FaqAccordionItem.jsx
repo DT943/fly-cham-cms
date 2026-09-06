@@ -1,12 +1,12 @@
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 
-const FaqAccordionItem = ({ id, question, answer, image, imageAlt = '', open, onToggle }) => {
+const FaqAccordionItem = ({ id, question, answer, open, onToggle }) => {
   const paragraphs = String(answer || '')
     .split('\n\n')
     .map((part) => part.trim())
     .filter(Boolean)
-  const hasBody = paragraphs.length > 0 || Boolean(image)
+  const hasBody = paragraphs.length > 0
 
   return (
     <div id={id} className="border-b border-200 last:border-b-0 scroll-mt-28">
@@ -37,29 +37,18 @@ const FaqAccordionItem = ({ id, question, answer, image, imageAlt = '', open, on
         <div className="overflow-hidden min-h-0">
           {hasBody && (
             <div
-              className={`flex flex-col md:flex-row md:items-start gap-5 md:gap-8 pb-6 transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${
+              className={`flex flex-col gap-3 pb-6 transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${
                 open ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              {paragraphs.length > 0 && (
-                <div className="flex flex-col gap-3 flex-1 min-w-0">
-                  {paragraphs.map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      className={`${typography.itemDescription} text-600 m-0 leading-relaxed whitespace-pre-line`}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              )}
-              {image && (
-                <img
-                  src={image}
-                  alt={imageAlt}
-                  className="w-full md:w-[32%] md:max-w-70 rounded-xl object-cover shrink-0 aspect-5/4"
-                />
-              )}
+              {paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className={`${typography.itemDescription} text-600 m-0 leading-relaxed whitespace-pre-line`}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           )}
         </div>

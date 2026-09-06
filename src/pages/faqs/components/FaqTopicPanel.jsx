@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
-import { faqQuestionImages, getFaqLabel, groupFaqQuestions } from '../utils/faqCategories.js'
+import { getFaqLabel, groupFaqQuestions } from '../utils/faqCategories.js'
 import {
   getQuestionMethodTabId,
   getQuestionsForMethodTab,
@@ -101,22 +101,16 @@ const FaqTopicPanel = ({
                     {getFaqLabel(group.branch, language)}
                   </p>
                 )}
-                {group.questions.map((question) => {
-                  const image = faqQuestionImages[question.id]
-
-                  return (
+                {group.questions.map((question) => (
                     <FaqAccordionItem
                       key={question.id}
                       id={searchHitId(question.id)}
                       question={getFaqLabel(question.question, language)}
                       answer={getFaqLabel(question.answer, language)}
-                      image={image?.src}
-                      imageAlt={getFaqLabel(image?.alt, language)}
                       open={openIds.includes(question.id)}
                       onToggle={() => onToggleQuestion(question.id)}
                     />
-                  )
-                })}
+                ))}
               </div>
             ))}
           </div>
