@@ -7,6 +7,8 @@
     "ourGsa": "Our GSA",
     "forms": "Forms and Support Requests",
     "faqs": "FAQs",
+    "whereWeFly": "Where we fly",
+    "ourDestinations": "Our destinations",
     "english": "EN",
     "arabic": "AR",
     "liveChat": {
@@ -796,6 +798,56 @@
           }
         }
       }
+    }
+  },
+  "destinations": {
+    "hero": {
+      "title": "Our Destinations",
+      "subtitle": "Explore the World with Fly Cham",
+      "imageAlt": "Fly Cham aircraft in flight"
+    },
+    "explore": {
+      "title": "Explore Fly Cham Destinations",
+      "subtitle": "Explore our destinations and discover the cities across our network. Browse destination guides, find travel inspiration, and plan your next journey with Fly Cham."
+    },
+    "featured": {
+      "heading": "What makes Dubai special?",
+      "description": "Dubai is a destination that brings together everything you love in one trip, with an authentic Arabian spirit and endless experiences.",
+      "cta": "Discover Dubai",
+      "activities": "Explore all activities"
+    },
+    "card": {
+      "discover": "Discover {{city}}"
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page",
+      "of": "of {{total}}"
+    },
+    "countries": {
+      "syria": "Syria",
+      "uae": "UAE",
+      "saudiArabia": "Saudi Arabia",
+      "oman": "Oman",
+      "turkey": "Turkey",
+      "libya": "Libya",
+      "iraq": "Iraq",
+      "armenia": "Armenia",
+      "kuwait": "Kuwait"
+    },
+    "cities": {
+      "damascus": { "name": "Damascus", "flights": "Flights to Damascus" },
+      "abuDhabi": { "name": "Abu Dhabi", "flights": "Flights to Abu Dhabi" },
+      "sharjah": { "name": "Sharjah", "flights": "Flights to Sharjah" },
+      "dubai": { "name": "Dubai", "flights": "Flights to Dubai" },
+      "dammam": { "name": "Dammam", "flights": "Flights to Dammam" },
+      "muscat": { "name": "Muscat", "flights": "Flights to Muscat" },
+      "istanbul": { "name": "Istanbul", "flights": "Flights to Istanbul" },
+      "tripoli": { "name": "Tripoli", "flights": "Flights to Tripoli" },
+      "erbil": { "name": "Erbil", "flights": "Flights to Erbil" },
+      "baghdad": { "name": "Baghdad", "flights": "Flights to Baghdad" },
+      "yerevan": { "name": "Yerevan", "flights": "Flights to Yerevan" },
+      "kuwait": { "name": "Kuwait", "flights": "Flights to Kuwait" }
     }
   }
 }

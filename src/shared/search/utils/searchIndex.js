@@ -182,6 +182,18 @@ function buildPageRecords() {
       titlePath: 'faq.hero.title',
       textPaths: ['faq.hero.subtitle'],
     }),
+    pageRecord({
+      id: 'destinations-hero',
+      href: '/our-destinations',
+      titlePath: 'destinations.hero.title',
+      textPaths: ['destinations.hero.subtitle'],
+    }),
+    pageRecord({
+      id: 'destinations-explore',
+      href: '/our-destinations',
+      titlePath: 'destinations.explore.title',
+      textPaths: ['destinations.explore.subtitle'],
+    }),
   ]
 
   helpCategories.forEach((category) => {

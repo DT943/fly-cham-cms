@@ -7,6 +7,7 @@ import Forms from '../../../pages/forms/Forms.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
+import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
 import {
   FormsRedirect,
   LegacyFormDetailRedirect,
@@ -25,6 +26,7 @@ export const pages = {
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,
   '/help/faqs': Faqs,
+  '/our-destinations': OurDestinations,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
