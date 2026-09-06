@@ -10,6 +10,8 @@ import {
 } from '../utils/faqPaymentTabs.js'
 import FaqAccordionItem from './FaqAccordionItem.jsx'
 import FaqTabs from './FaqTabs.jsx'
+import FareComparisonTables from './FareComparisonTables.jsx'
+import { FARE_COMPARISON_QUESTION_ID } from '../utils/fareComparison.js'
 import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const FaqTopicPanel = ({
@@ -106,7 +108,16 @@ const FaqTopicPanel = ({
                       key={question.id}
                       id={searchHitId(question.id)}
                       question={getFaqLabel(question.question, language)}
-                      answer={getFaqLabel(question.answer, language)}
+                      answer={
+                        question.id === FARE_COMPARISON_QUESTION_ID
+                          ? ''
+                          : getFaqLabel(question.answer, language)
+                      }
+                      extra={
+                        question.id === FARE_COMPARISON_QUESTION_ID ? (
+                          <FareComparisonTables language={language} />
+                        ) : null
+                      }
                       open={openIds.includes(question.id)}
                       onToggle={() => onToggleQuestion(question.id)}
                     />

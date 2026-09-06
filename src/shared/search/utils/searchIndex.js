@@ -7,6 +7,7 @@ import { journeySteps } from '../../../pages/help/utils/journeySteps.js'
 import { contactChannels } from '../../../pages/contact-us/utils/contactChannels.jsx'
 import { contactForms } from '../../../pages/contact-us/utils/contactForms.jsx'
 import { searchHitId } from './searchHit.js'
+import { FARE_COMPARISON_QUESTION_ID, getFareComparisonSearchText } from '../../../pages/faqs/utils/fareComparison.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -63,10 +64,12 @@ function pageRecord({ id, href, titlePath, textPaths = [], target }) {
 
 function buildFaqRecords() {
   const records = []
+  const fareText = getFareComparisonSearchText()
 
   faqCategories.forEach((category) => {
     category.topics.forEach((topic) => {
       topic.questions.forEach((question) => {
+        const extraText = question.id === FARE_COMPARISON_QUESTION_ID ? fareText : null
         records.push({
           id: `faq:${question.id}`,
           type: 'faq',
@@ -75,8 +78,8 @@ function buildFaqRecords() {
           questionId: question.id,
           title: question.question,
           text: {
-            en: [topic.title?.en, category.title?.en, question.answer?.en].filter(Boolean).join(' '),
-            ar: [topic.title?.ar, category.title?.ar, question.answer?.ar].filter(Boolean).join(' '),
+            en: [topic.title?.en, category.title?.en, question.answer?.en, extraText?.en].filter(Boolean).join(' '),
+            ar: [topic.title?.ar, category.title?.ar, question.answer?.ar, extraText?.ar].filter(Boolean).join(' '),
           },
         })
       })
