@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import {
   ArrowUUpLeft,
   ArrowsClockwise,
   Briefcase,
+  CaretDown,
   Clock,
   Coffee,
   EyeSlash,
@@ -34,7 +36,7 @@ const FareRowLabel = ({ row, language }) => {
         <Icon
           size={20}
           weight="regular"
-          className="shrink-0 text-800"
+          className="shrink-0 text-current"
           aria-hidden="true"
         />
       )}
@@ -78,117 +80,98 @@ const FareCell = ({ value, language }) => {
   )
 }
 
-const FareCards = ({ table, language }) => (
-  <div className="flex flex-col gap-3 w-full px-4 sm:px-8 md:hidden">
-    {table.columns.map((column) => (
-      <article
-        key={column.id}
-        className="rounded-2xl border border-200 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+const FareRow = ({ row, table, language, open, onToggle, zebra }) => (
+  <div className={`border-t border-200 ${zebra}`}>
+    <h4 className="m-0">
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={onToggle}
+        className={`${typography.caption} font-semibold w-full bg-transparent border-0 flex items-center justify-between gap-3 cursor-pointer px-4 sm:px-8 md:px-10 py-3.5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
+          open ? 'text-primary-1' : 'text-800'
+        }`}
       >
-        <header className="bg-primary-1 px-4 py-3.5">
-          <p className={`${typography.caption} font-medium m-0 text-primary-100`}>
-            {getFaqLabel(column.className, language)}
-          </p>
-          <p className={`${typography.itemTitle} font-bold text-50 m-0 mt-0.5`}>
-            {getFaqLabel(column.name, language)}
-          </p>
-        </header>
-        <div>
-          {table.rows.map((row, index) => (
+        <FareRowLabel row={row} language={language} />
+        <CaretDown
+          size={16}
+          weight="bold"
+          className={`shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+            open ? 'rotate-180 text-primary-1' : 'text-500'
+          }`}
+        />
+      </button>
+    </h4>
+    <div
+      className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+        open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+      }`}
+    >
+      <div className="overflow-hidden min-h-0">
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 border-t border-200 transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${
+            open ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {table.columns.map((column) => (
             <div
-              key={row.id}
-              className={`px-4 py-3.5 flex flex-col gap-2 ${
-                index > 0 ? 'border-t border-200' : ''
-              } ${index % 2 === 0 ? 'bg-background' : 'bg-100/70'}`}
+              key={column.id}
+              className="px-4 sm:px-8 md:px-6 lg:px-8 py-3.5 border-t border-200 md:border-t-0 md:border-s first:border-s-0 first:border-t-0"
             >
-              <p className={`${typography.caption} font-semibold text-800 m-0`}>
-                <FareRowLabel row={row} language={language} />
+              <p className={`${typography.caption} font-semibold text-800 m-0 mb-1.5 md:hidden`}>
+                {getFaqLabel(column.name, language)}
               </p>
               <FareCell value={row.cells[column.id]} language={language} />
             </div>
           ))}
         </div>
-      </article>
-    ))}
+      </div>
+    </div>
   </div>
 )
 
-const FareTable = ({ table, language }) => {
-  const title = getFaqLabel(table.title, language)
-
-  return (
-    <div className="hidden md:block w-full border-y border-200 overflow-hidden">
-      <table className="w-full table-fixed border-separate border-spacing-0 text-start">
-        <caption className="sr-only">{title}</caption>
-        <colgroup>
-          <col className="w-[28%]" />
-          {table.columns.map((column) => (
-            <col key={column.id} />
-          ))}
-        </colgroup>
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              className={`${typography.caption} font-semibold text-50 bg-primary-1 px-3 py-3.5 lg:px-4`}
-            >
-              {getFaqLabel(table.featureLabel, language)}
-            </th>
-            {table.columns.map((column) => (
-              <th
-                key={column.id}
-                scope="col"
-                className={`${typography.caption} font-semibold text-50 bg-primary-1 px-3 py-3.5 lg:px-4`}
-              >
-                <span className="block font-medium text-primary-100">
-                  {getFaqLabel(column.className, language)}
-                </span>
-                <span className={`${typography.body} block mt-1 font-bold tracking-wide break-words`}>
-                  {getFaqLabel(column.name, language)}
-                </span>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {table.rows.map((row, index) => {
-            const zebra = index % 2 === 0 ? 'bg-background' : 'bg-100/70'
-
-            return (
-              <tr key={row.id} className={`${zebra} hover:bg-primary-1/6 transition-colors`}>
-                <th
-                  scope="row"
-                  className={`${typography.caption} font-semibold text-800 px-3 py-3.5 lg:px-4 align-top border-t border-200 ${zebra}`}
-                >
-                  <FareRowLabel row={row} language={language} />
-                </th>
-                {table.columns.map((column) => (
-                  <td
-                    key={column.id}
-                    className="px-3 py-3.5 lg:px-4 border-t border-s border-200 align-top"
-                  >
-                    <FareCell value={row.cells[column.id]} language={language} />
-                  </td>
-                ))}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
 const FareComparisonTables = ({ language }) => {
   const table = fareComparisonTables[0]
+  const [openIds, setOpenIds] = useState(() => table.rows.map((row) => row.id))
+
+  const toggleRow = (id) => {
+    setOpenIds((current) =>
+      current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+    )
+  }
 
   return (
     <div className="flex flex-col gap-3 w-full min-w-0">
       <p className={`${typography.caption} font-medium text-600 m-0 px-4 sm:px-8 md:px-10`}>
         {getFaqLabel(table.title, language)}
       </p>
-      <FareCards table={table} language={language} />
-      <FareTable table={table} language={language} />
+      <div className="w-full border-y border-200">
+        <div className="hidden md:grid grid-cols-3 bg-primary-1">
+          {table.columns.map((column) => (
+            <div
+              key={column.id}
+              className={`${typography.caption} font-semibold text-50 px-6 lg:px-8 py-3.5`}
+            >
+              <span className="block font-medium text-primary-100">
+                {getFaqLabel(column.className, language)}
+              </span>
+              <span className={`${typography.body} block mt-1 font-bold tracking-wide break-words`}>
+                {getFaqLabel(column.name, language)}
+              </span>
+            </div>
+          ))}
+        </div>
+        {table.rows.map((row, index) => (
+          <FareRow
+            key={row.id}
+            row={row}
+            table={table}
+            language={language}
+            open={openIds.includes(row.id)}
+            onToggle={() => toggleRow(row.id)}
+            zebra={index % 2 === 0 ? 'bg-background' : 'bg-100/70'}
+          />
+        ))}
+      </div>
     </div>
   )
 }
