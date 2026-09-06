@@ -345,8 +345,8 @@ export const faqCategories = [
               "ar": "ما شروط تعديل تذكرة درجة رجال الأعمال؟"
             },
             "answer": {
-              "en": "Business Class tickets can be modified free of charge, and any applicable fare difference must be paid. If the modification is made within 24 hours of departure, a USD 100 no-show penalty applies, in addition to any fare difference.",
-              "ar": "جدول متل تبع المقارنة وقت الحجز  يمكن تعديل تذكرة درجة رجال الأعمال مجاناً، مع دفع أي فرق مطبق في السعر. وعند إجراء التعديل خلال 24 ساعة من موعد المغادرة، تُطبق غرامة عدم حضور بقيمة 100 دولار أمريكي، إضافةً إلى أي فرق في السعر."
+              "en": "Business Class tickets can be modified without a flight-change fee. However, if the newly selected flight is more expensive than the original booking, the passenger must pay the applicable fare difference.",
+              "ar": "يمكن تعديل تذاكر درجة الأعمال دون دفع رسوم تغيير الرحلة. ومع ذلك، إذا كانت الرحلة المختارة حديثاً أعلى من تكلفة من الحجز الأصلي، فيتعين على المسافر دفع فرق السعر المطبق."
             }
           },
           {
