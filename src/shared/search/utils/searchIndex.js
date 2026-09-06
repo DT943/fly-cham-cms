@@ -7,6 +7,7 @@ import { journeySteps } from '../../../pages/help/utils/journeySteps.js'
 import { contactChannels } from '../../../pages/contact-us/utils/contactChannels.jsx'
 import { contactForms } from '../../../pages/contact-us/utils/contactForms.jsx'
 import { searchHitId } from './searchHit.js'
+import { ECONOMY_REFUND_FEES_QUESTION_ID, getEconomyRefundFeesSearchText } from '../../../pages/faqs/utils/economyRefundFees.js'
 import { FARE_COMPARISON_QUESTION_ID, getFareComparisonSearchText } from '../../../pages/faqs/utils/fareComparison.js'
 import { FLIGHT_CHANGE_FEES_QUESTION_ID, getFlightChangeFeesSearchText } from '../../../pages/faqs/utils/flightChangeFees.js'
 
@@ -65,18 +66,16 @@ function pageRecord({ id, href, titlePath, textPaths = [], target }) {
 
 function buildFaqRecords() {
   const records = []
-  const fareText = getFareComparisonSearchText()
-  const flightChangeText = getFlightChangeFeesSearchText()
+  const extraTextByQuestion = {
+    [FARE_COMPARISON_QUESTION_ID]: getFareComparisonSearchText(),
+    [FLIGHT_CHANGE_FEES_QUESTION_ID]: getFlightChangeFeesSearchText(),
+    [ECONOMY_REFUND_FEES_QUESTION_ID]: getEconomyRefundFeesSearchText(),
+  }
 
   faqCategories.forEach((category) => {
     category.topics.forEach((topic) => {
       topic.questions.forEach((question) => {
-        const extraText =
-          question.id === FARE_COMPARISON_QUESTION_ID
-            ? fareText
-            : question.id === FLIGHT_CHANGE_FEES_QUESTION_ID
-              ? flightChangeText
-              : null
+        const extraText = extraTextByQuestion[question.id] || null
         records.push({
           id: `faq:${question.id}`,
           type: 'faq',

@@ -10,10 +10,18 @@ import {
 } from '../utils/faqPaymentTabs.js'
 import FaqAccordionItem from './FaqAccordionItem.jsx'
 import FaqTabs from './FaqTabs.jsx'
+import EconomyRefundFeesTable from './EconomyRefundFeesTable.jsx'
 import FareComparisonTables from './FareComparisonTables.jsx'
 import FlightChangeFeesTable from './FlightChangeFeesTable.jsx'
+import { ECONOMY_REFUND_FEES_QUESTION_ID } from '../utils/economyRefundFees.js'
 import { FARE_COMPARISON_QUESTION_ID } from '../utils/fareComparison.js'
 import { FLIGHT_CHANGE_FEES_QUESTION_ID } from '../utils/flightChangeFees.js'
+
+const faqTableExtras = {
+  [FARE_COMPARISON_QUESTION_ID]: FareComparisonTables,
+  [FLIGHT_CHANGE_FEES_QUESTION_ID]: FlightChangeFeesTable,
+  [ECONOMY_REFUND_FEES_QUESTION_ID]: EconomyRefundFeesTable,
+}
 import { searchHitId } from '../../../shared/search/utils/searchHit.js'
 
 const FaqTopicPanel = ({
@@ -105,28 +113,21 @@ const FaqTopicPanel = ({
                     {getFaqLabel(group.branch, language)}
                   </p>
                 )}
-                {group.questions.map((question) => (
+                {group.questions.map((question) => {
+                  const Extra = faqTableExtras[question.id]
+
+                  return (
                     <FaqAccordionItem
                       key={question.id}
                       id={searchHitId(question.id)}
                       question={getFaqLabel(question.question, language)}
-                      answer={
-                        question.id === FARE_COMPARISON_QUESTION_ID ||
-                        question.id === FLIGHT_CHANGE_FEES_QUESTION_ID
-                          ? ''
-                          : getFaqLabel(question.answer, language)
-                      }
-                      extra={
-                        question.id === FARE_COMPARISON_QUESTION_ID ? (
-                          <FareComparisonTables language={language} />
-                        ) : question.id === FLIGHT_CHANGE_FEES_QUESTION_ID ? (
-                          <FlightChangeFeesTable language={language} />
-                        ) : null
-                      }
+                      answer={Extra ? '' : getFaqLabel(question.answer, language)}
+                      extra={Extra ? <Extra language={language} /> : null}
                       open={openIds.includes(question.id)}
                       onToggle={() => onToggleQuestion(question.id)}
                     />
-                ))}
+                  )
+                })}
               </div>
             ))}
           </div>
