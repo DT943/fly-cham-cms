@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import logo from '../../assets/images/layout/logo.png'
 import logoDark from '../../assets/images/layout/logo-dark.png'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
@@ -17,7 +18,7 @@ const megaMenus = [
   { id: 'help', labelKey: 'help' },
 ]
 
-const Header = () => {
+const Header = ({ dark = false }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const headerRef = useRef(null)
@@ -56,15 +57,15 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 bg-background border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
-      }`}
+      className={`sticky top-0 z-50 border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+        dark ? 'bg-secondary-2' : 'bg-background'
+      } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
-      <div className="bg-background border-b border-200">
+      <div className={`border-b ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-background'}`}>
         <Container className="h-16 md:h-18 flex items-center gap-4 md:gap-8">
           <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
             <img
-              src={logoDark}
+              src={dark ? logo : logoDark}
               alt="Fly Cham"
               className="h-8 md:h-10 w-auto"
             />
@@ -84,9 +85,9 @@ const Header = () => {
                   aria-expanded={isOpen}
                   aria-controls={`${menu.id}-mega-menu`}
                   onClick={() => setOpenMenu(isOpen ? null : menu.id)}
-                  className={`relative self-stretch flex items-center gap-1.5 whitespace-nowrap bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium text-secondary-2 ${
-                    isOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''
-                  }`}
+                  className={`relative self-stretch flex items-center gap-1.5 whitespace-nowrap bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium ${
+                    dark ? 'text-50' : 'text-secondary-2'
+                  } ${isOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''}`}
                 >
                   {t(`layout.header.nav.${menu.labelKey}`)}
                   <CaretDown
