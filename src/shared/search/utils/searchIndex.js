@@ -16,6 +16,7 @@ import {
   destinationNetwork,
   getDestinationNetworkSearchText,
 } from '../../../pages/our-destinations/utils/destinationFaqs.js'
+import { sights } from '../../../pages/city-sights/utils/sights.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -233,6 +234,24 @@ function buildPageRecords() {
         'flightsToDamascus.thingsToDo.subtitle',
         'flightsToDamascus.thingsToDo.items.umayyadMosque.title',
         'flightsToDamascus.thingsToDo.items.umayyadMosque.description',
+      ],
+    }),
+    pageRecord({
+      id: 'city-sights-hero',
+      href: '/our-destinations/city-sights',
+      titlePath: 'citySights.hero.title',
+      textPaths: ['citySights.hero.description', 'citySights.breadcrumb'],
+    }),
+    pageRecord({
+      id: 'city-sights-grid',
+      href: '/our-destinations/city-sights',
+      titlePath: 'citySights.grid.title',
+      textPaths: [
+        'citySights.magazine.title',
+        ...sights.flatMap((sight) => [
+          `citySights.sights.${sight.id}.name`,
+          `citySights.sights.${sight.id}.location`,
+        ]),
       ],
     }),
     pageRecord({

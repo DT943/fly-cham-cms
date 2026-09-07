@@ -1030,5 +1030,91 @@
         }
       }
     }
+  },
+  "citySights": {
+    "breadcrumb": "City Sights",
+    "hero": {
+      "title": "Activities & Attractions",
+      "description": "Explore attractions, sights, and entertaining activities across our destinations and choose what best suits your interests for your next trip",
+      "imageAlt": "Mountain lake surrounded by forest and peaks"
+    },
+    "search": {
+      "label": "Search sights",
+      "placeholder": "Search sights, places or experiences.."
+    },
+    "categories": {
+      "all": "All",
+      "landmarks": "Landmarks",
+      "religion": "Religion",
+      "shopping": "Shopping",
+      "activities": "Activities",
+      "nature": "Nature",
+      "museums": "Museums"
+    },
+    "grid": {
+      "title": "All sights"
+    },
+    "tags": {
+      "religious": "Religious",
+      "historic": "Historic",
+      "culture": "Culture",
+      "waterfront": "Waterfront",
+      "familyFun": "Family Fun",
+      "architecture": "Architecture",
+      "views": "Views",
+      "landmark": "Landmark",
+      "iconic": "Iconic",
+      "skyscraper": "Skyscraper",
+      "panoramic": "Panoramic",
+      "cultural": "Cultural",
+      "architectural": "Architectural",
+      "historical": "Historical",
+      "touristAttraction": "Tourist Attraction"
+    },
+    "sights": {
+      "blueMosque": {
+        "name": "Blue Mosque",
+        "location": "Istanbul, Türkiye"
+      },
+      "romanTheatre": {
+        "name": "Roman Theatre",
+        "location": "Amman, Jordan"
+      },
+      "dohaCorniche": {
+        "name": "Doha Corniche",
+        "location": "Doha, Qatar"
+      },
+      "flameTowers": {
+        "name": "Flame Towers",
+        "location": "Baku, Azerbaijan"
+      },
+      "eiffelTower": {
+        "name": "Eiffel Tower",
+        "location": "Paris, France"
+      },
+      "burjKhalifa": {
+        "name": "Burj Khalifa",
+        "location": "Dubai, UAE"
+      },
+      "operaHouse": {
+        "name": "Sydney Opera House",
+        "location": "Sydney, Australia"
+      },
+      "colosseum": {
+        "name": "Colosseum",
+        "location": "Rome, Italy"
+      }
+    },
+    "magazine": {
+      "title": "Read More in Marhaba Onboard Magazine",
+      "description": "Don’t miss our inspiring destination stories, cultural and tradition spotlights from across our destinations network in Marhaba Onboard Magazine.",
+      "cta": "Explore Magazine Issues"
+    },
+    "newsletter": {
+      "title": "Stay Inspired for Your Next Journey",
+      "description": "Receive destination ideas, travel stories, Fly Cham updates for your future journeys directly in your inbox.",
+      "label": "Email address",
+      "placeholder": "Enter your email address"
+    }
   }
 }

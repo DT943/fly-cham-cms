@@ -9,6 +9,7 @@ import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
 import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
 import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
+import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import {
   FormsRedirect,
   LegacyFormDetailRedirect,
@@ -29,6 +30,7 @@ export const pages = {
   '/help/faqs': Faqs,
   '/our-destinations': OurDestinations,
   '/our-destinations/flights-to-damascus': FlightsToDamascus,
+  '/our-destinations/city-sights': CitySights,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
