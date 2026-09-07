@@ -44,13 +44,19 @@ const MagazineBanner = () => {
         blur's faded edges outside the clip so no seam shows — it needs to clear the
         23px radius on the short side, which is only 360px tall at lg.
       */}
-      <div className="pointer-events-none absolute inset-0 opacity-90">
+      <div className="pointer-events-none absolute inset-0">
         <img
           src={bannerBg}
           alt=""
-          className="absolute inset-0 size-full scale-125 object-cover opacity-50 blur-[23px]"
+          className="absolute inset-0 size-full scale-105 object-cover opacity-90 blur-[3px]"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-[#01263b] to-transparent to-[121%] rtl:bg-linear-to-l" />
+        {/*
+          The gradient stays solid across the copy so the white text keeps its
+          contrast, then drops to 25% so the photo actually reads on the artwork
+          side. Figma's own values (50% image under a 23px blur and a wash that is
+          still ~80% opaque at the right edge) render as a flat teal fill.
+        */}
+        <div className="absolute inset-0 bg-linear-to-r from-[#01263b] from-28% to-[#01263b]/25 rtl:bg-linear-to-l" />
       </div>
 
       {/*
