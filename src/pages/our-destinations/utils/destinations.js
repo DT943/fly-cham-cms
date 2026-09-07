@@ -14,6 +14,7 @@ export const destinations = [
     id: 'damascus',
     countryKey: 'syria',
     image: 'https://images.unsplash.com/photo-1577588090498-d5fa6ed6cb9f?w=600&q=80',
+    href: '/our-destinations/flights-to-damascus',
   },
   {
     id: 'abuDhabi',

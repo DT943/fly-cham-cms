@@ -206,6 +206,36 @@ function buildPageRecords() {
       textPaths: ['destinations.inspiration.description'],
     }),
     pageRecord({
+      id: 'damascus-hero',
+      href: '/our-destinations/flights-to-damascus',
+      titlePath: 'flightsToDamascus.breadcrumb',
+      textPaths: ['flightsToDamascus.hero.country', 'flightsToDamascus.stats.airport.detail'],
+    }),
+    pageRecord({
+      id: 'damascus-narratives',
+      href: '/our-destinations/flights-to-damascus',
+      titlePath: 'flightsToDamascus.narratives.special.title',
+      textPaths: [
+        'flightsToDamascus.narratives.special.description',
+        'flightsToDamascus.narratives.cuisine.title',
+        'flightsToDamascus.narratives.cuisine.description',
+        'flightsToDamascus.narratives.places.title',
+        'flightsToDamascus.narratives.places.description',
+        'flightsToDamascus.narratives.activities.title',
+        'flightsToDamascus.narratives.activities.description',
+      ],
+    }),
+    pageRecord({
+      id: 'damascus-things-to-do',
+      href: '/our-destinations/flights-to-damascus',
+      titlePath: 'flightsToDamascus.thingsToDo.title',
+      textPaths: [
+        'flightsToDamascus.thingsToDo.subtitle',
+        'flightsToDamascus.thingsToDo.items.umayyadMosque.title',
+        'flightsToDamascus.thingsToDo.items.umayyadMosque.description',
+      ],
+    }),
+    pageRecord({
       id: 'destinations-faqs',
       href: '/our-destinations',
       titlePath: 'destinations.faqs.title',

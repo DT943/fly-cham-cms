@@ -2,9 +2,16 @@ import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
-/** Slide swap: content travels a full block height over 500ms, opacity clears in 250ms. */
+/**
+ * Figma: "Our destinations" → Frame 1000004182 (node 38328:9001).
+ *
+ * Hover swaps the two content blocks in place, timed off the Figma prototype
+ * recording: country/title rise out of frame while the CTA rises in from below,
+ * both moving together over ~300ms. The scrim does not change between states —
+ * it is one gradient, `rgba(0,37,60,0) 38.122% → #00253C`.
+ */
 const swapTransition =
-  '[transition:translate_500ms_cubic-bezier(0.4,0,0.2,1),opacity_250ms_cubic-bezier(0.4,0,0.2,1)] motion-reduce:[transition:none]'
+  '[transition:translate_300ms_cubic-bezier(0.4,0,0.2,1),opacity_300ms_cubic-bezier(0.4,0,0.2,1)] motion-reduce:[transition:none]'
 
 const DestinationCard = ({
   country,
@@ -15,15 +22,18 @@ const DestinationCard = ({
   activities,
   href = '#',
 }) => (
-  <article className="group relative overflow-clip rounded-xl aspect-[282/176] cursor-pointer transition-shadow duration-500 ease-in-out hover:shadow-[0_8px_30px_rgba(0,37,60,0.25)] motion-reduce:transition-none motion-reduce:hover:shadow-none">
+  <article className="group relative overflow-clip rounded-xl aspect-[282/176] cursor-pointer">
     <img
       src={image}
       alt={imageAlt}
-      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
     />
-    <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_bottom,rgba(0,37,60,0)_0%,rgba(0,37,60,0.85)_100%)] transition-opacity duration-500 ease-in-out group-hover:opacity-0 group-focus-within:opacity-0 motion-reduce:transition-none" />
-    <div className="absolute inset-0 pointer-events-none opacity-0 bg-[linear-gradient(to_bottom,rgba(0,96,128,0.2)_0%,rgba(0,66,92,0.55)_45%,rgba(0,37,60,0.92)_100%)] transition-opacity duration-500 ease-in-out group-hover:opacity-100 group-focus-within:opacity-100 motion-reduce:transition-none" />
+    <div
+      aria-hidden
+      className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,37,60,0)_38.122%,#00253C_100%)]"
+    />
 
+    {/* Both blocks share one grid cell and sit bottom-aligned, so they cross in place. */}
     <div className="absolute inset-x-0 bottom-0 grid p-4">
       <div
         className={`col-start-1 row-start-1 self-end pointer-events-none flex flex-col gap-1 ${swapTransition} group-hover:opacity-0 group-hover:-translate-y-full group-focus-within:opacity-0 group-focus-within:-translate-y-full motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0`}
@@ -33,20 +43,22 @@ const DestinationCard = ({
       </div>
 
       <div
-        className={`col-start-1 row-start-1 self-end flex flex-col gap-3 opacity-0 translate-y-full pointer-events-none ${swapTransition} group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto motion-reduce:translate-y-0`}
+        className={`col-start-1 row-start-1 self-end flex flex-col gap-2 opacity-0 translate-y-full pointer-events-none ${swapTransition} group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto motion-reduce:translate-y-0`}
       >
         <LocalizedLink
           href={href}
-          className={`${typography.caption} font-semibold text-100 bg-primary-1/85 hover:bg-primary-1 no-underline rounded-lg px-2.5 py-3 text-center transition-colors duration-200 ease-out motion-reduce:transition-none`}
+          className={`${typography.caption} font-semibold text-100 bg-primary-1 hover:bg-primary-1/90 no-underline rounded-lg p-2.5 text-center transition-colors duration-200 ease-out motion-reduce:transition-none`}
         >
           {cta}
         </LocalizedLink>
         <LocalizedLink
           href={href}
-          className={`${typography.caption} font-medium text-50 inline-flex items-center justify-center gap-2 no-underline transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
+          className={`${typography.caption} font-medium text-50 inline-flex items-center justify-center gap-2.5 no-underline rounded-lg transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
         >
           {activities}
-          <ArrowRight size={14} weight="bold" className="rtl:-scale-x-100" />
+          <span className="flex items-center justify-center size-[29px] shrink-0">
+            <ArrowRight size={20} className="rtl:-scale-x-100" />
+          </span>
         </LocalizedLink>
       </div>
     </div>

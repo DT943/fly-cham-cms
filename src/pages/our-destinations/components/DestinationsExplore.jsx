@@ -22,7 +22,8 @@ const DestinationsExplore = () => {
         {t('destinations.explore.subtitle')}
       </p>
 
-      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+      {/* 16px gutter between the featured card, the grid, and every cell (Figma). */}
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch">
         <FeaturedDestination
           country={t(`destinations.countries.${featuredDestination.countryKey}`)}
           title={t(`destinations.cities.${featuredDestination.id}.flights`)}
@@ -37,7 +38,13 @@ const DestinationsExplore = () => {
         />
 
         <div className="flex flex-col gap-6 flex-1 min-w-0">
-          <div key={page} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+          {/*
+            3 columns only from xl. Beside the fixed 326px featured card, lg leaves
+            185px-wide cells — 115px tall at the Figma aspect, too short for the
+            140px hover CTA block, which then clips. At xl the cell is 282px, the
+            width the design is drawn at.
+          */}
+          <div key={page} className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {pageItems.map((destination, index) => {
               const city = t(`destinations.cities.${destination.id}.name`)
 
@@ -54,6 +61,7 @@ const DestinationsExplore = () => {
                     imageAlt={city}
                     cta={t('destinations.card.discover', { city })}
                     activities={t('destinations.featured.activities')}
+                    href={destination.href}
                   />
                 </div>
               )

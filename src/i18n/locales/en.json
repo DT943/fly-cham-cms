@@ -923,5 +923,83 @@
       "yerevan": { "name": "Yerevan", "flights": "Flights to Yerevan" },
       "kuwait": { "name": "Kuwait", "flights": "Flights to Kuwait" }
     }
+  },
+  "flightsToDamascus": {
+    "breadcrumb": "Flights to Damascus",
+    "hero": {
+      "eyebrow": "Flights to",
+      "title": "Damascus (DAM)",
+      "country": "Syria",
+      "imageAlt": "The Umayyad Mosque minaret rising above the old city of Damascus"
+    },
+    "stats": {
+      "airport": {
+        "label": "Airport :",
+        "value": "DAM",
+        "detail": "Damascus Intl. Airport"
+      },
+      "weather": {
+        "label": "Current Weather",
+        "value": "22°C",
+        "detail": "Mostly Sunny"
+      },
+      "time": {
+        "label": "Local Time",
+        "value": "15:24",
+        "detail": "GMT +3"
+      },
+      "currency": {
+        "label": "Currency",
+        "value": "Syrian Pound",
+        "detail": "SYP"
+      }
+    },
+    "narratives": {
+      "special": {
+        "title": "What makes Damascus special?",
+        "description": "Travel to the Syrian capital, Damascus, where you'll find a unique blend of culture and history. The city boasts a rich heritage, a distinctive character, and a vibrant atmosphere, making it one of the best destinations in the Middle East.",
+        "imageAlt": "The colonnaded entrance to the Umayyad Mosque in Damascus"
+      },
+      "cuisine": {
+        "title": "What are the most famous traditional dishes in Damascus?",
+        "description": "Damascus cuisine is one of the oldest and most authentic in the world, and the city's traditional dishes offer a wide variety to suit all tastes. Enjoy the rich flavors of popular local dishes and appetizers, including tabbouleh, yalanji, baba ghanouj, fava beans, kibbeh labneh, and ouzi rice, as well as delicious Damascene sweets like knafeh, madlouqa, maamoul, and more.",
+        "imageAlt": "A Damascene table spread with traditional mezze dishes"
+      },
+      "places": {
+        "title": "What Are the Best Places to Visit in Damascus?",
+        "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk al-Hamidiyah and Souk al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
+        "imageAlt": "A traditional Damascene courtyard house with a central fountain"
+      },
+      "activities": {
+        "title": "More Activities to Do in Damascus",
+        "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk Al-Hamidiyah and Souk Al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
+        "imageAlt": "Shoppers walking through the covered Souk Al-Hamidiyah"
+      }
+    },
+    "thingsToDo": {
+      "title": "Things to Do in Damascus",
+      "subtitle": "From iconic landmarks to vibrant markets, discover unforgettable experiences in one of the world's oldest cities.",
+      "cta": "Learn More",
+      "items": {
+        "umayyadMosque": {
+          "badge": "See",
+          "title": "Umayyad Mosque",
+          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+          "imageAlt": "The minaret of the Umayyad Mosque at dusk"
+        },
+        "oldCity": {
+          "badge": "Walk Through",
+          "title": "Umayyad Mosque",
+          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+          "imageAlt": "A stone-paved street in the old city of Damascus"
+        },
+        "souk": {
+          "badge": "Visit",
+          "title": "Umayyad Mosque",
+          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+          "imageAlt": "Lantern-lit walkway inside Souk Al-Hamidiyah"
+        }
+      }
+    }
   }
 }
