@@ -1,0 +1,234 @@
+/* Multi-city booking widget — responsive layout (modify search + home). */
+
+.mcSection {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  /* Keep visible so the date calendar popover is not clipped. */
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mcLegRow {
+  --mc-date-col: 220px;
+  --mc-fields-gap: 12px;
+  /* FromToSelector row layout: gap-x-7 */
+  --mc-from-to-gap: 1.75rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+/* From/To + date fields (calendar popover is a sibling under the full row). */
+.mcLegFields {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.mcLegFromTo {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.mcLegFromToOpen {
+  z-index: 50;
+}
+
+.mcDateField {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+  overflow: visible;
+}
+
+.mcDateFieldOpen {
+  z-index: 50;
+}
+
+.mcDateFieldInner {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.mcDeleteBtn {
+  align-self: flex-end;
+}
+
+/*
+ * Calendar under the leg row.
+ * Wide desktop: span To + Departure only (not From) — see 1280px media query.
+ * Stacked layouts: full row width (date already full-bleed).
+ */
+.mcCalendarPopover {
+  position: absolute;
+  z-index: 230;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  border: 1px solid var(--bg-300);
+  background: #fff;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1),
+    0 0 0 1px rgb(0 0 0 / 0.05);
+}
+
+.mcPassengersWrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.mcPassengersWrapOpen {
+  z-index: 200;
+}
+
+.mcPassengersBox {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 0;
+}
+
+/* Match one-way/return guests popover: grow from start, keep readable width */
+.mcPassengersDropdown {
+  position: absolute;
+  z-index: 200;
+  top: 100%;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  margin-top: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: min(26rem, calc(100vw - 1.5rem));
+  max-width: min(28rem, calc(100vw - 1.5rem));
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--bg-300);
+  background: #fff;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.mcFooterWrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.mcFooterWrap :global(#search-flight-button) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mcWidgetNarrowPadding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Tablet / stacked column: date matches From/To full width */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .mcLegFields {
+    flex-direction: column;
+  }
+
+  .mcDateField {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Wide desktop: From/To + fixed date column aligned on every leg */
+@media (min-width: 1280px) {
+  .mcLegFields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--mc-date-col, 220px);
+    align-items: stretch;
+    gap: var(--mc-fields-gap, 12px);
+  }
+
+  .mcLegFromTo {
+    width: auto;
+    max-width: none;
+  }
+
+  .mcDateField {
+    width: var(--mc-date-col, 220px);
+    min-width: var(--mc-date-col, 220px);
+    max-width: var(--mc-date-col, 220px);
+  }
+
+  .mcDeleteBtn {
+    align-self: center;
+  }
+
+  /*
+   * To + Departure only:
+   * FromTo = 100% - gap - dateCol; To = (FromTo - fromToGap) / 2
+   * width = To + fieldsGap + dateCol
+   *       = 50% + dateCol/2 + fieldsGap/2 - fromToGap/2
+   *       = 50% + 110px + 6px - 0.875rem
+   */
+  .mcCalendarPopover {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    width: calc(
+      50% + (var(--mc-date-col) / 2) + (var(--mc-fields-gap) / 2) -
+        (var(--mc-from-to-gap) / 2)
+    );
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .mcPassengersWrap {
+    width: min(100%, 26rem);
+    max-width: 26rem;
+  }
+
+  .mcPassengersDropdown {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    width: 100%;
+    min-width: 100%;
+    max-width: min(28rem, calc(100vw - 1.5rem));
+  }
+
+  .mcFooterWrap :global(#search-flight-button) {
+    width: auto;
+    max-width: none;
+  }
+
+  .mcWidgetNarrowPadding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

@@ -1,0 +1,52 @@
+.tooltipRoot {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.tooltipTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Comfortable tap target on mobile without shifting the row layout. */
+  min-width: 44px;
+  min-height: 44px;
+  margin: -14px;
+  padding: 14px;
+  border: 0;
+  background: transparent;
+  line-height: 0;
+  cursor: help;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tooltipIcon {
+  display: block;
+  color: var(--text-500, #9e9e9b);
+}
+
+.tooltipFixed {
+  position: fixed;
+  z-index: 2200;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 24px));
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #26485b;
+  box-shadow:
+    0 4px 12px rgba(33, 37, 41, 0.18),
+    0 0 1px rgba(33, 37, 41, 0.24);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #fff;
+  text-align: start;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.tooltipFixedRtl {
+  text-align: right;
+}

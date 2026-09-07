@@ -3,8 +3,11 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
+import BookingWidget from '../../shared/booking/BookingWidget.jsx'
 import DestinationsExplore from './components/DestinationsExplore.jsx'
 import DestinationsHero from './components/DestinationsHero.jsx'
+import DestinationsFaqs from './components/DestinationsFaqs.jsx'
+import DestinationsInspiration from './components/DestinationsInspiration.jsx'
 
 const OurDestinations = () => {
   const { t } = useTranslation()
@@ -27,10 +30,15 @@ const OurDestinations = () => {
           imageAlt={t('destinations.hero.imageAlt')}
         />
       </SearchAnchor>
-      <Container className="py-8 md:py-12 lg:py-14">
+      <Container className="flex flex-col gap-10 py-8 md:gap-14 md:py-12 lg:gap-16 lg:py-14">
         <SearchAnchor hit="destinations-explore">
           <DestinationsExplore />
         </SearchAnchor>
+        <SearchAnchor hit="destinations-inspiration">
+          <DestinationsInspiration />
+        </SearchAnchor>
+        <DestinationsFaqs />
+        <BookingWidget />
       </Container>
     </main>
   )

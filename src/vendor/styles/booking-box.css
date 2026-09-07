@@ -1,0 +1,505 @@
+/*
+ * Booking-box styles copied verbatim from flychamwebsite:
+ *   src/app/[pos]/[lang]/globals.css, lines 230-722
+ *
+ * These are the react-day-picker (`.rdp-*`) resets and the
+ * `.booking-calendar-*` range/preview rules the vendored widget depends on.
+ * Both apps already share the same `@theme` tokens, so the custom properties
+ * these rules reference (`--color-main`, `--primary-1`, ...) resolve unchanged.
+ *
+ * Re-sync by re-extracting the same range rather than editing in place.
+ */
+
+.rdp-root {
+  --rdp-accent-color: var(--color-main) !important;
+  --rdp-selected-border: 8px 0px 0px 8px !important;
+  --rdp-day_button-border-radius: 8px 0px 0px 8px !important;
+  --rdp-day_button-border: 1px !important;
+
+
+}
+
+.rdp-month_caption {
+  justify-content: center !important;
+}
+
+.rdp-nav {
+  display: none !important;
+}
+
+@keyframes pathPulse {
+  0% {
+    stroke-width: 4px;
+    opacity: 0.9;
+  }
+
+  100% {
+    stroke-width: 6px;
+    opacity: 1;
+  }
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #d0c29c;
+  border-radius: 9999px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mask-video {
+  -webkit-mask-image: url('/videos/mask.webp');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  -webkit-mask-position: center;
+
+  mask-image: url('/videos/mask.webp');
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
+
+input[type='number'].custom-number-input::-webkit-inner-spin-button,
+input[type='number'].custom-number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'].custom-number-input {
+  -moz-appearance: textfield;
+}
+
+.rdp-weekday {
+  text-transform: uppercase !important;
+  font-weight: bold;
+  font-size: 12px;
+  color: #7B827E;
+  text-align: center;
+}
+
+.rdp-months {
+  display: block;
+}
+
+.rdp-month {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .rdp-months {
+    display: flex;
+    gap: 4rem;
+  }
+
+  .rdp-month {
+    width: auto;
+  }
+}
+
+.rdp-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.rdp-day {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  text-align: center;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.rdp-day:not(.rdp-day_outside) {
+  margin: 2px;
+}
+
+.rdp-month_grid {
+  width: 100% !important;
+}
+
+/* Booking-box inline date popover: two months side-by-side under Departure + Return */
+.booking-calendar-popover,
+.booking-calendar-dual-month {
+  --booking-cal-day-size: 2.5rem;
+  --booking-cal-week-row-height: 2.75rem;
+  --booking-cal-week-rows: 6;
+  --booking-cal-grid-height: calc(var(--booking-cal-week-row-height) * var(--booking-cal-week-rows));
+  --booking-cal-nav-height: 2rem;
+  --booking-cal-caption-height: 1.75rem;
+  --booking-cal-weekday-height: 1.5rem;
+  --booking-cal-footer-height: 3.25rem;
+  --booking-cal-panel-height: calc(
+    var(--booking-cal-nav-height) + 0.5rem + var(--booking-cal-caption-height) +
+      var(--booking-cal-weekday-height) + var(--booking-cal-grid-height) +
+      var(--booking-cal-footer-height) + 0.75rem
+  );
+}
+
+.booking-calendar-popover .booking-calendar-panel {
+  min-height: var(--booking-cal-panel-height);
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-calendar-popover .booking-calendar-nav {
+  min-height: var(--booking-cal-nav-height);
+  flex-shrink: 0;
+  /* Space above arrows + month titles (titles share this row). */
+  padding-top: 0.20rem;
+  margin-bottom: 0.80rem;
+}
+
+.booking-calendar-popover .booking-calendar-grid {
+  flex: 1 1 auto;
+  min-height: calc(var(--booking-cal-caption-height) + var(--booking-cal-weekday-height) + var(--booking-cal-grid-height));
+}
+
+.booking-calendar-popover .booking-calendar-footer {
+  min-height: var(--booking-cal-footer-height);
+  flex-shrink: 0;
+}
+
+.booking-calendar-popover .rdp-months,
+.booking-calendar-dual-month .rdp-months {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 1.5rem;
+  width: 100%;
+  max-width: none !important;
+  flex-wrap: nowrap !important;
+  height: 100%;
+  align-items: stretch;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.booking-calendar-dual-month .rdp-months::after,
+.booking-calendar-popover .rdp-months::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: #e5e7eb;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Single-month view (mobile): one column, no center divider */
+@media (max-width: 767px) {
+  .booking-calendar-popover .rdp-months,
+  .booking-calendar-dual-month .rdp-months {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .booking-calendar-popover .rdp-months::after,
+  .booking-calendar-dual-month .rdp-months::after {
+    display: none;
+  }
+}
+
+.booking-calendar-dual-month .rdp-month,
+.booking-calendar-popover .rdp-month {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+  height: calc(var(--booking-cal-caption-height) + var(--booking-cal-weekday-height) + var(--booking-cal-grid-height));
+  min-height: calc(var(--booking-cal-caption-height) + var(--booking-cal-weekday-height) + var(--booking-cal-grid-height));
+}
+
+.booking-calendar-popover .rdp-month_caption {
+  height: var(--booking-cal-caption-height);
+  min-height: var(--booking-cal-caption-height);
+  flex-shrink: 0;
+}
+
+/* Desktop: month titles live in MonthNavigation (same row as arrows) — hide RDP captions. */
+.booking-calendar-hide-rdp-caption .rdp-month_caption,
+.booking-calendar-popover .booking-calendar-hide-rdp-caption .rdp-month_caption {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+}
+
+.booking-calendar-popover .rdp-month_grid thead tr {
+  height: var(--booking-cal-weekday-height);
+}
+
+.booking-calendar-popover .rdp-month_grid {
+  flex: 1 1 auto;
+}
+
+/* Reset Tailwind pl-6 on 2nd month from Dates.jsx — gap is on the grid */
+.booking-calendar-popover .rdp-month + .rdp-month {
+  border: none !important;
+  border-inline-start: none !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+}
+
+.booking-calendar-popover .rdp-month_grid,
+.booking-calendar-popover .rdp-table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+}
+
+/* Always 6 week rows — fixed height when switching months or selecting return */
+.booking-calendar-popover .rdp-month_grid tbody {
+  display: table-row-group;
+  height: var(--booking-cal-grid-height) !important;
+  min-height: var(--booking-cal-grid-height) !important;
+  max-height: var(--booking-cal-grid-height) !important;
+}
+
+.booking-calendar-popover .rdp-month_grid tbody tr {
+  height: var(--booking-cal-week-row-height) !important;
+  max-height: var(--booking-cal-week-row-height) !important;
+}
+
+.booking-calendar-popover .rdp-month_grid tbody td {
+  height: var(--booking-cal-week-row-height);
+  vertical-align: middle;
+}
+
+.booking-calendar-popover .rdp-outside .rdp-day_button,
+.booking-calendar-popover .rdp-day_outside .rdp-day_button,
+.booking-calendar-popover [data-outside='true'] .rdp-day_button,
+.booking-calendar-popover td.rdp-outside .rdp-day_button {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* No availability dots / strike-through on fixedWeeks pad cells */
+.booking-calendar-popover td.rdp-outside,
+.booking-calendar-popover .rdp-day_outside,
+.booking-calendar-popover .rdp-day.rdp-outside,
+.booking-calendar-popover .rdp-day[data-outside='true'] {
+  pointer-events: none !important;
+  opacity: 1 !important;
+  text-decoration: none !important;
+}
+
+.booking-calendar-popover td.rdp-outside::after,
+.booking-calendar-popover .rdp-day_outside::after,
+.booking-calendar-popover .rdp-day.rdp-outside::after,
+.booking-calendar-popover .rdp-day[data-outside='true']::after {
+  display: none !important;
+  content: none !important;
+}
+
+.booking-calendar-popover .rdp-weekday,
+.booking-calendar-popover .rdp-head_cell,
+.booking-calendar-popover th {
+  width: 14.285714% !important;
+  min-width: 0 !important;
+  max-width: 14.285714% !important;
+  padding: 0 !important;
+  font-size: 10px !important;
+  box-sizing: border-box;
+}
+
+.booking-calendar-popover td.rdp-day,
+.booking-calendar-popover .rdp-day {
+  width: 14.285714% !important;
+  min-width: 0 !important;
+  max-width: 14.285714% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+  height: var(--booking-cal-week-row-height) !important;
+  border-radius: 0;
+  display: table-cell !important;
+  vertical-align: middle;
+  aspect-ratio: unset !important;
+}
+
+.booking-calendar-popover .rdp-day:not(.rdp-day_outside) {
+  margin: 0 !important;
+}
+
+.booking-calendar-popover .rdp-day_button {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: var(--booking-cal-day-size) !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  aspect-ratio: unset !important;
+  border-radius: 0 !important;
+}
+
+/* Day cells span the column; button fills the cell (continuous range highlight) */
+.booking-calendar-popover .rdp-month_grid .rdp-day {
+  width: 14.285714% !important;
+  max-width: none !important;
+  height: var(--booking-cal-week-row-height) !important;
+}
+
+.booking-calendar-popover .rdp-month_grid .rdp-day_button {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: var(--booking-cal-day-size) !important;
+}
+
+/* Booking calendar range: solid continuous caps (not RDP’s half-gradient + circle) */
+.booking-calendar-range.rdp-root,
+.booking-calendar-range .rdp-root,
+.booking-calendar-popover .rdp-root {
+  --rdp-range_start-background: var(--color-secondary, #baa981);
+  --rdp-range_end-background: var(--color-secondary, #baa981);
+  --rdp-range_start-date-background-color: transparent;
+  --rdp-range_end-date-background-color: transparent;
+  --rdp-range_middle-background-color: rgba(230, 218, 188, 0.38);
+  --rdp-selected-border: 2px solid transparent;
+  --rdp-day_button-border-radius: 0;
+}
+
+/*
+ * Idle available-day hover: same solid pill as a single selected day.
+ * Keep radius on idle available days only — never on range middle/caps
+ * so the round-trip highlight stays one continuous bar.
+ */
+.booking-calendar-range .rdp-day.cursor-pointer:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture),
+.booking-calendar-popover .rdp-day.cursor-pointer:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) {
+  border-radius: 0.75rem !important;
+}
+
+.booking-calendar-range .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture),
+.booking-calendar-popover .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture),
+.booking-calendar-range .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture),
+.booking-calendar-popover .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) {
+  background-color: var(--color-secondary, #baa981) !important;
+  color: #fff !important;
+  border-radius: 0.75rem !important;
+}
+
+.booking-calendar-range .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button,
+.booking-calendar-popover .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button,
+.booking-calendar-range .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button,
+.booking-calendar-popover .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+.booking-calendar-range .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture)::after,
+.booking-calendar-popover .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture)::after,
+.booking-calendar-range .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture)::after,
+.booking-calendar-popover .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture)::after {
+  display: none !important;
+}
+
+.booking-calendar-range .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) .booking-cal-day-dot,
+.booking-calendar-popover .rdp-day.cursor-pointer:hover:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) .booking-cal-day-dot,
+.booking-calendar-range .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) .booking-cal-day-dot,
+.booking-calendar-popover .rdp-day.keyboardHoverAvailable:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) .booking-cal-day-dot {
+  display: none;
+}
+
+/* Round-trip range: continuous bar — flat middle, half-rounded caps only */
+.booking-calendar-range .rdp-day.rdp-range_middle,
+.booking-calendar-popover .rdp-day.rdp-range_middle,
+.booking-calendar-range .rdp-day.previewRange,
+.booking-calendar-popover .rdp-day.previewRange {
+  border-radius: 0 !important;
+}
+
+.booking-calendar-range .rdp-day.rdp-range_start:not(.rdp-range_end),
+.booking-calendar-popover .rdp-day.rdp-range_start:not(.rdp-range_end),
+.booking-calendar-range .rdp-day.firstSelectedDeparture:not(.rdp-range_end):not(.previewRangeEnd),
+.booking-calendar-popover .rdp-day.firstSelectedDeparture:not(.rdp-range_end):not(.previewRangeEnd) {
+  border-start-start-radius: 0.75rem !important;
+  border-end-start-radius: 0.75rem !important;
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+}
+
+.booking-calendar-range .rdp-day.rdp-range_end:not(.rdp-range_start),
+.booking-calendar-popover .rdp-day.rdp-range_end:not(.rdp-range_start),
+.booking-calendar-range .rdp-day.previewRangeEnd:not(.rdp-range_start):not(.firstSelectedDeparture),
+.booking-calendar-popover .rdp-day.previewRangeEnd:not(.rdp-range_start):not(.firstSelectedDeparture) {
+  border-start-end-radius: 0.75rem !important;
+  border-end-end-radius: 0.75rem !important;
+  border-start-start-radius: 0 !important;
+  border-end-start-radius: 0 !important;
+}
+
+.booking-calendar-range .rdp-range_start.rdp-range_end,
+.booking-calendar-popover .rdp-range_start.rdp-range_end {
+  border-radius: 0.75rem !important;
+  background: var(--color-secondary, #baa981) !important;
+}
+
+/* One-way / multi-city single selected day: same rounded-xl pill as hover */
+.booking-calendar-popover .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture),
+.booking-calendar-range .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) {
+  border-radius: 0.75rem !important;
+  background-color: var(--color-secondary, #baa981) !important;
+  color: #fff !important;
+}
+
+.booking-calendar-popover .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button,
+.booking-calendar-range .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle):not(.previewRange):not(.previewRangeEnd):not(.firstSelectedDeparture) > .rdp-day_button {
+  color: #fff !important;
+  background-color: transparent !important;
+  border-radius: 0.75rem !important;
+}
+
+.booking-calendar-popover .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle) .booking-cal-day-dot,
+.booking-calendar-range .rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle) .booking-cal-day-dot {
+  display: none;
+}
+
+/* Round the open ends of each week row in a multi-row range / hover preview */
+.booking-calendar-range .rdp-week > .rdp-range_middle:first-child,
+.booking-calendar-range .rdp-week > .rdp-day.previewRange:first-child,
+.booking-calendar-popover .rdp-week > .rdp-range_middle:first-child,
+.booking-calendar-popover .rdp-week > .rdp-day.previewRange:first-child {
+  border-start-start-radius: 0.75rem !important;
+  border-end-start-radius: 0.75rem !important;
+}
+
+.booking-calendar-range .rdp-week > .rdp-range_middle:last-child,
+.booking-calendar-range .rdp-week > .rdp-day.previewRange:last-child,
+.booking-calendar-popover .rdp-week > .rdp-range_middle:last-child,
+.booking-calendar-popover .rdp-week > .rdp-day.previewRange:last-child {
+  border-start-end-radius: 0.75rem !important;
+  border-end-end-radius: 0.75rem !important;
+}
+
+/* Single-day row segments (start on last weekday / end on first weekday) */
+.booking-calendar-range .rdp-week > .rdp-range_start:last-child,
+.booking-calendar-range .rdp-week > .rdp-day.firstSelectedDeparture:last-child,
+.booking-calendar-popover .rdp-week > .rdp-range_start:last-child,
+.booking-calendar-popover .rdp-week > .rdp-day.firstSelectedDeparture:last-child {
+  border-start-end-radius: 0.75rem !important;
+  border-end-end-radius: 0.75rem !important;
+}
+
+.booking-calendar-range .rdp-week > .rdp-range_end:first-child,
+.booking-calendar-range .rdp-week > .rdp-day.previewRangeEnd:first-child,
+.booking-calendar-popover .rdp-week > .rdp-range_end:first-child,
+.booking-calendar-popover .rdp-week > .rdp-day.previewRangeEnd:first-child {
+  border-start-start-radius: 0.75rem !important;
+  border-end-start-radius: 0.75rem !important;
+}

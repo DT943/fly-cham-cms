@@ -11,6 +11,11 @@ import { ECONOMY_CHECKED_BAGGAGE_QUESTION_ID, getEconomyCheckedBaggageSearchText
 import { ECONOMY_REFUND_FEES_QUESTION_ID, getEconomyRefundFeesSearchText } from '../../../pages/faqs/utils/economyRefundFees.js'
 import { FARE_COMPARISON_QUESTION_ID, getFareComparisonSearchText } from '../../../pages/faqs/utils/fareComparison.js'
 import { FLIGHT_CHANGE_FEES_QUESTION_ID, getFlightChangeFeesSearchText } from '../../../pages/faqs/utils/flightChangeFees.js'
+import {
+  destinationFaqIds,
+  destinationNetwork,
+  getDestinationNetworkSearchText,
+} from '../../../pages/our-destinations/utils/destinationFaqs.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -193,6 +198,53 @@ function buildPageRecords() {
       href: '/our-destinations',
       titlePath: 'destinations.explore.title',
       textPaths: ['destinations.explore.subtitle'],
+    }),
+    pageRecord({
+      id: 'destinations-inspiration',
+      href: '/our-destinations',
+      titlePath: 'destinations.inspiration.title',
+      textPaths: ['destinations.inspiration.description'],
+    }),
+    pageRecord({
+      id: 'destinations-faqs',
+      href: '/our-destinations',
+      titlePath: 'destinations.faqs.title',
+      textPaths: destinationFaqIds.flatMap((id) => [
+        `destinations.faqs.items.${id}.question`,
+        `destinations.faqs.items.${id}.answer`,
+      ]),
+    }),
+    ...destinationFaqIds.map((id) => {
+      const record = pageRecord({
+        id: `destinations-faq-${id}`,
+        href: '/our-destinations',
+        titlePath: `destinations.faqs.items.${id}.question`,
+        textPaths: [
+          `destinations.faqs.items.${id}.answer`,
+          `destinations.faqs.items.${id}.note`,
+          ...(id === 'baggage'
+            ? ['light', 'smart', 'elite', 'business', 'cabin'].map(
+                (key) => `destinations.faqs.items.baggage.list.${key}`
+              )
+            : []),
+          ...(id === 'whereWeFly'
+            ? destinationNetwork.flatMap((country) => [
+                `destinations.faqs.countries.${country.countryKey}`,
+                ...country.cities.map((city) => `destinations.faqs.cities.${city.cityKey}`),
+              ])
+            : []),
+        ],
+      })
+
+      if (id === 'whereWeFly' && record) {
+        const network = getDestinationNetworkSearchText()
+        record.text = {
+          en: [record.text.en, network.en].filter(Boolean).join(' '),
+          ar: [record.text.ar, network.ar].filter(Boolean).join(' '),
+        }
+      }
+
+      return record
     }),
   ]
 

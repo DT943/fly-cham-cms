@@ -1,0 +1,90 @@
+/* Wrapper hosts the scroll area + our custom scrollbar overlay */
+.scrollWrapper {
+  position: relative;
+}
+
+/* Same snap pattern as about-us: mandatory + always stop on each row */
+.scrollArea {
+  max-height: 288px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: auto;
+  overscroll-behavior-y: contain;
+  padding-right: 10px;
+  padding-bottom: 8px;
+  /* Hide the native scrollbar entirely (incl. its up/down arrow buttons) */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Full-screen mobile picker: use remaining viewport below modal chrome */
+.scrollAreaMobile {
+  max-height: calc(100dvh - 280px);
+  min-height: 320px;
+  /* Extra space so the last row clears chat FAB / home indicator without clipping */
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  /*
+   * Mandatory snap jumps to the first .listItem on finger-up and hides "New".
+   * Proximity keeps light row snapping without yanking section titles away.
+   */
+  scroll-snap-type: y proximity;
+}
+
+/* Custom scrollbar overlay: transparent track + primary-1 thumb, no arrows */
+.scrollTrack {
+  position: absolute;
+  top: 0;
+  bottom: 8px;
+  right: 1px;
+  width: 6px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.scrollThumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  border-radius: 3px;
+  background: var(--primary-1);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.scrollThumb:active {
+  cursor: grabbing;
+}
+
+.listItem {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.snapItemActive {
+  background-color: #e5e5e3;
+}
+
+/* Keep "New" / "All airports" visible while row snap settles under them */
+.sectionTitle {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0.25rem 0.25rem 0.5rem;
+  background: #ffffff;
+  /* Own snap point so mandatory snap does not jump past the heading onto the first row */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}

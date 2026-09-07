@@ -810,6 +810,14 @@
       "title": "Explore Fly Cham Destinations",
       "subtitle": "Explore our destinations and discover the cities across our network. Browse destination guides, find travel inspiration, and plan your next journey with Fly Cham."
     },
+    "inspiration": {
+      "title": "Find Inspiration for Your Next Journey",
+      "description": "From historic cities and traditional markets to seaside escapes and outdoor adventures, discover city sights and start planning your next trip with Fly Cham.",
+      "cta": "Explore all activities",
+      "coastAlt": "Aerial view of tropical islands and turquoise water",
+      "fallsAlt": "Waterfall in a forest landscape",
+      "cityAlt": "Historic cathedral facade"
+    },
     "featured": {
       "heading": "What makes Dubai special?",
       "description": "Dubai is a destination that brings together everything you love in one trip, with an authentic Arabian spirit and endless experiences.",
@@ -834,6 +842,72 @@
       "iraq": "Iraq",
       "armenia": "Armenia",
       "kuwait": "Kuwait"
+    },
+    "faqs": {
+      "title": "Frequently Asked Questions",
+      "browse": "Browse FAQs",
+      "countries": {
+        "syria": "Syria",
+        "uae": "United Arab Emirates",
+        "saudiArabia": "Saudi Arabia",
+        "kuwait": "Kuwait",
+        "iraq": "Iraq",
+        "armenia": "Armenia",
+        "oman": "Oman",
+        "turkey": "Türkiye",
+        "libya": "Libya"
+      },
+      "cities": {
+        "damascus": "Damascus",
+        "aleppo": "Aleppo",
+        "dubai": "Dubai",
+        "sharjah": "Sharjah",
+        "abuDhabi": "Abu Dhabi",
+        "dammam": "Dammam",
+        "kuwaitCity": "Kuwait City",
+        "baghdad": "Baghdad",
+        "erbil": "Erbil",
+        "yerevan": "Yerevan",
+        "muscat": "Muscat",
+        "istanbul": "Istanbul",
+        "tripoli": "Tripoli"
+      },
+      "items": {
+        "whereWeFly": {
+          "question": "Where Does Fly Cham Fly?",
+          "answer": "Fly Cham connects travelers with destinations across Syria and the region. The destinations include:",
+          "note": "Flight availability and operating schedules may change, so check the Fly Cham flight schedule for current routes and travel dates before booking.",
+          "cta": "View flight schedule"
+        },
+        "visa": {
+          "question": "What is visa guidance, travel documents, and entry requirements?",
+          "answer": "Visa and entry requirements depend on your nationality, residence status, route, travel date, and destination. Travelers are responsible for meeting all applicable visa and entry requirements and should check passport validity and required travel documents before departure.\n\nInfants and children must also have their own valid passport and any required visas. If you need further confirmation, contact Fly Cham before travel with your route, travel date, nationality or residence details, and relevant documents.",
+          "cta": "Check travel requirements"
+        },
+        "airport": {
+          "question": "What is check-in information and airport special assistance services?",
+          "answer": "Please arrive at the airport at least three hours before your scheduled departure. For international flights, the check-in counter closes 60 minutes before departure, and passengers arriving late may not be accepted for travel.\n\nWheelchair assistance can be requested during booking, through Manage Booking, a Fly Cham ticketing or sales office, or Customer Service. Assistance can include support through airport procedures such as security, immigration, and boarding. Medical clearance may also be required for certain medical conditions.",
+          "cta": "Explore airport services"
+        },
+        "baggage": {
+          "question": "What are baggage allowances, additional baggage options, and fee guidance?",
+          "answer": "Checked baggage allowance depends on your travel class and ticket fare type:",
+          "list": {
+            "light": "Fly Light: 20 kg checked baggage",
+            "smart": "Fly Smart: 30 kg checked baggage",
+            "elite": "Fly Elite: 30 kg checked baggage",
+            "business": "Business Class: 40 kg checked baggage",
+            "cabin": "Cabin baggage: One bag up to 7 kg for Economy and Business Class"
+          },
+          "note": "Additional baggage can be purchased in advance during booking or through Manage Booking, subject to availability on your flight. Any applicable additional-baggage fee depends on the baggage option and booking conditions.",
+          "cta": "View baggage allowance"
+        },
+        "manageBooking": {
+          "question": "How can I add services or change an existing Fly Cham booking?",
+          "answer": "Use Manage Booking to access the available services and options associated with your reservation.",
+          "cta": "Manage booking"
+        }
+      }
     },
     "cities": {
       "damascus": { "name": "Damascus", "flights": "Flights to Damascus" },

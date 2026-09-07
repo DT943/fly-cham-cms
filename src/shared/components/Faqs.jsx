@@ -1,4 +1,5 @@
 import { typography } from '../../styles/typography.js'
+import SearchAnchor from '../search/components/SearchAnchor.jsx'
 import FaqItem from './FaqItem.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 
@@ -10,13 +11,25 @@ const Faqs = ({ title, items = [], browseLabel, browseHref = '#' }) => (
       </h2>
     )}
     <div className="flex flex-col gap-3 md:gap-4">
-      {items.map((item) => (
-        <FaqItem
-          key={item.id}
-          question={item.question}
-          answer={item.answer}
-        />
-      ))}
+      {items.map((item) => {
+        const faqItem = (
+          <FaqItem
+            question={item.question}
+            answer={item.answer}
+            extra={item.extra}
+          />
+        )
+
+        if (!item.hit) {
+          return <div key={item.id}>{faqItem}</div>
+        }
+
+        return (
+          <SearchAnchor key={item.id} hit={item.hit}>
+            {faqItem}
+          </SearchAnchor>
+        )
+      })}
     </div>
     {browseLabel && (
       <div className="flex justify-center pt-1 md:pt-2">

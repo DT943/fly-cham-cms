@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
 
-const FaqItem = ({ question, answer }) => {
+const FaqItem = ({ question, answer, extra = null }) => {
   const [open, setOpen] = useState(false)
   const buttonId = useId()
   const panelId = useId()
@@ -33,10 +33,22 @@ const FaqItem = ({ question, answer }) => {
         className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
       >
         <div className="overflow-hidden min-h-0">
-          {answer && (
-            <p className={`${typography.itemDescription} text-600 m-0 px-4 pb-4 md:px-6 md:pb-5 leading-relaxed`}>
-              {answer}
-            </p>
+          {(answer || extra) && (
+            <div className="flex flex-col gap-3 px-4 pb-4 md:px-6 md:pb-5">
+              {String(answer || '')
+                .split('\n\n')
+                .map((part) => part.trim())
+                .filter(Boolean)
+                .map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className={`${typography.itemDescription} m-0 leading-relaxed text-600 whitespace-pre-line`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              {extra}
+            </div>
           )}
         </div>
       </div>
