@@ -78,10 +78,10 @@ const MagazineBanner = () => {
 
           <LocalizedLink
             href="#"
-            className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg bg-secondary px-4 text-base font-semibold text-white no-underline transition-colors hover:bg-secondary-800 md:text-lg lg:w-fit"
+            className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg bg-secondary px-4 text-base font-semibold text-btn no-underline transition-colors hover:bg-secondary-800 md:text-lg lg:w-fit"
           >
             {t('citySights.magazine.cta')}
-            <ArrowRight size={29} className="shrink-0 rtl:-scale-x-100" />
+            <ArrowRight size={29} className="shrink-0 text-btn rtl:-scale-x-100" />
           </LocalizedLink>
         </div>
 

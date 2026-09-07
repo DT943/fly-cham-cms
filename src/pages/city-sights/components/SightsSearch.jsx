@@ -25,7 +25,7 @@ const SightsSearch = () => {
         aria-label={t('citySights.search.label')}
         className="flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 bg-secondary transition-colors hover:bg-secondary-800 md:w-21"
       >
-        <MagnifyingGlass size={22} className="text-50" />
+        <MagnifyingGlass size={22} className="text-btn" />
       </button>
     </form>
   )
