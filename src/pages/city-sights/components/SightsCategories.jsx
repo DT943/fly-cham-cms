@@ -9,7 +9,7 @@ const SightsCategories = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex items-center gap-2.5 overflow-x-auto pb-1 md:gap-4 lg:overflow-visible lg:pb-0">
+    <div className="flex flex-nowrap items-center gap-2.5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:gap-4 lg:overflow-visible">
       {sightCategories.map(({ id, icon: Icon }, index) => {
         const isActive = index === 0
 

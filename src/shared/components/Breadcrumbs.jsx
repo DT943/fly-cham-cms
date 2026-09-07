@@ -6,9 +6,9 @@ const Breadcrumbs = ({ items = [] }) => (
   <nav className={`flex items-center gap-2 ${typography.caption}`} aria-label="Breadcrumb">
     {items.map((item, index) => (
       <Fragment key={`${item.label}-${index}`}>
-        {index > 0 && <span className="text-600 font-bold">/</span>}
+        {index > 0 && <span className="text-600 font-medium">/</span>}
         {item.href ? (
-          <LocalizedLink href={item.href} className={`${typography.caption} text-600 font-bold hover:underline`}>
+          <LocalizedLink href={item.href} className={`${typography.caption} text-600 font-medium hover:underline`}>
             {item.label}
           </LocalizedLink>
         ) : (
