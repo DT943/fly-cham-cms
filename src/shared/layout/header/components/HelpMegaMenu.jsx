@@ -80,13 +80,13 @@ const MegaMenuQuickLinks = ({ links, onNavigate }) => {
   )
 }
 
-const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate }) => {
+const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate, embedded = false }) => {
   const { t } = useTranslation()
   const panel = panels.find((item) => item.id === activeId) || panels[0]
 
   return (
-    <div className="w-full bg-background shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-      <Container className="flex flex-col lg:flex-row lg:items-stretch">
+    <div className={`w-full bg-background ${embedded ? '' : 'shadow-[0_16px_40px_rgba(0,0,0,0.08)]'}`}>
+      <Container className={`flex flex-col lg:flex-row lg:items-stretch ${embedded ? 'px-0 sm:px-0 md:px-0 xl:px-0' : ''}`}>
         <nav
           aria-label={t('layout.header.mega.panelsLabel')}
           className="bg-100 w-full lg:w-64 xl:w-72 shrink-0 flex lg:flex-col"

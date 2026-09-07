@@ -25,12 +25,12 @@ const DestinationTile = ({ name, code, image, href, featured, onNavigate }) => (
   </LocalizedLink>
 )
 
-const DestinationsMegaMenu = ({ onNavigate }) => {
+const DestinationsMegaMenu = ({ onNavigate, embedded = false }) => {
   const { t } = useTranslation()
 
   return (
-    <div className="w-full bg-background shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-      <Container className="flex flex-col gap-5 py-6 md:gap-6 md:py-8">
+    <div className={`w-full bg-background ${embedded ? '' : 'shadow-[0_16px_40px_rgba(0,0,0,0.08)]'}`}>
+      <Container className={`flex flex-col gap-5 py-6 md:gap-6 md:py-8 ${embedded ? 'px-6 sm:px-6 md:px-6 xl:px-6' : ''}`}>
         <div className="flex flex-col gap-1.5">
           <h2 className={`${typography.sectionTitle} font-semibold text-secondary-2 m-0`}>
             {t('layout.header.destinations.title')}

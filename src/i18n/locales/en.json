@@ -628,7 +628,8 @@
       "closeMenu": "Close menu",
       "mobile": {
         "coverAlt": "Fly Cham aircraft in flight",
-        "helpSupport": "Help and support"
+        "helpSupport": "Help and support",
+        "back": "Back"
       },
       "nav": {
         "book": "Book",

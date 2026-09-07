@@ -1,11 +1,22 @@
-import { CaretRight, X } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import coverPhoto from '../../../../assets/images/our-destenations/ph1.png'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { mobileMenuPrimaryLinks, mobileMenuSecondaryLinks } from '../../headerNav.js'
+import {
+  helpMenuPanels,
+  mobileMenuPrimaryLinks,
+  mobileMenuSecondaryLinks,
+} from '../../headerNav.js'
+import DestinationsMegaMenu from './DestinationsMegaMenu.jsx'
+import HelpMegaMenu from './HelpMegaMenu.jsx'
+
+const headerItems = [
+  { id: 'destinations', labelKey: 'whereWeFly' },
+  { id: 'help', labelKey: 'help' },
+]
 
 export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => (
   <button
@@ -39,26 +50,18 @@ export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => 
   </button>
 )
 
-const PrimaryLink = ({ href, icon: Icon, title, onNavigate }) => (
-  <LocalizedLink
-    to={href}
-    onClick={onNavigate}
-    className={`${typography.itemTitle} flex items-center justify-between gap-4 py-3.5 font-normal text-800 no-underline`}
-  >
-    <span className="flex min-w-0 items-center gap-3">
-      {Icon && <Icon size={18} weight="regular" className="shrink-0 text-700" />}
-      {title}
-    </span>
-    <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
-  </LocalizedLink>
-)
-
 const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   const { t } = useTranslation()
   const panelRef = useRef(null)
   const closeRef = useRef(null)
   const [rendered, setRendered] = useState(open)
   const [visible, setVisible] = useState(open)
+  const [view, setView] = useState('root')
+  const [helpPanelId, setHelpPanelId] = useState(helpMenuPanels[0].id)
+  const viewRef = useRef(view)
+  viewRef.current = view
+
+  const closeToRoot = () => setView('root')
 
   useEffect(() => {
     if (open) {
@@ -68,7 +71,11 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
     }
 
     setVisible(false)
-    const timer = window.setTimeout(() => setRendered(false), 320)
+    const timer = window.setTimeout(() => {
+      setRendered(false)
+      setView('root')
+      setHelpPanelId(helpMenuPanels[0].id)
+    }, 320)
     return () => window.clearTimeout(timer)
   }, [open])
 
@@ -80,7 +87,9 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
     closeRef.current?.focus()
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Escape') return
+      if (viewRef.current !== 'root') closeToRoot()
+      else onClose()
     }
 
     document.addEventListener('keydown', onKeyDown)
@@ -92,6 +101,14 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   }, [open, onClose])
 
   if (!rendered || typeof document === 'undefined') return null
+
+  const nested = view !== 'root'
+  const nestedTitle =
+    view === 'destinations'
+      ? t('layout.header.nav.whereWeFly')
+      : view === 'help'
+        ? t('layout.header.nav.help')
+        : ''
 
   return createPortal(
     <nav
@@ -105,55 +122,129 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
         visible ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
       }`}
     >
-      <div className="relative h-[28vh] min-h-36 max-h-56 shrink-0 overflow-hidden">
-        <img
-          src={coverPhoto}
-          alt={t('layout.header.mobile.coverAlt')}
-          className="size-full object-cover object-[center_35%]"
-        />
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          aria-label={t('layout.header.closeMenu')}
-          className="absolute top-4 inset-e-4 flex size-10 items-center justify-center rounded-full border-0 bg-background/80 text-800 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-        >
-          <X size={22} weight="regular" />
-        </button>
-      </div>
-
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6">
-        <div className="flex flex-col">
-          <LocalizedLink
-            to="/"
-            onClick={onNavigate}
-            className={`${typography.itemTitle} py-3.5 font-bold text-800 no-underline`}
+      {!nested && (
+        <div className="relative h-[28vh] min-h-36 max-h-56 shrink-0 overflow-hidden">
+          <img
+            src={coverPhoto}
+            alt={t('layout.header.mobile.coverAlt')}
+            className="size-full object-cover object-[center_35%]"
+          />
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            aria-label={t('layout.header.closeMenu')}
+            className="absolute top-4 inset-e-4 flex size-10 items-center justify-center rounded-full border-0 bg-background/80 text-800 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-secondary"
           >
-            {t('common.home')}
-          </LocalizedLink>
+            <X size={22} weight="regular" />
+          </button>
+        </div>
+      )}
 
-          {mobileMenuPrimaryLinks.map((link) => (
-            <PrimaryLink
-              key={link.id}
-              href={link.href}
-              icon={link.icon}
-              title={t(`layout.header.${link.labelKey}`)}
-              onNavigate={onNavigate}
-            />
-          ))}
+      {nested && (
+        <div className="flex h-14 shrink-0 items-center gap-1 border-b border-200 px-2">
+          <button
+            type="button"
+            onClick={closeToRoot}
+            className="flex size-10 items-center justify-center rounded-full border-0 bg-transparent text-800 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+            aria-label={t('layout.header.mobile.back')}
+          >
+            <CaretLeft size={22} weight="regular" className="rtl:-scale-x-100" />
+          </button>
+          <p className={`${typography.itemTitle} m-0 min-w-0 flex-1 truncate font-semibold text-800`}>
+            {nestedTitle}
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('layout.header.closeMenu')}
+            className="flex size-10 items-center justify-center rounded-full border-0 bg-transparent text-800 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+          >
+            <X size={22} weight="regular" />
+          </button>
+        </div>
+      )}
+
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        <div
+          className={`absolute inset-0 flex flex-col overflow-y-auto px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6 transition-transform duration-300 ease-out motion-reduce:transition-none ${
+            nested ? 'pointer-events-none -translate-x-full rtl:translate-x-full' : 'translate-x-0'
+          }`}
+          aria-hidden={nested}
+        >
+          <div className="flex flex-col">
+            <LocalizedLink
+              to="/"
+              onClick={onNavigate}
+              className={`${typography.itemTitle} py-3.5 font-bold text-800 no-underline`}
+            >
+              {t('common.home')}
+            </LocalizedLink>
+
+            {headerItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setView(item.id)}
+                className={`${typography.itemTitle} flex w-full items-center justify-between gap-4 border-0 bg-transparent py-3.5 text-start font-normal text-800 cursor-pointer`}
+              >
+                {t(`layout.header.nav.${item.labelKey}`)}
+                <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
+              </button>
+            ))}
+
+            {mobileMenuPrimaryLinks.map((link) => {
+              const Icon = link.icon
+
+              return (
+                <LocalizedLink
+                  key={link.id}
+                  to={link.href}
+                  onClick={onNavigate}
+                  className={`${typography.itemTitle} flex items-center justify-between gap-4 py-3.5 font-normal text-800 no-underline`}
+                >
+                  <span className="flex min-w-0 items-center gap-3">
+                    {Icon && <Icon size={18} weight="regular" className="shrink-0 text-700" />}
+                    {t(`layout.header.${link.labelKey}`)}
+                  </span>
+                  <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
+                </LocalizedLink>
+              )
+            })}
+          </div>
+
+          <div className="mt-auto flex flex-col gap-3 pt-10 pb-2">
+            {mobileMenuSecondaryLinks.map((link) => (
+              <LocalizedLink
+                key={link.id}
+                to={link.href}
+                onClick={onNavigate}
+                className={`${typography.caption} font-medium text-primary-1 no-underline`}
+              >
+                {t(`layout.header.${link.labelKey}`)}
+              </LocalizedLink>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-auto flex flex-col gap-3 pt-10 pb-2">
-          {mobileMenuSecondaryLinks.map((link) => (
-            <LocalizedLink
-              key={link.id}
-              to={link.href}
-              onClick={onNavigate}
-              className={`${typography.caption} font-medium text-primary-1 no-underline`}
-            >
-              {t(`layout.header.${link.labelKey}`)}
-            </LocalizedLink>
-          ))}
+        <div
+          className={`absolute inset-0 overflow-y-auto pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-transform duration-300 ease-out motion-reduce:transition-none ${
+            nested ? 'translate-x-0' : 'pointer-events-none translate-x-full rtl:-translate-x-full'
+          }`}
+          aria-hidden={!nested}
+        >
+          {view === 'destinations' && (
+            <DestinationsMegaMenu embedded onNavigate={onNavigate} />
+          )}
+          {view === 'help' && (
+            <HelpMegaMenu
+              embedded
+              panels={helpMenuPanels}
+              activeId={helpPanelId}
+              onSelectPanel={setHelpPanelId}
+              onNavigate={onNavigate}
+            />
+          )}
         </div>
       </div>
     </nav>,
