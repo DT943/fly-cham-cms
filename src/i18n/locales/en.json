@@ -648,6 +648,36 @@
         "agents": "Our agents worldwide",
         "faqs": "FAQs"
       },
+      "destinations": {
+        "title": "Find your next place",
+        "subtitle": "Inspiring destinations, curated routes, and stories to guide your journey.",
+        "regionsLabel": "Destination regions",
+        "regions": {
+          "all": "All destinations",
+          "middleEast": "Middle East",
+          "europe": "Europe",
+          "asia": "Asia"
+        },
+        "links": {
+          "routeMap": {
+            "title": "Route map",
+            "description": "Explore our network"
+          },
+          "discoverSyria": {
+            "title": "Discover Syria",
+            "description": "Heritage, culture and more"
+          },
+          "flightSchedule": {
+            "title": "Flight schedule",
+            "description": "Plan your journey"
+          },
+          "travelInspiration": {
+            "title": "Travel inspiration",
+            "description": "Stories and guides"
+          }
+        },
+        "viewAll": "View all destinations"
+      },
       "mega": {
         "panelsLabel": "Help topics",
         "panels": {

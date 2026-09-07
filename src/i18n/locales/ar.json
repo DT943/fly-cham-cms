@@ -648,6 +648,36 @@
         "agents": "وكلاؤنا حول العالم",
         "faqs": "الأسئلة الشائعة"
       },
+      "destinations": {
+        "title": "اكتشف وجهتك القادمة",
+        "subtitle": "وجهات ملهمة ومسارات مختارة وقصص ترافقك في رحلتك.",
+        "regionsLabel": "مناطق الوجهات",
+        "regions": {
+          "all": "كل الوجهات",
+          "middleEast": "الشرق الأوسط",
+          "europe": "أوروبا",
+          "asia": "آسيا"
+        },
+        "links": {
+          "routeMap": {
+            "title": "خريطة الرحلات",
+            "description": "استكشف شبكتنا"
+          },
+          "discoverSyria": {
+            "title": "اكتشف سوريا",
+            "description": "تراث وثقافة والمزيد"
+          },
+          "flightSchedule": {
+            "title": "جدول الرحلات",
+            "description": "خطّط لرحلتك"
+          },
+          "travelInspiration": {
+            "title": "إلهام السفر",
+            "description": "قصص وأدلة"
+          }
+        },
+        "viewAll": "عرض كل الوجهات"
+      },
       "mega": {
         "panelsLabel": "مواضيع المساعدة",
         "panels": {

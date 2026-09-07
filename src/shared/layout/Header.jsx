@@ -7,33 +7,40 @@ import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
 import { helpMenuPanels } from './headerNav.js'
+import DestinationsMegaMenu from './header/components/DestinationsMegaMenu.jsx'
 import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
+
+/** Nav entries that open a mega menu, in display order. */
+const megaMenus = [
+  { id: 'destinations', labelKey: 'whereWeFly' },
+  { id: 'help', labelKey: 'help' },
+]
 
 const Header = () => {
   const { t } = useTranslation()
   const location = useLocation()
   const headerRef = useRef(null)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState(null)
   const [panelId, setPanelId] = useState(helpMenuPanels[0].id)
-  const hidden = useHideOnScroll({ enabled: !menuOpen, resetKey: location.pathname })
+  const hidden = useHideOnScroll({ enabled: !openMenu, resetKey: location.pathname })
 
   useEffect(() => {
-    setMenuOpen(false)
+    setOpenMenu(null)
     setPanelId(helpMenuPanels[0].id)
   }, [location.pathname])
 
   useEffect(() => {
-    if (!menuOpen) return undefined
+    if (!openMenu) return undefined
 
     const handlePointerDown = (event) => {
       if (!headerRef.current?.contains(event.target)) {
-        setMenuOpen(false)
+        setOpenMenu(null)
       }
     }
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+      if (event.key === 'Escape') setOpenMenu(null)
     }
 
     document.addEventListener('mousedown', handlePointerDown)
@@ -42,7 +49,9 @@ const Header = () => {
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [menuOpen])
+  }, [openMenu])
+
+  const closeMenu = () => setOpenMenu(null)
 
   return (
     <header
@@ -61,34 +70,50 @@ const Header = () => {
             />
           </LocalizedLink>
 
-          <nav aria-label={t('layout.header.navLabel')} className="flex items-stretch self-stretch">
-            <button
-              type="button"
-              aria-expanded={menuOpen}
-              aria-controls="help-mega-menu"
-              onClick={() => setMenuOpen((open) => !open)}
-              className={`relative self-stretch flex items-center gap-1.5 bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium text-secondary-2 ${
-                menuOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''
-              }`}
-            >
-              {t('layout.header.nav.help')}
-              <CaretDown
-                size={12}
-                weight="bold"
-                className={`transition-transform ${menuOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
+          <nav
+            aria-label={t('layout.header.navLabel')}
+            className="flex items-stretch self-stretch gap-4 md:gap-6"
+          >
+            {megaMenus.map((menu) => {
+              const isOpen = openMenu === menu.id
+
+              return (
+                <button
+                  key={menu.id}
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`${menu.id}-mega-menu`}
+                  onClick={() => setOpenMenu(isOpen ? null : menu.id)}
+                  className={`relative self-stretch flex items-center gap-1.5 whitespace-nowrap bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium text-secondary-2 ${
+                    isOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''
+                  }`}
+                >
+                  {t(`layout.header.nav.${menu.labelKey}`)}
+                  <CaretDown
+                    size={12}
+                    weight="bold"
+                    className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )
+            })}
           </nav>
         </Container>
       </div>
 
-      {menuOpen && (
+      {openMenu === 'destinations' && (
+        <div id="destinations-mega-menu">
+          <DestinationsMegaMenu onNavigate={closeMenu} />
+        </div>
+      )}
+
+      {openMenu === 'help' && (
         <div id="help-mega-menu">
           <HelpMegaMenu
             panels={helpMenuPanels}
             activeId={panelId}
             onSelectPanel={setPanelId}
-            onNavigate={() => setMenuOpen(false)}
+            onNavigate={closeMenu}
           />
         </div>
       )}
