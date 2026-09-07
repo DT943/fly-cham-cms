@@ -46,7 +46,7 @@ const DestinationsExplore = () => {
                 style={{ animationDelay: `${index * 40}ms` }}
               >
                 <DestinationCard
-                  country={t(`destinations.countries.${destination.countryKey}`)}
+                  iata={destination.iata}
                   title={t(`destinations.cities.${destination.id}.flights`)}
                   image={destination.image}
                   imageAlt={city}

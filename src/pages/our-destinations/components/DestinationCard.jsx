@@ -6,7 +6,7 @@ import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
  * Figma: "Our destinations" → Frame 1000004182 (node 38328:9001).
  *
  * Hover swaps the two content blocks in place, timed off the Figma prototype
- * recording: country/title rise out of frame while the CTA rises in from below,
+ * recording: IATA/title rise out of frame while the CTA rises in from below,
  * both moving together over ~300ms. The scrim does not change between states —
  * it is one gradient, `rgba(0,37,60,0) 38.122% → #00253C`.
  */
@@ -14,7 +14,7 @@ const swapTransition =
   '[transition:translate_300ms_cubic-bezier(0.4,0,0.2,1),opacity_300ms_cubic-bezier(0.4,0,0.2,1)] motion-reduce:[transition:none]'
 
 const DestinationCard = ({
-  country,
+  iata,
   title,
   image,
   imageAlt,
@@ -38,7 +38,7 @@ const DestinationCard = ({
       <div
         className={`col-start-1 row-start-1 self-end pointer-events-none flex flex-col gap-1 ${swapTransition} group-hover:opacity-0 group-hover:-translate-y-full group-focus-within:opacity-0 group-focus-within:-translate-y-full motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0`}
       >
-        <p className={`${typography.caption} font-semibold text-100 m-0`}>{country}</p>
+        <p className={`${typography.caption} font-semibold text-100 m-0`}>{iata}</p>
         <p className={`${typography.body} font-medium text-100 m-0`}>{title}</p>
       </div>
 
