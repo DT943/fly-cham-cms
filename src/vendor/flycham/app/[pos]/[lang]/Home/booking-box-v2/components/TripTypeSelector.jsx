@@ -38,10 +38,11 @@ const TripTypeSelector = ({
     [onChange, tripType]
   );
 
+  // Segmented pill control per Figma node 38353:30597 (Component 29).
   const containerClasses = useMemo(
     () =>
       [
-        'inline-flex items-center gap-8',
+        'inline-flex items-center gap-[18.171px] rounded-[12px] bg-[#F5F5F4] px-[8.653px] py-[10.383px]',
         className,
       ]
         .filter(Boolean)
@@ -61,7 +62,13 @@ const TripTypeSelector = ({
           <label
             key={option.value}
             htmlFor={inputId}
-            className={`inline-flex items-center gap-3 select-none ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+            className={`inline-flex items-center justify-center select-none transition-colors
+              ${
+                isChecked
+                  ? 'h-[35px] min-w-[104px] rounded-[8px] bg-[var(--primary-1)] p-[8.653px]'
+                  : 'px-[8.653px] py-[10.383px]'
+              }
+              ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           >
             <input
               id={inputId}
@@ -74,16 +81,8 @@ const TripTypeSelector = ({
               className="sr-only"
             />
             <span
-              aria-hidden="true"
-              className={`h-[20px] w-[20px] rounded-full border flex items-center justify-center transition-colors
-                ${isChecked ? 'border-[3px] border-[var(--primary-1)]' : 'border-2 border-[#6B6B6B]'}
-                ${isDisabled ? 'opacity-60' : ''}`}
-            >
-              {isChecked && <span className="h-[10px] w-[10px] rounded-full bg-[var(--primary-1)]" />}
-            </span>
-            <span
-              className={`text-xs md:text-sm leading-none
-                ${isChecked ? 'text-[var(--primary-1)] font-semibold' : 'text-[#5F5F5C] font-medium'}
+              className={`whitespace-nowrap text-sm leading-none
+                ${isChecked ? 'font-semibold text-white' : 'font-medium text-[var(--primary-1)]'}
                 ${isDisabled ? 'opacity-80' : ''}`}
             >
               {label}

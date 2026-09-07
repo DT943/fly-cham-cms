@@ -1114,7 +1114,8 @@
       "title": "Stay Inspired for Your Next Journey",
       "description": "Receive destination ideas, travel stories, Fly Cham updates for your future journeys directly in your inbox.",
       "label": "Email address",
-      "placeholder": "Enter your email address"
+      "placeholder": "Enter your email address",
+      "cta": "Subscribe"
     }
   }
 }
