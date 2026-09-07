@@ -1,6 +1,7 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
+import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 
 const MegaMenuLink = ({ icon: Icon, title, description, href, onNavigate }) => (
@@ -85,10 +86,10 @@ const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate }) => {
 
   return (
     <div className="w-full bg-background shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-      <div className="flex flex-col lg:flex-row lg:items-stretch w-full">
+      <Container className="flex flex-col lg:flex-row lg:items-stretch">
         <nav
           aria-label={t('layout.header.mega.panelsLabel')}
-          className="bg-100 w-full lg:w-72 xl:w-80 shrink-0 flex lg:flex-col"
+          className="bg-100 w-full lg:w-64 xl:w-72 shrink-0 flex lg:flex-col"
         >
           {panels.map((item) => {
             const Icon = item.icon
@@ -99,7 +100,7 @@ const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate }) => {
                 key={item.id}
                 type="button"
                 onClick={() => onSelectPanel(item.id)}
-                className={`relative flex-1 lg:flex-none flex items-center gap-3 px-4 md:px-6 lg:px-8 py-3.5 bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer text-start ${
+                className={`relative flex-1 lg:flex-none flex items-center gap-3 px-4 md:px-5 py-3.5 bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer text-start ${
                   isActive ? 'text-secondary-2' : 'text-700 hover:text-secondary-2'
                 }`}
               >
@@ -117,7 +118,7 @@ const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate }) => {
           })}
         </nav>
 
-        <div className="flex-1 min-w-0 flex flex-col w-full px-4 sm:px-8 md:px-10">
+        <div className="flex-1 min-w-0 flex flex-col w-full lg:ps-10">
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)] xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] gap-6 lg:gap-10 py-5 md:py-6 items-stretch">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 content-start w-full">
               {panel.links.map((link) => (
@@ -143,7 +144,7 @@ const HelpMegaMenu = ({ panels, activeId, onSelectPanel, onNavigate }) => {
 
           <MegaMenuQuickLinks links={panel.quickLinks} onNavigate={onNavigate} />
         </div>
-      </div>
+      </Container>
     </div>
   )
 }
