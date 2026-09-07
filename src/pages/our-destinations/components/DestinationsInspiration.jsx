@@ -32,7 +32,7 @@ const DestinationsInspiration = () => {
           </p>
           <Button href="#" className="gap-2">
             {t('destinations.inspiration.cta')}
-            <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
+            <ArrowRight size={16} weight="bold" className="text-btn rtl:-scale-x-100" />
           </Button>
         </div>
 

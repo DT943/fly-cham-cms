@@ -18,7 +18,7 @@ const PromoBanner = ({ title, description, cta, href = '#', image, imageAlt }) =
       </p>
       <LocalizedLink
         href={href}
-        className={`${typography.button} font-medium text-50 bg-secondary hover:bg-secondary-800 no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 w-fit`}
+        className={`${typography.button} font-medium text-btn bg-secondary hover:bg-secondary-800 no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 w-fit`}
       >
         {cta}
       </LocalizedLink>
