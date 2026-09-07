@@ -1,10 +1,14 @@
+import abuDhabi from '../../../assets/images/our-destenations/abu-dhabi.jpg'
 import baghdad from '../../../assets/images/our-destenations/baghdad.jpg'
+import damascus from '../../../assets/images/our-destenations/damascus.jpeg'
 import dammam from '../../../assets/images/our-destenations/dammam.jpg'
 import dubai from '../../../assets/images/our-destenations/dubai.jpg'
 import erbil from '../../../assets/images/our-destenations/erbil.jpg'
 import istanbul from '../../../assets/images/our-destenations/istanbul.jpg'
 import kuwait from '../../../assets/images/our-destenations/kuwait.jpg'
 import muscat from '../../../assets/images/our-destenations/muscat.jpg'
+import sharjah from '../../../assets/images/our-destenations/sharja.jpg'
+import tripoli from '../../../assets/images/our-destenations/tripoli.jpeg'
 import yerevan from '../../../assets/images/our-destenations/yerevan.jpg'
 
 export const ITEMS_PER_PAGE = 12
@@ -13,18 +17,18 @@ export const destinations = [
   {
     id: 'damascus',
     countryKey: 'syria',
-    image: 'https://images.unsplash.com/photo-1577588090498-d5fa6ed6cb9f?w=600&q=80',
+    image: damascus,
     href: '/our-destinations/flights-to-damascus',
   },
   {
     id: 'abuDhabi',
     countryKey: 'uae',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80',
+    image: abuDhabi,
   },
   {
     id: 'sharjah',
     countryKey: 'uae',
-    image: 'https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=600&q=80',
+    image: sharjah,
   },
   { id: 'dubai', countryKey: 'uae', image: dubai, featured: true },
   { id: 'dammam', countryKey: 'saudiArabia', image: dammam },
@@ -33,7 +37,7 @@ export const destinations = [
   {
     id: 'tripoli',
     countryKey: 'libya',
-    image: 'https://images.unsplash.com/photo-1580735916561-4df883025f3c?w=600&q=80',
+    image: tripoli,
   },
   { id: 'erbil', countryKey: 'iraq', image: erbil },
   { id: 'baghdad', countryKey: 'iraq', image: baghdad },
