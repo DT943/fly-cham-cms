@@ -649,15 +649,8 @@
         "faqs": "FAQs"
       },
       "destinations": {
-        "title": "Find your next place",
+        "title": "Find our featured places",
         "subtitle": "Inspiring destinations, curated routes, and stories to guide your journey.",
-        "regionsLabel": "Destination regions",
-        "regions": {
-          "all": "All destinations",
-          "middleEast": "Middle East",
-          "europe": "Europe",
-          "asia": "Asia"
-        },
         "links": {
           "routeMap": {
             "title": "Route map",

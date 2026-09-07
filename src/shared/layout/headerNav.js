@@ -9,13 +9,9 @@ import {
   Mosque,
   Question,
 } from '@phosphor-icons/react'
-import baghdad from '../../assets/images/our-destenations/baghdad.jpg'
 import damascus from '../../assets/images/our-destenations/damascus.jpeg'
 import dubai from '../../assets/images/our-destenations/dubai.jpg'
 import istanbul from '../../assets/images/our-destenations/istanbul.jpg'
-import kuwait from '../../assets/images/our-destenations/kuwait.jpg'
-import muscat from '../../assets/images/our-destenations/muscat.jpg'
-import yerevan from '../../assets/images/our-destenations/yerevan.jpg'
 
 export const helpMenuPanels = [
   {
@@ -48,26 +44,14 @@ export const helpMenuPanels = [
 ]
 
 /**
- * Cities shown in the "Where we fly" menu. Names come from
- * `destinations.cities.*.name`, so only the code, photo and link live here.
- * Photos are the existing destination shots used as placeholders.
+ * Cards in the "Where we fly" menu; the first one gets the wide tile. Names
+ * come from `destinations.cities.*.name`, so only the code, photo and link
+ * live here. Photos are the existing destination shots used as placeholders.
  */
-export const destinationHighlights = {
-  damascus: { code: 'DAM', image: damascus, href: '/our-destinations/flights-to-damascus' },
-  istanbul: { code: 'IST', image: istanbul, href: '/our-destinations' },
-  dubai: { code: 'DXB', image: dubai, href: '/our-destinations' },
-  kuwait: { code: 'KWI', image: kuwait, href: '/our-destinations' },
-  yerevan: { code: 'EVN', image: yerevan, href: '/our-destinations' },
-  muscat: { code: 'MCT', image: muscat, href: '/our-destinations' },
-  baghdad: { code: 'BGW', image: baghdad, href: '/our-destinations' },
-}
-
-/** The first city of a region gets the wide tile; the rest sit beside it. */
-export const destinationRegions = [
-  { id: 'all', cityIds: ['damascus', 'istanbul', 'dubai'] },
-  { id: 'middleEast', cityIds: ['damascus', 'dubai', 'kuwait'] },
-  { id: 'europe', cityIds: ['istanbul', 'yerevan'] },
-  { id: 'asia', cityIds: ['dubai', 'muscat', 'baghdad'] },
+export const featuredDestinations = [
+  { id: 'damascus', code: 'DAM', image: damascus, href: '/our-destinations/flights-to-damascus' },
+  { id: 'istanbul', code: 'IST', image: istanbul, href: '/our-destinations' },
+  { id: 'dubai', code: 'DXB', image: dubai, href: '/our-destinations' },
 ]
 
 export const destinationMenuLinks = [

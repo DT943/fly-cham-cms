@@ -1,14 +1,9 @@
-import { useState } from 'react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import {
-  destinationHighlights,
-  destinationMenuLinks,
-  destinationRegions,
-} from '../../headerNav.js'
+import { destinationMenuLinks, featuredDestinations } from '../../headerNav.js'
 
 const DestinationTile = ({ name, code, image, href, featured, onNavigate }) => (
   <LocalizedLink
@@ -32,8 +27,6 @@ const DestinationTile = ({ name, code, image, href, featured, onNavigate }) => (
 
 const DestinationsMegaMenu = ({ onNavigate }) => {
   const { t } = useTranslation()
-  const [regionId, setRegionId] = useState(destinationRegions[0].id)
-  const region = destinationRegions.find((item) => item.id === regionId) || destinationRegions[0]
 
   return (
     <div className="w-full bg-background shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
@@ -47,50 +40,19 @@ const DestinationsMegaMenu = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div
-          role="tablist"
-          aria-label={t('layout.header.destinations.regionsLabel')}
-          className="flex items-center gap-6 overflow-x-auto"
-        >
-          {destinationRegions.map((item) => {
-            const isActive = item.id === region.id
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setRegionId(item.id)}
-                className={`${typography.caption} shrink-0 cursor-pointer border-0 bg-transparent px-0 pb-1.5 font-medium outline-none focus:outline-none focus-visible:outline-none ${
-                  isActive
-                    ? 'border-b-2 border-solid border-secondary text-secondary-2'
-                    : 'border-b-2 border-solid border-transparent text-600 hover:text-secondary-2'
-                }`}
-              >
-                {t(`layout.header.destinations.regions.${item.id}`)}
-              </button>
-            )
-          })}
-        </div>
-
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
           <div className="flex gap-2.5 overflow-x-auto pb-1 lg:flex-1 lg:min-w-0 lg:overflow-visible lg:pb-0">
-            {region.cityIds.map((cityId, index) => {
-              const city = destinationHighlights[cityId]
-
-              return (
-                <DestinationTile
-                  key={cityId}
-                  name={t(`destinations.cities.${cityId}.name`)}
-                  code={city.code}
-                  image={city.image}
-                  href={city.href}
-                  featured={index === 0}
-                  onNavigate={onNavigate}
-                />
-              )
-            })}
+            {featuredDestinations.map((city, index) => (
+              <DestinationTile
+                key={city.id}
+                name={t(`destinations.cities.${city.id}.name`)}
+                code={city.code}
+                image={city.image}
+                href={city.href}
+                featured={index === 0}
+                onNavigate={onNavigate}
+              />
+            ))}
           </div>
 
           <div className="flex flex-col lg:w-64 xl:w-72 lg:shrink-0">

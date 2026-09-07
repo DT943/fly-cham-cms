@@ -101,20 +101,27 @@ const Header = () => {
         </Container>
       </div>
 
-      {openMenu === 'destinations' && (
-        <div id="destinations-mega-menu">
-          <DestinationsMegaMenu onNavigate={closeMenu} />
-        </div>
-      )}
+      {/*
+        Absolute so the panel floats over the page instead of pushing it down.
+        `sticky` on the header makes it the containing block. The max height is
+        the viewport minus the bar above it (h-16/h-18 plus its 1px bottom
+        border), so a tall panel scrolls internally instead of running off-screen.
+      */}
+      {openMenu && (
+        <div
+          id={`${openMenu}-mega-menu`}
+          className="absolute inset-x-0 top-full overflow-y-auto max-h-[calc(100dvh-65px)] md:max-h-[calc(100dvh-73px)]"
+        >
+          {openMenu === 'destinations' && <DestinationsMegaMenu onNavigate={closeMenu} />}
 
-      {openMenu === 'help' && (
-        <div id="help-mega-menu">
-          <HelpMegaMenu
-            panels={helpMenuPanels}
-            activeId={panelId}
-            onSelectPanel={setPanelId}
-            onNavigate={closeMenu}
-          />
+          {openMenu === 'help' && (
+            <HelpMegaMenu
+              panels={helpMenuPanels}
+              activeId={panelId}
+              onSelectPanel={setPanelId}
+              onNavigate={closeMenu}
+            />
+          )}
         </div>
       )}
     </header>
