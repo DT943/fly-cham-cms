@@ -9,6 +9,7 @@ import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
 import { helpMenuPanels } from './headerNav.js'
 import DestinationsMegaMenu from './header/components/DestinationsMegaMenu.jsx'
+import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
 import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
 
@@ -23,11 +24,13 @@ const Header = ({ dark = false }) => {
   const location = useLocation()
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const [panelId, setPanelId] = useState(helpMenuPanels[0].id)
-  const hidden = useHideOnScroll({ enabled: !openMenu, resetKey: location.pathname })
+  const hidden = useHideOnScroll({ enabled: !openMenu && !mobileOpen, resetKey: location.pathname })
 
   useEffect(() => {
     setOpenMenu(null)
+    setMobileOpen(false)
     setPanelId(helpMenuPanels[0].id)
   }, [location.pathname])
 
@@ -52,7 +55,18 @@ const Header = ({ dark = false }) => {
     }
   }, [openMenu])
 
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1024px)')
+    const closeMobile = () => {
+      if (media.matches) setMobileOpen(false)
+    }
+
+    media.addEventListener('change', closeMobile)
+    return () => media.removeEventListener('change', closeMobile)
+  }, [])
+
   const closeMenu = () => setOpenMenu(null)
+  const closeMobile = () => setMobileOpen(false)
 
   return (
     <header
@@ -62,7 +76,7 @@ const Header = ({ dark = false }) => {
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className={`border-b ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-background'}`}>
-        <Container className="h-16 md:h-18 flex items-center gap-4 md:gap-8">
+        <Container className="flex h-16 items-center gap-4 md:h-18 md:gap-8">
           <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
             <img
               src={dark ? logo : logoDark}
@@ -73,7 +87,7 @@ const Header = ({ dark = false }) => {
 
           <nav
             aria-label={t('layout.header.navLabel')}
-            className="flex items-stretch self-stretch gap-4 md:gap-6"
+            className="hidden items-stretch self-stretch gap-4 md:gap-6 lg:flex"
           >
             {megaMenus.map((menu) => {
               const isOpen = openMenu === menu.id
@@ -99,6 +113,17 @@ const Header = ({ dark = false }) => {
               )
             })}
           </nav>
+
+          <HeaderMenuButton
+            open={mobileOpen}
+            dark={dark}
+            controlsId="header-mobile-menu"
+            label={t(mobileOpen ? 'layout.header.closeMenu' : 'layout.header.menu')}
+            onClick={() => {
+              setOpenMenu(null)
+              setMobileOpen((isOpen) => !isOpen)
+            }}
+          />
         </Container>
       </div>
 
@@ -111,7 +136,7 @@ const Header = ({ dark = false }) => {
       {openMenu && (
         <div
           id={`${openMenu}-mega-menu`}
-          className="absolute inset-x-0 top-full overflow-y-auto max-h-[calc(100dvh-65px)] md:max-h-[calc(100dvh-73px)]"
+          className="absolute inset-x-0 top-full hidden overflow-y-auto max-h-[calc(100dvh-73px)] lg:block"
         >
           {openMenu === 'destinations' && <DestinationsMegaMenu onNavigate={closeMenu} />}
 
@@ -125,6 +150,12 @@ const Header = ({ dark = false }) => {
           )}
         </div>
       )}
+
+      <HeaderMobileMenu
+        open={mobileOpen}
+        onClose={closeMobile}
+        onNavigate={closeMobile}
+      />
     </header>
   )
 }

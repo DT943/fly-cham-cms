@@ -625,6 +625,11 @@
       "region": "SY",
       "login": "Log in",
       "menu": "Open menu",
+      "closeMenu": "Close menu",
+      "mobile": {
+        "coverAlt": "Fly Cham aircraft in flight",
+        "helpSupport": "Help and support"
+      },
       "nav": {
         "book": "Book",
         "manage": "Manage",

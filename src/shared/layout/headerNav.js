@@ -60,3 +60,17 @@ export const destinationMenuLinks = [
   { id: 'flightSchedule', icon: CalendarBlank, href: '/our-destinations' },
   { id: 'travelInspiration', icon: BookOpenText, href: '/our-destinations' },
 ]
+
+export const mobileMenuPrimaryLinks = [
+  { id: 'whereWeFly', href: '/our-destinations', labelKey: 'nav.whereWeFly' },
+  { id: 'schedules', href: '/our-destinations', labelKey: 'navItems.schedules' },
+  { id: 'groupTravel', href: '/help/contact-us/forms', labelKey: 'navItems.groupTravel' },
+  { id: 'faqs', href: '/help/faqs', labelKey: 'navItems.faqs' },
+  { id: 'forms', href: '/help/contact-us/forms', labelKey: 'navItems.forms' },
+  { id: 'searchFlight', href: '/', labelKey: 'navItems.searchFlight', icon: MagnifyingGlass },
+]
+
+export const mobileMenuSecondaryLinks = [
+  { id: 'contactUs', href: '/help/contact-us', labelKey: 'navItems.contactUs' },
+  { id: 'helpSupport', href: '/help', labelKey: 'mobile.helpSupport' },
+]
