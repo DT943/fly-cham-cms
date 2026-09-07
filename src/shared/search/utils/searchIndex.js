@@ -17,6 +17,7 @@ import {
   getDestinationNetworkSearchText,
 } from '../../../pages/our-destinations/utils/destinationFaqs.js'
 import { sights } from '../../../pages/city-sights/utils/sights.js'
+import { routeAirports } from '../../../pages/route-map/utils/routeNetwork.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -234,6 +235,21 @@ function buildPageRecords() {
         'flightsToDamascus.thingsToDo.subtitle',
         'flightsToDamascus.thingsToDo.items.umayyadMosque.title',
         'flightsToDamascus.thingsToDo.items.umayyadMosque.description',
+      ],
+    }),
+    pageRecord({
+      id: 'route-map-explorer',
+      href: '/our-destinations/route-map',
+      titlePath: 'routeMap.hero.title',
+      textPaths: ['routeMap.hero.description'],
+    }),
+    pageRecord({
+      id: 'route-map-places',
+      href: '/our-destinations/route-map',
+      titlePath: 'routeMap.places.title',
+      textPaths: [
+        'routeMap.places.description',
+        ...routeAirports.map((airport) => `routeMap.airports.${airport.code}`),
       ],
     }),
     pageRecord({

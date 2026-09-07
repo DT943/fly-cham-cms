@@ -55,7 +55,7 @@ export const featuredDestinations = [
 ]
 
 export const destinationMenuLinks = [
-  { id: 'routeMap', icon: MapTrifold, href: '/our-destinations' },
+  { id: 'routeMap', icon: MapTrifold, href: '/our-destinations/route-map' },
   { id: 'discoverSyria', icon: Mosque, href: '/our-destinations/flights-to-damascus' },
   { id: 'flightSchedule', icon: CalendarBlank, href: '/our-destinations' },
   { id: 'travelInspiration', icon: BookOpenText, href: '/our-destinations' },

@@ -166,6 +166,31 @@ body {
   border: none !important;
 }
 
+.route-map-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Lifts the OSM basemap's colour so land and water read clearly under the routes. */
+.route-map-canvas .leaflet-tile-pane {
+  filter: saturate(1.35) contrast(1.03) brightness(1.02);
+}
+
+.route-map-tooltip {
+  background: var(--color-secondary-2) !important;
+  border: none !important;
+  color: var(--color-50) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 4px 12px rgba(1, 38, 59, 0.25) !important;
+}
+
+.route-map-tooltip::before {
+  border-top-color: var(--color-secondary-2) !important;
+}
+
 .search-hit-flash {
   box-shadow: 0 0 0 2px var(--color-primary-1);
   border-radius: 0.75rem;

@@ -7,6 +7,8 @@ import erbil from '../../../assets/images/our-destenations/erbil.jpg'
 import istanbul from '../../../assets/images/our-destenations/istanbul.jpg'
 import kuwait from '../../../assets/images/our-destenations/kuwait.jpg'
 import muscat from '../../../assets/images/our-destenations/muscat.jpg'
+import featuredDemoOne from '../../../assets/images/our-destenations/ph2.jpg'
+import featuredDemoTwo from '../../../assets/images/our-destenations/ph4.jpg'
 import sharjah from '../../../assets/images/our-destenations/sharja.jpg'
 import tripoli from '../../../assets/images/our-destenations/tripoli.jpeg'
 import yerevan from '../../../assets/images/our-destenations/yerevan.jpg'
@@ -53,6 +55,12 @@ export const featuredDestinationId = 'dubai'
 
 export const featuredDestination =
   destinations.find((item) => item.id === featuredDestinationId) || destinations[0]
+
+export const featuredImages = [
+  featuredDestination.image,
+  featuredDemoOne,
+  featuredDemoTwo,
+]
 
 export function getDestinationPage(page) {
   const start = (page - 1) * ITEMS_PER_PAGE

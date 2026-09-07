@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
-import { destinations, featuredDestination } from '../utils/destinations.js'
+import { destinations, featuredDestination, featuredImages } from '../utils/destinations.js'
 import DestinationCard from './DestinationCard.jsx'
 import DestinationsPagination from './DestinationsPagination.jsx'
 import FeaturedDestination from './FeaturedDestination.jsx'
@@ -25,7 +25,7 @@ const DestinationsExplore = () => {
             city: t(`destinations.cities.${featuredDestination.id}.name`),
           })}
           activities={t('destinations.featured.activities')}
-          image={featuredDestination.image}
+          images={featuredImages}
           imageAlt={t(`destinations.cities.${featuredDestination.id}.name`)}
         />
 

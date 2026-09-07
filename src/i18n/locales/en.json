@@ -939,6 +939,7 @@
       }
     },
     "cities": {
+      "aleppo": { "name": "Aleppo", "flights": "Flights to Aleppo" },
       "damascus": { "name": "Damascus", "flights": "Flights to Damascus" },
       "abuDhabi": { "name": "Abu Dhabi", "flights": "Flights to Abu Dhabi" },
       "sharjah": { "name": "Sharjah", "flights": "Flights to Sharjah" },
@@ -1116,6 +1117,64 @@
       "label": "Email address",
       "placeholder": "Enter your email address",
       "cta": "Subscribe"
+    }
+  },
+  "routeMap": {
+    "breadcrumb": "Our Route Map",
+    "hero": {
+      "title": "Our Route Map",
+      "description": "Explore our route map, find the cities and airports we serve, and continue directly to flight search when you’re ready to plan your journey."
+    },
+    "panel": {
+      "empty": "Select a destination on the map to see its airport and travel guides.",
+      "hub": "Hub",
+      "airport": "Airport ({{code}})",
+      "links": {
+        "guide": "Destination Guide",
+        "activities": "Activities to Do",
+        "schedule": "View Flight Schedule"
+      },
+      "connections_one": "{{count}} direct route",
+      "connections_other": "{{count}} direct routes",
+      "clear": "Clear selection"
+    },
+    "airports": {
+      "DAM": "Damascus International Airport",
+      "ALP": "Aleppo International Airport",
+      "DXB": "Dubai International Airport",
+      "SHJ": "Sharjah International Airport",
+      "AUH": "Zayed International Airport",
+      "KWI": "Kuwait International Airport",
+      "MCT": "Muscat International Airport",
+      "BGW": "Baghdad International Airport",
+      "EBL": "Erbil International Airport",
+      "EVN": "Zvartnots International Airport",
+      "SAW": "Istanbul Sabiha Gökçen Airport"
+    },
+    "places": {
+      "title": "Places Worth Discovering",
+      "description": "Uncover places and experiences that make every trip more enjoyable, from iconic landmarks and museums to nature, shopping, religious sites, and local activities across destinations.",
+      "cta": "Explore Attractions & City Sights"
+    },
+    "plan": {
+      "title": "Ready to Plan Your Journey?",
+      "cards": {
+        "destinations": {
+          "title": "Explore All Destinations",
+          "description": "Discover Fly Cham destinations, city guides, landmarks, and local highlights across our network.",
+          "cta": "View All Destinations"
+        },
+        "faqs": {
+          "title": "Find Answers Before You Travel",
+          "description": "Get quick answers about bookings, baggage, travel documents, and airport services with Frequently Asked Questions.",
+          "cta": "Read FAQs"
+        },
+        "experiences": {
+          "title": "Discover Our Travel Experiences",
+          "description": "From pre-travel services to airport support and onboard comfort, discover travel experiences designed to add convenience throughout your trip.",
+          "cta": "Explore Travel Experiences"
+        }
+      }
     }
   }
 }
