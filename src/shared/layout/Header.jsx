@@ -71,7 +71,7 @@ const Header = ({ dark = false }) => {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+      className={`sticky top-0 z-[1000] border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
         dark ? 'bg-secondary-2' : 'bg-background'
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
