@@ -1,17 +1,25 @@
 import {
+  AirplaneTakeoff,
+  Baby,
   BookOpenText,
   Buildings,
   CalendarBlank,
+  Car,
   ClipboardText,
+  CreditCard,
+  DeviceMobile,
   EnvelopeSimple,
   MagnifyingGlass,
   MapTrifold,
   Mosque,
   Question,
+  Suitcase,
 } from '@phosphor-icons/react'
 import damascus from '../../assets/images/our-destenations/damascus.jpeg'
 import dubai from '../../assets/images/our-destenations/dubai.jpg'
 import istanbul from '../../assets/images/our-destenations/istanbul.jpg'
+import onBoardPhoto from '../../assets/images/travel-experience/on-board.png'
+import afterTravelPhoto from '../../assets/images/travel-experience/after-travel.png'
 
 export const helpMenuPanels = [
   {
@@ -60,6 +68,47 @@ export const destinationMenuLinks = [
   { id: 'flightSchedule', icon: CalendarBlank, href: '/our-destinations' },
   { id: 'travelInspiration', icon: BookOpenText, href: '/our-destinations' },
 ]
+
+/**
+ * Experience mega menu: the same journey stages as `/travel-experience`, laid
+ * out as columns (icon list, text list, photo + links, promo card) plus a
+ * footer strip. Sub-links land on the matching stage rather than invented URLs.
+ */
+export const experienceMenu = {
+  columns: [
+    {
+      id: 'beforeYouFly',
+      href: '/travel-experience#beforeYouFly',
+      withIcons: true,
+      links: [
+        { id: 'seat', icon: AirplaneTakeoff },
+        { id: 'baggage', icon: Suitcase },
+        { id: 'booking', icon: CreditCard },
+        { id: 'transport', icon: Car },
+        { id: 'children', icon: Baby },
+      ],
+    },
+    {
+      id: 'atTheAirport',
+      href: '/travel-experience#atTheAirport',
+      links: [{ id: 'lounge' }, { id: 'wheelchair' }, { id: 'vipBoarding' }],
+    },
+    {
+      id: 'onBoard',
+      href: '/travel-experience#onBoard',
+      image: onBoardPhoto,
+      links: [{ id: 'cabin' }, { id: 'comfort' }],
+    },
+  ],
+  promo: {
+    href: '/travel-experience#afterTravel',
+    image: afterTravelPhoto,
+  },
+  footer: {
+    href: '/travel-experience',
+    icon: DeviceMobile,
+  },
+}
 
 export const mobileMenuPrimaryLinks = [
   { id: 'searchFlight', href: '/', labelKey: 'navItems.searchFlight', icon: MagnifyingGlass },

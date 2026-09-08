@@ -12,7 +12,8 @@ const TravelExperienceStages = () => {
       {travelExperienceStages.map(({ id, image, gradient }) => (
         <section
           key={id}
-          className="relative isolate overflow-hidden h-125 sm:h-150 md:h-175 lg:h-200"
+          id={id}
+          className="relative isolate scroll-mt-20 overflow-hidden h-125 sm:h-150 md:h-175 lg:h-200 md:scroll-mt-24"
         >
           <img
             src={image}

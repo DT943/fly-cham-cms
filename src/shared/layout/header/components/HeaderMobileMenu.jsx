@@ -11,10 +11,12 @@ import {
   mobileMenuSecondaryLinks,
 } from '../../headerNav.js'
 import DestinationsMegaMenu from './DestinationsMegaMenu.jsx'
+import ExperienceMegaMenu from './ExperienceMegaMenu.jsx'
 import HelpMegaMenu from './HelpMegaMenu.jsx'
 
 const headerItems = [
   { id: 'destinations', labelKey: 'whereWeFly' },
+  { id: 'experience', labelKey: 'experience' },
   { id: 'help', labelKey: 'help' },
 ]
 
@@ -106,9 +108,11 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   const nestedTitle =
     view === 'destinations'
       ? t('layout.header.nav.whereWeFly')
-      : view === 'help'
-        ? t('layout.header.nav.help')
-        : ''
+      : view === 'experience'
+        ? t('layout.header.nav.experience')
+        : view === 'help'
+          ? t('layout.header.nav.help')
+          : ''
 
   return createPortal(
     <nav
@@ -235,6 +239,9 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
         >
           {view === 'destinations' && (
             <DestinationsMegaMenu embedded onNavigate={onNavigate} />
+          )}
+          {view === 'experience' && (
+            <ExperienceMegaMenu embedded onNavigate={onNavigate} />
           )}
           {view === 'help' && (
             <HelpMegaMenu

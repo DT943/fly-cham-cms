@@ -9,6 +9,7 @@ import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
 import { helpMenuPanels } from './headerNav.js'
 import DestinationsMegaMenu from './header/components/DestinationsMegaMenu.jsx'
+import ExperienceMegaMenu from './header/components/ExperienceMegaMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
 import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
@@ -16,6 +17,7 @@ import useHideOnScroll from './hooks/useHideOnScroll.js'
 /** Nav entries that open a mega menu, in display order. */
 const megaMenus = [
   { id: 'destinations', labelKey: 'whereWeFly' },
+  { id: 'experience', labelKey: 'experience' },
   { id: 'help', labelKey: 'help' },
 ]
 
@@ -139,6 +141,8 @@ const Header = ({ dark = false }) => {
           className="absolute inset-x-0 top-full hidden overflow-y-auto max-h-[calc(100dvh-73px)] lg:block"
         >
           {openMenu === 'destinations' && <DestinationsMegaMenu onNavigate={closeMenu} />}
+
+          {openMenu === 'experience' && <ExperienceMegaMenu onNavigate={closeMenu} />}
 
           {openMenu === 'help' && (
             <HelpMegaMenu
