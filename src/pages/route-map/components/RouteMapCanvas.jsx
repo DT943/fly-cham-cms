@@ -27,7 +27,7 @@ function createPin({ hub, selected, dimmed }) {
 
 /** A small plane sitting on the route line, rotated to face along it. */
 function createPlaneIcon(angle) {
-  const size = 100
+  const size = 50
   return L.divIcon({
     className: 'route-map-plane',
     iconSize: [size, size],

@@ -81,9 +81,13 @@ const RouteMapExplorer = () => {
               onFindFlights={() => setDrawerOpen(true)}
             />
 
-            {/* Guides for the end you are travelling to, per the content brief. */}
+            {/* The destination card for the end you are travelling to. */}
             <div className="hidden min-h-0 overflow-y-auto lg:block">
-              <DestinationPanel airport={to || from} />
+              <DestinationPanel
+                from={from}
+                to={to}
+                onClear={() => (toCode ? setToCode(null) : setFromCode(null))}
+              />
             </div>
           </div>
 
