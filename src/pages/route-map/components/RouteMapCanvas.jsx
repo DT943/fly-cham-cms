@@ -138,10 +138,10 @@ const MapSync = ({ points, zoomIn }) => {
     const isDesktop = width >= 1024
     const rtl = getComputedStyle(document.body).direction === 'rtl'
 
-    // The panel sits inside the page's content width, so its far edge is the
-    // container gutter plus the panel itself — not the panel width alone.
-    const gutter = Math.max((width - Math.min(width, 1219)) / 2, 40)
-    const sidePanel = Math.round(gutter + (width >= 1280 ? 352 : 320) + 24)
+    // The search/card panel is pinned to the left edge (max-w-440 + padding), so
+    // keep the framed route clear of it. Narrow desktops get a proportionally
+    // smaller panel, capped at the panel's own max width.
+    const sidePanel = Math.round(Math.min(440, width - 48) + 28)
 
     const topLeft = isDesktop ? [rtl ? 40 : sidePanel, 40] : [24, 72]
     const bottomRight = isDesktop
@@ -198,7 +198,10 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
   }, [from, to])
 
   return (
-    <div dir="ltr" className={`relative overflow-hidden ${className}`}>
+    <div
+      dir="ltr"
+      className={`relative overflow-hidden ${className} ${chosen.length > 0 ? 'route-map-searched' : ''}`}
+    >
       <MapContainer
         center={[32.5, 45]}
         zoom={5}

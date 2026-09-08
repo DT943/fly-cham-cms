@@ -955,7 +955,7 @@
     }
   },
   "flightsToDamascus": {
-    "breadcrumb": "Flights to Damascus",
+    "breadcrumb": "Things to do in Damascus",
     "hero": {
       "title": "Things to Do in Damascus",
       "description": "Explore iconic landmarks, vibrant markets, and unique local experiences in a city where history, culture, and everyday life come together.",
@@ -989,7 +989,7 @@
     }
   },
   "thingsToDoInDamascus": {
-    "breadcrumb": "Things to do in Damascus",
+    "breadcrumb": "Flights to Damascus",
     "hero": {
       "eyebrow": "Flights to",
       "title": "Damascus (DAM)",

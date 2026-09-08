@@ -209,13 +209,13 @@ function buildPageRecords() {
     }),
     pageRecord({
       id: 'damascus-hero',
-      href: '/our-destinations/things-to-do-in-damascus',
+      href: '/our-destinations/flights-to-damascus',
       titlePath: 'thingsToDoInDamascus.breadcrumb',
       textPaths: ['thingsToDoInDamascus.hero.country', 'thingsToDoInDamascus.stats.airport.detail'],
     }),
     pageRecord({
       id: 'damascus-narratives',
-      href: '/our-destinations/things-to-do-in-damascus',
+      href: '/our-destinations/flights-to-damascus',
       titlePath: 'thingsToDoInDamascus.narratives.special.title',
       textPaths: [
         'thingsToDoInDamascus.narratives.special.description',
@@ -229,7 +229,7 @@ function buildPageRecords() {
     }),
     pageRecord({
       id: 'damascus-things-to-do',
-      href: '/our-destinations/things-to-do-in-damascus',
+      href: '/our-destinations/flights-to-damascus',
       titlePath: 'thingsToDoInDamascus.thingsToDo.title',
       textPaths: [
         'thingsToDoInDamascus.thingsToDo.subtitle',
@@ -239,14 +239,14 @@ function buildPageRecords() {
     }),
     pageRecord({
       id: 'flights-damascus-hero',
-      href: '/our-destinations/flights-to-damascus',
+      href: '/our-destinations/things-to-do-in-damascus',
       target: 'flights-damascus-hero',
       titlePath: 'flightsToDamascus.hero.title',
       textPaths: ['flightsToDamascus.breadcrumb', 'flightsToDamascus.hero.description'],
     }),
     pageRecord({
       id: 'flights-damascus-landmarks',
-      href: '/our-destinations/flights-to-damascus',
+      href: '/our-destinations/things-to-do-in-damascus',
       target: 'flights-damascus-landmarks',
       titlePath: 'flightsToDamascus.landmarks.umayyad.title',
       textPaths: [
@@ -259,7 +259,7 @@ function buildPageRecords() {
     }),
     pageRecord({
       id: 'flights-damascus-cta',
-      href: '/our-destinations/flights-to-damascus',
+      href: '/our-destinations/things-to-do-in-damascus',
       target: 'flights-damascus-cta',
       titlePath: 'flightsToDamascus.cta.title',
       textPaths: ['flightsToDamascus.cta.description'],

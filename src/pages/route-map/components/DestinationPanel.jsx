@@ -1,4 +1,4 @@
-import { AirplaneTilt, CalendarBlank, Clock, Star, X } from '@phosphor-icons/react'
+import { AirplaneTilt, CalendarBlank, Clock, Star } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import {
@@ -10,11 +10,12 @@ import {
 } from '../utils/routeFacts.js'
 
 /**
- * The destination card from the reference: a photo header, the city with its
- * country and IATA code, the key flight facts, and a single schedule link.
+ * The destination card: a photo header, the city with its country and IATA
+ * code, the key flight facts, and the actions — Find Flights (primary, once
+ * both ends are chosen) and View Flight Schedule (outline).
  * `focus` is the end being travelled to (falling back to the chosen origin).
  */
-const DestinationPanel = ({ from, to, onClear }) => {
+const DestinationPanel = ({ from, to, onFindFlights }) => {
   const { t } = useTranslation()
   const focus = to || from
   if (!focus) return null
@@ -30,7 +31,7 @@ const DestinationPanel = ({ from, to, onClear }) => {
   const perWeek = weeklyFlights(focus.code)
 
   return (
-    <article className="w-full max-w-80 overflow-hidden rounded-2xl bg-50 shadow-[0_12px_30px_rgba(1,38,59,0.2)]">
+    <article className="w-full overflow-hidden rounded-2xl bg-50 shadow-[0_12px_30px_rgba(1,38,59,0.2)]">
       <div className="relative h-44">
         {image ? (
           <img src={image} alt={`${city}, ${country}`} className="absolute inset-0 size-full object-cover" />
@@ -38,16 +39,6 @@ const DestinationPanel = ({ from, to, onClear }) => {
           <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-primary-1 to-secondary-2 text-3xl font-semibold text-50">
             {focus.code}
           </div>
-        )}
-        {onClear && (
-          <button
-            type="button"
-            onClick={onClear}
-            aria-label={t('routeMap.panel.clear')}
-            className="absolute end-3 top-3 grid size-8 cursor-pointer place-items-center rounded-full border-0 bg-background/85 text-secondary-2 backdrop-blur-sm transition-colors hover:bg-background"
-          >
-            <X size={16} weight="bold" />
-          </button>
         )}
       </div>
 
@@ -73,31 +64,42 @@ const DestinationPanel = ({ from, to, onClear }) => {
         <div className="flex flex-col gap-2 text-sm text-700">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <span className="inline-flex items-center gap-1.5">
-              <AirplaneTilt size={16} className="shrink-0 text-primary-1" />
+              <AirplaneTilt size={16} className="shrink-0" />
               {t('routeMap.panel.nonStop')}
             </span>
             {duration && (
               <>
                 <span className="h-3 w-px bg-200" aria-hidden />
                 <span className="inline-flex items-center gap-1.5">
-                  <Clock size={16} className="shrink-0 text-primary-1" />
+                  <Clock size={16} className="shrink-0" />
                   {t('routeMap.panel.duration', { time: duration })}
                 </span>
               </>
             )}
           </div>
           <span className="inline-flex items-center gap-1.5">
-            <CalendarBlank size={16} className="shrink-0 text-primary-1" />
+            <CalendarBlank size={16} className="shrink-0" />
             {t('routeMap.panel.perWeek', { count: perWeek })}
           </span>
         </div>
 
-        <LocalizedLink
-          href="/our-destinations"
-          className="text-sm font-semibold text-primary-1 no-underline hover:underline"
-        >
-          {t('routeMap.panel.links.schedule')}
-        </LocalizedLink>
+        <div className="flex flex-col gap-2">
+          {from && to && (
+            <button
+              type="button"
+              onClick={onFindFlights}
+              className="w-full cursor-pointer rounded-lg border-0 bg-primary-1 px-5 py-2.5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90"
+            >
+              {t('routeMap.search.findFlights')}
+            </button>
+          )}
+          <LocalizedLink
+            href="/our-destinations"
+            className="w-full rounded-lg border border-solid border-primary-1 bg-transparent px-5 py-2.5 text-center text-sm font-semibold text-primary-1 no-underline transition-colors hover:bg-primary-1/10"
+          >
+            {t('routeMap.panel.links.schedule')}
+          </LocalizedLink>
+        </div>
       </div>
     </article>
   )

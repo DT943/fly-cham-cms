@@ -31,8 +31,8 @@ export const pages = {
   '/help/forms': FormsRedirect,
   '/help/faqs': Faqs,
   '/our-destinations': OurDestinations,
-  '/our-destinations/things-to-do-in-damascus': ThingsToDoInDamascus,
-  '/our-destinations/flights-to-damascus': FlightsToDamascus,
+  '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
+  '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
 }

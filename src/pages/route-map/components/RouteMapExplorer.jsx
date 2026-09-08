@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Container from '../../../shared/components/Container.jsx'
 import LanguageSwitcher from '../../../shared/components/LanguageSwitcher.jsx'
 import { routeAirports } from '../utils/routeNetwork.js'
 import RouteMapCanvas from './RouteMapCanvas.jsx'
@@ -71,33 +70,22 @@ const RouteMapExplorer = () => {
 
       {/* Transparent to pointer events so the map stays draggable underneath. */}
       <div className="pointer-events-none absolute inset-0 z-[500]">
-        <Container className="flex h-full flex-col gap-3 py-4 md:py-6 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
-          <div className="pointer-events-auto flex min-h-0 w-full flex-col gap-3 lg:order-1 lg:h-full lg:w-80 xl:w-88">
-            <RouteSearchPanel
-              from={from}
-              to={to}
-              onChange={change}
-              onReset={reset}
-              onFindFlights={() => setDrawerOpen(true)}
-            />
+        {/* Search + destination card, pinned to the left edge and made wider. */}
+        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[440px] flex-col gap-3 p-3 md:p-4">
+          <RouteSearchPanel from={from} to={to} onChange={change} onReset={reset} />
 
-            {/* The destination card for the end you are travelling to. */}
-            <div className="hidden min-h-0 overflow-y-auto lg:block">
-              <DestinationPanel
-                from={from}
-                to={to}
-                onClear={() => (toCode ? setToCode(null) : setFromCode(null))}
-              />
-            </div>
+          {/* The destination card for the end you are travelling to. */}
+          <div className="hidden min-h-0 flex-1 overflow-y-auto lg:block">
+            <DestinationPanel from={from} to={to} onFindFlights={() => setDrawerOpen(true)} />
           </div>
+        </div>
 
-          {/* The page has no breadcrumb row, so the language toggle lives here. */}
-          <div className="pointer-events-auto flex justify-end lg:order-2">
-            <div className="rounded-lg bg-background/95 px-2 py-1 shadow-[0_6px_18px_rgba(1,38,59,0.16)] backdrop-blur-sm">
-              <LanguageSwitcher />
-            </div>
+        {/* The page has no breadcrumb row, so the language toggle lives here. */}
+        <div className="pointer-events-auto absolute end-0 top-0 p-3 md:p-4">
+          <div className="rounded-lg bg-background/95 px-2 py-1 shadow-[0_6px_18px_rgba(1,38,59,0.16)] backdrop-blur-sm">
+            <LanguageSwitcher />
           </div>
-        </Container>
+        </div>
       </div>
 
       <RouteBookingDrawer

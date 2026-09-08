@@ -171,9 +171,19 @@ body {
   border: none !important;
 }
 
-/* Lifts the OSM basemap's colour so land and water read clearly under the routes. */
+/*
+ * The basemap (tile pane only) stays bright while exploring, then dims once a
+ * route is picked so the gold line and the plane — which live in the overlay /
+ * marker panes and are unaffected — read clearly on top. Extra saturation keeps
+ * the map colourful rather than muddy.
+ */
 .route-map-canvas .leaflet-tile-pane {
-  filter: saturate(1.35) contrast(1.03) brightness(1.02);
+  filter: brightness(0.99) saturate(1.3) contrast(1.06);
+  transition: filter 0.5s ease;
+}
+
+.route-map-searched .route-map-canvas .leaflet-tile-pane {
+  filter: brightness(0.3) saturate(1.3) contrast(1.06);
 }
 
 .route-map-tooltip {

@@ -13,7 +13,7 @@ export const OurOfficesRedirect = createLanguageRedirect('/help/contact-us/our-o
 export const OurGsaRedirect = createLanguageRedirect('/help/contact-us/our-gsa')
 export const FormsRedirect = createLanguageRedirect('/help/contact-us/forms')
 export const FlightsToDamascusRedirect = createLanguageRedirect(
-  '/our-destinations/things-to-do-in-damascus',
+  '/our-destinations/flights-to-damascus',
 )
 
 export const LegacyFormDetailRedirect = () => {
