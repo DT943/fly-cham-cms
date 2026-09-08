@@ -1,4 +1,4 @@
-import { Star } from '@phosphor-icons/react'
+import { CircleNotch, Star } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { destinationImageByCity } from '../utils/routeFacts.js'
@@ -9,7 +9,7 @@ import { destinationImageByCity } from '../utils/routeFacts.js'
  * View Flight Schedule (outline). `focus` is the end being travelled to
  * (falling back to the chosen origin).
  */
-const DestinationPanel = ({ from, to, onFindFlights }) => {
+const DestinationPanel = ({ from, to, onFindFlights, findingFlights = false }) => {
   const { t } = useTranslation()
   const focus = to || from
   if (!focus) return null
@@ -54,8 +54,13 @@ const DestinationPanel = ({ from, to, onFindFlights }) => {
             <button
               type="button"
               onClick={onFindFlights}
-              className="w-full cursor-pointer rounded-lg border-0 bg-primary-1 px-5 py-2 text-sm font-medium text-50 transition-colors hover:bg-primary-1/90"
+              disabled={findingFlights}
+              aria-busy={findingFlights}
+              className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border-0 bg-primary-1 px-5 py-2 text-sm font-medium text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-wait disabled:opacity-90"
             >
+              {findingFlights && (
+                <CircleNotch size={16} className="animate-spin shrink-0" aria-hidden />
+              )}
               {t('routeMap.search.findFlights')}
             </button>
           )}

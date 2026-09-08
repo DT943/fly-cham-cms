@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../../../shared/components/LanguageSwitcher.jsx'
+import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
+import { fetchB2cFlightAvailByRoute } from '../../../vendor/flycham/lib/b2cAvailability/b2cAvailabilityApi.js'
 import { routeAirports } from '../utils/routeNetwork.js'
 import RouteMapCanvas from './RouteMapCanvas.jsx'
 import RouteSearchPanel from './RouteSearchPanel.jsx'
@@ -13,9 +15,12 @@ import RouteBookingDrawer from './RouteBookingDrawer.jsx'
  */
 const RouteMapExplorer = () => {
   const { t } = useTranslation()
+  const language = useCurrentLanguage()
   const [fromCode, setFromCode] = useState(null)
   const [toCode, setToCode] = useState(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [findingFlights, setFindingFlights] = useState(false)
+  const findRequestRef = useRef(0)
 
   const airports = useMemo(
     () =>
@@ -33,6 +38,7 @@ const RouteMapExplorer = () => {
   const to = byCode(toCode)
 
   const change = (field, code) => {
+    findRequestRef.current += 1
     if (field === 'from') {
       setFromCode(code)
       if (code === toCode) setToCode(null)
@@ -41,6 +47,7 @@ const RouteMapExplorer = () => {
       if (code === fromCode) setFromCode(null)
     }
     setDrawerOpen(false)
+    setFindingFlights(false)
   }
 
   // Clicking a pin fills whichever end is still empty.
@@ -51,9 +58,29 @@ const RouteMapExplorer = () => {
   }
 
   const reset = () => {
+    findRequestRef.current += 1
     setFromCode(null)
     setToCode(null)
     setDrawerOpen(false)
+    setFindingFlights(false)
+  }
+
+  const findFlights = async () => {
+    if (!fromCode || !toCode || findingFlights) return
+
+    const requestId = findRequestRef.current + 1
+    findRequestRef.current = requestId
+    setFindingFlights(true)
+
+    try {
+      await fetchB2cFlightAvailByRoute(fromCode, toCode, language)
+    } catch {
+      // The booking drawer loads the calendar itself if this prefetch fails.
+    }
+
+    if (findRequestRef.current !== requestId) return
+    setFindingFlights(false)
+    setDrawerOpen(true)
   }
 
   return (
@@ -76,7 +103,12 @@ const RouteMapExplorer = () => {
 
           {/* The destination card for the end you are travelling to. */}
           <div className="hidden min-h-0 mt-6 flex-1 overflow-y-auto lg:block">
-            <DestinationPanel from={from} to={to} onFindFlights={() => setDrawerOpen(true)} />
+            <DestinationPanel
+              from={from}
+              to={to}
+              findingFlights={findingFlights}
+              onFindFlights={findFlights}
+            />
           </div>
         </div>
 
