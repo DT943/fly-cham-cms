@@ -115,7 +115,7 @@ const PickerInner = ({ from, to, onChange, onReset }) => {
               <CaretDown
                 size={14}
                 weight="bold"
-                className={`shrink-0 text-600 ${isOpen ? 'rotate-180' : ''}`}
+                className={`shrink-0 text-secondary-2 ${isOpen ? 'rotate-180' : ''}`}
               />
             </span>
           </>
@@ -127,7 +127,7 @@ const PickerInner = ({ from, to, onChange, onReset }) => {
             <CaretDown
               size={14}
               weight="bold"
-              className={`shrink-0 text-600 ${isOpen ? 'rotate-180' : ''}`}
+              className={`shrink-0 text-secondary-2 ${isOpen ? 'rotate-180' : ''}`}
             />
           </span>
         )}
@@ -155,7 +155,7 @@ const PickerInner = ({ from, to, onChange, onReset }) => {
               aria-label={t('routeMap.search.reset')}
               className="mx-1 my-1 flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-600 transition-colors hover:bg-100 hover:text-secondary-2"
             >
-              <X size={16} weight="bold" />
+              <X className="text-secondary-2" size={16} weight="bold" />
             </button>
           </>
         )}

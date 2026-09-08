@@ -7,12 +7,13 @@ import VectorBaseLayer from './VectorBaseLayer.jsx'
 import planeImg from '../../../assets/images/routes-map/plane.png'
 
 const HUB = '#baa981'
+const PIN = '#01263b'
 
 /** Inline styles rather than utility classes — this markup is built outside React. */
 function createPin({ hub, selected, dimmed }) {
   const size = selected ? 22 : hub ? 18 : 14
-  // Every dot uses the secondary (sand) styling, hubs and spokes alike.
-  const color = HUB
+  // Every dot uses the deep secondary-2 navy, hubs and spokes alike.
+  const color = PIN
   const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
 
   return L.divIcon({
@@ -40,19 +41,61 @@ function createPlaneIcon(angle) {
 }
 
 /**
- * Midpoint of the arc plus the heading there, as a screen-space angle. Web
+ * Position and screen-space heading at fraction `t` (0 → 1) along the arc. Web
  * Mercator is conformal so the angle is zoom-invariant; the cos(lat) term
- * corrects for the projection's vertical stretch. The +90 aligns the plane art,
- * which points north by default, with the direction of travel.
+ * corrects for the projection's vertical stretch, and +90 aligns the plane art
+ * (which points north) with the direction of travel.
  */
-function planeAt(arc) {
-  const mid = Math.floor(arc.length / 2)
-  const [lat, lng] = arc[mid]
-  const [aLat, aLng] = arc[Math.max(0, mid - 1)]
-  const [bLat, bLng] = arc[Math.min(arc.length - 1, mid + 1)]
-  const dy = -(bLat - aLat) / Math.cos((lat * Math.PI) / 180)
-  const angle = (Math.atan2(dy, bLng - aLng) * 180) / Math.PI + 90
+function planeAtFraction(arc, t) {
+  const f = t * (arc.length - 1)
+  const i = Math.min(Math.floor(f), arc.length - 2)
+  const frac = f - i
+  const a = arc[i]
+  const b = arc[i + 1]
+  const lat = a[0] + (b[0] - a[0]) * frac
+  const lng = a[1] + (b[1] - a[1]) * frac
+  const dy = -(b[0] - a[0]) / Math.cos((lat * Math.PI) / 180)
+  const angle = (Math.atan2(dy, b[1] - a[1]) * 180) / Math.PI + 90
   return { position: [lat, lng], angle }
+}
+
+/** Flies the plane marker from origin to destination along the arc, on a loop. */
+const FlyingPlane = ({ arc }) => {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!arc || arc.length < 2) return
+
+    const first = planeAtFraction(arc, 0)
+    const marker = L.marker(first.position, {
+      icon: createPlaneIcon(first.angle),
+      interactive: false,
+      keyboard: false,
+      zIndexOffset: 1100,
+    }).addTo(map)
+
+    const DURATION = 5000 // ms for one origin → destination pass
+    let raf = 0
+    let start = null
+
+    const frame = (ts) => {
+      if (start === null) start = ts
+      const t = ((ts - start) % DURATION) / DURATION
+      const { position, angle } = planeAtFraction(arc, t)
+      marker.setLatLng(position)
+      const span = marker.getElement()?.firstElementChild
+      if (span) span.style.transform = `rotate(${angle}deg)`
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      marker.remove()
+    }
+  }, [map, arc])
+
+  return null
 }
 
 function createChip(label) {
@@ -227,19 +270,8 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
           />
         )}
 
-        {/* A plane riding the middle of that line, pointing the way it flies. */}
-        {drawnLeg &&
-          (() => {
-            const { position, angle } = planeAt(drawnLeg)
-            return (
-              <Marker
-                position={position}
-                interactive={false}
-                zIndexOffset={1100}
-                icon={createPlaneIcon(angle)}
-              />
-            )
-          })()}
+        {/* A plane flying the route, origin → destination, on a smooth loop. */}
+        {drawnLeg && <FlyingPlane arc={drawnLeg} />}
 
         {Object.values(airportsByCode).map((airport) => {
           const isChosen = chosen.includes(airport.code)

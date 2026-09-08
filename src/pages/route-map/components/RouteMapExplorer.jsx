@@ -69,13 +69,13 @@ const RouteMapExplorer = () => {
       />
 
       {/* Transparent to pointer events so the map stays draggable underneath. */}
-      <div className="pointer-events-none absolute inset-0 z-[500]">
+      <div className="pointer-events-none absolute inset-0 left-15 z-[500]">
         {/* Search + destination card, pinned to the left edge and made wider. */}
-        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[480px] flex-col gap-3 p-3 md:p-4">
+        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[540px] flex-col gap-3 p-3 md:p-4">
           <RouteSearchPanel from={from} to={to} onChange={change} onReset={reset} />
 
           {/* The destination card for the end you are travelling to. */}
-          <div className="hidden min-h-0 flex-1 overflow-y-auto lg:block">
+          <div className="hidden min-h-0 mt-6 flex-1 overflow-y-auto lg:block">
             <DestinationPanel from={from} to={to} onFindFlights={() => setDrawerOpen(true)} />
           </div>
         </div>
