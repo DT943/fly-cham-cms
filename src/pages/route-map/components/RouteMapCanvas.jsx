@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, Marker, Polyline, Tooltip, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Tooltip, ZoomControl, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { airportsByCode, arcBetween, legsFor } from '../utils/routeNetwork.js'
 import VectorBaseLayer from './VectorBaseLayer.jsx'
@@ -141,7 +141,7 @@ const MapSync = ({ points, zoomIn }) => {
     // The search/card panel is pinned to the left edge (max-w-440 + padding), so
     // keep the framed route clear of it. Narrow desktops get a proportionally
     // smaller panel, capped at the panel's own max width.
-    const sidePanel = Math.round(Math.min(440, width - 48) + 28)
+    const sidePanel = Math.round(Math.min(480, width - 48) + 28)
 
     const topLeft = isDesktop ? [rtl ? 40 : sidePanel, 40] : [24, 72]
     const bottomRight = isDesktop
@@ -206,8 +206,11 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
         center={[32.5, 45]}
         zoom={5}
         scrollWheelZoom={false}
+        zoomControl={false}
         className="route-map-canvas h-full w-full bg-100 z-0"
       >
+        {/* Zoom sits on the right so it clears the left-edge search panel. */}
+        <ZoomControl position="topright" />
         {/*
          * OpenFreeMap vector basemap (OSM-like colours) with every label except
          * country / continent / water names hidden — so the map keeps its

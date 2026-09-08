@@ -71,7 +71,7 @@ const RouteMapExplorer = () => {
       {/* Transparent to pointer events so the map stays draggable underneath. */}
       <div className="pointer-events-none absolute inset-0 z-[500]">
         {/* Search + destination card, pinned to the left edge and made wider. */}
-        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[440px] flex-col gap-3 p-3 md:p-4">
+        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[480px] flex-col gap-3 p-3 md:p-4">
           <RouteSearchPanel from={from} to={to} onChange={change} onReset={reset} />
 
           {/* The destination card for the end you are travelling to. */}

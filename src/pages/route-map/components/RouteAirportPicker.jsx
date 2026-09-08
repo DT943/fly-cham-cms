@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Provider as ReduxProvider, useDispatch } from 'react-redux'
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
-import { CaretDown } from '@phosphor-icons/react'
+import { CaretDown, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import { typography } from '../../../styles/typography.js'
@@ -19,7 +19,7 @@ const queryClient = new QueryClient({
 
 const FIELD = { from: 'source', to: 'destination' }
 
-const PickerInner = ({ from, to, onChange }) => {
+const PickerInner = ({ from, to, onChange, onReset }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const language = useCurrentLanguage()
@@ -86,31 +86,43 @@ const PickerInner = ({ from, to, onChange }) => {
   const label = (field) => (field === 'from' ? t('routeMap.search.from') : t('routeMap.search.to'))
   const value = (field) => (field === 'from' ? from : to)
 
-  const renderField = (field, align) => {
+  const renderField = (field) => {
     const isOpen = openField === field
     const code = value(field)
     const selected = items?.find((item) => (item.iataCode || '').toUpperCase() === code)
     const city = selected?.airPortTranslations?.[0]?.city
 
     return (
-      <div className="relative min-w-0 flex-1">
-        <button
-          type="button"
-          aria-expanded={isOpen}
-          onClick={() => {
-            setSearch('')
-            setOpenField(isOpen ? null : field)
-          }}
-          className="flex w-full cursor-pointer flex-col items-start gap-0.5 border-0 bg-transparent px-4 py-2.5 text-start"
-        >
-          <span className={`${typography.caption} text-600`}>{label(field)}</span>
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-label={code ? `${label(field)} ${city || code} (${code})` : label(field)}
+        onClick={() => {
+          setSearch('')
+          setOpenField(isOpen ? null : field)
+        }}
+        className={`flex min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-3 py-2.5 text-start ${
+          code ? 'flex-col items-start gap-0.5' : 'items-center'
+        }`}
+      >
+        {code ? (
+          <>
+            <span className={`${typography.caption} text-600`}>{label(field)}</span>
+            <span className="flex w-full items-center justify-between gap-1.5">
+              <span className={`${typography.body} whitespace-nowrap font-semibold text-secondary-2`}>
+                {`${city || code} (${code})`}
+              </span>
+              <CaretDown
+                size={14}
+                weight="bold"
+                className={`shrink-0 text-600 ${isOpen ? 'rotate-180' : ''}`}
+              />
+            </span>
+          </>
+        ) : (
           <span className="flex w-full items-center justify-between gap-2">
-            <span
-              className={`${typography.body} truncate font-semibold ${
-                code ? 'text-secondary-2' : 'text-500'
-              }`}
-            >
-              {code ? `${city || code} (${code})` : t('routeMap.search.choose')}
+            <span className={`${typography.body} font-semibold text-secondary-2`}>
+              {label(field)}
             </span>
             <CaretDown
               size={14}
@@ -118,38 +130,54 @@ const PickerInner = ({ from, to, onChange }) => {
               className={`shrink-0 text-600 ${isOpen ? 'rotate-180' : ''}`}
             />
           </span>
-        </button>
-
-        {isOpen && (
-          <div
-            className={`route-map-airports absolute top-full z-20 mt-1 w-[min(40rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-solid border-200 bg-background shadow-[0_12px_32px_rgba(1,38,59,0.18)] sm:w-[min(44rem,calc(100vw-2.5rem))] ${
-              align === 'end' ? 'end-0' : 'start-0'
-            }`}
-          >
-            <AirportDropdownPanel
-              isOpen
-              fieldType={FIELD[field]}
-              searchValue={search}
-              setSearchValue={setSearch}
-              handleSearchOverride={(event) => setSearch(event?.target?.value ?? '')}
-              valuesOverride={panelValues}
-              setFieldValueOverride={setFieldValue}
-              setOpenAirPortsDropdownOverride={() => setOpenField(null)}
-              getCitiesArray={getCitiesArray}
-              airportItems={items || []}
-              searchV2AirportUi
-            />
-          </div>
         )}
-      </div>
+      </button>
     )
   }
 
+  // One dropdown for both fields, anchored to the picker's start edge — so the To
+  // panel opens exactly like the From panel instead of overflowing off-screen.
   return (
-    <div className="flex items-stretch rounded-xl border border-solid border-200 bg-background shadow-[0_10px_30px_rgba(1,38,59,0.18)]">
-      {renderField('from', 'start')}
-      <span className="my-2 w-px shrink-0 bg-200" aria-hidden="true" />
-      {renderField('to', 'end')}
+    <div className="relative">
+      <div className="flex items-stretch rounded-xl border border-solid border-200 bg-background shadow-[0_10px_30px_rgba(1,38,59,0.18)]">
+        {renderField('from')}
+        <span className="my-2 w-px shrink-0 bg-200" aria-hidden="true" />
+        {renderField('to')}
+        {onReset && (from || to) && (
+          <>
+            <span className="my-2 w-px shrink-0 bg-200" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={() => {
+                setOpenField(null)
+                onReset()
+              }}
+              aria-label={t('routeMap.search.reset')}
+              className="mx-1 my-1 flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-600 transition-colors hover:bg-100 hover:text-secondary-2"
+            >
+              <X size={16} weight="bold" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {openField && (
+        <div className="route-map-airports absolute start-0 top-full z-20 mt-1 w-[min(40rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-solid border-200 bg-background shadow-[0_12px_32px_rgba(1,38,59,0.18)] sm:w-[min(44rem,calc(100vw-2.5rem))]">
+          <AirportDropdownPanel
+            isOpen
+            fieldType={FIELD[openField]}
+            searchValue={search}
+            setSearchValue={setSearch}
+            handleSearchOverride={(event) => setSearch(event?.target?.value ?? '')}
+            valuesOverride={panelValues}
+            setFieldValueOverride={setFieldValue}
+            setOpenAirPortsDropdownOverride={() => setOpenField(null)}
+            getCitiesArray={getCitiesArray}
+            airportItems={items || []}
+            searchV2AirportUi
+          />
+        </div>
+      )}
     </div>
   )
 }

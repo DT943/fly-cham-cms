@@ -954,6 +954,38 @@
       "kuwait": { "name": "Kuwait", "flights": "Flights to Kuwait" }
     }
   },
+  "travelExperience": {
+    "breadcrumb": "Travel Experience",
+    "hero": {
+      "title": "Travel Experience",
+      "subtitle": "Discover Fly Cham services designed to support every stage of your journey.",
+      "imageAlt": "A traveller enjoying the view from the aircraft window"
+    },
+    "sectionTitle": "What You Need For an Ideal Journey",
+    "stages": {
+      "cta": "Explore more",
+      "beforeYouFly": {
+        "title": "Before you fly",
+        "description": "Prepare for your journey with services that help you travel with ease, choose your seat, review baggage allowances, manage your booking and payment options, arrange airport transportation or limousine service, and request support for children travelling alone.",
+        "imageAlt": "A passenger preparing for travel before the flight"
+      },
+      "atTheAirport": {
+        "title": "At the airport",
+        "description": "Make your airport experience smoother with services designed for added comfort and assistance, including Business Lounge access, wheelchair support, and VIP boarding.",
+        "imageAlt": "A traveller with luggage moving through the airport terminal"
+      },
+      "onBoard": {
+        "title": "On Board",
+        "description": "Get ready for your trip with services that help you plan ahead and travel with confidence.",
+        "imageAlt": "A passenger relaxing on board the aircraft"
+      },
+      "afterTravel": {
+        "title": "After Travel",
+        "description": "Get ready for your trip with services that help you plan ahead and travel with confidence.",
+        "imageAlt": "A traveller arriving at their destination after the flight"
+      }
+    }
+  },
   "flightsToDamascus": {
     "breadcrumb": "Things to do in Damascus",
     "hero": {
@@ -1217,7 +1249,6 @@
     "search": {
       "from": "From",
       "to": "To",
-      "choose": "Select airport",
       "label": "Search airports",
       "placeholder": "Search by city, country or airport",
       "empty": "No airports match your search.",

@@ -12,6 +12,7 @@ import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/Things
 import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
 import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
+import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
 import {
   FormsRedirect,
   LegacyFormDetailRedirect,
@@ -35,6 +36,7 @@ export const pages = {
   '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
+  '/travel-experience': TravelExperience,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

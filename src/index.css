@@ -186,6 +186,11 @@ body {
   filter: brightness(0.3) saturate(1.3) contrast(1.06);
 }
 
+/* Zoom control lives top-right; drop it below the language toggle that sits there. */
+.route-map-canvas .leaflet-top.leaflet-right {
+  margin-top: 56px;
+}
+
 .route-map-tooltip {
   background: var(--color-secondary-2) !important;
   border: none !important;
