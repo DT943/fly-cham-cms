@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, Marker, Polyline, TileLayer, Tooltip, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Tooltip, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { airportsByCode, arcBetween, legsFor, routeLegs } from '../utils/routeNetwork.js'
+import { airportsByCode, arcBetween, legsFor } from '../utils/routeNetwork.js'
+import VectorBaseLayer from './VectorBaseLayer.jsx'
+import planeImg from '../../../assets/images/routes-map/plane.png'
 
 const HUB = '#baa981'
-const SPOKE = '#006080'
 
 /** Inline styles rather than utility classes — this markup is built outside React. */
 function createPin({ hub, selected, dimmed }) {
   const size = selected ? 22 : hub ? 18 : 14
-  const color = hub ? HUB : SPOKE
+  // Every dot uses the secondary (sand) styling, hubs and spokes alike.
+  const color = HUB
   const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
 
   return L.divIcon({
@@ -21,6 +23,36 @@ function createPin({ hub, selected, dimmed }) {
       background:${color};border:2.5px solid #fdfdfc;opacity:${dimmed ? 0.35 : 1};
       transition:opacity .2s ease;${ring}"></span>`,
   })
+}
+
+/** A small plane sitting on the route line, rotated to face along it. */
+function createPlaneIcon(angle) {
+  const size = 100
+  return L.divIcon({
+    className: 'route-map-plane',
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    html: `<span style="display:block;width:${size}px;height:${size}px;transform:rotate(${angle}deg);
+      filter:drop-shadow(0 1px 3px rgba(1,38,59,0.35));">
+      <img src="${planeImg}" alt="" style="width:100%;height:100%;object-fit:contain;display:block;" />
+    </span>`,
+  })
+}
+
+/**
+ * Midpoint of the arc plus the heading there, as a screen-space angle. Web
+ * Mercator is conformal so the angle is zoom-invariant; the cos(lat) term
+ * corrects for the projection's vertical stretch. The +90 aligns the plane art,
+ * which points north by default, with the direction of travel.
+ */
+function planeAt(arc) {
+  const mid = Math.floor(arc.length / 2)
+  const [lat, lng] = arc[mid]
+  const [aLat, aLng] = arc[Math.max(0, mid - 1)]
+  const [bLat, bLng] = arc[Math.min(arc.length - 1, mid + 1)]
+  const dy = -(bLat - aLat) / Math.cos((lat * Math.PI) / 180)
+  const angle = (Math.atan2(dy, bLng - aLng) * 180) / Math.PI + 90
+  return { position: [lat, lng], angle }
 }
 
 function createChip(label) {
@@ -141,15 +173,7 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
     [fromCode, toCode]
   )
 
-  // With one end picked we highlight everywhere it flies; with both, just the leg.
-  const activeLegs = useMemo(() => {
-    if (fromCode && toCode) {
-      return new Set([[fromCode, toCode].sort().join('-')])
-    }
-    const anchor = fromCode || toCode
-    return new Set(anchor ? legsFor(anchor).map((leg) => leg.join('-')) : [])
-  }, [fromCode, toCode])
-
+  // A single line is drawn only once both ends are chosen.
   const drawnLeg = from && to ? arcBetween(from, to) : null
 
   /*
@@ -181,39 +205,35 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
         scrollWheelZoom={false}
         className="route-map-canvas h-full w-full bg-100 z-0"
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        {/*
+         * OpenFreeMap vector basemap (OSM-like colours) with every label except
+         * country / continent / water names hidden — so the map keeps its
+         * original colours but shows country names only, no cities.
+         */}
+        <VectorBaseLayer />
         <MapSync points={fitPoints} zoomIn={chosen.length > 0} />
 
-        {routeLegs.map(([legFrom, legTo]) => {
-          const key = `${legFrom}-${legTo}`
-          const isActive = activeLegs.has(key)
-          const isDimmed = chosen.length > 0 && !isActive
-
-          return (
-            <Polyline
-              key={key}
-              positions={arcBetween(airportsByCode[legFrom], airportsByCode[legTo])}
-              pathOptions={{
-                color: isActive ? HUB : SPOKE,
-                weight: isActive ? 3 : 1.75,
-                opacity: isDimmed ? 0.12 : isActive ? 0.95 : 0.45,
-                dashArray: isActive ? null : '6 7',
-                lineCap: 'round',
-              }}
-            />
-          )
-        })}
-
-        {/* The chosen leg, drawn on top even when the pair is not a direct route. */}
+        {/* The one line: the chosen origin → destination, and nothing else. */}
         {drawnLeg && (
           <Polyline
             positions={drawnLeg}
             pathOptions={{ color: HUB, weight: 3.5, opacity: 1, lineCap: 'round' }}
           />
         )}
+
+        {/* A plane riding the middle of that line, pointing the way it flies. */}
+        {drawnLeg &&
+          (() => {
+            const { position, angle } = planeAt(drawnLeg)
+            return (
+              <Marker
+                position={position}
+                interactive={false}
+                zIndexOffset={1100}
+                icon={createPlaneIcon(angle)}
+              />
+            )
+          })()}
 
         {Object.values(airportsByCode).map((airport) => {
           const isChosen = chosen.includes(airport.code)
