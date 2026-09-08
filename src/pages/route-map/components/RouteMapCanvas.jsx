@@ -7,12 +7,12 @@ import VectorBaseLayer from './VectorBaseLayer.jsx'
 import planeImg from '../../../assets/images/routes-map/plane.png'
 
 const HUB = '#baa981'
-const PIN = '#01263b'
+const PIN = '#006080'
+const PIN_BORDER = '#5393c8'
 
 /** Inline styles rather than utility classes — this markup is built outside React. */
 function createPin({ hub, selected, dimmed }) {
   const size = selected ? 22 : hub ? 18 : 14
-  // Every dot uses the deep secondary-2 navy, hubs and spokes alike.
   const color = PIN
   const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
 
@@ -21,7 +21,7 @@ function createPin({ hub, selected, dimmed }) {
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     html: `<span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;
-      background:${color};border:2.5px solid #fdfdfc;opacity:${dimmed ? 0.35 : 1};
+      background:${color};border:2.5px solid ${PIN_BORDER};opacity:${dimmed ? 0.35 : 1};
       transition:opacity .2s ease;${ring}"></span>`,
   })
 }
