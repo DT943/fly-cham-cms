@@ -1,7 +1,8 @@
 /**
  * The live network, derived from the bundled flight manifest
- * (`src/vendor/flycham/data/flightmanifestData.json`): 11 airports and the 12
- * city pairs it actually flies. Damascus and Aleppo are the two hubs.
+ * (`src/vendor/flycham/data/flightmanifestData.json`), plus Mitiga (MJI) which
+ * is live on the B2C route matrix but lagged out of that scrape. Damascus and
+ * Aleppo are the two hubs.
  *
  * City and country labels reuse `destinations.cities.*` / `destinations.countries.*`;
  * only the airport name lives in `routeMap.airports.*`.
@@ -18,6 +19,7 @@ export const routeAirports = [
   { code: 'EBL', cityKey: 'erbil', countryKey: 'iraq', lat: 36.2376, lng: 43.9632 },
   { code: 'EVN', cityKey: 'yerevan', countryKey: 'armenia', lat: 40.1473, lng: 44.3959 },
   { code: 'SAW', cityKey: 'istanbul', countryKey: 'turkey', lat: 40.8986, lng: 29.3092 },
+  { code: 'MJI', cityKey: 'tripoli', countryKey: 'libya', lat: 32.8941, lng: 13.2778, isNew: true },
 ]
 
 /** Undirected city pairs served, ordered by how often they appear in the manifest. */
@@ -34,6 +36,7 @@ export const routeLegs = [
   ['DAM', 'EBL'],
   ['ALP', 'DXB'],
   ['ALP', 'EBL'],
+  ['DAM', 'MJI'],
 ]
 
 export const airportsByCode = Object.fromEntries(

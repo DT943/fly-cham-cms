@@ -10,6 +10,7 @@ import baghdad from '../../../assets/images/our-destenations/baghdad.jpg'
 import erbil from '../../../assets/images/our-destenations/erbil.jpg'
 import yerevan from '../../../assets/images/our-destenations/yerevan.jpg'
 import istanbul from '../../../assets/images/our-destenations/istanbul.jpg'
+import tripoli from '../../../assets/images/our-destenations/tripoli.jpeg'
 
 /**
  * Destination photo per city. Aleppo has no shot yet, so it is left out and the
@@ -26,6 +27,7 @@ export const destinationImageByCity = {
   erbil,
   yerevan,
   istanbul,
+  tripoli,
 }
 
 /**
