@@ -84,7 +84,7 @@ const RouteMapExplorer = () => {
   }
 
   return (
-    <section className="relative w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-73px)]">
+    <section className="relative h-full w-full">
       <RouteMapCanvas
         className="absolute inset-0 h-full w-full"
         fromCode={fromCode}

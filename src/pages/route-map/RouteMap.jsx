@@ -1,26 +1,26 @@
 import { useTranslation } from 'react-i18next'
-import Container from '../../shared/components/Container.jsx'
 import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
 import RouteMapExplorer from './components/RouteMapExplorer.jsx'
-import PlacesWorthDiscovering from './components/PlacesWorthDiscovering.jsx'
-import PlanJourney from './components/PlanJourney.jsx'
+// import Container from '../../shared/components/Container.jsx'
+// import PlacesWorthDiscovering from './components/PlacesWorthDiscovering.jsx'
+// import PlanJourney from './components/PlanJourney.jsx'
 
 const RouteMap = () => {
   const { t } = useTranslation()
 
   return (
-    <main className="bg-100 w-full">
+    <main className="bg-100 h-[calc(100dvh-65px)] w-full overflow-hidden md:h-[calc(100dvh-73px)]">
       {/* The map opens the page, so the title is kept for assistive tech and SEO only. */}
       <h1 className="sr-only">{t('routeMap.hero.title')}</h1>
 
-      <SearchAnchor hit="route-map-explorer">
+      <SearchAnchor hit="route-map-explorer" className="block h-full w-full">
         <RouteMapExplorer />
       </SearchAnchor>
 
-      <Container className="flex flex-col gap-10 py-8 md:gap-14 md:py-12 lg:gap-14 lg:py-14">
+      {/* <Container className="flex flex-col gap-10 py-8 md:gap-14 md:py-12 lg:gap-14 lg:py-14">
         <PlacesWorthDiscovering />
         <PlanJourney />
-      </Container>
+      </Container> */}
     </main>
   )
 }

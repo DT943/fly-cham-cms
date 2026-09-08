@@ -12,6 +12,7 @@ const Layout = () => {
   const { pathname } = useLocation()
   const { i18n } = useTranslation()
   const language = getLanguageFromPath(pathname)
+  const hideFooter = stripLanguage(pathname) === '/our-destinations/route-map'
 
   useSearchHit()
 
@@ -32,7 +33,7 @@ const Layout = () => {
       <div className="flex-1">
         <Outlet />
       </div>
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   )
 }

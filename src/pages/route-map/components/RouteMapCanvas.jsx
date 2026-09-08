@@ -248,7 +248,7 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
       <MapContainer
         center={[32.5, 45]}
         zoom={5}
-        scrollWheelZoom={false}
+        scrollWheelZoom
         zoomControl={false}
         className="route-map-canvas h-full w-full bg-100 z-0"
       >
