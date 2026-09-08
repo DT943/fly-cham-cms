@@ -25,12 +25,17 @@ const RouteBookingDrawer = ({ open, from, to, onClose }) => {
 
   if (!open) return null
 
+  /*
+   * Deliberately no max-height or overflow: the booking box opens its calendar
+   * and passenger popups as absolutely positioned children, and any overflow
+   * other than `visible` clips them at the drawer's edge.
+   */
   return (
     <div
       role="dialog"
       aria-modal="false"
       aria-label={t('routeMap.drawer.title')}
-      className="absolute inset-x-0 top-full z-[600] border-b border-solid border-200 bg-background shadow-[0_18px_40px_rgba(1,38,59,0.22)] animate-[fadeSlide_0.25s_ease-out] motion-reduce:animate-none"
+      className="absolute inset-x-0 top-0 z-[600] border-b border-solid border-200 bg-background shadow-[0_18px_40px_rgba(1,38,59,0.22)] animate-[fadeSlide_0.25s_ease-out] motion-reduce:animate-none"
     >
       <Container className="flex flex-col gap-4 py-5 md:py-6">
         <div className="flex items-start justify-between gap-4">
@@ -62,7 +67,7 @@ const RouteBookingDrawer = ({ open, from, to, onClose }) => {
           </button>
         </div>
 
-        <BookingWidget />
+        <BookingWidget initialFrom={from?.code} initialTo={to?.code} />
       </Container>
     </div>
   )

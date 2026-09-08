@@ -1126,7 +1126,6 @@
       "description": "Explore our route map, find the cities and airports we serve, and continue directly to flight search when you’re ready to plan your journey."
     },
     "panel": {
-      "empty": "Select a destination on the map to see its airport and travel guides.",
       "hub": "Hub",
       "airport": "Airport ({{code}})",
       "links": {
@@ -1135,8 +1134,7 @@
         "schedule": "View Flight Schedule"
       },
       "connections_one": "{{count}} direct route",
-      "connections_other": "{{count}} direct routes",
-      "clear": "Clear selection"
+      "connections_other": "{{count}} direct routes"
     },
     "airports": {
       "DAM": "Damascus International Airport",
@@ -1175,6 +1173,20 @@
           "cta": "Explore Travel Experiences"
         }
       }
+    },
+    "search": {
+      "from": "From",
+      "to": "To",
+      "choose": "Select airport",
+      "label": "Search airports",
+      "placeholder": "Search by city, country or airport",
+      "empty": "No airports match your search.",
+      "reset": "Reset",
+      "findFlights": "Find Flights"
+    },
+    "drawer": {
+      "title": "Customise your search",
+      "close": "Close search"
     }
   }
 }

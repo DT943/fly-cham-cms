@@ -23,7 +23,20 @@ function createPin({ hub, selected, dimmed }) {
   })
 }
 
-const MapSync = ({ selected, hasSelection }) => {
+/** Chip label pinned to a chosen endpoint, with an inline clear affordance. */
+function createChip(label) {
+  return L.divIcon({
+    className: 'route-map-chip',
+    iconSize: [0, 0],
+    iconAnchor: [0, 34],
+    html: `<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+      transform:translateX(-50%);background:#fdfdfc;color:#01263b;border:1px solid #e5e5e3;
+      border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;
+      box-shadow:0 4px 12px rgba(1,38,59,0.22);">${label}</span>`,
+  })
+}
+
+const MapSync = ({ points, zoomIn }) => {
   const map = useMap()
   const [box, setBox] = useState(null)
   const sizeRef = useRef(null)
@@ -80,24 +93,15 @@ const MapSync = ({ selected, hasSelection }) => {
   }, [map])
 
   useEffect(() => {
-    if (!box) return
+    if (!box || points.length === 0) return
 
-    const points = selected
-      ? [
-          [selected.lat, selected.lng],
-          ...legsFor(selected.code).flatMap(([from, to]) => [
-            [airportsByCode[from].lat, airportsByCode[from].lng],
-            [airportsByCode[to].lat, airportsByCode[to].lng],
-          ]),
-        ]
-      : Object.values(airportsByCode).map((airport) => [airport.lat, airport.lng])
     const bounds = L.latLngBounds(points)
     if (!bounds.isValid()) return
 
     /*
-     * The destination card floats over the map, so fit into the part that is
-     * actually visible: below lg it is pinned to the bottom, at lg it is a side
-     * column (which swaps sides under RTL).
+     * The search panel floats over the map, so fit into the part that is
+     * actually visible: below lg it sits at the top, at lg it is a side column
+     * (which swaps sides under RTL).
      */
     const { w: width, h: height } = box
     const isDesktop = width >= 1024
@@ -121,22 +125,54 @@ const MapSync = ({ selected, hasSelection }) => {
     map.fitBounds(bounds, {
       paddingTopLeft: topLeft,
       paddingBottomRight: bottomRight,
-      animate: Boolean(selected),
+      animate: zoomIn,
       duration: 0.6,
-      ...(selected ? { maxZoom: 7 } : {}),
+      ...(zoomIn ? { maxZoom: 7 } : {}),
     })
-  }, [map, selected, hasSelection, box])
+  }, [map, points, zoomIn, box])
 
   return null
 }
 
-const RouteMapCanvas = ({ airports, selectedCode, onSelect, labelFor, className = '' }) => {
-  const visible = useMemo(() => new Set(airports.map((a) => a.code)), [airports])
-  const selected = selectedCode ? airportsByCode[selectedCode] : null
-  const activeLegs = useMemo(
-    () => new Set(selectedCode ? legsFor(selectedCode).map((leg) => leg.join('-')) : []),
-    [selectedCode]
+const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }) => {
+  const from = fromCode ? airportsByCode[fromCode] : null
+  const to = toCode ? airportsByCode[toCode] : null
+  const chosen = useMemo(
+    () => [fromCode, toCode].filter(Boolean),
+    [fromCode, toCode]
   )
+
+  // With one end picked we highlight everywhere it flies; with both, just the leg.
+  const activeLegs = useMemo(() => {
+    if (fromCode && toCode) {
+      return new Set([[fromCode, toCode].sort().join('-')])
+    }
+    const anchor = fromCode || toCode
+    return new Set(anchor ? legsFor(anchor).map((leg) => leg.join('-')) : [])
+  }, [fromCode, toCode])
+
+  const drawnLeg = from && to ? arcBetween(from, to) : null
+
+  /*
+   * What the view frames: the chosen leg once both ends are set, everywhere a
+   * single chosen airport flies while only one is set, otherwise the network.
+   */
+  const fitPoints = useMemo(() => {
+    if (from && to) return [from, to].map((a) => [a.lat, a.lng])
+
+    const anchor = from || to
+    if (anchor) {
+      return [
+        [anchor.lat, anchor.lng],
+        ...legsFor(anchor.code).flatMap(([legFrom, legTo]) => [
+          [airportsByCode[legFrom].lat, airportsByCode[legFrom].lng],
+          [airportsByCode[legTo].lat, airportsByCode[legTo].lng],
+        ]),
+      ]
+    }
+
+    return Object.values(airportsByCode).map((airport) => [airport.lat, airport.lng])
+  }, [from, to])
 
   return (
     <div dir="ltr" className={`relative overflow-hidden ${className}`}>
@@ -150,21 +186,21 @@ const RouteMapCanvas = ({ airports, selectedCode, onSelect, labelFor, className 
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MapSync selected={selected} hasSelection={Boolean(selectedCode)} />
+        <MapSync points={fitPoints} zoomIn={chosen.length > 0} />
 
-        {routeLegs.map(([from, to]) => {
-          const key = `${from}-${to}`
+        {routeLegs.map(([legFrom, legTo]) => {
+          const key = `${legFrom}-${legTo}`
           const isActive = activeLegs.has(key)
-          const isDimmed = selectedCode ? !isActive : false
+          const isDimmed = chosen.length > 0 && !isActive
 
           return (
             <Polyline
               key={key}
-              positions={arcBetween(airportsByCode[from], airportsByCode[to])}
+              positions={arcBetween(airportsByCode[legFrom], airportsByCode[legTo])}
               pathOptions={{
                 color: isActive ? HUB : SPOKE,
                 weight: isActive ? 3 : 1.75,
-                opacity: isDimmed ? 0.15 : isActive ? 0.95 : 0.45,
+                opacity: isDimmed ? 0.12 : isActive ? 0.95 : 0.45,
                 dashArray: isActive ? null : '6 7',
                 lineCap: 'round',
               }}
@@ -172,24 +208,45 @@ const RouteMapCanvas = ({ airports, selectedCode, onSelect, labelFor, className 
           )
         })}
 
+        {/* The chosen leg, drawn on top even when the pair is not a direct route. */}
+        {drawnLeg && (
+          <Polyline
+            positions={drawnLeg}
+            pathOptions={{ color: HUB, weight: 3.5, opacity: 1, lineCap: 'round' }}
+          />
+        )}
+
         {Object.values(airportsByCode).map((airport) => {
-          const isSelected = airport.code === selectedCode
-          const dimmed = !visible.has(airport.code) || (Boolean(selectedCode) && !isSelected)
+          const isChosen = chosen.includes(airport.code)
+          const dimmed = chosen.length > 0 && !isChosen
 
           return (
             <Marker
               key={airport.code}
               position={[airport.lat, airport.lng]}
-              zIndexOffset={isSelected ? 1000 : airport.hub ? 500 : 0}
-              icon={createPin({ hub: airport.hub, selected: isSelected, dimmed })}
+              zIndexOffset={isChosen ? 1000 : airport.hub ? 500 : 0}
+              icon={createPin({ hub: airport.hub, selected: isChosen, dimmed })}
               eventHandlers={{ click: () => onSelect(airport.code) }}
             >
-              <Tooltip direction="top" offset={[0, -12]} opacity={1} className="route-map-tooltip">
-                {labelFor(airport)}
-              </Tooltip>
+              {!isChosen && (
+                <Tooltip direction="top" offset={[0, -12]} opacity={1} className="route-map-tooltip">
+                  {labelFor(airport)}
+                </Tooltip>
+              )}
             </Marker>
           )
         })}
+
+        {/* Endpoint chips, matching the reference's labelled pins. */}
+        {[from, to].filter(Boolean).map((airport) => (
+          <Marker
+            key={`chip-${airport.code}`}
+            position={[airport.lat, airport.lng]}
+            zIndexOffset={1200}
+            interactive={false}
+            icon={createChip(labelFor(airport))}
+          />
+        ))}
       </MapContainer>
     </div>
   )

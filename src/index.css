@@ -191,6 +191,41 @@ body {
   border-top-color: var(--color-secondary-2) !important;
 }
 
+/*
+ * The booking box's airport dropdown ships an "Include nearby airports" switch,
+ * gated behind the same flag that produces the list styling — so there is no prop
+ * to drop just the toggle. The route map picks a single origin/destination pair,
+ * where nearby-airport expansion has nothing to act on, so hide it here only.
+ * `display: none` also takes it out of the accessibility tree.
+ */
+.route-map-airports label:has(> button[role='switch']) {
+  display: none;
+}
+
+.route-map-airports .rounded-t-2xl {
+  padding-block: 1.25rem 0.75rem;
+  padding-inline: 1.25rem;
+}
+
+.route-map-airports input[type='text'] {
+  padding-inline: 0.25rem;
+}
+
+.route-map-airports [class*='scrollArea'] {
+  padding-inline: 0.75rem 1.25rem;
+  padding-bottom: 0.75rem;
+}
+
+.route-map-airports [class*='sectionTitle'] {
+  padding-inline: 1rem;
+  padding-block: 0.5rem 0.75rem;
+}
+
+.route-map-airports [class*='listItem'] {
+  padding: 0.875rem 1rem;
+  gap: 1.25rem;
+}
+
 .search-hit-flash {
   box-shadow: 0 0 0 2px var(--color-primary-1);
   border-radius: 0.75rem;

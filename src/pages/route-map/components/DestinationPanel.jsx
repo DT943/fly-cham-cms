@@ -1,4 +1,4 @@
-import { AirplaneTakeoff, ArrowRight, CalendarBlank, Compass, MapPin, X } from '@phosphor-icons/react'
+import { ArrowRight, CalendarBlank, Compass, MapPin, X } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { legsFor } from '../utils/routeNetwork.js'
@@ -13,14 +13,7 @@ const links = [
 const DestinationPanel = ({ airport, onClear }) => {
   const { t } = useTranslation()
 
-  if (!airport) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-300 bg-50 p-6 text-center lg:p-8">
-        <AirplaneTakeoff size={32} className="text-400" />
-        <p className="m-0 text-sm text-600">{t('routeMap.panel.empty')}</p>
-      </div>
-    )
-  }
+  if (!airport) return null
 
   const city = t(`destinations.cities.${airport.cityKey}.name`)
   const country = t(`destinations.countries.${airport.countryKey}`)

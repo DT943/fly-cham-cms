@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Provider as ReduxProvider, useDispatch } from 'react-redux'
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
@@ -41,13 +41,14 @@ const queryClient = new QueryClient({
   },
 })
 
-const BookingWidgetInner = ({ className = '' }) => {
+const BookingWidgetInner = ({ className = '', initialFrom, initialTo }) => {
   const dispatch = useDispatch()
   const language = useCurrentLanguage()
 
   const [submitted, setSubmitted] = useState(false)
   const [, setResetFn] = useState(() => () => {})
   const [, setModalControls] = useState(noopModalControls)
+  const prefilledRef = useRef(null)
 
   // Same airport source as flycham.com's server prefetch: the B2C route matrix,
   // falling back to the bundled schedule manifest when the API is unreachable.
@@ -81,6 +82,33 @@ const BookingWidgetInner = ({ className = '' }) => {
     defaultTripType: TRIP_TYPES.RETURN,
     allowSameDayReturn: true,
   })
+
+  /*
+   * Seed the first leg when a caller hands us a route (the route map does, after
+   * you pick From/To on it). The form stores airport ids, not IATA codes, so this
+   * waits for the airport list and maps through it. Applied once per route so it
+   * never fights the traveller's own edits.
+   */
+  useEffect(() => {
+    if (!initialFrom && !initialTo) return
+
+    const items = flights?.items
+    if (!Array.isArray(items) || items.length === 0) return
+
+    const key = `${initialFrom || ''}>${initialTo || ''}`
+    if (prefilledRef.current === key) return
+
+    const idFor = (code) =>
+      items.find((item) => (item.iataCode || '').toUpperCase() === code)?.id
+
+    const sourceId = initialFrom ? idFor(initialFrom) : undefined
+    const destinationId = initialTo ? idFor(initialTo) : undefined
+    if (sourceId === undefined && destinationId === undefined) return
+
+    prefilledRef.current = key
+    if (sourceId !== undefined) formik.setFieldValue('legs.0.source', sourceId)
+    if (destinationId !== undefined) formik.setFieldValue('legs.0.destination', destinationId)
+  }, [flights, initialFrom, initialTo, formik])
 
   return (
     <div className={className} dir={language === 'ar' ? 'rtl' : 'ltr'}>
