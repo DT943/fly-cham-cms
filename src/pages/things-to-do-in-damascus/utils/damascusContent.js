@@ -7,13 +7,13 @@ import {
   PersonSimpleWalk,
   ShoppingCart,
 } from '@phosphor-icons/react'
-import specialPhoto from '../../../assets/images/flights-to-damascus/special.png'
-import cuisinePhoto from '../../../assets/images/flights-to-damascus/cuisine.png'
-import placesPhoto from '../../../assets/images/flights-to-damascus/places.png'
-import activitiesPhoto from '../../../assets/images/flights-to-damascus/activities.png'
-import thingOnePhoto from '../../../assets/images/flights-to-damascus/thing-1.jpg'
-import thingTwoPhoto from '../../../assets/images/flights-to-damascus/thing-2.jpg'
-import thingThreePhoto from '../../../assets/images/flights-to-damascus/thing-3.jpg'
+import specialPhoto from '../../../assets/images/things-to-do-in-damascus/special.png'
+import cuisinePhoto from '../../../assets/images/things-to-do-in-damascus/cuisine.png'
+import placesPhoto from '../../../assets/images/things-to-do-in-damascus/places.png'
+import activitiesPhoto from '../../../assets/images/things-to-do-in-damascus/activities.png'
+import thingOnePhoto from '../../../assets/images/things-to-do-in-damascus/thing-1.jpg'
+import thingTwoPhoto from '../../../assets/images/things-to-do-in-damascus/thing-2.jpg'
+import thingThreePhoto from '../../../assets/images/things-to-do-in-damascus/thing-3.jpg'
 
 /** Quick facts strip that overlaps the hero. */
 export const damascusStats = [

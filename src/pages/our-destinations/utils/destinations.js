@@ -21,7 +21,7 @@ export const destinations = [
     countryKey: 'syria',
     iata: 'DAM',
     image: damascus,
-    href: '/our-destinations/flights-to-damascus',
+    href: '/our-destinations/things-to-do-in-damascus',
   },
   {
     id: 'abuDhabi',

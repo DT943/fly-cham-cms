@@ -23,7 +23,6 @@ function createPin({ hub, selected, dimmed }) {
   })
 }
 
-/** Chip label pinned to a chosen endpoint, with an inline clear affordance. */
 function createChip(label) {
   return L.divIcon({
     className: 'route-map-chip',

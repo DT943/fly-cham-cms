@@ -9,10 +9,10 @@ const DamascusThingsToDo = () => {
     <section className="flex flex-col gap-6 lg:gap-8">
       <div className="flex flex-col gap-2">
         <h2 className="m-0 text-xl font-semibold text-700 sm:text-2xl lg:text-[28px]">
-          {t('flightsToDamascus.thingsToDo.title')}
+          {t('thingsToDoInDamascus.thingsToDo.title')}
         </h2>
         <p className="m-0 text-sm text-800 sm:text-base">
-          {t('flightsToDamascus.thingsToDo.subtitle')}
+          {t('thingsToDoInDamascus.thingsToDo.subtitle')}
         </p>
       </div>
 
@@ -20,13 +20,13 @@ const DamascusThingsToDo = () => {
         {damascusThingsToDo.map(({ id, icon, image }) => (
           <ThingToDoCard
             key={id}
-            badge={t(`flightsToDamascus.thingsToDo.items.${id}.badge`)}
+            badge={t(`thingsToDoInDamascus.thingsToDo.items.${id}.badge`)}
             badgeIcon={icon}
-            title={t(`flightsToDamascus.thingsToDo.items.${id}.title`)}
-            description={t(`flightsToDamascus.thingsToDo.items.${id}.description`)}
-            cta={t('flightsToDamascus.thingsToDo.cta')}
+            title={t(`thingsToDoInDamascus.thingsToDo.items.${id}.title`)}
+            description={t(`thingsToDoInDamascus.thingsToDo.items.${id}.description`)}
+            cta={t('thingsToDoInDamascus.thingsToDo.cta')}
             image={image}
-            imageAlt={t(`flightsToDamascus.thingsToDo.items.${id}.imageAlt`)}
+            imageAlt={t(`thingsToDoInDamascus.thingsToDo.items.${id}.imageAlt`)}
           />
         ))}
       </div>

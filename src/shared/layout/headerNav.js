@@ -49,14 +49,14 @@ export const helpMenuPanels = [
  * live here. Photos are the existing destination shots used as placeholders.
  */
 export const featuredDestinations = [
-  { id: 'damascus', code: 'DAM', image: damascus, href: '/our-destinations/flights-to-damascus' },
+  { id: 'damascus', code: 'DAM', image: damascus, href: '/our-destinations/things-to-do-in-damascus' },
   { id: 'istanbul', code: 'IST', image: istanbul, href: '/our-destinations' },
   { id: 'dubai', code: 'DXB', image: dubai, href: '/our-destinations' },
 ]
 
 export const destinationMenuLinks = [
   { id: 'routeMap', icon: MapTrifold, href: '/our-destinations/route-map' },
-  { id: 'discoverSyria', icon: Mosque, href: '/our-destinations/flights-to-damascus' },
+  { id: 'discoverSyria', icon: Mosque, href: '/our-destinations/things-to-do-in-damascus' },
   { id: 'flightSchedule', icon: CalendarBlank, href: '/our-destinations' },
   { id: 'travelInspiration', icon: BookOpenText, href: '/our-destinations' },
 ]

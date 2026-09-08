@@ -3,11 +3,10 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import SearchAnchor from '../../shared/search/components/SearchAnchor.jsx'
-import BookingWidget from '../../shared/booking/BookingWidget.jsx'
-import DamascusHero from './components/DamascusHero.jsx'
-import DamascusQuickStats from './components/DamascusQuickStats.jsx'
-import DamascusNarratives from './components/DamascusNarratives.jsx'
-import DamascusThingsToDo from './components/DamascusThingsToDo.jsx'
+import FlightsHero from './components/FlightsHero.jsx'
+import LandmarkFeature from './components/LandmarkFeature.jsx'
+import FlightScheduleCta from './components/FlightScheduleCta.jsx'
+import { landmarks } from './utils/flightsContent.js'
 
 const FlightsToDamascus = () => {
   const { t } = useTranslation()
@@ -25,26 +24,19 @@ const FlightsToDamascus = () => {
         <LanguageSwitcher />
       </Container>
 
-      <SearchAnchor hit="damascus-hero">
-        <DamascusHero
-          eyebrow={t('flightsToDamascus.hero.eyebrow')}
-          title={t('flightsToDamascus.hero.title')}
-          country={t('flightsToDamascus.hero.country')}
-          imageAlt={t('flightsToDamascus.hero.imageAlt')}
-        />
+      <SearchAnchor hit="flights-damascus-hero">
+        <FlightsHero />
       </SearchAnchor>
 
-      <DamascusQuickStats />
+      <SearchAnchor hit="flights-damascus-landmarks" className="flex flex-col">
+        {landmarks.map((landmark) => (
+          <LandmarkFeature key={landmark.id} {...landmark} />
+        ))}
+      </SearchAnchor>
 
-      <Container className="flex flex-col gap-10 py-8 md:gap-14 md:py-12 lg:gap-14 lg:py-14">
-        <SearchAnchor hit="damascus-narratives">
-          <DamascusNarratives />
-        </SearchAnchor>
-        <SearchAnchor hit="damascus-things-to-do">
-          <DamascusThingsToDo />
-        </SearchAnchor>
-        <BookingWidget />
-      </Container>
+      <SearchAnchor hit="flights-damascus-cta" className="py-12 md:py-16">
+        <FlightScheduleCta />
+      </SearchAnchor>
     </main>
   )
 }

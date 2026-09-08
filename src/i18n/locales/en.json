@@ -957,6 +957,40 @@
   "flightsToDamascus": {
     "breadcrumb": "Flights to Damascus",
     "hero": {
+      "title": "Things to Do in Damascus",
+      "description": "Explore iconic landmarks, vibrant markets, and unique local experiences in a city where history, culture, and everyday life come together.",
+      "imageAlt": "The Umayyad Mosque rising above the rooftops of old Damascus"
+    },
+    "landmarks": {
+      "umayyad": {
+        "title": "Umayyad Mosque",
+        "description": "Built by Caliph Al-Walid I in 705 AD, the Umayyad Mosque stands at the heart of Old Damascus. Its layered sacred history, three distinctive minarets, and remarkable gilded mosaics make it one of the city's most significant architectural and spiritual landmarks. The mosque remains a defining symbol of Damascus, where centuries of faith, culture and artistic heritage come together.",
+        "imageAlt": "The gilded mosaics and courtyard of the Umayyad Mosque"
+      },
+      "oldCity": {
+        "title": "Old City of Damascus",
+        "description": "Built in the 18th century by As'ad Pasha al-Azm, it showcases elegant courtyards, intricate stonework, and stunning interior details. Today, the palace hosts a museum with displays of traditional clothing, furniture, and artifacts, offering a fascinating insight into the city's history and culture.",
+        "imageAlt": "A traditional courtyard house in the Old City of Damascus"
+      },
+      "souq": {
+        "title": "Souq Al-Hamidiyah",
+        "description": "Step into Souq Al-Hamidiyah, one of the oldest covered markets in the world and one of Damascus's most iconic landmarks. Located in the heart of the Old City, it brings together traditional shopping, local crafts, spices, perfumes and historic character in one vibrant passage. Surrounded by major landmarks such as the Umayyad Mosque, Damascus Citadel and nearby heritage souqs, it offers a rich introduction to the culture and everyday life of Damascus.",
+        "imageAlt": "Shoppers walking through the covered Souq Al-Hamidiyah"
+      }
+    },
+    "carousel": {
+      "prev": "Previous images",
+      "next": "Next images"
+    },
+    "cta": {
+      "title": "Find Your Next Flight to Damascus",
+      "description": "Explore the current schedule for Damascus and choose the travel date that works for you.",
+      "button": "View Flight Schedule"
+    }
+  },
+  "thingsToDoInDamascus": {
+    "breadcrumb": "Things to do in Damascus",
+    "hero": {
       "eyebrow": "Flights to",
       "title": "Damascus (DAM)",
       "country": "Syria",

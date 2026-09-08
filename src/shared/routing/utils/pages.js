@@ -8,6 +8,7 @@ import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
 import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
+import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
 import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
@@ -30,6 +31,7 @@ export const pages = {
   '/help/forms': FormsRedirect,
   '/help/faqs': Faqs,
   '/our-destinations': OurDestinations,
+  '/our-destinations/things-to-do-in-damascus': ThingsToDoInDamascus,
   '/our-destinations/flights-to-damascus': FlightsToDamascus,
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,

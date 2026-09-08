@@ -1,5 +1,5 @@
 import Container from '../../../shared/components/Container.jsx'
-import heroPhoto from '../../../assets/images/flights-to-damascus/hero.jpg'
+import heroPhoto from '../../../assets/images/things-to-do-in-damascus/hero.jpg'
 
 const DamascusHero = ({ eyebrow, title, country, imageAlt }) => (
   <section className="relative isolate overflow-hidden h-70 sm:h-90 md:h-110 lg:h-125">

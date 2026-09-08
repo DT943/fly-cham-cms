@@ -13,13 +13,13 @@ const DamascusQuickStats = () => {
             <Icon size={32} className="shrink-0 text-primary-1" />
             <div className="flex flex-col gap-0.5">
               <p className="m-0 text-sm uppercase text-600">
-                {t(`flightsToDamascus.stats.${id}.label`)}
+                {t(`thingsToDoInDamascus.stats.${id}.label`)}
               </p>
               <p className="m-0 text-xl font-semibold text-700">
-                {t(`flightsToDamascus.stats.${id}.value`)}
+                {t(`thingsToDoInDamascus.stats.${id}.value`)}
               </p>
               <p className="m-0 text-sm text-600">
-                {t(`flightsToDamascus.stats.${id}.detail`)}
+                {t(`thingsToDoInDamascus.stats.${id}.detail`)}
               </p>
             </div>
           </div>
