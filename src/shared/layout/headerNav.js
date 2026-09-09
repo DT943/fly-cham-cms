@@ -21,6 +21,7 @@ import {
 import damascus from '../../assets/images/our-destenations/damascus.jpeg'
 import dubai from '../../assets/images/our-destenations/dubai.jpg'
 import istanbul from '../../assets/images/our-destenations/istanbul.jpg'
+import afterTravelPhoto from '../../assets/images/travel-experience/card-after-travel.png'
 
 export const helpMenuPanels = [
   {
@@ -114,6 +115,8 @@ export const experienceMenu = {
     {
       id: 'afterTravel',
       href: '/travel-experience#afterTravel',
+      image: afterTravelPhoto,
+      imageBelow: true,
       links: [
         { id: 'baggageClaims' },
         { id: 'refunds' },

@@ -9,6 +9,7 @@ const linkClass = `${typography.body} font-medium text-700 no-underline outline-
 
 const ExperienceColumn = ({ column, onNavigate }) => {
   const { t } = useTranslation()
+  const imageBeside = column.image && !column.imageBelow
 
   return (
     <div className="flex min-w-0 flex-col gap-4">
@@ -20,8 +21,8 @@ const ExperienceColumn = ({ column, onNavigate }) => {
         {t(`layout.header.experience.columns.${column.id}`)}
       </LocalizedLink>
 
-      <div className={`flex ${column.image ? 'flex-row items-start gap-4' : 'flex-col'}`}>
-        {column.image && (
+      <div className={`flex ${imageBeside ? 'flex-row items-start gap-4' : 'flex-col'}`}>
+        {imageBeside && (
           <img
             src={column.image}
             alt=""
@@ -46,6 +47,16 @@ const ExperienceColumn = ({ column, onNavigate }) => {
           })}
         </ul>
       </div>
+
+      {column.image && column.imageBelow ? (
+        <LocalizedLink
+          to={column.href}
+          onClick={onNavigate}
+          className="mt-4 block h-32 overflow-hidden rounded-xl no-underline outline-none focus:outline-none"
+        >
+          <img src={column.image} alt="" className="size-full object-cover" />
+        </LocalizedLink>
+      ) : null}
     </div>
   )
 }
