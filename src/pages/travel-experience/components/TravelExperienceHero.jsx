@@ -10,7 +10,7 @@ const TravelExperienceHero = () => {
       <img
         src={heroPhoto}
         alt={t('travelExperience.hero.imageAlt')}
-        className="absolute inset-0 size-full object-cover object-[center_30%]"
+        className="absolute inset-0 size-full object-cover object-[center_35%]"
       />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-50/90 from-[29%] to-transparent to-[45%] rtl:bg-linear-to-l" />
 
