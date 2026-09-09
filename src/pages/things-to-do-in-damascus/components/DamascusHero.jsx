@@ -1,10 +1,9 @@
 import Container from '../../../shared/components/Container.jsx'
-import heroPhoto from '../../../assets/images/things-to-do-in-damascus/hero.jpg'
 
-const DamascusHero = ({ title, country, imageAlt }) => (
+const DestinationHero = ({ title, country, image, imageAlt }) => (
   <section className="relative isolate overflow-hidden h-70 sm:h-90 md:h-110 lg:h-125">
     <img
-      src={heroPhoto}
+      src={image}
       alt={imageAlt}
       className="absolute inset-0 size-full object-cover object-[center_38%]"
     />
@@ -21,4 +20,4 @@ const DamascusHero = ({ title, country, imageAlt }) => (
   </section>
 )
 
-export default DamascusHero
+export default DestinationHero

@@ -1,5 +1,3 @@
-import { ArrowRight } from '@phosphor-icons/react'
-import Button from '../../../shared/components/Button.jsx'
 import { typography } from '../../../styles/typography.js'
 
 const ThingToDoCard = ({ badge, badgeIcon: BadgeIcon, title, description, image, imageAlt }) => (
@@ -18,7 +16,9 @@ const ThingToDoCard = ({ badge, badgeIcon: BadgeIcon, title, description, image,
 
     <div className="absolute inset-x-4 bottom-5 flex flex-col gap-1">
       <h3 className={`${typography.itemTitle} m-0 font-semibold text-secondary`}>{title}</h3>
-      <p className={`${typography.itemDescription} m-0 leading-relaxed text-50`}>{description}</p>
+      {description ? (
+        <p className={`${typography.itemDescription} m-0 leading-relaxed text-50`}>{description}</p>
+      ) : null}
     </div>
   </article>
 )

@@ -18,6 +18,7 @@ import {
 } from '../../../pages/our-destinations/utils/destinationFaqs.js'
 import { sights } from '../../../pages/city-sights/utils/sights.js'
 import { routeAirports } from '../../../pages/route-map/utils/routeNetwork.js'
+import { destinationGuides, flightsToHref } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -207,43 +208,41 @@ function buildPageRecords() {
       titlePath: 'destinations.inspiration.title',
       textPaths: ['destinations.inspiration.description'],
     }),
-    pageRecord({
-      id: 'damascus-hero',
-      href: '/our-destinations/flights-to-damascus',
-      titlePath: 'thingsToDoInDamascus.breadcrumb',
-      textPaths: [
-        'thingsToDoInDamascus.hero.title',
-        'thingsToDoInDamascus.hero.country',
-        'thingsToDoInDamascus.stats.airport.detail',
-      ],
-    }),
-    pageRecord({
-      id: 'damascus-narratives',
-      href: '/our-destinations/flights-to-damascus',
-      titlePath: 'thingsToDoInDamascus.narratives.special.title',
-      textPaths: [
-        'thingsToDoInDamascus.narratives.special.description',
-        'thingsToDoInDamascus.narratives.cuisine.title',
-        'thingsToDoInDamascus.narratives.cuisine.description',
-        'thingsToDoInDamascus.narratives.places.title',
-        'thingsToDoInDamascus.narratives.places.description',
-        'thingsToDoInDamascus.narratives.activities.title',
-        'thingsToDoInDamascus.narratives.activities.description',
-      ],
-    }),
-    pageRecord({
-      id: 'damascus-things-to-do',
-      href: '/our-destinations/flights-to-damascus',
-      titlePath: 'thingsToDoInDamascus.thingsToDo.title',
-      textPaths: [
-        'thingsToDoInDamascus.thingsToDo.subtitle',
-        'thingsToDoInDamascus.thingsToDo.items.souk.title',
-        'thingsToDoInDamascus.thingsToDo.items.souk.description',
-        'thingsToDoInDamascus.thingsToDo.items.oldCity.title',
-        'thingsToDoInDamascus.thingsToDo.items.oldCity.description',
-        'thingsToDoInDamascus.thingsToDo.items.umayyadMosque.title',
-        'thingsToDoInDamascus.thingsToDo.items.umayyadMosque.description',
-      ],
+    ...Object.entries(destinationGuides).flatMap(([slug, guide]) => {
+      const href = flightsToHref(slug)
+      const prefix = `destinationGuides.${slug}`
+      const narrativePaths = guide.narratives.flatMap(({ id }) => [
+        `${prefix}.narratives.${id}.title`,
+        `${prefix}.narratives.${id}.description`,
+      ])
+      const thingPaths = guide.thingsToDo.flatMap(({ id }) => [
+        `${prefix}.thingsToDo.items.${id}.title`,
+        `${prefix}.thingsToDo.items.${id}.description`,
+      ])
+
+      return [
+        pageRecord({
+          id: `${slug}-hero`,
+          href,
+          target: 'destination-hero',
+          titlePath: `${prefix}.breadcrumb`,
+          textPaths: [`${prefix}.hero.title`, `${prefix}.hero.country`, `${prefix}.stats.airport.detail`],
+        }),
+        pageRecord({
+          id: `${slug}-narratives`,
+          href,
+          target: 'destination-narratives',
+          titlePath: `${prefix}.narratives.special.title`,
+          textPaths: narrativePaths,
+        }),
+        pageRecord({
+          id: `${slug}-things-to-do`,
+          href,
+          target: 'destination-things-to-do',
+          titlePath: `${prefix}.thingsToDo.title`,
+          textPaths: [`${prefix}.thingsToDo.subtitle`, ...thingPaths],
+        }),
+      ]
     }),
     pageRecord({
       id: 'flights-damascus-hero',

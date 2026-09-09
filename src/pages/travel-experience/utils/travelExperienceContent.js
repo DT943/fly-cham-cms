@@ -1,32 +1,37 @@
-import beforeYouFlyPhoto from '../../../assets/images/travel-experience/before-you-fly.png'
-import atTheAirportPhoto from '../../../assets/images/travel-experience/at-the-airport.png'
-import onBoardPhoto from '../../../assets/images/travel-experience/on-board.png'
-import afterTravelPhoto from '../../../assets/images/travel-experience/after-travel.png'
+import beforeYouFlyPhoto from '../../../assets/images/travel-experience/card-before-you-fly.png'
+import atTheAirportPhoto from '../../../assets/images/travel-experience/card-at-the-airport.png'
+import onboardPhoto from '../../../assets/images/travel-experience/card-onboard.png'
+import afterTravelPhoto from '../../../assets/images/travel-experience/card-after-travel.png'
 
 /**
- * Full-bleed journey stages. Each row keeps the copy on the start (left) side
- * over a directional gradient, so `gradient` carries the tint that anchors the
- * text side and fades to transparent across the photo (mirrored in RTL).
+ * The four journey cards. Each photo fills its card and is darkened from the
+ * bottom with a per-card tint (`gradientTo`) so the white copy stays legible.
+ * The first card carries the "Learn More" label; the rest show an arrow only.
  */
-export const travelExperienceStages = [
+export const travelExperienceCards = [
   {
     id: 'beforeYouFly',
     image: beforeYouFlyPhoto,
-    gradient: 'from-[#021b31] from-[20%] via-[#011726]/50 via-[45%] to-transparent to-[70%]',
+    gradientTo: 'to-[#01263b]',
+    href: '/help',
+    withLabel: true,
   },
   {
     id: 'atTheAirport',
     image: atTheAirportPhoto,
-    gradient: 'from-[#504834] from-[19%] via-[#6d6245]/70 via-[45%] to-transparent to-[70%]',
+    gradientTo: 'to-[#504834]',
+    href: '/help',
   },
   {
-    id: 'onBoard',
-    image: onBoardPhoto,
-    gradient: 'from-[#006080] from-[20%] via-[#003a4d]/50 via-[38%] to-transparent to-[56%]',
+    id: 'onboard',
+    image: onboardPhoto,
+    gradientTo: 'to-[#006080]',
+    href: '/help',
   },
   {
     id: 'afterTravel',
     image: afterTravelPhoto,
-    gradient: 'from-[#021b31] from-[20%] via-[#011726]/50 via-[38%] to-transparent to-[55%]',
+    gradientTo: 'to-[#01263b]',
+    href: '/help',
   },
 ]

@@ -997,25 +997,26 @@
     "hero": {
       "title": "Travel Experience",
       "subtitle": "Discover Fly Cham services designed to support every stage of your journey.",
-      "imageAlt": "A traveller enjoying the view from the aircraft window"
+      "imageAlt": "Fly Cham cabin crew presenting a model aircraft"
     },
     "sectionTitle": "What You Need For an Ideal Journey",
-    "stages": {
-      "cta": "Explore more",
+    "sectionDescription": "Get ready for a unique travel experience from the moment you plan to your arrival, starting with our comprehensive pre-flight services, our unique onboard experience, and additional services for added comfort.",
+    "cards": {
+      "learnMore": "Learn More",
       "beforeYouFly": {
-        "title": "Before you fly",
-        "description": "Prepare for your journey with services that help you travel with ease, choose your seat, review baggage allowances, manage your booking and payment options, arrange airport transportation or limousine service, and request support for children travelling alone.",
+        "title": "Before You Fly",
+        "description": "Plan ahead and enjoy a smooth start to your journey. Book services, check flight status, and prepare your documents.",
         "imageAlt": "A passenger preparing for travel before the flight"
       },
       "atTheAirport": {
-        "title": "At the airport",
-        "description": "Make your airport experience smoother with services designed for added comfort and assistance, including Business Lounge access, wheelchair support, and VIP boarding.",
-        "imageAlt": "A traveller with luggage moving through the airport terminal"
+        "title": "At the Airport",
+        "description": "Make your airport experience smoother with services at the airport, including Business Lounge access, wheelchair support, and VIP boarding.",
+        "imageAlt": "A traveller with luggage at the airport terminal"
       },
-      "onBoard": {
-        "title": "On Board",
-        "description": "Enjoy entertainment, comfort, and warm hospitality onboard for a more enjoyable journey. With our selection of onboard services, you can choose your preferred travel class and enjoy entertainment throughout your flight.",
-        "imageAlt": "A passenger relaxing on board the aircraft"
+      "onboard": {
+        "title": "Onboard",
+        "description": "Enjoy entertainment, comfort, and warm hospitality onboard for a more pleasant journey. With our selection of onboard services and entertainment options.",
+        "imageAlt": "A passenger relaxing onboard the aircraft"
       },
       "afterTravel": {
         "title": "After Travel",
@@ -1026,7 +1027,8 @@
     "helpCta": {
       "title": "Find the Support You Need",
       "description": "Access helpful information, contact Fly Cham, browse frequently asked questions, or submit and track a request through our Help Centre.",
-      "cta": "Visit the Help Center"
+      "cta": "Visit the Help Center",
+      "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
   "flightsToDamascus": {
@@ -1063,7 +1065,8 @@
       "button": "View Flight Schedule"
     }
   },
-  "thingsToDoInDamascus": {
+  "destinationGuides": {
+    "damascus": {
     "breadcrumb": "Flights to Damascus",
     "hero": {
       "title": "Flights to Damascus (DAM)",
@@ -1136,6 +1139,81 @@
           "title": "Umayyad Mosque",
           "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
           "imageAlt": "The minaret of the Umayyad Mosque at dusk"
+        }
+      }
+    }
+    },
+    "dubai": {
+      "breadcrumb": "Flights to Dubai",
+      "hero": {
+        "title": "Flights to Dubai (DXB) (DWC)",
+        "country": "UAE",
+        "imageAlt": "Dubai skyline with Burj Khalifa"
+      },
+      "stats": {
+        "airport": {
+          "label": "Airport",
+          "value": "DXB / DWC",
+          "detail": "Dubai International Airport · Al Maktoum International"
+        },
+        "time": {
+          "label": "Local time",
+          "value": "GMT+3",
+          "detail": "2026-09-06"
+        },
+        "weather": {
+          "label": "Weather",
+          "value": "20°C",
+          "detail": "clear skies"
+        },
+        "currency": {
+          "label": "Currency",
+          "value": "UAE Dirham",
+          "detail": "AED"
+        }
+      },
+      "narratives": {
+        "special": {
+          "title": "What makes Dubai special?",
+          "description": "Travel to Dubai, a city unlike any other destination in the world. From towering skyscrapers to traditional markets, it combines luxury with authentic Arabian hospitality.",
+          "imageAlt": "Dubai skyline combining modern towers and the city beyond"
+        },
+        "places": {
+          "title": "What Are the Best Places to Visit in Dubai?",
+          "description": "Start your visit in Downtown Dubai, which boasts many stunning attractions. Then embark on a journey to explore the city's historic heart, wandering through the Al Fahidi Historical Neighborhood and the famous Gold Souk. Then enjoy a panoramic view of the city from the 148th floor of Burj Khalifa, the world's tallest skyscraper, and watch the stunning dancing water show at the Dubai Fountain. Other amazing attractions include Dubai Miracle Garden, the world's largest natural flower garden, as well as the Burj Al Arab, the Dubai Frame, and the Museum of the Future.",
+          "imageAlt": "Burj Khalifa rising above Downtown Dubai"
+        },
+        "cuisine": {
+          "title": "What are the most famous traditional dishes in Dubai?",
+          "description": "Dubai is a global destination for food lovers, where authentic traditional Emirati dishes blend with international cuisine. Popular Emirati dishes are characterized by their rich flavors, infused with Gulf spices such as saffron, cardamom, cinnamon, dried lime, and more. Emirati dining is famous for its hospitality, a hallmark of Emirati culture, passed down from generation to generation. We recommend you try the Ghuzi dish, which tops the list of popular dishes served with the sacrificial animal during special occasions. In addition to lamb Machboos, Malh (salty), Yariyur or Jashid, Jami, and Khameer (meat pies). You can also savor gourmet buffets featuring international cuisines like the French, and Asian cuisines.",
+          "imageAlt": "An evening view of Dubai towers and dining districts"
+        },
+        "activities": {
+          "title": "More Activities to Do in Dubai",
+          "description": "Spend a wonderful time at upscale hotels, beach clubs, and fine restaurants on the magnificent Palm Jumeirah Island in Dubai. Experience the adventure of a desert safari, sandboarding, or paragliding over the Palm Jumeirah. Don't miss the shopping spree in Al Barsha, which boasts prestigious brand stores and fine dining. If you're a fan of traditional products, we recommend heading to Deira, the oldest district in Dubai, which reflects the city's rich history and is famous for its stunning traditional markets.",
+          "imageAlt": "Waterfront leisure along a palm-lined Dubai coastline"
+        }
+      },
+      "thingsToDo": {
+        "title": "Things to Do in Dubai",
+        "subtitle": "From Downtown landmarks to desert adventures, discover unforgettable experiences in Dubai.",
+        "cta": "Explore activities",
+        "items": {
+          "alFahidi": {
+            "badge": "Visit",
+            "title": "Al Fahidi Historical Neighborhood",
+            "imageAlt": "Traditional lanes in the Al Fahidi Historical Neighborhood"
+          },
+          "globalVillage": {
+            "badge": "Walk Through",
+            "title": "Global Village Dubai",
+            "imageAlt": "Crowds exploring pavilions at Global Village Dubai"
+          },
+          "burjKhalifa": {
+            "badge": "See",
+            "title": "Burj Khalifa",
+            "imageAlt": "Burj Khalifa, the world's tallest skyscraper"
+          }
         }
       }
     }

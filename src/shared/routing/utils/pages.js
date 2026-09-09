@@ -13,6 +13,7 @@ import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamas
 import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
+import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import {
   FormsRedirect,
   LegacyFormDetailRedirect,
@@ -34,6 +35,7 @@ export const pages = {
   '/our-destinations': OurDestinations,
   '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
   '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
+  '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
   '/travel-experience': TravelExperience,
@@ -45,6 +47,7 @@ const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
 
 export function getPage(path) {
   if (pages[path]) return pages[path]
+  if (getDestinationGuide(getDestinationGuideSlug(path))) return ThingsToDoInDamascus
   if (formRequestPath.test(path)) return RequestAForm
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect

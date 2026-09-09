@@ -25,6 +25,7 @@ const DestinationsExplore = () => {
             city: t(`destinations.cities.${featuredDestination.id}.name`),
           })}
           activities={t('destinations.featured.activities')}
+          href={featuredDestination.href}
           images={featuredImages}
           imageAlt={t(`destinations.cities.${featuredDestination.id}.name`)}
         />

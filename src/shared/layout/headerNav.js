@@ -60,7 +60,7 @@ export const helpMenuPanels = [
 export const featuredDestinations = [
   { id: 'damascus', code: 'DAM', image: damascus, href: '/our-destinations/flights-to-damascus' },
   { id: 'istanbul', code: 'IST', image: istanbul, href: '/our-destinations' },
-  { id: 'dubai', code: 'DXB', image: dubai, href: '/our-destinations' },
+  { id: 'dubai', code: 'DXB', image: dubai, href: '/our-destinations/flights-to-dubai' },
 ]
 
 export const destinationMenuLinks = [

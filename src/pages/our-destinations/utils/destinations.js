@@ -35,7 +35,7 @@ export const destinations = [
     iata: 'SHJ',
     image: sharjah,
   },
-  { id: 'dubai', countryKey: 'uae', iata: 'DXB', image: dubai, featured: true },
+  { id: 'dubai', countryKey: 'uae', iata: 'DXB', image: dubai, featured: true, href: '/our-destinations/flights-to-dubai' },
   { id: 'dammam', countryKey: 'saudiArabia', iata: 'DMM', image: dammam },
   { id: 'muscat', countryKey: 'oman', iata: 'MCT', image: muscat },
   { id: 'istanbul', countryKey: 'turkey', iata: 'SAW', image: istanbul },
