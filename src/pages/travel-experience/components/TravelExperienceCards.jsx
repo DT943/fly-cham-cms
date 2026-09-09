@@ -26,7 +26,9 @@ const TravelExperienceCard = ({ id, image, gradientTo, href, withLabel }) => {
         <LocalizedLink
           href={href}
           aria-label={t(`travelExperience.cards.${id}.title`)}
-          className="inline-flex w-fit items-center gap-2.5 text-sm font-semibold text-50 no-underline"
+          className={`inline-flex w-fit items-center gap-2.5 text-sm font-semibold text-50 no-underline ${
+            withLabel ? 'self-start' : 'self-end'
+          }`}
         >
           <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-100">
             <ArrowRight size={16} weight="bold" className="text-primary-1 rtl:-scale-x-100" />

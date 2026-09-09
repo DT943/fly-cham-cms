@@ -4,6 +4,7 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
 import Container from '../../shared/components/Container.jsx'
+import CtaBanner from '../../shared/components/CtaBanner.jsx'
 import useLocalizedRoute from '../../shared/routing/hooks/useLocalizedRoute.js'
 import { withLanguage } from '../../i18n/languages.js'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
@@ -47,6 +48,11 @@ const RequestAForm = () => {
         <PageHero
           title={t('forms.request.title')}
           subtitle={t('forms.request.subtitle')}
+        />
+        <CtaBanner
+          title={t('help.urgent.title')}
+          description={t('help.urgent.description')}
+          cta={t('help.urgent.cta')}
         />
         <section className="bg-background rounded-2xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] px-5 py-6 sm:px-8 md:px-10 md:py-8 flex flex-col gap-5 md:gap-6">
           <div className="flex flex-col gap-2">
