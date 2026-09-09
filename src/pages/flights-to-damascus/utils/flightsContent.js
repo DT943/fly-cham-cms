@@ -25,18 +25,19 @@ import souqThumb5 from '../../../assets/images/flights-to-damascus/souq-thumb-5.
  */
 export const landmarks = [
   {
-    id: 'umayyad',
-    variant: 'dark',
-    image: umayyadImg,
-    thumbnails: [umayyadThumb1, umayyadThumb2, umayyadThumb3, umayyadThumb4, umayyadThumb5],
-  },
-  {
     id: 'oldCity',
     variant: 'light',
     imageStart: true,
     image: oldCityImg,
     thumbnails: [oldCityThumb1, oldCityThumb2, oldCityThumb3, oldCityThumb4, oldCityThumb5],
   },
+  {
+    id: 'umayyad',
+    variant: 'dark',
+    image: umayyadImg,
+    thumbnails: [umayyadThumb1, umayyadThumb2, umayyadThumb3, umayyadThumb4, umayyadThumb5],
+  },
+
   {
     id: 'souq',
     variant: 'dark',

@@ -1004,12 +1004,12 @@
       },
       "onBoard": {
         "title": "On Board",
-        "description": "Get ready for your trip with services that help you plan ahead and travel with confidence.",
+        "description": "Enjoy entertainment, comfort, and warm hospitality onboard for a more enjoyable journey. With our selection of onboard services, you can choose your preferred travel class and enjoy entertainment throughout your flight.",
         "imageAlt": "A passenger relaxing on board the aircraft"
       },
       "afterTravel": {
         "title": "After Travel",
-        "description": "Get ready for your trip with services that help you plan ahead and travel with confidence.",
+        "description": "Find the support you may need after your flight, from baggage claims and tracking to refunds or loyalty miles, and feedback or customer support.",
         "imageAlt": "A traveller arriving at their destination after the flight"
       }
     }
