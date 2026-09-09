@@ -18,8 +18,8 @@ import thingThreePhoto from '../../../assets/images/things-to-do-in-damascus/thi
 /** Quick facts strip that overlaps the hero. */
 export const damascusStats = [
   { id: 'airport', icon: AirTrafficControl },
-  { id: 'weather', icon: CloudSun },
   { id: 'time', icon: Clock },
+  { id: 'weather', icon: CloudSun },
   { id: 'currency', icon: Money },
 ]
 
@@ -36,7 +36,7 @@ export const damascusNarratives = [
 ]
 
 export const damascusThingsToDo = [
-  { id: 'umayyadMosque', icon: Binoculars, image: thingOnePhoto },
-  { id: 'oldCity', icon: PersonSimpleWalk, image: thingTwoPhoto },
-  { id: 'souk', icon: ShoppingCart, image: thingThreePhoto },
+  { id: 'souk', icon: ShoppingCart, image: thingThreePhoto, href: '/our-destinations/things-to-do-in-damascus#souq' },
+  { id: 'oldCity', icon: PersonSimpleWalk, image: thingTwoPhoto, href: '/our-destinations/things-to-do-in-damascus#oldCity' },
+  { id: 'umayyadMosque', icon: Binoculars, image: thingOnePhoto, href: '/our-destinations/things-to-do-in-damascus#umayyad' },
 ]

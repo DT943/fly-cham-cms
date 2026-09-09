@@ -1051,31 +1051,30 @@
   "thingsToDoInDamascus": {
     "breadcrumb": "Flights to Damascus",
     "hero": {
-      "eyebrow": "Flights to",
-      "title": "Damascus (DAM)",
+      "title": "Flights to Damascus (DAM)",
       "country": "Syria",
       "imageAlt": "The Umayyad Mosque minaret rising above the old city of Damascus"
     },
     "stats": {
       "airport": {
-        "label": "Airport :",
+        "label": "Airport",
         "value": "DAM",
-        "detail": "Damascus Intl. Airport"
-      },
-      "weather": {
-        "label": "Current Weather",
-        "value": "22°C",
-        "detail": "Mostly Sunny"
+        "detail": "Damascus International Airport"
       },
       "time": {
-        "label": "Local Time",
-        "value": "15:24",
-        "detail": "GMT +3"
+        "label": "Local time",
+        "value": "GMT+3",
+        "detail": "2026-09-06"
+      },
+      "weather": {
+        "label": "Weather",
+        "value": "20°C",
+        "detail": "clear skies"
       },
       "currency": {
         "label": "Currency",
         "value": "Syrian Pound",
-        "detail": "SYP"
+        "detail": ""
       }
     },
     "narratives": {
@@ -1103,25 +1102,25 @@
     "thingsToDo": {
       "title": "Things to Do in Damascus",
       "subtitle": "From iconic landmarks to vibrant markets, discover unforgettable experiences in one of the world's oldest cities.",
-      "cta": "Explore activities",
+      "cta": "Discover",
       "items": {
+        "souk": {
+          "badge": "Visit",
+          "title": "Souq Al Hamidiyah",
+          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+          "imageAlt": "Lantern-lit walkway inside Souq Al Hamidiyah"
+        },
+        "oldCity": {
+          "badge": "Walk Through",
+          "title": "The Old City of Damascus",
+          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+          "imageAlt": "A stone-paved street in the old city of Damascus"
+        },
         "umayyadMosque": {
           "badge": "See",
           "title": "Umayyad Mosque",
           "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
           "imageAlt": "The minaret of the Umayyad Mosque at dusk"
-        },
-        "oldCity": {
-          "badge": "Walk Through",
-          "title": "Umayyad Mosque",
-          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
-          "imageAlt": "A stone-paved street in the old city of Damascus"
-        },
-        "souk": {
-          "badge": "Visit",
-          "title": "Umayyad Mosque",
-          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
-          "imageAlt": "Lantern-lit walkway inside Souk Al-Hamidiyah"
         }
       }
     }

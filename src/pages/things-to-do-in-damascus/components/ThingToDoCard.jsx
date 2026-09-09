@@ -1,3 +1,5 @@
+import { ArrowRight } from '@phosphor-icons/react'
+import Button from '../../../shared/components/Button.jsx'
 import { typography } from '../../../styles/typography.js'
 
 const ThingToDoCard = ({ badge, badgeIcon: BadgeIcon, title, description, image, imageAlt }) => (

@@ -27,7 +27,6 @@ const ThingsToDoInDamascus = () => {
 
       <SearchAnchor hit="damascus-hero">
         <DamascusHero
-          eyebrow={t('thingsToDoInDamascus.hero.eyebrow')}
           title={t('thingsToDoInDamascus.hero.title')}
           country={t('thingsToDoInDamascus.hero.country')}
           imageAlt={t('thingsToDoInDamascus.hero.imageAlt')}

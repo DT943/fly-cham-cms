@@ -211,7 +211,11 @@ function buildPageRecords() {
       id: 'damascus-hero',
       href: '/our-destinations/flights-to-damascus',
       titlePath: 'thingsToDoInDamascus.breadcrumb',
-      textPaths: ['thingsToDoInDamascus.hero.country', 'thingsToDoInDamascus.stats.airport.detail'],
+      textPaths: [
+        'thingsToDoInDamascus.hero.title',
+        'thingsToDoInDamascus.hero.country',
+        'thingsToDoInDamascus.stats.airport.detail',
+      ],
     }),
     pageRecord({
       id: 'damascus-narratives',
@@ -233,6 +237,10 @@ function buildPageRecords() {
       titlePath: 'thingsToDoInDamascus.thingsToDo.title',
       textPaths: [
         'thingsToDoInDamascus.thingsToDo.subtitle',
+        'thingsToDoInDamascus.thingsToDo.items.souk.title',
+        'thingsToDoInDamascus.thingsToDo.items.souk.description',
+        'thingsToDoInDamascus.thingsToDo.items.oldCity.title',
+        'thingsToDoInDamascus.thingsToDo.items.oldCity.description',
         'thingsToDoInDamascus.thingsToDo.items.umayyadMosque.title',
         'thingsToDoInDamascus.thingsToDo.items.umayyadMosque.description',
       ],

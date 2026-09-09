@@ -19,7 +19,7 @@ const LandmarkFeature = ({ id, variant, image, imageStart = false, thumbnails = 
 
   if (variant === 'light') {
     return (
-      <section className="bg-secondary-200">
+      <section id={id} className="bg-secondary-200 scroll-mt-28">
         <Container className="flex flex-col gap-8 py-10 md:py-14 lg:gap-10 lg:py-16">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
             <img
@@ -46,7 +46,7 @@ const LandmarkFeature = ({ id, variant, image, imageStart = false, thumbnails = 
   }
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section id={id} className="relative isolate overflow-hidden scroll-mt-28">
       <img src={banner} alt={imageAlt} className="absolute inset-0 size-full object-cover" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-secondary-2 from-10% to-transparent to-90% rtl:bg-linear-to-l" />
 
