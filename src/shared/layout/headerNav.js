@@ -1,5 +1,4 @@
 import {
-  AirplaneTakeoff,
   Baby,
   BookOpenText,
   Buildings,
@@ -9,17 +8,19 @@ import {
   CreditCard,
   DeviceMobile,
   EnvelopeSimple,
+  FirstAid,
   MagnifyingGlass,
   MapTrifold,
   Mosque,
+  Prohibit,
   Question,
+  Seat,
   Suitcase,
+  Taxi,
 } from '@phosphor-icons/react'
 import damascus from '../../assets/images/our-destenations/damascus.jpeg'
 import dubai from '../../assets/images/our-destenations/dubai.jpg'
 import istanbul from '../../assets/images/our-destenations/istanbul.jpg'
-import onBoardPhoto from '../../assets/images/travel-experience/on-board.png'
-import afterTravelPhoto from '../../assets/images/travel-experience/after-travel.png'
 
 export const helpMenuPanels = [
   {
@@ -71,8 +72,8 @@ export const destinationMenuLinks = [
 
 /**
  * Experience mega menu: the same journey stages as `/travel-experience`, laid
- * out as columns (icon list, text list, photo + links, promo card) plus a
- * footer strip. Sub-links land on the matching stage rather than invented URLs.
+ * out as four columns plus a footer strip. Sub-links land on the matching
+ * stage rather than invented URLs.
  */
 export const experienceMenu = {
   columns: [
@@ -81,11 +82,15 @@ export const experienceMenu = {
       href: '/travel-experience#beforeYouFly',
       withIcons: true,
       links: [
-        { id: 'seat', icon: AirplaneTakeoff },
-        { id: 'baggage', icon: Suitcase },
-        { id: 'booking', icon: CreditCard },
-        { id: 'transport', icon: Car },
-        { id: 'children', icon: Baby },
+        { id: 'seatSelection', icon: Seat },
+        { id: 'unaccompaniedMinors', icon: Baby },
+        { id: 'paymentMethods', icon: CreditCard },
+        { id: 'manageBooking', icon: ClipboardText },
+        { id: 'limousine', icon: Car },
+        { id: 'airportTransport', icon: Taxi },
+        { id: 'allowedBaggage', icon: Suitcase },
+        { id: 'oxygenCylinder', icon: FirstAid },
+        { id: 'prohibitedItems', icon: Prohibit },
       ],
     },
     {
@@ -96,14 +101,27 @@ export const experienceMenu = {
     {
       id: 'onBoard',
       href: '/travel-experience#onBoard',
-      image: onBoardPhoto,
-      links: [{ id: 'cabin' }, { id: 'comfort' }],
+      links: [
+        { id: 'travelClasses' },
+        { id: 'meals' },
+        { id: 'entertainment' },
+        { id: 'birthdayCakes' },
+        { id: 'travelerMagazine' },
+        { id: 'kidsToys' },
+        { id: 'wifiOnboard' },
+      ],
+    },
+    {
+      id: 'afterTravel',
+      href: '/travel-experience#afterTravel',
+      links: [
+        { id: 'baggageClaims' },
+        { id: 'refunds' },
+        { id: 'loyaltyMiles' },
+        { id: 'feedbackSupport' },
+      ],
     },
   ],
-  promo: {
-    href: '/travel-experience#afterTravel',
-    image: afterTravelPhoto,
-  },
   footer: {
     href: '/travel-experience',
     icon: DeviceMobile,

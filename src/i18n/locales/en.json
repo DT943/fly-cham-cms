@@ -680,25 +680,35 @@
       },
       "experience": {
         "columns": {
-          "beforeYouFly": "Before you fly",
-          "atTheAirport": "At the airport",
-          "onBoard": "On board"
+          "beforeYouFly": "Before You Fly",
+          "atTheAirport": "At the Airport",
+          "onBoard": "Onboard",
+          "afterTravel": "After Travel"
         },
         "links": {
-          "seat": "Choose your seat",
-          "baggage": "Baggage allowance",
-          "booking": "Manage your booking",
-          "transport": "Airport transportation",
-          "children": "Children travelling alone",
-          "lounge": "Business lounge",
-          "wheelchair": "Wheelchair support",
-          "vipBoarding": "VIP boarding",
-          "cabin": "On-board experience",
-          "comfort": "Travel in comfort"
-        },
-        "promo": {
-          "title": "After you land",
-          "action": "Explore more"
+          "seatSelection": "Seat selection",
+          "unaccompaniedMinors": "Unaccompanied Minors",
+          "paymentMethods": "Payment Methods service",
+          "manageBooking": "Manage booking",
+          "limousine": "Limousine service for business class",
+          "airportTransport": "Transportation service from and to airport",
+          "allowedBaggage": "Allowed Baggage",
+          "oxygenCylinder": "Oxygen cylinder",
+          "prohibitedItems": "Prohibited Items",
+          "lounge": "Business Lounge",
+          "wheelchair": "Wheelchair",
+          "vipBoarding": "VIP Boarding",
+          "travelClasses": "Travel Classes",
+          "meals": "Meals",
+          "entertainment": "Entertainment System",
+          "birthdayCakes": "Birthday Cakes Onboard",
+          "travelerMagazine": "Traveler Magazine",
+          "kidsToys": "Kids Toys",
+          "wifiOnboard": "Wifi Onboard",
+          "baggageClaims": "Baggage Claims",
+          "refunds": "Refunds",
+          "loyaltyMiles": "Loyalty Miles Claim",
+          "feedbackSupport": "Feedback and Customer Support"
         },
         "footer": {
           "lead": "Services designed for every stage of your journey.",
@@ -1012,6 +1022,11 @@
         "description": "Find the support you may need after your flight, from baggage claims and tracking to refunds or loyalty miles, and feedback or customer support.",
         "imageAlt": "A traveller arriving at their destination after the flight"
       }
+    },
+    "helpCta": {
+      "title": "Find the Support You Need",
+      "description": "Access helpful information, contact Fly Cham, browse frequently asked questions, or submit and track a request through our Help Centre.",
+      "cta": "Visit the Help Center"
     }
   },
   "flightsToDamascus": {
@@ -1102,7 +1117,7 @@
     "thingsToDo": {
       "title": "Things to Do in Damascus",
       "subtitle": "From iconic landmarks to vibrant markets, discover unforgettable experiences in one of the world's oldest cities.",
-      "cta": "Discover",
+      "cta": "Explore activities",
       "items": {
         "souk": {
           "badge": "Visit",
@@ -1134,7 +1149,7 @@
     },
     "search": {
       "label": "Search sights",
-      "placeholder": "Search sights, places or experiences.."
+      "placeholder": "Search by sight or destination"
     },
     "categories": {
       "all": "All",

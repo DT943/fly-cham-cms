@@ -5,6 +5,7 @@ import Container from '../../shared/components/Container.jsx'
 import { typography } from '../../styles/typography.js'
 import TravelExperienceHero from './components/TravelExperienceHero.jsx'
 import TravelExperienceStages from './components/TravelExperienceStages.jsx'
+import TravelExperienceHelpCta from './components/TravelExperienceHelpCta.jsx'
 
 const TravelExperience = () => {
   const { t } = useTranslation()
@@ -30,6 +31,8 @@ const TravelExperience = () => {
       </Container>
 
       <TravelExperienceStages />
+
+      <TravelExperienceHelpCta />
     </main>
   )
 }

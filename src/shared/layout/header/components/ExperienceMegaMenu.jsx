@@ -68,31 +68,10 @@ const ExperienceMegaMenu = ({ onNavigate, embedded = false }) => {
       )}
 
       <Container className={`flex flex-col gap-6 py-6 md:gap-8 md:py-8 ${embedded ? 'px-6 sm:px-6 md:px-6 xl:px-6' : ''}`}>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        <div className="grid grid-cols-1 items-start gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {experienceMenu.columns.map((column) => (
             <ExperienceColumn key={column.id} column={column} onNavigate={onNavigate} />
           ))}
-
-          <LocalizedLink
-            to={experienceMenu.promo.href}
-            onClick={onNavigate}
-            className="group relative min-h-52 overflow-hidden rounded-xl no-underline outline-none focus:outline-none sm:min-h-64"
-          >
-            <img
-              src={experienceMenu.promo.image}
-              alt=""
-              className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-            />
-            <span className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-secondary-2/90 px-4 py-4">
-              <span className={`${typography.itemTitle} font-semibold text-50`}>
-                {t('layout.header.experience.promo.title')}
-              </span>
-              <span className={`${typography.caption} inline-flex items-center gap-1.5 font-medium text-secondary`}>
-                {t('layout.header.experience.promo.action')}
-                <ArrowRight size={14} weight="bold" className="rtl:-scale-x-100" />
-              </span>
-            </span>
-          </LocalizedLink>
         </div>
       </Container>
 
