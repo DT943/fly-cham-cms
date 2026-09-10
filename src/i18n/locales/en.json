@@ -1031,6 +1031,64 @@
       "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
+  "beforeYouFly": {
+    "breadcrumb": "Before you fly",
+    "hero": {
+      "title": "Before You Fly",
+      "subtitle": "Plan ahead with our services designed to help you prepare before departure and enjoy a smoother journey from the start",
+      "imageAlt": "A business traveller using a tablet in the back of a car"
+    },
+    "sectionTitle": "What You Need For an Ideal Journey",
+    "sectionDescription": "Get ready for a unique travel experience from the moment you plan to your arrival. Review our tailored services below.",
+    "learnMore": "Learn More",
+    "services": {
+      "seatSelection": {
+        "title": "Seat Selection",
+        "description": "Choose your preferred seat before departure for a more comfortable journey",
+        "imageAlt": "Fly Cham aircraft cabin seats"
+      },
+      "manageBooking": {
+        "title": "Manage Booking",
+        "description": "Manage your booking and access available changes and services for flights booked via our website",
+        "imageAlt": "Traveller with luggage at the airport"
+      },
+      "allowedBaggage": {
+        "title": "Allowed Baggage - Fly Cham",
+        "description": "Find baggage allowance information for different classes and fare types before packing for your flight",
+        "imageAlt": "Checked baggage at the airport"
+      },
+      "paymentMethods": {
+        "title": "Payment Methods",
+        "description": "Find available payment options for completing and managing your Fly Cham booking.",
+        "imageAlt": "Traveller with luggage at the airport"
+      },
+      "yaMarhaba": {
+        "title": "Ya Marhaba Transportation",
+        "description": "Arrange convenient transportation to or from the airport before your journey",
+        "imageAlt": "Ya Marhaba airport transfer service"
+      },
+      "limousine": {
+        "title": "Limousine Service",
+        "description": "Request premium airport transfers available for eligible Business Class passengers.",
+        "imageAlt": "Luxury limousine airport transfer"
+      },
+      "unaccompaniedMinor": {
+        "title": "Unaccompanied Minor Service",
+        "description": "Request unaccompanied minors service for children travelling alone aged 6 to 12",
+        "imageAlt": "A child travelling on board"
+      },
+      "oxygenCylinder": {
+        "title": "Oxygen Cylinder",
+        "description": "Find requirements for requesting a medical oxygen cylinder for passengers who need medical oxygen while travelling.",
+        "imageAlt": "Medical oxygen equipment for travel"
+      },
+      "prohibitedItems": {
+        "title": "Prohibited Items",
+        "description": "Check the list of restricted and prohibited items to stay safe and compliant with international aviation regulations.",
+        "imageAlt": "Airport security screening of baggage"
+      }
+    }
+  },
   "flightsToDamascus": {
     "breadcrumb": "Things to do in Damascus",
     "hero": {

@@ -13,7 +13,7 @@ export const travelExperienceCards = [
     id: 'beforeYouFly',
     image: beforeYouFlyPhoto,
     gradientTo: 'to-[#01263b]',
-    href: '/help',
+    href: '/travel-experience/before-you-fly',
     withLabel: true,
   },
   {

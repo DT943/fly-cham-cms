@@ -13,6 +13,7 @@ import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamas
 import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
+import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import {
   FormsRedirect,
@@ -39,6 +40,7 @@ export const pages = {
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
   '/travel-experience': TravelExperience,
+  '/travel-experience/before-you-fly': BeforeYouFly,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
