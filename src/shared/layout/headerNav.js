@@ -80,7 +80,7 @@ export const experienceMenu = {
   columns: [
     {
       id: 'beforeYouFly',
-      href: '/travel-experience#beforeYouFly',
+      href: '/travel-experience/before-you-fly',
       withIcons: true,
       links: [
         { id: 'seatSelection', icon: Seat },
@@ -96,12 +96,12 @@ export const experienceMenu = {
     },
     {
       id: 'atTheAirport',
-      href: '/travel-experience#atTheAirport',
+      href: '/travel-experience/at-the-airport',
       links: [{ id: 'lounge' }, { id: 'wheelchair' }, { id: 'vipBoarding' }],
     },
     {
       id: 'onBoard',
-      href: '/travel-experience#onBoard',
+      href: '/travel-experience/onboard',
       links: [
         { id: 'travelClasses' },
         { id: 'meals' },
@@ -114,7 +114,7 @@ export const experienceMenu = {
     },
     {
       id: 'afterTravel',
-      href: '/travel-experience#afterTravel',
+      href: '/travel-experience/after-travel',
       image: afterTravelPhoto,
       imageBelow: true,
       links: [

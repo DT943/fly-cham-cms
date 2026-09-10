@@ -1035,26 +1035,26 @@
     "breadcrumb": "Before you fly",
     "hero": {
       "title": "Before You Fly",
-      "subtitle": "Plan ahead with our services designed to help you prepare before departure and enjoy a smoother journey from the start",
+      "subtitle": "Plan ahead with our services designed to help you prepare before departure and enjoy a smoother journey from the start.",
       "imageAlt": "A business traveller using a tablet in the back of a car"
     },
-    "sectionTitle": "What You Need For an Ideal Journey",
-    "sectionDescription": "Get ready for a unique travel experience from the moment you plan to your arrival. Review our tailored services below.",
-    "learnMore": "Learn More",
+    "sectionTitle": "",
+    "sectionDescription": "",
+    "learnMore": "Discover More",
     "services": {
       "seatSelection": {
         "title": "Seat Selection",
-        "description": "Choose your preferred seat before departure for a more comfortable journey",
+        "description": "Choose your preferred seat before departure for a more comfortable journey.",
         "imageAlt": "Fly Cham aircraft cabin seats"
       },
       "manageBooking": {
         "title": "Manage Booking",
-        "description": "Manage your booking and access available changes and services for flights booked via our website",
+        "description": "Manage your booking and access available changes and services for flights booked via our website.",
         "imageAlt": "Traveller with luggage at the airport"
       },
       "allowedBaggage": {
-        "title": "Allowed Baggage - Fly Cham",
-        "description": "Find baggage allowance information for different classes and fare types before packing for your flight",
+        "title": "Allowed Baggage",
+        "description": "Find baggage allowance information for different classes and fare types before packing for your flight.",
         "imageAlt": "Checked baggage at the airport"
       },
       "paymentMethods": {
@@ -1063,8 +1063,8 @@
         "imageAlt": "Traveller with luggage at the airport"
       },
       "yaMarhaba": {
-        "title": "Ya Marhaba Transportation",
-        "description": "Arrange convenient transportation to or from the airport before your journey",
+        "title": "Transportation",
+        "description": "Arrange convenient transportation to or from the airport before your journey.",
         "imageAlt": "Ya Marhaba airport transfer service"
       },
       "limousine": {
@@ -1073,8 +1073,8 @@
         "imageAlt": "Luxury limousine airport transfer"
       },
       "unaccompaniedMinor": {
-        "title": "Unaccompanied Minor Service",
-        "description": "Request unaccompanied minors service for children travelling alone aged 6 to 12",
+        "title": "Unaccompanied Minors",
+        "description": "Request unaccompanied minors service for children travelling alone aged 6 to 12.",
         "imageAlt": "A child travelling on board"
       },
       "oxygenCylinder": {
@@ -1084,8 +1084,128 @@
       },
       "prohibitedItems": {
         "title": "Prohibited Items",
-        "description": "Check the list of restricted and prohibited items to stay safe and compliant with international aviation regulations.",
+        "description": "Check baggage restrictions before travel to avoid carrying items that are not permitted.",
         "imageAlt": "Airport security screening of baggage"
+      }
+    },
+    "nextSteps": {
+      "learnMore": "Learn more",
+      "airportServices": {
+        "title": "Explore Airport Services",
+        "description": "Explore available airport services and support options designed to make your journey more comfortable from arrival to boarding."
+      },
+      "getSupport": {
+        "title": "Get Support",
+        "description": "Access helpful information, contact us, browse frequently asked questions, or submit and track a request through our Help Centre."
+      }
+    }
+  },
+  "atTheAirport": {
+    "breadcrumb": "At the airport",
+    "hero": {
+      "title": "At the Airport",
+      "subtitle": "Make your time at the airport smoother with lounge access, assistance, and priority boarding services.",
+      "imageAlt": "A business traveller using a tablet in the back of a car"
+    },
+    "sectionTitle": "What You Need For an Ideal Journey",
+    "sectionDescription": "Explore airport services designed to add comfort and support from arrival at the terminal through boarding.",
+    "learnMore": "Learn More",
+    "services": {
+      "lounge": {
+        "title": "Business Lounge",
+        "description": "Relax before your flight in the Business Lounge with seating, refreshments, and a quieter space to wait.",
+        "imageAlt": "Traveller with luggage at the airport"
+      },
+      "wheelchair": {
+        "title": "Wheelchair Assistance",
+        "description": "Request wheelchair support through the airport, including help with check-in, security, and boarding.",
+        "imageAlt": "A child travelling on board"
+      },
+      "vipBoarding": {
+        "title": "VIP Boarding",
+        "description": "Board with priority and enjoy a more organised start to your flight with VIP boarding assistance.",
+        "imageAlt": "Ya Marhaba airport transfer service"
+      }
+    }
+  },
+  "onboard": {
+    "breadcrumb": "Onboard Services",
+    "hero": {
+      "title": "Onboard Services",
+      "subtitle": "Entertainment, comfort, and hospitality throughout your flight",
+      "imageAlt": "A business traveller using a tablet in the back of a car"
+    },
+    "sectionTitle": "",
+    "sectionDescription": "Enjoy comfort, entertainment, and thoughtful onboard services designed to make your flight more enjoyable.",
+    "learnMore": "Discover More",
+    "services": {
+      "travelClasses": {
+        "title": "Travel Classes",
+        "description": "Explore Fly Cham travel classes and fare types along with the onboard experience available with each option.",
+        "imageAlt": "Fly Cham aircraft cabin seats"
+      },
+      "meals": {
+        "title": "Meals",
+        "description": "Discover the meals and dining options available during your Fly Cham journey.",
+        "imageAlt": "Luxury limousine airport transfer"
+      },
+      "entertainment": {
+        "title": "Entertainment System",
+        "description": "Find out how you can enjoy the entertainment system selection options while you fly.",
+        "imageAlt": "Ya Marhaba airport transfer service"
+      },
+      "birthdayCakes": {
+        "title": "Birthday Cakes Onboard",
+        "description": "Make a special journey more memorable by arranging a birthday cake to enjoy onboard.",
+        "imageAlt": "A child travelling on board"
+      },
+      "travelerMagazine": {
+        "title": "Marhaba Magazine",
+        "description": "Browse travel stories, destination features, and inspiring reads from the Fly Cham Marhaba Magazine.",
+        "imageAlt": "Traveller with luggage at the airport"
+      },
+      "kidsToys": {
+        "title": "Kids Toys",
+        "description": "Fun activities and happy moments await your children with our kids' toys.",
+        "imageAlt": "Medical oxygen equipment for travel"
+      },
+      "wifiOnboard": {
+        "title": "Wi-Fi Onboard",
+        "description": "Learn about onboard Wi-Fi availability and connectivity options for your flight.",
+        "imageAlt": "Fly Cham aircraft cabin seats"
+      }
+    }
+  },
+  "afterTravel": {
+    "breadcrumb": "After travel",
+    "hero": {
+      "title": "After Travel",
+      "subtitle": "Find support after you land, from baggage claims and refunds to loyalty miles and customer feedback.",
+      "imageAlt": "A business traveller using a tablet in the back of a car"
+    },
+    "sectionTitle": "What You Need For an Ideal Journey",
+    "sectionDescription": "Access post-travel services if you need help after your flight with baggage, refunds, miles, or customer support.",
+    "learnMore": "Learn More",
+    "services": {
+      "baggageClaims": {
+        "title": "Baggage Claims",
+        "description": "Report delayed, damaged, or missing baggage and follow the status of your claim after arrival.",
+        "imageAlt": "Traveller with luggage at the airport"
+      },
+      "refunds": {
+        "title": "Refunds",
+        "description": "Submit a refund request for an eligible unused ticket and track the progress of your application.",
+        "imageAlt": "Ya Marhaba airport transfer service"
+      },
+      "loyaltyMiles": {
+        "title": "Loyalty Miles Claim",
+        "description": "Claim missing miles for a completed Fly Cham journey and add them to your loyalty account.",
+        "imageAlt": "Luxury limousine airport transfer"
+      },
+      "feedbackSupport": {
+        "title": "Feedback and Customer Support",
+        "description": "Share feedback or contact customer support if you need help after your trip.",
+        "imageAlt": "Medical oxygen equipment for travel"
       }
     }
   },

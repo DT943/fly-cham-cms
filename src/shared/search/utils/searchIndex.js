@@ -19,6 +19,7 @@ import {
 import { sights } from '../../../pages/city-sights/utils/sights.js'
 import { routeAirports } from '../../../pages/route-map/utils/routeNetwork.js'
 import { destinationGuides, flightsToHref } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
+import { getJourneyStage, journeyStageHref, journeyStageSlugs } from '../../../pages/before-you-fly/utils/journeyStages.js'
 
 const helpCategoryDestinations = {
   contact: { href: '/help/contact-us', target: 'contact-hero' },
@@ -207,6 +208,37 @@ function buildPageRecords() {
       href: '/our-destinations',
       titlePath: 'destinations.inspiration.title',
       textPaths: ['destinations.inspiration.description'],
+    }),
+    ...journeyStageSlugs.flatMap((slug) => {
+      const stage = getJourneyStage(slug)
+      const href = journeyStageHref(slug)
+      const prefix = stage.i18nKey
+      const servicePaths = stage.services.flatMap(({ id }) => [
+        `${prefix}.services.${id}.title`,
+        `${prefix}.services.${id}.description`,
+      ])
+      const nextStepPaths = (stage.nextSteps || []).flatMap(({ id }) => [
+        `${prefix}.nextSteps.${id}.title`,
+        `${prefix}.nextSteps.${id}.description`,
+      ])
+      const servicesTitlePath = pick(en, `${prefix}.sectionTitle`)
+        ? `${prefix}.sectionTitle`
+        : `${prefix}.hero.title`
+
+      return [
+        pageRecord({
+          id: `${slug}-hero`,
+          href,
+          titlePath: `${prefix}.hero.title`,
+          textPaths: [`${prefix}.breadcrumb`, `${prefix}.hero.subtitle`],
+        }),
+        pageRecord({
+          id: `${slug}-services`,
+          href,
+          titlePath: servicesTitlePath,
+          textPaths: [`${prefix}.sectionDescription`, ...servicePaths, ...nextStepPaths],
+        }),
+      ]
     }),
     ...Object.entries(destinationGuides).flatMap(([slug, guide]) => {
       const href = flightsToHref(slug)

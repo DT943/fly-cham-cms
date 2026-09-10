@@ -20,18 +20,18 @@ export const travelExperienceCards = [
     id: 'atTheAirport',
     image: atTheAirportPhoto,
     gradientTo: 'to-[#504834]',
-    href: '/help',
+    href: '/travel-experience/at-the-airport',
   },
   {
     id: 'onboard',
     image: onboardPhoto,
     gradientTo: 'to-[#006080]',
-    href: '/help',
+    href: '/travel-experience/onboard',
   },
   {
     id: 'afterTravel',
     image: afterTravelPhoto,
     gradientTo: 'to-[#01263b]',
-    href: '/help',
+    href: '/travel-experience/after-travel',
   },
 ]
