@@ -5,6 +5,7 @@ import Container from '../../shared/components/Container.jsx'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import LocalizedLink from '../../shared/components/LocalizedLink.jsx'
+import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import { typography } from '../../styles/typography.js'
 import heroPhoto from '../../assets/images/seat-selection/hero.jpg'
 import journeyPhoto from '../../assets/images/seat-selection/journey.jpg'
@@ -47,25 +48,13 @@ const SeatSelection = () => {
         <LanguageSwitcher />
       </Container>
 
-      {/* Hero */}
-      <section className="relative isolate overflow-hidden h-80 sm:h-100 md:h-110 lg:h-125">
-        <img
-          src={heroPhoto}
-          alt={t('seatSelection.hero.imageAlt')}
-          className="absolute inset-0 size-full object-cover object-center"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-50/90 from-[20%] to-transparent to-[52%] rtl:bg-linear-to-l" />
-        <Container className="relative flex h-full flex-col justify-center">
-          <div className="flex max-w-[491px] flex-col gap-3 md:gap-4">
-            <h1 className="m-0 text-4xl font-bold leading-tight text-primary-1 sm:text-5xl md:text-6xl">
-              {t('seatSelection.hero.title')}
-            </h1>
-            <p className="m-0 max-w-[414px] text-sm font-normal leading-relaxed text-700 sm:text-base md:text-lg">
-              {t('seatSelection.hero.subtitle')}
-            </p>
-          </div>
-        </Container>
-      </section>
+      <PageMediaHero
+        image={heroPhoto}
+        imageAlt={t('seatSelection.hero.imageAlt')}
+        title={t('seatSelection.hero.title')}
+        subtitle={t('seatSelection.hero.subtitle')}
+        objectPosition="center"
+      />
 
       <Container className="flex flex-col gap-14 pt-10 md:gap-16 md:pt-14">
         {/* Your Journey Begins Here */}
