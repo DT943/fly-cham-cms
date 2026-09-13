@@ -15,6 +15,12 @@
       "title": "Start Live Chat",
       "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
       "cta": "Chat now"
+    },
+    "helpCta": {
+      "title": "Find the Support You Need",
+      "description": "Access helpful information, contact Fly Cham, browse frequently asked questions, or submit and track a request through our Help Centre.",
+      "cta": "Visit the Help Center",
+      "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
   "help": {
@@ -1023,12 +1029,6 @@
         "description": "Find the support you may need after your flight, from baggage claims and tracking to refunds or loyalty miles, and feedback or customer support.",
         "imageAlt": "A traveller arriving at their destination after the flight"
       }
-    },
-    "helpCta": {
-      "title": "Find the Support You Need",
-      "description": "Access helpful information, contact Fly Cham, browse frequently asked questions, or submit and track a request through our Help Centre.",
-      "cta": "Visit the Help Center",
-      "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
   "beforeYouFly": {

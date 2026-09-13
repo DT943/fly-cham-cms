@@ -4,10 +4,10 @@ import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import Faqs from '../../shared/components/Faqs.jsx'
 import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
+import HelpCta from '../../shared/components/HelpCta.jsx'
 import { typography } from '../../styles/typography.js'
 import heroPhoto from '../../assets/images/about-us/hero.jpg'
 import AboutStorySections from './components/AboutStorySections.jsx'
-import AboutFleetBanner from './components/AboutFleetBanner.jsx'
 import AboutValues from './components/AboutValues.jsx'
 import AboutMediaCards from './components/AboutMediaCards.jsx'
 
@@ -48,7 +48,7 @@ const AboutUs = () => {
 
         <AboutStorySections />
 
-        <AboutFleetBanner />
+        <HelpCta contained={false} />
 
         <AboutValues />
 

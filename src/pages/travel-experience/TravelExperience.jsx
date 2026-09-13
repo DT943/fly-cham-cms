@@ -6,7 +6,7 @@ import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import { typography } from '../../styles/typography.js'
 import heroPhoto from '../../assets/images/travel-experience/hero.png'
 import TravelExperienceCards from './components/TravelExperienceCards.jsx'
-import TravelExperienceHelpCta from './components/TravelExperienceHelpCta.jsx'
+import HelpCta from '../../shared/components/HelpCta.jsx'
 
 const TravelExperience = () => {
   const { t } = useTranslation()
@@ -43,7 +43,7 @@ const TravelExperience = () => {
       <TravelExperienceCards />
 
       <div className="pt-12 md:pt-16">
-        <TravelExperienceHelpCta />
+        <HelpCta />
       </div>
     </main>
   )

@@ -4,9 +4,9 @@ import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import Faqs from '../../shared/components/Faqs.jsx'
 import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
+import HelpCta from '../../shared/components/HelpCta.jsx'
 import heroPhoto from '../../assets/images/our-responsibility/hero.jpg'
 import ResponsibilitySections from './components/ResponsibilitySections.jsx'
-import AboutChamCta from './components/AboutChamCta.jsx'
 
 const OurResponsibility = () => {
   const { t } = useTranslation()
@@ -41,7 +41,7 @@ const OurResponsibility = () => {
       <Container className="flex flex-col gap-14 pt-10 md:gap-16 md:pt-14">
         <ResponsibilitySections />
 
-        <AboutChamCta />
+        <HelpCta contained={false} />
 
         <Faqs
           title={t('ourResponsibility.faq.title')}
