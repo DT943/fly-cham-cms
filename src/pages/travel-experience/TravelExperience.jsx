@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
+import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import { typography } from '../../styles/typography.js'
-import TravelExperienceHero from './components/TravelExperienceHero.jsx'
+import heroPhoto from '../../assets/images/travel-experience/hero.png'
 import TravelExperienceCards from './components/TravelExperienceCards.jsx'
 import TravelExperienceHelpCta from './components/TravelExperienceHelpCta.jsx'
 
@@ -22,7 +23,13 @@ const TravelExperience = () => {
         <LanguageSwitcher />
       </Container>
 
-      <TravelExperienceHero />
+      <PageMediaHero
+        image={heroPhoto}
+        imageAlt={t('travelExperience.hero.imageAlt')}
+        title={t('travelExperience.hero.title')}
+        subtitle={t('travelExperience.hero.subtitle')}
+        objectPosition="center 35%"
+      />
 
       <Container className="flex flex-col gap-3 py-8 md:py-10">
         <h2 className={`m-0 font-semibold text-700 ${typography.sectionTitle}`}>

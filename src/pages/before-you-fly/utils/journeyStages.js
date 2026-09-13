@@ -1,4 +1,4 @@
-import { AirplaneTakeoff, Headset } from '@phosphor-icons/react'
+import { Airplane, AirplaneLanding, AirplaneTakeoff, Headset, Question } from '@phosphor-icons/react'
 import seatSelectionPhoto from '../../../assets/images/before-you-fly/seat-selection.png'
 import manageBookingPhoto from '../../../assets/images/before-you-fly/manage-booking.png'
 import yaMarhabaPhoto from '../../../assets/images/before-you-fly/ya-marhaba.png'
@@ -43,6 +43,10 @@ const journeyStages = {
       { id: 'wheelchair', image: unaccompaniedMinorPhoto, href: helpHref },
       { id: 'vipBoarding', image: yaMarhabaPhoto, href: helpHref },
     ],
+    nextSteps: [
+      { id: 'onboardServices', href: '/travel-experience/onboard', icon: Airplane },
+      { id: 'getSupport', href: helpHref, icon: Headset },
+    ],
   },
   onboard: {
     i18nKey: 'onboard',
@@ -56,6 +60,10 @@ const journeyStages = {
       { id: 'kidsToys', image: oxygenPhoto, href: helpHref },
       { id: 'wifiOnboard', image: seatSelectionPhoto, href: helpHref },
     ],
+    nextSteps: [
+      { id: 'afterTravel', href: '/travel-experience/after-travel', icon: AirplaneLanding },
+      { id: 'getSupport', href: helpHref, icon: Headset },
+    ],
   },
   'after-travel': {
     i18nKey: 'afterTravel',
@@ -65,6 +73,10 @@ const journeyStages = {
       { id: 'refunds', image: yaMarhabaPhoto, href: helpHref },
       { id: 'loyaltyMiles', image: limousinePhoto, href: helpHref },
       { id: 'feedbackSupport', image: oxygenPhoto, href: helpHref },
+    ],
+    nextSteps: [
+      { id: 'helpSupport', href: helpHref, icon: Headset },
+      { id: 'quickAnswer', href: '/help/faqs', icon: Question },
     ],
   },
 }

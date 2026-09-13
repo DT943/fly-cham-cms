@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
+import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import { typography } from '../../styles/typography.js'
 import useLocalizedRoute from '../../shared/routing/hooks/useLocalizedRoute.js'
 import { withLanguage } from '../../i18n/languages.js'
-import BeforeYouFlyHero from './components/BeforeYouFlyHero.jsx'
 import BeforeYouFlyServices from './components/BeforeYouFlyServices.jsx'
 import JourneyStageNextSteps from './components/JourneyStageNextSteps.jsx'
 import { getJourneyStage, getJourneyStageSlug } from './utils/journeyStages.js'
@@ -38,7 +38,12 @@ const BeforeYouFly = () => {
         <LanguageSwitcher />
       </Container>
 
-      <BeforeYouFlyHero i18nKey={i18nKey} image={heroImage} />
+      <PageMediaHero
+        image={heroImage}
+        imageAlt={t(`${i18nKey}.hero.imageAlt`)}
+        title={t(`${i18nKey}.hero.title`)}
+        subtitle={t(`${i18nKey}.hero.subtitle`)}
+      />
 
       {sectionTitle || sectionDescription ? (
         <Container className="flex flex-col gap-2 py-8 md:py-10">

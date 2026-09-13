@@ -40,6 +40,11 @@ export const footerColumns = [
 ]
 
 export const footerLinkHrefs = {
+  story: '/about-us',
+  mission: '/about-us',
+  vision: '/about-us',
+  values: '/about-us',
+  responsibility: '/our-responsibility',
   groupTravel: '/help/contact-us/forms',
   contactUs: '/help/contact-us',
   inquiries: '/help/contact-us/forms',

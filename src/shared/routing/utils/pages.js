@@ -14,6 +14,9 @@ import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
 import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
+import SeatSelection from '../../../pages/seat-selection/SeatSelection.jsx'
+import AboutUs from '../../../pages/about-us/AboutUs.jsx'
+import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
 import {
@@ -41,10 +44,13 @@ export const pages = {
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
   '/travel-experience': TravelExperience,
+  '/travel-experience/seat-selection': SeatSelection,
   '/travel-experience/before-you-fly': BeforeYouFly,
   '/travel-experience/at-the-airport': BeforeYouFly,
   '/travel-experience/onboard': BeforeYouFly,
   '/travel-experience/after-travel': BeforeYouFly,
+  '/our-responsibility': OurResponsibility,
+  '/about-us': AboutUs,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

@@ -36,7 +36,9 @@ const JourneyStageNextSteps = ({ i18nKey, items }) => {
             <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-primary-1">
               <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
             </span>
-            {t(`${i18nKey}.nextSteps.learnMore`)}
+            {t(`${i18nKey}.nextSteps.${id}.cta`, {
+              defaultValue: t(`${i18nKey}.nextSteps.learnMore`),
+            })}
           </LocalizedLink>
         </article>
       ))}
