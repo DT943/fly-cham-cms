@@ -6,6 +6,7 @@ import Faqs from '../../shared/components/Faqs.jsx'
 import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import HelpCta from '../../shared/components/HelpCta.jsx'
 import heroPhoto from '../../assets/images/our-responsibility/hero.jpg'
+import aboutPhoto from '../../assets/images/our-responsibility/about-cham.jpg'
 import ResponsibilitySections from './components/ResponsibilitySections.jsx'
 
 const OurResponsibility = () => {
@@ -41,7 +42,15 @@ const OurResponsibility = () => {
       <Container className="flex flex-col gap-14 pt-10 md:gap-16 md:pt-14">
         <ResponsibilitySections />
 
-        <HelpCta contained={false} />
+        <HelpCta
+          contained={false}
+          image={aboutPhoto}
+          imageAlt={t('ourResponsibility.about.imageAlt')}
+          title={t('ourResponsibility.about.title')}
+          description={`${t('ourResponsibility.about.subtitle')}. ${t('ourResponsibility.about.description')}`}
+          cta={t('ourResponsibility.about.cta')}
+          href="/about-us"
+        />
 
         <Faqs
           title={t('ourResponsibility.faq.title')}
