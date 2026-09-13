@@ -7,6 +7,7 @@ import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import HelpCta from '../../shared/components/HelpCta.jsx'
 import { typography } from '../../styles/typography.js'
 import heroPhoto from '../../assets/images/about-us/hero.jpg'
+import fleetPhoto from '../../assets/images/about-us/fleet.jpg'
 import AboutStorySections from './components/AboutStorySections.jsx'
 import AboutValues from './components/AboutValues.jsx'
 import AboutMediaCards from './components/AboutMediaCards.jsx'
@@ -48,7 +49,16 @@ const AboutUs = () => {
 
         <AboutStorySections />
 
-        <HelpCta contained={false} />
+        <HelpCta
+          contained={false}
+          image={fleetPhoto}
+          imageAlt={t('aboutUs.fleet.imageAlt')}
+          title={t('aboutUs.fleet.title')}
+          description={t('aboutUs.fleet.description')}
+          cta={t('aboutUs.fleet.cta')}
+          href="/our-destinations"
+          objectPosition="center"
+        />
 
         <AboutValues />
 
