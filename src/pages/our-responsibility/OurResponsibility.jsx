@@ -3,7 +3,8 @@ import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import Faqs from '../../shared/components/Faqs.jsx'
-import ResponsibilityHero from './components/ResponsibilityHero.jsx'
+import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
+import heroPhoto from '../../assets/images/our-responsibility/hero.jpg'
 import ResponsibilitySections from './components/ResponsibilitySections.jsx'
 import AboutChamCta from './components/AboutChamCta.jsx'
 
@@ -29,7 +30,13 @@ const OurResponsibility = () => {
         <LanguageSwitcher />
       </Container>
 
-      <ResponsibilityHero />
+      <PageMediaHero
+        image={heroPhoto}
+        imageAlt={t('ourResponsibility.hero.imageAlt')}
+        title={t('ourResponsibility.hero.title')}
+        subtitle={t('ourResponsibility.hero.subtitle')}
+        objectPosition="center 20%"
+      />
 
       <Container className="flex flex-col gap-14 pt-10 md:gap-16 md:pt-14">
         <ResponsibilitySections />
