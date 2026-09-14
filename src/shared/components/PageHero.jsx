@@ -1,39 +1,5 @@
 import { typography } from '../../styles/typography.js'
-
-// Literal class maps so Tailwind's scanner sees every utility at build time.
-const RADIUS = {
-  none: 'rounded-none',
-  sm: 'rounded-sm',
-  md: 'rounded-md',
-  lg: 'rounded-lg',
-  xl: 'rounded-xl',
-  '2xl': 'rounded-2xl',
-  full: 'rounded-full',
-}
-
-const ALIGN = {
-  left: 'text-left',
-  center: 'text-center',
-  right: 'text-right',
-}
-
-const WEIGHT = {
-  normal: 'font-normal',
-  medium: 'font-medium',
-  semibold: 'font-semibold',
-  bold: 'font-bold',
-}
-
-const PADDING = {
-  none: '',
-  compact: 'py-4 md:py-6',
-  default: '',
-  spacious: 'py-8 md:py-16',
-}
-
-// Every design token (primary-1, secondary-2, 700, 100, …) resolves to its
-// CSS custom property, so any colour the CMS sends works without a class map.
-const colorVar = (token) => (token ? `var(--color-${token})` : undefined)
+import { RADIUS, WEIGHT, ALIGN, SECTION_PADDING, colorVar } from '../../styles/cmsStyle.js'
 
 const maskStyle = (mask) => ({
   WebkitMaskImage: `url(${mask})`,
@@ -108,7 +74,7 @@ const PageHero = ({
     hasImage
       ? 'flex flex-col md:flex-row md:items-center gap-5 md:gap-10 lg:gap-14'
       : 'flex flex-col gap-2 md:gap-4',
-    PADDING[sectionPadding] || '',
+    SECTION_PADDING[sectionPadding] || '',
     showSectionBg ? 'rounded-2xl px-4 md:px-6' : '',
   ]
     .filter(Boolean)
