@@ -1,3 +1,5 @@
+import { pick, pickContent } from './pick.js'
+
 /**
  * Map a CMS "search-console" block to <SearchConsole /> props.
  *
@@ -48,17 +50,3 @@ const STYLE_KEYS = [
   'panelRadius',
   'panelPadding',
 ]
-
-function pickContent(content, lang) {
-  if (!content) return {}
-  const keys = Object.keys(content)
-  return content[lang] || content[keys[0]] || {}
-}
-
-function pick(source, keys) {
-  const out = {}
-  for (const key of keys) {
-    if (source[key] !== undefined) out[key] = source[key]
-  }
-  return out
-}

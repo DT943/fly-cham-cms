@@ -1,7 +1,17 @@
 import PageHero from '../../../shared/components/PageHero.jsx'
+import CtaBanner from '../../../shared/components/CtaBanner.jsx'
+import LiveChatBanner from '../../../shared/components/LiveChatBanner.jsx'
 import SearchConsole from '../../help/components/SearchConsole/index.jsx'
+import HelpCategories from '../../help/components/HelpCategories.jsx'
+import JourneySection from '../../help/components/JourneySection.jsx'
+import GetInTouch from '../../contact-us/components/GetInTouch.jsx'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
+import { helpCategoriesProps } from './adapters/helpCategoriesAdapter.js'
+import { ctaBannerProps } from './adapters/ctaBannerAdapter.js'
+import { journeySectionProps } from './adapters/journeySectionAdapter.js'
+import { liveChatBannerProps } from './adapters/liveChatBannerAdapter.js'
+import { getInTouchProps } from './adapters/getInTouchAdapter.js'
 
 /**
  * Maps a block's `sectionId` to the component that renders it plus the adapter
@@ -13,6 +23,11 @@ import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
 export const sectionRegistry = {
   'page-hero': { Component: PageHero, mapProps: pageHeroProps },
   'search-console': { Component: SearchConsole, mapProps: searchConsoleProps },
+  'help-categories': { Component: HelpCategories, mapProps: helpCategoriesProps },
+  'cta-banner': { Component: CtaBanner, mapProps: ctaBannerProps },
+  'journey-section': { Component: JourneySection, mapProps: journeySectionProps },
+  'live-chat-banner': { Component: LiveChatBanner, mapProps: liveChatBannerProps },
+  'get-in-touch': { Component: GetInTouch, mapProps: getInTouchProps },
 }
 
 export function getSection(sectionId) {

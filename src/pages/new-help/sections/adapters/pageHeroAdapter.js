@@ -1,3 +1,5 @@
+import { pick, pickContent, resolveCmsAsset } from './pick.js'
+
 /**
  * Map a CMS "page-hero" block to <PageHero /> props.
  *
@@ -12,13 +14,11 @@ export function pageHeroProps(block, lang) {
   const style = block.style || {}
 
   return {
-    // content → PageHero content props (renamed to the component's vocabulary)
     title: content.title,
     subtitle: content.subtitle,
-    image: content.imageUrl,
-    mask: content.imageMask,
+    image: resolveCmsAsset(content.imageUrl) || undefined,
+    mask: resolveCmsAsset(content.imageMask) || undefined,
     imageAlt: content.imageAlt,
-    // style → forwarded verbatim, but only the keys that exist
     ...pick(style, STYLE_KEYS),
   }
 }
@@ -39,17 +39,3 @@ const STYLE_KEYS = [
   'showSectionBg',
   'sectionPadding',
 ]
-
-function pickContent(content, lang) {
-  if (!content) return {}
-  const keys = Object.keys(content)
-  return content[lang] || content[keys[0]] || {}
-}
-
-function pick(source, keys) {
-  const out = {}
-  for (const key of keys) {
-    if (source[key] !== undefined) out[key] = source[key]
-  }
-  return out
-}

@@ -24,10 +24,22 @@ function TrackRequestIcon({ size = 22, weight = 'regular', ...props }) {
   )
 }
 
+export const helpCategoryIcons = {
+  phone: Phone,
+  question: Question,
+  mapPin: MapPin,
+  clipboard: ClipboardText,
+  track: TrackRequestIcon,
+}
+
 export const helpCategories = [
-  { id: 'contact', icon: Phone, href: '/help/contact-us' },
-  { id: 'faqs', icon: Question, href: '/help/faqs' },
-  { id: 'offices', icon: MapPin, href: '/help/contact-us/our-offices' },
-  { id: 'forms', icon: ClipboardText, href: '/help/contact-us/forms' },
-  { id: 'track', icon: TrackRequestIcon },
+  { id: 'contact', icon: 'phone', href: '/help/contact-us' },
+  { id: 'faqs', icon: 'question', href: '/help/faqs' },
+  { id: 'offices', icon: 'mapPin', href: '/help/contact-us/our-offices' },
+  { id: 'forms', icon: 'clipboard', href: '/help/contact-us/forms' },
+  { id: 'track', icon: 'track' },
 ]
+
+export function resolveHelpCategoryIcon(name) {
+  return helpCategoryIcons[name] || Question
+}

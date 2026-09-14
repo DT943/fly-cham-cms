@@ -53,5 +53,48 @@ export const GRADIENT_DIR = {
   bottom: { ltr: 'to bottom', rtl: 'to bottom' },
 }
 
+export const CARD_GAP = {
+  none: 'gap-0',
+  compact: 'gap-2 md:gap-3',
+  default: 'gap-3 md:gap-5',
+  spacious: 'gap-5 md:gap-8',
+}
+
+export const COLUMN_GAP = {
+  none: 'gap-0',
+  compact: 'gap-4 lg:gap-6',
+  default: 'gap-6 lg:gap-10',
+  spacious: 'gap-8 lg:gap-14',
+}
+
+export const BANNER_HEIGHT = {
+  compact: 'min-h-[180px] sm:min-h-[240px] md:min-h-[280px]',
+  default: 'min-h-[220px] sm:min-h-[360px] md:min-h-[400px]',
+  spacious: 'min-h-[280px] sm:min-h-[420px] md:min-h-[480px]',
+}
+
+export const VERTICAL_ALIGN = {
+  start: 'items-start',
+  center: 'items-center',
+  end: 'items-end',
+}
+
+export const GRID_COLS = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+  5: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-5',
+  6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6',
+}
+
 /** Resolve a CMS colour token (primary-1, 700, background, …) to a CSS variable. */
 export const colorVar = (token) => (token ? `var(--color-${token})` : undefined)
+
+/** Mix a CMS colour token with transparency (opacity 0–100). */
+export const colorMix = (token, opacity) => {
+  if (!token) return undefined
+  const amount = Number(opacity)
+  if (!Number.isFinite(amount) || amount >= 100) return colorVar(token)
+  return `color-mix(in srgb, ${colorVar(token)} ${amount}%, transparent)`
+}

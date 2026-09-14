@@ -1,24 +1,146 @@
+import { useTranslation } from 'react-i18next'
 import Button from './Button.jsx'
 import { typography } from '../../styles/typography.js'
+import {
+  RADIUS,
+  WEIGHT,
+  ALIGN,
+  SECTION_PADDING,
+  BANNER_HEIGHT,
+  VERTICAL_ALIGN,
+  colorVar,
+} from '../../styles/cmsStyle.js'
 import defaultImage from '../../assets/images/help/ph1.png'
 
-const CtaBanner = ({ title, description, cta, href, image = defaultImage }) => (
-  <section
-    className="relative rounded-2xl overflow-hidden w-full min-h-[220px] sm:min-h-[360px] md:min-h-[400px] bg-cover bg-no-repeat bg-center md:bg-center flex items-center px-5 py-8 sm:px-12 md:px-20 md:py-16"
-    style={{ backgroundImage: `url(${image})` }}
-  >
-    <div className="absolute inset-0 z-[1] ltr:bg-[linear-gradient(to_right,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] rtl:bg-[linear-gradient(to_left,#054E72_0%,#054E72_40%,rgb(5_78_114/0)_100%)] md:ltr:bg-[linear-gradient(to_right,#054E72_0%,rgb(5_78_114/0)_100%)] md:rtl:bg-[linear-gradient(to_left,#054E72_0%,rgb(5_78_114/0)_100%)]" />
+const cx = (...parts) => parts.filter(Boolean).join(' ')
 
-    <div className="relative z-[2] flex flex-col gap-4 md:gap-6 max-w-xl">
-      <h2 className={`${typography.sectionTitle} font-semibold text-50 m-0`}>
-        {title}
-      </h2>
-      <p className={`${typography.sectionDescription} font-medium text-50 m-0 leading-relaxed`}>
-        {description}
-      </p>
-      <Button href={href}>{cta}</Button>
-    </div>
-  </section>
-)
+/**
+ * Full-bleed photo CTA. Defaults match the original Help / Forms look;
+ * the CMS (via the new-help section registry) can override any of them.
+ */
+const CtaBanner = ({
+  title,
+  description,
+  cta,
+  href,
+  image = defaultImage,
+  imageAlt = '',
+  showTitle = true,
+  showButton = true,
+  showDescription = true,
+  showHeroImage = true,
+  showOverlay = true,
+  overlayColor = 'main',
+  bannerHeight = 'default',
+  bannerRadius = '2xl',
+  titleAlign,
+  titleColor = '50',
+  titleFontWeight = 'semibold',
+  descriptionColor = '50',
+  descriptionFontWeight = 'medium',
+  buttonBg = 'secondary',
+  buttonText = 'btn',
+  buttonTextFontWeight = 'semibold',
+  verticalAlign = 'center',
+  sectionBg = '100',
+  showSectionBg = false,
+  sectionPadding = 'default',
+}) => {
+  const { i18n } = useTranslation()
+  const dir = i18n.dir() === 'rtl' ? 'rtl' : 'ltr'
+  const overlay = colorVar(overlayColor)
+  const to = dir === 'rtl' ? 'left' : 'right'
+
+  return (
+    <section
+      className={cx(
+        SECTION_PADDING[sectionPadding],
+        showSectionBg && 'rounded-2xl px-4 md:px-6',
+      )}
+      style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
+    >
+      <div
+        className={cx(
+          'relative overflow-hidden w-full bg-cover bg-no-repeat bg-center flex px-5 py-8 sm:px-12 md:px-20 md:py-16',
+          RADIUS[bannerRadius] || RADIUS['2xl'],
+          BANNER_HEIGHT[bannerHeight] || BANNER_HEIGHT.default,
+          VERTICAL_ALIGN[verticalAlign] || VERTICAL_ALIGN.center,
+        )}
+        style={showHeroImage && image ? { backgroundImage: `url(${image})` } : undefined}
+      >
+        {showOverlay && overlay && (
+          <>
+            <div
+              className="absolute inset-0 z-[1] md:hidden"
+              style={{
+                backgroundImage: `linear-gradient(to ${to}, ${overlay} 0%, ${overlay} 40%, transparent 100%)`,
+              }}
+            />
+            <div
+              className="absolute inset-0 z-[1] hidden md:block"
+              style={{
+                backgroundImage: `linear-gradient(to ${to}, ${overlay} 0%, transparent 100%)`,
+              }}
+            />
+          </>
+        )}
+
+        <div
+          className={cx(
+            'relative z-[2] flex flex-col gap-4 md:gap-6 max-w-xl',
+            ALIGN[titleAlign],
+          )}
+        >
+          {showTitle && title && (
+            <h2
+              className={cx(
+                typography.sectionTitle,
+                WEIGHT[titleFontWeight] || 'font-semibold',
+                'm-0',
+              )}
+              style={{ color: colorVar(titleColor) }}
+            >
+              {title}
+            </h2>
+          )}
+          {showDescription && description && (
+            <p
+              className={cx(
+                typography.sectionDescription,
+                WEIGHT[descriptionFontWeight] || 'font-medium',
+                'm-0 leading-relaxed',
+              )}
+              style={{ color: colorVar(descriptionColor) }}
+            >
+              {description}
+            </p>
+          )}
+          {showButton && cta && (
+            <Button
+              href={href}
+              className={cx(
+                WEIGHT[buttonTextFontWeight] || '',
+                (buttonBg !== 'secondary' || buttonText !== 'btn') && 'hover:opacity-90',
+              )}
+              style={
+                buttonBg !== 'secondary' || buttonText !== 'btn'
+                  ? {
+                      backgroundColor: colorVar(buttonBg),
+                      color: colorVar(buttonText),
+                    }
+                  : undefined
+              }
+            >
+              {cta}
+            </Button>
+          )}
+        </div>
+        {imageAlt && showHeroImage && image ? (
+          <span className="sr-only">{imageAlt}</span>
+        ) : null}
+      </div>
+    </section>
+  )
+}
 
 export default CtaBanner
