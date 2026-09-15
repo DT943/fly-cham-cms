@@ -1792,5 +1792,81 @@
       ],
       "browse": "Browse FAQs"
     }
+  },
+  "mediaCenter": {
+    "breadcrumb": "Media Center",
+    "hero": {
+      "title": "Media Center",
+      "subtitle": "All News and Press Releases at Your Fingertips",
+      "imageAlt": "Fly Cham aircraft flying above the clouds"
+    },
+    "intro": "Welcome to the Fly Cham Media Center, where we provide the latest news, press releases, events, and official announcements. You can also browse photos and videos, or contact our media team.",
+    "latestNews": {
+      "title": "Latest News",
+      "readMore": "Read more",
+      "categories": {
+        "network": "Network",
+        "destinations": "Destinations",
+        "company": "Company"
+      },
+      "articles": {
+        "expansionPlans": {
+          "date": "Mar 7, 2026",
+          "title": "Company Announces Major Expansion Plans",
+          "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+          "imageAlt": "Modern city skyline beside the water"
+        }
+      }
+    },
+    "newsGrid": {
+      "title": "Explore News & Updates",
+      "description": "Browse recent Fly Cham activities and news, press releases, company announcements, and updates.",
+      "learnMore": "Learn More",
+      "viewAll": "View All News",
+      "articles": {
+        "expansionPlans": {
+          "date": "Mar 7, 2026",
+          "title": "Company Announces Major Expansion Plans",
+          "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "imageAlt": "Modern city skyline beside the water"
+        },
+        "newRoutes": {
+          "date": "Feb 18, 2026",
+          "title": "Fly Cham Adds Three New Regional Routes",
+          "excerpt": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.",
+          "imageAlt": "Dubai skyline at sunset"
+        },
+        "fleetUpdate": {
+          "date": "Jan 24, 2026",
+          "title": "Fly Cham Welcomes New Aircraft to Its Fleet",
+          "excerpt": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat.",
+          "imageAlt": "Istanbul cityscape with historic architecture"
+        }
+      }
+    },
+    "magazine": {
+      "title": "A Closer Look at Our Destinations in Marhaba Magazine",
+      "description": "Don't miss our inspiring destination stories, cultural and tradition spotlights from across our destinations network in Marhaba Onboard Magazine.",
+      "cta": "Explore Magazine Issues"
+    },
+    "contactCards": {
+      "publicRelations": {
+        "title": "Public Relation Department",
+        "description": "Whether you represent the media, are a strategic partner, or are simply interested in following our news, our Public Relations team is ready to collaborate and provide support with the highest level of professionalism. For inquiries regarding collaborations, press release requests, or to coordinate interviews and media coverage, please contact the Public Relations team via email at:"
+      },
+      "mediaTeam": {
+        "title": "Contact Our Media Team",
+        "description": "For media inquiries, interviews, and press materials, please contact our Marketing and Communication Department.",
+        "department": "Marketing and Communication Department",
+        "location": "Fly Cham Damascus, Syria"
+      }
+    },
+    "newsletter": {
+      "title": "Stay Connected",
+      "description": "Subscribe to our newsletter to receive our latest news, activities, and Marhaba magazine updates.",
+      "label": "Email address",
+      "placeholder": "Enter email address",
+      "cta": "Subscribe"
+    }
   }
 }

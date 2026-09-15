@@ -7,7 +7,7 @@ import mediaTeamPhoto from '../../../assets/images/about-us/media-team.jpg'
 
 const cards = [
   { id: 'responsibility', image: responsibilityPhoto, href: '/our-responsibility' },
-  { id: 'mediaTeam', image: mediaTeamPhoto, href: '/help/contact-us' },
+  { id: 'mediaTeam', image: mediaTeamPhoto, href: '/media-center' },
 ]
 
 const AboutMediaCards = () => {

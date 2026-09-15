@@ -1800,5 +1800,81 @@
       ],
       "browse": "تصفّح الأسئلة الشائعة"
     }
+  },
+  "mediaCenter": {
+    "breadcrumb": "المركز الإعلامي",
+    "hero": {
+      "title": "المركز الإعلامي",
+      "subtitle": "جميع الأخبار والبيانات الصحفية في متناول يدك",
+      "imageAlt": "طائرة فلاي شام تحلّق فوق الغيوم"
+    },
+    "intro": "أهلاً بكم في المركز الإعلامي لفلاي شام، حيث نوفّر أحدث الأخبار والبيانات الصحفية والفعاليات والإعلانات الرسمية. يمكنكم أيضاً تصفّح الصور ومقاطع الفيديو، أو التواصل مع فريقنا الإعلامي.",
+    "latestNews": {
+      "title": "آخر الأخبار",
+      "readMore": "اقرأ المزيد",
+      "categories": {
+        "network": "الشبكة",
+        "destinations": "الوجهات",
+        "company": "الشركة"
+      },
+      "articles": {
+        "expansionPlans": {
+          "date": "7 مارس 2026",
+          "title": "الشركة تعلن عن خطط توسع كبرى",
+          "excerpt": "لوريم إيبسوم dolor sit amet، consectetur adipiscing elit، sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam، quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+          "imageAlt": "أفق مدينة حديثة بجانب الماء"
+        }
+      }
+    },
+    "newsGrid": {
+      "title": "استكشف الأخبار والتحديثات",
+      "description": "تصفّح أحدث أنشطة فلاي شام والأخبار والبيانات الصحفية وإعلانات الشركة والتحديثات.",
+      "learnMore": "اعرف المزيد",
+      "viewAll": "عرض كل الأخبار",
+      "articles": {
+        "expansionPlans": {
+          "date": "7 مارس 2026",
+          "title": "الشركة تعلن عن خطط توسع كبرى",
+          "excerpt": "لوريم إيبسوم dolor sit amet، consectetur adipiscing elit، sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "imageAlt": "أفق مدينة حديثة بجانب الماء"
+        },
+        "newRoutes": {
+          "date": "18 فبراير 2026",
+          "title": "فلاي شام تضيف ثلاث وجهات إقليمية جديدة",
+          "excerpt": "Ut enim ad minim veniam، quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.",
+          "imageAlt": "أفق دبي عند الغروب"
+        },
+        "fleetUpdate": {
+          "date": "24 يناير 2026",
+          "title": "فلاي شام تستقبل طائرات جديدة في أسطولها",
+          "excerpt": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat.",
+          "imageAlt": "منظر إسطنبول مع معالم تاريخية"
+        }
+      }
+    },
+    "magazine": {
+      "title": "نظرة أقرب على وجهاتنا في مجلة مرحبا",
+      "description": "لا تفوّت قصص وجهاتنا الملهمة، ولمحات الثقافة والتقاليد من شبكة وجهاتنا في مجلة مرحبا على متن الطائرة.",
+      "cta": "استكشف أعداد المجلة"
+    },
+    "contactCards": {
+      "publicRelations": {
+        "title": "قسم العلاقات العامة",
+        "description": "سواء كنتم تمثلون وسائل الإعلام، أو كنتم شريكاً استراتيجياً، أو مهتمين بمتابعة أخبارنا، فإن فريق العلاقات العامة لدينا مستعد للتعاون وتقديم الدعم بأعلى مستويات الاحترافية. للاستفسارات المتعلقة بالتعاون أو طلبات البيانات الصحفية أو تنسيق المقابلات والتغطية الإعلامية، يرجى التواصل مع فريق العلاقات العامة عبر البريد الإلكتروني:"
+      },
+      "mediaTeam": {
+        "title": "تواصل مع فريقنا الإعلامي",
+        "description": "للاستفسارات الإعلامية والمقابلات والمواد الصحفية، يرجى التواصل مع قسم التسويق والاتصال.",
+        "department": "قسم التسويق والاتصال",
+        "location": "فلاي شام، دمشق، سوريا"
+      }
+    },
+    "newsletter": {
+      "title": "ابقَ على تواصل",
+      "description": "اشترك في نشرتنا الإخبارية لتصلك أحدث الأخبار والأنشطة وتحديثات مجلة مرحبا.",
+      "label": "عنوان البريد الإلكتروني",
+      "placeholder": "أدخل عنوان البريد الإلكتروني",
+      "cta": "اشترك"
+    }
   }
 }

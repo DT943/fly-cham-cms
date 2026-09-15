@@ -18,6 +18,7 @@ import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
 import SeatSelection from '../../../pages/seat-selection/SeatSelection.jsx'
 import AboutUs from '../../../pages/about-us/AboutUs.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
+import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
 import {
@@ -53,6 +54,7 @@ export const pages = {
   '/travel-experience/after-travel': BeforeYouFly,
   '/our-responsibility': OurResponsibility,
   '/about-us': AboutUs,
+  '/media-center': MediaCenter,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
