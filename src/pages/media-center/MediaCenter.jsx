@@ -43,9 +43,9 @@ const MediaCenter = () => {
         <MediaMagazineBanner />
 
         <MediaContactCards />
-
-        <MediaNewsletterSignup />
       </Container>
+
+      <MediaNewsletterSignup layout="fullBleed" />
     </main>
   )
 }
