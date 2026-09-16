@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import {
   ALIGN,
-  WEIGHT,
   SECTION_PADDING,
   CARD_GAP,
   GRID_COLS,
+  CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getTextStyleVars,
 } from '../../../styles/cmsStyle.js'
 import {
   helpCategories as defaultCategories,
@@ -29,7 +30,11 @@ const HelpCategories = ({
   sectionPadding = 'default',
   sectionTitleColor = '700',
   sectionTitleFontWeight = 'bold',
+  sectionTitleColorHover,
+  sectionTitleFontWeightHover,
   sectionSubtitleColor = '600',
+  sectionSubtitleColorHover,
+  sectionSubtitleFontWeightHover,
   titleAlign = 'left',
   columns = 5,
   cardGap = 'default',
@@ -50,6 +55,18 @@ const HelpCategories = ({
   const colKey = String(columns)
   const headerVisible = showHeader && (showSectionTitle || showSectionSubtitle)
 
+  const sectionTitleStyleKeys = {
+    sectionTitleColor,
+    sectionTitleFontWeight,
+    sectionTitleColorHover,
+    sectionTitleFontWeightHover,
+  }
+  const sectionSubtitleStyleKeys = {
+    sectionSubtitleColor,
+    sectionSubtitleColorHover,
+    sectionSubtitleFontWeightHover,
+  }
+
   return (
     <SearchAnchor
       hit="help-categories"
@@ -65,20 +82,16 @@ const HelpCategories = ({
         <div className={cx('flex flex-col gap-2', ALIGN[titleAlign])}>
           {showSectionTitle && resolvedTitle && (
             <h2
-              className={cx(
-                typography.sectionTitle,
-                WEIGHT[sectionTitleFontWeight] || 'font-bold',
-                'm-0',
-              )}
-              style={{ color: colorVar(sectionTitleColor) }}
+              className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(sectionTitleStyleKeys, 'sectionTitleColor', '700', 'bold')}
             >
               {resolvedTitle}
             </h2>
           )}
           {showSectionSubtitle && resolvedSubtitle && (
             <p
-              className={cx(typography.sectionDescription, 'm-0 max-w-3xl')}
-              style={{ color: colorVar(sectionSubtitleColor) }}
+              className={cx(typography.sectionDescription, 'm-0 max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(sectionSubtitleStyleKeys, 'sectionSubtitleColor', '600', 'normal')}
             >
               {resolvedSubtitle}
             </p>

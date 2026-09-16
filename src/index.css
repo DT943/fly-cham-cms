@@ -8,6 +8,21 @@
   --color-text: #3e3e3b;
 }
 
+/*
+ * Per-role CMS text hover (driven by the block's *Hover style keys).
+ * The element carries its Normal color/weight inline plus --cms-hc / --cms-hw
+ * (Hover values); on :hover we swap them in. `!important` beats the element's
+ * own inline color/font-weight. When Hover is uncustomised these vars equal the
+ * Normal values, so there is no visible change. Mirrors cms2's .cms2-text-hover.
+ */
+.cms-text-hover {
+  transition: color 0.15s ease;
+}
+.cms-text-hover:hover {
+  color: var(--cms-hc) !important;
+  font-weight: var(--cms-hw) !important;
+}
+
 
 /* Preline UI */
 /* Force the day button (the clickable circle) to be a perfect flex-centered circle */

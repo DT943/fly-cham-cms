@@ -1,5 +1,10 @@
 import { FiSearch } from 'react-icons/fi'
-import { RADIUS, WEIGHT, colorVar } from '../../../../styles/cmsStyle.js'
+import {
+  RADIUS,
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getTextStyleVars,
+} from '../../../../styles/cmsStyle.js'
 import { typography } from '../../../../styles/typography.js'
 import SearchResultsMenu from '../../../../shared/search/components/SearchResultsMenu.jsx'
 import { cx } from './cx.js'
@@ -18,9 +23,13 @@ const SearchField = ({
   showChips,
   inputBg,
   inputTextColor,
+  inputTextColorHover,
+  inputTextFontWeightHover,
   submitBg,
   submitTextColor,
   submitFontWeight,
+  submitTextColorHover,
+  submitTextFontWeightHover,
   ariaLabel,
   onQueryChange,
   onFocus,
@@ -28,6 +37,18 @@ const SearchField = ({
 }) => {
   const submitFirstResult = () => {
     if (results[0]) onSelect(results[0])
+  }
+
+  const inputTextStyleKeys = {
+    inputTextColor,
+    inputTextColorHover,
+    inputTextFontWeightHover,
+  }
+  const submitTextStyleKeys = {
+    submitTextColor,
+    submitTextFontWeight: submitFontWeight,
+    submitTextColorHover,
+    submitTextFontWeightHover,
   }
 
   return (
@@ -53,8 +74,9 @@ const SearchField = ({
             'w-full border-none bg-transparent outline-none',
             typography.body,
             'placeholder:text-600',
+            CMS_TEXT_HOVER_CLASS,
           )}
-          style={{ color: colorVar(inputTextColor) }}
+          style={getTextStyleVars(inputTextStyleKeys, 'inputTextColor', '700', 'normal')}
           placeholder={placeholder}
           value={query}
           onChange={(event) => onQueryChange(event.target.value, event)}
@@ -74,12 +96,12 @@ const SearchField = ({
               'hidden shrink-0 cursor-pointer border-none px-6 py-2 md:inline-flex',
               RADIUS.lg,
               typography.button,
-              WEIGHT[submitFontWeight] || 'font-semibold',
               'transition-opacity hover:opacity-90',
+              CMS_TEXT_HOVER_CLASS,
             )}
             style={{
-              color: colorVar(submitTextColor),
               backgroundColor: colorVar(submitBg),
+              ...getTextStyleVars(submitTextStyleKeys, 'submitTextColor', '700', 'semibold'),
             }}
           >
             {submitLabel}

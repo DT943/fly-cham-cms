@@ -1,5 +1,12 @@
 import { typography } from '../../styles/typography.js'
-import { RADIUS, WEIGHT, ALIGN, SECTION_PADDING, colorVar } from '../../styles/cmsStyle.js'
+import {
+  RADIUS,
+  ALIGN,
+  SECTION_PADDING,
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getTextStyleVars,
+} from '../../styles/cmsStyle.js'
 
 const maskStyle = (mask) => ({
   WebkitMaskImage: `url(${mask})`,
@@ -59,6 +66,10 @@ const PageHero = ({
   subtitleColor = '700',
   titleFontWeight = 'bold',
   subtitleFontWeight = 'medium',
+  titleColorHover,
+  titleFontWeightHover,
+  subtitleColorHover,
+  subtitleFontWeightHover,
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
@@ -82,6 +93,19 @@ const PageHero = ({
 
   const sectionStyle = showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined
 
+  const titleStyleKeys = {
+    titleColor,
+    titleFontWeight,
+    titleColorHover,
+    titleFontWeightHover,
+  }
+  const subtitleStyleKeys = {
+    subtitleColor,
+    subtitleFontWeight,
+    subtitleColorHover,
+    subtitleFontWeightHover,
+  }
+
   return (
     <section className={sectionClassName} style={sectionStyle}>
       {hasImage && (
@@ -99,16 +123,16 @@ const PageHero = ({
       >
         {showTitle && (
           <h1
-            className={`${typography.pageTitle} ${WEIGHT[titleFontWeight] || 'font-bold'} leading-tight m-0`}
-            style={{ color: colorVar(titleColor) }}
+            className={`${typography.pageTitle} leading-tight m-0 ${CMS_TEXT_HOVER_CLASS}`}
+            style={getTextStyleVars(titleStyleKeys, 'titleColor', 'primary-1', 'bold')}
           >
             {title}
           </h1>
         )}
         {showSubtitle && subtitle && (
           <p
-            className={`${typography.sectionDescription} ${WEIGHT[subtitleFontWeight] || 'font-medium'} m-0`}
-            style={{ color: colorVar(subtitleColor) }}
+            className={`${typography.sectionDescription} m-0 ${CMS_TEXT_HOVER_CLASS}`}
+            style={getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '700', 'medium')}
           >
             {subtitle}
           </p>

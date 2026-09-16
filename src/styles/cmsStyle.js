@@ -98,3 +98,53 @@ export const colorMix = (token, opacity) => {
   if (!Number.isFinite(amount) || amount >= 100) return colorVar(token)
   return `color-mix(in srgb, ${colorVar(token)} ${amount}%, transparent)`
 }
+
+/**
+ * Per-role text hover, mirroring flychamadmin cms2's getTextStyleVars.
+ * Numeric font-weight values (inline) so the `:hover` swap can override the
+ * element's own inline weight; see the `.cms-text-hover` rule in index.css.
+ */
+export const CMS_TEXT_HOVER_CLASS = 'cms-text-hover'
+
+const FONT_WEIGHT_VALUE = {
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+}
+
+const fontWeightValue = (token, fallback = 'medium') =>
+  FONT_WEIGHT_VALUE[token] ?? FONT_WEIGHT_VALUE[fallback] ?? 500
+
+/** Derive the weight key paired with a text color key (titleColor → titleFontWeight). */
+const weightKeyForColorKey = (colorKey) => {
+  if (!colorKey) return null
+  if (colorKey.endsWith('Color')) return colorKey.replace(/Color$/, 'FontWeight')
+  if (colorKey.endsWith('Text')) return `${colorKey}FontWeight`
+  return null
+}
+
+/**
+ * Inline style for a text role: Normal color/weight plus the Hover color/weight
+ * as `--cms-hc` / `--cms-hw` custom properties. Hover falls back to the Normal
+ * value when unset, so uncustomised text looks identical on hover.
+ * Pair with `className={CMS_TEXT_HOVER_CLASS}`.
+ */
+export const getTextStyleVars = (style, colorKey, colorFallback, weightFallback = 'medium') => {
+  const weightKey = weightKeyForColorKey(colorKey)
+  const normalColor = style?.[colorKey] ?? colorFallback
+  const normalWeight = weightKey ? style?.[weightKey] : undefined
+  const hoverColor = style?.[`${colorKey}Hover`] ?? normalColor
+  const hoverWeight = weightKey
+    ? (style?.[`${weightKey}Hover`] ?? normalWeight)
+    : undefined
+
+  return {
+    color: colorVar(normalColor),
+    fontWeight: fontWeightValue(normalWeight, weightFallback),
+    '--cms-hc': colorVar(hoverColor),
+    '--cms-hw': fontWeightValue(hoverWeight, weightFallback),
+  }
+}
