@@ -1868,5 +1868,88 @@
       "placeholder": "Enter email address",
       "cta": "Subscribe"
     }
+  },
+  "recentNews": {
+    "breadcrumb": "Recent News",
+    "title": "Recent News",
+    "description": "Stay informed with the latest Fly Cham news, official announcements, press releases, partnerships, company developments, and stories from across our network.",
+    "filters": {
+      "label": "Filter by:",
+      "monthLabel": "Month",
+      "yearLabel": "Year",
+      "search": "Search",
+      "months": {
+        "all": "All month",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "years": {
+        "all": "All year",
+        "2025": "2025",
+        "2024": "2024",
+        "2023": "2023"
+      }
+    },
+    "topics": {
+      "all": "All topic",
+      "corporate": "Corporate",
+      "network": "Network",
+      "sponsorships": "Sponsorships",
+      "events": "Events",
+      "customerExperience": "Customer experience"
+    },
+    "categories": {
+      "corporate": "Corporate",
+      "network": "Network",
+      "sponsorships": "Sponsorships",
+      "events": "Events",
+      "customerExperience": "Customer experience"
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page"
+    },
+    "articles": {
+      "expansionPlans": {
+        "date": "24 JUL 2025",
+        "title": "Company Announces Major Expansion Plans",
+        "imageAlt": "Modern city skyline beside the water"
+      },
+      "corporateUpdate": {
+        "date": "18 JUL 2025",
+        "title": "Fly Cham Strengthens Corporate Governance Framework",
+        "imageAlt": "Dubai skyline at sunset"
+      },
+      "sponsorshipLaunch": {
+        "date": "12 JUN 2025",
+        "title": "Fly Cham Launches New Community Sponsorship Program",
+        "imageAlt": "Istanbul cityscape with historic architecture"
+      },
+      "communityEvent": {
+        "date": "05 JUN 2025",
+        "title": "Fly Cham Hosts Annual Community Engagement Event",
+        "imageAlt": "Damascus city view"
+      },
+      "customerExperience": {
+        "date": "22 MAY 2025",
+        "title": "Fly Cham Introduces Enhanced Onboard Customer Experience",
+        "imageAlt": "Istanbul landmarks"
+      },
+      "routeExpansion": {
+        "date": "10 MAY 2025",
+        "title": "Fly Cham Expands Regional Route Network",
+        "imageAlt": "Dubai waterfront skyline"
+      }
+    }
   }
 }

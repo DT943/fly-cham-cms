@@ -37,7 +37,7 @@ const NewsGrid = () => {
 
       <div className="flex justify-center">
         <LocalizedLink
-          href="#"
+          href="/recent-news"
           className={`${typography.button} font-semibold text-primary-1 bg-background border border-primary-1 hover:bg-100 no-underline rounded-lg px-10 py-3`}
         >
           {t('mediaCenter.newsGrid.viewAll')}
