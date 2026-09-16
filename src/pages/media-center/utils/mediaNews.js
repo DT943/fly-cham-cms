@@ -2,6 +2,7 @@ import latestNewsPhoto from '../../../assets/images/media-center/latest-news.jpg
 import newsGridPhotoOne from '../../../assets/images/media-center/latest-news.jpg'
 import newsGridPhotoTwo from '../../../assets/images/media-center/news-grid-2.jpg'
 import newsGridPhotoThree from '../../../assets/images/media-center/news-grid-3.jpg'
+import { getNewsDetailHref } from '../../news-detail/utils/newsArticles.js'
 
 /**
  * Media Center news content.
@@ -18,7 +19,7 @@ export const latestNewsArticles = [
     category: 'network',
     dateTime: '2026-03-07',
     image: latestNewsPhoto,
-    href: '#',
+    href: getNewsDetailHref('expansionPlans'),
   },
 ]
 
@@ -28,20 +29,20 @@ export const newsGridArticles = [
     category: 'destinations',
     dateTime: '2026-03-07',
     image: newsGridPhotoOne,
-    href: '#',
+    href: getNewsDetailHref('expansionPlans'),
   },
   {
     id: 'newRoutes',
     category: 'network',
     dateTime: '2026-02-18',
     image: newsGridPhotoTwo,
-    href: '#',
+    href: getNewsDetailHref('newRoutes'),
   },
   {
     id: 'fleetUpdate',
     category: 'company',
     dateTime: '2026-01-24',
     image: newsGridPhotoThree,
-    href: '#',
+    href: getNewsDetailHref('fleetUpdate'),
   },
 ]

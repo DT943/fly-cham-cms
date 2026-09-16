@@ -4,6 +4,7 @@ import newsThree from '../../../assets/images/media-center/news-grid-3.jpg'
 import newsFour from '../../../assets/images/our-destenations/damascus.jpeg'
 import newsFive from '../../../assets/images/our-destenations/istanbul.jpg'
 import newsSix from '../../../assets/images/our-destenations/dubai.jpg'
+import { getNewsDetailHref } from '../../news-detail/utils/newsArticles.js'
 
 /**
  * Recent News listing content.
@@ -50,7 +51,7 @@ export const recentNewsArticles = [
     month: 'july',
     dateTime: '2025-07-24',
     image: newsOne,
-    href: '#',
+    href: getNewsDetailHref('expansionPlans'),
   },
   {
     id: 'corporateUpdate',
@@ -60,7 +61,7 @@ export const recentNewsArticles = [
     month: 'july',
     dateTime: '2025-07-18',
     image: newsTwo,
-    href: '#',
+    href: getNewsDetailHref('corporateUpdate'),
   },
   {
     id: 'sponsorshipLaunch',
@@ -70,7 +71,7 @@ export const recentNewsArticles = [
     month: 'june',
     dateTime: '2025-06-12',
     image: newsThree,
-    href: '#',
+    href: getNewsDetailHref('sponsorshipLaunch'),
   },
   {
     id: 'communityEvent',
@@ -80,7 +81,7 @@ export const recentNewsArticles = [
     month: 'june',
     dateTime: '2025-06-05',
     image: newsFour,
-    href: '#',
+    href: getNewsDetailHref('communityEvent'),
   },
   {
     id: 'customerExperience',
@@ -90,7 +91,7 @@ export const recentNewsArticles = [
     month: 'may',
     dateTime: '2025-05-22',
     image: newsFive,
-    href: '#',
+    href: getNewsDetailHref('customerExperience'),
   },
   {
     id: 'routeExpansion',
@@ -100,7 +101,7 @@ export const recentNewsArticles = [
     month: 'may',
     dateTime: '2025-05-10',
     image: newsSix,
-    href: '#',
+    href: getNewsDetailHref('routeExpansion'),
   },
 ]
 

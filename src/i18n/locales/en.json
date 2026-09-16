@@ -305,8 +305,14 @@
         "city": "Yerevan",
         "address": "3 Yeznik Koghbatsi Street",
         "hours": [
-          { "days": "Mon–Fri", "time": "10:00 AM - 06:00 PM" },
-          { "days": "Sat–Sun", "time": "Weekend" }
+          {
+            "days": "Mon–Fri",
+            "time": "10:00 AM - 06:00 PM"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "Weekend"
+          }
         ]
       },
       "iraqBaghdad": {
@@ -314,9 +320,18 @@
         "city": "Baghdad",
         "address": "Saadoon Street",
         "hours": [
-          { "days": "Mon–Thu", "time": "09:30 AM - 03:30 PM" },
-          { "days": "Fri", "time": "Weekend" },
-          { "days": "Sat–Sun", "time": "09:30 AM - 03:30 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "09:30 AM - 03:30 PM"
+          },
+          {
+            "days": "Fri",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "09:30 AM - 03:30 PM"
+          }
         ]
       },
       "iraqBasrah": {
@@ -324,8 +339,14 @@
         "city": "Basrah",
         "address": "14 Tammoz St., Near Basra's International Hotel",
         "hours": [
-          { "days": "Mon–Sun", "time": "09:00 AM - 09:00 PM" },
-          { "days": "Fri-Sat", "time": "Weekend" }
+          {
+            "days": "Mon–Sun",
+            "time": "09:00 AM - 09:00 PM"
+          },
+          {
+            "days": "Fri-Sat",
+            "time": "Weekend"
+          }
         ]
       },
       "iraqErbil": {
@@ -333,9 +354,18 @@
         "city": "Erbil",
         "address": "Gullan Street, English Village Road, Behind Costa Rica Cafe",
         "hours": [
-          { "days": "Mon–Thu", "time": "09:30 AM - 02:00 PM" },
-          { "days": "Fri", "time": "Weekend" },
-          { "days": "Sat–Sun", "time": "09:30 AM - 02:00 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "09:30 AM - 02:00 PM"
+          },
+          {
+            "days": "Fri",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "09:30 AM - 02:00 PM"
+          }
         ]
       },
       "iraqNajaf": {
@@ -343,8 +373,14 @@
         "city": "Al Najaf",
         "address": "Al-Rafidain Building, Muthanna St., Opposite Of Zain Company",
         "hours": [
-          { "days": "Mon–Sun", "time": "09:00 AM - 10:00 PM" },
-          { "days": "Fri-Sat", "time": "Weekend" }
+          {
+            "days": "Mon–Sun",
+            "time": "09:00 AM - 10:00 PM"
+          },
+          {
+            "days": "Fri-Sat",
+            "time": "Weekend"
+          }
         ]
       },
       "kuwaitMalek": {
@@ -352,9 +388,18 @@
         "city": "Kuwait",
         "address": "Al Qibla, Ali Salem Street, Al Thuwaini Building, Next To The Fire Service Directorate",
         "hours": [
-          { "days": "Mon–Thu", "time": "08:30 AM - 09:00 PM" },
-          { "days": "Fri", "time": "Weekend" },
-          { "days": "Sat–Sun", "time": "08:30 AM - 09:00 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "08:30 AM - 09:00 PM"
+          },
+          {
+            "days": "Fri",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "08:30 AM - 09:00 PM"
+          }
         ]
       },
       "libyaTripoli": {
@@ -362,9 +407,18 @@
         "city": "Tripoli",
         "address": "Omar Al-Mukhtar Complex Office No. 49",
         "hours": [
-          { "days": "Mon–Thu", "time": "09:00 AM - 05:00 PM" },
-          { "days": "Fri", "time": "Weekend" },
-          { "days": "Sat–Sun", "time": "09:00 AM - 05:00 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "09:00 AM - 05:00 PM"
+          },
+          {
+            "days": "Fri",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "09:00 AM - 05:00 PM"
+          }
         ]
       },
       "omanMuscat": {
@@ -372,9 +426,18 @@
         "city": "Muscat",
         "address": "Muscat-Al Khuwair North -Ministries District Roundabout-A’Raya Complex -Ground Floor -Office G02",
         "hours": [
-          { "days": "Mon–Thu", "time": "09:00 AM - 05:00 PM" },
-          { "days": "Fri–Sat", "time": "Weekend" },
-          { "days": "Sun", "time": "09:00 AM - 05:00 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "09:00 AM - 05:00 PM"
+          },
+          {
+            "days": "Fri–Sat",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sun",
+            "time": "09:00 AM - 05:00 PM"
+          }
         ]
       },
       "pakistanKarachi": {
@@ -382,8 +445,14 @@
         "city": "Karachi",
         "address": "U-1 Ground Floor, Trade Tower Opposite Services Mess Abdullah Haroon Road, Karachi-Pakistan",
         "hours": [
-          { "days": "Mon–Sat", "time": "09:00 AM – 05:00 PM" },
-          { "days": "Sun", "time": "Weekend" }
+          {
+            "days": "Mon–Sat",
+            "time": "09:00 AM – 05:00 PM"
+          },
+          {
+            "days": "Sun",
+            "time": "Weekend"
+          }
         ]
       },
       "pakistanLahore": {
@@ -391,8 +460,14 @@
         "city": "Lahore",
         "address": "4-Ug Al-Hafeez Heights 65-D, Gulberg-3 Lahore-Pakistan",
         "hours": [
-          { "days": "Mon–Sat", "time": "09:00 AM – 05:00 PM" },
-          { "days": "Sun", "time": "Weekend" }
+          {
+            "days": "Mon–Sat",
+            "time": "09:00 AM – 05:00 PM"
+          },
+          {
+            "days": "Sun",
+            "time": "Weekend"
+          }
         ]
       },
       "sudanKhartoum": {
@@ -400,9 +475,18 @@
         "city": "Khartoum",
         "address": "17 Mc Nimir St, Intersection Of Mc Nimir St & Baladia St",
         "hours": [
-          { "days": "Mon–Thu", "time": "09:00 AM - 04:30 PM" },
-          { "days": "Fri–Sat", "time": "Weekend" },
-          { "days": "Sun", "time": "09:00 AM - 04:30 PM" }
+          {
+            "days": "Mon–Thu",
+            "time": "09:00 AM - 04:30 PM"
+          },
+          {
+            "days": "Fri–Sat",
+            "time": "Weekend"
+          },
+          {
+            "days": "Sun",
+            "time": "09:00 AM - 04:30 PM"
+          }
         ]
       },
       "turkeyIstanbul": {
@@ -410,8 +494,14 @@
         "city": "Istanbul",
         "address": "Ergenekon Mah. Halaskargazi Cad. No: 11 Daire No: 2 Şişli/ İstanbul",
         "hours": [
-          { "days": "Mon–Fri", "time": "09:00 AM - 05:00 PM" },
-          { "days": "Sat–Sun", "time": "Weekend" }
+          {
+            "days": "Mon–Fri",
+            "time": "09:00 AM - 05:00 PM"
+          },
+          {
+            "days": "Sat–Sun",
+            "time": "Weekend"
+          }
         ]
       },
       "uaeDubai": {
@@ -419,8 +509,14 @@
         "city": "Dubai",
         "address": "Office 110, Zeenah Bldg, Port Saeed, Dubai, UAE",
         "hours": [
-          { "days": "Mon–Sun", "time": "09:00 AM - 07:00 PM" },
-          { "days": "Fri-Sat", "time": "Weekend" }
+          {
+            "days": "Mon–Sun",
+            "time": "09:00 AM - 07:00 PM"
+          },
+          {
+            "days": "Fri-Sat",
+            "time": "Weekend"
+          }
         ]
       }
     },
@@ -983,19 +1079,58 @@
       }
     },
     "cities": {
-      "aleppo": { "name": "Aleppo", "flights": "Flights to Aleppo" },
-      "damascus": { "name": "Damascus", "flights": "Flights to Damascus" },
-      "abuDhabi": { "name": "Abu Dhabi", "flights": "Flights to Abu Dhabi" },
-      "sharjah": { "name": "Sharjah", "flights": "Flights to Sharjah" },
-      "dubai": { "name": "Dubai", "flights": "Flights to Dubai" },
-      "dammam": { "name": "Dammam", "flights": "Flights to Dammam" },
-      "muscat": { "name": "Muscat", "flights": "Flights to Muscat" },
-      "istanbul": { "name": "Istanbul", "flights": "Flights to Istanbul" },
-      "tripoli": { "name": "Tripoli", "flights": "Flights to Tripoli" },
-      "erbil": { "name": "Erbil", "flights": "Flights to Erbil" },
-      "baghdad": { "name": "Baghdad", "flights": "Flights to Baghdad" },
-      "yerevan": { "name": "Yerevan", "flights": "Flights to Yerevan" },
-      "kuwait": { "name": "Kuwait", "flights": "Flights to Kuwait" }
+      "aleppo": {
+        "name": "Aleppo",
+        "flights": "Flights to Aleppo"
+      },
+      "damascus": {
+        "name": "Damascus",
+        "flights": "Flights to Damascus"
+      },
+      "abuDhabi": {
+        "name": "Abu Dhabi",
+        "flights": "Flights to Abu Dhabi"
+      },
+      "sharjah": {
+        "name": "Sharjah",
+        "flights": "Flights to Sharjah"
+      },
+      "dubai": {
+        "name": "Dubai",
+        "flights": "Flights to Dubai"
+      },
+      "dammam": {
+        "name": "Dammam",
+        "flights": "Flights to Dammam"
+      },
+      "muscat": {
+        "name": "Muscat",
+        "flights": "Flights to Muscat"
+      },
+      "istanbul": {
+        "name": "Istanbul",
+        "flights": "Flights to Istanbul"
+      },
+      "tripoli": {
+        "name": "Tripoli",
+        "flights": "Flights to Tripoli"
+      },
+      "erbil": {
+        "name": "Erbil",
+        "flights": "Flights to Erbil"
+      },
+      "baghdad": {
+        "name": "Baghdad",
+        "flights": "Flights to Baghdad"
+      },
+      "yerevan": {
+        "name": "Yerevan",
+        "flights": "Flights to Yerevan"
+      },
+      "kuwait": {
+        "name": "Kuwait",
+        "flights": "Flights to Kuwait"
+      }
     }
   },
   "travelExperience": {
@@ -1283,81 +1418,81 @@
   },
   "destinationGuides": {
     "damascus": {
-    "breadcrumb": "Flights to Damascus",
-    "hero": {
-      "title": "Flights to Damascus (DAM)",
-      "country": "Syria",
-      "imageAlt": "The Umayyad Mosque minaret rising above the old city of Damascus"
-    },
-    "stats": {
-      "airport": {
-        "label": "Airport",
-        "value": "DAM",
-        "detail": "Damascus International Airport"
+      "breadcrumb": "Flights to Damascus",
+      "hero": {
+        "title": "Flights to Damascus (DAM)",
+        "country": "Syria",
+        "imageAlt": "The Umayyad Mosque minaret rising above the old city of Damascus"
       },
-      "time": {
-        "label": "Local time",
-        "value": "GMT+3",
-        "detail": "2026-09-06"
-      },
-      "weather": {
-        "label": "Weather",
-        "value": "20°C",
-        "detail": "clear skies"
-      },
-      "currency": {
-        "label": "Currency",
-        "value": "Syrian Pound",
-        "detail": ""
-      }
-    },
-    "narratives": {
-      "special": {
-        "title": "What makes Damascus special?",
-        "description": "Travel to the Syrian capital, Damascus, where you'll find a unique blend of culture and history. The city boasts a rich heritage, a distinctive character, and a vibrant atmosphere, making it one of the best destinations in the Middle East.",
-        "imageAlt": "The colonnaded entrance to the Umayyad Mosque in Damascus"
-      },
-      "cuisine": {
-        "title": "What are the most famous traditional dishes in Damascus?",
-        "description": "Damascus cuisine is one of the oldest and most authentic in the world, and the city's traditional dishes offer a wide variety to suit all tastes. Enjoy the rich flavors of popular local dishes and appetizers, including tabbouleh, yalanji, baba ghanouj, fava beans, kibbeh labneh, and ouzi rice, as well as delicious Damascene sweets like knafeh, madlouqa, maamoul, and more.",
-        "imageAlt": "A Damascene table spread with traditional mezze dishes"
-      },
-      "places": {
-        "title": "What Are the Best Places to Visit in Damascus?",
-        "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk al-Hamidiyah and Souk al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
-        "imageAlt": "A traditional Damascene courtyard house with a central fountain"
-      },
-      "activities": {
-        "title": "More Activities to Do in Damascus",
-        "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk Al-Hamidiyah and Souk Al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
-        "imageAlt": "Shoppers walking through the covered Souk Al-Hamidiyah"
-      }
-    },
-    "thingsToDo": {
-      "title": "Things to Do in Damascus",
-      "subtitle": "From iconic landmarks to vibrant markets, discover unforgettable experiences in one of the world's oldest cities.",
-      "cta": "Explore activities",
-      "items": {
-        "souk": {
-          "badge": "Visit",
-          "title": "Souq Al Hamidiyah",
-          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
-          "imageAlt": "Lantern-lit walkway inside Souq Al Hamidiyah"
+      "stats": {
+        "airport": {
+          "label": "Airport",
+          "value": "DAM",
+          "detail": "Damascus International Airport"
         },
-        "oldCity": {
-          "badge": "Walk Through",
-          "title": "The Old City of Damascus",
-          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
-          "imageAlt": "A stone-paved street in the old city of Damascus"
+        "time": {
+          "label": "Local time",
+          "value": "GMT+3",
+          "detail": "2026-09-06"
         },
-        "umayyadMosque": {
-          "badge": "See",
-          "title": "Umayyad Mosque",
-          "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
-          "imageAlt": "The minaret of the Umayyad Mosque at dusk"
+        "weather": {
+          "label": "Weather",
+          "value": "20°C",
+          "detail": "clear skies"
+        },
+        "currency": {
+          "label": "Currency",
+          "value": "Syrian Pound",
+          "detail": ""
+        }
+      },
+      "narratives": {
+        "special": {
+          "title": "What makes Damascus special?",
+          "description": "Travel to the Syrian capital, Damascus, where you'll find a unique blend of culture and history. The city boasts a rich heritage, a distinctive character, and a vibrant atmosphere, making it one of the best destinations in the Middle East.",
+          "imageAlt": "The colonnaded entrance to the Umayyad Mosque in Damascus"
+        },
+        "cuisine": {
+          "title": "What are the most famous traditional dishes in Damascus?",
+          "description": "Damascus cuisine is one of the oldest and most authentic in the world, and the city's traditional dishes offer a wide variety to suit all tastes. Enjoy the rich flavors of popular local dishes and appetizers, including tabbouleh, yalanji, baba ghanouj, fava beans, kibbeh labneh, and ouzi rice, as well as delicious Damascene sweets like knafeh, madlouqa, maamoul, and more.",
+          "imageAlt": "A Damascene table spread with traditional mezze dishes"
+        },
+        "places": {
+          "title": "What Are the Best Places to Visit in Damascus?",
+          "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk al-Hamidiyah and Souk al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
+          "imageAlt": "A traditional Damascene courtyard house with a central fountain"
+        },
+        "activities": {
+          "title": "More Activities to Do in Damascus",
+          "description": "There are plenty of fun travel activities to do when you visit Damascus, including great shopping opportunities to find souvenirs and local handicrafts, starting with traditional markets like Souk Al-Hamidiyah and Souk Al-Buzuriyah. Explore the art galleries, trendy boutiques, and lively cafes of Damascus.",
+          "imageAlt": "Shoppers walking through the covered Souk Al-Hamidiyah"
+        }
+      },
+      "thingsToDo": {
+        "title": "Things to Do in Damascus",
+        "subtitle": "From iconic landmarks to vibrant markets, discover unforgettable experiences in one of the world's oldest cities.",
+        "cta": "Explore activities",
+        "items": {
+          "souk": {
+            "badge": "Visit",
+            "title": "Souq Al Hamidiyah",
+            "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+            "imageAlt": "Lantern-lit walkway inside Souq Al Hamidiyah"
+          },
+          "oldCity": {
+            "badge": "Walk Through",
+            "title": "The Old City of Damascus",
+            "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+            "imageAlt": "A stone-paved street in the old city of Damascus"
+          },
+          "umayyadMosque": {
+            "badge": "See",
+            "title": "Umayyad Mosque",
+            "description": "A masterpiece of Islamic architecture and one of the most significant and historically rich mosques in the world.",
+            "imageAlt": "The minaret of the Umayyad Mosque at dusk"
+          }
         }
       }
-    }
     },
     "dubai": {
       "breadcrumb": "Flights to Dubai",
@@ -1894,10 +2029,10 @@
         "december": "December"
       },
       "years": {
-        "all": "All year",
-        "2025": "2025",
+        "2023": "2023",
         "2024": "2024",
-        "2023": "2023"
+        "2025": "2025",
+        "all": "All year"
       }
     },
     "topics": {
@@ -1949,6 +2084,199 @@
         "date": "10 MAY 2025",
         "title": "Fly Cham Expands Regional Route Network",
         "imageAlt": "Dubai waterfront skyline"
+      }
+    }
+  },
+  "newsDetail": {
+    "gallery": {
+      "prev": "Previous photo",
+      "next": "Next photo"
+    },
+    "categories": {
+      "network": "Network",
+      "destinations": "Destinations",
+      "company": "Company",
+      "corporate": "Corporate",
+      "sponsorships": "Sponsorships",
+      "events": "Events",
+      "customerExperience": "Customer experience"
+    },
+    "articles": {
+      "expansionPlans": {
+        "date": "24 JUL 2025",
+        "title": "Company Announces Major Expansion Plans",
+        "heroImageAlt": "Fly Cham crew member with aircraft on the tarmac",
+        "inlineImageAlt": "Scenic destination landscape with historic architecture",
+        "galleryAltPrefix": "Expansion plans gallery photo",
+        "intro": [
+          {
+            "bold": "Lorem ipsum dolor sit amet consectetur",
+            "text": " adipiscing elit. Donec vel felis at arcu bibendum interdum. Sed sit amet est sed nunc fringilla fringilla. Duis nec mi vitae magna ultricies tristique quis ut augue."
+          },
+          {
+            "bold": "Lorem ipsum dolor sit amet",
+            "text": " consectetur adipiscing elit. Donec vel felis at arcu bibendum interdum. Sed sit amet est sed nunc fringilla fringilla. Duis nec mi vitae magna ultricies tristique quis ut augue."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Donec vel felis at arcu bibendum interdum. Sed sit amet est sed nunc fringilla fringilla. Duis nec mi vitae magna ultricies tristique quis ut augue."
+          }
+        ]
+      },
+      "newRoutes": {
+        "date": "18 FEB 2026",
+        "title": "Fly Cham Adds Three New Regional Routes",
+        "heroImageAlt": "Dubai skyline at sunset",
+        "inlineImageAlt": "Istanbul cityscape with historic architecture",
+        "galleryAltPrefix": "New routes gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham continues to strengthen its regional network",
+            "text": " with the launch of three new routes designed to connect more communities across the Middle East and beyond."
+          },
+          {
+            "bold": "The new services reflect growing demand",
+            "text": " for convenient travel options and reinforce the airline's commitment to expanding access to key destinations."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "Passengers can look forward to the same reliable service, comfortable cabins, and seamless airport experience that define the Fly Cham brand across the network."
+          }
+        ]
+      },
+      "fleetUpdate": {
+        "date": "24 JAN 2026",
+        "title": "Fly Cham Welcomes New Aircraft to Its Fleet",
+        "heroImageAlt": "Istanbul cityscape with historic architecture",
+        "inlineImageAlt": "Damascus city view",
+        "galleryAltPrefix": "Fleet update gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham has welcomed new aircraft",
+            "text": " to its fleet as part of a broader plan to enhance operational efficiency and improve the onboard experience for passengers."
+          },
+          {
+            "bold": "The investment supports network growth",
+            "text": " while maintaining the airline's focus on safety, reliability, and service quality across every stage of the journey."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "The new additions will enter service on select regional routes, offering updated cabin interiors and improved comfort for both business and leisure travelers."
+          }
+        ]
+      },
+      "corporateUpdate": {
+        "date": "18 JUL 2025",
+        "title": "Fly Cham Strengthens Corporate Governance Framework",
+        "heroImageAlt": "Dubai skyline at sunset",
+        "inlineImageAlt": "Dubai waterfront skyline",
+        "galleryAltPrefix": "Corporate update gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham has updated its corporate governance framework",
+            "text": " to strengthen transparency, accountability, and long-term strategic oversight across the organization."
+          },
+          {
+            "bold": "The enhancements align with international best practices",
+            "text": " and support the airline's continued growth while maintaining the highest standards of operational integrity."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "These measures reinforce Fly Cham's commitment to responsible leadership and create a stronger foundation for future partnerships and stakeholder engagement."
+          }
+        ]
+      },
+      "sponsorshipLaunch": {
+        "date": "12 JUN 2025",
+        "title": "Fly Cham Launches New Community Sponsorship Program",
+        "heroImageAlt": "Istanbul cityscape with historic architecture",
+        "inlineImageAlt": "Istanbul landmarks",
+        "galleryAltPrefix": "Sponsorship program gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham has launched a new community sponsorship program",
+            "text": " aimed at supporting cultural, educational, and social initiatives across the regions it serves."
+          },
+          {
+            "bold": "The program reflects the airline's belief",
+            "text": " in giving back to the communities that have supported its growth and in creating meaningful opportunities beyond air travel."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "Applications and partnership proposals will be reviewed on a rolling basis, with selected initiatives receiving funding, visibility, and Fly Cham team support."
+          }
+        ]
+      },
+      "communityEvent": {
+        "date": "05 JUN 2025",
+        "title": "Fly Cham Hosts Annual Community Engagement Event",
+        "heroImageAlt": "Damascus city view",
+        "inlineImageAlt": "Scenic destination landscape with historic architecture",
+        "galleryAltPrefix": "Community event gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham hosted its annual community engagement event",
+            "text": " bringing together partners, local leaders, and team members to celebrate shared achievements and future collaboration."
+          },
+          {
+            "bold": "The event highlighted the airline's ongoing commitment",
+            "text": " to community connection, cultural exchange, and meaningful participation in the markets it serves."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "Guests enjoyed presentations on Fly Cham's latest initiatives, network developments, and customer experience enhancements planned for the year ahead."
+          }
+        ]
+      },
+      "customerExperience": {
+        "date": "22 MAY 2025",
+        "title": "Fly Cham Introduces Enhanced Onboard Customer Experience",
+        "heroImageAlt": "Istanbul landmarks",
+        "inlineImageAlt": "Dubai skyline at sunset",
+        "galleryAltPrefix": "Customer experience gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham has introduced a refreshed onboard customer experience",
+            "text": " designed to make every flight more comfortable, intuitive, and enjoyable from boarding to arrival."
+          },
+          {
+            "bold": "The enhancements include updated service standards",
+            "text": " improved meal presentation, and refined cabin hospitality training for frontline teams across the network."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "Passengers will notice thoughtful improvements throughout the journey, with a continued focus on warmth, reliability, and the signature Fly Cham welcome."
+          }
+        ]
+      },
+      "routeExpansion": {
+        "date": "10 MAY 2025",
+        "title": "Fly Cham Expands Regional Route Network",
+        "heroImageAlt": "Dubai waterfront skyline",
+        "inlineImageAlt": "Damascus city view",
+        "galleryAltPrefix": "Route expansion gallery photo",
+        "intro": [
+          {
+            "bold": "Fly Cham is expanding its regional route network",
+            "text": " to connect more cities and offer greater travel flexibility for business and leisure passengers."
+          },
+          {
+            "bold": "The expansion responds to strong market demand",
+            "text": " and reinforces the airline's strategy of building a balanced, sustainable network across the region."
+          }
+        ],
+        "afterGallery": [
+          {
+            "text": "New frequencies and destination pairings will improve connectivity while maintaining the consistent service quality customers expect from Fly Cham."
+          }
+        ]
       }
     }
   }

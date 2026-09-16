@@ -20,6 +20,8 @@ import AboutUs from '../../../pages/about-us/AboutUs.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
+import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
+import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
 import {
@@ -65,6 +67,7 @@ const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
 
 export function getPage(path) {
   if (pages[path]) return pages[path]
+  if (NEWS_DETAIL_PATH.test(path)) return NewsDetail
   if (getJourneyStage(getJourneyStageSlug(path))) return BeforeYouFly
   if (getDestinationGuide(getDestinationGuideSlug(path))) return ThingsToDoInDamascus
   if (formRequestPath.test(path)) return RequestAForm

@@ -1,4 +1,5 @@
 import { Clock } from '@phosphor-icons/react'
+import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../../styles/typography.js'
 import NewsLearnMoreLink from './NewsLearnMoreLink.jsx'
 
@@ -14,7 +15,9 @@ const NewsGridCard = ({
   href,
 }) => (
   <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-200 bg-50 shadow-[0px_4px_6px_rgba(33,37,41,0.05)]">
-    <img src={image} alt={imageAlt} className="aspect-[4/3] w-full object-cover" />
+    <LocalizedLink href={href} className="block no-underline">
+      <img src={image} alt={imageAlt} className="aspect-[4/3] w-full object-cover" />
+    </LocalizedLink>
 
     <div className="flex flex-1 flex-col gap-3 p-5 md:gap-4 md:p-6">
       <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-600 ${typography.caption}`}>
@@ -32,7 +35,11 @@ const NewsGridCard = ({
         </span>
       </div>
 
-      <h3 className={`m-0 font-semibold text-primary-1 ${typography.itemTitle}`}>{title}</h3>
+      <h3 className={`m-0 font-semibold text-primary-1 ${typography.itemTitle}`}>
+        <LocalizedLink href={href} className="text-inherit no-underline hover:underline">
+          {title}
+        </LocalizedLink>
+      </h3>
       <p className={`m-0 flex-1 font-normal leading-relaxed text-700 ${typography.body}`}>
         {excerpt}
       </p>
