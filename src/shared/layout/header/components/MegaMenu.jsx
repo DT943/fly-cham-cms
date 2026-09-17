@@ -16,6 +16,7 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
     >
       {tabs.map((tab) => {
         const Icon = tab.icon
+        const Badge = tab.badge
         const isActive = tab.id === activeId
 
         return (
@@ -23,17 +24,20 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
             key={tab.id}
             type="button"
             onClick={() => onSelect(tab.id)}
-            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent px-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:mx-4 lg:w-[200px] lg:px-4 ${
+            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent px-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:px-6 ${
               isActive
                 ? 'border-b-[3px] border-primary-2 text-primary-1 lg:border-b-0 lg:border-s-[3px]'
                 : 'border-b-[3px] border-transparent text-700 hover:text-primary-1 lg:border-b-0 lg:border-s-[3px]'
             }`}
           >
-            <Icon
-              size={24}
-              weight={isActive ? 'fill' : 'regular'}
-              className={`shrink-0 ${isActive ? 'text-primary-1' : 'text-700'}`}
-            />
+            <span className={`relative shrink-0 ${isActive ? 'text-primary-1' : 'text-700'}`}>
+              <Icon size={24} weight="regular" />
+              {Badge && (
+                <span className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full bg-100">
+                  <Badge size={12} weight="fill" />
+                </span>
+              )}
+            </span>
             <span className={`${typography.body} ${isActive ? 'font-semibold' : 'font-medium'}`}>
               {t(`layout.header.tabs.${tab.id}`)}
             </span>
@@ -72,6 +76,7 @@ const MegaMenuLinks = ({ tab, onNavigate }) => {
       <div className="grid flex-1 grid-cols-1 content-start gap-x-6 gap-y-2 sm:grid-cols-2">
         {tab.links.map((link) => {
           const Icon = link.icon
+          const Badge = link.badge
 
           return (
             <LocalizedLink
@@ -80,7 +85,14 @@ const MegaMenuLinks = ({ tab, onNavigate }) => {
               onClick={onNavigate}
               className="group flex items-start gap-3 rounded-xl px-3 py-3 text-inherit no-underline outline-none transition-colors hover:bg-100 focus:outline-none"
             >
-              <Icon size={24} weight="regular" className="mt-0.5 shrink-0 text-primary-1" />
+              <span className="relative mt-0.5 shrink-0 text-primary-1">
+                <Icon size={24} weight="regular" />
+                {Badge && (
+                  <span className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full bg-50 text-primary-1">
+                    <Badge size={13} weight="fill" />
+                  </span>
+                )}
+              </span>
               <span className="flex min-w-0 flex-col gap-0.5">
                 <span className={`${typography.body} font-semibold text-700 group-hover:text-primary-1`}>
                   {t(`layout.header.items.${link.id}.title`)}

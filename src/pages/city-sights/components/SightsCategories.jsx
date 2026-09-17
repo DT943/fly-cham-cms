@@ -23,13 +23,16 @@ const SightsCategories = () => {
           >
             <span
               className={`whitespace-nowrap text-sm font-medium md:text-base ${
-                isActive ? 'text-50' : 'text-primary-1'
+                isActive ? 'text-50' : 'text-700'
               }`}
             >
               {t(`citySights.categories.${id}`)}
             </span>
             {Icon && (
-              <Icon size={20} className="shrink-0 text-primary-1 md:size-6" />
+              <Icon
+                size={20}
+                className={`shrink-0 md:size-6 ${isActive ? 'text-50' : 'text-700'}`}
+              />
             )}
           </div>
         )

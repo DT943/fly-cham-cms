@@ -117,7 +117,7 @@ const Header = ({ dark = false }) => {
               onClick={() => toggle(REGION_MENU)}
               className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${
                 openMenu === REGION_MENU
-                  ? 'text-primary-1 after:absolute after:inset-x-2 after:bottom-0 after:h-0.75 after:bg-primary-2'
+                  ? 'text-primary-1'
                   : `${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
               }`}
             >

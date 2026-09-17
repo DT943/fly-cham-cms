@@ -59,8 +59,8 @@ export const footerLinkHrefs = {
 export const footerLegal = ['sitemap', 'privacy', 'terms']
 
 export const footerLegalHrefs = {
-  privacy: '/privacy-policy',
-  terms: '/terms-and-conditions',
+  privacy: '/legal/privacy-policy',
+  terms: '/legal/terms-and-conditions',
 }
 
 export const socialLinks = [

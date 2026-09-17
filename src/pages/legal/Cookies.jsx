@@ -14,8 +14,8 @@ const Cookies = () => {
       heroTitle={t('legal.cookies.hero.title')}
       heroSubtitle={t('legal.cookies.hero.subtitle')}
       moreInfoCards={[
-        { id: 'terms', href: '/terms-and-conditions' },
-        { id: 'privacy', href: '/privacy-policy' },
+        { id: 'terms', href: '/legal/terms-and-conditions' },
+        { id: 'privacy', href: '/legal/privacy-policy' },
       ]}
     >
       <CookiesContent />

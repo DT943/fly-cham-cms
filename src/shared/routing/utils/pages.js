@@ -22,6 +22,7 @@ import OurFleet from '../../../pages/our-fleet/OurFleet.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
+import Legal from '../../../pages/legal/Legal.jsx'
 import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
 import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
@@ -68,9 +69,10 @@ export const pages = {
   '/our-fleet': OurFleet,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
-  '/terms-and-conditions': TermsAndConditions,
-  '/privacy-policy': PrivacyPolicy,
-  '/cookies': Cookies,
+  '/legal': Legal,
+  '/legal/terms-and-conditions': TermsAndConditions,
+  '/legal/privacy-policy': PrivacyPolicy,
+  '/legal/cookies': Cookies,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

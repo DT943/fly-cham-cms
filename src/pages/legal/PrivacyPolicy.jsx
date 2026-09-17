@@ -14,8 +14,8 @@ const PrivacyPolicy = () => {
       heroTitle={t('legal.privacy.hero.title')}
       heroSubtitle={t('legal.privacy.hero.subtitle')}
       moreInfoCards={[
-        { id: 'cookies', href: '/cookies' },
-        { id: 'terms', href: '/terms-and-conditions' },
+        { id: 'cookies', href: '/legal/cookies' },
+        { id: 'terms', href: '/legal/terms-and-conditions' },
       ]}
     >
       <PrivacyDocument />

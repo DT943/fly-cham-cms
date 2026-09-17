@@ -5,7 +5,7 @@ import Container from '../../shared/components/Container.jsx'
 import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import MarhabaIntro from './components/MarhabaIntro.jsx'
 import ExploreMarhaba from './components/ExploreMarhaba.jsx'
-import heroImage from '../../assets/images/traveler-magazine/intro.jpg'
+import heroImage from '../../assets/images/traveler-magazine/hero.jpg'
 
 const TravelerMagazine = () => {
   const { t } = useTranslation()

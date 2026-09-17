@@ -14,8 +14,8 @@ const TermsAndConditions = () => {
       heroTitle={t('legal.terms.hero.title')}
       heroSubtitle={t('legal.terms.hero.subtitle')}
       moreInfoCards={[
-        { id: 'privacy', href: '/privacy-policy' },
-        { id: 'cookies', href: '/cookies' },
+        { id: 'privacy', href: '/legal/privacy-policy' },
+        { id: 'cookies', href: '/legal/cookies' },
       ]}
     >
       <LegalDocument baseKey="legal.terms" activeId="terms" />

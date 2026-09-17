@@ -4,10 +4,10 @@ import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 // Fixed order from the design. Items with an `href` are live pages; the rest are
 // placeholders shown for context until their pages exist.
 const NAV_ITEMS = [
-  { id: 'hub' },
-  { id: 'privacy', href: '/privacy-policy' },
-  { id: 'terms', href: '/terms-and-conditions' },
-  { id: 'cookies', href: '/cookies' },
+  { id: 'hub', href: '/legal' },
+  { id: 'privacy', href: '/legal/privacy-policy' },
+  { id: 'terms', href: '/legal/terms-and-conditions' },
+  { id: 'cookies', href: '/legal/cookies' },
   { id: 'chamMiles' },
   { id: 'ticket' },
 ]
