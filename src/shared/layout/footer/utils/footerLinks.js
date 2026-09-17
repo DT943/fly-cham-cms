@@ -45,6 +45,7 @@ export const footerLinkHrefs = {
   vision: '/about-us',
   values: '/about-us',
   responsibility: '/our-responsibility',
+  media: '/media-center',
   groupTravel: '/help/contact-us/forms',
   contactUs: '/help/contact-us',
   inquiries: '/help/contact-us/forms',
