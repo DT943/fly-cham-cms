@@ -23,6 +23,7 @@ import OurResponsibility from '../../../pages/our-responsibility/OurResponsibili
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
 import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
+import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndConditions.jsx'
 import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
@@ -71,6 +72,7 @@ export const pages = {
   '/recent-news': RecentNews,
   '/magazine-view': MagazineView,
   '/terms-and-conditions': TermsAndConditions,
+  '/booking-terms-and-conditions': BookingTermsAndConditions,
   '/privacy-policy': PrivacyPolicy,
   '/cookies': Cookies,
 }

@@ -11,6 +11,8 @@ const ICONS = {
   privacy: shieldIcon,
   cookies: cookieIcon,
   beforeYouBook: shieldIcon,
+  manageBooking: shieldIcon,
+  prepareJourney: shieldIcon,
 }
 
 /**

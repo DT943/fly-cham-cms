@@ -15,7 +15,7 @@ const Cookies = () => {
       heroSubtitle={t('legal.cookies.hero.subtitle')}
       moreInfoCards={[
         { id: 'privacy', href: '/privacy-policy' },
-        { id: 'beforeYouBook', href: '/terms-and-conditions' },
+        { id: 'beforeYouBook', href: '/booking-terms-and-conditions' },
       ]}
     >
       <CookiesContent />

@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { id: 'terms', href: '/terms-and-conditions' },
   { id: 'cookies', href: '/cookies' },
   { id: 'chamMiles' },
-  { id: 'ticket' },
+  { id: 'ticket', href: '/booking-terms-and-conditions' },
 ]
 
 /**
