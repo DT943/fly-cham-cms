@@ -154,11 +154,11 @@ const MagazineFlipBook = () => {
         ref={shellRef}
         className={`flex w-full flex-col justify-center overflow-hidden rounded-2xl bg-200/60 px-2 py-6 sm:px-4 md:py-8 ${
           isFullscreen
-            ? 'h-full min-h-screen !rounded-none bg-secondary-2 px-4 py-6 md:px-8 md:py-8'
+            ? 'h-full min-h-screen rounded-none! bg-secondary-2 px-4 py-6 md:px-8 md:py-8'
             : ''
         }`}
       >
-        <div className="mx-auto flex w-full max-w-[90rem] flex-1 flex-col justify-center gap-5">
+        <div className="mx-auto flex w-full max-w-360 flex-1 flex-col justify-center gap-5">
           <div className="flex justify-center overflow-hidden">
             <div
               className="will-change-transform"
