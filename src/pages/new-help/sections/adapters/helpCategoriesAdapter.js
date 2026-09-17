@@ -23,8 +23,15 @@ export function helpCategoriesProps(block, lang) {
       title: card.title,
       description: card.description,
     })),
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -62,4 +69,10 @@ const STYLE_KEYS = [
   'cardDescriptionColor',
   'cardDescriptionColorHover',
   'cardDescriptionFontWeightHover',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

@@ -7,6 +7,7 @@ import {
   getTextStyleVars,
 } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -33,7 +34,13 @@ const HelpCategoryCard = ({
   cardDescriptionColor = '600',
   cardDescriptionColorHover,
   cardDescriptionFontWeightHover,
+  linkProps,
 }) => {
+  // Cards with an href render title/description inside a LocalizedLink, so
+  // backlinks must be skipped there to avoid nesting an anchor inside an anchor.
+  const canLinkText = !href
+  const titleLinkProps = canLinkText ? linkProps : { enabled: false }
+  const descriptionLinkProps = canLinkText ? linkProps : { enabled: false }
   const cardTitleStyleKeys = {
     cardTitleColor,
     cardTitleFontWeight,
@@ -73,7 +80,7 @@ const HelpCategoryCard = ({
               className={cx(typography.itemTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(cardTitleStyleKeys, 'cardTitleColor', '700', 'bold')}
             >
-              {title}
+              <LinkedText text={title} {...titleLinkProps} />
             </h3>
           )}
           {showCardDescription && description && (
@@ -81,7 +88,7 @@ const HelpCategoryCard = ({
               className={cx(typography.caption, 'm-0 leading-snug', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(cardDescriptionStyleKeys, 'cardDescriptionColor', '600', 'normal')}
             >
-              {description}
+              <LinkedText text={description} {...descriptionLinkProps} />
             </p>
           )}
         </div>

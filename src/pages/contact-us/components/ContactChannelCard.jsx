@@ -3,6 +3,7 @@ import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -27,9 +28,25 @@ const ContactChannelCard = ({
   buttonText = '50',
   buttonTextHover,
   buttonTextFontWeightHover,
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
   const [hovered, setHovered] = useState(false)
 
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const cardTitleStyleKeys = {
     cardTitleColor,
     cardTitleFontWeight,
@@ -63,14 +80,14 @@ const ContactChannelCard = ({
           className={cx(typography.itemTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
           style={getTextStyleVars(cardTitleStyleKeys, 'cardTitleColor', '700', 'bold')}
         >
-          {title}
+          <LinkedText text={title} {...linkProps} />
         </h3>
       </div>
       <p
         className={cx(typography.itemDescription, 'm-0 leading-relaxed flex-1', CMS_TEXT_HOVER_CLASS)}
         style={getTextStyleVars(cardDescriptionStyleKeys, 'cardDescriptionColor', '600', 'normal')}
       >
-        {description}
+        <LinkedText text={description} {...linkProps} />
       </p>
       <LocalizedLink
         href={href}

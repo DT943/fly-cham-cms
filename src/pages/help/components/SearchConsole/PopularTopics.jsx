@@ -4,6 +4,7 @@ import {
   getTextStyleVars,
 } from '../../../../styles/cmsStyle.js'
 import { typography } from '../../../../styles/typography.js'
+import LinkedText from '../../../../shared/components/backlinks/LinkedText.jsx'
 import { cx } from './cx.js'
 
 const PopularTopics = ({
@@ -16,6 +17,7 @@ const PopularTopics = ({
   chipTextColorHover,
   chipTextFontWeightHover,
   chipBorderColor,
+  linkProps,
   onSelect,
 }) => {
   const popularLabelStyleKeys = {
@@ -36,7 +38,7 @@ const PopularTopics = ({
           className={cx(typography.caption, 'whitespace-nowrap', CMS_TEXT_HOVER_CLASS)}
           style={getTextStyleVars(popularLabelStyleKeys, 'popularLabelColor', '50', 'medium')}
         >
-          {label}
+          <LinkedText text={label} {...linkProps} />
         </span>
       )}
       <div className="flex flex-wrap items-center gap-2">

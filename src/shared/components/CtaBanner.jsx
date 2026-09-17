@@ -12,6 +12,7 @@ import {
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import defaultImage from '../../assets/images/help/ph1.png'
+import LinkedText from './backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -52,12 +53,28 @@ const CtaBanner = ({
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
   const { i18n } = useTranslation()
   const dir = i18n.dir() === 'rtl' ? 'rtl' : 'ltr'
   const overlay = colorVar(overlayColor)
   const to = dir === 'rtl' ? 'left' : 'right'
 
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const titleStyleKeys = {
     titleColor,
     titleFontWeight,
@@ -126,7 +143,7 @@ const CtaBanner = ({
               )}
               style={getTextStyleVars(titleStyleKeys, 'titleColor', '50', 'semibold')}
             >
-              {title}
+              <LinkedText text={title} {...linkProps} />
             </h2>
           )}
           {showDescription && description && (
@@ -138,7 +155,7 @@ const CtaBanner = ({
               )}
               style={getTextStyleVars(descriptionStyleKeys, 'descriptionColor', '50', 'medium')}
             >
-              {description}
+              <LinkedText text={description} {...linkProps} />
             </p>
           )}
           {showButton && cta && (

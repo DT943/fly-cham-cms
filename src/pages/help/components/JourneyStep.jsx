@@ -6,6 +6,7 @@ import {
   getTextStyleVars,
 } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 import { getLinkHref } from '../utils/links.js'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
@@ -18,13 +19,15 @@ const JourneyStep = ({
   showTitle = true,
   iconBg = '100',
   iconColor = '700',
-  linkColor = 'primary-1',
-  linkColorHover,
-  linkFontWeightHover,
+  stepLinkColor = 'primary-1',
+  stepLinkFontWeight,
+  stepLinkColorHover,
+  stepLinkFontWeightHover,
   stepTitleColor = '700',
   stepTitleFontWeight = 'semibold',
   stepTitleColorHover,
   stepTitleFontWeightHover,
+  titleLinkProps = {},
 }) => {
   const stepTitleStyleKeys = {
     stepTitleColor,
@@ -32,10 +35,11 @@ const JourneyStep = ({
     stepTitleColorHover,
     stepTitleFontWeightHover,
   }
-  const linkStyleKeys = {
-    linkColor,
-    linkColorHover,
-    linkFontWeightHover,
+  const stepLinkStyleKeys = {
+    stepLinkColor,
+    stepLinkFontWeight,
+    stepLinkColorHover,
+    stepLinkFontWeightHover,
   }
 
   return (
@@ -57,7 +61,7 @@ const JourneyStep = ({
             className={cx(typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
             style={getTextStyleVars(stepTitleStyleKeys, 'stepTitleColor', '700', 'semibold')}
           >
-            {stepLabel}
+            <LinkedText text={stepLabel} {...titleLinkProps} />
           </span>
         )}
       </div>
@@ -76,7 +80,7 @@ const JourneyStep = ({
                 'no-underline hover:underline inline-flex items-center gap-1',
                 CMS_TEXT_HOVER_CLASS,
               )}
-              style={getTextStyleVars(linkStyleKeys, 'linkColor', 'primary-1', 'medium')}
+              style={getTextStyleVars(stepLinkStyleKeys, 'stepLinkColor', 'primary-1', 'medium')}
             >
               {link.text}
               <CaretRight size={12} weight="bold" className="flex-shrink-0 rtl:-scale-x-100" />

@@ -11,6 +11,7 @@ import {
   getTextStyleVars,
 } from '../../../../styles/cmsStyle.js'
 import useAppSearch from '../../../../shared/search/hooks/useAppSearch.js'
+import LinkedText from '../../../../shared/components/backlinks/LinkedText.jsx'
 import SearchField from './SearchField.jsx'
 import PopularTopics from './PopularTopics.jsx'
 import { cx } from './cx.js'
@@ -58,7 +59,23 @@ const SearchConsole = ({
   gradientDirection = 'topRight',
   panelRadius = '2xl',
   panelPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const labelStyleKeys = {
     labelColor,
     labelFontWeight,
@@ -117,7 +134,7 @@ const SearchConsole = ({
             className={cx(typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
             style={getTextStyleVars(labelStyleKeys, 'labelColor', '50', 'semibold')}
           >
-            {resolvedLabel}
+            <LinkedText text={resolvedLabel} {...linkProps} />
           </label>
         )}
 
@@ -162,6 +179,7 @@ const SearchConsole = ({
             chipTextColorHover={chipTextColorHover}
             chipTextFontWeightHover={chipTextFontWeightHover}
             chipBorderColor={chipBorderColor}
+            linkProps={linkProps}
             onSelect={(value) => {
               search.applyQuery(value)
               onQueryChange?.(value)

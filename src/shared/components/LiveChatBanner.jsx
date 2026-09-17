@@ -9,6 +9,7 @@ import {
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
+import LinkedText from './backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -54,7 +55,23 @@ const LiveChatBanner = ({
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const titleStyleKeys = {
     titleColor,
     titleFontWeight,
@@ -107,7 +124,7 @@ const LiveChatBanner = ({
                   className={cx(typography.itemTitle, 'm-0 md:hidden', CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'bold')}
                 >
-                  {title}
+                  <LinkedText text={title} {...linkProps} />
                 </h2>
               )}
             </div>
@@ -117,7 +134,7 @@ const LiveChatBanner = ({
                   className={cx(typography.itemTitle, 'm-0 hidden md:block', CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
                 >
-                  {title}
+                  <LinkedText text={title} {...linkProps} />
                 </h2>
               )}
               {showDescription && description && (
@@ -129,7 +146,7 @@ const LiveChatBanner = ({
                   )}
                   style={getTextStyleVars(descriptionStyleKeys, 'descriptionColor', '800', 'normal')}
                 >
-                  {description}
+                  <LinkedText text={description} {...linkProps} />
                 </p>
               )}
             </div>

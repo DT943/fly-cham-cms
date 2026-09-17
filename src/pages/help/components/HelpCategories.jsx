@@ -15,6 +15,7 @@ import {
 } from '../utils/helpCategories.jsx'
 import HelpCategoryCard from './HelpCategoryCard.jsx'
 import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -38,9 +39,25 @@ const HelpCategories = ({
   titleAlign = 'left',
   columns = 5,
   cardGap = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
   ...cardStyle
 }) => {
   const { t } = useTranslation()
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
 
   const resolvedTitle = title ?? t('help.categories.title')
   const resolvedSubtitle = subtitle ?? t('help.categories.subtitle')
@@ -85,7 +102,7 @@ const HelpCategories = ({
               className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(sectionTitleStyleKeys, 'sectionTitleColor', '700', 'bold')}
             >
-              {resolvedTitle}
+              <LinkedText text={resolvedTitle} {...linkProps} />
             </h2>
           )}
           {showSectionSubtitle && resolvedSubtitle && (
@@ -93,7 +110,7 @@ const HelpCategories = ({
               className={cx(typography.sectionDescription, 'm-0 max-w-3xl', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(sectionSubtitleStyleKeys, 'sectionSubtitleColor', '600', 'normal')}
             >
-              {resolvedSubtitle}
+              <LinkedText text={resolvedSubtitle} {...linkProps} />
             </p>
           )}
         </div>
@@ -112,6 +129,7 @@ const HelpCategories = ({
             href={card.href}
             title={card.title}
             description={card.description}
+            linkProps={linkProps}
             {...cardStyle}
           />
         ))}

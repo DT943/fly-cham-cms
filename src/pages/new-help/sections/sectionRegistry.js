@@ -6,6 +6,9 @@ import HelpCategories from '../../help/components/HelpCategories.jsx'
 import JourneySection from '../../help/components/JourneySection.jsx'
 import GetInTouch from '../../contact-us/components/GetInTouch.jsx'
 import ContactChannels from '../../contact-us/components/ContactChannels.jsx'
+import GetHelp from '../../our-offices/components/GetHelp.jsx'
+import PromoBanner from '../../../shared/components/PromoBanner.jsx'
+import FaqExplorer from '../../../shared/components/FaqExplorer.jsx'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
 import { helpCategoriesProps } from './adapters/helpCategoriesAdapter.js'
@@ -14,6 +17,9 @@ import { journeySectionProps } from './adapters/journeySectionAdapter.js'
 import { liveChatBannerProps } from './adapters/liveChatBannerAdapter.js'
 import { getInTouchProps } from './adapters/getInTouchAdapter.js'
 import { contactChannelsProps } from './adapters/contactChannelsAdapter.js'
+import { getHelpProps } from './adapters/getHelpAdapter.js'
+import { promoBannerProps } from './adapters/promoBannerAdapter.js'
+import { faqExplorerProps } from './adapters/faqExplorerAdapter.js'
 
 /**
  * Maps a block's `sectionId` to the component that renders it plus the adapter
@@ -31,6 +37,9 @@ export const sectionRegistry = {
   'live-chat-banner': { Component: LiveChatBanner, mapProps: liveChatBannerProps },
   'get-in-touch': { Component: GetInTouch, mapProps: getInTouchProps },
   'contact-channels': { Component: ContactChannels, mapProps: contactChannelsProps },
+  'get-help': { Component: GetHelp, mapProps: getHelpProps },
+  'promo-banner': { Component: PromoBanner, mapProps: promoBannerProps },
+  'faq-explorer': { Component: FaqExplorer, mapProps: faqExplorerProps },
 }
 
 export function getSection(sectionId) {

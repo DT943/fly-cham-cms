@@ -7,6 +7,7 @@ import {
   colorVar,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
+import LinkedText from './backlinks/LinkedText.jsx'
 
 const maskStyle = (mask) => ({
   WebkitMaskImage: `url(${mask})`,
@@ -73,7 +74,23 @@ const PageHero = ({
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const effectiveMask = showMask ? mask : ''
   const hasImage = showImage && Boolean(image)
 
@@ -126,7 +143,7 @@ const PageHero = ({
             className={`${typography.pageTitle} leading-tight m-0 ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(titleStyleKeys, 'titleColor', 'primary-1', 'bold')}
           >
-            {title}
+            <LinkedText text={title} {...linkProps} />
           </h1>
         )}
         {showSubtitle && subtitle && (
@@ -134,7 +151,7 @@ const PageHero = ({
             className={`${typography.sectionDescription} m-0 ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '700', 'medium')}
           >
-            {subtitle}
+            <LinkedText text={subtitle} {...linkProps} />
           </p>
         )}
       </div>

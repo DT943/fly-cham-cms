@@ -15,6 +15,7 @@ import {
 } from '../utils/contactChannels.jsx'
 import ContactChannelCard from './ContactChannelCard.jsx'
 import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -33,10 +34,26 @@ const ContactChannels = ({
   titleAlign = 'left',
   columns,
   cardGap,
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
   ...cardStyle
 }) => {
   const { t } = useTranslation()
 
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const titleStyleKeys = {
     titleColor,
     titleFontWeight,
@@ -79,7 +96,7 @@ const ContactChannels = ({
             className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
             style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'bold')}
           >
-            {resolvedTitle}
+            <LinkedText text={resolvedTitle} {...linkProps} />
           </h2>
         </div>
       )}
@@ -92,6 +109,13 @@ const ContactChannels = ({
             title={channel.title}
             description={channel.description}
             cta={channel.cta}
+            links={links}
+            showLinks={showLinks}
+            linkColor={linkColor}
+            linkHoverColor={linkHoverColor}
+            linkFontWeight={linkFontWeight}
+            linkUnderline={linkUnderline}
+            linkItalic={linkItalic}
             {...cardStyle}
           />
         ))}

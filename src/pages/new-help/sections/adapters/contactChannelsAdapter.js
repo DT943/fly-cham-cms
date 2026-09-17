@@ -24,8 +24,15 @@ export function contactChannelsProps(block, lang) {
       description: channel.description,
       cta: channel.cta,
     })),
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -56,4 +63,10 @@ const STYLE_KEYS = [
   'buttonText',
   'buttonTextHover',
   'buttonTextFontWeightHover',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

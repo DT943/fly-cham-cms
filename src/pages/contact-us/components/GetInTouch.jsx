@@ -9,6 +9,7 @@ import {
   CMS_TEXT_HOVER_CLASS,
 } from '../../../styles/cmsStyle.js'
 import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const PHONE_DISPLAY = '+963 -11-2122222'
 const PHONE_HREF = 'tel:+963112122222'
@@ -64,7 +65,23 @@ const GetInTouch = ({
   noteColorHover,
   noteFontWeightHover,
   contained = true,
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
   const titleStyleKeys = {
     titleColor,
     titleFontWeight,
@@ -116,7 +133,7 @@ const GetInTouch = ({
           className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
           style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'bold')}
         >
-          {resolvedTitle}
+          <LinkedText text={resolvedTitle} {...linkProps} />
         </h2>
       )}
       {showImage && resolvedImage && (
@@ -133,7 +150,7 @@ const GetInTouch = ({
           className={cx(typography.body, 'font-medium m-0', CMS_TEXT_HOVER_CLASS)}
           style={getTextStyleVars(labelStyleKeys, 'labelColor', '700', 'medium')}
         >
-          {resolvedLabel}
+          <LinkedText text={resolvedLabel} {...linkProps} />
         </p>
       )}
       {showPhone && resolvedPhoneDisplay && (
@@ -159,8 +176,12 @@ const GetInTouch = ({
           )}
           style={getTextStyleVars(hoursStyleKeys, 'hoursColor', '700', 'medium')}
         >
-          <span className="md:hidden">{resolvedHoursMobile}</span>
-          <span className="hidden md:inline">{resolvedHours}</span>
+          <span className="md:hidden">
+            <LinkedText text={resolvedHoursMobile} {...linkProps} />
+          </span>
+          <span className="hidden md:inline">
+            <LinkedText text={resolvedHours} {...linkProps} />
+          </span>
           <Clock size={14} weight="regular" className="shrink-0" />
         </p>
       )}
@@ -173,7 +194,7 @@ const GetInTouch = ({
           )}
           style={getTextStyleVars(noteStyleKeys, 'noteColor', '700', 'normal')}
         >
-          {resolvedNote}
+          <LinkedText text={resolvedNote} {...linkProps} />
         </p>
       )}
     </div>

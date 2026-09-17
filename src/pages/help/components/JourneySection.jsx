@@ -16,6 +16,7 @@ import {
 } from '../utils/journeySteps.js'
 import JourneyStep from './JourneyStep.jsx'
 import SearchAnchor from '../../../shared/search/components/SearchAnchor.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -39,9 +40,10 @@ const JourneySection = ({
   columnGap = 'default',
   iconBg = '100',
   iconColor = '700',
-  linkColor = 'primary-1',
-  linkColorHover,
-  linkFontWeightHover,
+  stepLinkColor = 'primary-1',
+  stepLinkFontWeight,
+  stepLinkColorHover,
+  stepLinkFontWeightHover,
   showTitle = true,
   showHeader = true,
   showSubtitle = true,
@@ -64,8 +66,25 @@ const JourneySection = ({
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor = 'primary-1',
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
   const { t } = useTranslation()
+
+  const backlinkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
 
   const resolvedTitle = title ?? t('help.journey.title')
   const resolvedSubtitle = subtitle ?? t('help.journey.subtitle')
@@ -117,7 +136,7 @@ const JourneySection = ({
                 className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
                 style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'bold')}
               >
-                {resolvedTitle}
+                <LinkedText text={resolvedTitle} {...backlinkProps} />
               </h2>
             )}
             {showSubtitle && resolvedSubtitle && (
@@ -129,7 +148,7 @@ const JourneySection = ({
                 )}
                 style={getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '600', 'normal')}
               >
-                {resolvedSubtitle}
+                <LinkedText text={resolvedSubtitle} {...backlinkProps} />
               </p>
             )}
           </div>
@@ -150,13 +169,15 @@ const JourneySection = ({
               showIcon={showIcon}
               iconBg={iconBg}
               iconColor={iconColor}
-              linkColor={linkColor}
-              linkColorHover={linkColorHover}
-              linkFontWeightHover={linkFontWeightHover}
+              stepLinkColor={stepLinkColor}
+              stepLinkFontWeight={stepLinkFontWeight}
+              stepLinkColorHover={stepLinkColorHover}
+              stepLinkFontWeightHover={stepLinkFontWeightHover}
               stepTitleColor={stepTitleColor}
               stepTitleFontWeight={stepTitleFontWeight}
               stepTitleColorHover={stepTitleColorHover}
               stepTitleFontWeightHover={stepTitleFontWeightHover}
+              titleLinkProps={backlinkProps}
             />
           ))}
         </div>
