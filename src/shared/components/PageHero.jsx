@@ -1,13 +1,22 @@
 import { typography } from '../../styles/typography.js'
 import {
   RADIUS,
-  ALIGN,
   SECTION_PADDING,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
+import defaultHeroMask from '../../assets/images/page-hero-mask.png'
+
+// Logical alignment (start/end, not left/right) so the hero mirrors under RTL.
+// `left` maps to the reading start, `right` to the reading end — matching the
+// CMS editor preview. Includes `items-*` so the flex children align too.
+const TITLE_ALIGN = {
+  left: 'text-start items-start',
+  center: 'text-center items-center',
+  right: 'text-end items-end',
+}
 
 const maskStyle = (mask) => ({
   WebkitMaskImage: `url(${mask})`,
@@ -55,6 +64,8 @@ const PageHero = ({
   image,
   mask,
   imageAlt = '',
+  // layout direction ("rtl" for Arabic); undefined → inherit the page direction
+  dir,
   // style
   showTitle = true,
   showSubtitle = true,
@@ -91,7 +102,10 @@ const PageHero = ({
     linkUnderline,
     linkItalic,
   }
-  const effectiveMask = showMask ? mask : ''
+  // `showMask` applies the shaped hero mask on desktop. A per-language
+  // `mask` (content.imageMask) overrides the built-in default shape; when none
+  // is provided the bundled default mask is used (matches the CMS editor).
+  const effectiveMask = showMask ? mask || defaultHeroMask : ''
   const hasImage = showImage && Boolean(image)
 
   // imageSide === 'left' → image first on desktop; otherwise image on the right.
@@ -124,7 +138,7 @@ const PageHero = ({
   }
 
   return (
-    <section className={sectionClassName} style={sectionStyle}>
+    <section className={sectionClassName} style={sectionStyle} dir={dir}>
       {hasImage && (
         <div className={`${imageOrder} md:w-1/2 lg:w-[54%] shrink-0`}>
           <PageHeroImage
@@ -136,7 +150,7 @@ const PageHero = ({
         </div>
       )}
       <div
-        className={`${hasImage ? `${textOrder} flex-1 ` : ''}flex flex-col gap-2 md:gap-4 ${ALIGN[titleAlign] || ''}`}
+        className={`${hasImage ? `${textOrder} flex-1 ` : ''}flex flex-col gap-2 md:gap-4 ${TITLE_ALIGN[titleAlign] || TITLE_ALIGN.left}`}
       >
         {showTitle && (
           <h1

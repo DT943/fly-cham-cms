@@ -11,6 +11,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  */
 export function pageHeroProps(block, lang) {
   const content = pickContent(block.content, lang)
+  // `block.style` is already resolved to the active language by BlockRenderer.
   const style = block.style || {}
 
   return {
@@ -20,6 +21,9 @@ export function pageHeroProps(block, lang) {
     mask: resolveCmsAsset(content.imageMask) || undefined,
     imageAlt: content.imageAlt,
     links: mapBacklinks(content.links),
+    // Explicit direction so RTL logical alignment + the mask mirror work even
+    // if the global <html dir> hasn't settled when this CMS page renders.
+    dir: lang === 'ar' ? 'rtl' : 'ltr',
     ...pick(style, STYLE_KEYS),
   }
 }
