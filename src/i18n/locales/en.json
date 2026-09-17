@@ -2475,19 +2475,24 @@
     },
     "cards": {
       "terms": {
-        "title": "Website Terms and Conditions",
-        "description": "Understand the rules and guidelines for using our website.",
+        "title": "Review Website Terms & Conditions",
+        "description": "Understand the rules, responsibilities, and legal information that apply when using the Fly Cham website and related online services.",
         "cta": "Read Terms & Conditions"
       },
       "privacy": {
         "title": "How We Protect Your Privacy",
-        "description": "Understand how we handle and protect your personal information.",
-        "cta": "Explore Privacy Policy"
+        "description": "Understand how we collect, store, and protect your personal information across our website, mobile app, and related services.",
+        "cta": "Read Privacy Policy"
       },
       "cookies": {
-        "title": "Understand Our Use of Cookies",
-        "description": "Learn how we use cookies to improve website functionality and your experience.",
+        "title": "Your Choices Matter",
+        "description": "Understand cookies, tracking technologies, and the choices available when you browse Fly Cham website.",
         "cta": "Explore Cookies Policy"
+      },
+      "beforeYouBook": {
+        "title": "Before You Book",
+        "description": "Learn about key conditions related to bookings, baggage, changes, cancellations, and refunds.",
+        "cta": "View booking terms"
       }
     },
     "terms": {
@@ -2593,12 +2598,12 @@
         ],
         "bullets": [
           "Visit our website at https://flycham.com, the Fly Cham mobile app, or any of our websites that link to this privacy notice.",
-          "Engage with us in other related ways, including any sales, marketing, or events."
+          "Engage with us in other related ways, including any sales, marketing, or events"
         ],
         "afterBullets": "Questions or concerns? Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at info@flycham.com"
       },
       "summary": {
-        "title": "Summary of Key Points",
+        "title": "SUMMARY OF KEY POINTS",
         "intro": "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for.",
         "points": [
           "What personal information do we process? When you visit, use, or navigate our Services, we may process personal information depending on how you interact with us and the Services, the choices you make, and the products and features you use. Learn more about personal information you disclose to us.",
@@ -2612,26 +2617,26 @@
         ]
       },
       "toc": {
-        "title": "Table of Contents",
+        "title": "TABLE OF CONTENTS",
         "items": [
-          "1. What Information Do We Collect?",
-          "2. How Do We Process Your Information?",
-          "3. When And With Whom Do We Share Your Personal Information?",
-          "4. Do We Use Cookies And Other Tracking Technologies?",
-          "5. How Do We Handle Your Social Logins?",
-          "6. How Long Do We Keep Your Information?",
-          "7. Do We Collect Information From Minors?",
-          "8. What Are Your Privacy Rights?",
-          "9. Controls For Do-Not-Track Features",
-          "10. General Information | Retention On Privacy Policy",
-          "11. Do We Make Updates To This Notice?",
-          "12. How Can You Contact Us About This Notice?",
-          "13. How Can You Review, Update, Or Delete The Data We Collect From You?"
+          "1. WHAT INFORMATION DO WE COLLECT?",
+          "2. HOW DO WE PROCESS YOUR INFORMATION?",
+          "3. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?",
+          "4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?",
+          "5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?",
+          "6. HOW LONG DO WE KEEP YOUR INFORMATION?",
+          "7. DO WE COLLECT INFORMATION FROM MINORS?",
+          "8. WHAT ARE YOUR PRIVACY RIGHTS?",
+          "9. CONTROLS FOR DO-NOT-TRACK FEATURES",
+          "10. GENERAL INFORMATION | RETENTION ON PRIVACY POLICY",
+          "11. DO WE MAKE UPDATES TO THIS NOTICE?",
+          "12. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?",
+          "13. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?"
         ]
       },
       "sections": [
         {
-          "title": "1. What Information Do We Collect?",
+          "title": "1. WHAT INFORMATION DO WE COLLECT?",
           "blocks": [
             {
               "type": "subheading",
@@ -2673,7 +2678,7 @@
             },
             {
               "type": "p",
-              "text": "Social Media Login Data. We may provide you with the option to register with us using your existing social media account details, like your Facebook, Twitter, or other social media account. If you choose to register in this way, we will collect the information described in the section called \"How Do We Handle Your Social Logins?\" below."
+              "text": "Social Media Login Data. We may provide you with the option to register with us using your existing social media account details, like your Facebook, Twitter, or other social media account. If you choose to register in this way, we will collect the information described in the section called \"HOW DO WE HANDLE YOUR SOCIAL LOGINS?\" below."
             },
             {
               "type": "p",
@@ -2710,7 +2715,7 @@
           ]
         },
         {
-          "title": "2. How Do We Process Your Information?",
+          "title": "2. HOW DO WE PROCESS YOUR INFORMATION?",
           "blocks": [
             {
               "type": "inshort",
@@ -2727,7 +2732,7 @@
                 "To respond to user inquiries/offer support to users. We may process your information to respond to your inquiries and solve any potential issues you might have with the requested service.",
                 "To fulfill and manage your orders. We may process your information to fulfill and manage your orders, payments, returns, and exchanges made through the Services.",
                 "To request feedback. We may process your information when necessary to request feedback and to contact you about your use of our Services.",
-                "To send you marketing and promotional communications. We may process the personal information you send to us for our marketing purposes, if this is in accordance with your marketing preferences. You can opt out of our marketing emails at any time. For more information, see \"What Are Your Privacy Rights?\" below.",
+                "To send you marketing and promotional communications. We may process the personal information you send to us for our marketing purposes, if this is in accordance with your marketing preferences. You can opt out of our marketing emails at any time. For more information, see \"WHAT ARE YOUR PRIVACY RIGHTS?\" below.",
                 "To deliver targeted advertising to you. We may process your information to develop and display personalized content and advertising tailored to your interests, location, and more.",
                 "To protect our Services. We may process your information as part of our efforts to keep our Services safe and secure, including fraud monitoring and prevention.",
                 "To evaluate and improve our Services, products, marketing, and your experience. We may process your information when we believe it is necessary to identify usage trends, determine the effectiveness of our promotional campaigns, and to evaluate and improve our Services, products, marketing, and your experience.",
@@ -2739,7 +2744,7 @@
           ]
         },
         {
-          "title": "3. When And With Whom Do We Share Your Personal Information?",
+          "title": "3. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?",
           "blocks": [
             {
               "type": "inshort",
@@ -2782,7 +2787,7 @@
           ]
         },
         {
-          "title": "4. Do We Use Cookies And Other Tracking Technologies?",
+          "title": "4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?",
           "blocks": [
             {
               "type": "inshort",
@@ -2795,7 +2800,7 @@
           ]
         },
         {
-          "title": "5. How Do We Handle Your Social Logins?",
+          "title": "5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?",
           "blocks": [
             {
               "type": "inshort",
@@ -2812,7 +2817,7 @@
           ]
         },
         {
-          "title": "6. How Long Do We Keep Your Information?",
+          "title": "6. HOW LONG DO WE KEEP YOUR INFORMATION?",
           "blocks": [
             {
               "type": "inshort",
@@ -2829,7 +2834,7 @@
           ]
         },
         {
-          "title": "7. Do We Collect Information From Minors?",
+          "title": "7. DO WE COLLECT INFORMATION FROM MINORS?",
           "blocks": [
             {
               "type": "inshort",
@@ -2842,7 +2847,7 @@
           ]
         },
         {
-          "title": "8. What Are Your Privacy Rights?",
+          "title": "8. WHAT ARE YOUR PRIVACY RIGHTS?",
           "blocks": [
             {
               "type": "inshort",
@@ -2850,7 +2855,7 @@
             },
             {
               "type": "p",
-              "text": "Withdrawing your consent: If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent at any time by contacting us by using the contact details provided in the section \"How Can You Contact Us About This Notice?\" below."
+              "text": "Withdrawing your consent: If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent at any time by contacting us by using the contact details provided in the section \"HOW CAN YOU CONTACT US ABOUT THIS NOTICE?\" below."
             },
             {
               "type": "p",
@@ -2858,7 +2863,7 @@
             },
             {
               "type": "p",
-              "text": "Opting out of marketing and promotional communications: You can unsubscribe from our marketing and promotional communications at any time by clicking on the unsubscribe link in the emails that we send, or by contacting us using the details provided in the section \"How Can You Contact Us About This Notice?\" below. You will then be removed from the marketing lists. However, we may still communicate with you — for example, to send you service-related messages that are necessary for the administration and use of your account, to respond to service requests, or for other non-marketing purposes."
+              "text": "Opting out of marketing and promotional communications: You can unsubscribe from our marketing and promotional communications at any time by clicking on the unsubscribe link in the emails that we send, or by contacting us using the details provided in the section \"HOW CAN YOU CONTACT US ABOUT THIS NOTICE?\" below. You will then be removed from the marketing lists. However, we may still communicate with you — for example, to send you service-related messages that are necessary for the administration and use of your account, to respond to service requests, or for other non-marketing purposes."
             },
             {
               "type": "subheading",
@@ -2890,7 +2895,7 @@
           ]
         },
         {
-          "title": "9. Controls For Do-Not-Track Features",
+          "title": "9. CONTROLS FOR DO-NOT-TRACK FEATURES",
           "blocks": [
             {
               "type": "p",
@@ -2899,7 +2904,7 @@
           ]
         },
         {
-          "title": "10. General Information | Retention On Privacy Policy",
+          "title": "10. GENERAL INFORMATION | RETENTION ON PRIVACY POLICY",
           "blocks": [
             {
               "type": "p",
@@ -2924,7 +2929,7 @@
           ]
         },
         {
-          "title": "11. Do We Make Updates To This Notice?",
+          "title": "11. DO WE MAKE UPDATES TO THIS NOTICE?",
           "blocks": [
             {
               "type": "inshort",
@@ -2937,7 +2942,7 @@
           ]
         },
         {
-          "title": "12. How Can You Contact Us About This Notice?",
+          "title": "12. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?",
           "blocks": [
             {
               "type": "p",
@@ -2950,7 +2955,7 @@
           ]
         },
         {
-          "title": "13. How Can You Review, Update, Or Delete The Data We Collect From You?",
+          "title": "13. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?",
           "blocks": [
             {
               "type": "p",
@@ -2961,12 +2966,13 @@
       ]
     },
     "cookies": {
-      "breadcrumb": "Cookies",
+      "breadcrumb": "Cookies Policy",
       "hero": {
-        "title": "Cookies",
-        "subtitle": "Learn More about the Rules, Responsibilities, and Legal Information Related to Using Our Website",
+        "title": "Cookies Policy",
+        "subtitle": "Learn how we use cookies and similar technologies to enhance your browsing experience and remember your preferences",
         "imageAlt": "Close-up of a Fly Cham aircraft"
       },
+      "effectiveDate": "Effective date: 11/12/2025",
       "whatAre": {
         "title": "What Are Cookies?",
         "body": "Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and understanding how you use our services."
@@ -2978,38 +2984,27 @@
           "body": "These cookies are necessary for the website to function properly. They enable basic functions like page navigation, secure areas access, and booking functionality. The website cannot function properly without these cookies."
         },
         {
-          "title": "Performance Cookies",
-          "body": "These cookies collect information about how visitors use our website, such as which pages are visited most often. This helps us improve the performance and design of our website."
-        },
-        {
           "title": "Functionality Cookies",
           "body": "These cookies allow our website to remember choices you make (such as your language preference or the region you are in) and provide enhanced, personalized features."
         },
         {
           "title": "Targeting/Advertising Cookies",
           "body": "These cookies are used to deliver advertisements more relevant to you and your interests. They are also used to limit the number of times you see an advertisement and to measure the effectiveness of advertising campaigns."
+        },
+        {
+          "title": "Performance Cookies",
+          "body": "These cookies collect information about how visitors use our website, such as which pages are visited most often. This helps us improve the performance, usability, and design of our website.",
+          "note": "We may use Microsoft Clarity, a user behavior analytics tool that helps us understand how users interact with our website through session replays and heatmaps."
         }
       ],
       "thirdParty": {
         "title": "Third-Party Cookies",
         "intro": "We may use third-party service providers who place cookies on your device on our behalf. These include:",
         "items": [
-          "Analytics providers (e.g., Google Analytics)",
+          "Analytics providers (e.g., Google Analytics - Microsoft Clarity)",
           "Advertising networks",
           "Social media platforms",
           "Payment processors"
-        ]
-      },
-      "usage": {
-        "title": "How We Use Cookies",
-        "intro": "We use cookies for the following purposes:",
-        "items": [
-          "To remember your login details and preferences",
-          "To process your bookings and transactions",
-          "To analyze website traffic and user behavior",
-          "To provide personalized content and advertisements",
-          "To improve our website functionality and user experience",
-          "To detect and prevent fraud"
         ]
       },
       "preferences": {
@@ -3052,11 +3047,12 @@
       "contact": {
         "title": "Contact Us",
         "intro": "If you have any questions about our use of cookies, please contact us at:",
-        "company": "Fly Cham Airlines",
+        "company": "Fly Cham",
+        "department": "Digital Transformation and eCommerce Department",
         "emailLabel": "Email:",
-        "email": "privacy@flycham.com",
+        "email": "info@flycham.com",
         "phoneLabel": "Phone:",
-        "phone": "+1 (800) 555-0123"
+        "phone": "+963-112158121"
       }
     }
   },

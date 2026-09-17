@@ -10,6 +10,7 @@ const ICONS = {
   terms: shieldIcon,
   privacy: shieldIcon,
   cookies: cookieIcon,
+  beforeYouBook: shieldIcon,
 }
 
 /**
