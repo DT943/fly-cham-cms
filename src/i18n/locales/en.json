@@ -2004,6 +2004,42 @@
       "cta": "Subscribe"
     }
   },
+  "travelerMagazine": {
+    "breadcrumb": "Traveler Magazine",
+    "hero": {
+      "title": "Traveler Magazine",
+      "subtitle": "Your Gateway To New Information",
+      "imageAlt": "A mosaic of Fly Cham travel destinations and experiences"
+    },
+    "intro": {
+      "title": "Marhaba Magazine",
+      "description": "Browse Traveler Magazine, specially designed to be your perfect companion on all your flights. Enjoy reading a unique collection of travel and tourism articles rich in information, useful tips, and stories that inspire you to explore the world.",
+      "imageAlt": "Marhaba onboard magazine cover"
+    },
+    "explore": {
+      "title": "Explore Marhaba",
+      "yearLabel": "Filter issues by year"
+    },
+    "issue": {
+      "new": "New",
+      "read": "Read",
+      "label": "Issue {{number}}"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
   "recentNews": {
     "breadcrumb": "Recent News",
     "title": "Recent News",
@@ -2277,6 +2313,53 @@
             "text": "New frequencies and destination pairings will improve connectivity while maintaining the consistent service quality customers expect from Fly Cham."
           }
         ]
+      }
+    }
+  },
+  "ourFleet": {
+    "breadcrumb": "Our Fleet",
+    "hero": {
+      "title": "Our Fleet",
+      "subtitle": "Innovation and Comfort on Every Flight",
+      "imageAlt": "Fly Cham Airbus A320 on the runway"
+    },
+    "explore": {
+      "title": "Explore our fleet",
+      "paragraphs": [
+        "Our fleet has been carefully selected to meet the destinations and services our customers expect. Each aircraft offers the highest levels of comfort, luxury, and safety, ensuring that every journey is unique and seamless. Our fleet consists of modern Airbus A320 aircraft, equipped with the latest technology and advanced safety systems, so passengers can travel with complete confidence, knowing that international safety standards are always upheld.",
+        "Looking ahead, Fly Cham plans to expand its fleet by adding more aircraft to serve both domestic and international routes. By continuously enhancing and growing its operations, the airline aims to introduce new destinations, providing travelers with broader choices and exceptional travel experiences."
+      ]
+    },
+    "card": {
+      "economy": "Economy",
+      "business": "Business",
+      "totalSeats": "Total seats",
+      "viewLabel": "View {{name}} details",
+      "imageAlt": "Fly Cham Airbus A320 aircraft"
+    },
+    "features": {
+      "modern": {
+        "title": "Modern convenience and classic comfort",
+        "description": "Our Airbus A320 experience is designed with your peace of mind at heart, whether you're flying for business or exploring the continent. From its modern interior to the rich leather seating and eco-conscious operating systems, the Airbus A320 is an aircraft designed to get you where you're headed. Over and above the anticipated fine dining experience and selection of entertainment and magazines, you will enjoy features designed to make yours a memorable journey no matter the destination.",
+        "imageAlt": "Fly Cham cabin crew member holding a model aircraft"
+      },
+      "comfort": {
+        "title": "Features That Redefine Comfort",
+        "description": "Get the edge in luxury and relaxation with our Business Class experience. Seating features include easily adjustable headrests with adaptable ears, ample stowage space, leg rests, and a handy coat hook. The A320 is also a narrow-body aircraft to features six seats in every row, offering more space and comfort. Each Business Class seat is also very spacious and has a PC and tablet holder",
+        "imageAlt": "Interior cabin of a Fly Cham Airbus A320"
+      }
+    },
+    "banners": {
+      "learnMore": "Learn More",
+      "cargo": {
+        "title": "Cargo Service",
+        "description": "We offer fast shipping services to safely transport goods, pets, and perishable items, along with tips and guidance for exporters, shipping companies, and agents",
+        "imageAlt": "Cargo being loaded onto a Fly Cham aircraft"
+      },
+      "entertainment": {
+        "title": "In-Flight Entertainment System",
+        "description": "Spend hours of entertainment during your journey with our onboard Entertainment System.",
+        "imageAlt": "Passenger enjoying in-flight entertainment beside the window"
       }
     }
   }

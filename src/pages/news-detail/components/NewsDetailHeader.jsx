@@ -17,7 +17,7 @@ const NewsDetailHeader = ({ image, imageAlt, date, dateTime, category, title }) 
           ·
         </span>
         <span
-          className={`rounded-full bg-primary-1/10 px-3 py-1 font-medium text-primary-1 ${typography.caption}`}
+          className={`rounded-full bg-secondary-1/15 px-3 py-1 font-medium text-primary-1 ${typography.caption}`}
         >
           {category}
         </span>
