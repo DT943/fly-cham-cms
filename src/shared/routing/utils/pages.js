@@ -74,7 +74,7 @@ export const pages = {
   '/magazine-view': MagazineView,
   '/legal': Legal,
   '/legal/terms-and-conditions': TermsAndConditions,
-  '/booking-terms-and-conditions': BookingTermsAndConditions,
+  '/legal/booking-terms-and-conditions': BookingTermsAndConditions,
   '/legal/privacy-policy': PrivacyPolicy,
   '/legal/cookies': Cookies,
 }

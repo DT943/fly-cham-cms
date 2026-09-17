@@ -3194,6 +3194,39 @@
           ]
         }
       ]
+    },
+    "hub": {
+      "breadcrumb": "Legal Information",
+      "title": "Legal Information",
+      "subtitle": "Find the terms, policies, and information that explain your rights and responsibilities when booking, travelling, and using Fly Cham's website and services",
+      "cards": {
+        "privacy": {
+          "title": "Privacy Policy",
+          "description": "Learn how we collect and protect your personal information.",
+          "cta": "View privacy policy"
+        },
+        "cookies": {
+          "title": "Cookies Policy",
+          "description": "Understand how we use cookies to enhance your experience.",
+          "cta": "View cookies policy"
+        },
+        "booking": {
+          "title": "Booking Terms and Conditions",
+          "description": "Review the terms for your ticket, baggage, check-in, changes, and refunds.",
+          "cta": "View booking terms"
+        },
+        "website": {
+          "title": "Website Terms and Conditions",
+          "description": "Review the terms for using Fly Cham's services and website.",
+          "cta": "View website terms"
+        }
+      },
+      "help": {
+        "title": "Need Help Finding an Answer?",
+        "description": "Find the contact information, FAQs, and support options you need in the Fly Cham Help Centre.",
+        "cta": "Visit Help Center",
+        "imageAlt": "A Fly Cham customer service agent wearing a headset"
+      }
     }
   },
   "magazineView": {
@@ -3221,39 +3254,6 @@
       "featureTwo": "Feature story page two",
       "featureThree": "Feature story page three",
       "closing": "Closing magazine page"
-    },
-    "hub": {
-      "breadcrumb": "Legal Information",
-      "title": "Legal Information",
-      "subtitle": "Find the terms, policies, and information that explain your rights and responsibilities when booking, travelling, and using Fly Cham's website and services",
-      "cards": {
-        "privacy": {
-          "title": "Privacy Policy",
-          "description": "Learn how we collect and protect your personal information.",
-          "cta": "View privacy policy"
-        },
-        "cookies": {
-          "title": "Cookies Policy",
-          "description": "Understand how we use cookies to enhance your experience.",
-          "cta": "View cookies policy"
-        },
-        "booking": {
-          "title": "Booking Terms and Conditions",
-          "description": "Review the terms for your ticket, baggage, check-in, changes, and refunds.",
-          "cta": "View terms and conditions"
-        },
-        "website": {
-          "title": "Website Terms and Conditions",
-          "description": "Review the terms for using Fly Cham's services and website.",
-          "cta": "View terms and conditions"
-        }
-      },
-      "help": {
-        "title": "Need Help Finding an Answer?",
-        "description": "Find the contact information, FAQs, and support options you need in the Fly Cham Help Centre.",
-        "cta": "Visit Help Center",
-        "imageAlt": "A Fly Cham customer service agent wearing a headset"
-      }
     }
   }
 }
