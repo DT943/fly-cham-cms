@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Scrollable without a visible scrollbar (used by the mobile mega-menu tabs). */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --font-family-base: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --color-main: #054e72;

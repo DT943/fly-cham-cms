@@ -1,18 +1,42 @@
 import { ArrowRight } from '@phosphor-icons/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 
+const scrollTabToStart = (nav, tab) => {
+  const navRect = nav.getBoundingClientRect()
+  const tabRect = tab.getBoundingClientRect()
+  const styles = getComputedStyle(nav)
+  const rtl = styles.direction === 'rtl'
+  const paddingStart = Number.parseFloat(rtl ? styles.paddingRight : styles.paddingLeft) || 0
+  const delta = rtl
+    ? tabRect.right - (navRect.right - paddingStart)
+    : tabRect.left - (navRect.left + paddingStart)
+
+  nav.scrollTo({ left: nav.scrollLeft + delta, behavior: 'smooth' })
+}
+
 /** Left rail: the tabs that switch the panel content. */
 const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
   const { t } = useTranslation()
+  const navRef = useRef(null)
+  const tabRefs = useRef({})
+
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    const tab = tabRefs.current[activeId]
+    if (!nav || !tab) return
+    if (nav.scrollWidth <= nav.clientWidth + 1) return
+    scrollTabToStart(nav, tab)
+  }, [activeId])
 
   return (
     <nav
+      ref={navRef}
       aria-label={t(`layout.header.nav.${menuId}`)}
-      className="flex shrink-0 flex-row overflow-x-auto border-b border-200 bg-100 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
+      className="no-scrollbar px-6 flex w-full shrink-0 flex-row overflow-x-auto border-b border-200 bg-100 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
     >
       {tabs.map((tab) => {
         const Icon = tab.icon
@@ -23,8 +47,12 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
           <button
             key={tab.id}
             type="button"
+            ref={(node) => {
+              tabRefs.current[tab.id] = node
+            }}
+            aria-current={isActive ? 'true' : undefined}
             onClick={() => onSelect(tab.id)}
-            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent px-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:px-6 ${
+            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent ps-0 pe-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:ps-6 lg:pe-6 ${
               isActive
                 ? 'border-b-[3px] border-primary-2 text-primary-1 lg:border-b-0 lg:border-s-[3px]'
                 : 'border-b-[3px] border-transparent text-700 hover:text-primary-1 lg:border-b-0 lg:border-s-[3px]'
@@ -53,7 +81,7 @@ const MegaMenuPromo = ({ image, ctaHref, ctaLabel, onNavigate }) => (
   <LocalizedLink
     to={ctaHref}
     onClick={onNavigate}
-    className="group relative flex w-full shrink-0 flex-col justify-end overflow-hidden rounded-3xl no-underline outline-none focus:outline-none lg:w-[300px]"
+    className="group relative hidden w-full shrink-0 flex-col justify-end overflow-hidden rounded-3xl no-underline outline-none focus:outline-none lg:flex lg:w-[300px]"
   >
     <img
       src={image}
@@ -83,7 +111,7 @@ const MegaMenuLinks = ({ tab, onNavigate }) => {
               key={link.id}
               to={link.href}
               onClick={onNavigate}
-              className="group flex items-start gap-3 rounded-xl px-3 py-3 text-inherit no-underline outline-none transition-colors hover:bg-100 focus:outline-none"
+              className="group flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors hover:bg-100 focus:outline-none lg:ps-3"
             >
               <span className="relative mt-0.5 shrink-0 text-primary-1">
                 <Icon size={24} weight="regular" />
@@ -257,25 +285,35 @@ const MegaMenu = ({ menu, onNavigate, embedded = false }) => {
   const activeTab = menu.tabs.find((tab) => tab.id === activeId) || menu.tabs[0]
   const Content = contentByType[activeTab.type]
 
+  const body = (
+    <>
+      <MegaMenuSidebar
+        menuId={menu.id}
+        tabs={menu.tabs}
+        activeId={activeTab.id}
+        onSelect={setActiveId}
+      />
+      <div
+        className={`flex min-w-0 flex-1 flex-col ${
+          embedded ? 'px-6' : 'lg:ps-10 lg:pe-0'
+        }`}
+      >
+        <Content tab={activeTab} onNavigate={onNavigate} />
+      </div>
+    </>
+  )
+
   return (
     <div
       className={`w-full border-b-2 border-200 bg-50 ${
         embedded ? '' : 'shadow-[0_4px_16px_rgba(33,37,41,0.08)]'
       }`}
     >
-      <Container
-        className={`flex flex-col lg:flex-row lg:items-stretch ${embedded ? 'px-0 sm:px-0 md:px-0 xl:px-0' : ''}`}
-      >
-        <MegaMenuSidebar
-          menuId={menu.id}
-          tabs={menu.tabs}
-          activeId={activeTab.id}
-          onSelect={setActiveId}
-        />
-        <div className="flex min-w-0 flex-1 flex-col px-4 lg:ps-10 lg:pe-0">
-          <Content tab={activeTab} onNavigate={onNavigate} />
-        </div>
-      </Container>
+      {embedded ? (
+        <div className="flex flex-col">{body}</div>
+      ) : (
+        <Container className="flex flex-col lg:flex-row lg:items-stretch">{body}</Container>
+      )}
     </div>
   )
 }
