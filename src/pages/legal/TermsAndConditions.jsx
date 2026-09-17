@@ -1,0 +1,26 @@
+import { useTranslation } from 'react-i18next'
+import LegalPageShell from './components/LegalPageShell.jsx'
+import LegalDocument from './components/LegalDocument.jsx'
+import heroImage from '../../assets/images/legal/terms-hero.jpg'
+
+const TermsAndConditions = () => {
+  const { t } = useTranslation()
+
+  return (
+    <LegalPageShell
+      breadcrumbLabel={t('legal.terms.breadcrumb')}
+      heroImage={heroImage}
+      heroImageAlt={t('legal.terms.hero.imageAlt')}
+      heroTitle={t('legal.terms.hero.title')}
+      heroSubtitle={t('legal.terms.hero.subtitle')}
+      moreInfoCards={[
+        { id: 'privacy', href: '/privacy-policy' },
+        { id: 'cookies', href: '/cookies' },
+      ]}
+    >
+      <LegalDocument baseKey="legal.terms" activeId="terms" />
+    </LegalPageShell>
+  )
+}
+
+export default TermsAndConditions

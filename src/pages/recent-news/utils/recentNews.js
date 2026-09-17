@@ -4,7 +4,13 @@ import newsThree from '../../../assets/images/media-center/news-grid-3.jpg'
 import newsFour from '../../../assets/images/our-destenations/damascus.jpeg'
 import newsFive from '../../../assets/images/our-destenations/istanbul.jpg'
 import newsSix from '../../../assets/images/our-destenations/dubai.jpg'
-import { getNewsDetailHref } from '../../news-detail/utils/newsArticles.js'
+
+/** Recent News article detail lives at `/recent-news/{slug}`. */
+export const RECENT_NEWS_DETAIL_PATH = /^\/recent-news\/([^/]+)$/
+
+export const getRecentNewsDetailHref = (slug) => `/recent-news/${slug}`
+
+export const getRecentNewsSlug = (path) => path.match(RECENT_NEWS_DETAIL_PATH)?.[1] ?? null
 
 /**
  * Recent News listing content.
@@ -51,7 +57,7 @@ export const recentNewsArticles = [
     month: 'july',
     dateTime: '2025-07-24',
     image: newsOne,
-    href: getNewsDetailHref('expansionPlans'),
+    href: getRecentNewsDetailHref('expansionPlans'),
   },
   {
     id: 'corporateUpdate',
@@ -61,7 +67,7 @@ export const recentNewsArticles = [
     month: 'july',
     dateTime: '2025-07-18',
     image: newsTwo,
-    href: getNewsDetailHref('corporateUpdate'),
+    href: getRecentNewsDetailHref('corporateUpdate'),
   },
   {
     id: 'sponsorshipLaunch',
@@ -71,7 +77,7 @@ export const recentNewsArticles = [
     month: 'june',
     dateTime: '2025-06-12',
     image: newsThree,
-    href: getNewsDetailHref('sponsorshipLaunch'),
+    href: getRecentNewsDetailHref('sponsorshipLaunch'),
   },
   {
     id: 'communityEvent',
@@ -81,7 +87,7 @@ export const recentNewsArticles = [
     month: 'june',
     dateTime: '2025-06-05',
     image: newsFour,
-    href: getNewsDetailHref('communityEvent'),
+    href: getRecentNewsDetailHref('communityEvent'),
   },
   {
     id: 'customerExperience',
@@ -91,7 +97,7 @@ export const recentNewsArticles = [
     month: 'may',
     dateTime: '2025-05-22',
     image: newsFive,
-    href: getNewsDetailHref('customerExperience'),
+    href: getRecentNewsDetailHref('customerExperience'),
   },
   {
     id: 'routeExpansion',
@@ -101,7 +107,7 @@ export const recentNewsArticles = [
     month: 'may',
     dateTime: '2025-05-10',
     image: newsSix,
-    href: getNewsDetailHref('routeExpansion'),
+    href: getRecentNewsDetailHref('routeExpansion'),
   },
 ]
 

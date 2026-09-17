@@ -14,15 +14,22 @@ import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamas
 import CitySights from '../../../pages/city-sights/CitySights.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
+import TravelerMagazine from '../../../pages/traveler-magazine/TravelerMagazine.jsx'
 import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
 import SeatSelection from '../../../pages/seat-selection/SeatSelection.jsx'
 import AboutUs from '../../../pages/about-us/AboutUs.jsx'
+import OurFleet from '../../../pages/our-fleet/OurFleet.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
+import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
+import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
+import Cookies from '../../../pages/legal/Cookies.jsx'
+import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
+import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
 import {
@@ -56,11 +63,16 @@ export const pages = {
   '/travel-experience/at-the-airport': BeforeYouFly,
   '/travel-experience/onboard': BeforeYouFly,
   '/travel-experience/after-travel': BeforeYouFly,
+  '/travel-experience/traveler-magazine': TravelerMagazine,
   '/our-responsibility': OurResponsibility,
   '/about-us': AboutUs,
+  '/our-fleet': OurFleet,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
   '/magazine-view': MagazineView,
+  '/terms-and-conditions': TermsAndConditions,
+  '/privacy-policy': PrivacyPolicy,
+  '/cookies': Cookies,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
@@ -69,6 +81,7 @@ const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
 
 export function getPage(path) {
   if (pages[path]) return pages[path]
+  if (RECENT_NEWS_DETAIL_PATH.test(path)) return RecentNewsDetail
   if (NEWS_DETAIL_PATH.test(path)) return NewsDetail
   if (getJourneyStage(getJourneyStageSlug(path))) return BeforeYouFly
   if (getDestinationGuide(getDestinationGuideSlug(path))) return ThingsToDoInDamascus

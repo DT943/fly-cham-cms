@@ -1,4 +1,4 @@
-import { pick, pickContent, resolveCmsAsset } from './pick.js'
+import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "page-hero" block to <PageHero /> props.
@@ -11,6 +11,7 @@ import { pick, pickContent, resolveCmsAsset } from './pick.js'
  */
 export function pageHeroProps(block, lang) {
   const content = pickContent(block.content, lang)
+  // `block.style` is already resolved to the active language by BlockRenderer.
   const style = block.style || {}
 
   return {
@@ -19,8 +20,18 @@ export function pageHeroProps(block, lang) {
     image: resolveCmsAsset(content.imageUrl) || undefined,
     mask: resolveCmsAsset(content.imageMask) || undefined,
     imageAlt: content.imageAlt,
+    links: mapBacklinks(content.links),
+    // Explicit direction so RTL logical alignment + the mask mirror work even
+    // if the global <html dir> hasn't settled when this CMS page renders.
+    dir: lang === 'ar' ? 'rtl' : 'ltr',
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -35,7 +46,17 @@ const STYLE_KEYS = [
   'subtitleColor',
   'titleFontWeight',
   'subtitleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
+  'subtitleColorHover',
+  'subtitleFontWeightHover',
   'sectionBg',
   'showSectionBg',
   'sectionPadding',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

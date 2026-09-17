@@ -1,4 +1,5 @@
 import { getSection } from '../sections/sectionRegistry.js'
+import { pickStyle } from '../sections/adapters/pick.js'
 
 /** Render a single CMS block by its `sectionId`, or nothing if unregistered. */
 const BlockRenderer = ({ block, lang }) => {
@@ -13,8 +14,12 @@ const BlockRenderer = ({ block, lang }) => {
     return null
   }
 
+  // Style is per-language now; resolve it to the active locale's flat object
+  // once here so every adapter keeps reading a flat `block.style`.
+  const localizedBlock = { ...block, style: pickStyle(block.style, lang) }
+
   const { Component, mapProps } = section
-  return <Component {...mapProps(block, lang)} />
+  return <Component {...mapProps(localizedBlock, lang)} />
 }
 
 export default BlockRenderer

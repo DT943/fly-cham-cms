@@ -1,25 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { CaretDown } from '@phosphor-icons/react'
+import { CaretDown, GlobeHemisphereWest, UserCircle } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import logo from '../../assets/images/layout/logo.png'
 import logoDark from '../../assets/images/layout/logo-dark.png'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import { helpMenuPanels } from './headerNav.js'
-import DestinationsMegaMenu from './header/components/DestinationsMegaMenu.jsx'
-import ExperienceMegaMenu from './header/components/ExperienceMegaMenu.jsx'
+import { headerMenus } from './header/menuData.js'
+import MegaMenu from './header/components/MegaMenu.jsx'
+import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
-import HelpMegaMenu from './header/components/HelpMegaMenu.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
 
-/** Nav entries that open a mega menu, in display order. */
-const megaMenus = [
-  { id: 'destinations', labelKey: 'whereWeFly' },
-  { id: 'experience', labelKey: 'experience' },
-  { id: 'help', labelKey: 'help' },
-]
+const REGION_MENU = 'region'
 
 const Header = ({ dark = false }) => {
   const { t } = useTranslation()
@@ -27,13 +21,11 @@ const Header = ({ dark = false }) => {
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [panelId, setPanelId] = useState(helpMenuPanels[0].id)
   const hidden = useHideOnScroll({ enabled: !openMenu && !mobileOpen, resetKey: location.pathname })
 
   useEffect(() => {
     setOpenMenu(null)
     setMobileOpen(false)
-    setPanelId(helpMenuPanels[0].id)
   }, [location.pathname])
 
   useEffect(() => {
@@ -69,29 +61,30 @@ const Header = ({ dark = false }) => {
 
   const closeMenu = () => setOpenMenu(null)
   const closeMobile = () => setMobileOpen(false)
+  const toggle = (id) => setOpenMenu((current) => (current === id ? null : id))
+
+  const activeMenu = headerMenus.find((menu) => menu.id === openMenu)
 
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-[1000] border-t-0.75 border-secondary-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-        dark ? 'bg-secondary-2' : 'bg-background'
+      className={`sticky top-0 z-[1000] transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+        dark ? 'bg-secondary-2' : 'bg-50'
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
-      <div className={`border-b ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-background'}`}>
-        <Container className="flex h-16 items-center gap-4 md:h-18 md:gap-8">
-          <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham">
-            <img
-              src={dark ? logo : logoDark}
-              alt="Fly Cham"
-              className="h-8 md:h-10 w-auto"
-            />
+      <div
+        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-50'} shadow-[0_4px_4px_rgba(33,37,41,0.04)]`}
+      >
+        <Container className="flex h-16 items-center justify-between gap-4 md:h-18">
+          <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham" onClick={closeMenu}>
+            <img src={dark ? logo : logoDark} alt="Fly Cham" className="h-9 w-auto md:h-11" />
           </LocalizedLink>
 
           <nav
             aria-label={t('layout.header.navLabel')}
-            className="hidden items-stretch self-stretch gap-4 md:gap-6 lg:flex"
+            className="hidden h-full items-stretch gap-2 lg:flex"
           >
-            {megaMenus.map((menu) => {
+            {headerMenus.map((menu) => {
               const isOpen = openMenu === menu.id
 
               return (
@@ -100,10 +93,10 @@ const Header = ({ dark = false }) => {
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={`${menu.id}-mega-menu`}
-                  onClick={() => setOpenMenu(isOpen ? null : menu.id)}
-                  className={`relative self-stretch flex items-center gap-1.5 whitespace-nowrap bg-transparent border-0 outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 cursor-pointer px-1 ${typography.body} font-medium ${
-                    dark ? 'text-50' : 'text-secondary-2'
-                  } ${isOpen ? 'after:absolute after:inset-x-0 after:bottom-0 after:h-0.75 after:bg-secondary' : ''}`}
+                  onClick={() => toggle(menu.id)}
+                  className={`relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${
+                    isOpen ? 'font-medium text-primary-1' : `font-normal ${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
+                  } ${isOpen ? 'after:absolute after:inset-x-2 after:bottom-0 after:h-0.75 after:bg-primary-2' : ''}`}
                 >
                   {t(`layout.header.nav.${menu.labelKey}`)}
                   <CaretDown
@@ -115,6 +108,34 @@ const Header = ({ dark = false }) => {
               )
             })}
           </nav>
+
+          <div className="hidden items-stretch gap-2 lg:flex">
+            <button
+              type="button"
+              aria-expanded={openMenu === REGION_MENU}
+              aria-controls="region-mega-menu"
+              onClick={() => toggle(REGION_MENU)}
+              className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${
+                openMenu === REGION_MENU
+                  ? 'text-primary-1 after:absolute after:inset-x-2 after:bottom-0 after:h-0.75 after:bg-primary-2'
+                  : `${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
+              }`}
+            >
+              <GlobeHemisphereWest size={24} weight="regular" className="shrink-0" />
+              <span className={`${typography.caption} font-medium`}>{t('layout.header.region')}</span>
+            </button>
+
+            <LocalizedLink
+              to="/"
+              onClick={closeMenu}
+              className={`flex items-center gap-1.5 whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${
+                dark ? 'text-50' : 'text-700'
+              } hover:text-primary-1`}
+            >
+              <UserCircle size={24} weight="regular" className="shrink-0" />
+              <span className={`${typography.body} font-normal`}>{t('layout.header.login')}</span>
+            </LocalizedLink>
+          </div>
 
           <HeaderMenuButton
             open={mobileOpen}
@@ -132,34 +153,19 @@ const Header = ({ dark = false }) => {
       {/*
         Absolute so the panel floats over the page instead of pushing it down.
         `sticky` on the header makes it the containing block. The max height is
-        the viewport minus the bar above it (h-16/h-18 plus its 1px bottom
-        border), so a tall panel scrolls internally instead of running off-screen.
+        the viewport minus the bar above it, so a tall panel scrolls internally.
       */}
-      {openMenu && (
+      {(activeMenu || openMenu === REGION_MENU) && (
         <div
           id={`${openMenu}-mega-menu`}
-          className="absolute inset-x-0 top-full hidden overflow-y-auto max-h-[calc(100dvh-73px)] lg:block"
+          className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto lg:block"
         >
-          {openMenu === 'destinations' && <DestinationsMegaMenu onNavigate={closeMenu} />}
-
-          {openMenu === 'experience' && <ExperienceMegaMenu onNavigate={closeMenu} />}
-
-          {openMenu === 'help' && (
-            <HelpMegaMenu
-              panels={helpMenuPanels}
-              activeId={panelId}
-              onSelectPanel={setPanelId}
-              onNavigate={closeMenu}
-            />
-          )}
+          {activeMenu && <MegaMenu menu={activeMenu} onNavigate={closeMenu} />}
+          {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}
         </div>
       )}
 
-      <HeaderMobileMenu
-        open={mobileOpen}
-        onClose={closeMobile}
-        onNavigate={closeMobile}
-      />
+      <HeaderMobileMenu open={mobileOpen} onClose={closeMobile} onNavigate={closeMobile} />
     </header>
   )
 }

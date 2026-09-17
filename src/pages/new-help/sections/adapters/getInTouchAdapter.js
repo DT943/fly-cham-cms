@@ -1,4 +1,4 @@
-import { pick, pickContent, resolveCmsAsset } from './pick.js'
+import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "get-in-touch" block to <GetInTouch /> props.
@@ -19,8 +19,15 @@ export function getInTouchProps(block, lang) {
     image: resolveCmsAsset(content.imageUrl) || undefined,
     imageAlt: content.imageAlt,
     contained: false,
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -40,4 +47,20 @@ const STYLE_KEYS = [
   'sectionPadding',
   'phoneFontWeight',
   'titleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
+  'labelColorHover',
+  'labelFontWeightHover',
+  'phoneColorHover',
+  'phoneFontWeightHover',
+  'hoursColorHover',
+  'hoursFontWeightHover',
+  'noteColorHover',
+  'noteFontWeightHover',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

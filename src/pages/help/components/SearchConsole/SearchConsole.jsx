@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import {
   RADIUS,
-  WEIGHT,
   SECTION_PADDING,
   PANEL_PADDING,
   GRADIENT_DIR,
+  CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getTextStyleVars,
 } from '../../../../styles/cmsStyle.js'
 import useAppSearch from '../../../../shared/search/hooks/useAppSearch.js'
+import LinkedText from '../../../../shared/components/backlinks/LinkedText.jsx'
 import SearchField from './SearchField.jsx'
 import PopularTopics from './PopularTopics.jsx'
 import { cx } from './cx.js'
@@ -34,20 +36,52 @@ const SearchConsole = ({
   sectionPadding = 'default',
   inputBg = 'background',
   inputTextColor = '700',
+  inputTextColorHover,
+  inputTextFontWeightHover,
   submitBg = 'secondary',
   submitTextColor = '700',
   submitFontWeight = 'semibold',
+  submitTextColorHover,
+  submitTextFontWeightHover,
   labelColor = '50',
   labelFontWeight = 'semibold',
+  labelColorHover,
+  labelFontWeightHover,
   chipTextColor = '50',
+  chipTextColorHover,
+  chipTextFontWeightHover,
   chipBorderColor = '50',
   popularLabelColor = '50',
+  popularLabelColorHover,
+  popularLabelFontWeightHover,
   gradientFrom = 'primary-1',
   gradientTo = 'secondary-2',
   gradientDirection = 'topRight',
   panelRadius = '2xl',
   panelPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
+  const labelStyleKeys = {
+    labelColor,
+    labelFontWeight,
+    labelColorHover,
+    labelFontWeightHover,
+  }
   const { t, i18n } = useTranslation()
   const inputId = useId()
   const containerRef = useRef(null)
@@ -97,10 +131,10 @@ const SearchConsole = ({
         {showLabel && (
           <label
             htmlFor={inputId}
-            className={cx(typography.itemTitle, WEIGHT[labelFontWeight] || 'font-semibold')}
-            style={{ color: colorVar(labelColor) }}
+            className={cx(typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
+            style={getTextStyleVars(labelStyleKeys, 'labelColor', '50', 'semibold')}
           >
-            {resolvedLabel}
+            <LinkedText text={resolvedLabel} {...linkProps} />
           </label>
         )}
 
@@ -118,9 +152,13 @@ const SearchConsole = ({
           showChips={showChips}
           inputBg={inputBg}
           inputTextColor={inputTextColor}
+          inputTextColorHover={inputTextColorHover}
+          inputTextFontWeightHover={inputTextFontWeightHover}
           submitBg={submitBg}
           submitTextColor={submitTextColor}
           submitFontWeight={submitFontWeight}
+          submitTextColorHover={submitTextColorHover}
+          submitTextFontWeightHover={submitTextFontWeightHover}
           ariaLabel={showLabel ? undefined : resolvedLabel}
           onQueryChange={(value, event) => {
             search.handleQueryChange(event)
@@ -135,8 +173,13 @@ const SearchConsole = ({
             label={popularLabel}
             items={popularItems}
             labelColor={popularLabelColor}
+            labelColorHover={popularLabelColorHover}
+            labelFontWeightHover={popularLabelFontWeightHover}
             chipTextColor={chipTextColor}
+            chipTextColorHover={chipTextColorHover}
+            chipTextFontWeightHover={chipTextFontWeightHover}
             chipBorderColor={chipBorderColor}
+            linkProps={linkProps}
             onSelect={(value) => {
               search.applyQuery(value)
               onQueryChange?.(value)

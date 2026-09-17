@@ -14,8 +14,15 @@ export function ctaBannerProps(block, lang) {
     href: resolveCmsHref(content.buttonHref),
     image: resolveCmsAsset(content.imageUrl) || undefined,
     imageAlt: content.imageAlt,
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -30,13 +37,25 @@ const STYLE_KEYS = [
   'titleAlign',
   'titleColor',
   'titleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
   'descriptionColor',
   'descriptionFontWeight',
+  'descriptionColorHover',
+  'descriptionFontWeightHover',
   'buttonBg',
   'buttonText',
   'buttonTextFontWeight',
+  'buttonTextHover',
+  'buttonTextFontWeightHover',
   'verticalAlign',
   'sectionBg',
   'showSectionBg',
   'sectionPadding',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

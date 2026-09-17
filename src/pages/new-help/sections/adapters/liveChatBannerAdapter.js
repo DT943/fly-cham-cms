@@ -12,8 +12,15 @@ export function liveChatBannerProps(block, lang) {
     description: content.description,
     cta: content.buttonLabel,
     href: resolveCmsHref(content.buttonHref),
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -24,11 +31,17 @@ const STYLE_KEYS = [
   'showDescription',
   'titleColor',
   'titleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
   'buttonBg',
   'buttonText',
-  'buttonFontWeight',
+  'buttonTextFontWeight',
+  'buttonTextHover',
+  'buttonTextFontWeightHover',
   'descriptionColor',
   'descriptionFontWeight',
+  'descriptionColorHover',
+  'descriptionFontWeightHover',
   'panelBg',
   'panelBgOpacity',
   'panelRadius',
@@ -36,4 +49,10 @@ const STYLE_KEYS = [
   'sectionBg',
   'showSectionBg',
   'sectionPadding',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

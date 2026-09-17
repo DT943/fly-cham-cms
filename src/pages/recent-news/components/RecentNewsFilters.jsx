@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
+import Dropdown from '../../../shared/components/Dropdown.jsx'
 import { recentNewsMonths, recentNewsTopics, recentNewsYears } from '../utils/recentNews.js'
-
-const selectClassName = `h-12 w-full min-w-0 appearance-none rounded-lg border border-solid border-200 bg-background px-4 pe-10 font-normal text-700 ${typography.body}`
 
 const RecentNewsFilters = ({ activeTopic, onTopicChange }) => {
   const { t } = useTranslation()
@@ -19,47 +17,27 @@ const RecentNewsFilters = ({ activeTopic, onTopicChange }) => {
         </span>
 
         <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="relative min-w-0 flex-1">
-            <select
-              value={month}
-              onChange={(event) => setMonth(event.target.value)}
-              aria-label={t('recentNews.filters.monthLabel')}
-              className={selectClassName}
-            >
-              {recentNewsMonths.map((id) => (
-                <option key={id} value={id}>
-                  {t(`recentNews.filters.months.${id}`)}
-                </option>
-              ))}
-            </select>
-            <CaretDown
-              size={16}
-              weight="bold"
-              className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-700"
-              aria-hidden
-            />
-          </div>
+          <Dropdown
+            label={t('recentNews.filters.monthLabel')}
+            value={month}
+            onChange={setMonth}
+            options={recentNewsMonths.map((id) => ({
+              value: id,
+              label: t(`recentNews.filters.months.${id}`),
+            }))}
+            className="min-w-0 flex-1"
+          />
 
-          <div className="relative min-w-0 flex-1">
-            <select
-              value={year}
-              onChange={(event) => setYear(event.target.value)}
-              aria-label={t('recentNews.filters.yearLabel')}
-              className={selectClassName}
-            >
-              {recentNewsYears.map((id) => (
-                <option key={id} value={id}>
-                  {t(`recentNews.filters.years.${id}`)}
-                </option>
-              ))}
-            </select>
-            <CaretDown
-              size={16}
-              weight="bold"
-              className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-700"
-              aria-hidden
-            />
-          </div>
+          <Dropdown
+            label={t('recentNews.filters.yearLabel')}
+            value={year}
+            onChange={setYear}
+            options={recentNewsYears.map((id) => ({
+              value: id,
+              label: t(`recentNews.filters.years.${id}`),
+            }))}
+            className="min-w-0 flex-1"
+          />
         </div>
 
         <button

@@ -3,14 +3,16 @@ import Button from './Button.jsx'
 import { typography } from '../../styles/typography.js'
 import {
   RADIUS,
-  WEIGHT,
   ALIGN,
   SECTION_PADDING,
   BANNER_HEIGHT,
   VERTICAL_ALIGN,
+  CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import defaultImage from '../../assets/images/help/ph1.png'
+import LinkedText from './backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -36,20 +38,61 @@ const CtaBanner = ({
   titleAlign,
   titleColor = '50',
   titleFontWeight = 'semibold',
+  titleColorHover,
+  titleFontWeightHover,
   descriptionColor = '50',
   descriptionFontWeight = 'medium',
+  descriptionColorHover,
+  descriptionFontWeightHover,
   buttonBg = 'secondary',
   buttonText = 'btn',
   buttonTextFontWeight = 'semibold',
+  buttonTextHover,
+  buttonTextFontWeightHover,
   verticalAlign = 'center',
   sectionBg = '100',
   showSectionBg = false,
   sectionPadding = 'default',
+  links = [],
+  showLinks = true,
+  linkColor,
+  linkHoverColor,
+  linkFontWeight,
+  linkUnderline,
+  linkItalic,
 }) => {
   const { i18n } = useTranslation()
   const dir = i18n.dir() === 'rtl' ? 'rtl' : 'ltr'
   const overlay = colorVar(overlayColor)
   const to = dir === 'rtl' ? 'left' : 'right'
+
+  const linkProps = {
+    links,
+    enabled: showLinks,
+    linkColor,
+    linkHoverColor,
+    linkFontWeight,
+    linkUnderline,
+    linkItalic,
+  }
+  const titleStyleKeys = {
+    titleColor,
+    titleFontWeight,
+    titleColorHover,
+    titleFontWeightHover,
+  }
+  const descriptionStyleKeys = {
+    descriptionColor,
+    descriptionFontWeight,
+    descriptionColorHover,
+    descriptionFontWeightHover,
+  }
+  const buttonTextStyleKeys = {
+    buttonText,
+    buttonTextFontWeight,
+    buttonTextHover,
+    buttonTextFontWeightHover,
+  }
 
   return (
     <section
@@ -95,41 +138,39 @@ const CtaBanner = ({
             <h2
               className={cx(
                 typography.sectionTitle,
-                WEIGHT[titleFontWeight] || 'font-semibold',
                 'm-0',
+                CMS_TEXT_HOVER_CLASS,
               )}
-              style={{ color: colorVar(titleColor) }}
+              style={getTextStyleVars(titleStyleKeys, 'titleColor', '50', 'semibold')}
             >
-              {title}
+              <LinkedText text={title} {...linkProps} />
             </h2>
           )}
           {showDescription && description && (
             <p
               className={cx(
                 typography.sectionDescription,
-                WEIGHT[descriptionFontWeight] || 'font-medium',
                 'm-0 leading-relaxed',
+                CMS_TEXT_HOVER_CLASS,
               )}
-              style={{ color: colorVar(descriptionColor) }}
+              style={getTextStyleVars(descriptionStyleKeys, 'descriptionColor', '50', 'medium')}
             >
-              {description}
+              <LinkedText text={description} {...linkProps} />
             </p>
           )}
           {showButton && cta && (
             <Button
               href={href}
               className={cx(
-                WEIGHT[buttonTextFontWeight] || '',
                 (buttonBg !== 'secondary' || buttonText !== 'btn') && 'hover:opacity-90',
+                CMS_TEXT_HOVER_CLASS,
               )}
-              style={
-                buttonBg !== 'secondary' || buttonText !== 'btn'
-                  ? {
-                      backgroundColor: colorVar(buttonBg),
-                      color: colorVar(buttonText),
-                    }
-                  : undefined
-              }
+              style={{
+                ...(buttonBg !== 'secondary' || buttonText !== 'btn'
+                  ? { backgroundColor: colorVar(buttonBg) }
+                  : {}),
+                ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', 'btn', 'semibold'),
+              }}
             >
               {cta}
             </Button>

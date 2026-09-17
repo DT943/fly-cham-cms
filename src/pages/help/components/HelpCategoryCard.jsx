@@ -1,7 +1,13 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import { RADIUS, WEIGHT, colorVar } from '../../../styles/cmsStyle.js'
+import {
+  RADIUS,
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getTextStyleVars,
+} from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -23,8 +29,29 @@ const HelpCategoryCard = ({
   cardRadius = 'xl',
   cardTitleColor = '700',
   cardTitleFontWeight = 'bold',
+  cardTitleColorHover,
+  cardTitleFontWeightHover,
   cardDescriptionColor = '600',
+  cardDescriptionColorHover,
+  cardDescriptionFontWeightHover,
+  linkProps,
 }) => {
+  // Cards with an href render title/description inside a LocalizedLink, so
+  // backlinks must be skipped there to avoid nesting an anchor inside an anchor.
+  const canLinkText = !href
+  const titleLinkProps = canLinkText ? linkProps : { enabled: false }
+  const descriptionLinkProps = canLinkText ? linkProps : { enabled: false }
+  const cardTitleStyleKeys = {
+    cardTitleColor,
+    cardTitleFontWeight,
+    cardTitleColorHover,
+    cardTitleFontWeightHover,
+  }
+  const cardDescriptionStyleKeys = {
+    cardDescriptionColor,
+    cardDescriptionColorHover,
+    cardDescriptionFontWeightHover,
+  }
   const className = cx(
     'flex cursor-pointer flex-row items-center gap-3 border border-200 p-4 no-underline text-inherit',
     'transition-shadow md:min-h-[220px] md:flex-col md:items-stretch md:justify-between md:gap-0 md:border-0',
@@ -50,18 +77,18 @@ const HelpCategoryCard = ({
         <div className="flex min-w-0 flex-col gap-1 md:gap-2">
           {showCardTitle && (
             <h3
-              className={cx(typography.itemTitle, WEIGHT[cardTitleFontWeight] || 'font-bold', 'm-0')}
-              style={{ color: colorVar(cardTitleColor) }}
+              className={cx(typography.itemTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(cardTitleStyleKeys, 'cardTitleColor', '700', 'bold')}
             >
-              {title}
+              <LinkedText text={title} {...titleLinkProps} />
             </h3>
           )}
           {showCardDescription && description && (
             <p
-              className={cx(typography.caption, 'm-0 font-normal leading-snug')}
-              style={{ color: colorVar(cardDescriptionColor) }}
+              className={cx(typography.caption, 'm-0 leading-snug', CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(cardDescriptionStyleKeys, 'cardDescriptionColor', '600', 'normal')}
             >
-              {description}
+              <LinkedText text={description} {...descriptionLinkProps} />
             </p>
           )}
         </div>

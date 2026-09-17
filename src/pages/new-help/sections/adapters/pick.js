@@ -1,11 +1,33 @@
 import { CMS_API_BASE_URL } from '../../api/cmsClient.js'
-import { stripLanguage } from '../../../../i18n/languages.js'
+import { stripLanguage, SUPPORTED_LANGUAGES } from '../../../../i18n/languages.js'
 
 /** Language-scoped CMS content, falling back to the first available language. */
 export function pickContent(content, lang) {
   if (!content) return {}
   const keys = Object.keys(content)
   return content[lang] || content[keys[0]] || {}
+}
+
+/** True when `value` is a per-language map ({ en: {...}, ar: {...} }), not a flat object. */
+function isLanguageMap(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const keys = Object.keys(value)
+  return keys.length > 0 && keys.every((k) => SUPPORTED_LANGUAGES.includes(k))
+}
+
+/**
+ * Language-scoped CMS style. Content and style are both per-language now, but
+ * older components stored a single flat style shared across languages:
+ *   - per-language map → `style[lang]` (fallback to first authored language),
+ *   - legacy flat style → returned as-is (it applies to every language).
+ */
+export function pickStyle(style, lang) {
+  if (!style || typeof style !== 'object' || Array.isArray(style)) return {}
+  if (isLanguageMap(style)) {
+    const keys = Object.keys(style)
+    return style[lang] || style[keys[0]] || {}
+  }
+  return style
 }
 
 /** Copy only the keys that are actually present, so component defaults still apply. */

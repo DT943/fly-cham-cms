@@ -1,4 +1,4 @@
-import { pick, pickContent } from './pick.js'
+import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "search-console" block to <SearchConsole /> props.
@@ -22,8 +22,15 @@ export function searchConsoleProps(block, lang) {
       label: item.label,
       query: item.query || item.label,
     })),
+    links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Resolve each backlink href through the app's CMS href rules. */
+function mapBacklinks(links) {
+  if (!Array.isArray(links)) return []
+  return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
 }
 
 const STYLE_KEYS = [
@@ -36,17 +43,33 @@ const STYLE_KEYS = [
   'sectionPadding',
   'inputBg',
   'inputTextColor',
+  'inputTextColorHover',
+  'inputTextFontWeightHover',
   'submitBg',
   'submitTextColor',
   'submitFontWeight',
+  'submitTextColorHover',
+  'submitTextFontWeightHover',
   'labelColor',
   'labelFontWeight',
+  'labelColorHover',
+  'labelFontWeightHover',
   'chipTextColor',
+  'chipTextColorHover',
+  'chipTextFontWeightHover',
   'chipBorderColor',
   'popularLabelColor',
+  'popularLabelColorHover',
+  'popularLabelFontWeightHover',
   'gradientFrom',
   'gradientTo',
   'gradientDirection',
   'panelRadius',
   'panelPadding',
+  'showLinks',
+  'linkColor',
+  'linkHoverColor',
+  'linkFontWeight',
+  'linkUnderline',
+  'linkItalic',
 ]

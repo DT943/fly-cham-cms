@@ -56,7 +56,7 @@ const AboutUs = () => {
           title={t('aboutUs.fleet.title')}
           description={t('aboutUs.fleet.description')}
           cta={t('aboutUs.fleet.cta')}
-          href="/our-destinations"
+          href="/our-fleet"
           objectPosition="center"
         />
 
