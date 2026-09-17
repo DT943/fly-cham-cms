@@ -11,7 +11,7 @@ import LegalHubCard from './components/LegalHubCard.jsx'
 const CARDS = [
   { id: 'privacy', Icon: Shield, href: '/legal/privacy-policy' },
   { id: 'cookies', Icon: Cookie, href: '/legal/cookies' },
-  { id: 'booking', Icon: AirplaneTilt, href: '/legal/terms-and-conditions' },
+  { id: 'booking', Icon: AirplaneTilt, href: '/legal/booking-terms-and-conditions' },
   { id: 'website', Icon: Scroll, href: '/legal/terms-and-conditions' },
 ]
 

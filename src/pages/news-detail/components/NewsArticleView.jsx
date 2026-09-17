@@ -22,7 +22,7 @@ const NewsArticleView = ({ article, breadcrumbs }) => {
   const afterGallery = t(`${copyPrefix}.afterGallery`, { returnObjects: true }) || []
 
   return (
-    <main className="bg-100 w-full pb-12 md:pb-16">
+    <main className="bg-100 w-full overflow-x-clip pb-12 md:pb-16">
       <Container className="flex min-w-0 items-center justify-between gap-2 pt-5 pb-4 sm:gap-4 md:pt-10 md:pb-6">
         <Breadcrumbs items={breadcrumbs} />
         <LanguageSwitcher />
