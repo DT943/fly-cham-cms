@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
+import Dropdown from '../../../shared/components/Dropdown.jsx'
 import { getIssuesForYear, magazineYears } from '../utils/magazineIssues.js'
 import MagazineIssueCard from './MagazineIssueCard.jsx'
 
@@ -21,26 +21,16 @@ const ExploreMarhaba = () => {
           {t('travelerMagazine.explore.title')}
         </h2>
 
-        <label className="relative shrink-0">
-          <span className="sr-only">{t('travelerMagazine.explore.yearLabel')}</span>
-          <select
-            value={year}
-            onChange={(event) => setYear(Number(event.target.value))}
-            className="w-[154px] cursor-pointer appearance-none rounded-lg border border-500 bg-50 px-4 py-3 font-semibold text-700 focus:border-primary-1 focus:outline-none"
-          >
-            {magazineYears.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <CaretDown
-            size={16}
-            weight="bold"
-            className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-700"
-            aria-hidden
-          />
-        </label>
+        <Dropdown
+          label={t('travelerMagazine.explore.yearLabel')}
+          value={year}
+          onChange={setYear}
+          options={magazineYears.map((option) => ({
+            value: option,
+            label: String(option),
+          }))}
+          className="w-[154px] shrink-0"
+        />
       </div>
 
       <div className="flex flex-col gap-6">

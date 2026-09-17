@@ -22,6 +22,9 @@ import OurFleet from '../../../pages/our-fleet/OurFleet.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
+import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
+import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
+import Cookies from '../../../pages/legal/Cookies.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
@@ -65,6 +68,9 @@ export const pages = {
   '/our-fleet': OurFleet,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
+  '/terms-and-conditions': TermsAndConditions,
+  '/privacy-policy': PrivacyPolicy,
+  '/cookies': Cookies,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

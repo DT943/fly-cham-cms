@@ -1,24 +1,15 @@
-import { CaretLeft, CaretRight, X } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight, GlobeHemisphereWest, UserCircle, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import coverPhoto from '../../../../assets/images/our-destenations/ph1.png'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import {
-  helpMenuPanels,
-  mobileMenuPrimaryLinks,
-  mobileMenuSecondaryLinks,
-} from '../../headerNav.js'
-import DestinationsMegaMenu from './DestinationsMegaMenu.jsx'
-import ExperienceMegaMenu from './ExperienceMegaMenu.jsx'
-import HelpMegaMenu from './HelpMegaMenu.jsx'
+import { headerMenus, mobileMenuSecondaryLinks } from '../menuData.js'
+import MegaMenu from './MegaMenu.jsx'
+import RegionMenu from './RegionMenu.jsx'
 
-const headerItems = [
-  { id: 'destinations', labelKey: 'whereWeFly' },
-  { id: 'experience', labelKey: 'experience' },
-  { id: 'help', labelKey: 'help' },
-]
+const REGION_VIEW = 'region'
 
 export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => (
   <button
@@ -29,7 +20,7 @@ export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => 
     id="header-menu-button"
     aria-label={label}
     className={`relative ms-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border-0 bg-transparent lg:hidden cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-secondary ${
-      dark ? 'text-50' : 'text-secondary-2'
+      dark ? 'text-50' : 'text-700'
     }`}
   >
     <span className="relative block h-3.5 w-5" aria-hidden="true">
@@ -59,7 +50,6 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   const [rendered, setRendered] = useState(open)
   const [visible, setVisible] = useState(open)
   const [view, setView] = useState('root')
-  const [helpPanelId, setHelpPanelId] = useState(helpMenuPanels[0].id)
   const viewRef = useRef(view)
   viewRef.current = view
 
@@ -76,7 +66,6 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
     const timer = window.setTimeout(() => {
       setRendered(false)
       setView('root')
-      setHelpPanelId(helpMenuPanels[0].id)
     }, 320)
     return () => window.clearTimeout(timer)
   }, [open])
@@ -105,14 +94,13 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   if (!rendered || typeof document === 'undefined') return null
 
   const nested = view !== 'root'
+  const activeMenu = headerMenus.find((menu) => menu.id === view)
   const nestedTitle =
-    view === 'destinations'
-      ? t('layout.header.nav.whereWeFly')
-      : view === 'experience'
-        ? t('layout.header.nav.experience')
-        : view === 'help'
-          ? t('layout.header.nav.help')
-          : ''
+    view === REGION_VIEW
+      ? t('layout.header.regionTitle')
+      : activeMenu
+        ? t(`layout.header.nav.${activeMenu.labelKey}`)
+        : ''
 
   return createPortal(
     <nav
@@ -122,7 +110,7 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
       role="dialog"
       aria-modal="true"
       aria-label={t('layout.header.navLabel')}
-      className={`fixed inset-0 z-60 flex flex-col bg-background outline-none lg:hidden transition duration-300 ease-out motion-reduce:transition-none ${
+      className={`fixed inset-0 z-[1100] flex flex-col bg-background outline-none lg:hidden transition duration-300 ease-out motion-reduce:transition-none ${
         visible ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
       }`}
     >
@@ -185,36 +173,38 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
               {t('common.home')}
             </LocalizedLink>
 
-            {headerItems.map((item) => (
+            {headerMenus.map((menu) => (
               <button
-                key={item.id}
+                key={menu.id}
                 type="button"
-                onClick={() => setView(item.id)}
+                onClick={() => setView(menu.id)}
                 className={`${typography.itemTitle} flex w-full items-center justify-between gap-4 border-0 bg-transparent py-3.5 text-start font-normal text-800 cursor-pointer`}
               >
-                {t(`layout.header.nav.${item.labelKey}`)}
+                {t(`layout.header.nav.${menu.labelKey}`)}
                 <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
               </button>
             ))}
+          </div>
 
-            {mobileMenuPrimaryLinks.map((link) => {
-              const Icon = link.icon
+          <div className="mt-8 flex flex-col gap-1 border-t border-200 pt-6">
+            <button
+              type="button"
+              onClick={() => setView(REGION_VIEW)}
+              className={`${typography.body} flex w-full items-center gap-3 border-0 bg-transparent py-3 text-start font-medium text-800 cursor-pointer`}
+            >
+              <GlobeHemisphereWest size={22} weight="regular" className="shrink-0 text-700" />
+              {t('layout.header.regionTitle')}
+              <CaretRight size={16} weight="regular" className="ms-auto shrink-0 text-500 rtl:-scale-x-100" />
+            </button>
 
-              return (
-                <LocalizedLink
-                  key={link.id}
-                  to={link.href}
-                  onClick={onNavigate}
-                  className={`${typography.itemTitle} flex items-center justify-between gap-4 py-3.5 font-normal text-800 no-underline`}
-                >
-                  <span className="flex min-w-0 items-center gap-3">
-                    {Icon && <Icon size={18} weight="regular" className="shrink-0 text-700" />}
-                    {t(`layout.header.${link.labelKey}`)}
-                  </span>
-                  <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
-                </LocalizedLink>
-              )
-            })}
+            <LocalizedLink
+              to="/"
+              onClick={onNavigate}
+              className={`${typography.body} flex items-center gap-3 py-3 font-medium text-800 no-underline`}
+            >
+              <UserCircle size={22} weight="regular" className="shrink-0 text-700" />
+              {t('layout.header.login')}
+            </LocalizedLink>
           </div>
 
           <div className="mt-auto flex flex-col gap-3 pt-10 pb-2">
@@ -237,21 +227,8 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
           }`}
           aria-hidden={!nested}
         >
-          {view === 'destinations' && (
-            <DestinationsMegaMenu embedded onNavigate={onNavigate} />
-          )}
-          {view === 'experience' && (
-            <ExperienceMegaMenu embedded onNavigate={onNavigate} />
-          )}
-          {view === 'help' && (
-            <HelpMegaMenu
-              embedded
-              panels={helpMenuPanels}
-              activeId={helpPanelId}
-              onSelectPanel={setHelpPanelId}
-              onNavigate={onNavigate}
-            />
-          )}
+          {activeMenu && <MegaMenu menu={activeMenu} embedded onNavigate={onNavigate} />}
+          {view === REGION_VIEW && <RegionMenu embedded onNavigate={onNavigate} />}
         </div>
       </div>
     </nav>,

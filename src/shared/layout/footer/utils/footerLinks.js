@@ -58,6 +58,11 @@ export const footerLinkHrefs = {
 
 export const footerLegal = ['sitemap', 'privacy', 'terms']
 
+export const footerLegalHrefs = {
+  privacy: '/privacy-policy',
+  terms: '/terms-and-conditions',
+}
+
 export const socialLinks = [
   { id: 'threads', icon: ThreadsLogo, href: '#' },
   { id: 'tiktok', icon: TiktokLogo, href: '#' },

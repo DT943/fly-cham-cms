@@ -5,6 +5,8 @@ import damascusPhoto from '../../../assets/images/our-destenations/damascus.jpeg
 import istanbulPhoto from '../../../assets/images/our-destenations/istanbul.jpg'
 import dubaiPhoto from '../../../assets/images/our-destenations/dubai.jpg'
 import ph2Photo from '../../../assets/images/our-destenations/ph2.jpg'
+import newsVideo from '../../../assets/videos/news-expansion.mp4'
+import newsVideoPoster from '../../../assets/images/recent-news/news-video-poster.jpg'
 
 export const NEWS_DETAIL_PATH = /^\/media-center\/news\/([^/]+)$/
 
@@ -17,8 +19,14 @@ export const MIN_GALLERY_IMAGES = 3
  * - Non-translatable fields here (images, category, dateTime).
  * - Copy under `newsDetail.articles.{id}`.
  * - Category labels under `newsDetail.categories.{category}`.
+ *
+ * The closing figure is a looping video (`video` + `videoPoster`); values are
+ * shared defaults applied by `withDefaultMedia` and can be overridden per article.
  */
-export const newsArticles = [
+const withDefaultMedia = (articles) =>
+  articles.map((article) => ({ video: newsVideo, videoPoster: newsVideoPoster, ...article }))
+
+export const newsArticles = withDefaultMedia([
   {
     id: 'expansionPlans',
     category: 'events',
@@ -83,7 +91,7 @@ export const newsArticles = [
     inlineImage: damascusPhoto,
     galleryImages: [dubaiPhoto, istanbulPhoto, newsGridPhotoTwo],
   },
-]
+])
 
 export const getNewsDetailHref = (id) => `/media-center/news/${id}`
 

@@ -29,7 +29,7 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header dark={true} />
+      <Header dark={false} />
       <div className="flex-1">
         <Outlet />
       </div>

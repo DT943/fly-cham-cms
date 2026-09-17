@@ -47,7 +47,12 @@ const NewsArticleView = ({ article, breadcrumbs }) => {
 
         <NewsDetailParagraphs paragraphs={afterGallery} />
 
-        <NewsDetailFigure image={article.inlineImage} imageAlt={t(`${copyPrefix}.inlineImageAlt`)} />
+        <NewsDetailFigure
+          image={article.inlineImage}
+          imageAlt={t(`${copyPrefix}.inlineImageAlt`)}
+          video={article.video}
+          poster={article.videoPoster}
+        />
       </Container>
 
       <MediaNewsletterSignup layout="fullBleed" />
