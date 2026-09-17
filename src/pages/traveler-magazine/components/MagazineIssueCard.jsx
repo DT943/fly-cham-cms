@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import { MAGAZINE_VIEW_HREF } from '../utils/magazineIssues.js'
 
 /**
  * A single magazine issue: cover image with a "Read" hover overlay, an optional
  * "New" badge, and an "Issue N / Month" caption beneath.
+ * Always opens the magazine flipbook viewer.
  */
-const MagazineIssueCard = ({ issue, month, cover, isNew = false, href }) => {
+const MagazineIssueCard = ({ issue, month, cover, isNew = false, href = MAGAZINE_VIEW_HREF }) => {
   const { t } = useTranslation()
 
   return (
     <LocalizedLink
-      href={href}
+      to={href || MAGAZINE_VIEW_HREF}
       className="group flex flex-col gap-2.5 no-underline"
       aria-label={`${t('travelerMagazine.issue.label', { number: issue })} — ${month}`}
     >

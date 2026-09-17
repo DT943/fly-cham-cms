@@ -24,10 +24,12 @@ import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
 import Legal from '../../../pages/legal/Legal.jsx'
 import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
+import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndConditions.jsx'
 import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
+import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
@@ -69,8 +71,10 @@ export const pages = {
   '/our-fleet': OurFleet,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
+  '/magazine-view': MagazineView,
   '/legal': Legal,
   '/legal/terms-and-conditions': TermsAndConditions,
+  '/booking-terms-and-conditions': BookingTermsAndConditions,
   '/legal/privacy-policy': PrivacyPolicy,
   '/legal/cookies': Cookies,
 }

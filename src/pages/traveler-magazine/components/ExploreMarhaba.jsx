@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import Dropdown from '../../../shared/components/Dropdown.jsx'
-import { getIssuesForYear, magazineYears } from '../utils/magazineIssues.js'
+import { getIssuesForYear, magazineYears, MAGAZINE_VIEW_HREF } from '../utils/magazineIssues.js'
 import MagazineIssueCard from './MagazineIssueCard.jsx'
 
 /**
@@ -46,7 +46,7 @@ const ExploreMarhaba = () => {
                 month={t(`travelerMagazine.months.${issue.month}`)}
                 cover={issue.cover}
                 isNew={issue.isNew}
-                href={issue.href}
+                href={MAGAZINE_VIEW_HREF}
               />
             </li>
           ))}
