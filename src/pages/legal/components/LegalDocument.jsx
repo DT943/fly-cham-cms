@@ -22,14 +22,16 @@ const LegalDocument = ({ baseKey, activeId }) => {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col gap-7">
-        <p className={`m-0 font-normal text-700 ${typography.caption}`}>{t('legal.lastUpdated')}</p>
+        <p className={`m-0 font-normal text-700 ${typography.caption}`}>
+          {t(`${baseKey}.effectiveDate`, { defaultValue: t('legal.lastUpdated') })}
+        </p>
 
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             <h2 className={`m-0 font-semibold text-700 ${typography.sectionTitle}`}>
               {t(`${baseKey}.intro.title`)}
             </h2>
-            <p className={`m-0 font-normal leading-relaxed text-700 ${typography.caption}`}>
+            <p className={`m-0 whitespace-pre-line font-normal leading-relaxed text-700 ${typography.caption}`}>
               {t(`${baseKey}.intro.body`)}
             </p>
           </div>
