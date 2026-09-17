@@ -77,7 +77,7 @@ const MagazineBanner = () => {
           <MagazineCluster compact className="flex lg:hidden" />
 
           <LocalizedLink
-            href="#"
+            href="/magazine-view"
             className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg bg-secondary px-4 text-base font-semibold text-btn no-underline transition-colors hover:bg-secondary-800 md:text-lg lg:w-fit"
           >
             {t('citySights.magazine.cta')}

@@ -2279,5 +2279,32 @@
         ]
       }
     }
+  },
+  "magazineView": {
+    "breadcrumb": "Marhaba Magazine",
+    "title": "Marhaba Magazine",
+    "description": "Flip through the latest Marhaba onboard magazine. Drag pages or use the controls to browse, then download the full issue.",
+    "controls": {
+      "prev": "Previous",
+      "next": "Next",
+      "download": "Download",
+      "downloading": "Downloading…",
+      "pageOf": "Page {current} of {total}",
+      "spreadOf": "Pages {start}–{end} of {total}",
+      "fullscreen": "Fullscreen",
+      "exitFullscreen": "Exit fullscreen"
+    },
+    "pages": {
+      "cover": "Marhaba magazine cover",
+      "spreadOne": "Marhaba magazine spread one",
+      "spreadTwo": "Marhaba magazine spread two",
+      "destinationOne": "Damascus destination feature",
+      "destinationTwo": "Dubai destination feature",
+      "destinationThree": "Istanbul destination feature",
+      "featureOne": "Feature story page one",
+      "featureTwo": "Feature story page two",
+      "featureThree": "Feature story page three",
+      "closing": "Closing magazine page"
+    }
   }
 }

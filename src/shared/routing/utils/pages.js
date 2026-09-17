@@ -21,6 +21,7 @@ import OurResponsibility from '../../../pages/our-responsibility/OurResponsibili
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
+import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
@@ -59,6 +60,7 @@ export const pages = {
   '/about-us': AboutUs,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
+  '/magazine-view': MagazineView,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

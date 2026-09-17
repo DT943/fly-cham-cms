@@ -2287,5 +2287,32 @@
         ]
       }
     }
+  },
+  "magazineView": {
+    "breadcrumb": "مجلة مرحبا",
+    "title": "مجلة مرحبا",
+    "description": "تصفّح أحدث أعداد مجلة مرحبا على متن الطائرة. اسحب الصفحات أو استخدم أزرار التحكم، ثم حمّل العدد كاملاً.",
+    "controls": {
+      "prev": "السابق",
+      "next": "التالي",
+      "download": "تحميل",
+      "downloading": "جارٍ التحميل…",
+      "pageOf": "صفحة {current} من {total}",
+      "spreadOf": "الصفحات {start}–{end} من {total}",
+      "fullscreen": "ملء الشاشة",
+      "exitFullscreen": "إنهاء ملء الشاشة"
+    },
+    "pages": {
+      "cover": "غلاف مجلة مرحبا",
+      "spreadOne": "صفحة مجلة مرحبا الأولى",
+      "spreadTwo": "صفحة مجلة مرحبا الثانية",
+      "destinationOne": "ميزة وجهة دمشق",
+      "destinationTwo": "ميزة وجهة دبي",
+      "destinationThree": "ميزة وجهة إسطنبول",
+      "featureOne": "صفحة القصة الأولى",
+      "featureTwo": "صفحة القصة الثانية",
+      "featureThree": "صفحة القصة الثالثة",
+      "closing": "الصفحة الختامية للمجلة"
+    }
   }
 }
