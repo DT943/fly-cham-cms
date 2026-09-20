@@ -10,43 +10,62 @@ import {
 
 const BASE_WIDTH = 420
 const BASE_HEIGHT = 594
-const FLIP_DURATION_MS = 1100
+const FLIP_DURATION_MS = 1000
+const SIZE_STEP = 8
 
-const getBookSize = (containerWidth, containerHeight, isFullscreen) => {
-  const availableWidth = Math.max(containerWidth - (isFullscreen ? 48 : 16), 280)
+/** Keep book sizes on a coarse grid so tiny resize noise cannot remount the book. */
+const quantize = (value) => Math.max(SIZE_STEP, Math.round(value / SIZE_STEP) * SIZE_STEP)
+
+/**
+ * Derive page size from container width + window height.
+ * Do not use the shell's own height — that creates a ResizeObserver feedback loop
+ * (size change → shell height change → size change) which looks like shaking.
+ */
+const getBookSize = (containerWidth, isFullscreen) => {
+  const horizontalPad = isFullscreen ? 48 : 16
+  const availableWidth = Math.max(containerWidth - horizontalPad, 280)
   const availableHeight = Math.max(
-    (containerHeight || window.innerHeight * 0.7) - (isFullscreen ? 120 : 48),
-    320,
+    window.innerHeight * (isFullscreen ? 0.78 : 0.58) - (isFullscreen ? 96 : 32),
+    300,
   )
 
-  // Spread width = 2 pages. Cover shows as a single centered page inside that frame.
   const maxSpreadWidth = Math.min(availableWidth, isFullscreen ? 1280 : 980)
-  let pageWidth = Math.floor(maxSpreadWidth / 2)
+  let pageWidth = quantize(maxSpreadWidth / 2)
   let pageHeight = Math.round((pageWidth / BASE_WIDTH) * BASE_HEIGHT)
 
   if (pageHeight > availableHeight) {
-    pageHeight = Math.floor(availableHeight)
-    pageWidth = Math.round((pageHeight / BASE_HEIGHT) * BASE_WIDTH)
+    pageHeight = quantize(availableHeight)
+    pageWidth = quantize((pageHeight / BASE_HEIGHT) * BASE_WIDTH)
   }
 
-  pageWidth = Math.max(200, Math.min(pageWidth, isFullscreen ? 560 : BASE_WIDTH))
+  const maxPageWidth = isFullscreen ? 560 : BASE_WIDTH
+  pageWidth = Math.min(Math.max(200, pageWidth), maxPageWidth)
+  pageWidth = quantize(pageWidth)
   pageHeight = Math.round((pageWidth / BASE_WIDTH) * BASE_HEIGHT)
 
-  return {
-    width: Math.round(pageWidth / 4) * 4,
-    height: Math.round(pageHeight / 4) * 4,
-  }
+  return { width: pageWidth, height: pageHeight }
+}
+
+const getCoverOffset = (page, pageWidth) => {
+  if (page <= 1) return -Math.round(pageWidth / 2)
+  if (page >= MAGAZINE_PAGE_COUNT) return Math.round(pageWidth / 2)
+  return 0
 }
 
 const MagazineFlipBook = () => {
   const { t } = useTranslation()
   const bookRef = useRef(null)
   const shellRef = useRef(null)
-  const [currentPage, setCurrentPage] = useState(1)
   const currentPageRef = useRef(1)
+  const pageWidthRef = useRef(BASE_WIDTH)
+  const sizeRafRef = useRef(0)
+
+  const [currentPage, setCurrentPage] = useState(1)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [bookOffsetX, setBookOffsetX] = useState(() => -Math.round(BASE_WIDTH / 2))
+  const [offsetTransition, setOffsetTransition] = useState(false)
   const [bookSize, setBookSize] = useState(() =>
-    getBookSize(typeof window !== 'undefined' ? window.innerWidth - 48 : BASE_WIDTH * 2, undefined, false),
+    getBookSize(typeof window !== 'undefined' ? window.innerWidth - 48 : BASE_WIDTH * 2, false),
   )
 
   useEffect(() => {
@@ -54,17 +73,37 @@ const MagazineFlipBook = () => {
   }, [currentPage])
 
   useEffect(() => {
+    pageWidthRef.current = bookSize.width
+  }, [bookSize.width])
+
+  useEffect(() => {
     const shell = shellRef.current
     if (!shell) return undefined
 
-    const updateSize = () => {
-      setBookSize(getBookSize(shell.clientWidth, shell.clientHeight, isFullscreen))
+    const applySize = () => {
+      const next = getBookSize(shell.clientWidth, isFullscreen)
+      setBookSize((prev) =>
+        prev.width === next.width && prev.height === next.height ? prev : next,
+      )
     }
 
-    updateSize()
-    const observer = new ResizeObserver(updateSize)
+    const scheduleSize = () => {
+      cancelAnimationFrame(sizeRafRef.current)
+      sizeRafRef.current = requestAnimationFrame(applySize)
+    }
+
+    applySize()
+
+    // Observe width only via the shell; height comes from the window to avoid loops.
+    const observer = new ResizeObserver(scheduleSize)
     observer.observe(shell)
-    return () => observer.disconnect()
+    window.addEventListener('resize', scheduleSize)
+
+    return () => {
+      cancelAnimationFrame(sizeRafRef.current)
+      observer.disconnect()
+      window.removeEventListener('resize', scheduleSize)
+    }
   }, [isFullscreen])
 
   useEffect(() => {
@@ -76,24 +115,69 @@ const MagazineFlipBook = () => {
     return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
   }, [])
 
+  useEffect(() => {
+    // Snap cover offset when the book is remounted at a new size (no transition).
+    setOffsetTransition(false)
+    setBookOffsetX(getCoverOffset(currentPageRef.current, bookSize.width))
+  }, [bookSize.width])
+
   const pageFlip = useCallback(() => bookRef.current?.pageFlip?.() ?? null, [])
 
-  const handleFlip = useCallback((event) => {
-    setCurrentPage(event.data + 1)
+  const previewOffset = useCallback((direction) => {
+    const page = currentPageRef.current
+    const width = pageWidthRef.current
+
+    setOffsetTransition(true)
+    if (direction === 0) {
+      setBookOffsetX(page >= MAGAZINE_PAGE_COUNT - 1 ? width / 2 : 0)
+      return
+    }
+    setBookOffsetX(page <= 2 ? -width / 2 : 0)
   }, [])
+
+  const handleFlip = useCallback((event) => {
+    const nextPage = event.data + 1
+    currentPageRef.current = nextPage
+    setCurrentPage(nextPage)
+    setBookOffsetX(getCoverOffset(nextPage, pageWidthRef.current))
+  }, [])
+
+  const handleChangeState = useCallback(
+    (event) => {
+      if (event.data === 'flipping') {
+        const direction = pageFlip()?.getRender?.()?.getDirection?.()
+        if (direction === 0 || direction === 1) previewOffset(direction)
+        return
+      }
+
+      if (event.data === 'read') {
+        setOffsetTransition(false)
+        setBookOffsetX(getCoverOffset(currentPageRef.current, pageWidthRef.current))
+      }
+    },
+    [pageFlip, previewOffset],
+  )
 
   const handleInit = useCallback(() => {
     const targetIndex = Math.max(0, currentPageRef.current - 1)
+    setOffsetTransition(false)
+    setBookOffsetX(getCoverOffset(currentPageRef.current, pageWidthRef.current))
     if (targetIndex === 0) return
 
-    // Wait one frame so PageFlip finishes mounting before restoring position.
-    window.requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       pageFlip()?.turnToPage(targetIndex)
     })
   }, [pageFlip])
 
-  const handlePrev = () => pageFlip()?.flipPrev('bottom')
-  const handleNext = () => pageFlip()?.flipNext('bottom')
+  const handlePrev = () => {
+    previewOffset(1)
+    pageFlip()?.flipPrev('bottom')
+  }
+
+  const handleNext = () => {
+    previewOffset(0)
+    pageFlip()?.flipNext('bottom')
+  }
 
   const handleToggleFullscreen = async () => {
     const shell = shellRef.current
@@ -112,14 +196,15 @@ const MagazineFlipBook = () => {
 
   const isCoverView = currentPage === 1
   const isBackCover = currentPage === MAGAZINE_PAGE_COUNT
+  const isSinglePage = (isCoverView || isBackCover) && !offsetTransition
 
-  // showCover parks the front cover on the right and the back cover on the left.
-  // Shift by half a page so single pages sit centered in the viewer.
-  const bookOffsetX = useMemo(() => {
-    if (isCoverView) return -bookSize.width / 2
-    if (isBackCover) return bookSize.width / 2
-    return 0
-  }, [bookSize.width, isBackCover, isCoverView])
+  // Clip to one page on covers so the empty opposite half (and spine shadow) is hidden.
+  const frameWidth = isSinglePage ? bookSize.width : bookSize.width * 2
+  const bookShiftX = isSinglePage
+    ? isCoverView
+      ? -bookSize.width
+      : 0
+    : bookOffsetX
 
   const pageLabel = useMemo(() => {
     if (isCoverView || isBackCover) {
@@ -161,49 +246,70 @@ const MagazineFlipBook = () => {
         <div className="mx-auto flex w-full max-w-360 flex-1 flex-col justify-center gap-5">
           <div className="flex justify-center overflow-hidden">
             <div
-              className="will-change-transform"
+              className={`relative overflow-hidden ${
+                isSinglePage ? 'shadow-[0_20px_48px_rgba(1,38,59,0.22)]' : ''
+              }`}
               style={{
-                transform: `translate3d(${bookOffsetX}px, 0, 0)`,
-                transition: `transform ${FLIP_DURATION_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1)`,
+                width: frameWidth,
+                height: bookSize.height,
+                transition: offsetTransition
+                  ? `width ${FLIP_DURATION_MS}ms cubic-bezier(0.25, 0.1, 0.25, 1)`
+                  : 'none',
               }}
             >
-              <HTMLFlipBook
-                key={`${bookSize.width}x${bookSize.height}-${isFullscreen ? 'fs' : 'n'}`}
-                ref={bookRef}
-                width={bookSize.width}
-                height={bookSize.height}
-                size="fixed"
-                minWidth={200}
-                maxWidth={isFullscreen ? 560 : BASE_WIDTH}
-                minHeight={280}
-                maxHeight={isFullscreen ? 780 : BASE_HEIGHT}
-                drawShadow
-                flippingTime={FLIP_DURATION_MS}
-                usePortrait={false}
-                startPage={0}
-                autoSize={false}
-                maxShadowOpacity={0.55}
-                showCover
-                mobileScrollSupport
-                clickEventForward={false}
-                useMouseEvents
-                swipeDistance={20}
-                showPageCorners
-                disableFlipByClick={false}
-                className="magazine-flipbook shadow-[0_20px_48px_rgba(1,38,59,0.22)]"
-                onFlip={handleFlip}
-                onInit={handleInit}
+              <div
+                style={{
+                  width: bookSize.width * 2,
+                  height: bookSize.height,
+                  transform: `translate3d(${bookShiftX}px, 0, 0)`,
+                  transition: offsetTransition
+                    ? `transform ${FLIP_DURATION_MS}ms cubic-bezier(0.25, 0.1, 0.25, 1)`
+                    : 'none',
+                }}
               >
-                {magazinePages.map((page, index) => (
-                  <MagazinePage
-                    key={page.id}
-                    src={page.src}
-                    alt={t(`magazineView.pages.${page.id}`)}
-                    pageNumber={index + 1}
-                    isCover={index === 0 || index === magazinePages.length - 1}
-                  />
-                ))}
-              </HTMLFlipBook>
+                <HTMLFlipBook
+                  key={`${bookSize.width}x${bookSize.height}`}
+                  ref={bookRef}
+                  width={bookSize.width}
+                  height={bookSize.height}
+                  size="fixed"
+                  minWidth={200}
+                  maxWidth={isFullscreen ? 560 : BASE_WIDTH}
+                  minHeight={280}
+                  maxHeight={isFullscreen ? 780 : BASE_HEIGHT}
+                  drawShadow={!isSinglePage}
+                  flippingTime={FLIP_DURATION_MS}
+                  usePortrait={false}
+                  startPage={0}
+                  autoSize={false}
+                  maxShadowOpacity={isSinglePage ? 0 : 0.45}
+                  showCover
+                  mobileScrollSupport
+                  clickEventForward={false}
+                  useMouseEvents
+                  swipeDistance={20}
+                  showPageCorners
+                  disableFlipByClick={false}
+                  className={`magazine-flipbook ${
+                    isSinglePage
+                      ? 'magazine-flipbook--single'
+                      : 'shadow-[0_20px_48px_rgba(1,38,59,0.22)]'
+                  }`}
+                  onFlip={handleFlip}
+                  onChangeState={handleChangeState}
+                  onInit={handleInit}
+                >
+                  {magazinePages.map((page, index) => (
+                    <MagazinePage
+                      key={page.id}
+                      src={page.src}
+                      alt={t(`magazineView.pages.${page.id}`)}
+                      pageNumber={index + 1}
+                      isCover={index === 0 || index === magazinePages.length - 1}
+                    />
+                  ))}
+                </HTMLFlipBook>
+              </div>
             </div>
           </div>
 

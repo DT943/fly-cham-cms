@@ -10,7 +10,8 @@ const MagazinePage = forwardRef(({ src, alt, pageNumber, isCover = false }, ref)
       src={src}
       alt={alt}
       draggable={false}
-      className="pointer-events-none size-full select-none object-cover"
+      decoding="async"
+      className="pointer-events-none size-full select-none object-cover [backface-visibility:hidden]"
     />
     <span className="pointer-events-none absolute inset-e-3 bottom-3 rounded bg-secondary-2/70 px-2 py-0.5 text-xs text-50">
       {pageNumber}
