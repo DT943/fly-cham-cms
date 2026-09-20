@@ -2,6 +2,7 @@ import Home from '../../../pages/Home.jsx'
 import Help from '../../../pages/help/Help.jsx'
 import NewHelp from '../../../pages/new-help/NewHelp.jsx'
 import NewContactUs from '../../../pages/new-contact-us/NewContactUs.jsx'
+import NewOurOffices from '../../../pages/new-our-offices/NewOurOffices.jsx'
 import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
@@ -49,6 +50,7 @@ export const pages = {
   '/new-help/new-contact-us': NewContactUs,
   '/help/contact-us': ContactUs,
   '/help/contact-us/our-offices': OurOffices,
+  '/help/contact-us/new-our-offices': NewOurOffices,
   '/help/contact-us/our-gsa': OurGsa,
   '/help/contact-us/forms': Forms,
   '/help/our-offices': OurOfficesRedirect,
