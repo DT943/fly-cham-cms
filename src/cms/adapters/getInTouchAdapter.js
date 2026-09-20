@@ -3,7 +3,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 /**
  * Map a CMS "get-in-touch" block to <GetInTouch /> props.
  *
- * `contained` is false because NewHelp already wraps blocks in Container.
+ * `contained` is false so CMS pages keep using their own block gap
+ * instead of the static-page bottom margin. The band is always full-bleed.
  */
 export function getInTouchProps(block, lang) {
   const content = pickContent(block.content, lang)

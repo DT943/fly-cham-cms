@@ -24,9 +24,9 @@ const INNER_PADDING = {
 }
 
 /**
- * Contact hotline block. With no props it matches Contact Us (full-bleed,
- * i18n copy, local photo). The CMS passes content + style and `contained={false}`
- * so it sits inside NewHelp's existing Container.
+ * Contact hotline block. The band is always viewport-wide (it breaks out of
+ * any parent Container). Inner copy stays in Container so it lines up with
+ * the page. `contained` only adds the static-page bottom margin.
  */
 const GetInTouch = ({
   title,
@@ -122,12 +122,7 @@ const GetInTouch = ({
   const resolvedPhoneHref = phoneHref ?? PHONE_HREF
 
   const body = (
-    <div
-      className={cx(
-        'flex flex-col items-center text-center gap-3 md:gap-4',
-        !contained && (INNER_PADDING[sectionPadding] || INNER_PADDING.default),
-      )}
-    >
+    <div className="flex flex-col items-center text-center gap-3 md:gap-4">
       {showTitle && resolvedTitle && (
         <h2
           className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
@@ -204,16 +199,15 @@ const GetInTouch = ({
     <SearchAnchor
       hit="contact-get-in-touch"
       as="section"
-      className={cx('w-full', contained && 'mb-6 md:mb-10')}
+      className={cx(
+        'relative w-screen max-w-[100vw] ml-[calc(50%-50vw)]',
+        contained && 'mb-6 md:mb-10',
+      )}
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      {contained ? (
-        <Container className={INNER_PADDING[sectionPadding] || INNER_PADDING.default}>
-          {body}
-        </Container>
-      ) : (
-        body
-      )}
+      <Container className={INNER_PADDING[sectionPadding] || INNER_PADDING.default}>
+        {body}
+      </Container>
     </SearchAnchor>
   )
 }
