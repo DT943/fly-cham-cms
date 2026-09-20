@@ -6,6 +6,7 @@ import NewOurOffices from '../../../pages/new-our-offices/NewOurOffices.jsx'
 import NewOurGsa from '../../../pages/new-our-gsa/NewOurGsa.jsx'
 import NewForms from '../../../pages/new-forms/NewForms.jsx'
 import NewOurDestinations from '../../../pages/new-our-destinations/NewOurDestinations.jsx'
+import NewFlightsToDamascus from '../../../pages/new-flights-to-damascus/NewFlightsToDamascus.jsx'
 import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
@@ -64,6 +65,7 @@ export const pages = {
   '/help/faqs': Faqs,
   '/our-destinations': OurDestinations,
   '/new-our-destinations': NewOurDestinations,
+  '/our-destinations/new-flights-to-damascus': NewFlightsToDamascus,
   '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
   '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
   '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,

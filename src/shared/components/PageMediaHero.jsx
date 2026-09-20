@@ -39,10 +39,6 @@ const PageMediaHero = ({
   subtitle,
   objectPosition = 'center',
   contentClassName = 'max-w-[605px]',
-  // When true, the section breaks out of a constraining parent (e.g. the CMS
-  // page Container) to span the full viewport width. Static callers render
-  // directly under a full-width <main>, so they leave this off.
-  fullBleed = false,
   // style
   layout = 'cover',
   sectionBg = '100',
@@ -94,18 +90,11 @@ const PageMediaHero = ({
   const titleVars = getTextStyleVars(titleStyleKeys, 'titleColor', 'primary-1', 'bold')
   const subtitleVars = getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '700', 'normal')
 
-  // Full-viewport-width breakout: works because the CMS page Container is
-  // centered (mx-auto), so shifting to the container center then back by half
-  // the viewport lands the section at the viewport's left edge.
-  const bleedClass = fullBleed
-    ? 'relative left-1/2 right-1/2 w-screen -translate-x-1/2'
-    : ''
-
   // ── Side layout: solid background, photo inset on the reading-end side ──────
   if (layout === 'side') {
     return (
       <section
-        className={`relative overflow-hidden ${bleedClass}`}
+        className="relative overflow-hidden"
         style={{ backgroundColor: colorVar(sectionBg) }}
       >
         <Container className="relative z-10">
@@ -162,7 +151,7 @@ const PageMediaHero = ({
     : contentClassName
 
   return (
-    <section className={`relative isolate overflow-hidden ${heightClass} ${bleedClass}`}>
+    <section className={`relative isolate overflow-hidden ${heightClass}`}>
       <img
         src={image}
         alt={imageAlt}

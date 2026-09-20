@@ -19,9 +19,6 @@ export function pageMediaHeroProps(block, lang) {
     image: resolveCmsAsset(content.imageUrl) || undefined,
     imageAlt: content.imageAlt,
     links: mapBacklinks(content.links),
-    // CMS pages render blocks inside a max-w-page Container; this hero is a
-    // full-bleed section, so break it out to the viewport width.
-    fullBleed: true,
     ...pick(style, STYLE_KEYS),
   }
 }

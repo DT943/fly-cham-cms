@@ -10,6 +10,10 @@ import ContactChannels from '../pages/contact-us/components/ContactChannels.jsx'
 import ContactForms from '../pages/contact-us/components/ContactForms.jsx'
 import FormsDirectory from '../pages/forms/components/FormsDirectory.jsx'
 import TrackRequest from '../shared/components/TrackRequest.jsx'
+import DestinationsExplore from '../shared/components/DestinationsExplore.jsx'
+import DestinationsInspiration from '../shared/components/DestinationsInspiration.jsx'
+import DestinationHeroStats from '../shared/components/DestinationHeroStats.jsx'
+import DestinationNarratives from '../shared/components/DestinationNarratives.jsx'
 import OfficeDirectory from '../pages/our-offices/components/OfficeDirectory.jsx'
 import GetHelp from '../pages/our-offices/components/GetHelp.jsx'
 import PromoBanner from '../shared/components/PromoBanner.jsx'
@@ -28,6 +32,10 @@ import { contactChannelsProps } from './adapters/contactChannelsAdapter.js'
 import { contactFormsProps } from './adapters/contactFormsAdapter.js'
 import { formsDirectoryProps } from './adapters/formsDirectoryAdapter.js'
 import { trackRequestProps } from './adapters/trackRequestAdapter.js'
+import { destinationsExploreProps } from './adapters/destinationsExploreAdapter.js'
+import { destinationsInspirationProps } from './adapters/destinationsInspirationAdapter.js'
+import { destinationHeroStatsProps } from './adapters/destinationHeroStatsAdapter.js'
+import { destinationNarrativesProps } from './adapters/destinationNarrativesAdapter.js'
 import { officeDirectoryProps } from './adapters/officeDirectoryAdapter.js'
 import { getHelpProps } from './adapters/getHelpAdapter.js'
 import { promoBannerProps } from './adapters/promoBannerAdapter.js'
@@ -44,7 +52,8 @@ import { gsaNetworkProps } from './adapters/gsaNetworkAdapter.js'
  */
 export const sectionRegistry = {
   'page-hero': { Component: PageHero, mapProps: pageHeroProps },
-  'page-media-hero': { Component: PageMediaHero, mapProps: pageMediaHeroProps },
+  // Full-bleed: rendered edge-to-edge outside the page's max-w Container.
+  'page-media-hero': { Component: PageMediaHero, mapProps: pageMediaHeroProps, fullBleed: true },
   'search-console': { Component: SearchConsole, mapProps: searchConsoleProps },
   'help-categories': { Component: HelpCategories, mapProps: helpCategoriesProps },
   'cta-banner': { Component: CtaBanner, mapProps: ctaBannerProps },
@@ -55,6 +64,11 @@ export const sectionRegistry = {
   'contact-forms': { Component: ContactForms, mapProps: contactFormsProps },
   'forms-directory': { Component: FormsDirectory, mapProps: formsDirectoryProps },
   'track-request': { Component: TrackRequest, mapProps: trackRequestProps },
+  'destinations-explore': { Component: DestinationsExplore, mapProps: destinationsExploreProps },
+  'destinations-inspiration': { Component: DestinationsInspiration, mapProps: destinationsInspirationProps },
+  // Full-bleed: hero spans edge-to-edge; the stats card overlaps it via -mt.
+  'destination-hero-stats': { Component: DestinationHeroStats, mapProps: destinationHeroStatsProps, fullBleed: true },
+  'destination-narratives': { Component: DestinationNarratives, mapProps: destinationNarrativesProps },
   'office-directory': { Component: OfficeDirectory, mapProps: officeDirectoryProps },
   'get-help': { Component: GetHelp, mapProps: getHelpProps },
   'promo-banner': { Component: PromoBanner, mapProps: promoBannerProps },
