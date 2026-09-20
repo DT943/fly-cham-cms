@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
 
 const NewHelpContent = () => {
   const language = useCurrentLanguage()
-  const { data: page, isLoading, isError, error } = usePage(PAGE_SLUG)
+  const { data: page, isLoading, isError, error } = usePage(PAGE_SLUG, language)
 
   return (
     <main className="bg-100 min-h-[50vh]">
