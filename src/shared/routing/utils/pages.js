@@ -3,6 +3,9 @@ import Help from '../../../pages/help/Help.jsx'
 import NewHelp from '../../../pages/new-help/NewHelp.jsx'
 import NewContactUs from '../../../pages/new-contact-us/NewContactUs.jsx'
 import NewOurOffices from '../../../pages/new-our-offices/NewOurOffices.jsx'
+import NewOurGsa from '../../../pages/new-our-gsa/NewOurGsa.jsx'
+import NewForms from '../../../pages/new-forms/NewForms.jsx'
+import NewOurDestinations from '../../../pages/new-our-destinations/NewOurDestinations.jsx'
 import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
@@ -52,12 +55,15 @@ export const pages = {
   '/help/contact-us/our-offices': OurOffices,
   '/help/contact-us/new-our-offices': NewOurOffices,
   '/help/contact-us/our-gsa': OurGsa,
-  '/help/contact-us/forms': Forms,
-  '/help/our-offices': OurOfficesRedirect,
   '/help/our-gsa': OurGsaRedirect,
+  '/help/contact-us/new-our-gsa': NewOurGsa,
+  '/help/contact-us/forms': Forms,
+  '/help/contact-us/new-forms': NewForms,
   '/help/forms': FormsRedirect,
+  '/help/our-offices': OurOfficesRedirect,
   '/help/faqs': Faqs,
   '/our-destinations': OurDestinations,
+  '/new-our-destinations': NewOurDestinations,
   '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
   '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
   '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
