@@ -1,4 +1,4 @@
-import { resolveHelpCategoryIcon } from '../../../help/utils/helpCategories.jsx'
+import { resolveHelpCategoryIcon } from '../../pages/help/utils/helpCategories.jsx'
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**

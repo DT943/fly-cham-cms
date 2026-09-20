@@ -1,4 +1,4 @@
-import { resolveContactChannelIcon } from '../../../contact-us/utils/contactChannels.jsx'
+import { resolveContactChannelIcon } from '../../pages/contact-us/utils/contactChannels.jsx'
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**

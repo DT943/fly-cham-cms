@@ -1,4 +1,4 @@
-import { resolveJourneyStepIcon } from '../../../help/utils/journeySteps.js'
+import { resolveJourneyStepIcon } from '../../pages/help/utils/journeySteps.js'
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 function parseLinksText(linksText) {

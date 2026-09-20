@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Container from '../../shared/components/Container.jsx'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
-import usePage from './hooks/usePage.js'
-import PageBlocks from './components/PageBlocks.jsx'
+import usePage from '../../cms/hooks/usePage.js'
+import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
 const PAGE_SLUG = 'help'
 

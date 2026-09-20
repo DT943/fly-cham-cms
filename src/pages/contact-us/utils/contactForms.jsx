@@ -1,12 +1,19 @@
 import {
   CreditCard,
   WarningCircle,
-  ArrowCounterClockwise,
+  ArrowUUpLeftIcon,
   TrolleySuitcase,
   Wheelchair,
-  ArrowUUpLeftIcon,
+  ClipboardText,
+  Buildings,
+  GlobeHemisphereWest,
+  Headset,
+  Phone,
+  EnvelopeSimple,
+  ChatCircleText,
 } from '@phosphor-icons/react'
 
+/** Composite "payment issue" glyph — a credit card with a small warning badge. */
 function PaymentIssueIcon({ size = 22, weight = 'regular', ...props }) {
   return (
     <span
@@ -24,9 +31,27 @@ function PaymentIssueIcon({ size = 22, weight = 'regular', ...props }) {
   )
 }
 
+export const contactFormIcons = {
+  paymentIssue: PaymentIssueIcon,
+  refund: ArrowUUpLeftIcon,
+  baggage: TrolleySuitcase,
+  wheelchair: Wheelchair,
+  clipboard: ClipboardText,
+  buildings: Buildings,
+  globe: GlobeHemisphereWest,
+  headset: Headset,
+  phone: Phone,
+  envelope: EnvelopeSimple,
+  chat: ChatCircleText,
+}
+
 export const contactForms = [
-  { id: 'payment', icon: PaymentIssueIcon, href: '#' },
-  { id: 'refund', icon: ArrowUUpLeftIcon , href: '#' },
-  { id: 'baggage', icon: TrolleySuitcase, href: '#' },
-  { id: 'assistance', icon: Wheelchair, href: '#' },
+  { id: 'payment', icon: 'paymentIssue', href: '#' },
+  { id: 'refund', icon: 'refund', href: '#' },
+  { id: 'baggage', icon: 'baggage', href: '#' },
+  { id: 'assistance', icon: 'wheelchair', href: '#' },
 ]
+
+export function resolveContactFormIcon(name) {
+  return contactFormIcons[name] || ClipboardText
+}

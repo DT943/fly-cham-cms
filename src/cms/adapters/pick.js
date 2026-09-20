@@ -1,5 +1,5 @@
-import { CMS_API_BASE_URL } from '../../api/cmsClient.js'
-import { stripLanguage, SUPPORTED_LANGUAGES } from '../../../../i18n/languages.js'
+import { CMS_API_BASE_URL } from '../api/cmsClient.js'
+import { stripLanguage, SUPPORTED_LANGUAGES } from '../../i18n/languages.js'
 
 /** Language-scoped CMS content, falling back to the first available language. */
 export function pickContent(content, lang) {

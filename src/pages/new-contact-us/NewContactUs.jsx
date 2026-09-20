@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Container from '../../shared/components/Container.jsx'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
-import usePage from '../new-help/hooks/usePage.js'
-import PageBlocks from '../new-help/components/PageBlocks.jsx'
+import usePage from '../../cms/hooks/usePage.js'
+import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
 // Dynamic CMS page, same pattern as new-help — it renders whatever components
 // the CMS holds for this slug in the URL's language.
