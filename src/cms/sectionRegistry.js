@@ -14,6 +14,8 @@ import DestinationsExplore from '../shared/components/DestinationsExplore.jsx'
 import DestinationsInspiration from '../shared/components/DestinationsInspiration.jsx'
 import DestinationHeroStats from '../shared/components/DestinationHeroStats.jsx'
 import DestinationNarratives from '../shared/components/DestinationNarratives.jsx'
+import DestinationThingsToDo from '../shared/components/DestinationThingsToDo.jsx'
+import LandmarkFeature from '../shared/components/LandmarkFeature.jsx'
 import OfficeDirectory from '../pages/our-offices/components/OfficeDirectory.jsx'
 import GetHelp from '../pages/our-offices/components/GetHelp.jsx'
 import PromoBanner from '../shared/components/PromoBanner.jsx'
@@ -36,6 +38,8 @@ import { destinationsExploreProps } from './adapters/destinationsExploreAdapter.
 import { destinationsInspirationProps } from './adapters/destinationsInspirationAdapter.js'
 import { destinationHeroStatsProps } from './adapters/destinationHeroStatsAdapter.js'
 import { destinationNarrativesProps } from './adapters/destinationNarrativesAdapter.js'
+import { destinationThingsToDoProps } from './adapters/destinationThingsToDoAdapter.js'
+import { landmarkFeatureProps } from './adapters/landmarkFeatureAdapter.js'
 import { officeDirectoryProps } from './adapters/officeDirectoryAdapter.js'
 import { getHelpProps } from './adapters/getHelpAdapter.js'
 import { promoBannerProps } from './adapters/promoBannerAdapter.js'
@@ -69,6 +73,8 @@ export const sectionRegistry = {
   // Full-bleed: hero spans edge-to-edge; the stats card overlaps it via -mt.
   'destination-hero-stats': { Component: DestinationHeroStats, mapProps: destinationHeroStatsProps, fullBleed: true },
   'destination-narratives': { Component: DestinationNarratives, mapProps: destinationNarrativesProps },
+  'destination-things-to-do': { Component: DestinationThingsToDo, mapProps: destinationThingsToDoProps },
+  'landmark-feature': { Component: LandmarkFeature, mapProps: landmarkFeatureProps },
   'office-directory': { Component: OfficeDirectory, mapProps: officeDirectoryProps },
   'get-help': { Component: GetHelp, mapProps: getHelpProps },
   'promo-banner': { Component: PromoBanner, mapProps: promoBannerProps },

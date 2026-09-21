@@ -19,29 +19,27 @@ import souqThumb5 from '../../../assets/images/flights-to-damascus/souq-thumb-5.
 
 /**
  * Landmark feature blocks, rendered in order down the page.
- * - `dark`  → full-bleed photo with a frosted-glass copy card floating over it.
- * - `light` → sand-coloured split section: photo on the start side, copy on the end.
- * `imageStart` only applies to the light variant (photo leading vs. trailing).
+ * Each is a white card with the landmark photo and copy side by side, closed by
+ * the shared thumbnail carousel. `imageStart` puts the photo on the leading
+ * (start) side; the sections alternate down the page.
  */
 export const landmarks = [
   {
     id: 'oldCity',
-    variant: 'light',
-    imageStart: true,
+    imageStart: false,
     image: oldCityImg,
     thumbnails: [oldCityThumb1, oldCityThumb2, oldCityThumb3, oldCityThumb4, oldCityThumb5],
   },
   {
-    id: 'umayyad',
-    variant: 'dark',
-    image: umayyadImg,
-    thumbnails: [umayyadThumb1, umayyadThumb2, umayyadThumb3, umayyadThumb4, umayyadThumb5],
-  },
-
-  {
     id: 'souq',
-    variant: 'dark',
+    imageStart: true,
     image: souqImg,
     thumbnails: [souqThumb1, souqThumb2, souqThumb3, souqThumb4, souqThumb5],
+  },
+  {
+    id: 'umayyad',
+    imageStart: false,
+    image: umayyadImg,
+    thumbnails: [umayyadThumb1, umayyadThumb2, umayyadThumb3, umayyadThumb4, umayyadThumb5],
   },
 ]
