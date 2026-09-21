@@ -1,0 +1,51 @@
+import {
+  AirTrafficControl,
+  ArrowsClockwise,
+  CalendarBlank,
+  CalendarX,
+  Handshake,
+  Headset,
+  Package,
+  PawPrint,
+  Plugs,
+  SealQuestion,
+  Seat,
+  Ticket,
+  TrolleySuitcase,
+  UserCheck,
+} from '@phosphor-icons/react'
+
+export const HELP_FAQS_ICONS = {
+  booking: Ticket,
+  modifications: ArrowsClockwise,
+  cancellationsAndRefunds: CalendarX,
+  baggage: TrolleySuitcase,
+  flightSchedules: CalendarBlank,
+  beforeTravel: UserCheck,
+  atTheAirport: AirTrafficControl,
+  onboard: Seat,
+  travelInformation: SealQuestion,
+  petTravel: PawPrint,
+  support: Headset,
+  cargo: Package,
+  becomeAPartner: Handshake,
+  partnerships: Plugs,
+  ticket: Ticket,
+  arrowsClockwise: ArrowsClockwise,
+  calendarX: CalendarX,
+  trolleySuitcase: TrolleySuitcase,
+  calendarBlank: CalendarBlank,
+  userCheck: UserCheck,
+  airTrafficControl: AirTrafficControl,
+  seat: Seat,
+  sealQuestion: SealQuestion,
+  pawPrint: PawPrint,
+  headset: Headset,
+  package: Package,
+  handshake: Handshake,
+  plugs: Plugs,
+}
+
+export function getHelpFaqsIcon(name) {
+  return HELP_FAQS_ICONS[name] || SealQuestion
+}

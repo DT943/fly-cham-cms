@@ -8,6 +8,16 @@ import NewForms from '../../../pages/new-forms/NewForms.jsx'
 import NewOurDestinations from '../../../pages/new-our-destinations/NewOurDestinations.jsx'
 import NewFlightsToDamascus from '../../../pages/new-flights-to-damascus/NewFlightsToDamascus.jsx'
 import NewThingsToDoInDamascus from '../../../pages/new-things-to-do-in-damascus/NewThingsToDoInDamascus.jsx'
+import NewCitySights from '../../../pages/new-city-sights/NewCitySights.jsx'
+import NewTravelExperience from '../../../pages/new-travel-experience/NewTravelExperience.jsx'
+import NewSeatSelection from '../../../pages/new-seat-selection/NewSeatSelection.jsx'
+import NewOurResponsibility from '../../../pages/new-our-responsibility/NewOurResponsibility.jsx'
+import NewBeforeYouFly from '../../../pages/new-before-you-fly/NewBeforeYouFly.jsx'
+import NewTravelerMagazine from '../../../pages/new-traveler-magazine/NewTravelerMagazine.jsx'
+import NewMediaCenter from '../../../pages/new-media-center/NewMediaCenter.jsx'
+import NewAboutUs from '../../../pages/new-about-us/NewAboutUs.jsx'
+import NewOurFleet from '../../../pages/new-our-fleet/NewOurFleet.jsx'
+import NewRecentNews from '../../../pages/new-recent-news/NewRecentNews.jsx'
 import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
 import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
@@ -15,6 +25,7 @@ import Forms from '../../../pages/forms/Forms.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import Faqs from '../../../pages/faqs/Faqs.jsx'
+import NewFaqs from '../../../pages/new-faqs/NewFaqs.jsx'
 import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
@@ -29,6 +40,8 @@ import OurFleet from '../../../pages/our-fleet/OurFleet.jsx'
 import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
 import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
 import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
+import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
+import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
 import Legal from '../../../pages/legal/Legal.jsx'
 import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
 import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndConditions.jsx'
@@ -64,33 +77,49 @@ export const pages = {
   '/help/forms': FormsRedirect,
   '/help/our-offices': OurOfficesRedirect,
   '/help/faqs': Faqs,
+  '/help/new-faqs': NewFaqs,
   '/our-destinations': OurDestinations,
   '/new-our-destinations': NewOurDestinations,
   '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
   '/our-destinations/new-flights-to-damascus': NewFlightsToDamascus,
   '/our-destinations/new-things-to-do-in-damascus': NewThingsToDoInDamascus,
+  '/our-destinations/new-city-sights': NewCitySights,
   '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
   '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
   '/our-destinations/city-sights': CitySights,
   '/our-destinations/route-map': RouteMap,
   '/travel-experience': TravelExperience,
+  '/new-travel-experience': NewTravelExperience,
   '/travel-experience/seat-selection': SeatSelection,
+  '/travel-experience/new-seat-selection': NewSeatSelection,
+  '/travel-experience/new-our-responsibility': NewOurResponsibility,
+  '/travel-experience/new-before-you-fly': NewBeforeYouFly,
   '/travel-experience/before-you-fly': BeforeYouFly,
   '/travel-experience/at-the-airport': BeforeYouFly,
   '/travel-experience/onboard': BeforeYouFly,
   '/travel-experience/after-travel': BeforeYouFly,
+  '/travel-experience/new-traveler-magazine': NewTravelerMagazine,
   '/travel-experience/traveler-magazine': TravelerMagazine,
   '/our-responsibility': OurResponsibility,
   '/about-us': AboutUs,
+  '/new-about-us': NewAboutUs,
   '/our-fleet': OurFleet,
+  '/new-our-fleet': NewOurFleet,
+  '/new-media-center': NewMediaCenter,
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
+  '/new-recent-news': NewRecentNews,
   '/magazine-view': MagazineView,
   '/legal': Legal,
+  '/new-legal': NewLegal,
   '/legal/terms-and-conditions': TermsAndConditions,
+  '/legal/new-terms-and-conditions': NewLegalDocument,
   '/legal/booking-terms-and-conditions': BookingTermsAndConditions,
+  '/legal/new-booking-terms-and-conditions': NewLegalDocument,
   '/legal/privacy-policy': PrivacyPolicy,
+  '/legal/new-privacy-policy': NewLegalDocument,
   '/legal/cookies': Cookies,
+  '/legal/new-cookies': NewLegalDocument,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

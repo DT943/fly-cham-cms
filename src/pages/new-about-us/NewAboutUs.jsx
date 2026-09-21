@@ -1,0 +1,59 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
+import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
+import Container from '../../shared/components/Container.jsx'
+import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
+import usePage from '../../cms/hooks/usePage.js'
+import PageBlocks from '../../cms/components/PageBlocks.jsx'
+
+// Dynamic CMS page for slug `about-us` (URL `/new-about-us`).
+// Blocks: page-media-hero, seat-journey × 3 (intro, mission, vision),
+// promo-banner (fleet), faqs.
+const PAGE_SLUG = 'about-us'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false, retry: 1 },
+  },
+})
+
+const NewAboutUsContent = () => {
+  const { t } = useTranslation()
+  const language = useCurrentLanguage()
+  const { data: page, isLoading, isError, error } = usePage(PAGE_SLUG, language)
+
+  const breadcrumbs = [
+    { label: t('common.home'), href: '/' },
+    { label: t('aboutUs.breadcrumb') },
+  ]
+
+  return (
+    <main className="bg-100 w-full pb-12 md:pb-16">
+      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+        <Breadcrumbs items={breadcrumbs} />
+        <LanguageSwitcher />
+      </Container>
+
+      {(isLoading || isError) && (
+        <Container className="pb-5 md:pb-10">
+          {isLoading && <p className="text-700">Loading…</p>}
+          {isError && (
+            <p className="text-alert">
+              Failed to load page{error?.message ? `: ${error.message}` : ''}.
+            </p>
+          )}
+        </Container>
+      )}
+      {page && <PageBlocks blocks={page.blocks} lang={language} />}
+    </main>
+  )
+}
+
+const NewAboutUs = () => (
+  <QueryClientProvider client={queryClient}>
+    <NewAboutUsContent />
+  </QueryClientProvider>
+)
+
+export default NewAboutUs

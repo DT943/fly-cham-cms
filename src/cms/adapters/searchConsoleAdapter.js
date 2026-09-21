@@ -22,6 +22,7 @@ export function searchConsoleProps(block, lang) {
       label: item.label,
       query: item.query || item.label,
     })),
+    types: normalizeTypes(content.types),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -31,6 +32,16 @@ export function searchConsoleProps(block, lang) {
 function mapBacklinks(links) {
   if (!Array.isArray(links)) return []
   return links.map((link) => ({ ...link, href: resolveCmsHref(link?.href) }))
+}
+
+function normalizeTypes(types) {
+  if (Array.isArray(types) && types.length) {
+    return types.map((item) => String(item || '').trim()).filter(Boolean)
+  }
+  if (typeof types === 'string' && types.trim()) {
+    return types.split(',').map((item) => item.trim()).filter(Boolean)
+  }
+  return undefined
 }
 
 const STYLE_KEYS = [
