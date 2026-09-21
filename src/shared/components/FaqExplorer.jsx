@@ -27,7 +27,7 @@ const TITLE_ALIGN_CLASS = {
 }
 
 /** Sidebar category list — mirrors the /faqs FaqCategoryNav (flat categories). */
-const CategoryNav = ({ categories, activeIndex, onSelect, mobileOpen, onToggleMobile, iconColor }) => {
+const CategoryNav = ({ categories, activeIndex, onSelect, mobileOpen, onToggleMobile, iconColor, activeTabColor, inactiveTabColor }) => {
   const { t } = useTranslation()
   const active = categories[activeIndex] || categories[0]
 
@@ -87,7 +87,10 @@ const CategoryNav = ({ categories, activeIndex, onSelect, mobileOpen, onToggleMo
                   className="shrink-0 text-800"
                   style={{ color: colorVar(iconColor) }}
                 />
-                <span className={cx(typography.body, 'font-medium text-800 flex-1 min-w-0')}>
+                <span
+                  className={cx(typography.body, 'font-medium flex-1 min-w-0')}
+                  style={{ color: colorVar(isActive ? activeTabColor : inactiveTabColor) }}
+                >
                   {category.label}
                 </span>
               </button>
@@ -191,6 +194,10 @@ const FaqExplorer = ({
   titleFontWeight = 'bold',
   titleColorHover,
   titleFontWeightHover,
+  activeTabColor = 'primary-1',
+  inactiveTabColor = '800',
+  showItemBg = true,
+  itemBg = 'background',
   itemRadius = 'lg',
   questionColor = '800',
   questionFontWeight = 'medium',
@@ -302,14 +309,18 @@ const FaqExplorer = ({
               mobileOpen={navOpen}
               onToggleMobile={() => setNavOpen((open) => !open)}
               iconColor={iconColor}
+              activeTabColor={activeTabColor}
+              inactiveTabColor={inactiveTabColor}
             />
           </div>
 
           <section
             className={cx(
-              'bg-background border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28',
+              'border py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28',
+              showItemBg ? 'border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)]' : 'border-transparent',
               panelRadius,
             )}
+            style={{ backgroundColor: showItemBg ? colorVar(itemBg) : 'transparent' }}
           >
             <div className="flex flex-col">
               <div className="flex flex-col gap-4 px-4 sm:px-8 md:px-10 pb-5 border-b border-200">

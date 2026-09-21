@@ -6,7 +6,7 @@ import PageHero from '../../shared/components/PageHero.jsx'
 import Container from '../../shared/components/Container.jsx'
 import SearchConsole from '../help/components/SearchConsole/index.jsx'
 import AllForms from './components/AllForms.jsx'
-import TrackRequest from './components/TrackRequest.jsx'
+import TrackRequest from '../../shared/components/TrackRequest.jsx'
 import CtaBanner from '../../shared/components/CtaBanner.jsx'
 import heroPhoto from '../../assets/images/forms/ph1.png'
 import heroMask from '../../assets/images/contact-us/mask.png'
@@ -54,7 +54,18 @@ const Forms = () => {
           types={['form']}
         />
         <AllForms query={searchQuery} />
-        <TrackRequest />
+        <SearchAnchor hit="forms-track">
+          <TrackRequest
+            title={t('forms.track.title')}
+            subtitle={t('forms.track.subtitle')}
+            caseLabel={t('forms.track.caseNumber.label')}
+            casePlaceholder={t('forms.track.caseNumber.placeholder')}
+            nameLabel={t('forms.track.lastName.label')}
+            namePlaceholder={t('forms.track.lastName.placeholder')}
+            submitLabel={t('forms.track.submit')}
+            imageAlt={t('forms.track.imageAlt')}
+          />
+        </SearchAnchor>
         <CtaBanner
           title={t('forms.guide.title')}
           description={t('forms.guide.description')}

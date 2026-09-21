@@ -1,27 +1,28 @@
-import { resolveHelpCategoryIcon } from '../../../help/utils/helpCategories.jsx'
+import { resolveContactChannelIcon } from '../../pages/contact-us/utils/contactChannels.jsx'
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**
- * Map a CMS "help-categories" block to <HelpCategories /> props.
+ * Map a CMS "contact-channels" block to <ContactChannels /> props.
  *
  * - Content is language-scoped (`block.content[lang]`); falls back to the first
  *   available language when the current one is missing.
+ * - Icon names ('buildings', 'globe', …) resolve to Phosphor components.
  * - Only the style keys the CMS actually provided are forwarded, so any omitted
- *   key falls through to HelpCategories' own default.
+ *   key falls through to ContactChannels' own default (the original look).
  */
-export function helpCategoriesProps(block, lang) {
+export function contactChannelsProps(block, lang) {
   const content = pickContent(block.content, lang)
   const style = block.style || {}
 
   return {
     title: content.title,
-    subtitle: content.subtitle,
-    cards: (content.cards || []).map((card, index) => ({
-      id: card.id || `${card.title}-${index}`,
-      href: resolveCmsHref(card.href),
-      icon: resolveHelpCategoryIcon(card.icon),
-      title: card.title,
-      description: card.description,
+    channels: (content.channels || []).map((channel, index) => ({
+      id: channel.id || `${channel.title}-${index}`,
+      icon: resolveContactChannelIcon(channel.icon),
+      href: resolveCmsHref(channel.href),
+      title: channel.title,
+      description: channel.description,
+      cta: channel.cta,
     })),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
@@ -36,32 +37,20 @@ function mapBacklinks(links) {
 
 const STYLE_KEYS = [
   'showHeader',
-  'showSectionTitle',
-  'showSectionSubtitle',
+  'showTitle',
   'showSectionBg',
   'sectionBg',
   'sectionPadding',
-  'sectionTitleColor',
-  'sectionTitleFontWeight',
-  'sectionTitleColorHover',
-  'sectionTitleFontWeightHover',
-  'sectionSubtitleColor',
-  'sectionSubtitleColorHover',
-  'sectionSubtitleFontWeightHover',
+  'titleColor',
+  'titleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
   'titleAlign',
   'columns',
   'cardGap',
-  'showIcon',
-  'showArrow',
-  'showCardBg',
-  'showCardTitle',
-  'showCardDescription',
   'cardBg',
   'iconBg',
   'iconColor',
-  'arrowBg',
-  'arrowColor',
-  'cardRadius',
   'cardTitleColor',
   'cardTitleFontWeight',
   'cardTitleColorHover',
@@ -69,6 +58,11 @@ const STYLE_KEYS = [
   'cardDescriptionColor',
   'cardDescriptionColorHover',
   'cardDescriptionFontWeightHover',
+  'buttonBg',
+  'buttonHoverBg',
+  'buttonText',
+  'buttonTextHover',
+  'buttonTextFontWeightHover',
   'showLinks',
   'linkColor',
   'linkHoverColor',

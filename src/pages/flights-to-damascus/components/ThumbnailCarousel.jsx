@@ -36,7 +36,7 @@ const ThumbnailCarousel = ({ images = [], altPrefix = '', active = 0, onSelect }
   }
 
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-secondary-2 p-3 shadow-[0_10px_15px_rgba(33,37,41,0.05)] sm:gap-4 sm:p-4">
+    <div className="flex items-center gap-3 rounded-xl bg-50 p-3 sm:gap-4 sm:p-4">
       <button
         type="button"
         onClick={() => select(active - 1)}
@@ -58,7 +58,7 @@ const ThumbnailCarousel = ({ images = [], altPrefix = '', active = 0, onSelect }
             aria-label={`${altPrefix} ${index + 1}`.trim()}
             aria-current={active === index}
             className={`h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-[110px] sm:w-auto sm:flex-1 sm:basis-0 ${
-              active === index ? 'border-2 border-solid border-50' : 'border-2 border-transparent'
+              active === index ? 'border-[3px] border-solid border-primary-2' : 'border-[3px] border-transparent'
             }`}
           >
             <img src={src} alt="" className="size-full object-cover" />

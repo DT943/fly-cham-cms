@@ -1,0 +1,154 @@
+import { typography } from '../../styles/typography.js'
+import {
+  colorVar,
+  getTextStyleVars,
+  CMS_TEXT_HOVER_CLASS,
+} from '../../styles/cmsStyle.js'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
+import LinkedText from './backlinks/LinkedText.jsx'
+import DestinationCard from '../../pages/our-destinations/components/DestinationCard.jsx'
+import FeaturedDestination from '../../pages/our-destinations/components/FeaturedDestination.jsx'
+import DestinationsPagination from '../../pages/our-destinations/components/DestinationsPagination.jsx'
+import {
+  destinations as bundledDestinations,
+  featuredImages as bundledFeaturedImages,
+} from '../../pages/our-destinations/utils/destinations.js'
+
+const cx = (...parts) => parts.filter(Boolean).join(' ')
+
+// Bundled photo per destination id — the fallback when the CMS has no image,
+// so the public page matches the source without a CMS asset host.
+const DEFAULT_IMAGE_BY_ID = Object.fromEntries(
+  bundledDestinations.map((d) => [d.id, d.image]),
+)
+
+const COLUMNS_CLASS = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 xl:grid-cols-3',
+  4: 'sm:grid-cols-2 xl:grid-cols-4',
+}
+
+const SECTION_PADDING_CLASS = {
+  tight: 'py-4 md:py-6',
+  default: 'py-6 md:py-10',
+  loose: 'py-10 md:py-16',
+}
+
+const linkStyle = (style) => ({
+  linkColor: style.linkColor,
+  linkHoverColor: style.linkHoverColor,
+  linkFontWeight: style.linkFontWeight,
+  linkUnderline: style.linkUnderline,
+  linkItalic: style.linkItalic,
+})
+
+/**
+ * CMS-driven "Explore destinations" block — a featured destination card beside
+ * a grid of destination cards, with pagination. Reuses the same child
+ * components as the static /our-destinations page; every style key falls
+ * through to the source look when unset. Mirrors flychamadmin cms2's renderer.
+ */
+const DestinationsExplore = ({
+  subtitle,
+  activitiesLabel,
+  featured = {},
+  cards = [],
+  pagination = {},
+  links = [],
+  showLinks = true,
+  showSubtitle = true,
+  showFeatured = true,
+  showPagination = true,
+  columns = '3',
+  showSectionBg = false,
+  sectionBg = '100',
+  sectionPadding = 'default',
+  cardRadius = 'lg',
+  cardIataColor = '100',
+  cardTitleColor = '100',
+  cardButtonBg = 'primary-1',
+  cardButtonTextColor = '100',
+  cardActivitiesColor = '50',
+  ...rest
+}) => {
+  const lang = useCurrentLanguage()
+  const style = { showLinks, ...rest }
+
+  const columnsClass = COLUMNS_CLASS[String(columns)] ?? COLUMNS_CLASS[3]
+  const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
+  const featuredImages = featured.images?.length ? featured.images : bundledFeaturedImages
+
+  return (
+    <section
+      className={cx(
+        'flex flex-col gap-6',
+        paddingClass,
+        showSectionBg && 'rounded-2xl px-4 md:px-6',
+      )}
+      style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
+    >
+      {showSubtitle && subtitle && (
+        <p
+          className={cx(typography.caption, 'm-0 leading-relaxed max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+          style={getTextStyleVars(style, 'subtitleColor', '800', 'normal')}
+        >
+          <LinkedText text={subtitle} links={links} enabled={showLinks} {...linkStyle(style)} />
+        </p>
+      )}
+
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+        {showFeatured && (
+          <FeaturedDestination
+            country={featured.country}
+            title={featured.title}
+            heading={featured.heading}
+            description={featured.description}
+            cta={featured.ctaLabel}
+            activities={activitiesLabel}
+            href={featured.href}
+            images={featuredImages}
+            imageAlt={featured.imageAlt}
+          />
+        )}
+
+        <div className={cx('grid grid-cols-1', columnsClass, 'gap-4 flex-1 min-w-0')}>
+          {cards.map((card, index) => (
+            <div
+              key={card.id || index}
+              className="animate-[fadeUp_0.4s_ease-out_both] motion-reduce:animate-none"
+              style={{ animationDelay: `${index * 40}ms` }}
+            >
+              <DestinationCard
+                iata={card.iata}
+                title={card.title}
+                image={card.imageUrl || DEFAULT_IMAGE_BY_ID[card.id]}
+                imageAlt={card.imageAlt}
+                cta={card.ctaLabel}
+                activities={activitiesLabel}
+                href={card.href}
+                radius={cardRadius}
+                iataColor={cardIataColor}
+                titleColor={cardTitleColor}
+                buttonBg={cardButtonBg}
+                buttonTextColor={cardButtonTextColor}
+                activitiesColor={cardActivitiesColor}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showPagination && (
+        <DestinationsPagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          previousLabel={pagination.previousLabel}
+          nextLabel={pagination.nextLabel}
+          ofLabel={pagination.ofLabel}
+        />
+      )}
+    </section>
+  )
+}
+
+export default DestinationsExplore

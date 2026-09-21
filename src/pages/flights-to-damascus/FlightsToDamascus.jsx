@@ -28,7 +28,7 @@ const FlightsToDamascus = () => {
         <FlightsHero />
       </SearchAnchor>
 
-      <SearchAnchor hit="flights-damascus-landmarks" className="flex flex-col">
+      <SearchAnchor hit="flights-damascus-landmarks" className="flex flex-col gap-6">
         {landmarks.map((landmark) => (
           <LandmarkFeature key={landmark.id} {...landmark} />
         ))}

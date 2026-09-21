@@ -16,7 +16,7 @@ const FlightsHero = () => {
 
       <Container className="relative flex h-full flex-col justify-center">
         <div className="flex max-w-125 flex-col gap-3 md:gap-4">
-          <h1 className="m-0 text-4xl font-semibold leading-tight text-50 sm:text-5xl md:text-6xl">
+          <h1 className="m-0 text-4xl font-semibold leading-tight text-50 sm:text-5xl md:text-6xl lg:text-[64px]">
             {t('flightsToDamascus.hero.title')}
           </h1>
           <p className="m-0 text-sm leading-relaxed text-50 sm:text-base">

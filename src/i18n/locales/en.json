@@ -659,15 +659,18 @@
       "imageAlt": "Fly Cham customer service agent"
     },
     "track": {
-      "title": "Track an Existing Request",
-      "subtitle": "Already submitted a form request? Use your case number to check your request status.",
+      "title": "Continue an Existing Request",
+      "subtitle": "Already contacted us? Use your case number to check your request .",
       "caseNumber": {
-        "label": "Case number *"
+        "label": "Case number*",
+        "placeholder": "Ex:fcr000152"
       },
       "lastName": {
-        "label": "Passenger last name *"
+        "label": "Email or  last name*",
+        "placeholder": "Enter email or last name"
       },
-      "submit": "Track My Request",
+      "submit": "Track my request",
+      "imageAlt": "Passenger tracking a request on a laptop",
       "errors": {
         "required": "This field is required"
       }

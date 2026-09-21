@@ -1,0 +1,46 @@
+import { colorVar } from '../../../styles/cmsStyle.js'
+import OfficeDirectoryItem from './OfficeDirectoryItem.jsx'
+
+const OfficeDirectoryList = ({
+  offices = [],
+  labels,
+  style = {},
+  links = [],
+  showLinks = true,
+  linkProps = {},
+}) => {
+  const lineCss = colorVar(style.lineColor || 'secondary-700')
+
+  return (
+    <div className="relative">
+      {style.showDashedLine && style.showPin && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-6 bottom-6 start-0 z-0 flex w-9 justify-center md:top-8 md:bottom-8 md:w-11"
+        >
+          <span
+            className="block h-full w-0.5"
+            style={{
+              backgroundImage: `repeating-linear-gradient(to bottom, ${lineCss} 0 6px, transparent 6px 12px)`,
+            }}
+          />
+        </span>
+      )}
+
+      {offices.map((office, index) => (
+        <OfficeDirectoryItem
+          key={`${office.name}-${index}`}
+          office={office}
+          labels={labels}
+          isLast={index === offices.length - 1}
+          style={style}
+          links={links}
+          showLinks={showLinks}
+          linkProps={linkProps}
+        />
+      ))}
+    </div>
+  )
+}
+
+export default OfficeDirectoryList
