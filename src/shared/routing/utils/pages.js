@@ -37,6 +37,7 @@ import Cookies from '../../../pages/legal/Cookies.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
+import NotFound from '../../../pages/not-found/NotFound.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
@@ -91,6 +92,7 @@ export const pages = {
   '/legal/booking-terms-and-conditions': BookingTermsAndConditions,
   '/legal/privacy-policy': PrivacyPolicy,
   '/legal/cookies': Cookies,
+  '/404': NotFound,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
@@ -106,5 +108,12 @@ export function getPage(path) {
   if (formRequestPath.test(path)) return RequestAForm
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
-  return null
+  return NotFound
+}
+
+/** True for the explicit /404 route or any path that falls through to NotFound. */
+export function isNotFoundPath(path) {
+  if (path === '/404') return true
+  if (pages[path]) return false
+  return getPage(path) === NotFound
 }

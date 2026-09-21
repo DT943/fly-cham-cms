@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next'
 import Header from './Header.jsx'
 import Footer from './footer/Footer.jsx'
 import { getLanguageFromPath, isSupportedLanguage, stripLanguage } from '../../i18n/languages.js'
+import { isNotFoundPath } from '../routing/utils/pages.js'
 import useSearchHit from '../search/hooks/useSearchHit.js'
-
-
 
 const Layout = () => {
   const { pathname } = useLocation()
   const { i18n } = useTranslation()
   const language = getLanguageFromPath(pathname)
-  const hideFooter = stripLanguage(pathname) === '/our-destinations/route-map'
+  const pagePath = stripLanguage(pathname)
+  const notFound = isNotFoundPath(pagePath)
+  const hideFooter = pagePath === '/our-destinations/route-map'
 
   useSearchHit()
 
@@ -29,8 +30,8 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header dark={false} />
-      <div className="flex-1">
+      <Header dark={notFound} hideOnScroll={!notFound} />
+      <div className={`flex-1 ${notFound ? 'flex flex-col' : ''}`}>
         <Outlet />
       </div>
       {!hideFooter && <Footer />}

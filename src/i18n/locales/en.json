@@ -3258,5 +3258,12 @@
       "featureThree": "Feature story page three",
       "closing": "Closing magazine page"
     }
+  },
+  "notFound": {
+    "eyebrow": "Oops ...",
+    "title": "404",
+    "description": "The page you are looking for could not be found.",
+    "cta": "Back to Home Page",
+    "imageAlt": "Aerial view of clouds from above"
   }
 }

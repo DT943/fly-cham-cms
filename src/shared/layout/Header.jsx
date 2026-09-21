@@ -15,13 +15,16 @@ import useHideOnScroll from './hooks/useHideOnScroll.js'
 
 const REGION_MENU = 'region'
 
-const Header = ({ dark = false }) => {
+const Header = ({ dark = false, hideOnScroll = true }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const hidden = useHideOnScroll({ enabled: !openMenu && !mobileOpen, resetKey: location.pathname })
+  const hidden = useHideOnScroll({
+    enabled: hideOnScroll && !openMenu && !mobileOpen,
+    resetKey: location.pathname,
+  })
 
   useEffect(() => {
     setOpenMenu(null)
