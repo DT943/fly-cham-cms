@@ -1,6 +1,9 @@
 /**
  * Static app paths → CMS "new-*" counterparts.
  * Used so Search Console on a new page navigates to the new route when one exists.
+ *
+ * Keep this file free of page-component imports — search hooks import it, and those
+ * hooks are pulled in by SearchConsole via the CMS section registry (circular TDZ).
  */
 export const staticToNewPath = {
   '/help': '/new-help',
@@ -27,6 +30,13 @@ export const staticToNewPath = {
   '/legal/booking-terms-and-conditions': '/legal/new-booking-terms-and-conditions',
   '/legal/privacy-policy': '/legal/new-privacy-policy',
   '/legal/cookies': '/legal/new-cookies',
+}
+
+const newPagePaths = new Set(Object.values(staticToNewPath))
+
+/** True when `path` is a CMS new-* route (language already stripped). */
+export function isNewPagePath(path = '') {
+  return newPagePaths.has(path)
 }
 
 /** Prefer the CMS new-* path when one exists; otherwise keep the static href. */
