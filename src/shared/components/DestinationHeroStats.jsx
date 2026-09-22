@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import {
   AirTrafficControl,
   Clock,
@@ -28,7 +29,7 @@ const STAT_ICON_MAP = {
   airplane: AirplaneTilt,
   calendar: CalendarBlank,
 }
-const getStatIcon = (name) => STAT_ICON_MAP[name] || AirTrafficControl
+const getStatIcon = (name) => STAT_ICON_MAP[name] || resolvePhosphorIcon(name)
 
 const HERO_HEIGHT = {
   compact: 'h-60 sm:h-80 md:h-90 lg:h-100',

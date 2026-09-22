@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import { EnvelopeSimple, MegaphoneSimple } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
@@ -66,7 +67,7 @@ const MediaContactCards = ({
   const inner = (
     <section className={cx('grid', COLUMNS[String(columns)] || COLUMNS[2], CARD_GAP[cardGap] || CARD_GAP.default)}>
       {items.map((item, index) => {
-        const Icon = ICONS[item.icon] || EnvelopeSimple
+        const Icon = ICONS[item.icon] || resolvePhosphorIcon(item.icon)
         return (
           <article
             key={item.id || index}

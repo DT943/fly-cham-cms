@@ -4,6 +4,7 @@ import {
   TrolleySuitcase,
   CalendarIcon,
 } from '@phosphor-icons/react'
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 
 export const journeyStepIcons = {
   calendar: CalendarIcon,
@@ -14,7 +15,7 @@ export const journeyStepIcons = {
 
 export function resolveJourneyStepIcon(name) {
   if (typeof name === 'function') return name
-  return journeyStepIcons[name] || CalendarIcon
+  return journeyStepIcons[name] || resolvePhosphorIcon(name)
 }
 
 export const journeySteps = [

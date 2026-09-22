@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { colorVar } from '../../styles/cmsStyle.js'
 import useHelpFaqs from './helpFaqs/useHelpFaqs.js'
 import HelpFaqsCategoryNav from './helpFaqs/HelpFaqsCategoryNav.jsx'
+import HelpFaqsTopicPills from './helpFaqs/HelpFaqsTopicPills.jsx'
 import HelpFaqsTopicPanel from './helpFaqs/HelpFaqsTopicPanel.jsx'
 
 const SECTION_PADDING = {
@@ -82,10 +83,10 @@ const HelpFaqs = ({
   }
 
   const handleSelectCategory = (id) => {
-    const next = categories.find((item) => item.id === id)
-    const collapsing = explorer.expandedId === id
     explorer.selectCategory(id)
-    if (next && !explorer.hasNestedTopics(next) && !collapsing) closeMobileNav()
+    // Topics are switched via the mobile pill row, so the dropdown only
+    // needs to pick a category — close it once one is chosen.
+    closeMobileNav()
   }
 
   const handleSelectTopic = (categoryId, nextTopicId, nextQuestions = []) => {
@@ -101,7 +102,7 @@ const HelpFaqs = ({
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <div className="flex flex-col lg:flex-row gap-3 md:gap-5 items-stretch lg:items-start">
-        <div className="w-full lg:w-72 xl:w-80 shrink-0">
+        <div className="w-full lg:w-72 xl:w-80 shrink-0 flex flex-col gap-3">
           <HelpFaqsCategoryNav
             categories={explorer.categories}
             expandedId={explorer.expandedId}
@@ -118,6 +119,20 @@ const HelpFaqs = ({
             focusWashColor={focusWashColor}
             hasNestedTopics={explorer.hasNestedTopics}
           />
+          {explorer.hasNestedTopics(explorer.category) && (
+            <HelpFaqsTopicPills
+              topics={explorer.category.topics || []}
+              activeId={explorer.topicId}
+              onSelect={(topic) =>
+                handleSelectTopic(
+                  explorer.category.id,
+                  topic.id,
+                  topic.questions || [],
+                )
+              }
+              label={explorer.category.title}
+            />
+          )}
         </div>
         <HelpFaqsTopicPanel
           category={explorer.category}

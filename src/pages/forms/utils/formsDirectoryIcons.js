@@ -18,6 +18,7 @@ import {
   UsersThree,
   Wheelchair,
 } from '@phosphor-icons/react'
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 
 /**
  * Map a CMS "forms-directory" icon name to its Phosphor component. Mirrors
@@ -48,5 +49,5 @@ const FORM_ICON_MAP = {
 export const DEFAULT_FORM_ICON = Ticket
 
 export function resolveFormIcon(iconName) {
-  return FORM_ICON_MAP[iconName] || DEFAULT_FORM_ICON
+  return FORM_ICON_MAP[iconName] || resolvePhosphorIcon(iconName)
 }

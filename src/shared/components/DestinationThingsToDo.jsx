@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import {
   ArrowRight,
   ShoppingCart,
@@ -147,7 +148,7 @@ const DestinationThingsToDo = ({
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[3], gapClass)}>
         {items.map((item, index) => {
           const src = item.image || IMAGE_BY_ID[item.id] || placeholderPhoto
-          const BadgeIcon = ICON_BY_NAME[item.icon] || Binoculars
+          const BadgeIcon = ICON_BY_NAME[item.icon] || resolvePhosphorIcon(item.icon)
           return (
             <article
               key={item.id || index}

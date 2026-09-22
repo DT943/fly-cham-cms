@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 import {
   Buildings,
   GlobeHemisphereWest,
@@ -25,5 +26,5 @@ export const contactChannels = [
 ]
 
 export function resolveContactChannelIcon(name) {
-  return contactChannelIcons[name] || ClipboardText
+  return contactChannelIcons[name] || resolvePhosphorIcon(name)
 }

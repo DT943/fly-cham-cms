@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import {
   ArrowRight,
   Shield,
@@ -29,7 +30,7 @@ const ICON_MAP = {
 const DEFAULT_ICON = Shield
 
 function resolveIcon(name) {
-  return ICON_MAP[name] || DEFAULT_ICON
+  return ICON_MAP[name] || resolvePhosphorIcon(name)
 }
 
 /**

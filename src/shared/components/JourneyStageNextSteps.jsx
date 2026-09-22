@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import {
   Airplane,
   AirplaneLanding,
@@ -26,7 +27,7 @@ const ICON_MAP = {
 }
 
 function resolveIcon(name) {
-  return ICON_MAP[name] || AirplaneTakeoff
+  return ICON_MAP[name] || resolvePhosphorIcon(name)
 }
 
 const COLUMNS = {

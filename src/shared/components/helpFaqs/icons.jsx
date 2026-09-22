@@ -1,3 +1,4 @@
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 import {
   AirTrafficControl,
   ArrowsClockwise,
@@ -47,5 +48,5 @@ export const HELP_FAQS_ICONS = {
 }
 
 export function getHelpFaqsIcon(name) {
-  return HELP_FAQS_ICONS[name] || SealQuestion
+  return HELP_FAQS_ICONS[name] || resolvePhosphorIcon(name)
 }

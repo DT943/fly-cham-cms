@@ -12,6 +12,7 @@ import {
   EnvelopeSimple,
   ChatCircleText,
 } from '@phosphor-icons/react'
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 
 /** Composite "payment issue" glyph — a credit card with a small warning badge. */
 function PaymentIssueIcon({ size = 22, weight = 'regular', ...props }) {
@@ -53,5 +54,7 @@ export const contactForms = [
 ]
 
 export function resolveContactFormIcon(name) {
-  return contactFormIcons[name] || ClipboardText
+  // Curated keys (incl. the composite paymentIssue) win; any other name resolves
+  // from the full Phosphor library so newly-picked icons render.
+  return contactFormIcons[name] || resolvePhosphorIcon(name)
 }

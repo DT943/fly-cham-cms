@@ -26,13 +26,7 @@ const HelpFaqsCategoryNav = ({
     ) ||
     categories.find((category) => category.id === topicId) ||
     categories[0]
-  const currentTopic =
-    (currentCategory?.topics || []).find((topic) => topic.id === topicId) ||
-    currentCategory?.topics?.[0] ||
-    null
   const CurrentIcon = getHelpFaqsIcon(currentCategory?.icon)
-  const currentTopicTitle = currentTopic?.title || ''
-  const showTopicHint = currentTopic && currentTopic.id !== currentCategory?.id
 
   const resolvedFocus = focusColor || activeTabColor || 'primary-1'
   const focusCss = colorVar(resolvedFocus)
@@ -44,7 +38,7 @@ const HelpFaqsCategoryNav = ({
   return (
     <nav
       aria-label={navLabel}
-      className="bg-background rounded-xl h-fit lg:sticky lg:top-24"
+      className="bg-background rounded-lg lg:rounded-xl h-fit border border-200 lg:border-0 lg:sticky lg:top-24"
     >
       <button
         type="button"
@@ -59,16 +53,11 @@ const HelpFaqsCategoryNav = ({
           className="shrink-0"
           style={{ color: iconCss }}
         />
-        <span className="flex-1 min-w-0">
-          <span
-            className={`${typography.body} font-medium block truncate`}
-            style={{ color: inactiveCss }}
-          >
-            {currentCategory?.title}
-          </span>
-          <span className={`${typography.caption} text-600 block truncate`}>
-            {showTopicHint ? currentTopicTitle : changeTopic}
-          </span>
+        <span
+          className={`${typography.body} font-medium flex-1 min-w-0 truncate`}
+          style={{ color: inactiveCss }}
+        >
+          {currentCategory?.title}
         </span>
         <CaretDown
           size={14}
@@ -131,7 +120,7 @@ const HelpFaqsCategoryNav = ({
                 <CaretDown
                   size={14}
                   weight="bold"
-                  className={`shrink-0 text-700 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+                  className={`hidden lg:block shrink-0 text-700 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
                     isExpanded ? 'rotate-180' : ''
                   }`}
                 />
@@ -139,7 +128,7 @@ const HelpFaqsCategoryNav = ({
 
               {nestedTopics && (
                 <div
-                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+                  className={`hidden lg:grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
                     isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                   }`}
                 >
