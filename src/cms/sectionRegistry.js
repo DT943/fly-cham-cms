@@ -46,6 +46,7 @@ import HelpFaqs from '../shared/components/HelpFaqs.jsx'
 import LegalHub from '../shared/components/LegalHub.jsx'
 import LegalDocument from '../shared/components/LegalDocument.jsx'
 import LegalMoreInfo from '../shared/components/LegalMoreInfo.jsx'
+import Breadcrumbs from '../shared/components/Breadcrumbs.jsx'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { pageMediaHeroProps } from './adapters/pageMediaHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
@@ -94,6 +95,7 @@ import { helpFaqsProps } from './adapters/helpFaqsAdapter.js'
 import { legalHubProps } from './adapters/legalHubAdapter.js'
 import { legalDocumentProps } from './adapters/legalDocumentAdapter.js'
 import { legalMoreInfoProps } from './adapters/legalMoreInfoAdapter.js'
+import { breadcrumbsProps } from './adapters/breadcrumbsAdapter.js'
 
 /**
  * Maps a block's `sectionId` to the component that renders it plus the adapter
@@ -161,6 +163,7 @@ export const sectionRegistry = {
     mapProps: legalMoreInfoProps,
     fullBleed: true,
   },
+  'breadcrumbs': { Component: Breadcrumbs, mapProps: breadcrumbsProps },
 }
 
 export function getSection(sectionId) {

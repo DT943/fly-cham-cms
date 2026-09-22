@@ -1,125 +1,23 @@
-import Home from '../../../pages/Home.jsx'
-import Help from '../../../pages/help/Help.jsx'
-import NewHelp from '../../../pages/new-help/NewHelp.jsx'
-import NewContactUs from '../../../pages/new-contact-us/NewContactUs.jsx'
-import NewOurOffices from '../../../pages/new-our-offices/NewOurOffices.jsx'
-import NewOurGsa from '../../../pages/new-our-gsa/NewOurGsa.jsx'
-import NewForms from '../../../pages/new-forms/NewForms.jsx'
-import NewOurDestinations from '../../../pages/new-our-destinations/NewOurDestinations.jsx'
-import NewFlightsToDamascus from '../../../pages/new-flights-to-damascus/NewFlightsToDamascus.jsx'
-import NewThingsToDoInDamascus from '../../../pages/new-things-to-do-in-damascus/NewThingsToDoInDamascus.jsx'
-import NewCitySights from '../../../pages/new-city-sights/NewCitySights.jsx'
-import NewTravelExperience from '../../../pages/new-travel-experience/NewTravelExperience.jsx'
-import NewSeatSelection from '../../../pages/new-seat-selection/NewSeatSelection.jsx'
-import NewOurResponsibility from '../../../pages/new-our-responsibility/NewOurResponsibility.jsx'
-import NewBeforeYouFly from '../../../pages/new-before-you-fly/NewBeforeYouFly.jsx'
-import NewTravelerMagazine from '../../../pages/new-traveler-magazine/NewTravelerMagazine.jsx'
-import NewMediaCenter from '../../../pages/new-media-center/NewMediaCenter.jsx'
-import NewAboutUs from '../../../pages/new-about-us/NewAboutUs.jsx'
-import NewOurFleet from '../../../pages/new-our-fleet/NewOurFleet.jsx'
-import NewRecentNews from '../../../pages/new-recent-news/NewRecentNews.jsx'
-import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
-import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
-import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
-import Forms from '../../../pages/forms/Forms.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
-import Faqs from '../../../pages/faqs/Faqs.jsx'
-import NewFaqs from '../../../pages/new-faqs/NewFaqs.jsx'
-import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
-import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
-import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
-import CitySights from '../../../pages/city-sights/CitySights.jsx'
-import RouteMap from '../../../pages/route-map/RouteMap.jsx'
-import TravelExperience from '../../../pages/travel-experience/TravelExperience.jsx'
-import TravelerMagazine from '../../../pages/traveler-magazine/TravelerMagazine.jsx'
-import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
-import SeatSelection from '../../../pages/seat-selection/SeatSelection.jsx'
-import AboutUs from '../../../pages/about-us/AboutUs.jsx'
-import OurFleet from '../../../pages/our-fleet/OurFleet.jsx'
-import OurResponsibility from '../../../pages/our-responsibility/OurResponsibility.jsx'
-import MediaCenter from '../../../pages/media-center/MediaCenter.jsx'
-import RecentNews from '../../../pages/recent-news/RecentNews.jsx'
-import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
-import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
-import Legal from '../../../pages/legal/Legal.jsx'
-import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
-import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndConditions.jsx'
-import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
-import Cookies from '../../../pages/legal/Cookies.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
-import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
+import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
+import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import { getJourneyStage, getJourneyStageSlug } from '../../../pages/before-you-fly/utils/journeyStages.js'
-import {
-  FormsRedirect,
-  LegacyFormDetailRedirect,
-  OurGsaRedirect,
-  OurOfficesRedirect,
-} from '../components/OurOfficesRedirect.jsx'
+import { LegacyFormDetailRedirect } from '../components/OurOfficesRedirect.jsx'
+import { staticPages } from './staticPages.js'
+import { newPages } from './newPages.js'
+
+export { staticPages } from './staticPages.js'
+export { newPages } from './newPages.js'
 
 export const pages = {
-  '/': Home,
-  '/help': Help,
-  '/new-help': NewHelp,
-  '/new-help/new-contact-us': NewContactUs,
-  '/help/contact-us': ContactUs,
-  '/help/contact-us/our-offices': OurOffices,
-  '/help/contact-us/new-our-offices': NewOurOffices,
-  '/help/contact-us/our-gsa': OurGsa,
-  '/help/our-gsa': OurGsaRedirect,
-  '/help/contact-us/new-our-gsa': NewOurGsa,
-  '/help/contact-us/forms': Forms,
-  '/help/contact-us/new-forms': NewForms,
-  '/help/forms': FormsRedirect,
-  '/help/our-offices': OurOfficesRedirect,
-  '/help/faqs': Faqs,
-  '/help/new-faqs': NewFaqs,
-  '/our-destinations': OurDestinations,
-  '/new-our-destinations': NewOurDestinations,
-  '/our-destinations/flights-to-damascus': ThingsToDoInDamascus,
-  '/our-destinations/new-flights-to-damascus': NewFlightsToDamascus,
-  '/our-destinations/new-things-to-do-in-damascus': NewThingsToDoInDamascus,
-  '/our-destinations/new-city-sights': NewCitySights,
-  '/our-destinations/things-to-do-in-damascus': FlightsToDamascus,
-  '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
-  '/our-destinations/city-sights': CitySights,
-  '/our-destinations/route-map': RouteMap,
-  '/travel-experience': TravelExperience,
-  '/new-travel-experience': NewTravelExperience,
-  '/travel-experience/seat-selection': SeatSelection,
-  '/travel-experience/new-seat-selection': NewSeatSelection,
-  '/travel-experience/new-our-responsibility': NewOurResponsibility,
-  '/travel-experience/new-before-you-fly': NewBeforeYouFly,
-  '/travel-experience/before-you-fly': BeforeYouFly,
-  '/travel-experience/at-the-airport': BeforeYouFly,
-  '/travel-experience/onboard': BeforeYouFly,
-  '/travel-experience/after-travel': BeforeYouFly,
-  '/travel-experience/new-traveler-magazine': NewTravelerMagazine,
-  '/travel-experience/traveler-magazine': TravelerMagazine,
-  '/our-responsibility': OurResponsibility,
-  '/about-us': AboutUs,
-  '/new-about-us': NewAboutUs,
-  '/our-fleet': OurFleet,
-  '/new-our-fleet': NewOurFleet,
-  '/new-media-center': NewMediaCenter,
-  '/media-center': MediaCenter,
-  '/recent-news': RecentNews,
-  '/new-recent-news': NewRecentNews,
-  '/magazine-view': MagazineView,
-  '/legal': Legal,
-  '/new-legal': NewLegal,
-  '/legal/terms-and-conditions': TermsAndConditions,
-  '/legal/new-terms-and-conditions': NewLegalDocument,
-  '/legal/booking-terms-and-conditions': BookingTermsAndConditions,
-  '/legal/new-booking-terms-and-conditions': NewLegalDocument,
-  '/legal/privacy-policy': PrivacyPolicy,
-  '/legal/new-privacy-policy': NewLegalDocument,
-  '/legal/cookies': Cookies,
-  '/legal/new-cookies': NewLegalDocument,
+  ...staticPages,
+  ...newPages,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/

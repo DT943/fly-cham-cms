@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
-import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import { stripLanguage } from '../../i18n/languages.js'
@@ -48,9 +47,8 @@ const NewLegalDocumentContent = () => {
 
   return (
     <main className="bg-100 w-full">
-      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 min-w-0">
         <Breadcrumbs items={breadcrumbs} />
-        <LanguageSwitcher />
       </Container>
 
       {(isLoading || isError) && (

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { CaretDown } from '@phosphor-icons/react'
 import Container from '../../shared/components/Container.jsx'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
-import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import LocalizedLink from '../../shared/components/LocalizedLink.jsx'
 import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import SeatJourney from './components/SeatJourney.jsx'
@@ -25,9 +24,8 @@ const SeatSelection = () => {
 
   return (
     <main className="bg-100 w-full pb-12 md:pb-16">
-      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 min-w-0">
         <Breadcrumbs items={breadcrumbs} />
-        <LanguageSwitcher />
       </Container>
 
       <PageMediaHero

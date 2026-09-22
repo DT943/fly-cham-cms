@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import LanguageSwitcher from '../../../shared/components/LanguageSwitcher.jsx'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import { fetchB2cFlightAvailByRoute } from '../../../vendor/flycham/lib/b2cAvailability/b2cAvailabilityApi.js'
 import { routeAirports } from '../utils/routeNetwork.js'
@@ -112,12 +111,6 @@ const RouteMapExplorer = () => {
           </div>
         </div>
 
-        {/* The page has no breadcrumb row, so the language toggle lives here. */}
-        <div className="pointer-events-auto absolute end-0 top-0 p-3 md:p-4">
-          <div className="rounded-lg bg-background/95 px-2 py-1 shadow-[0_6px_18px_rgba(1,38,59,0.16)] backdrop-blur-sm">
-            <LanguageSwitcher />
-          </div>
-        </div>
       </div>
 
       <RouteBookingDrawer

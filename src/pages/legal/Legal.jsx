@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Shield, Cookie, AirplaneTilt, Scroll } from '@phosphor-icons/react'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
-import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../shared/components/Container.jsx'
 import HelpCta from '../../shared/components/HelpCta.jsx'
 import { typography } from '../../styles/typography.js'
@@ -25,9 +24,8 @@ const Legal = () => {
 
   return (
     <main className="bg-100 w-full pb-12 md:pb-16">
-      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 min-w-0">
         <Breadcrumbs items={breadcrumbs} />
-        <LanguageSwitcher />
       </Container>
 
       <Container className="flex flex-col gap-8 md:gap-10">

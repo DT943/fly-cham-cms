@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
-import LanguageSwitcher from '../../shared/components/LanguageSwitcher.jsx'
 import PageHero from '../../shared/components/PageHero.jsx'
 import Container from '../../shared/components/Container.jsx'
 import SearchConsole from './components/SearchConsole/index.jsx'
@@ -20,10 +19,7 @@ const Help = () => {
   return (
     <main className="bg-100">
       <Container className="py-5 md:py-10 flex flex-col gap-6 md:gap-8">
-        <div className="flex items-center justify-between gap-4">
-          <Breadcrumbs items={helpBreadcrumbs} />
-          <LanguageSwitcher />
-        </div>
+        <Breadcrumbs items={helpBreadcrumbs} />
         <SearchAnchor hit="help-hero">
           <PageHero
             title={t('help.hero.title')}

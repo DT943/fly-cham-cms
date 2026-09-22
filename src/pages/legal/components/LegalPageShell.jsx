@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../shared/components/Breadcrumbs.jsx'
-import LanguageSwitcher from '../../../shared/components/LanguageSwitcher.jsx'
 import Container from '../../../shared/components/Container.jsx'
 import PageMediaHero from '../../../shared/components/PageMediaHero.jsx'
 import LegalMoreInfo from './LegalMoreInfo.jsx'
 
 /**
  * The common frame for the three legal pages (Terms, Privacy, Cookies):
- * breadcrumbs + language switcher, the shared media hero, a body slot, and the
+ * breadcrumbs, the shared media hero, a body slot, and the
  * "Get more information" band. Only the body differs between pages.
  */
 const LegalPageShell = ({
@@ -28,9 +27,8 @@ const LegalPageShell = ({
 
   return (
     <main className="bg-100 w-full">
-      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
+      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 min-w-0">
         <Breadcrumbs items={breadcrumbs} />
-        <LanguageSwitcher />
       </Container>
 
       <PageMediaHero
