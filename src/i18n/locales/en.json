@@ -3266,5 +3266,10 @@
     "description": "The page you are looking for could not be found.",
     "cta": "Back to Home Page",
     "imageAlt": "Aerial view of clouds from above"
+  },
+  "comingSoon": {
+    "title": "Coming Soon",
+    "description": "We're working on something new to serve you better stay tuned.",
+    "imageAlt": "Fly Cham aircraft flying above the clouds at sunset"
   }
 }

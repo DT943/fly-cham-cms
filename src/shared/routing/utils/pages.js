@@ -5,6 +5,7 @@ import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import NotFound from '../../../pages/not-found/NotFound.jsx'
+import ComingSoon from '../../../pages/coming-soon/ComingSoon.jsx'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { getDestinationGuide, getDestinationGuideSlug } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
@@ -20,6 +21,7 @@ export const pages = {
   ...staticPages,
   ...newPages,
   '/404': NotFound,
+  '/coming-soon': ComingSoon,
 }
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
@@ -43,4 +45,9 @@ export function isNotFoundPath(path) {
   if (path === '/404') return true
   if (pages[path]) return false
   return getPage(path) === NotFound
+}
+
+/** Full-bleed hero pages that use a dark header over media. */
+export function isFullBleedPath(path) {
+  return path === '/coming-soon' || isNotFoundPath(path)
 }
