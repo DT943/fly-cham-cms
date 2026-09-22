@@ -30,6 +30,10 @@ const HelpFaqs = ({
   showSectionBg = false,
   sectionBg = '100',
   iconColor = '800',
+  focusColor = 'primary-1',
+  activeTabColor,
+  inactiveTabColor = '800',
+  focusWashColor = 'primary-100',
   links = [],
   showLinks = true,
   titleColor = '800',
@@ -53,6 +57,8 @@ const HelpFaqs = ({
   const explorer = useHelpFaqs(categories)
   const [navOpen, setNavOpen] = useState(false)
   const closeMobileNav = () => setNavOpen(false)
+
+  const resolvedFocus = focusColor || activeTabColor || 'primary-1'
 
   const style = {
     titleColor,
@@ -107,6 +113,9 @@ const HelpFaqs = ({
             navLabel={navLabel}
             changeTopic={changeTopic}
             iconColor={iconColor}
+            focusColor={resolvedFocus}
+            inactiveTabColor={inactiveTabColor}
+            focusWashColor={focusWashColor}
             hasNestedTopics={explorer.hasNestedTopics}
           />
         </div>

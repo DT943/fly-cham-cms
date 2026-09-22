@@ -1,6 +1,6 @@
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import { colorVar } from '../../../styles/cmsStyle.js'
+import { colorMix, colorVar } from '../../../styles/cmsStyle.js'
 import { getHelpFaqsIcon } from './icons.jsx'
 
 const HelpFaqsCategoryNav = ({
@@ -14,6 +14,10 @@ const HelpFaqsCategoryNav = ({
   navLabel = '',
   changeTopic = '',
   iconColor = '800',
+  focusColor = 'primary-1',
+  activeTabColor,
+  inactiveTabColor = '800',
+  focusWashColor = 'primary-100',
   hasNestedTopics,
 }) => {
   const currentCategory =
@@ -30,10 +34,17 @@ const HelpFaqsCategoryNav = ({
   const currentTopicTitle = currentTopic?.title || ''
   const showTopicHint = currentTopic && currentTopic.id !== currentCategory?.id
 
+  const resolvedFocus = focusColor || activeTabColor || 'primary-1'
+  const focusCss = colorVar(resolvedFocus)
+  const inactiveCss = colorVar(inactiveTabColor)
+  const iconCss = colorVar(iconColor)
+  const washSoft = colorMix(focusWashColor, 30)
+  const washStrong = colorMix(focusWashColor, 55)
+
   return (
     <nav
       aria-label={navLabel}
-      className="bg-background rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] h-fit lg:sticky lg:top-24"
+      className="bg-background rounded-xl h-fit lg:sticky lg:top-24"
     >
       <button
         type="button"
@@ -45,11 +56,14 @@ const HelpFaqsCategoryNav = ({
         <CurrentIcon
           size={22}
           weight="regular"
-          className="shrink-0 text-800"
-          style={{ color: colorVar(iconColor) }}
+          className="shrink-0"
+          style={{ color: iconCss }}
         />
         <span className="flex-1 min-w-0">
-          <span className={`${typography.body} font-medium text-800 block truncate`}>
+          <span
+            className={`${typography.body} font-medium block truncate`}
+            style={{ color: inactiveCss }}
+          >
             {currentCategory?.title}
           </span>
           <span className={`${typography.caption} text-600 block truncate`}>
@@ -78,33 +92,40 @@ const HelpFaqsCategoryNav = ({
           const isActiveCategory =
             topicId === category.id ||
             (category.topics || []).some((topic) => topic.id === topicId)
+          const isHot = isExpanded || (isActiveCategory && !nestedTopics)
 
           return (
             <li
               key={category.id || category.title}
-              className={
-                isExpanded || (isActiveCategory && !nestedTopics)
-                  ? 'bg-primary-100/30'
-                  : 'bg-transparent'
-              }
+              style={{ backgroundColor: isHot ? washSoft : 'transparent' }}
             >
               <button
                 type="button"
                 aria-expanded={nestedTopics ? isExpanded : undefined}
                 onClick={() => onSelectCategory(category.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start ${
-                  isExpanded || (isActiveCategory && !nestedTopics)
-                    ? 'bg-primary-100/55'
-                    : 'bg-transparent'
-                }`}
+                className="w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start transition-colors"
+                style={{ backgroundColor: isHot ? washStrong : 'transparent' }}
+                onMouseEnter={(event) => {
+                  if (!isHot) {
+                    event.currentTarget.style.backgroundColor = washStrong
+                  }
+                }}
+                onMouseLeave={(event) => {
+                  if (!isHot) {
+                    event.currentTarget.style.backgroundColor = 'transparent'
+                  }
+                }}
               >
                 <Icon
                   size={22}
                   weight="regular"
-                  className="shrink-0 text-800"
-                  style={{ color: colorVar(iconColor) }}
+                  className="shrink-0"
+                  style={{ color: iconCss }}
                 />
-                <span className={`${typography.body} font-medium text-800 flex-1 min-w-0`}>
+                <span
+                  className={`${typography.body} font-medium flex-1 min-w-0`}
+                  style={{ color: inactiveCss }}
+                >
                   {category.title}
                 </span>
                 <CaretDown
@@ -134,11 +155,21 @@ const HelpFaqsCategoryNav = ({
                             onClick={() =>
                               onSelectTopic(category.id, topic.id, topic.questions || [])
                             }
-                            className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 ${
-                              isActiveTopic
-                                ? 'text-primary-1 font-bold'
-                                : 'text-800 font-normal hover:text-primary-1'
-                            }`}
+                            className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2`}
+                            style={{
+                              color: isActiveTopic ? focusCss : inactiveCss,
+                              fontWeight: isActiveTopic ? 600 : 400,
+                            }}
+                            onMouseEnter={(event) => {
+                              if (!isActiveTopic) {
+                                event.currentTarget.style.color = focusCss
+                              }
+                            }}
+                            onMouseLeave={(event) => {
+                              if (!isActiveTopic) {
+                                event.currentTarget.style.color = inactiveCss
+                              }
+                            }}
                           >
                             {topic.title}
                           </button>

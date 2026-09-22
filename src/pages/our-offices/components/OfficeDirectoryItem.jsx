@@ -44,7 +44,7 @@ const OfficeDirectoryItem = ({
       href={href || undefined}
       className={cx(
         typography.button,
-        'inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 font-medium no-underline transition-colors hover:bg-100 md:flex-none md:gap-2.5 md:px-6 md:py-2.5',
+        'inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 font-medium no-underline transition-colors hover:bg-100 md:flex-none md:gap-2.5 md:px-8 md:py-2.5',
         CMS_TEXT_HOVER_CLASS,
       )}
       style={{
@@ -52,7 +52,7 @@ const OfficeDirectoryItem = ({
         borderColor: buttonColor,
       }}
     >
-      <Icon size={16} weight="regular" className="shrink-0" aria-hidden />
+      <Icon size={18} weight="regular" className="shrink-0" aria-hidden />
       {label}
     </a>
   )

@@ -25,22 +25,26 @@ export const LEGACY_ICON_ALIASES = {
   refund: 'ArrowUUpLeft',
   suitcase: 'TrolleySuitcase',
   wheelchair: 'Wheelchair',
+  lifebuoy: 'Lifebuoy',
 }
 
 export const DEFAULT_ICON_NAME = 'Question'
 
-export function normalizeIconName(name) {
+export function normalizeIconName(name, aliases = {}) {
   if (!name) return DEFAULT_ICON_NAME
-  return LEGACY_ICON_ALIASES[name] || name
+  return aliases[name] || LEGACY_ICON_ALIASES[name] || name
 }
 
-/** Stored name (Pascal or legacy key) → a Phosphor React component. */
-export function resolvePhosphorIcon(name, fallback = DEFAULT_ICON_NAME) {
-  const pascal = normalizeIconName(name)
+/**
+ * Stored name (Pascal or legacy key) → a Phosphor React component.
+ * `aliases` is an optional per-component legacy key → Pascal map (takes
+ * precedence over the shared LEGACY_ICON_ALIASES).
+ */
+export function resolvePhosphorIcon(name, aliases = {}) {
+  const pascal = normalizeIconName(name, aliases)
   return (
     Phosphor[`${pascal}Icon`] ||
     Phosphor[pascal] ||
-    Phosphor[`${fallback}Icon`] ||
     Phosphor.QuestionIcon
   )
 }

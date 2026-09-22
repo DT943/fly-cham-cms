@@ -24,7 +24,7 @@ const FaqCategoryNav = ({
   return (
     <nav
       aria-label={t('faq.explorer.navLabel')}
-      className="bg-background rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] h-fit lg:sticky lg:top-24"
+      className="bg-background rounded-xl h-fit lg:sticky lg:top-24"
     >
       <button
         type="button"
@@ -75,10 +75,10 @@ const FaqCategoryNav = ({
                 type="button"
                 aria-expanded={nestedTopics ? isExpanded : undefined}
                 onClick={() => onSelectCategory(category.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start ${
+                className={`w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start transition-colors ${
                   isExpanded || (isActiveCategory && !nestedTopics)
                     ? 'bg-primary-100/55'
-                    : 'bg-transparent'
+                    : 'bg-transparent hover:bg-primary-100/55'
                 }`}
               >
                 <Icon size={22} weight="regular" className="shrink-0 text-800" />
@@ -112,7 +112,7 @@ const FaqCategoryNav = ({
                             onClick={() => onSelectTopic(category.id, topic.id, topic.questions)}
                             className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2 ${
                               isActiveTopic
-                                ? 'text-primary-1 font-bold'
+                                ? 'text-primary-1 font-semibold'
                                 : 'text-800 font-normal hover:text-primary-1'
                             }`}
                           >

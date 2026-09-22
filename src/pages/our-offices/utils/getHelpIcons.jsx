@@ -8,6 +8,7 @@ import {
   Lifebuoy,
   Question,
 } from '@phosphor-icons/react'
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 
 export const getHelpIcons = {
   headset: Headset,
@@ -21,5 +22,7 @@ export const getHelpIcons = {
 }
 
 export function resolveGetHelpIcon(name) {
-  return getHelpIcons[name] || Headset
+  // Prefer the local curated overrides, then resolve any icon from the full
+  // Phosphor library by name (matches the admin icon picker).
+  return getHelpIcons[name] || resolvePhosphorIcon(name)
 }
