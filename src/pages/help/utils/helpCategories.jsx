@@ -6,6 +6,7 @@ import {
   MagnifyingGlass,
   MapPin,
 } from '@phosphor-icons/react'
+import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons'
 
 function TrackRequestIcon({ size = 22, weight = 'regular', ...props }) {
   return (
@@ -41,5 +42,7 @@ export const helpCategories = [
 ]
 
 export function resolveHelpCategoryIcon(name) {
-  return helpCategoryIcons[name] || Question
+  // Prefer the local overrides (e.g. the composite "track" icon), then fall
+  // back to resolving any icon from the full Phosphor library by name.
+  return helpCategoryIcons[name] || resolvePhosphorIcon(name)
 }

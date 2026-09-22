@@ -31,6 +31,9 @@
   color: var(--cms-hc) !important;
   font-weight: var(--cms-hw) !important;
 }
+.cms-crumb-focus:focus-visible {
+  color: var(--cms-fc) !important;
+}
 
 
 /* Preline UI */

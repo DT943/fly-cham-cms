@@ -9,11 +9,13 @@ const OfficeDirectoryList = ({
   showLinks = true,
   linkProps = {},
 }) => {
+  const showPin = style.showPin !== false
+  const showDashedLine = style.showDashedLine !== false
   const lineCss = colorVar(style.lineColor || 'secondary-700')
 
   return (
     <div className="relative">
-      {style.showDashedLine && style.showPin && (
+      {showDashedLine && showPin && offices.length > 1 ? (
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-6 bottom-6 start-0 z-0 flex w-9 justify-center md:top-8 md:bottom-8 md:w-11"
@@ -25,7 +27,7 @@ const OfficeDirectoryList = ({
             }}
           />
         </span>
-      )}
+      ) : null}
 
       {offices.map((office, index) => (
         <OfficeDirectoryItem

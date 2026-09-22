@@ -75,7 +75,7 @@ const OfficeItem = ({ locationId, phone, email, isLast }) => {
         </div>
       </div>
 
-      {!isLast && <hr className="border-none border-t border-200 m-0 ms-12 md:ms-[4.25rem]" />}
+      {!isLast && <div role="separator" className="ms-12 h-px bg-200 md:ms-[4.25rem]" />}
     </div>
   )
 }

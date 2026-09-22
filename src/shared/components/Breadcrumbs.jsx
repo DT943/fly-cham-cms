@@ -17,6 +17,7 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 /**
  * Page trail. Static call sites pass `items` only and keep the original
  * caption / 600 / primary-1 look. CMS pages also send style + backlinks.
+ * The last crumb always uses Focus color (active page).
  */
 const Breadcrumbs = ({
   items = [],
@@ -26,6 +27,15 @@ const Breadcrumbs = ({
   showSectionBg = false,
   sectionBg = '100',
   separatorColor = '600',
+  crumbUnderline = false,
+  focusColor = 'primary-1',
+  focusFontWeight,
+  focusColorHover,
+  focusFontWeightHover,
+  currentColor,
+  currentFontWeight,
+  currentColorHover,
+  currentFontWeightHover,
   links = [],
   showLinks = true,
   linkColor,
@@ -38,6 +48,20 @@ const Breadcrumbs = ({
   const crumbs = Array.isArray(items) ? items.filter((item) => item?.label) : []
   if (!crumbs.length) return null
 
+  const resolvedFocusColor = focusColor || currentColor || 'primary-1'
+  const focusStyle = {
+    focusColor: resolvedFocusColor,
+    focusFontWeight: focusFontWeight || currentFontWeight || 'semibold',
+    focusColorHover:
+      focusColorHover || currentColorHover || resolvedFocusColor,
+    focusFontWeightHover:
+      focusFontWeightHover ||
+      currentFontWeightHover ||
+      focusFontWeight ||
+      currentFontWeight ||
+      'semibold',
+  }
+
   const linkProps = {
     links,
     enabled: showLinks,
@@ -48,40 +72,61 @@ const Breadcrumbs = ({
     linkItalic,
   }
 
+  const focusVars = getTextStyleVars(focusStyle, 'focusColor', 'primary-1', 'semibold')
+
   const nav = (
     <nav className={cx('flex items-center gap-2', typography.caption)} aria-label={ariaLabel}>
-      {crumbs.map((item, index) => (
-        <Fragment key={`${item.label}-${index}`}>
-          {index > 0 && (
-            <span
-              className="text-600 font-medium"
-              style={{ color: colorVar(separatorColor) }}
-            >
-              {separator}
-            </span>
-          )}
-          {item.href ? (
-            <LocalizedLink
-              href={item.href}
-              className={cx(
-                typography.caption,
-                'text-600 font-medium hover:underline',
-                CMS_TEXT_HOVER_CLASS,
-              )}
-              style={getTextStyleVars(textStyle, 'crumbColor', '600', 'medium')}
-            >
-              {item.label}
-            </LocalizedLink>
-          ) : (
-            <span
-              className={cx(typography.caption, 'text-primary-1 font-semibold', CMS_TEXT_HOVER_CLASS)}
-              style={getTextStyleVars(textStyle, 'currentColor', 'primary-1', 'semibold')}
-            >
-              <LinkedText text={item.label} {...linkProps} />
-            </span>
-          )}
-        </Fragment>
-      ))}
+      {crumbs.map((item, index) => {
+        const isFocus = index === crumbs.length - 1
+        return (
+          <Fragment key={`${item.label}-${index}`}>
+            {index > 0 && (
+              <span
+                className="text-600 font-medium"
+                style={{ color: colorVar(separatorColor) }}
+              >
+                {separator}
+              </span>
+            )}
+            {item.href && !isFocus ? (
+              <LocalizedLink
+                href={item.href}
+                className={cx(
+                  typography.caption,
+                  'font-medium',
+                  crumbUnderline ? 'hover:underline' : '',
+                  CMS_TEXT_HOVER_CLASS,
+                )}
+                style={getTextStyleVars(textStyle, 'crumbColor', '600', 'medium')}
+              >
+                {item.label}
+              </LocalizedLink>
+            ) : item.href && isFocus ? (
+              <LocalizedLink
+                href={item.href}
+                className={cx(
+                  typography.caption,
+                  'font-semibold',
+                  crumbUnderline ? 'hover:underline' : '',
+                  CMS_TEXT_HOVER_CLASS,
+                )}
+                style={focusVars}
+                aria-current="page"
+              >
+                {item.label}
+              </LocalizedLink>
+            ) : (
+              <span
+                className={cx(typography.caption, 'font-semibold', CMS_TEXT_HOVER_CLASS)}
+                style={focusVars}
+                aria-current="page"
+              >
+                <LinkedText text={item.label} {...linkProps} />
+              </span>
+            )}
+          </Fragment>
+        )
+      })}
     </nav>
   )
 

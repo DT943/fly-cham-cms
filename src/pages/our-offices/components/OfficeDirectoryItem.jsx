@@ -58,7 +58,7 @@ const OfficeDirectoryItem = ({
   )
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex items-start gap-3 py-6 md:gap-6 md:py-8">
         {style.showPin && (
           <div className="relative z-10 flex w-9 shrink-0 justify-center md:w-11">
@@ -132,9 +132,10 @@ const OfficeDirectoryItem = ({
       </div>
 
       {!isLast && (
-        <hr
-          className="m-0 border-none border-t ms-12 md:ms-[4.25rem]"
-          style={{ borderColor: colorVar(style.dividerColor || '200') }}
+        <div
+          role="separator"
+          className="ms-12 h-px md:ms-[4.25rem]"
+          style={{ backgroundColor: colorVar(style.dividerColor || '200') }}
         />
       )}
     </div>
