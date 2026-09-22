@@ -23,6 +23,8 @@ export function searchConsoleProps(block, lang) {
       query: item.query || item.label,
     })),
     types: normalizeTypes(content.types),
+    // Match Help.jsx: show Page / FAQ / Form chips in the suggestions dropdown.
+    showChips: style.showChips !== false,
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -49,6 +51,7 @@ const STYLE_KEYS = [
   'showSubmit',
   'showPopular',
   'showSearchIcon',
+  'showChips',
   'showSectionBg',
   'sectionBg',
   'sectionPadding',
