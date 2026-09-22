@@ -61,18 +61,18 @@ const FormCard = ({ card, style, links, showLinks }) => {
       <div className="flex items-start justify-between gap-3">
         {style.showIcon && (
           <span
-            className="flex h-10 w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-full"
+            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full"
             style={{ backgroundColor: colorVar(style.iconBg || '100') }}
           >
-            <Icon size={22} weight="regular" aria-hidden style={{ color: colorVar(style.iconColor || '700') }} />
+            <Icon size={26} weight="regular" aria-hidden style={{ color: colorVar(style.iconColor || '700') }} />
           </span>
         )}
         {style.showCategory && card.category && (
           <span
-            className={cx(typography.caption, 'whitespace-nowrap rounded-full px-3 py-1 font-medium', CMS_TEXT_HOVER_CLASS)}
+            className={cx(typography.caption, 'whitespace-nowrap rounded-full px-3.5 py-1 font-medium', CMS_TEXT_HOVER_CLASS)}
             style={{
               ...getTextStyleVars(style, 'categoryColor', 'primary-1'),
-              backgroundColor: colorMix(style.categoryColor || 'primary-1', 20),
+              backgroundColor: colorMix('secondary-1', 20),
             }}
           >
             {isAnchorWrapped ? (
@@ -112,11 +112,11 @@ const FormCard = ({ card, style, links, showLinks }) => {
         )}
         {style.showArrow && (
           <div
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+            className="flex h-9 w-9 md:h-8 md:w-8 shrink-0 items-center justify-center rounded-full"
             style={{ backgroundColor: colorVar(style.arrowBg || 'primary-1') }}
           >
             <ArrowRight
-              size={14}
+              size={20}
               weight="bold"
               aria-hidden
               className="rtl:-scale-x-100"
