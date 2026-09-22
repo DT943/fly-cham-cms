@@ -2,10 +2,7 @@ import { FiSearch } from 'react-icons/fi'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import SearchResultChip from './SearchResultChip.jsx'
-
-function chipKey(type) {
-  return type === 'faq' || type === 'form' ? type : 'page'
-}
+import { getSearchChipLabel } from '../utils/searchChipLabel.js'
 
 const SearchResultsMenu = ({ items, language, onSelect, showChips = false }) => {
   const { t } = useTranslation()
@@ -31,10 +28,7 @@ const SearchResultsMenu = ({ items, language, onSelect, showChips = false }) => 
             <FiSearch className="w-4 h-4 text-700 shrink-0" />
             <span className="flex-1 min-w-0 truncate">{item.title?.[language] || item.title?.en}</span>
             {showChips && (
-              <SearchResultChip
-                type={item.type}
-                label={t(`help.search.chips.${chipKey(item.type)}`)}
-              />
+              <SearchResultChip type={item.type} label={getSearchChipLabel(item, t)} />
             )}
           </button>
         </li>

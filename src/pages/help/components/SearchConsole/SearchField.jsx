@@ -58,7 +58,6 @@ const SearchField = ({
           'flex items-center gap-3 ps-4',
           RADIUS.lg,
           submitLabel ? 'pe-3 py-2.5 md:pe-1.5 md:py-1.5' : 'pe-4 py-3',
-          'focus-within:ring-2 focus-within:ring-50/40',
         )}
         style={{ backgroundColor: colorVar(inputBg) }}
       >
