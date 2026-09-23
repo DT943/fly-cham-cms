@@ -30,7 +30,14 @@ export function destinationsExploreProps(block, lang) {
       href: resolveCmsHref(featured.href),
       imageAlt: featured.imageAlt || '',
       images: Array.isArray(featured.images)
-        ? featured.images.map((u) => resolveCmsAsset(u)).filter(Boolean)
+        ? featured.images
+            .map((entry) =>
+              typeof entry === 'string'
+                ? entry
+                : entry?.imageUrl || entry?.url || ''
+            )
+            .map((u) => resolveCmsAsset(u))
+            .filter(Boolean)
         : [],
     },
     cards: (Array.isArray(content.cards) ? content.cards : []).map((card) => ({

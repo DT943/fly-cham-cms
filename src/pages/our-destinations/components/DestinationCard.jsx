@@ -7,18 +7,14 @@ import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 /**
  * Figma: "Our destinations" → Frame 1000004182 (node 38328:9001).
  *
- * Hover swaps the two content blocks in place (Figma `Property 1=Default` →
- * `Property 1=Variant2`): eyebrow/title rise out while Discover + Explore CTAs
- * rise in. Timing matches the Figma prototype, which is slower and softer than
- * a standard swap — ~500ms on a soft ease-out, not 300ms on the
- * cubic-bezier(0.4, 0, 0.2, 1) standard curve.
+ * Desktop (lg+): hover swaps eyebrow/title out while Discover + Explore CTAs
+ * rise in (~500ms soft ease-out). Image zooms to 1.041.
  *
- * Image zoom is Figma's, too: the hover variant draws the photo at 294 × 183
- * over a 282.33 × 175.75 card = scale 1.041, centred. The old 1.1 read as a
- * lurch at this card size. Scrim is fixed: `rgba(0,37,60,0) 38.122% → #00253C`.
+ * Mobile / tablet (< lg): always-visible layout from the mobile frame —
+ * country + title at the top, Discover + Explore in a horizontal row at the
+ * bottom (no hover required on touch).
  *
- * Hover is React-state driven (same as cms2) so both apps match and stay
- * reliable inside nested layouts. Colors + corners stay prop-driven.
+ * Scrim: `rgba(0,37,60,0) 38.122% → #00253C`.
  */
 const swapTransition =
   'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none'
@@ -53,6 +49,19 @@ const DestinationCard = ({
   const [focused, setFocused] = useState(false)
   const active = hovered || focused
 
+  const buttonProps = {
+    className: `${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out motion-reduce:transition-none ${
+      buttonStyle ? buttonClassName || '' : 'hover:opacity-90'
+    }`,
+    style:
+      buttonStyle || {
+        color: colorVar(buttonTextColor),
+        backgroundColor: colorVar(buttonBg),
+      },
+  }
+
+  const activitiesClass = `${typography.caption} inline-flex items-center gap-2.5 rounded-lg font-medium no-underline transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`
+
   return (
     <article
       className={`relative overflow-hidden ${radiusClass} aspect-[282/176] cursor-pointer`}
@@ -68,8 +77,8 @@ const DestinationCard = ({
       <img
         src={image}
         alt={imageAlt}
-        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none ${
-          active ? 'scale-[1.041]' : 'scale-100'
+        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none lg:transition-transform ${
+          active ? 'lg:scale-[1.041]' : 'scale-100'
         }`}
       />
       <div
@@ -77,8 +86,42 @@ const DestinationCard = ({
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,37,60,0)_38.122%,#00253C_100%)]"
       />
 
-      {/* Both blocks share one grid cell and sit bottom-aligned, so they cross in place. */}
-      <div className="absolute inset-x-0 bottom-0 grid p-4">
+      {/* Mobile: title top + CTAs row bottom — always visible */}
+      <div className="absolute inset-0 flex flex-col justify-between p-4 lg:hidden">
+        <div className="flex flex-col gap-1 pointer-events-none">
+          <p
+            className={`${typography.caption} m-0 font-semibold`}
+            style={{ color: colorVar(iataColor) }}
+          >
+            {iata}
+          </p>
+          <p
+            className={`${typography.body} m-0 font-medium`}
+            style={{ color: colorVar(titleColor) }}
+          >
+            {title}
+          </p>
+        </div>
+
+        <div className="flex flex-row items-center gap-2.5">
+          <LocalizedLink href={href} {...buttonProps} className={`${buttonProps.className} shrink-0`}>
+            {cta}
+          </LocalizedLink>
+          <LocalizedLink
+            href={href}
+            className={`${activitiesClass} min-w-0 justify-center`}
+            style={{ color: colorVar(activitiesColor) }}
+          >
+            <span className="truncate">{activities}</span>
+            <span className="flex size-[29px] shrink-0 items-center justify-center">
+              <ArrowRight size={20} className="rtl:-scale-x-100" />
+            </span>
+          </LocalizedLink>
+        </div>
+      </div>
+
+      {/* Desktop: hover swap (Figma Property 1=Default → Variant2) */}
+      <div className="absolute inset-x-0 bottom-0 hidden p-4 lg:grid">
         <div
           className={`col-start-1 row-start-1 flex flex-col gap-1 self-end pointer-events-none ${swapTransition} ${
             active
@@ -107,23 +150,12 @@ const DestinationCard = ({
               : 'pointer-events-none translate-y-full opacity-0 motion-reduce:translate-y-0'
           }`}
         >
-          <LocalizedLink
-            href={href}
-            className={`${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out motion-reduce:transition-none ${
-              buttonStyle ? buttonClassName || '' : 'hover:opacity-90'
-            }`}
-            style={
-              buttonStyle || {
-                color: colorVar(buttonTextColor),
-                backgroundColor: colorVar(buttonBg),
-              }
-            }
-          >
+          <LocalizedLink href={href} {...buttonProps}>
             {cta}
           </LocalizedLink>
           <LocalizedLink
             href={href}
-            className={`${typography.caption} inline-flex items-center justify-center gap-2.5 rounded-lg font-medium no-underline transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
+            className={`${activitiesClass} justify-center`}
             style={{ color: colorVar(activitiesColor) }}
           >
             {activities}

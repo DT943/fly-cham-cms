@@ -123,7 +123,12 @@ const DestinationsExplore = ({
   }
 
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
-  const featuredImages = featured.images?.length ? featured.images : bundledFeaturedImages
+  const featuredImages = (() => {
+    const imgs = Array.isArray(featured.images)
+      ? featured.images.filter(Boolean)
+      : []
+    return imgs.length ? imgs : bundledFeaturedImages
+  })()
 
   return (
     <section
