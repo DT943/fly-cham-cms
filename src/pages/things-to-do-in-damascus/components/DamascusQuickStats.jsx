@@ -41,25 +41,23 @@ const DestinationQuickStats = ({ i18nKey, stats, variant = 'responsive' }) => {
 
   const card = (
     <Container className="relative z-10 -mt-12.5">
-      <div className="rounded-xl bg-white px-10 py-5 shadow-[0_10px_15px_rgba(0,0,0,0.05)]">
-        <div className="flex h-25 items-start justify-between gap-4">
-          {items.map(({ id, Icon, detail }) => (
-            <div key={id} className="flex flex-1 items-center gap-4 text-start">
-              <Icon size={32} className="shrink-0 text-primary-1" />
-              <div className="flex min-w-0 flex-col gap-0.5">
-                <p className="m-0 text-xs uppercase text-600 sm:text-sm">
-                  {t(`${i18nKey}.stats.${id}.label`)}
-                </p>
-                <p className="m-0 text-base font-semibold text-700 sm:text-xl">
-                  {t(`${i18nKey}.stats.${id}.value`)}
-                </p>
-                {detail ? (
-                  <p className="m-0 text-xs text-600 sm:text-sm">{detail}</p>
-                ) : null}
-              </div>
+      <div className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+        {items.map(({ id, Icon, detail }) => (
+          <div key={id} className="flex items-center gap-4 text-start">
+            <Icon size={32} className="size-8 shrink-0 text-primary-1" />
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <p className="m-0 text-sm font-normal uppercase text-600">
+                {t(`${i18nKey}.stats.${id}.label`)}
+              </p>
+              <p className="m-0 text-xl font-semibold text-700">
+                {t(`${i18nKey}.stats.${id}.value`)}
+              </p>
+              {detail ? (
+                <p className="m-0 text-sm font-normal text-600">{detail}</p>
+              ) : null}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </Container>
   )

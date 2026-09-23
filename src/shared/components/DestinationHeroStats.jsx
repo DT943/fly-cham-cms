@@ -46,26 +46,34 @@ const StatItem = ({ stat, iconColor, tileLabelColor, tileValueColor, metaColor, 
       className={
         isTile
           ? 'flex flex-col items-center gap-2 rounded-xl bg-100 px-3 py-4 text-center'
-          : 'flex flex-1 items-center gap-4 text-start'
+          : 'flex items-center gap-4 text-start'
       }
     >
-      <Icon size={32} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+      <Icon
+        size={32}
+        className="size-8 shrink-0"
+        style={{ color: colorVar(iconColor) }}
+      />
       <div className="flex min-w-0 flex-col gap-0.5">
         <p
-          className="m-0 text-xs uppercase sm:text-sm"
+          className={
+            isTile
+              ? 'm-0 text-xs uppercase sm:text-sm'
+              : 'm-0 text-sm uppercase'
+          }
           style={getTextStyleVars({ tileLabelColor }, 'tileLabelColor', '600', 'normal')}
         >
           {stat.label}
         </p>
         <p
-          className="m-0 text-base sm:text-xl"
+          className={isTile ? 'm-0 text-base sm:text-xl' : 'm-0 text-xl'}
           style={getTextStyleVars({ tileValueColor }, 'tileValueColor', '700', 'semibold')}
         >
           {stat.value}
         </p>
         {stat.detail ? (
           <p
-            className="m-0 text-xs sm:text-sm"
+            className={isTile ? 'm-0 text-xs sm:text-sm' : 'm-0 text-sm'}
             style={getTextStyleVars({ metaColor }, 'metaColor', '600', 'normal')}
           >
             {stat.detail}
@@ -143,7 +151,10 @@ const DestinationHeroStats = ({
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to ${isRtl ? 'left' : 'right'}, ${overlayCss} 0%, transparent 82%)`,
+            // Figma: linear-gradient(90deg, #006080 0%, rgba(0,0,0,0) 100%)
+            backgroundImage: `linear-gradient(${
+              isRtl ? 270 : 90
+            }deg, ${overlayCss} 0%, rgba(0, 0, 0, 0) 100%)`,
           }}
           aria-hidden
         />
@@ -183,21 +194,19 @@ const DestinationHeroStats = ({
             </Container>
           </section>
 
-          {/* Desktop: floating white card */}
+          {/* Desktop: floating white card — Figma: 40×20 pad, r12, shadow 0 10 30 */}
           <Container className="relative z-10 -mt-12.5 hidden pb-4 lg:block">
             <div
-              className="rounded-xl bg-white px-10 py-5 shadow-[0_10px_15px_rgba(0,0,0,0.05)]"
+              className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
               style={
                 cardBg && cardBg !== 'white'
                   ? { backgroundColor: colorVar(cardBg) }
                   : undefined
               }
             >
-              <div className="flex h-25 items-start justify-between gap-4">
-                {stats.map((stat, index) => (
-                  <StatItem key={index} stat={stat} layout="row" {...tileStyle} />
-                ))}
-              </div>
+              {stats.map((stat, index) => (
+                <StatItem key={index} stat={stat} layout="row" {...tileStyle} />
+              ))}
             </div>
           </Container>
         </>

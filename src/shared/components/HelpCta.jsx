@@ -2,12 +2,13 @@ import { useTranslation } from 'react-i18next'
 import { ArrowRight } from '@phosphor-icons/react'
 import Container from './Container.jsx'
 import Button from './Button.jsx'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import helpPhoto from '../../assets/images/travel-experience/help-cta.png'
 
 /**
  * Rounded image banner with a left navy scrim and a title / description / CTA.
- * Defaults to the "need help?" content, but every field can be overridden from
- * the parent to reuse the same banner elsewhere (e.g. the About page fleet CTA).
+ * Overlay matches Figma exactly:
+ *   opacity 0.9, linear-gradient(#01263B → transparent), borderRadius 12, blur 23.10px
  *
  * `objectPosition` is a raw CSS value so each caller can tune the photo's focal
  * point; `contained` wraps the card in a `Container` for full-width pages.
@@ -23,16 +24,30 @@ const HelpCta = ({
   objectPosition = '70% center',
 }) => {
   const { t } = useTranslation()
+  const isRtl = useCurrentLanguage() === 'ar'
+  const deg = isRtl ? 270 : 90
 
   const card = (
-    <section className="relative isolate overflow-hidden rounded-2xl bg-secondary-2">
+    <section className="relative isolate overflow-hidden rounded-xl bg-secondary-2">
       <img
         src={image}
         alt={imageAlt ?? t('common.helpCta.imageAlt')}
         style={{ objectPosition }}
         className="absolute inset-0 size-full object-cover"
       />
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-secondary-2/80 from-10% to-transparent to-70% rtl:bg-linear-to-l" />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          width: '100%',
+          height: '100%',
+          opacity: 0.9,
+          background: `linear-gradient(${deg}deg, #01263B 0%, rgba(1, 38, 59, 0) 100%)`,
+          borderRadius: 12,
+          backdropFilter: 'blur(23.10px)',
+          WebkitBackdropFilter: 'blur(23.10px)',
+        }}
+        aria-hidden
+      />
 
       <div className="relative flex flex-col gap-6 px-6 py-10 sm:px-10 md:px-14 md:py-16 lg:min-h-90">
         <div className="flex max-w-160 flex-col gap-3 text-50">

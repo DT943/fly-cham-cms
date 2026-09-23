@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import Container from './Container.jsx'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import umayyadImg from '../../assets/images/flights-to-damascus/umayyad.png'
@@ -138,7 +139,7 @@ const ThumbnailStrip = ({
   )
 }
 
-/** One landmark card: photo + copy side by side, closed by the thumbnail strip. */
+/** One landmark: photo + copy side by side, closed by the thumbnail strip. */
 const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleKeys, showCarousel, carouselProps }) => {
   const banner = item.image || IMAGE_BY_ID[item.id] || ''
   const editorThumbs = (Array.isArray(item.thumbnails) ? item.thumbnails : [])
@@ -152,7 +153,7 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
   const imageFirst = item.imageFirst === true
 
   return (
-    <section className="flex flex-col gap-8 lg:gap-10">
+    <>
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-28">
         <img
           src={currentBanner}
@@ -177,14 +178,13 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
       {showCarousel && slides.length > 1 ? (
         <ThumbnailStrip images={slides} active={active} onSelect={setActive} altPrefix={item.imageAlt || ''} {...carouselProps} />
       ) : null}
-    </section>
+    </>
   )
 }
 
 /**
  * Landmark feature cards. Defaults reproduce the static things-to-do-in-Damascus
- * landmarks; the CMS (via the section registry) can override the cards, each
- * card's side, images, title/body colour + weight, carousel colours and backlinks.
+ * landmarks: each item is a full-bleed `bg-50` band with Container gutters.
  */
 const LandmarkFeature = ({
   items = [],
@@ -216,6 +216,7 @@ const LandmarkFeature = ({
   if (!items.length) return null
 
   const radiusClass = IMAGE_RADIUS[imageRadius] || IMAGE_RADIUS.lg
+  const paddingClass = SECTION_PADDING[sectionPadding] || SECTION_PADDING.default
   const linkProps = {
     links,
     enabled: showLinks,
@@ -229,34 +230,32 @@ const LandmarkFeature = ({
   const bodyStyleKeys = { bodyColor, bodyFontWeight, bodyColorHover, bodyFontWeightHover }
   const carouselProps = { carouselBg, arrowBg, arrowColor, activeBorderColor }
 
-  const inner = (
-    <div className="flex flex-col gap-12 md:gap-16 lg:gap-20">
-      {items.map((item, index) => (
-        <LandmarkCard
-          key={item.id || index}
-          item={item}
-          radiusClass={radiusClass}
-          linkProps={linkProps}
-          titleStyleKeys={titleStyleKeys}
-          bodyStyleKeys={bodyStyleKeys}
-          showCarousel={showCarousel}
-          carouselProps={carouselProps}
-        />
-      ))}
-    </div>
-  )
-
-  const sectionClass = [
-    SECTION_PADDING[sectionPadding] || '',
-    showSectionBg ? 'rounded-2xl px-4 md:px-6' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
-
-  if (!sectionClass) return inner
   return (
-    <div className={sectionClass} style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}>
-      {inner}
+    <div className="w-full">
+      {items.map((item, index) => (
+        <section
+          key={item.id || index}
+          id={item.id || undefined}
+          className="scroll-mt-28"
+          style={
+            showSectionBg
+              ? { backgroundColor: colorVar(sectionBg) || colorVar('50') }
+              : undefined
+          }
+        >
+          <Container className={`flex flex-col gap-8 lg:gap-10 ${paddingClass}`}>
+            <LandmarkCard
+              item={item}
+              radiusClass={radiusClass}
+              linkProps={linkProps}
+              titleStyleKeys={titleStyleKeys}
+              bodyStyleKeys={bodyStyleKeys}
+              showCarousel={showCarousel}
+              carouselProps={carouselProps}
+            />
+          </Container>
+        </section>
+      ))}
     </div>
   )
 }

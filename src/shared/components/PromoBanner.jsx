@@ -1,6 +1,6 @@
+import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
 import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
-import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 
@@ -28,21 +28,13 @@ const SECTION_PADDING = {
   loose: 'py-10 md:py-16',
 }
 
-/** Accepts a theme token OR a raw #hex, so the exact source navy is preserved. */
-const resolveColor = (value, fallbackToken) => {
-  if (typeof value === 'string' && value.startsWith('#')) return value
-  return colorVar(value) || colorVar(fallbackToken)
-}
-
-const navyWash = (css, isRtl) => {
-  const to = isRtl ? 'to left' : 'to right'
-  return `linear-gradient(${to}, ${css} 0%, color-mix(in srgb, ${css} 80%, transparent) 42%, color-mix(in srgb, ${css} 0%, transparent) 100%)`
-}
-
 /**
- * Full-bleed image banner with a navy wash and a CTA. Defaults reproduce the
- * static Contact Us / Our GSA design; the CMS can override colours, height,
- * radius, padding, visibility flags, per-role hover, and backlinks.
+ * Full-bleed image banner with a CTA. Defaults reproduce the static Contact Us
+ * / Our GSA design; the CMS can override colours, height, radius, padding,
+ * visibility flags, per-role hover, and backlinks.
+ *
+ * Overlay props are kept for CMS compatibility but no extra overlay layer is
+ * rendered — the photo is the only background.
  */
 const PromoBanner = ({
   title,
@@ -55,12 +47,12 @@ const PromoBanner = ({
   showDescription = true,
   showButton = true,
   showSectionBg = false,
-  showOverlay = true,
+  showOverlay: _showOverlay = true,
   sectionBg = '100',
   sectionPadding = 'none',
   bannerHeight = 'default',
   bannerRadius = 'lg',
-  overlayColor = '#0B2A4A',
+  overlayColor: _overlayColor = '#01263B',
   titleColor = '50',
   titleFontWeight = 'semibold',
   titleColorHover,
@@ -82,10 +74,8 @@ const PromoBanner = ({
   linkUnderline,
   linkItalic,
 }) => {
-  const isRtl = useCurrentLanguage() === 'ar'
   const radiusClass = BANNER_RADIUS[bannerRadius] ?? BANNER_RADIUS.lg
   const heightClass = BANNER_HEIGHT[bannerHeight] ?? BANNER_HEIGHT.default
-  const overlayCss = resolveColor(overlayColor, 'secondary-2')
 
   const linkProps = {
     links,
@@ -136,15 +126,8 @@ const PromoBanner = ({
             className="absolute inset-0 h-full w-full object-cover object-center"
           />
         ) : null}
-        {showOverlay ? (
-          <div
-            className="absolute inset-0 z-[1]"
-            style={{ backgroundImage: navyWash(overlayCss, isRtl) }}
-            aria-hidden
-          />
-        ) : null}
 
-        <div className="relative z-[2] flex max-w-xl flex-col gap-3 md:gap-5">
+        <div className="relative z-2 flex max-w-xl flex-col gap-3 md:gap-5">
           {showTitle && title ? (
             <h2
               className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
@@ -166,7 +149,7 @@ const PromoBanner = ({
               href={href}
               className={cx(
                 typography.button,
-                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 w-fit transition-colors',
+                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 inline-flex w-fit items-center gap-2.5 transition-colors',
                 isDefaultButtonBg ? 'bg-secondary hover:bg-secondary-800' : 'hover:opacity-90',
                 CMS_TEXT_HOVER_CLASS,
               )}
@@ -176,6 +159,7 @@ const PromoBanner = ({
               }}
             >
               {cta}
+              <ArrowRight size={24} weight="bold" className="rtl:-scale-x-100" />
             </LocalizedLink>
           ) : null}
         </div>

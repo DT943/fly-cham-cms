@@ -26,7 +26,7 @@ const AboutValues = () => {
             className="flex flex-col items-center justify-center gap-2 rounded-xl bg-50 px-4 py-6 text-center"
           >
             <span className="flex size-[68px] items-center justify-center rounded-full bg-100">
-              <Icon size={33} weight="regular" className="text-primary-1" />
+              <Icon size={33} weight="regular" className="text-900" />
             </span>
             <h3 className={`m-0 font-semibold text-secondary-2 ${typography.itemTitle}`}>
               {t(`aboutUs.values.items.${id}.title`)}

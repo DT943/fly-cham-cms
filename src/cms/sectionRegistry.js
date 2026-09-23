@@ -41,6 +41,7 @@ import MediaContactCards from '../shared/components/MediaContactCards.jsx'
 import MediaNewsletterSignup from '../shared/components/MediaNewsletterSignup.jsx'
 import FleetExplore from '../shared/components/FleetExplore.jsx'
 import MediaCards from '../shared/components/MediaCards.jsx'
+import AboutValues from '../shared/components/AboutValues.jsx'
 import RecentNews from '../shared/components/RecentNews.jsx'
 import HelpFaqs from '../shared/components/HelpFaqs.jsx'
 import LegalHub from '../shared/components/LegalHub.jsx'
@@ -90,6 +91,7 @@ import { mediaContactCardsProps } from './adapters/mediaContactCardsAdapter.js'
 import { mediaNewsletterSignupProps } from './adapters/mediaNewsletterSignupAdapter.js'
 import { fleetExploreProps } from './adapters/fleetExploreAdapter.js'
 import { mediaCardsProps } from './adapters/mediaCardsAdapter.js'
+import { aboutValuesProps } from './adapters/aboutValuesAdapter.js'
 import { recentNewsProps } from './adapters/recentNewsAdapter.js'
 import { helpFaqsProps } from './adapters/helpFaqsAdapter.js'
 import { legalHubProps } from './adapters/legalHubAdapter.js'
@@ -124,7 +126,7 @@ export const sectionRegistry = {
   'destination-hero-stats': { Component: DestinationHeroStats, mapProps: destinationHeroStatsProps, fullBleed: true },
   'destination-narratives': { Component: DestinationNarratives, mapProps: destinationNarrativesProps },
   'destination-things-to-do': { Component: DestinationThingsToDo, mapProps: destinationThingsToDoProps },
-  'landmark-feature': { Component: LandmarkFeature, mapProps: landmarkFeatureProps },
+  'landmark-feature': { Component: LandmarkFeature, mapProps: landmarkFeatureProps, fullBleed: true },
   'sights-grid': { Component: SightsGrid, mapProps: sightsGridProps },
   'magazine-banner': { Component: MagazineBanner, mapProps: magazineBannerProps },
   'newsletter-signup': { Component: NewsletterSignup, mapProps: newsletterSignupProps },
@@ -154,6 +156,7 @@ export const sectionRegistry = {
   },
   'fleet-explore': { Component: FleetExplore, mapProps: fleetExploreProps },
   'media-cards': { Component: MediaCards, mapProps: mediaCardsProps },
+  'about-values': { Component: AboutValues, mapProps: aboutValuesProps },
   'recent-news': { Component: RecentNews, mapProps: recentNewsProps },
   'help-faqs': { Component: HelpFaqs, mapProps: helpFaqsProps },
   'legal-hub': { Component: LegalHub, mapProps: legalHubProps },
