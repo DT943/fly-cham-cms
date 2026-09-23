@@ -134,7 +134,7 @@ const CargoStationsExplorer = () => {
 
   return (
     <section className="w-full min-w-0">
-      <div className="bg-[#FDFDFC]">
+      <div className="">
         <Container className="flex min-w-0 flex-col gap-2 py-8 md:gap-3 md:py-10">
           <h1 className={`m-0 font-bold text-primary-1 ${typography.pageTitle} lg:text-[48px]`}>
             {t('cargoStations.hero.title')}
