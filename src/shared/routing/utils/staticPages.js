@@ -25,6 +25,7 @@ import TermsAndConditions from '../../../pages/legal/TermsAndConditions.jsx'
 import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndConditions.jsx'
 import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
+import BusinessCenter from '../../../pages/business-center/BusinessCenter.jsx'
 import {
   FormsRedirect,
   OurGsaRedirect,
@@ -78,6 +79,7 @@ export const otherPages = {
   '/media-center': MediaCenter,
   '/recent-news': RecentNews,
   '/magazine-view': MagazineView,
+  '/business-center': BusinessCenter,
 }
 
 /** Static / legacy app pages. */

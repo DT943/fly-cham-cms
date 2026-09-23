@@ -3271,5 +3271,63 @@
     "title": "Coming Soon",
     "description": "We're working on something new to serve you better stay tuned.",
     "imageAlt": "Fly Cham aircraft flying above the clouds at sunset"
+  },
+  "businessCenter": {
+    "breadcrumb": "Business Center",
+    "hero": {
+      "title": "Business Center",
+      "subtitle": "Find business resources, partnership opportunities, and integration support",
+      "imageAlt": "Fly Cham cabin crew standing in front of an aircraft"
+    },
+    "services": {
+      "title": "Explore Our Business Services",
+      "description": "Whether you work as a travel agent, an online travel agent, or want to integrate with Fly Cham, find the resources and information you need below.",
+      "learnMore": "Learn more",
+      "b2bPortal": {
+        "title": "Your B2B Travel Portal",
+        "description": "Access the authorized Fly Cham platform for travel agents and manage your business bookings.",
+        "cta": "Access B2B",
+        "imageAlt": "Business traveler using a tablet"
+      },
+      "agentGuide": {
+        "title": "Travel Agent Guide",
+        "description": "Find practical guidance and useful information to help you manage bookings.",
+        "cta": "View Guide",
+        "imageAlt": "Cabin crew member standing in the aircraft aisle"
+      },
+      "partnership": {
+        "title": "Partnership Request",
+        "description": "Interested in becoming a Fly Cham partner? Complete the form and submit your request",
+        "cta": "Submit Your Request",
+        "imageAlt": "Business partners shaking hands"
+      },
+      "apiIntegration": {
+        "title": "API Integration",
+        "description": "Get integration resources and technical information for connecting with Fly Cham services.",
+        "cta": "Request API",
+        "imageAlt": "Developer working at a desk with multiple screens"
+      }
+    },
+    "enquiry": {
+      "title": "Have a Business Enquiry?",
+      "description": "If you need information about travel-agent services or partnerships, choose the right way to connect with us.",
+      "cta": "Get in Touch",
+      "imageAlt": "Business professional working on a tablet"
+    },
+    "quickAccess": {
+      "title": "Quick Access",
+      "items": {
+        "customerCare": "Contact Customer Care",
+        "latestNews": "Read Our Latest News",
+        "whereWeFly": "Discover Where We Fly",
+        "responsibility": "Explore Our Responsibility"
+      },
+      "itemsShort": {
+        "customerCare": "Customer Care",
+        "latestNews": "Latest News",
+        "whereWeFly": "Where We Fly",
+        "responsibility": "Responsibility"
+      }
+    }
   }
 }
