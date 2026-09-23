@@ -5,6 +5,7 @@ import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import HelpCta from '../../shared/components/HelpCta.jsx'
 import CargoInfoCards from './components/CargoInfoCards.jsx'
 import CargoFaqs from './components/CargoFaqs.jsx'
+import CargoShipmentTypes from './components/CargoShipmentTypes.jsx'
 import { cargoServiceHero, cargoGuideCta } from './utils/cargoServiceContent.js'
 
 const CargoService = () => {
@@ -29,6 +30,7 @@ const CargoService = () => {
         objectPosition={cargoServiceHero.objectPosition}
       />
 
+      <CargoShipmentTypes />
       <CargoInfoCards />
 
       <div className="py-2 md:py-4">

@@ -10,6 +10,17 @@ export const cargoServiceHero = {
   objectPosition: 'center 45%',
 }
 
+export const cargoShipmentTypes = [
+  { id: 'airFreight', image: requestImage },
+  { id: 'perishables', image: heroImage },
+  { id: 'pharma', image: stationsImage },
+  { id: 'liveAnimals', image: assistanceImage },
+  { id: 'aog', image: requestImage },
+  { id: 'sensitive', image: stationsImage },
+  { id: 'dangerous', image: heroImage },
+  { id: 'charter', image: requestImage },
+]
+
 export const cargoInfoCards = [
   {
     id: 'request',

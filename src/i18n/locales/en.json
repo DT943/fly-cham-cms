@@ -3359,6 +3359,61 @@
       "subtitle": "Choose Safety and Efficiency",
       "imageAlt": "Cargo pallets on the airport tarmac beside an aircraft wing"
     },
+    "shipments": {
+      "title": "A Wide Range of Shipment Types",
+      "description": "We provide comprehensive air freight services for the safe transportation of goods, pets, and perishable items, ensuring timely delivery of goods.",
+      "tabsLabel": "Shipment types",
+      "types": {
+        "airFreight": {
+          "label": "Air Freight",
+          "title": "Air Freight",
+          "description": "Fast, reliable and cost-effective transportation for general cargo, with flexible solutions to meet your shipping needs.",
+          "imageAlt": "Cargo aircraft being loaded on the tarmac"
+        },
+        "perishables": {
+          "label": "Perishables",
+          "title": "Perishables",
+          "description": "Temperature-controlled air cargo solutions that keep fresh produce, seafood, and other perishable goods in optimal condition.",
+          "imageAlt": "Perishable cargo ready for air transport"
+        },
+        "pharma": {
+          "label": "Pharma",
+          "title": "Pharma",
+          "description": "Secure and compliant handling for pharmaceutical products, with careful monitoring throughout the journey.",
+          "imageAlt": "Pharmaceutical cargo prepared for shipment"
+        },
+        "liveAnimals": {
+          "label": "Live Animals",
+          "title": "Live Animals",
+          "description": "Specialized care and facilities for transporting live animals safely and comfortably according to international standards.",
+          "imageAlt": "Safe transport arrangements for live animals"
+        },
+        "aog": {
+          "label": "AOG",
+          "title": "AOG",
+          "description": "Priority Aircraft-on-Ground support to move critical aviation parts quickly when every hour matters.",
+          "imageAlt": "Urgent aviation parts cargo handling"
+        },
+        "sensitive": {
+          "label": "Sensitive Shipments",
+          "title": "Sensitive Shipments",
+          "description": "Extra care for high-value or delicate cargo that requires specialized handling and secure processes.",
+          "imageAlt": "Sensitive cargo prepared for secure transport"
+        },
+        "dangerous": {
+          "label": "Dangerous Goods",
+          "title": "Dangerous Goods",
+          "description": "Certified dangerous-goods handling with strict compliance to safety regulations and documentation requirements.",
+          "imageAlt": "Dangerous goods cargo labeled for air transport"
+        },
+        "charter": {
+          "label": "Charter",
+          "title": "Charter",
+          "description": "Dedicated charter capacity for oversized, high-volume, or time-critical cargo moves across our network.",
+          "imageAlt": "Charter cargo aircraft on the apron"
+        }
+      }
+    },
     "info": {
       "title": "More information to know",
       "cards": {
