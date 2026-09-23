@@ -1,23 +1,35 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CaretDown } from '@phosphor-icons/react'
+import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../../styles/typography.js'
 
 const fieldShell =
   'flex min-h-12 w-full items-center rounded-lg border border-200 bg-50 px-3.5 text-800 outline-none transition-colors placeholder:text-500 focus:border-primary-1 focus:ring-0'
 
-const FormInput = ({ id, type = 'text', placeholder, value, onChange, autoComplete, className = '' }) => (
-  <input
-    id={id}
-    name={id}
-    type={type}
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
-    autoComplete={autoComplete}
-    className={`${fieldShell} ${typography.caption} ${className}`}
-  />
+const FormInput = ({
+  id,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  autoComplete,
+  className = '',
+  trailing,
+}) => (
+  <div className={`flex min-h-12 w-full items-center gap-2 rounded-lg border border-200 bg-50 px-3.5 ${className}`}>
+    <input
+      id={id}
+      name={id}
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      autoComplete={autoComplete}
+      className={`min-w-0 flex-1 border-0 bg-transparent p-0 text-800 outline-none placeholder:text-500 focus:ring-0 ${typography.caption}`}
+    />
+    {trailing}
+  </div>
 )
 
 const FormSelect = ({ id, value, onChange, options, placeholder, className = '', 'aria-label': ariaLabel }) => (
@@ -48,10 +60,7 @@ const FormSelect = ({ id, value, onChange, options, placeholder, className = '',
   </div>
 )
 
-/**
- * Cham Miles create-account card — soft gray panel with white fields.
- */
-const ChamMilesRegisterForm = () => {
+const RegisterForm = ({ onSwitchToLogin }) => {
   const { t, i18n } = useTranslation()
   const [title, setTitle] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -114,9 +123,9 @@ const ChamMilesRegisterForm = () => {
   }
 
   return (
-    <div className="w-full max-w-xl rounded-2xl bg-[#E8E8E8] p-5 shadow-[0_8px_32px_rgba(1,38,59,0.08)] sm:p-7 md:p-8">
+    <>
       <div className="mb-5 flex flex-col gap-1.5 sm:mb-6">
-        <h1 className={`m-0 font-semibold text-800 ${typography.sectionTitle}`}>
+        <h1 className={`m-0 font-semibold text-primary-1 ${typography.sectionTitle}`}>
           {t('chamMiles.form.title')}
         </h1>
         <p className={`m-0 font-normal text-600 ${typography.caption}`}>
@@ -257,6 +266,129 @@ const ChamMilesRegisterForm = () => {
           {t('chamMiles.form.continue')}
         </button>
       </form>
+
+      <p className={`mt-5 mb-0 text-center text-700 ${typography.caption}`}>
+        {t('chamMiles.form.hasAccount')}{' '}
+        <button
+          type="button"
+          onClick={onSwitchToLogin}
+          className="cursor-pointer border-0 bg-transparent p-0 font-semibold text-primary-1 underline-offset-2 hover:underline"
+        >
+          {t('chamMiles.form.loginLink')}
+        </button>
+      </p>
+    </>
+  )
+}
+
+const LoginForm = ({ onSwitchToRegister }) => {
+  const { t } = useTranslation()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [remember, setRemember] = useState(false)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
+  return (
+    <>
+      <div className="mb-5 flex flex-col gap-1.5 sm:mb-6">
+        <h1 className={`m-0 font-semibold text-primary-1 ${typography.sectionTitle}`}>
+          {t('chamMiles.login.title')}
+        </h1>
+        <p className={`m-0 font-normal text-600 ${typography.caption}`}>
+          {t('chamMiles.login.subtitle')}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3.5 sm:gap-4">
+        <FormInput
+          id="cham-miles-login-email"
+          type="email"
+          placeholder={t('chamMiles.login.email')}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+
+        <FormInput
+          id="cham-miles-login-password"
+          type={showPassword ? 'text' : 'password'}
+          placeholder={t('chamMiles.login.password')}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+          trailing={
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="shrink-0 border-0 bg-transparent p-0 text-600 hover:text-primary-1"
+              aria-label={
+                showPassword ? t('chamMiles.login.hidePassword') : t('chamMiles.login.showPassword')
+              }
+            >
+              {showPassword ? <EyeSlash size={20} weight="regular" /> : <Eye size={20} weight="regular" />}
+            </button>
+          }
+        />
+
+        <div className="flex items-center justify-between gap-3">
+          <label className="flex cursor-pointer items-center gap-2 select-none">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="size-4 shrink-0 accent-primary-1"
+            />
+            <span className={`text-700 ${typography.caption}`}>
+              {t('chamMiles.login.rememberMe')}
+            </span>
+          </label>
+          <button
+            type="button"
+            className={`shrink-0 cursor-pointer border-0 bg-transparent p-0 font-medium text-primary-1 underline-offset-2 hover:underline ${typography.caption}`}
+          >
+            {t('chamMiles.login.forgotPassword')}
+          </button>
+        </div>
+
+        <button
+          type="submit"
+          className={`mt-2 w-full cursor-pointer rounded-lg border-0 bg-primary-1 px-6 py-3.5 font-semibold text-50 transition-colors hover:bg-primary-700 ${typography.button}`}
+        >
+          {t('chamMiles.login.submit')}
+        </button>
+      </form>
+
+      <p className={`mt-5 mb-0 text-center text-700 ${typography.caption}`}>
+        {t('chamMiles.login.noAccount')}{' '}
+        <button
+          type="button"
+          onClick={onSwitchToRegister}
+          className="cursor-pointer border-0 bg-transparent p-0 font-semibold text-primary-1 underline-offset-2 hover:underline"
+        >
+          {t('chamMiles.login.createAccount')}
+        </button>
+      </p>
+    </>
+  )
+}
+
+/**
+ * Cham Miles auth card — toggles between create-account and sign-in.
+ */
+const ChamMilesRegisterForm = () => {
+  const [mode, setMode] = useState('register')
+
+  return (
+    <div className="w-full max-w-xl rounded-2xl bg-[#E8E8E8] p-5 shadow-[0_8px_32px_rgba(1,38,59,0.08)] sm:p-7 md:p-8">
+      {mode === 'register' ? (
+        <RegisterForm onSwitchToLogin={() => setMode('login')} />
+      ) : (
+        <LoginForm onSwitchToRegister={() => setMode('register')} />
+      )}
     </div>
   )
 }

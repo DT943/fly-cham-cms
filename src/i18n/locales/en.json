@@ -3379,6 +3379,8 @@
       "privacy": "privacy policy",
       "agreeMarketing": "I agree to receive marketing messages from Fly Cham",
       "continue": "Continue",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
       "titles": {
         "mr": "Mr",
         "mrs": "Mrs",
@@ -3407,6 +3409,19 @@
         "11": "November",
         "12": "December"
       }
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back to Cham Miles",
+      "email": "Email",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create an account"
     }
   },
   "cargoService": {
