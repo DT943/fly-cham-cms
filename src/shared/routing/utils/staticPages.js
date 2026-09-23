@@ -28,6 +28,7 @@ import Cookies from '../../../pages/legal/Cookies.jsx'
 import BusinessCenter from '../../../pages/business-center/BusinessCenter.jsx'
 import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent.jsx'
 import CargoService from '../../../pages/cargo-service/CargoService.jsx'
+import CargoStations from '../../../pages/cargo-stations/CargoStations.jsx'
 import {
   FormsRedirect,
   OurGsaRedirect,
@@ -84,6 +85,7 @@ export const otherPages = {
   '/business-center': BusinessCenter,
   '/login-travel-agent': LoginTravelAgent,
   '/cargo-service': CargoService,
+  '/cargo-stations': CargoStations,
 }
 
 /** Static / legacy app pages. */

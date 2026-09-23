@@ -3466,5 +3466,62 @@
         }
       ]
     }
+  },
+  "cargoStations": {
+    "breadcrumb": "Cargo Stations",
+    "hero": {
+      "title": "Cargo Stations",
+      "subtitle": "Find out about our current cargo stations and delivery points available for your shipments",
+      "imageAlt": "Cargo aircraft being loaded on the tarmac"
+    },
+    "stations": {
+      "title": "Explore our Cargo Stations",
+      "prev": "Previous station",
+      "next": "Next station",
+      "items": {
+        "damascus": {
+          "name": "Damascus International Airport",
+          "location": "Damascus, Syria",
+          "imageAlt": "Damascus International Airport"
+        },
+        "dubai": {
+          "name": "Dubai International Airport",
+          "location": "Dubai, UAE",
+          "imageAlt": "Dubai International Airport"
+        },
+        "sharjah": {
+          "name": "Sharjah International Airport",
+          "location": "Sharjah, UAE",
+          "imageAlt": "Sharjah International Airport"
+        },
+        "baghdad": {
+          "name": "Baghdad International Airport",
+          "location": "Baghdad, Iraq",
+          "imageAlt": "Baghdad International Airport"
+        },
+        "erbil": {
+          "name": "Erbil International Airport",
+          "location": "Erbil, Iraq",
+          "imageAlt": "Erbil International Airport"
+        },
+        "beirut": {
+          "name": "Beirut Rafic Hariri Airport",
+          "location": "Beirut, Lebanon",
+          "imageAlt": "Beirut Rafic Hariri International Airport"
+        }
+      }
+    },
+    "request": {
+      "title": "Request Your Cargo Service",
+      "description": "Submit your shipment details through our cargo request form, and our team will review your request",
+      "cta": "Send request",
+      "imageAlt": "Cargo being loaded onto a Fly Cham aircraft"
+    },
+    "guide": {
+      "title": "Cargo Guide",
+      "description": "Learn more about our cargo services, accepted shipments, and cargo stations.",
+      "cta": "Explore Cargo Guide",
+      "imageAlt": "Fly Cham cargo containers"
+    }
   }
 }

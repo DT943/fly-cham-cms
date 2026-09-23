@@ -30,7 +30,7 @@ export const cargoInfoCards = [
   {
     id: 'stations',
     image: stationsImage,
-    href: '/help/contact-us/forms',
+    href: '/cargo-stations',
   },
   {
     id: 'assistance',
