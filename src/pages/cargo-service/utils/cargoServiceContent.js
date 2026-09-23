@@ -44,7 +44,7 @@ export const cargoGuideCta = {
   href: '/coming-soon',
   objectPosition: '',
   overlayStyle: {
-    background: 'linear-gradient(90deg, #01263B 0%, rgba(1, 38, 59, 0) 121.52%)',
+    background: '',
   },
 }
 
