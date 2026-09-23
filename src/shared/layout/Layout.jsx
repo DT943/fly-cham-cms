@@ -13,7 +13,8 @@ const Layout = () => {
   const language = getLanguageFromPath(pathname)
   const pagePath = stripLanguage(pathname)
   const fullBleed = isFullBleedPath(pagePath)
-  const hideFooter = pagePath === '/our-destinations/route-map'
+  const hideChrome = pagePath === '/login-travel-agent'
+  const hideFooter = hideChrome || pagePath === '/our-destinations/route-map'
 
   useSearchHit()
 
@@ -30,8 +31,8 @@ const Layout = () => {
 
   return (
     <div className="flex min-h-screen min-w-0 flex-col overflow-x-clip">
-      <Header dark={fullBleed} hideOnScroll={!fullBleed} />
-      <div className={`min-w-0 flex-1 ${fullBleed ? 'flex flex-col' : ''}`}>
+      {!hideChrome && <Header dark={fullBleed} hideOnScroll={!fullBleed} />}
+      <div className={`min-w-0 flex-1 ${fullBleed || hideChrome ? 'flex flex-col' : ''}`}>
         <Outlet />
       </div>
       {!hideFooter && <Footer />}

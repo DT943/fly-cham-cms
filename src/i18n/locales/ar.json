@@ -3337,5 +3337,27 @@
         "responsibility": "مسؤوليتنا"
       }
     }
+  },
+  "loginTravelAgent": {
+    "welcome": "مرحباً بكم في",
+    "headline": "منصة فلاي شام للأعمال (B2B)",
+    "planeAlt": "طائرة فلاي شام",
+    "form": {
+      "title": "تسجيل دخول وكيل السفر",
+      "subtitle": "سجّل الدخول للوصول إلى منصة فلاي شام للأعمال",
+      "username": "اسم المستخدم",
+      "usernamePlaceholder": "أدخل اسم المستخدم",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "login": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "joinPartner": "انضم كشريك",
+      "needHelp": "هل تحتاج مساعدة؟",
+      "contactSupport": "تواصل مع دعم وكلاء السفر"
+    }
   }
 }

@@ -13,7 +13,7 @@ export const businessServices = {
   featured: {
     id: 'b2bPortal',
     image: b2bImage,
-    href: '/coming-soon',
+    href: '/login-travel-agent',
   },
   cards: [
     {

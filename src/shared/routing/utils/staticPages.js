@@ -26,6 +26,7 @@ import BookingTermsAndConditions from '../../../pages/legal/BookingTermsAndCondi
 import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
 import BusinessCenter from '../../../pages/business-center/BusinessCenter.jsx'
+import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent.jsx'
 import {
   FormsRedirect,
   OurGsaRedirect,
@@ -80,6 +81,7 @@ export const otherPages = {
   '/recent-news': RecentNews,
   '/magazine-view': MagazineView,
   '/business-center': BusinessCenter,
+  '/login-travel-agent': LoginTravelAgent,
 }
 
 /** Static / legacy app pages. */

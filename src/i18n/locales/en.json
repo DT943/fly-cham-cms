@@ -3329,5 +3329,27 @@
         "responsibility": "Responsibility"
       }
     }
+  },
+  "loginTravelAgent": {
+    "welcome": "Welcome to",
+    "headline": "Fly Cham B2B Platform",
+    "planeAlt": "Fly Cham aircraft",
+    "form": {
+      "title": "Travel Agent Login",
+      "subtitle": "Sign in to access the Fly Cham B2B platform",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "login": "Login",
+      "noAccount": "Don't have account?",
+      "joinPartner": "Join as a Partner",
+      "needHelp": "Need help?",
+      "contactSupport": "Contact Travel Agent Support"
+    }
   }
 }
