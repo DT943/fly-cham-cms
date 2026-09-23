@@ -27,6 +27,7 @@ import PrivacyPolicy from '../../../pages/legal/PrivacyPolicy.jsx'
 import Cookies from '../../../pages/legal/Cookies.jsx'
 import BusinessCenter from '../../../pages/business-center/BusinessCenter.jsx'
 import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent.jsx'
+import ChamMiles from '../../../pages/cham-miles/ChamMiles.jsx'
 import CargoService from '../../../pages/cargo-service/CargoService.jsx'
 import CargoStations from '../../../pages/cargo-stations/CargoStations.jsx'
 import {
@@ -84,6 +85,7 @@ export const otherPages = {
   '/magazine-view': MagazineView,
   '/business-center': BusinessCenter,
   '/login-travel-agent': LoginTravelAgent,
+  '/cham-miles': ChamMiles,
   '/cargo-service': CargoService,
   '/cargo-stations': CargoStations,
 }

@@ -3352,6 +3352,63 @@
       "contactSupport": "Contact Travel Agent Support"
     }
   },
+  "chamMiles": {
+    "logoAlt": "Cham Miles",
+    "welcome": {
+      "headlineBefore": "Join",
+      "headlineBrand": "Cham Miles",
+      "headlineAfter": "Today",
+      "description": "Create your free ChamMiles account and start earning miles, unlocking rewards, and enjoying exclusive travel benefits with every journey."
+    },
+    "form": {
+      "title": "Create an Account",
+      "subtitle": "Ensure the name provided matches your passport.",
+      "titlePlaceholder": "Title",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "countryCode": "Country code",
+      "phone": "Call number",
+      "dateOfBirth": "Date of birth",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year",
+      "agreeTermsPrefix": "I agree with Fly Cham",
+      "terms": "Terms and conditions",
+      "agreeTermsAnd": "and",
+      "privacy": "privacy policy",
+      "agreeMarketing": "I agree to receive marketing messages from Fly Cham",
+      "continue": "Continue",
+      "titles": {
+        "mr": "Mr",
+        "mrs": "Mrs",
+        "ms": "Ms",
+        "miss": "Miss"
+      },
+      "countryCodes": {
+        "sy": "Syria (+963)",
+        "ae": "United Arab Emirates (+971)",
+        "sa": "Saudi Arabia (+966)",
+        "lb": "Lebanon (+961)",
+        "jo": "Jordan (+962)",
+        "eg": "Egypt (+20)"
+      },
+      "months": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    }
+  },
   "cargoService": {
     "breadcrumb": "Cargo Service",
     "hero": {
