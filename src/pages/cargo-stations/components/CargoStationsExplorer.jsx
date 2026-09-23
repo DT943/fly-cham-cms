@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AirplaneTakeoff, MapPin, CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { AirplaneTilt, MapPin, CaretLeft, CaretRight } from '@phosphor-icons/react'
 import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
 import { cargoStationsHero, cargoStationsList } from '../utils/cargoStationsContent.js'
@@ -25,7 +25,7 @@ const StationRow = ({ id, image, className = '' }) => {
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-start gap-1.5 text-primary-1">
-          <AirplaneTakeoff size={16} weight="fill" className="mt-0.5 shrink-0" />
+          <AirplaneTilt size={16} className="mt-0.5 shrink-0" />
           <h3 className={`m-0 font-semibold leading-snug ${typography.caption}`}>
             {t(`cargoStations.stations.items.${id}.name`)}
           </h3>
