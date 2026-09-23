@@ -44,6 +44,9 @@ const DestinationCard = ({
   buttonBg = 'primary-1',
   buttonTextColor = '100',
   activitiesColor = '50',
+  // Optional Normal/Hover button styling from getButtonStyle (CMS block).
+  buttonClassName,
+  buttonStyle,
 }) => {
   const radiusClass = RADIUS_CLASS[radius] ?? RADIUS_CLASS.lg
   const [hovered, setHovered] = useState(false)
@@ -106,11 +109,15 @@ const DestinationCard = ({
         >
           <LocalizedLink
             href={href}
-            className={`${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out hover:opacity-90 motion-reduce:transition-none`}
-            style={{
-              color: colorVar(buttonTextColor),
-              backgroundColor: colorVar(buttonBg),
-            }}
+            className={`${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out motion-reduce:transition-none ${
+              buttonStyle ? buttonClassName || '' : 'hover:opacity-90'
+            }`}
+            style={
+              buttonStyle || {
+                color: colorVar(buttonTextColor),
+                backgroundColor: colorVar(buttonBg),
+              }
+            }
           >
             {cta}
           </LocalizedLink>

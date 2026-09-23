@@ -130,7 +130,7 @@ const Dropdown = ({
         onClick={() => !disabled && setOpen((isOpen) => !isOpen)}
         onKeyDown={handleKeyDown}
         className={cx(
-          'flex w-full min-h-12 cursor-pointer items-center justify-between gap-3 rounded-lg border bg-50 px-4 py-3 text-start font-semibold text-700',
+          'flex w-full min-h-12 cursor-pointer items-center justify-between gap-3 rounded-lg border bg-50 px-4 py-3 text-start font-regular text-700',
           typography.body,
           open ? 'border-primary-1' : 'border-500',
           'focus:border-primary-1 focus:outline-none',

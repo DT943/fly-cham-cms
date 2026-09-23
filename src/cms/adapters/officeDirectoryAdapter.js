@@ -63,6 +63,8 @@ const STYLE_KEYS = [
   'rowColorHover',
   'rowFontWeightHover',
   'dividerColor',
+  'buttonBg',
+  'buttonBgHover',
   'buttonColor',
   'buttonFontWeight',
   'buttonColorHover',

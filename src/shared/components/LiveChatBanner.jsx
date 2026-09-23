@@ -6,6 +6,7 @@ import {
   CMS_TEXT_HOVER_CLASS,
   colorVar,
   colorMix,
+  getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -40,6 +41,7 @@ const LiveChatBanner = ({
   titleColorHover,
   titleFontWeightHover,
   buttonBg = 'primary-1',
+  buttonBgHover,
   buttonText = '50',
   buttonTextFontWeight = 'medium',
   buttonTextHover,
@@ -84,14 +86,26 @@ const LiveChatBanner = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextFontWeight,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
-
-  const isDefaultButtonBg = buttonBg === 'primary-1'
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonBgHover,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgFallback: 'primary-1',
+      bgHoverFallback: 'primary-800',
+      textKey: 'buttonText',
+      textFallback: '50',
+      weightFallback: 'medium',
+    },
+  )
+  // Legacy look: a custom background with no hover color set dims on hover.
+  const dimOnHover = buttonBg !== 'primary-1' && !buttonBgHover
 
   return (
     <section
@@ -156,14 +170,11 @@ const LiveChatBanner = ({
               href={href}
               className={cx(
                 typography.button,
-                'no-underline rounded-lg px-10 py-3 w-full md:w-auto inline-flex items-center justify-center shrink-0 transition-colors',
-                isDefaultButtonBg ? 'bg-primary-1 hover:bg-primary-800' : 'hover:opacity-90',
-                CMS_TEXT_HOVER_CLASS,
+                'no-underline rounded-lg px-10 py-3 w-full md:w-auto inline-flex items-center justify-center shrink-0',
+                dimOnHover && 'hover:opacity-90',
+                buttonStyle.className,
               )}
-              style={{
-                ...(isDefaultButtonBg ? {} : { backgroundColor: colorVar(buttonBg) }),
-                ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', '50', 'medium'),
-              }}
+              style={buttonStyle.style}
             >
               {cta}
             </LocalizedLink>

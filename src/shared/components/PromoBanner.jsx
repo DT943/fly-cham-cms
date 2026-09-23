@@ -1,6 +1,6 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
-import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
+import { colorVar, CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 
@@ -62,6 +62,7 @@ const PromoBanner = ({
   descriptionColorHover,
   descriptionFontWeightHover,
   buttonBg = 'secondary',
+  buttonBgHover,
   buttonText = 'btn',
   buttonTextFontWeight = 'medium',
   buttonTextHover,
@@ -98,14 +99,26 @@ const PromoBanner = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextFontWeight,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
-
-  const isDefaultButtonBg = buttonBg === 'secondary'
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonBgHover,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'medium',
+    },
+  )
+  // Legacy look: a custom background with no hover color set dims on hover.
+  const dimOnHover = buttonBg !== 'secondary' && !buttonBgHover
 
   return (
     <section
@@ -149,14 +162,11 @@ const PromoBanner = ({
               href={href}
               className={cx(
                 typography.button,
-                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 inline-flex w-fit items-center gap-2.5 transition-colors',
-                isDefaultButtonBg ? 'bg-secondary hover:bg-secondary-800' : 'hover:opacity-90',
-                CMS_TEXT_HOVER_CLASS,
+                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 inline-flex w-fit items-center gap-2.5',
+                dimOnHover && 'hover:opacity-90',
+                buttonStyle.className,
               )}
-              style={{
-                ...(isDefaultButtonBg ? {} : { backgroundColor: colorVar(buttonBg) }),
-                ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', 'btn', 'medium'),
-              }}
+              style={buttonStyle.style}
             >
               {cta}
               <ArrowRight size={24} weight="bold" className="rtl:-scale-x-100" />

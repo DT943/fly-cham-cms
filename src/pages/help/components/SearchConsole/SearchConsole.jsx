@@ -39,8 +39,10 @@ const SearchConsole = ({
   inputTextColorHover,
   inputTextFontWeightHover,
   submitBg = 'secondary',
+  submitBgHover,
   submitTextColor = '700',
   submitFontWeight = 'semibold',
+  submitTextFontWeight,
   submitTextColorHover,
   submitTextFontWeightHover,
   labelColor = '50',
@@ -155,8 +157,9 @@ const SearchConsole = ({
           inputTextColorHover={inputTextColorHover}
           inputTextFontWeightHover={inputTextFontWeightHover}
           submitBg={submitBg}
+          submitBgHover={submitBgHover}
           submitTextColor={submitTextColor}
-          submitFontWeight={submitFontWeight}
+          submitFontWeight={submitTextFontWeight ?? submitFontWeight}
           submitTextColorHover={submitTextColorHover}
           submitTextFontWeightHover={submitTextFontWeightHover}
           ariaLabel={showLabel ? undefined : resolvedLabel}

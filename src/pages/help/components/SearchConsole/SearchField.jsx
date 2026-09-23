@@ -3,6 +3,7 @@ import {
   RADIUS,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getButtonStyle,
   getTextStyleVars,
 } from '../../../../styles/cmsStyle.js'
 import { typography } from '../../../../styles/typography.js'
@@ -26,6 +27,7 @@ const SearchField = ({
   inputTextColorHover,
   inputTextFontWeightHover,
   submitBg,
+  submitBgHover,
   submitTextColor,
   submitFontWeight,
   submitTextColorHover,
@@ -44,12 +46,23 @@ const SearchField = ({
     inputTextColorHover,
     inputTextFontWeightHover,
   }
-  const submitTextStyleKeys = {
-    submitTextColor,
-    submitTextFontWeight: submitFontWeight,
-    submitTextColorHover,
-    submitTextFontWeightHover,
-  }
+  const submitButtonStyle = getButtonStyle(
+    {
+      submitBg,
+      submitBgHover,
+      submitTextColor,
+      submitTextFontWeight: submitFontWeight,
+      submitTextColorHover,
+      submitTextFontWeightHover,
+    },
+    {
+      bgKey: 'submitBg',
+      bgFallback: 'secondary',
+      textKey: 'submitTextColor',
+      textFallback: '700',
+      weightFallback: 'semibold',
+    },
+  )
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -95,13 +108,11 @@ const SearchField = ({
               'hidden shrink-0 cursor-pointer border-none px-6 py-2 md:inline-flex',
               RADIUS.lg,
               typography.button,
-              'transition-opacity hover:opacity-90',
-              CMS_TEXT_HOVER_CLASS,
+              // Legacy look: dims on hover until a hover background is set.
+              !submitBgHover && 'hover:opacity-90',
+              submitButtonStyle.className,
             )}
-            style={{
-              backgroundColor: colorVar(submitBg),
-              ...getTextStyleVars(submitTextStyleKeys, 'submitTextColor', '700', 'semibold'),
-            }}
+            style={submitButtonStyle.style}
           >
             {submitLabel}
           </button>

@@ -1,6 +1,11 @@
 import { useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight, Clock } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  getTextStyleVars,
+  colorVar,
+  getButtonStyle,
+} from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -69,7 +74,7 @@ const RecentNews = ({
   cardBorderColor = '200',
   iconColor = '600',
   searchBg = 'secondary',
-  searchHoverBg = 'secondary-800',
+  searchHoverBg,
   topicActiveBg = 'primary-1',
   topicInactiveBg = '200',
   pageActiveBg = 'primary-1',
@@ -90,6 +95,18 @@ const RecentNews = ({
   const topicOptions = Array.isArray(topics) ? topics : []
   const articles = Array.isArray(items) ? items : []
   const size = Math.max(1, Number(pageSize) || 6)
+  const searchBtn = getButtonStyle(
+    { ...textStyle, searchBg, searchHoverBg },
+    {
+      bgKey: 'searchBg',
+      bgHoverKey: 'searchHoverBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
 
   const defaultTopic = topicOptions[0]?.id || 'all'
   const [activeTopic, setActiveTopic] = useState(defaultTopic)
@@ -219,18 +236,9 @@ const RecentNews = ({
                 className={cx(
                   'h-12 w-full shrink-0 cursor-pointer rounded-lg border-0 px-10 font-semibold transition-colors md:w-auto md:min-w-[7.5rem]',
                   typography.button,
-                  CMS_TEXT_HOVER_CLASS,
+                  searchBtn.className,
                 )}
-                style={{
-                  backgroundColor: colorVar(searchBg),
-                  ...getTextStyleVars(textStyle, 'buttonText', 'btn', 'semibold'),
-                }}
-                onMouseEnter={(event) => {
-                  event.currentTarget.style.backgroundColor = colorVar(searchHoverBg)
-                }}
-                onMouseLeave={(event) => {
-                  event.currentTarget.style.backgroundColor = colorVar(searchBg)
-                }}
+                style={searchBtn.style}
               >
                 {searchLabel}
               </button>
@@ -300,7 +308,7 @@ const RecentNews = ({
                   return (
                     <article
                       key={article.id || `${group}-${index}`}
-                      className="flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0px_4px_6px_rgba(33,37,41,0.05)]"
+                      className="flex h-full flex-col overflow-hidden rounded-2xl border"
                       style={{
                         backgroundColor: colorVar(cardBg),
                         borderColor: colorVar(cardBorderColor),

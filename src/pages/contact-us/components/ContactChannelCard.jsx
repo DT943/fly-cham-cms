@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../../styles/cmsStyle.js'
+import { CMS_TEXT_HOVER_CLASS, colorVar, getButtonStyle, getTextStyleVars } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
@@ -24,8 +23,9 @@ const ContactChannelCard = ({
   cardDescriptionColorHover,
   cardDescriptionFontWeightHover,
   buttonBg = 'primary-1',
-  buttonHoverBg = 'primary-800',
+  buttonHoverBg,
   buttonText = '50',
+  buttonTextFontWeight,
   buttonTextHover,
   buttonTextFontWeightHover,
   links = [],
@@ -36,8 +36,6 @@ const ContactChannelCard = ({
   linkUnderline,
   linkItalic,
 }) => {
-  const [hovered, setHovered] = useState(false)
-
   const linkProps = {
     links,
     enabled: showLinks,
@@ -58,11 +56,25 @@ const ContactChannelCard = ({
     cardDescriptionColorHover,
     cardDescriptionFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonHoverBg,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgHoverKey: 'buttonHoverBg',
+      bgFallback: 'primary-1',
+      bgHoverFallback: 'primary-800',
+      textKey: 'buttonText',
+      textFallback: '50',
+      weightFallback: 'medium',
+    },
+  )
 
   return (
     <article
@@ -93,15 +105,10 @@ const ContactChannelCard = ({
         href={href}
         className={cx(
           typography.button,
-          'no-underline rounded-xl px-4 py-3 w-full inline-flex items-center justify-center gap-2 transition-colors',
-          CMS_TEXT_HOVER_CLASS,
+          'no-underline rounded-xl px-4 py-3 w-full inline-flex items-center justify-center gap-2',
+          buttonStyle.className,
         )}
-        style={{
-          ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', '50', 'medium'),
-          backgroundColor: hovered ? colorVar(buttonHoverBg) : colorVar(buttonBg),
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        style={buttonStyle.style}
       >
         {cta}
         <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />

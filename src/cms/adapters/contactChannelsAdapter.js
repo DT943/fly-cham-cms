@@ -61,6 +61,7 @@ const STYLE_KEYS = [
   'buttonBg',
   'buttonHoverBg',
   'buttonText',
+  'buttonTextFontWeight',
   'buttonTextHover',
   'buttonTextFontWeightHover',
   'showLinks',

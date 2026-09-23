@@ -27,6 +27,7 @@ function mapBacklinks(links) {
 const STYLE_KEYS = [
   'sectionBg',
   'borderColor',
+  'cardBg',
   'titleColor',
   'titleFontWeight',
   'titleColorHover',
@@ -35,6 +36,7 @@ const STYLE_KEYS = [
   'descriptionFontWeight',
   'descriptionColorHover',
   'descriptionFontWeightHover',
+  'inputBg',
   'inputText',
   'buttonBg',
   'buttonHoverBg',

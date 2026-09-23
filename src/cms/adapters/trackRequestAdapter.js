@@ -60,6 +60,7 @@ const STYLE_KEYS = [
   'labelFontWeightHover',
   'inputBg',
   'submitBg',
+  'submitBgHover',
   'submitTextColor',
   'submitTextFontWeight',
   'submitTextColorHover',

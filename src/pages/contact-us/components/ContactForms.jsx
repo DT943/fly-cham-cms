@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../styles/typography.js'
 import {
@@ -8,6 +7,7 @@ import {
   GRID_COLS,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getButtonStyle,
   getTextStyleVars,
 } from '../../../styles/cmsStyle.js'
 import {
@@ -57,7 +57,7 @@ const ContactForms = ({
   buttonTextHover,
   buttonTextFontWeightHover,
   buttonBg = 'background',
-  buttonHoverBg = '100',
+  buttonHoverBg,
   buttonBorderColor = 'primary-1',
   links = [],
   showLinks = true,
@@ -69,7 +69,6 @@ const ContactForms = ({
   ...cardStyle
 }) => {
   const { t } = useTranslation()
-  const [buttonHovered, setButtonHovered] = useState(false)
 
   const linkProps = {
     links,
@@ -92,12 +91,25 @@ const ContactForms = ({
     subtitleColorHover,
     subtitleFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextFontWeight,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonHoverBg,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgHoverKey: 'buttonHoverBg',
+      bgFallback: 'background',
+      bgHoverFallback: '100',
+      textKey: 'buttonText',
+      textFallback: 'primary-1',
+      weightFallback: 'semibold',
+    },
+  )
 
   const resolvedTitle = title ?? t('contact.forms.title')
   const resolvedSubtitle = subtitle ?? t('contact.forms.subtitle')
@@ -172,18 +184,13 @@ const ContactForms = ({
             href={resolvedButtonHref}
             className={cx(
               typography.button,
-              'mt-0 md:mt-4 no-underline rounded-lg border px-10 py-3 transition-colors',
-              CMS_TEXT_HOVER_CLASS,
+              'mt-0 md:mt-4 no-underline rounded-lg border px-10 py-3',
+              buttonStyle.className,
             )}
             style={{
-              ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', 'primary-1', 'semibold'),
+              ...buttonStyle.style,
               borderColor: colorVar(buttonBorderColor),
-              backgroundColor: buttonHovered
-                ? colorVar(buttonHoverBg)
-                : colorVar(buttonBg),
             }}
-            onMouseEnter={() => setButtonHovered(true)}
-            onMouseLeave={() => setButtonHovered(false)}
           >
             {resolvedButtonLabel}
           </LocalizedLink>

@@ -22,6 +22,9 @@ const FeaturedDestination = ({
   images,
   imageAlt,
   href = '#',
+  // Optional Normal/Hover button styling from getButtonStyle (CMS block).
+  buttonClassName = '',
+  buttonStyle,
 }) => {
   const { i18n } = useTranslation()
   const slides = images?.length ? images : image ? [image] : []
@@ -102,7 +105,8 @@ const FeaturedDestination = ({
         <div className="flex flex-col gap-3 pointer-events-auto">
           <LocalizedLink
             href={href}
-            className={`${typography.caption} font-semibold text-white bg-primary-1 hover:bg-primary-1/90 no-underline rounded-lg px-[15px] py-2.5 min-h-[45px] flex items-center justify-center text-center transition-colors duration-200 ease-out motion-reduce:transition-none`}
+            className={`${typography.caption} font-semibold text-white bg-primary-1 hover:bg-primary-1/90 no-underline rounded-lg px-[15px] py-2.5 min-h-[45px] flex items-center justify-center text-center transition-colors duration-200 ease-out motion-reduce:transition-none ${buttonClassName}`}
+            style={buttonStyle}
           >
             {cta}
           </LocalizedLink>

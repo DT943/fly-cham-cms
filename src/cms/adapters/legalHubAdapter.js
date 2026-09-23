@@ -79,6 +79,7 @@ const STYLE_KEYS = [
   'helpDescriptionColorHover',
   'helpDescriptionFontWeightHover',
   'helpButtonBg',
+  'helpButtonBgHover',
   'helpButtonText',
   'helpButtonTextHover',
   'helpButtonTextFontWeight',

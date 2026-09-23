@@ -1,6 +1,11 @@
 import { Clock, EnvelopeSimple, MapPin, MapPinLine, Phone } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getButtonStyle,
+  getTextStyleVars,
+} from '../../../styles/cmsStyle.js'
 import LinkedText from '../../../shared/components/backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
@@ -38,17 +43,28 @@ const OfficeDirectoryItem = ({
 }) => {
   const rowColor = colorVar(style.rowColor || '800')
   const buttonColor = colorVar(style.buttonColor || 'primary-1')
+  // Outlined buttons: no background until one is chosen (hover keeps the
+  // original light-grey "100" wash); the border tracks the label color.
+  const buttonStyle = getButtonStyle(style, {
+    bgKey: 'buttonBg',
+    bgFallback: 'background',
+    bgHoverFallback: '100',
+    textKey: 'buttonColor',
+    textFallback: 'primary-1',
+    weightFallback: 'semibold',
+  })
 
   const button = (Icon, label, href) => (
     <a
       href={href || undefined}
       className={cx(
         typography.button,
-        'inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 font-medium no-underline transition-colors hover:bg-100 md:flex-none md:gap-2.5 md:px-8 md:py-2.5',
-        CMS_TEXT_HOVER_CLASS,
+        'inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 font-medium no-underline md:flex-none md:gap-2.5 md:px-8 md:py-2.5',
+        buttonStyle.className,
       )}
       style={{
-        ...getTextStyleVars(style, 'buttonColor', 'primary-1', 'semibold'),
+        ...buttonStyle.style,
+        ...(style.buttonBg ? {} : { backgroundColor: 'transparent' }),
         borderColor: buttonColor,
       }}
     >

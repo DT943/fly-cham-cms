@@ -48,6 +48,10 @@ import LegalHub from '../shared/components/LegalHub.jsx'
 import LegalDocument from '../shared/components/LegalDocument.jsx'
 import LegalMoreInfo from '../shared/components/LegalMoreInfo.jsx'
 import Breadcrumbs from '../shared/components/Breadcrumbs.jsx'
+import NewsDetailHeader from '../shared/components/NewsDetailHeader.jsx'
+import NewsDetailParagraphs from '../shared/components/NewsDetailParagraphs.jsx'
+import NewsDetailGallery from '../shared/components/NewsDetailGallery.jsx'
+import NewsDetailFigure from '../shared/components/NewsDetailFigure.jsx'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { pageMediaHeroProps } from './adapters/pageMediaHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
@@ -98,6 +102,10 @@ import { legalHubProps } from './adapters/legalHubAdapter.js'
 import { legalDocumentProps } from './adapters/legalDocumentAdapter.js'
 import { legalMoreInfoProps } from './adapters/legalMoreInfoAdapter.js'
 import { breadcrumbsProps } from './adapters/breadcrumbsAdapter.js'
+import { newsDetailHeaderProps } from './adapters/newsDetailHeaderAdapter.js'
+import { newsDetailParagraphsProps } from './adapters/newsDetailParagraphsAdapter.js'
+import { newsDetailGalleryProps } from './adapters/newsDetailGalleryAdapter.js'
+import { newsDetailFigureProps } from './adapters/newsDetailFigureAdapter.js'
 
 /**
  * Maps a block's `sectionId` to the component that renders it plus the adapter
@@ -154,6 +162,10 @@ export const sectionRegistry = {
     mapProps: mediaNewsletterSignupProps,
     fullBleed: true,
   },
+  'news-detail-header': { Component: NewsDetailHeader, mapProps: newsDetailHeaderProps },
+  'news-detail-paragraphs': { Component: NewsDetailParagraphs, mapProps: newsDetailParagraphsProps },
+  'news-detail-gallery': { Component: NewsDetailGallery, mapProps: newsDetailGalleryProps },
+  'news-detail-figure': { Component: NewsDetailFigure, mapProps: newsDetailFigureProps },
   'fleet-explore': { Component: FleetExplore, mapProps: fleetExploreProps },
   'media-cards': { Component: MediaCards, mapProps: mediaCardsProps },
   'about-values': { Component: AboutValues, mapProps: aboutValuesProps },

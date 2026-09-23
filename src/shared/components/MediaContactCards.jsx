@@ -42,7 +42,7 @@ const MediaContactCards = ({
   cardBg = 'background',
   cardBorderColor = '200',
   iconBg = '100',
-  iconColor = '800',
+  iconColor = '900',
   links = [],
   showLinks = true,
   linkColor,
@@ -79,10 +79,10 @@ const MediaContactCards = ({
           >
             <div className="flex items-center gap-3 md:gap-4">
               <div
-                className="flex size-11 shrink-0 items-center justify-center rounded-full md:size-12"
+                className="flex size-12 shrink-0 items-center justify-center rounded-full"
                 style={{ backgroundColor: colorVar(iconBg) }}
               >
-                <Icon size={22} weight="regular" className="shrink-0" style={{ color: colorVar(iconColor) }} aria-hidden />
+                <Icon size={24} weight="regular" className="shrink-0" style={{ color: colorVar(iconColor) }} aria-hidden />
               </div>
               <h3
                 className={cx('m-0', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}

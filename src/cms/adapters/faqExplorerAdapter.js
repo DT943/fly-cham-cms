@@ -61,6 +61,7 @@ const STYLE_KEYS = [
   'answerFontWeightHover',
   'iconColor',
   'browseBg',
+  'browseBgHover',
   'browseText',
   'browseTextFontWeight',
   'browseTextHover',

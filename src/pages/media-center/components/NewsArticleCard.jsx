@@ -1,10 +1,11 @@
 import { ArrowRight, Clock } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import Button from '../../../shared/components/Button.jsx'
+import NewsLearnMoreLink from './NewsLearnMoreLink.jsx'
 
 /**
  * Featured news card: image on the left, copy on the right at lg+.
  * Stacks with the image first on smaller screens.
+ * Read more uses the same expand-to-pill hover as News Grid Learn More.
  */
 const NewsArticleCard = ({
   image,
@@ -47,10 +48,7 @@ const NewsArticleCard = ({
         <p className={`m-0 font-normal leading-relaxed text-700 ${typography.body}`}>{excerpt}</p>
       </div>
 
-      <Button href={href} className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-3.5">
-        {cta}
-        <ArrowRight size={16} weight="bold" className="text-btn rtl:-scale-x-100" />
-      </Button>
+      <NewsLearnMoreLink href={href} label={cta} />
     </div>
   </article>
 )

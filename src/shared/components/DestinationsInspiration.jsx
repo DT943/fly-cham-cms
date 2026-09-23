@@ -1,6 +1,6 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
-import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
+import { colorVar, CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars } from '../../styles/cmsStyle.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -67,6 +67,7 @@ const DestinationsInspiration = ({
   descriptionColorHover,
   descriptionFontWeightHover,
   buttonBg = 'secondary',
+  buttonBgHover,
   buttonText = 'btn',
   buttonTextFontWeight = 'semibold',
   buttonTextHover,
@@ -110,13 +111,26 @@ const DestinationsInspiration = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextFontWeight,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
-  const isDefaultButtonBg = buttonBg === 'secondary'
+  const btn = getButtonStyle(
+    {
+      buttonBg,
+      buttonBgHover,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
+  // A custom background with no hover color keeps the old 90% fade.
+  const buttonFade = !buttonBgHover && (buttonBg || 'secondary') !== 'secondary'
 
   return (
     <section
@@ -161,14 +175,11 @@ const DestinationsInspiration = ({
               href={href}
               className={cx(
                 typography.button,
-                'no-underline inline-flex items-center gap-2 rounded-lg px-6 py-3 md:px-8 md:py-4 w-fit transition-colors',
-                isDefaultButtonBg ? 'bg-secondary hover:bg-secondary-800' : 'hover:opacity-90',
-                CMS_TEXT_HOVER_CLASS,
+                'no-underline inline-flex items-center gap-2 rounded-lg px-6 py-3 md:px-8 md:py-4 w-fit transition',
+                buttonFade && 'hover:opacity-90',
+                btn.className,
               )}
-              style={{
-                ...(isDefaultButtonBg ? {} : { backgroundColor: colorVar(buttonBg) }),
-                ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', 'btn', 'semibold'),
-              }}
+              style={btn.style}
             >
               {cta}
               <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />

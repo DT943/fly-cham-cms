@@ -1,6 +1,7 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import bannerBg from '../../../assets/images/city-sights/magazine-bg.png'
 import cover from '../../../assets/images/city-sights/magazine-cover.jpg'
 import spreadOne from '../../../assets/images/city-sights/magazine-spread-1.jpg'
@@ -33,36 +34,31 @@ const MagazineCluster = ({ compact = false, className = '' }) => {
 
 const MagazineBanner = () => {
   const { t } = useTranslation()
+  const isRtl = useCurrentLanguage() === 'ar'
+  const deg = isRtl ? 270 : 90
 
   return (
-    <section className="relative isolate overflow-hidden rounded-xl bg-primary-1 lg:h-90">
-      {/*
-        The photo is blurred directly rather than through a backdrop-filter on the
-        gradient: the result is identical (the only thing behind that layer is this
-        image over a flat fill), and it avoids the backdrop layer failing to repaint
-        the lower half of the banner when the section resizes. `scale-125` pushes the
-        blur's faded edges outside the clip so no seam shows — it needs to clear the
-        23px radius on the short side, which is only 360px tall at lg.
-      */}
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative isolate overflow-hidden rounded-[12px] bg-primary-1 lg:h-90">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+        style={{ opacity: 0.9 }}
+      >
         <img
           src={bannerBg}
           alt=""
-          className="absolute inset-0 size-full scale-105 object-cover opacity-90 blur-[3px]"
+          className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"
         />
-        {/*
-          The gradient stays solid across the copy so the white text keeps its
-          contrast, then drops to 25% so the photo actually reads on the artwork
-          side. Figma's own values (50% image under a 23px blur and a wash that is
-          still ~80% opaque at the right edge) render as a flat teal fill.
-        */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#01263b] from-28% to-[#01263b]/25 rtl:bg-linear-to-l" />
+        <div
+          className="absolute inset-0 rounded-[12px]"
+          style={{
+            background: `linear-gradient(${deg}deg, #01263B 0%, rgba(1, 38, 59, 0) 100%)`,
+            backdropFilter: 'blur(23.10px)',
+            WebkitBackdropFilter: 'blur(23.10px)',
+          }}
+          aria-hidden
+        />
       </div>
 
-      {/*
-        Row at lg so the copy can never run under the artwork: the text is a
-        shrinkable flex item capped at the design's 640px, the images are fixed.
-      */}
       <div className="relative flex h-full flex-col justify-center gap-6 px-6 py-10 md:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-0 lg:ps-16 lg:pe-11.5">
         <div className="flex flex-col gap-6 lg:min-w-0 lg:max-w-160">
           <div className="flex flex-col gap-3 text-50">

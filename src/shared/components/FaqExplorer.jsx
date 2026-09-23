@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CaretDown, SealQuestion } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
-import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
+import {
+  colorVar,
+  CMS_TEXT_HOVER_CLASS,
+  getButtonStyle,
+  getTextStyleVars,
+} from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 
@@ -209,6 +214,7 @@ const FaqExplorer = ({
   answerFontWeightHover,
   iconColor = '800',
   browseBg = 'secondary',
+  browseBgHover,
   browseText = 'btn',
   browseTextFontWeight = 'medium',
   browseTextHover,
@@ -259,12 +265,24 @@ const FaqExplorer = ({
     questionFontWeightHover,
   }
   const answerStyleKeys = { answerColor, answerFontWeight, answerColorHover, answerFontWeightHover }
-  const browseTextStyleKeys = {
-    browseText,
-    browseTextFontWeight,
-    browseTextHover,
-    browseTextFontWeightHover,
-  }
+  const browseButtonStyle = getButtonStyle(
+    {
+      browseBg,
+      browseBgHover,
+      browseText,
+      browseTextFontWeight,
+      browseTextHover,
+      browseTextFontWeightHover,
+    },
+    {
+      bgKey: 'browseBg',
+      bgFallback: 'secondary',
+      textKey: 'browseText',
+      textFallback: 'btn',
+      weightFallback: 'medium',
+      border: true,
+    },
+  )
 
   const selectCategory = (index) => {
     setActiveIndex(index)
@@ -375,14 +393,11 @@ const FaqExplorer = ({
               href={browseHref === '#' ? undefined : browseHref}
               className={cx(
                 typography.button,
-                'inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 sm:px-8 font-medium no-underline transition-opacity hover:opacity-90',
-                CMS_TEXT_HOVER_CLASS,
+                'inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 sm:px-8 font-medium no-underline',
+                !browseBgHover && 'hover:opacity-90',
+                browseButtonStyle.className,
               )}
-              style={{
-                backgroundColor: colorVar(browseBg),
-                borderColor: colorVar(browseBg),
-                ...getTextStyleVars(browseTextStyleKeys, 'browseText', 'btn', 'medium'),
-              }}
+              style={browseButtonStyle.style}
             >
               <span>{browseLabel}</span>
             </LocalizedLink>

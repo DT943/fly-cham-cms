@@ -1,6 +1,12 @@
-import { useState } from 'react'
 import { typography } from '../../styles/typography.js'
-import { ALIGN, SECTION_PADDING, CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../styles/cmsStyle.js'
+import {
+  ALIGN,
+  SECTION_PADDING,
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getButtonStyle,
+  getTextStyleVars,
+} from '../../styles/cmsStyle.js'
 import SearchAnchor from '../search/components/SearchAnchor.jsx'
 import FaqItem from './FaqItem.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -31,7 +37,7 @@ const Faqs = ({
   titleColorHover,
   titleFontWeightHover,
   browseBg = 'secondary',
-  browseHoverBg = 'secondary-800',
+  browseHoverBg,
   browseText = 'btn',
   browseTextFontWeight = 'semibold',
   browseTextHover,
@@ -45,11 +51,20 @@ const Faqs = ({
   linkItalic,
   ...itemStyle
 }) => {
-  const [browseHovered, setBrowseHovered] = useState(false)
-
   const linkProps = { links, enabled: showLinks, linkColor, linkHoverColor, linkFontWeight, linkUnderline, linkItalic }
   const titleStyleKeys = { titleColor, titleFontWeight, titleColorHover, titleFontWeightHover }
-  const browseTextStyleKeys = { browseText, browseTextFontWeight, browseTextHover, browseTextFontWeightHover }
+  const browseButtonStyle = getButtonStyle(
+    { browseBg, browseHoverBg, browseText, browseTextFontWeight, browseTextHover, browseTextFontWeightHover },
+    {
+      bgKey: 'browseBg',
+      bgHoverKey: 'browseHoverBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'browseText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
   const gapClass = ITEM_GAP[itemGap] || ITEM_GAP.default
 
   return (
@@ -102,15 +117,10 @@ const Faqs = ({
             href={browseHref}
             className={cx(
               typography.button,
-              'no-underline rounded-lg px-8 py-3 md:px-10 md:py-3.5 transition-colors',
-              CMS_TEXT_HOVER_CLASS,
+              'no-underline rounded-lg px-8 py-3 md:px-10 md:py-3.5',
+              browseButtonStyle.className,
             )}
-            style={{
-              ...getTextStyleVars(browseTextStyleKeys, 'browseText', 'btn', 'semibold'),
-              backgroundColor: browseHovered ? colorVar(browseHoverBg) : colorVar(browseBg),
-            }}
-            onMouseEnter={() => setBrowseHovered(true)}
-            onMouseLeave={() => setBrowseHovered(false)}
+            style={browseButtonStyle.style}
           >
             {browseLabel}
           </LocalizedLink>

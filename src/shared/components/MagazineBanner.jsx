@@ -1,5 +1,6 @@
 import { ArrowRight } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import { CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import defaultBg from '../../assets/images/city-sights/magazine-bg.png'
@@ -7,18 +8,36 @@ import defaultCover from '../../assets/images/city-sights/magazine-cover.jpg'
 import defaultSpread1 from '../../assets/images/city-sights/magazine-spread-1.jpg'
 import defaultSpread2 from '../../assets/images/city-sights/magazine-spread-2.jpg'
 
+/**
+ * Three Marhaba issues fanned in a layered row (same grid as the media-center
+ * MagazineFanCluster): cover in front, side issues scaled down, faded and tucked
+ * behind. Arbitrary px sizes keep it pixel-identical to the cms2 (Tailwind v3)
+ * copy. The caller supplies the display utility (`flex` / `hidden lg:flex`).
+ */
 const MagazineCluster = ({ cover, spread1, spread2, compact = false, className = '' }) => {
-  const coverSize = compact ? 'h-36 w-27 rounded-md md:h-52 md:w-39' : 'h-78.5 w-59.25 rounded-lg'
-  const spreadSize = compact ? 'h-17.5 w-14.5 rounded-md md:h-25.5 md:w-21.5' : 'h-38 w-32 rounded-lg'
-  const gap = compact ? 'gap-1.5 md:gap-2' : 'gap-2.5'
+  const centerSize = compact
+    ? 'h-[128px] w-[96px] rounded-md md:h-[144px] md:w-[108px]'
+    : 'h-[208px] w-[156px] rounded-lg shadow-[0_12px_32px_rgba(0,0,0,0.28)]'
+  const sideSize = compact
+    ? 'h-[104px] w-[80px] rounded-md md:h-[120px] md:w-[92px]'
+    : 'h-[160px] w-[120px] rounded-lg opacity-70 shadow-[0_8px_24px_rgba(0,0,0,0.18)]'
+  const stageSize = compact
+    ? 'mx-auto h-[144px] w-[224px] md:h-[160px] md:w-[256px]'
+    : 'h-[224px] w-[256px] md:w-[288px]'
 
   return (
-    <div className={`pointer-events-none shrink-0 items-center ${compact ? 'justify-center' : ''} ${gap} ${className}`}>
-      <img src={cover} alt="" className={`${coverSize} object-cover`} />
-      <div className={`flex flex-col ${gap}`}>
-        <img src={spread1} alt="" className={`${spreadSize} object-cover`} />
-        <img src={spread2} alt="" className={`${spreadSize} object-cover`} />
-      </div>
+    <div className={`pointer-events-none relative shrink-0 items-center justify-center ${stageSize} ${className}`}>
+      <img
+        src={spread1}
+        alt=""
+        className={`absolute z-0 object-cover ${sideSize} -translate-x-[68%] rtl:translate-x-[68%]`}
+      />
+      <img src={cover} alt="" className={`relative z-20 object-cover ${centerSize}`} />
+      <img
+        src={spread2}
+        alt=""
+        className={`absolute z-10 object-cover ${sideSize} translate-x-[68%] rtl:-translate-x-[68%]`}
+      />
     </div>
   )
 }
@@ -47,7 +66,7 @@ const MagazineBanner = ({
   descriptionColorHover,
   descriptionFontWeightHover,
   buttonBg = 'secondary',
-  buttonHoverBg = 'secondary-800',
+  buttonHoverBg,
   buttonText = 'btn',
   buttonTextFontWeight = 'semibold',
   buttonTextHover,
@@ -60,10 +79,12 @@ const MagazineBanner = ({
   linkUnderline,
   linkItalic,
 }) => {
+  const isRtl = useCurrentLanguage() === 'ar'
   const bgSrc = bg || defaultBg
   const coverSrc = cover || defaultCover
   const spread1Src = spread1 || defaultSpread1
   const spread2Src = spread2 || defaultSpread2
+  const deg = isRtl ? 270 : 90
 
   const linkProps = {
     links,
@@ -81,16 +102,43 @@ const MagazineBanner = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonStyleKeys = { buttonText, buttonTextFontWeight, buttonTextHover, buttonTextFontWeightHover }
+  const btn = getButtonStyle(
+    { buttonBg, buttonHoverBg, buttonText, buttonTextFontWeight, buttonTextHover, buttonTextFontWeightHover },
+    {
+      bgKey: 'buttonBg',
+      bgHoverKey: 'buttonHoverBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
 
   return (
     <section
-      className="relative isolate overflow-hidden rounded-xl lg:h-90"
+      className="relative isolate overflow-hidden rounded-[12px] lg:h-90"
       style={{ backgroundColor: colorVar(bannerBg) }}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <img src={bgSrc} alt="" className="absolute inset-0 size-full scale-105 object-cover opacity-90 blur-[3px]" />
-        <div className="absolute inset-0 bg-linear-to-r from-[#01263b] from-28% to-[#01263b]/25 rtl:bg-linear-to-l" />
+      {/* Figma overlay layer: opacity 0.9 + navy→transparent + blur(23.10px) + r12 */}
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+        style={{ opacity: 0.9 }}
+      >
+        <img
+          src={bgSrc}
+          alt=""
+          className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"
+        />
+        <div
+          className="absolute inset-0 rounded-[12px]"
+          style={{
+            background: `linear-gradient(${deg}deg, #01263B 0%, rgba(1, 38, 59, 0) 100%)`,
+            backdropFilter: 'blur(23.10px)',
+            WebkitBackdropFilter: 'blur(23.10px)',
+          }}
+          aria-hidden
+        />
       </div>
 
       <div className="relative flex h-full flex-col justify-center gap-6 px-6 py-10 md:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-0 lg:ps-16 lg:pe-11.5">
@@ -114,17 +162,8 @@ const MagazineBanner = ({
 
           <LocalizedLink
             href={href || '/magazine-view'}
-            className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg px-4 text-base font-semibold no-underline transition-colors md:text-lg lg:w-fit"
-            style={{
-              backgroundColor: colorVar(buttonBg),
-              ...getTextStyleVars(buttonStyleKeys, 'buttonText', 'btn'),
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(buttonHoverBg)
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(buttonBg)
-            }}
+            className={`flex h-14 w-full items-center justify-center gap-2.5 rounded-lg px-4 text-sm font-semibold no-underline transition-colors md:text-base lg:w-fit ${btn.className}`}
+            style={btn.style}
           >
             {cta}
             <ArrowRight size={29} className="shrink-0 rtl:-scale-x-100" />

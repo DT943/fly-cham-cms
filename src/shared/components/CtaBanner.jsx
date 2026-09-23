@@ -9,6 +9,7 @@ import {
   VERTICAL_ALIGN,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
+  getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import defaultImage from '../../assets/images/help/ph1.png'
@@ -45,6 +46,7 @@ const CtaBanner = ({
   descriptionColorHover,
   descriptionFontWeightHover,
   buttonBg = 'secondary',
+  buttonBgHover,
   buttonText = 'btn',
   buttonTextFontWeight = 'semibold',
   buttonTextHover,
@@ -87,12 +89,24 @@ const CtaBanner = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonTextStyleKeys = {
-    buttonText,
-    buttonTextFontWeight,
-    buttonTextHover,
-    buttonTextFontWeightHover,
-  }
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonBgHover,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
 
   return (
     <section
@@ -161,16 +175,8 @@ const CtaBanner = ({
           {showButton && cta && (
             <Button
               href={href}
-              className={cx(
-                (buttonBg !== 'secondary' || buttonText !== 'btn') && 'hover:opacity-90',
-                CMS_TEXT_HOVER_CLASS,
-              )}
-              style={{
-                ...(buttonBg !== 'secondary' || buttonText !== 'btn'
-                  ? { backgroundColor: colorVar(buttonBg) }
-                  : {}),
-                ...getTextStyleVars(buttonTextStyleKeys, 'buttonText', 'btn', 'semibold'),
-              }}
+              className={buttonStyle.className}
+              style={buttonStyle.style}
             >
               {cta}
             </Button>

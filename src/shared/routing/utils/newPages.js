@@ -17,6 +17,7 @@ import NewAboutUs from '../../../pages/new-about-us/NewAboutUs.jsx'
 import NewOurFleet from '../../../pages/new-our-fleet/NewOurFleet.jsx'
 import NewMediaCenter from '../../../pages/new-media-center/NewMediaCenter.jsx'
 import NewRecentNews from '../../../pages/new-recent-news/NewRecentNews.jsx'
+import NewNewsDetail from '../../../pages/new-news-detail/NewNewsDetail.jsx'
 import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
 import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
 import { createLanguageRedirect } from '../components/OurOfficesRedirect.jsx'
@@ -66,6 +67,7 @@ export const otherPages = {
   '/new-our-fleet': NewOurFleet,
   '/new-media-center': NewMediaCenter,
   '/new-recent-news': NewRecentNews,
+  '/media-center/news/new-fleetUpdate': NewNewsDetail,
 }
 
 /** CMS-driven pages. */

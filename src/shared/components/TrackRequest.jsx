@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   colorVar,
+  getButtonStyle,
   getTextStyleVars,
   CMS_TEXT_HOVER_CLASS,
 } from '../../styles/cmsStyle.js'
@@ -130,6 +131,13 @@ const TrackRequest = ({
   }
 
   const style = { showLinks, inputBg, submitBg, ...rest }
+  const submitButtonStyle = getButtonStyle(style, {
+    bgKey: 'submitBg',
+    bgFallback: 'primary-1',
+    textKey: 'submitTextColor',
+    textFallback: '50',
+    weightFallback: 'semibold',
+  })
   const alignKey = titleAlign in TITLE_ALIGN_CLASS ? titleAlign : 'left'
   const alignClass = TITLE_ALIGN_CLASS[alignKey]
   const itemsClass = TITLE_ITEMS_CLASS[alignKey]
@@ -206,13 +214,10 @@ const TrackRequest = ({
           <button
             type="submit"
             className={cx(
-              'inline-flex h-[55px] min-w-[186px] items-center justify-center rounded-lg border-none px-6 text-base font-semibold leading-none cursor-pointer transition-colors',
-              CMS_TEXT_HOVER_CLASS,
+              'inline-flex h-[55px] min-w-[186px] items-center justify-center rounded-lg border-none px-6 text-base font-semibold leading-none cursor-pointer',
+              submitButtonStyle.className,
             )}
-            style={{
-              backgroundColor: colorVar(submitBg),
-              ...getTextStyleVars(style, 'submitTextColor', '50', 'semibold'),
-            }}
+            style={submitButtonStyle.style}
           >
             {submitLabel}
           </button>

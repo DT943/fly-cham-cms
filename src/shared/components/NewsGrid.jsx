@@ -1,5 +1,10 @@
 import { ArrowRight, Clock } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  getTextStyleVars,
+  colorVar,
+  getButtonStyle,
+} from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -51,7 +56,7 @@ const NewsGrid = ({
   arrowColor = '50',
   viewAllBg = 'background',
   viewAllBorder = 'primary-1',
-  viewAllHoverBg = '100',
+  viewAllHoverBg,
   iconColor = '600',
   links = [],
   showLinks = true,
@@ -73,6 +78,30 @@ const NewsGrid = ({
     linkUnderline,
     linkItalic,
   }
+  // viewAllText* (+ Hover twins) arrive via ...textStyle. Blocks saved before
+  // "View all" got its own label keys fall back to the "Learn more" style.
+  const viewAllBtn = getButtonStyle(
+    {
+      ...textStyle,
+      viewAllBg,
+      viewAllHoverBg,
+      viewAllText: textStyle.viewAllText ?? textStyle.learnMoreColor,
+      viewAllTextHover: textStyle.viewAllTextHover ?? textStyle.learnMoreColorHover,
+      viewAllTextFontWeight:
+        textStyle.viewAllTextFontWeight ?? textStyle.learnMoreFontWeight,
+      viewAllTextFontWeightHover:
+        textStyle.viewAllTextFontWeightHover ?? textStyle.learnMoreFontWeightHover,
+    },
+    {
+      bgKey: 'viewAllBg',
+      bgHoverKey: 'viewAllHoverBg',
+      bgFallback: 'background',
+      bgHoverFallback: '100',
+      textKey: 'viewAllText',
+      textFallback: 'primary-1',
+      weightFallback: 'semibold',
+    },
+  )
 
   const inner = (
     <section className="flex flex-col gap-6 md:gap-8">
@@ -106,7 +135,7 @@ const NewsGrid = ({
           return (
             <article
               key={item.id || index}
-              className="flex h-full flex-col overflow-hidden rounded-2xl border shadow-[0px_4px_6px_rgba(33,37,41,0.05)]"
+              className="flex h-full flex-col overflow-hidden rounded-2xl border"
               style={{
                 backgroundColor: colorVar(cardBg),
                 borderColor: colorVar(cardBorderColor),
@@ -152,16 +181,35 @@ const NewsGrid = ({
                 <div className="flex justify-end pt-1">
                   <LocalizedLink
                     href={href}
-                    className={cx('inline-flex items-center gap-2.5 no-underline', typography.button, CMS_TEXT_HOVER_CLASS)}
-                    style={getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold')}
+                    className={cx(
+                      'group/lm relative inline-flex h-[34px] items-center overflow-hidden rounded-full no-underline',
+                      typography.button,
+                    )}
                   >
                     <span
-                      className="flex size-[34px] shrink-0 items-center justify-center rounded-full"
+                      aria-hidden
+                      className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
                       style={{ backgroundColor: colorVar(arrowBadgeBg) }}
-                    >
-                      <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" style={{ color: colorVar(arrowColor) }} />
+                    />
+                    <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                      <ArrowRight
+                        size={16}
+                        weight="bold"
+                        className="rtl:-scale-x-100"
+                        style={{ color: colorVar(arrowColor) }}
+                      />
                     </span>
-                    {cta}
+                    <span
+                      className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                      style={getTextStyleVars(
+                        textStyle,
+                        'learnMoreColor',
+                        'primary-1',
+                        'semibold',
+                      )}
+                    >
+                      {cta}
+                    </span>
                   </LocalizedLink>
                 </div>
               </div>
@@ -174,17 +222,10 @@ const NewsGrid = ({
         <div className="flex justify-center">
           <LocalizedLink
             href={viewAllHref || '/recent-news'}
-            className={cx('rounded-lg border px-10 py-3 no-underline', typography.button, CMS_TEXT_HOVER_CLASS)}
+            className={cx('rounded-lg border px-10 py-3 no-underline', typography.button, viewAllBtn.className)}
             style={{
-              backgroundColor: colorVar(viewAllBg),
+              ...viewAllBtn.style,
               borderColor: colorVar(viewAllBorder),
-              ...getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold'),
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(viewAllHoverBg)
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(viewAllBg)
             }}
           >
             {viewAll}

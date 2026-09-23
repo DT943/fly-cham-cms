@@ -22,6 +22,9 @@ const HelpCta = ({
   cta,
   href = '/help',
   objectPosition = '70% center',
+  // Optional CMS button styling (getButtonStyle output); absent = static look.
+  buttonClassName = '',
+  buttonStyle,
 }) => {
   const { t } = useTranslation()
   const isRtl = useCurrentLanguage() === 'ar'
@@ -58,7 +61,11 @@ const HelpCta = ({
             {description ?? t('common.helpCta.description')}
           </p>
         </div>
-        <Button href={href} className="inline-flex w-fit items-center gap-2.5">
+        <Button
+          href={href}
+          className={`inline-flex w-fit items-center gap-2.5 ${buttonClassName}`.trim()}
+          style={buttonStyle}
+        >
           {cta ?? t('common.helpCta.cta')}
           <ArrowRight size={24} weight="bold" className="rtl:-scale-x-100" />
         </Button>

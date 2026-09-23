@@ -14,7 +14,7 @@ const NewsGridCard = ({
   cta,
   href,
 }) => (
-  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-200 bg-50 shadow-[0px_4px_6px_rgba(33,37,41,0.05)]">
+  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-200 bg-50">
     <LocalizedLink href={href} className="block no-underline">
       <img src={image} alt={imageAlt} className="aspect-[4/3] w-full object-cover" />
     </LocalizedLink>

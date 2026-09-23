@@ -53,6 +53,7 @@ const STYLE_KEYS = [
   'descriptionColorHover',
   'descriptionFontWeightHover',
   'buttonBg',
+  'buttonBgHover',
   'buttonText',
   'buttonTextFontWeight',
   'buttonTextHover',

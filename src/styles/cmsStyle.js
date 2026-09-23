@@ -148,3 +148,66 @@ export const getTextStyleVars = (style, colorKey, colorFallback, weightFallback 
     '--cms-hw': fontWeightValue(hoverWeight, weightFallback),
   }
 }
+
+/**
+ * Per-button Normal/Hover styling, mirroring flychamadmin cms2's
+ * getButtonStyle (styles/buttonStyle.js): background + label color + label
+ * weight, each with a Hover twin. The swap is pure CSS (`.cms-btn-hover` in
+ * index.css). Hover values fall back to Normal, so an uncustomised button
+ * looks identical on hover.
+ *
+ *   const btn = getButtonStyle(style, {
+ *     bgKey: 'buttonBg', bgFallback: 'secondary',
+ *     textKey: 'buttonText', textFallback: 'btn', weightFallback: 'semibold',
+ *   })
+ *   <a className={`… ${btn.className}`} style={btn.style} />
+ *
+ * `bgHoverKey` defaults to `${bgKey}Hover`; pass the legacy name (e.g.
+ * 'buttonHoverBg') where the block already stored one. `border: true` keeps
+ * the border the same color as the background.
+ */
+export const CMS_BUTTON_HOVER_CLASS = 'cms-btn-hover cms-text-hover'
+
+const buttonWeightKey = (textKey) => {
+  if (!textKey) return null
+  if (textKey.endsWith('Color')) return textKey.replace(/Color$/, 'FontWeight')
+  return `${textKey}FontWeight`
+}
+
+export const getButtonStyle = (style, opts) => {
+  const {
+    bgKey,
+    bgHoverKey = `${bgKey}Hover`,
+    bgFallback,
+    bgHoverFallback,
+    textKey,
+    textFallback,
+    weightKey = buttonWeightKey(textKey),
+    weightFallback = 'medium',
+    border = false,
+  } = opts
+
+  const bgToken = style?.[bgKey] || bgFallback
+  // No hover bg set: keep the built-in hover shade while the background is
+  // still the default, otherwise stay on the chosen background.
+  const bgHoverToken =
+    style?.[bgHoverKey] ||
+    (bgHoverFallback && bgToken === bgFallback ? bgHoverFallback : bgToken)
+  const colorToken = style?.[textKey] ?? textFallback
+  const colorHoverToken = style?.[`${textKey}Hover`] ?? colorToken
+  const weight = style?.[weightKey]
+  const weightHover = style?.[`${weightKey}Hover`] ?? weight
+
+  return {
+    className: `${CMS_BUTTON_HOVER_CLASS}${border ? ' cms-btn-hover-border' : ''}`,
+    style: {
+      backgroundColor: colorVar(bgToken),
+      ...(border ? { borderColor: colorVar(bgToken) } : {}),
+      color: colorVar(colorToken),
+      fontWeight: fontWeightValue(weight, weightFallback),
+      '--cms-bgh': colorVar(bgHoverToken),
+      '--cms-hc': colorVar(colorHoverToken),
+      '--cms-hw': fontWeightValue(weightHover, weightFallback),
+    },
+  }
+}

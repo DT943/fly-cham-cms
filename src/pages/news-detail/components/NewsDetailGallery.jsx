@@ -77,9 +77,10 @@ const NewsDetailGallery = ({ images = [], altPrefix = '' }) => {
         </div>
 
         <div className={`flex items-center gap-4 ${SLIDE_WIDTH}`}>
-          <div className="h-1 min-w-0 flex-1 rounded-full bg-200">
+          <div className="relative flex h-1 min-w-0 flex-1 items-center">
+            <div className="absolute inset-x-0 h-0.5 rounded-full bg-200" />
             <div
-              className="h-full rounded-full bg-primary-1 transition-[width] duration-300"
+              className="relative h-1 rounded-full bg-primary-1 transition-[width] duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -90,7 +91,7 @@ const NewsDetailGallery = ({ images = [], altPrefix = '' }) => {
               onClick={() => scrollToIndex(activeIndex - 1)}
               disabled={activeIndex === 0}
               aria-label={t('newsDetail.gallery.prev')}
-              className="grid size-8 place-items-center rounded-full border border-primary-1 bg-background text-primary-1 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              className="grid size-8 place-items-center rounded-full border-0 bg-primary-100 text-50 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <CaretLeft size={14} weight="bold" className="rtl:-scale-x-100" />
             </button>
@@ -99,7 +100,7 @@ const NewsDetailGallery = ({ images = [], altPrefix = '' }) => {
               onClick={() => scrollToIndex(activeIndex + 1)}
               disabled={activeIndex >= maxIndex}
               aria-label={t('newsDetail.gallery.next')}
-              className="grid size-8 place-items-center rounded-full bg-primary-1 text-50 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              className="grid size-8 place-items-center rounded-full border-0 bg-primary-1 text-50 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <CaretRight size={14} weight="bold" className="rtl:-scale-x-100" />
             </button>

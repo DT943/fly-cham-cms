@@ -18,6 +18,7 @@ export const staticToNewPath = {
   '/about-us': '/new-about-us',
   '/our-fleet': '/new-our-fleet',
   '/media-center': '/new-media-center',
+  '/media-center/news/fleetUpdate': '/media-center/news/new-fleetUpdate',
   '/recent-news': '/new-recent-news',
   '/legal': '/new-legal',
   '/legal/terms-and-conditions': '/legal/new-terms-and-conditions',

@@ -1,5 +1,10 @@
 import { Envelope } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  getTextStyleVars,
+  colorVar,
+  getButtonStyle,
+} from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import defaultPlane from '../../assets/images/city-sights/newsletter-plane.png'
 
@@ -28,7 +33,7 @@ const NewsletterSignup = ({
   inputText = '700',
   iconColor = 'primary-1',
   buttonBg = 'primary-1',
-  buttonHoverBg = 'primary-800',
+  buttonHoverBg,
   buttonText = '50',
   buttonTextFontWeight = 'medium',
   buttonTextHover,
@@ -58,7 +63,25 @@ const NewsletterSignup = ({
     descriptionColorHover,
     descriptionFontWeightHover,
   }
-  const buttonStyleKeys = { buttonText, buttonTextFontWeight, buttonTextHover, buttonTextFontWeightHover }
+  const buttonStyle = getButtonStyle(
+    {
+      buttonBg,
+      buttonHoverBg,
+      buttonText,
+      buttonTextFontWeight,
+      buttonTextHover,
+      buttonTextFontWeightHover,
+    },
+    {
+      bgKey: 'buttonBg',
+      bgHoverKey: 'buttonHoverBg',
+      bgFallback: 'primary-1',
+      bgHoverFallback: 'primary-800',
+      textKey: 'buttonText',
+      textFallback: '50',
+      weightFallback: 'medium',
+    },
+  )
 
   return (
     <section className="relative isolate overflow-hidden rounded-xl bg-linear-to-r from-primary-1 to-[#00141a] rtl:bg-linear-to-l lg:h-[159px]">
@@ -99,17 +122,8 @@ const NewsletterSignup = ({
           />
           <button
             type="submit"
-            className="h-11 shrink-0 cursor-pointer rounded-lg border-0 px-[15px] text-base transition-colors lg:w-[123px]"
-            style={{
-              backgroundColor: colorVar(buttonBg),
-              ...getTextStyleVars(buttonStyleKeys, 'buttonText', '50', 'medium'),
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(buttonHoverBg)
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = colorVar(buttonBg)
-            }}
+            className={`h-11 shrink-0 cursor-pointer rounded-lg border-0 px-[15px] text-base transition-colors lg:w-[123px] ${buttonStyle.className}`}
+            style={buttonStyle.style}
           >
             {cta}
           </button>

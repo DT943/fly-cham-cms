@@ -1,6 +1,7 @@
 import { typography } from '../../styles/typography.js'
 import {
   colorVar,
+  getButtonStyle,
   getTextStyleVars,
   CMS_TEXT_HOVER_CLASS,
 } from '../../styles/cmsStyle.js'
@@ -64,10 +65,62 @@ const DestinationsExplore = ({
   cardTitleColor = '100',
   cardButtonBg = 'primary-1',
   cardButtonTextColor = '100',
+  cardButtonTextFontWeight = 'semibold',
+  cardButtonBgHover,
+  cardButtonTextColorHover,
+  cardButtonTextFontWeightHover,
   cardActivitiesColor = '50',
+  featuredButtonBg = 'primary-1',
+  featuredButtonText = 'white',
+  featuredButtonTextFontWeight = 'semibold',
+  featuredButtonBgHover,
+  featuredButtonTextHover,
+  featuredButtonTextFontWeightHover,
   ...rest
 }) => {
   const style = { showLinks, ...rest }
+
+  // Card CTA: built-in hover is a 90% fade, dropped once a hover bg is chosen.
+  const cardBtn = getButtonStyle(
+    {
+      cardButtonBg,
+      cardButtonBgHover,
+      cardButtonTextColor,
+      cardButtonTextColorHover,
+      cardButtonTextFontWeight,
+      cardButtonTextFontWeightHover,
+    },
+    {
+      bgKey: 'cardButtonBg',
+      bgFallback: 'primary-1',
+      textKey: 'cardButtonTextColor',
+      textFallback: '100',
+      weightFallback: 'semibold',
+    },
+  )
+  const cardBtnClass = cx(cardBtn.className, !cardButtonBgHover && 'hover:opacity-90')
+  // Featured CTA: built-in hover is the background at 90% (bg-primary-1/90).
+  const featuredBtn = getButtonStyle(
+    {
+      featuredButtonBg,
+      featuredButtonBgHover,
+      featuredButtonText,
+      featuredButtonTextHover,
+      featuredButtonTextFontWeight,
+      featuredButtonTextFontWeightHover,
+    },
+    {
+      bgKey: 'featuredButtonBg',
+      bgFallback: 'primary-1',
+      textKey: 'featuredButtonText',
+      textFallback: 'white',
+      weightFallback: 'semibold',
+    },
+  )
+  if (!featuredButtonBgHover) {
+    featuredBtn.style['--cms-bgh'] =
+      `color-mix(in oklab, ${featuredBtn.style.backgroundColor} 90%, transparent)`
+  }
 
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
   const featuredImages = featured.images?.length ? featured.images : bundledFeaturedImages
@@ -114,6 +167,8 @@ const DestinationsExplore = ({
             href={featured.href}
             images={featuredImages}
             imageAlt={featured.imageAlt}
+            buttonClassName={featuredBtn.className}
+            buttonStyle={featuredBtn.style}
           />
         )}
 
@@ -137,6 +192,8 @@ const DestinationsExplore = ({
                 titleColor={cardTitleColor}
                 buttonBg={cardButtonBg}
                 buttonTextColor={cardButtonTextColor}
+                buttonClassName={cardBtnClass}
+                buttonStyle={cardBtn.style}
                 activitiesColor={cardActivitiesColor}
               />
             </div>

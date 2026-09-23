@@ -12,7 +12,7 @@ import {
   Mountains,
   Storefront,
 } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import { CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -93,8 +93,11 @@ const DestinationThingsToDo = ({
   overlayColor = 'secondary-2',
   badgeBorderColor = '50',
   buttonBg = 'secondary',
+  buttonHoverBg,
   buttonText = 'btn',
   buttonTextFontWeight = 'semibold',
+  buttonTextHover,
+  buttonTextFontWeightHover,
   links = [],
   showLinks = true,
   linkColor,
@@ -121,6 +124,17 @@ const DestinationThingsToDo = ({
   const overlay = colorVar(overlayColor)
   const headerVisible = showHeader && (title || (showSubtitle && subtitle))
   const ctaVisible = showCta && Boolean(cta)
+  const btn = getButtonStyle(
+    { buttonBg, buttonHoverBg, buttonText, buttonTextFontWeight, buttonTextHover, buttonTextFontWeightHover },
+    {
+      bgKey: 'buttonBg',
+      bgHoverKey: 'buttonHoverBg',
+      bgFallback: 'secondary',
+      textKey: 'buttonText',
+      textFallback: 'btn',
+      weightFallback: 'semibold',
+    },
+  )
 
   const inner = (
     <section className="flex flex-col gap-6 lg:gap-8">
@@ -214,13 +228,12 @@ const DestinationThingsToDo = ({
             href={ctaHref || '#'}
             className={cx(
               typography.button,
-              CMS_TEXT_HOVER_CLASS,
-              'inline-flex w-fit cursor-pointer items-center justify-center gap-2 rounded-lg border-none px-6 py-3 no-underline transition-opacity duration-200 ease-out hover:opacity-90 motion-reduce:transition-none md:px-8 md:py-4',
+              btn.className,
+              // Built-in hover is a 90% fade; dropped once a hover background is chosen.
+              !buttonHoverBg && 'hover:opacity-90',
+              'inline-flex w-fit cursor-pointer items-center justify-center gap-2 rounded-lg border-none px-6 py-3 no-underline transition duration-200 ease-out motion-reduce:transition-none md:px-8 md:py-4',
             )}
-            style={{
-              backgroundColor: colorVar(buttonBg),
-              ...getTextStyleVars({ buttonText, buttonTextFontWeight }, 'buttonText', 'btn', 'semibold'),
-            }}
+            style={btn.style}
           >
             {cta}
             <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />

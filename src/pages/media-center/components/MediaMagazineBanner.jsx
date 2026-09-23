@@ -1,21 +1,35 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
+import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import bannerBg from '../../../assets/images/city-sights/magazine-bg.png'
 import MagazineFanCluster from './MagazineFanCluster.jsx'
 
 const MediaMagazineBanner = () => {
   const { t } = useTranslation()
+  const isRtl = useCurrentLanguage() === 'ar'
+  const deg = isRtl ? 270 : 90
 
   return (
-    <section className="relative isolate overflow-hidden rounded-xl bg-primary-1 lg:h-90">
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative isolate overflow-hidden rounded-[12px] bg-primary-1 lg:h-90">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+        style={{ opacity: 0.9 }}
+      >
         <img
           src={bannerBg}
           alt=""
-          className="absolute inset-0 size-full scale-105 object-cover opacity-90 blur-[3px]"
+          className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-[#01263b] from-28% to-[#01263b]/25 rtl:bg-linear-to-l" />
+        <div
+          className="absolute inset-0 rounded-[12px]"
+          style={{
+            background: `linear-gradient(${deg}deg, #01263B 0%, rgba(1, 38, 59, 0) 100%)`,
+            backdropFilter: 'blur(23.10px)',
+            WebkitBackdropFilter: 'blur(23.10px)',
+          }}
+          aria-hidden
+        />
       </div>
 
       <div className="relative flex h-full flex-col justify-center gap-6 px-6 py-10 md:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-0 lg:ps-16 lg:pe-11.5">

@@ -1,5 +1,9 @@
 import { ArrowRight, Clock } from '@phosphor-icons/react'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  getTextStyleVars,
+  colorVar,
+} from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -22,7 +26,7 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
  * Featured news list. Defaults match Media Center Latest News: image + copy
- * row, clock/category meta, secondary CTA.
+ * row, clock/category meta, expand-to-pill Read more CTA (same as News Grid).
  */
 const LatestNews = ({
   title = '',
@@ -32,8 +36,8 @@ const LatestNews = ({
   sectionPadding = 'default',
   showSectionBg = false,
   sectionBg = '100',
-  buttonBg = 'secondary',
-  buttonHoverBg = 'secondary-800',
+  arrowBadgeBg = 'primary-1',
+  arrowColor = '50',
   iconColor = '600',
   links = [],
   showLinks = true,
@@ -56,6 +60,19 @@ const LatestNews = ({
     linkItalic,
   }
   const radiusClass = IMAGE_RADIUS[imageRadius] || IMAGE_RADIUS['2xl']
+  // Prefer new expand-pill keys; fall back to legacy button* from saved CMS blocks.
+  const badgeBg = textStyle.arrowBadgeBg || arrowBadgeBg || textStyle.buttonBg || 'primary-1'
+  const arrow = textStyle.arrowColor || arrowColor || '50'
+  const labelStyle = {
+    ...textStyle,
+    readMoreColor: textStyle.readMoreColor || (
+      textStyle.buttonText && textStyle.buttonText !== 'btn' ? textStyle.buttonText : 'primary-1'
+    ),
+    readMoreColorHover: textStyle.readMoreColorHover || textStyle.buttonTextHover || '50',
+    readMoreFontWeight: textStyle.readMoreFontWeight || textStyle.buttonTextFontWeight || 'semibold',
+    readMoreFontWeightHover:
+      textStyle.readMoreFontWeightHover || textStyle.buttonTextFontWeightHover || 'semibold',
+  }
 
   const inner = (
     <section className="flex flex-col gap-6 md:gap-8">
@@ -120,23 +137,29 @@ const LatestNews = ({
                 <LocalizedLink
                   href={item.href || '#'}
                   className={cx(
+                    'group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline',
                     typography.button,
-                    'inline-flex w-fit items-center gap-2 rounded-lg border-none px-6 py-3 no-underline md:px-8 md:py-3.5',
-                    CMS_TEXT_HOVER_CLASS,
                   )}
-                  style={{
-                    backgroundColor: colorVar(buttonBg),
-                    ...getTextStyleVars(textStyle, 'buttonText', 'btn', 'semibold'),
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = colorVar(buttonHoverBg)
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colorVar(buttonBg)
-                  }}
                 >
-                  {cta}
-                  <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                    style={{ backgroundColor: colorVar(badgeBg) }}
+                  />
+                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                    <ArrowRight
+                      size={16}
+                      weight="bold"
+                      className="rtl:-scale-x-100"
+                      style={{ color: colorVar(arrow) }}
+                    />
+                  </span>
+                  <span
+                    className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(labelStyle, 'readMoreColor', 'primary-1', 'semibold')}
+                  >
+                    {cta}
+                  </span>
                 </LocalizedLink>
               </div>
             </article>

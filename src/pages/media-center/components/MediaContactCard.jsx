@@ -3,8 +3,8 @@ import { typography } from '../../../styles/typography.js'
 const MediaContactCard = ({ icon: Icon, title, description, department, location, email }) => (
   <article className="flex h-full flex-col rounded-2xl border border-200 bg-background p-6 shadow-[0px_4px_6px_rgba(33,37,41,0.05)] md:p-8">
     <div className="flex items-center gap-3 md:gap-4">
-      <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-100 md:size-12">
-        <Icon size={22} weight="regular" className="text-800" aria-hidden />
+      <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-100">
+        <Icon size={24} weight="regular" className="text-900" aria-hidden />
       </div>
       <h3 className={`m-0 font-semibold text-800 ${typography.itemTitle}`}>{title}</h3>
     </div>
