@@ -171,7 +171,7 @@ const StationsScrollList = ({ listId }) => {
       <div
         id={listId}
         ref={listRef}
-        className="no-scrollbar flex max-h-38 min-w-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch] sm:max-h-42"
+        className="no-scrollbar flex max-h-48 min-w-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch] sm:max-h-50"
       >
         {cargoStationsList.map((station) => (
           <StationRow key={station.id} {...station} />
@@ -206,7 +206,7 @@ const CargoStationsExplorer = () => {
 
   return (
     <section className="w-full min-w-0">
-      <div className="bg-50">
+      <div className="">
         <Container className="flex min-w-0 flex-col gap-2 py-8 md:gap-3 md:py-10">
           <h1 className={`m-0 font-bold text-primary-1 ${typography.pageTitle} lg:text-[48px]`}>
             {t('cargoStations.hero.title')}
@@ -225,7 +225,7 @@ const CargoStationsExplorer = () => {
           className="absolute inset-0 size-full object-cover"
         />
 
-        <Container className="relative z-10 flex min-h-105 items-center py-8 md:min-h-110 md:py-10 lg:min-h-125">
+        <Container className="relative z-10 flex min-h-115 items-center py-8 md:min-h-120 md:py-10 lg:min-h-145">
           <div className="flex w-full max-w-md flex-col gap-4 rounded-2xl bg-50 p-4 shadow-[0_8px_32px_rgba(1,38,59,0.16)] sm:p-5 lg:max-w-sm">
             <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} md:text-xl`}>
               {t('cargoStations.stations.title')}
