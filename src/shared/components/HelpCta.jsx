@@ -21,6 +21,8 @@ const HelpCta = ({
   cta,
   href = '/help',
   objectPosition = '70% center',
+  /** Optional CSS background for the scrim. Defaults to the shared left navy fade. */
+  overlayStyle,
 }) => {
   const { t } = useTranslation()
 
@@ -32,7 +34,15 @@ const HelpCta = ({
         style={{ objectPosition }}
         className="absolute inset-0 size-full object-cover"
       />
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-secondary-2/80 from-10% to-transparent to-70% rtl:bg-linear-to-l" />
+      <div
+        className={
+          overlayStyle
+            ? 'pointer-events-none absolute inset-0 rtl:-scale-x-100'
+            : 'pointer-events-none absolute inset-0 bg-linear-to-r from-secondary-2/80 from-10% to-transparent to-70% rtl:bg-linear-to-l'
+        }
+        style={overlayStyle}
+        aria-hidden
+      />
 
       <div className="relative flex flex-col gap-6 px-6 py-10 sm:px-10 md:px-14 md:py-16 lg:min-h-90">
         <div className="flex max-w-160 flex-col gap-3 text-50">

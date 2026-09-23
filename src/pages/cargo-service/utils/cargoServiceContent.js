@@ -1,0 +1,40 @@
+import requestImage from '../../../assets/images/cargo-service/request.jpg'
+import stationsImage from '../../../assets/images/cargo-service/stations.jpg'
+import assistanceImage from '../../../assets/images/cargo-service/assistance.png'
+import guideImage from '../../../assets/images/cargo-service/guide.png'
+import heroImage from '../../../assets/images/cargo-service/hero.jpg'
+
+/** Static content for the Cargo Service page. Copy lives under `cargoService.*`. */
+export const cargoServiceHero = {
+  image: heroImage,
+  objectPosition: 'center 45%',
+}
+
+export const cargoInfoCards = [
+  {
+    id: 'request',
+    image: requestImage,
+    href: '/help/contact-us/forms',
+  },
+  {
+    id: 'stations',
+    image: stationsImage,
+    href: '/help/contact-us/forms',
+  },
+  {
+    id: 'assistance',
+    image: assistanceImage,
+    href: '/help/contact-us',
+  },
+]
+
+export const cargoGuideCta = {
+  image: guideImage,
+  href: '/coming-soon',
+  objectPosition: '',
+  overlayStyle: {
+    background: 'linear-gradient(90deg, #01263B 0%, rgba(1, 38, 59, 0) 121.52%)',
+  },
+}
+
+export default cargoInfoCards

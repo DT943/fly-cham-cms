@@ -3351,5 +3351,65 @@
       "needHelp": "Need help?",
       "contactSupport": "Contact Travel Agent Support"
     }
+  },
+  "cargoService": {
+    "breadcrumb": "Cargo Service",
+    "hero": {
+      "title": "Cargo Service",
+      "subtitle": "Choose Safety and Efficiency",
+      "imageAlt": "Cargo pallets on the airport tarmac beside an aircraft wing"
+    },
+    "info": {
+      "title": "More information to know",
+      "cards": {
+        "request": {
+          "title": "Request Cargo Service",
+          "description": "Submit a seamless cargo form request to transport goods or documents with Fly Cham air Cargo.",
+          "cta": "Apply form",
+          "imageAlt": "Cargo being loaded onto a Fly Cham aircraft"
+        },
+        "stations": {
+          "title": "Our Cargo Stations",
+          "description": "We bring your cargo to our network of destinations and provide local logistics support and operational excellence.",
+          "cta": "Apply form",
+          "imageAlt": "Fly Cham aircraft flying above the clouds"
+        },
+        "assistance": {
+          "title": "Need any assistance?",
+          "description": "If you have any inquiries or questions related to cargo service please contact our dedicated cargo services team.",
+          "cta": "Get in touch",
+          "imageAlt": "Customer service agent ready to help"
+        }
+      }
+    },
+    "guide": {
+      "title": "Cargo Guide",
+      "description": "Learn more about our cargo services, accepted shipments, and cargo stations.",
+      "cta": "Explore Cargo Guide",
+      "imageAlt": "Fly Cham cargo containers"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "answerPlaceholder": "Our cargo support team is happy to help — please browse our FAQs or contact us for more details about cargo services.",
+      "items": [
+        "Can I change my seat after booking?",
+        "Are seats free or paid?",
+        "Is seat selection available for infant booking?",
+        "Is in-flight entertainment available for children?"
+      ],
+      "browse": "Browse FAQs"
+    },
+    "details": {
+      "items": [
+        {
+          "title": "Terms and Conditions",
+          "body": "Fly Cham's crew will meet children using this service at the airport check-in desk, escort them to the gate, and ensure their safe boarding. Upon arrival, the person meeting the child must have an ID card to prove their identity. This ID card must match the person named on the original booking form. No one else can represent the person named, even if they have the original person's ID card with them as proof."
+        },
+        {
+          "title": "More Information",
+          "body": "Fly Cham does not offer unaccompanied minors on connecting flights"
+        }
+      ]
+    }
   }
 }
