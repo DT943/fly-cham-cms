@@ -65,7 +65,7 @@ const CargoShipmentTypes = () => {
             aria-labelledby={`${baseId}-tab-${active.id}`}
             className="overflow-hidden rounded-2xl border border-200 bg-50 p-4 sm:p-5 lg:border-0 lg:bg-transparent lg:p-0 lg:pt-2"
           >
-            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-10 xl:gap-14">
+            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-10 xl:gap-14">
               <div className="order-2 flex flex-col gap-2 lg:order-1 lg:gap-3">
                 <h3 className={`m-0 font-semibold text-700 ${typography.itemTitle} lg:text-2xl`}>
                   {t(`cargoService.shipments.types.${active.id}.title`)}

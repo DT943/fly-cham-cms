@@ -10,7 +10,7 @@ const StationRow = ({ id, image, className = '' }) => {
 
   return (
     <article
-      className={`flex items-center gap-3 rounded-xl border border-200 bg-[#FDFDFC] p-2.5 sm:gap-4 sm:p-3 ${className}`}
+      className={`flex items-start gap-3 rounded-xl border border-200 bg-50 p-2.5 sm:gap-4 sm:p-3 ${className}`}
     >
       <div className="size-14 shrink-0 overflow-hidden rounded-lg sm:size-16">
         <img
@@ -30,8 +30,8 @@ const StationRow = ({ id, image, className = '' }) => {
             {t(`cargoStations.stations.items.${id}.name`)}
           </h3>
         </div>
-        <div className="flex items-center gap-1.5 text-600">
-          <MapPin size={14} weight="regular" className="shrink-0" />
+        <div className="flex items-start gap-1.5 text-600">
+          <MapPin size={14} weight="regular" className="mt-0.5 shrink-0" />
           <p className={`m-0 ${typography.caption}`}>
             {t(`cargoStations.stations.items.${id}.location`)}
           </p>
@@ -124,6 +124,78 @@ const StationsCarousel = () => {
   )
 }
 
+/** Desktop: vertical list with custom pill-style scroll indicator. */
+const StationsScrollList = ({ listId }) => {
+  const listRef = useRef(null)
+  const [thumb, setThumb] = useState({ heightPct: 100, offsetPct: 0, needed: false })
+
+  const updateThumb = useCallback(() => {
+    const el = listRef.current
+    if (!el) return
+
+    const { scrollTop, scrollHeight, clientHeight } = el
+    const needed = scrollHeight > clientHeight + 1
+    if (!needed) {
+      setThumb({ heightPct: 100, offsetPct: 0, needed: false })
+      return
+    }
+
+    const heightPct = Math.max((clientHeight / scrollHeight) * 100, 18)
+    const maxOffset = 100 - heightPct
+    const scrollable = scrollHeight - clientHeight
+    const offsetPct = scrollable > 0 ? (scrollTop / scrollable) * maxOffset : 0
+
+    setThumb({ heightPct, offsetPct, needed: true })
+  }, [])
+
+  useEffect(() => {
+    updateThumb()
+    const el = listRef.current
+    if (!el) return undefined
+
+    el.addEventListener('scroll', updateThumb, { passive: true })
+    window.addEventListener('resize', updateThumb)
+
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateThumb) : null
+    ro?.observe(el)
+
+    return () => {
+      el.removeEventListener('scroll', updateThumb)
+      window.removeEventListener('resize', updateThumb)
+      ro?.disconnect()
+    }
+  }, [updateThumb])
+
+  return (
+    <div className="hidden min-w-0 gap-3 lg:flex">
+      <div
+        id={listId}
+        ref={listRef}
+        className="no-scrollbar flex max-h-38 min-w-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-y-contain [-webkit-overflow-scrolling:touch] sm:max-h-42"
+      >
+        {cargoStationsList.map((station) => (
+          <StationRow key={station.id} {...station} />
+        ))}
+      </div>
+
+      {thumb.needed ? (
+        <div
+          className="relative w-1.5 shrink-0 self-stretch overflow-hidden rounded-full bg-200"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-x-0 rounded-full bg-primary-1 transition-[top,height] duration-150 ease-out"
+            style={{
+              height: `${thumb.heightPct}%`,
+              top: `${thumb.offsetPct}%`,
+            }}
+          />
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 /**
  * Title band + full-bleed photo banner.
  * Mobile: horizontal station carousel. Desktop: compact vertical scroll list.
@@ -134,7 +206,7 @@ const CargoStationsExplorer = () => {
 
   return (
     <section className="w-full min-w-0">
-      <div className="">
+      <div className="bg-50">
         <Container className="flex min-w-0 flex-col gap-2 py-8 md:gap-3 md:py-10">
           <h1 className={`m-0 font-bold text-primary-1 ${typography.pageTitle} lg:text-[48px]`}>
             {t('cargoStations.hero.title')}
@@ -163,15 +235,7 @@ const CargoStationsExplorer = () => {
               <StationsCarousel />
             </div>
 
-            <div
-              id={listId}
-              className="hidden max-h-38 flex-col gap-3 overflow-y-auto overscroll-y-contain pe-2 [-webkit-overflow-scrolling:touch] scrollbar-gutter-stable sm:max-h-48 lg:flex [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-primary-1"
-              style={{ scrollbarColor: 'var(--color-primary-1, #006080) transparent' }}
-            >
-              {cargoStationsList.map((station) => (
-                <StationRow key={station.id} {...station} />
-              ))}
-            </div>
+            <StationsScrollList listId={listId} />
           </div>
         </Container>
       </div>
