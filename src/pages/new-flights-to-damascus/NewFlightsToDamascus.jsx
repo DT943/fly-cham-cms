@@ -20,7 +20,7 @@ const NewFlightsToDamascusContent = () => {
   const { data: page, isLoading, isError, error } = usePage(PAGE_SLUG, language)
 
   return (
-    <main className="bg-100 w-full">
+    <main className="w-full bg-background lg:bg-100">
       {(isLoading || isError) && (
         <Container className="pb-5 md:pb-10">
           {isLoading && <p className="text-700">Loading…</p>}

@@ -113,7 +113,7 @@ export const sectionRegistry = {
   'cta-banner': { Component: CtaBanner, mapProps: ctaBannerProps },
   'journey-section': { Component: JourneySection, mapProps: journeySectionProps },
   'live-chat-banner': { Component: LiveChatBanner, mapProps: liveChatBannerProps },
-  'get-in-touch': { Component: GetInTouch, mapProps: getInTouchProps },
+  'get-in-touch': { Component: GetInTouch, mapProps: getInTouchProps, fullBleed: true },
   'contact-channels': { Component: ContactChannels, mapProps: contactChannelsProps },
   'contact-forms': { Component: ContactForms, mapProps: contactFormsProps },
   'forms-directory': { Component: FormsDirectory, mapProps: formsDirectoryProps },

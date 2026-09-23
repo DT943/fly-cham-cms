@@ -37,10 +37,49 @@ const HERO_HEIGHT = {
   tall: 'h-90 sm:h-110 md:h-125 lg:h-150',
 }
 
+const StatItem = ({ stat, iconColor, tileLabelColor, tileValueColor, metaColor, layout }) => {
+  const Icon = getStatIcon(stat.icon)
+  const isTile = layout === 'tile'
+
+  return (
+    <div
+      className={
+        isTile
+          ? 'flex flex-col items-center gap-2 rounded-xl bg-100 px-3 py-4 text-center'
+          : 'flex flex-1 items-center gap-4 text-start'
+      }
+    >
+      <Icon size={32} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+      <div className="flex min-w-0 flex-col gap-0.5">
+        <p
+          className="m-0 text-xs uppercase sm:text-sm"
+          style={getTextStyleVars({ tileLabelColor }, 'tileLabelColor', '600', 'normal')}
+        >
+          {stat.label}
+        </p>
+        <p
+          className="m-0 text-base sm:text-xl"
+          style={getTextStyleVars({ tileValueColor }, 'tileValueColor', '700', 'semibold')}
+        >
+          {stat.value}
+        </p>
+        {stat.detail ? (
+          <p
+            className="m-0 text-xs sm:text-sm"
+            style={getTextStyleVars({ metaColor }, 'metaColor', '600', 'normal')}
+          >
+            {stat.detail}
+          </p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
 /**
- * Destination guide hero + overlapping quick-stats card as ONE block.
- * Defaults reproduce the static "Flights to <city>" guide header; the CMS (via
- * the section registry) can override the image, copy, stats, colours and hover.
+ * Destination guide hero + quick stats as ONE block.
+ * Mobile / tablet: overlapping white sheet with 2×2 tiles.
+ * Desktop (lg+): floating white card with horizontal icon + text strip.
  */
 const DestinationHeroStats = ({
   // content
@@ -91,6 +130,7 @@ const DestinationHeroStats = ({
   }
   const titleStyleKeys = { titleColor, titleFontWeight, titleColorHover, titleFontWeightHover }
   const countryStyleKeys = { countryColor, countryFontWeight, countryColorHover, countryFontWeightHover }
+  const tileStyle = { tileLabelColor, tileValueColor, metaColor, iconColor }
 
   return (
     <div className="w-full">
@@ -131,43 +171,36 @@ const DestinationHeroStats = ({
       </section>
 
       {showStats && stats.length ? (
-        <Container className="relative z-10 -mt-8 md:-mt-10 lg:-mt-12.5">
-          <div
-            className="grid grid-cols-1 gap-6 rounded-xl px-6 py-6 shadow-[0_10px_15px_rgba(0,0,0,0.05)] sm:grid-cols-2 lg:flex lg:h-25 lg:items-start lg:justify-between lg:gap-4 lg:px-10 lg:py-5"
-            style={{ backgroundColor: colorVar(cardBg) }}
-          >
-            {stats.map((stat, index) => {
-              const Icon = getStatIcon(stat.icon)
-              return (
-                <div key={index} className="flex items-center gap-4">
-                  <Icon size={32} className="shrink-0" style={{ color: colorVar(iconColor) }} />
-                  <div className="flex flex-col gap-0.5">
-                    <p
-                      className="m-0 text-sm uppercase"
-                      style={getTextStyleVars({ tileLabelColor }, 'tileLabelColor', '600', 'normal')}
-                    >
-                      {stat.label}
-                    </p>
-                    <p
-                      className="m-0 text-xl"
-                      style={getTextStyleVars({ tileValueColor }, 'tileValueColor', '700', 'semibold')}
-                    >
-                      {stat.value}
-                    </p>
-                    {stat.detail ? (
-                      <p
-                        className="m-0 text-sm"
-                        style={getTextStyleVars({ metaColor }, 'metaColor', '600', 'normal')}
-                      >
-                        {stat.detail}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </Container>
+        <>
+          {/* Mobile / tablet: overlapping white sheet + 2×2 tiles */}
+          <section className="relative z-10 -mt-12 rounded-t-[28px] bg-background pt-5 sm:-mt-16 sm:rounded-t-[32px] sm:pt-6 md:-mt-20 md:pt-8 lg:hidden">
+            <Container className="pb-2 md:pb-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {stats.map((stat, index) => (
+                  <StatItem key={index} stat={stat} layout="tile" {...tileStyle} />
+                ))}
+              </div>
+            </Container>
+          </section>
+
+          {/* Desktop: floating white card */}
+          <Container className="relative z-10 -mt-12.5 hidden pb-4 lg:block">
+            <div
+              className="rounded-xl bg-white px-10 py-5 shadow-[0_10px_15px_rgba(0,0,0,0.05)]"
+              style={
+                cardBg && cardBg !== 'white'
+                  ? { backgroundColor: colorVar(cardBg) }
+                  : undefined
+              }
+            >
+              <div className="flex h-25 items-start justify-between gap-4">
+                {stats.map((stat, index) => (
+                  <StatItem key={index} stat={stat} layout="row" {...tileStyle} />
+                ))}
+              </div>
+            </div>
+          </Container>
+        </>
       ) : null}
     </div>
   )

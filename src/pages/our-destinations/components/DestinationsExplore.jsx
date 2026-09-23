@@ -10,9 +10,14 @@ const DestinationsExplore = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <p className={`${typography.caption} text-800 m-0 leading-relaxed max-w-3xl`}>
-        {t('destinations.explore.subtitle')}
-      </p>
+      <div className="flex flex-col gap-2 md:gap-3">
+        <h2 className={`m-0 font-semibold text-800 ${typography.sectionTitle}`}>
+          {t('destinations.explore.title')}
+        </h2>
+        <p className={`${typography.caption} text-700 m-0 leading-relaxed max-w-3xl`}>
+          {t('destinations.explore.subtitle')}
+        </p>
+      </div>
 
       {/* 16px gutter between the featured card, the grid, and every cell (Figma). */}
       <div className="flex flex-col lg:flex-row gap-4 items-stretch">

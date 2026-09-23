@@ -6,7 +6,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  *
  * - Content is language-scoped (`block.content[lang]`), falling back to the
  *   first available language.
- * - Stores the editor shape: `{ subtitle, activitiesLabel, featured{…}, cards[],
+ * - Stores the editor shape: `{ title, subtitle, activitiesLabel, featured{…}, cards[],
  *   pagination{…}, links }`. Empty image URLs fall back to the app's bundled
  *   destination photos (keyed by `id`) in the component.
  * - Only style keys the CMS provided are forwarded, so omitted keys keep the
@@ -18,6 +18,7 @@ export function destinationsExploreProps(block, lang) {
   const featured = content.featured || {}
 
   return {
+    title: content.title || '',
     subtitle: content.subtitle || '',
     activitiesLabel: content.activitiesLabel || '',
     featured: {
@@ -54,13 +55,17 @@ function mapBacklinks(links) {
 }
 
 const STYLE_KEYS = [
+  'showTitle',
   'showSubtitle',
   'showFeatured',
   'showPagination',
-  'columns',
   'showSectionBg',
   'sectionBg',
   'sectionPadding',
+  'titleColor',
+  'titleFontWeight',
+  'titleColorHover',
+  'titleFontWeightHover',
   'subtitleColor',
   'subtitleFontWeight',
   'subtitleColorHover',

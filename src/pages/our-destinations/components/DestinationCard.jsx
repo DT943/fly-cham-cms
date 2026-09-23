@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
 import { colorVar } from '../../../styles/cmsStyle.js'
@@ -6,17 +7,21 @@ import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 /**
  * Figma: "Our destinations" → Frame 1000004182 (node 38328:9001).
  *
- * Hover swaps the two content blocks in place, timed off the Figma prototype
- * recording: IATA/title rise out of frame while the CTA rises in from below,
- * both moving together over ~300ms. The scrim does not change between states —
- * it is one gradient, `rgba(0,37,60,0) 38.122% → #00253C`.
+ * Hover swaps the two content blocks in place (Figma `Property 1=Default` →
+ * `Property 1=Variant2`): eyebrow/title rise out while Discover + Explore CTAs
+ * rise in. Timing matches the Figma prototype, which is slower and softer than
+ * a standard swap — ~500ms on a soft ease-out, not 300ms on the
+ * cubic-bezier(0.4, 0, 0.2, 1) standard curve.
  *
- * Colors + corners are prop-driven (defaults reproduce the original look) so the
- * CMS `destinations-explore` block can control them from the drawer; a call with
- * no style props (the static /our-destinations page) renders unchanged.
+ * Image zoom is Figma's, too: the hover variant draws the photo at 294 × 183
+ * over a 282.33 × 175.75 card = scale 1.041, centred. The old 1.1 read as a
+ * lurch at this card size. Scrim is fixed: `rgba(0,37,60,0) 38.122% → #00253C`.
+ *
+ * Hover is React-state driven (same as cms2) so both apps match and stay
+ * reliable inside nested layouts. Colors + corners stay prop-driven.
  */
 const swapTransition =
-  '[transition:translate_300ms_cubic-bezier(0.4,0,0.2,1),opacity_300ms_cubic-bezier(0.4,0,0.2,1)] motion-reduce:[transition:none]'
+  'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none'
 
 const RADIUS_CLASS = {
   none: 'rounded-none',
@@ -41,49 +46,81 @@ const DestinationCard = ({
   activitiesColor = '50',
 }) => {
   const radiusClass = RADIUS_CLASS[radius] ?? RADIUS_CLASS.lg
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const active = hovered || focused
 
   return (
-    <article className={`group relative overflow-clip ${radiusClass} aspect-[282/176] cursor-pointer`}>
+    <article
+      className={`relative overflow-hidden ${radiusClass} aspect-[282/176] cursor-pointer`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocusCapture={() => setFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setFocused(false)
+        }
+      }}
+    >
       <img
         src={image}
         alt={imageAlt}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none ${
+          active ? 'scale-[1.041]' : 'scale-100'
+        }`}
       />
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(0,37,60,0)_38.122%,#00253C_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,37,60,0)_38.122%,#00253C_100%)]"
       />
 
       {/* Both blocks share one grid cell and sit bottom-aligned, so they cross in place. */}
       <div className="absolute inset-x-0 bottom-0 grid p-4">
         <div
-          className={`col-start-1 row-start-1 self-end pointer-events-none flex flex-col gap-1 ${swapTransition} group-hover:opacity-0 group-hover:-translate-y-full group-focus-within:opacity-0 group-focus-within:-translate-y-full motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0`}
+          className={`col-start-1 row-start-1 flex flex-col gap-1 self-end pointer-events-none ${swapTransition} ${
+            active
+              ? 'opacity-0 -translate-y-full motion-reduce:translate-y-0'
+              : 'opacity-100 translate-y-0'
+          }`}
         >
-          <p className={`${typography.caption} font-semibold m-0`} style={{ color: colorVar(iataColor) }}>
+          <p
+            className={`${typography.caption} m-0 font-semibold`}
+            style={{ color: colorVar(iataColor) }}
+          >
             {iata}
           </p>
-          <p className={`${typography.body} font-medium m-0`} style={{ color: colorVar(titleColor) }}>
+          <p
+            className={`${typography.body} m-0 font-medium`}
+            style={{ color: colorVar(titleColor) }}
+          >
             {title}
           </p>
         </div>
 
         <div
-          className={`col-start-1 row-start-1 self-end flex flex-col gap-2 opacity-0 translate-y-full pointer-events-none ${swapTransition} group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto motion-reduce:translate-y-0`}
+          className={`col-start-1 row-start-1 flex flex-col gap-2 self-end ${swapTransition} ${
+            active
+              ? 'pointer-events-auto translate-y-0 opacity-100'
+              : 'pointer-events-none translate-y-full opacity-0 motion-reduce:translate-y-0'
+          }`}
         >
           <LocalizedLink
             href={href}
-            className={`${typography.caption} font-semibold no-underline rounded-lg p-2.5 text-center transition-[opacity,colors] duration-200 ease-out hover:opacity-90 motion-reduce:transition-none`}
-            style={{ color: colorVar(buttonTextColor), backgroundColor: colorVar(buttonBg) }}
+            className={`${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out hover:opacity-90 motion-reduce:transition-none`}
+            style={{
+              color: colorVar(buttonTextColor),
+              backgroundColor: colorVar(buttonBg),
+            }}
           >
             {cta}
           </LocalizedLink>
           <LocalizedLink
             href={href}
-            className={`${typography.caption} font-medium inline-flex items-center justify-center gap-2.5 no-underline rounded-lg transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
+            className={`${typography.caption} inline-flex items-center justify-center gap-2.5 rounded-lg font-medium no-underline transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
             style={{ color: colorVar(activitiesColor) }}
           >
             {activities}
-            <span className="flex items-center justify-center size-[29px] shrink-0">
+            <span className="flex size-[29px] shrink-0 items-center justify-center">
               <ArrowRight size={20} className="rtl:-scale-x-100" />
             </span>
           </LocalizedLink>

@@ -4,7 +4,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Map a CMS "get-in-touch" block to <GetInTouch /> props.
  *
  * `contained` is false so CMS pages keep using their own block gap
- * instead of the static-page bottom margin. The band is always full-bleed.
+ * instead of the static-page bottom margin. The band is full-bleed via
+ * the section registry (`fullBleed: true`).
  */
 export function getInTouchProps(block, lang) {
   const content = pickContent(block.content, lang)

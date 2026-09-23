@@ -24,9 +24,9 @@ const INNER_PADDING = {
 }
 
 /**
- * Contact hotline block. The band is always viewport-wide (it breaks out of
- * any parent Container). Inner copy stays in Container so it lines up with
- * the page. `contained` only adds the static-page bottom margin.
+ * Contact hotline block. Full-bleed band (registry `fullBleed` on CMS pages;
+ * static Contact Us places it outside Container). Inner copy stays in Container.
+ * `contained` only adds the static-page bottom margin.
  */
 const GetInTouch = ({
   title,
@@ -199,10 +199,7 @@ const GetInTouch = ({
     <SearchAnchor
       hit="contact-get-in-touch"
       as="section"
-      className={cx(
-        'relative w-screen max-w-[100vw] ml-[calc(50%-50vw)]',
-        contained && 'mb-6 md:mb-10',
-      )}
+      className={cx('relative w-full', contained && 'mb-6 md:mb-10')}
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <Container className={INNER_PADDING[sectionPadding] || INNER_PADDING.default}>

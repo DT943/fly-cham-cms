@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page for slug `faqs` (URL `/help/new-faqs`).
+// Dynamic CMS page for slug `faqs` (URL `/help/faqs`).
 // Blocks: page-hero, search-console, help-faqs, get-help, live-chat-banner.
 const PAGE_SLUG = 'faqs'
 

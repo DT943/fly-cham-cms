@@ -4,7 +4,6 @@ import {
   getTextStyleVars,
   CMS_TEXT_HOVER_CLASS,
 } from '../../styles/cmsStyle.js'
-import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import DestinationCard from '../../pages/our-destinations/components/DestinationCard.jsx'
 import FeaturedDestination from '../../pages/our-destinations/components/FeaturedDestination.jsx'
@@ -22,17 +21,13 @@ const DEFAULT_IMAGE_BY_ID = Object.fromEntries(
   bundledDestinations.map((d) => [d.id, d.image]),
 )
 
-const COLUMNS_CLASS = {
-  2: 'sm:grid-cols-2',
-  3: 'sm:grid-cols-2 xl:grid-cols-3',
-  4: 'sm:grid-cols-2 xl:grid-cols-4',
-}
-
 const SECTION_PADDING_CLASS = {
   tight: 'py-4 md:py-6',
   default: 'py-6 md:py-10',
   loose: 'py-10 md:py-16',
 }
+
+const GRID_CLASS = 'sm:grid-cols-2 xl:grid-cols-3'
 
 const linkStyle = (style) => ({
   linkColor: style.linkColor,
@@ -49,6 +44,7 @@ const linkStyle = (style) => ({
  * through to the source look when unset. Mirrors flychamadmin cms2's renderer.
  */
 const DestinationsExplore = ({
+  title,
   subtitle,
   activitiesLabel,
   featured = {},
@@ -56,10 +52,10 @@ const DestinationsExplore = ({
   pagination = {},
   links = [],
   showLinks = true,
+  showTitle = true,
   showSubtitle = true,
   showFeatured = true,
   showPagination = true,
-  columns = '3',
   showSectionBg = false,
   sectionBg = '100',
   sectionPadding = 'default',
@@ -71,10 +67,8 @@ const DestinationsExplore = ({
   cardActivitiesColor = '50',
   ...rest
 }) => {
-  const lang = useCurrentLanguage()
   const style = { showLinks, ...rest }
 
-  const columnsClass = COLUMNS_CLASS[String(columns)] ?? COLUMNS_CLASS[3]
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
   const featuredImages = featured.images?.length ? featured.images : bundledFeaturedImages
 
@@ -87,14 +81,26 @@ const DestinationsExplore = ({
       )}
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      {showSubtitle && subtitle && (
-        <p
-          className={cx(typography.caption, 'm-0 leading-relaxed max-w-3xl', CMS_TEXT_HOVER_CLASS)}
-          style={getTextStyleVars(style, 'subtitleColor', '800', 'normal')}
-        >
-          <LinkedText text={subtitle} links={links} enabled={showLinks} {...linkStyle(style)} />
-        </p>
-      )}
+      {(showTitle && title) || (showSubtitle && subtitle) ? (
+        <div className="flex flex-col gap-2 md:gap-3">
+          {showTitle && title ? (
+            <h2
+              className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(style, 'titleColor', '800', 'semibold')}
+            >
+              <LinkedText text={title} links={links} enabled={showLinks} {...linkStyle(style)} />
+            </h2>
+          ) : null}
+          {showSubtitle && subtitle ? (
+            <p
+              className={cx(typography.caption, 'm-0 leading-relaxed max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(style, 'subtitleColor', '700', 'normal')}
+            >
+              <LinkedText text={subtitle} links={links} enabled={showLinks} {...linkStyle(style)} />
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="flex flex-col lg:flex-row gap-4 items-stretch">
         {showFeatured && (
@@ -111,7 +117,7 @@ const DestinationsExplore = ({
           />
         )}
 
-        <div className={cx('grid grid-cols-1', columnsClass, 'gap-4 flex-1 min-w-0')}>
+        <div className={cx('grid grid-cols-1', GRID_CLASS, 'gap-4 flex-1 min-w-0')}>
           {cards.map((card, index) => (
             <div
               key={card.id || index}

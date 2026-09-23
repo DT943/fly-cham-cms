@@ -1,10 +1,4 @@
 import Home from '../../../pages/Home.jsx'
-import Help from '../../../pages/help/Help.jsx'
-import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
-import OurOffices from '../../../pages/our-offices/OurOffices.jsx'
-import OurGsa from '../../../pages/our-gsa/OurGsa.jsx'
-import Forms from '../../../pages/forms/Forms.jsx'
-import Faqs from '../../../pages/faqs/Faqs.jsx'
 import OurDestinations from '../../../pages/our-destinations/OurDestinations.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FlightsToDamascus from '../../../pages/flights-to-damascus/FlightsToDamascus.jsx'
@@ -31,16 +25,11 @@ import {
   OurOfficesRedirect,
 } from '../components/OurOfficesRedirect.jsx'
 
+/** Legacy help path aliases → official `/help/contact-us/...` routes. */
 export const helpPages = {
-  '/help': Help,
-  '/help/contact-us': ContactUs,
-  '/help/contact-us/our-offices': OurOffices,
-  '/help/contact-us/our-gsa': OurGsa,
-  '/help/contact-us/forms': Forms,
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,
   '/help/our-offices': OurOfficesRedirect,
-  '/help/faqs': Faqs,
 }
 
 export const ourDestinationsPages = {

@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page, same pattern as new-help — it renders whatever components
+// Dynamic CMS page, same pattern as help — it renders whatever components
 // the CMS holds for this slug in the URL's language.
 const PAGE_SLUG = 'contact-us'
 

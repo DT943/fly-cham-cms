@@ -31,35 +31,57 @@ const FlightsToDestination = () => {
   ]
 
   return (
-    <main className="bg-100 w-full">
-      <Container className="pt-5 md:pt-10 pb-4 md:pb-6 min-w-0">
+    <main className="w-full bg-100">
+      <Container className="min-w-0 pt-5 pb-4 md:pt-10 md:pb-6">
         <Breadcrumbs items={breadcrumbs} />
       </Container>
 
-      <SearchAnchor hit="destination-hero">
-        <DestinationHero
-          title={t(`${i18nKey}.hero.title`)}
-          country={t(`${i18nKey}.hero.country`)}
-          image={guide.heroImage}
-          imageAlt={t(`${i18nKey}.hero.imageAlt`)}
-        />
-      </SearchAnchor>
-
-      <DestinationQuickStats i18nKey={i18nKey} stats={guide.stats} />
-
-      <Container className="flex flex-col gap-10 py-8 md:gap-14 md:py-12 lg:gap-14 lg:py-14">
-        <SearchAnchor hit="destination-narratives">
-          <DestinationNarratives i18nKey={i18nKey} narratives={guide.narratives} />
-        </SearchAnchor>
-        <SearchAnchor hit="destination-things-to-do">
-          <DestinationThingsToDo
-            i18nKey={i18nKey}
-            items={guide.thingsToDo}
-            activitiesHref={guide.activitiesHref}
+      <div className="relative">
+        <SearchAnchor hit="destination-hero">
+          <DestinationHero
+            title={t(`${i18nKey}.hero.title`)}
+            country={t(`${i18nKey}.hero.country`)}
+            image={guide.heroImage}
+            imageAlt={t(`${i18nKey}.hero.imageAlt`)}
           />
         </SearchAnchor>
-        <BookingWidget />
-      </Container>
+
+        {/* Desktop: floating stats card overlapping the hero */}
+        <div className="hidden lg:block">
+          <DestinationQuickStats
+            i18nKey={i18nKey}
+            stats={guide.stats}
+            variant="card"
+          />
+        </div>
+
+        {/* Mobile: white sheet with tiles + body. Desktop: body on page canvas. */}
+        <section className="relative z-10 -mt-12 rounded-t-[28px] bg-background pt-5 pb-12 sm:-mt-16 sm:rounded-t-[32px] sm:pt-6 md:-mt-20 md:pt-8 md:pb-16 lg:mt-0 lg:rounded-none lg:bg-transparent lg:pt-10 lg:pb-20">
+          <Container className="flex flex-col gap-10 md:gap-14 lg:gap-14">
+            <div className="lg:hidden">
+              <DestinationQuickStats
+                i18nKey={i18nKey}
+                stats={guide.stats}
+                variant="tiles"
+              />
+            </div>
+
+            <SearchAnchor hit="destination-narratives">
+              <DestinationNarratives i18nKey={i18nKey} narratives={guide.narratives} />
+            </SearchAnchor>
+
+            <SearchAnchor hit="destination-things-to-do">
+              <DestinationThingsToDo
+                i18nKey={i18nKey}
+                items={guide.thingsToDo}
+                activitiesHref={guide.activitiesHref}
+              />
+            </SearchAnchor>
+
+            <BookingWidget />
+          </Container>
+        </section>
+      </div>
     </main>
   )
 }

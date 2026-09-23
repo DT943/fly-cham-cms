@@ -19,14 +19,23 @@ import NewMediaCenter from '../../../pages/new-media-center/NewMediaCenter.jsx'
 import NewRecentNews from '../../../pages/new-recent-news/NewRecentNews.jsx'
 import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
 import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
+import { createLanguageRedirect } from '../components/OurOfficesRedirect.jsx'
 
+/** Official CMS help routes (same paths as the old static help pages). */
 export const helpPages = {
-  '/new-help': NewHelp,
-  '/new-help/new-contact-us': NewContactUs,
-  '/help/contact-us/new-our-offices': NewOurOffices,
-  '/help/contact-us/new-our-gsa': NewOurGsa,
-  '/help/contact-us/new-forms': NewForms,
-  '/help/new-faqs': NewFaqs,
+  '/help': NewHelp,
+  '/help/contact-us': NewContactUs,
+  '/help/contact-us/our-offices': NewOurOffices,
+  '/help/contact-us/our-gsa': NewOurGsa,
+  '/help/contact-us/forms': NewForms,
+  '/help/faqs': NewFaqs,
+  // Legacy `new-*` URLs → official help paths
+  '/new-help': createLanguageRedirect('/help'),
+  '/new-help/new-contact-us': createLanguageRedirect('/help/contact-us'),
+  '/help/contact-us/new-our-offices': createLanguageRedirect('/help/contact-us/our-offices'),
+  '/help/contact-us/new-our-gsa': createLanguageRedirect('/help/contact-us/our-gsa'),
+  '/help/contact-us/new-forms': createLanguageRedirect('/help/contact-us/forms'),
+  '/help/new-faqs': createLanguageRedirect('/help/faqs'),
 }
 
 export const ourDestinationsPages = {
@@ -59,7 +68,7 @@ export const otherPages = {
   '/new-recent-news': NewRecentNews,
 }
 
-/** CMS-driven pages (new_* folders / `new-*` route segments). */
+/** CMS-driven pages. */
 export const newPages = {
   ...helpPages,
   ...ourDestinationsPages,

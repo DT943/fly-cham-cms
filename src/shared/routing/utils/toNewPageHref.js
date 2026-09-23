@@ -1,17 +1,11 @@
 /**
- * Static app paths → CMS "new-*" counterparts.
- * Used so Search Console on a new page navigates to the new route when one exists.
+ * Static app paths → CMS "new-*" counterparts (sections that still use new-* URLs).
+ * Help is already on the official `/help/...` CMS routes — no remap needed.
  *
  * Keep this file free of page-component imports — search hooks import it, and those
  * hooks are pulled in by SearchConsole via the CMS section registry (circular TDZ).
  */
 export const staticToNewPath = {
-  '/help': '/new-help',
-  '/help/contact-us': '/new-help/new-contact-us',
-  '/help/contact-us/our-offices': '/help/contact-us/new-our-offices',
-  '/help/contact-us/our-gsa': '/help/contact-us/new-our-gsa',
-  '/help/contact-us/forms': '/help/contact-us/new-forms',
-  '/help/faqs': '/help/new-faqs',
   '/our-destinations': '/new-our-destinations',
   '/our-destinations/flights-to-damascus': '/our-destinations/new-things-to-do-in-damascus',
   '/our-destinations/things-to-do-in-damascus': '/our-destinations/new-flights-to-damascus',
@@ -32,9 +26,19 @@ export const staticToNewPath = {
   '/legal/cookies': '/legal/new-cookies',
 }
 
-const newPagePaths = new Set(Object.values(staticToNewPath))
+/** Official CMS help paths (same URLs as the old static help pages). */
+export const cmsHelpPaths = [
+  '/help',
+  '/help/contact-us',
+  '/help/contact-us/our-offices',
+  '/help/contact-us/our-gsa',
+  '/help/contact-us/forms',
+  '/help/faqs',
+]
 
-/** True when `path` is a CMS new-* route (language already stripped). */
+const newPagePaths = new Set([...cmsHelpPaths, ...Object.values(staticToNewPath)])
+
+/** True when `path` is a CMS-driven route (language already stripped). */
 export function isNewPagePath(path = '') {
   return newPagePaths.has(path)
 }
