@@ -1,4 +1,5 @@
 import { ArrowRight } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 import { typography } from '../../styles/typography.js'
 import { colorVar, CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -33,8 +34,8 @@ const SECTION_PADDING = {
  * / Our GSA design; the CMS can override colours, height, radius, padding,
  * visibility flags, per-role hover, and backlinks.
  *
- * Overlay props are kept for CMS compatibility but no extra overlay layer is
- * rendered — the photo is the only background.
+ * Figma wash (when showOverlay): opacity 0.9 + navy→transparent gradient +
+ * blur(23.10px), clipped by the banner radius.
  */
 const PromoBanner = ({
   title,
@@ -47,12 +48,13 @@ const PromoBanner = ({
   showDescription = true,
   showButton = true,
   showSectionBg = false,
-  showOverlay: _showOverlay = true,
+  showOverlay = true,
   sectionBg = '100',
   sectionPadding = 'none',
   bannerHeight = 'default',
   bannerRadius = 'lg',
-  overlayColor: _overlayColor = '#01263B',
+  objectPosition = 'center',
+  overlayColor = '#01263B',
   titleColor = '50',
   titleFontWeight = 'semibold',
   titleColorHover,
@@ -75,8 +77,16 @@ const PromoBanner = ({
   linkUnderline,
   linkItalic,
 }) => {
+  const { i18n } = useTranslation()
+  const isRtl = i18n.dir() === 'rtl'
   const radiusClass = BANNER_RADIUS[bannerRadius] ?? BANNER_RADIUS.lg
   const heightClass = BANNER_HEIGHT[bannerHeight] ?? BANNER_HEIGHT.default
+  // Theme token or raw #hex — keep the Figma navy when unset.
+  const washColor =
+    typeof overlayColor === 'string' && overlayColor.startsWith('#')
+      ? overlayColor
+      : colorVar(overlayColor) || '#01263B'
+  const gradientDeg = isRtl ? 270 : 90
 
   const linkProps = {
     links,
@@ -127,16 +137,61 @@ const PromoBanner = ({
     >
       <div
         className={cx(
-          'relative flex w-full items-center overflow-hidden px-5 py-8 sm:px-10 md:px-14 md:py-12',
+          'relative isolate flex w-full items-center overflow-hidden px-5 py-8 sm:px-10 md:px-14 md:py-12',
           heightClass,
           radiusClass,
         )}
       >
-        {image ? (
+        {image && !showOverlay ? (
           <img
             src={image}
             alt={imageAlt || ''}
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition }}
+          />
+        ) : null}
+
+        {image && showOverlay ? (
+          /* Figma fills (layer opacity 0.9, radius 12): Image @ 100% under a
+             Linear wash — washColor @ 100% → washColor @ 0%, ending at 121.52%.
+             No backdrop blur here: Figma's background blur doesn't blur the
+             layer's own image fill. */
+          <div
+            className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+            style={{ opacity: 0.9 }}
+          >
+            <div className="absolute inset-0 rounded-[12px]" aria-hidden>
+              <img
+                src={image}
+                alt=""
+                className="absolute inset-0 size-full rounded-[12px] object-cover"
+                style={{ objectPosition }}
+              />
+              <div
+                className="absolute inset-0 rounded-[12px]"
+                style={{
+                  background: `linear-gradient(${gradientDeg}deg, ${washColor} 0%, color-mix(in srgb, ${washColor} 0%, transparent) 121.52%)`,
+                }}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {/* Accessible name when the wash stack uses an empty-alt decorative img */}
+        {image && showOverlay ? (
+          <span className="sr-only">{imageAlt || ''}</span>
+        ) : null}
+
+        {!image && showOverlay ? (
+          <div
+            className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+            style={{
+              opacity: 0.9,
+              background: `linear-gradient(${gradientDeg}deg, ${washColor} 0%, rgba(1, 38, 59, 0) 121.52%)`,
+              backdropFilter: 'blur(23.1px)',
+              WebkitBackdropFilter: 'blur(23.1px)',
+            }}
+            aria-hidden
           />
         ) : null}
 

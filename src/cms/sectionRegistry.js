@@ -29,6 +29,7 @@ import TravelExperienceCards from '../shared/components/TravelExperienceCards.js
 import SeatJourney from '../shared/components/SeatJourney.jsx'
 import SeatChoose from '../shared/components/SeatChoose.jsx'
 import SeatPlan from '../shared/components/SeatPlan.jsx'
+import InfoAccordion from '../shared/components/InfoAccordion.jsx'
 import ResponsibilitySections from '../shared/components/ResponsibilitySections.jsx'
 import BeforeYouFlyServices from '../shared/components/BeforeYouFlyServices.jsx'
 import JourneyStageNextSteps from '../shared/components/JourneyStageNextSteps.jsx'
@@ -48,6 +49,7 @@ import LegalHub from '../shared/components/LegalHub.jsx'
 import LegalDocument from '../shared/components/LegalDocument.jsx'
 import LegalMoreInfo from '../shared/components/LegalMoreInfo.jsx'
 import Breadcrumbs from '../shared/components/Breadcrumbs.jsx'
+import BookingWidget from '../shared/booking/BookingWidget.jsx'
 import NewsDetailHeader from '../shared/components/NewsDetailHeader.jsx'
 import NewsDetailParagraphs from '../shared/components/NewsDetailParagraphs.jsx'
 import NewsDetailGallery from '../shared/components/NewsDetailGallery.jsx'
@@ -83,6 +85,7 @@ import { travelExperienceCardsProps } from './adapters/travelExperienceCardsAdap
 import { seatJourneyProps } from './adapters/seatJourneyAdapter.js'
 import { seatChooseProps } from './adapters/seatChooseAdapter.js'
 import { seatPlanProps } from './adapters/seatPlanAdapter.js'
+import { infoAccordionProps } from './adapters/infoAccordionAdapter.js'
 import { responsibilitySectionsProps } from './adapters/responsibilitySectionsAdapter.js'
 import { beforeYouFlyServicesProps } from './adapters/beforeYouFlyServicesAdapter.js'
 import { journeyStageNextStepsProps } from './adapters/journeyStageNextStepsAdapter.js'
@@ -148,6 +151,7 @@ export const sectionRegistry = {
   'seat-journey': { Component: SeatJourney, mapProps: seatJourneyProps },
   'seat-choose': { Component: SeatChoose, mapProps: seatChooseProps },
   'seat-plan': { Component: SeatPlan, mapProps: seatPlanProps },
+  'info-accordion': { Component: InfoAccordion, mapProps: infoAccordionProps },
   'responsibility-sections': { Component: ResponsibilitySections, mapProps: responsibilitySectionsProps },
   'before-you-fly-services': { Component: BeforeYouFlyServices, mapProps: beforeYouFlyServicesProps },
   'journey-stage-next-steps': { Component: JourneyStageNextSteps, mapProps: journeyStageNextStepsProps },
@@ -179,6 +183,8 @@ export const sectionRegistry = {
     fullBleed: true,
   },
   'breadcrumbs': { Component: Breadcrumbs, mapProps: breadcrumbsProps },
+  // Marker block: no CMS content/style — renders the live booking box as-is.
+  'booking-widget': { Component: BookingWidget, mapProps: () => ({}) },
 }
 
 export function getSection(sectionId) {

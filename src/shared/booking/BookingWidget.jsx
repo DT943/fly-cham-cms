@@ -111,7 +111,12 @@ const BookingWidgetInner = ({ className = '', initialFrom, initialTo }) => {
   }, [flights, initialFrom, initialTo, formik])
 
   return (
-    <div className={className} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <div
+      // Mobile: white card so the grey From/To boxes read as separate fields
+      // on the page's grey background. Desktop keeps its own layout.
+      className={`max-md:rounded-2xl max-md:bg-white max-md:px-4 max-md:pb-5 max-md:pt-1 ${className}`.trim()}
+      dir={language === 'ar' ? 'rtl' : 'ltr'}
+    >
       <BookingBox
         pos={FLYCHAM_POS}
         flights={flights}

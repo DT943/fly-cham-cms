@@ -10,6 +10,7 @@ const TripTypeSelector = ({
   onChange: onChangeProp,
   className = '',
   ariaLabel,
+  variant = 'pill',
 }) => {
   const copy = useBookingBoxContentOptional();
   const { formik, handleTripTypeChange } = useBookingBoxForm();
@@ -49,6 +50,64 @@ const TripTypeSelector = ({
         .join(' '),
     [className]
   );
+
+  // Mobile: plain radio buttons (ring + filled dot) instead of the pill control.
+  if (variant === 'radio') {
+    return (
+      <div
+        role="radiogroup"
+        aria-label={resolvedAriaLabel}
+        className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${className}`.trim()}
+      >
+        {TRIP_TYPE_OPTIONS.map((option) => {
+          const inputId = `trip-type-${option.value}`;
+          const isChecked = tripType === option.value;
+          const isDisabled = Boolean(option.disabled);
+          const label = tripTypeLabels[option.value] ?? option.label;
+
+          return (
+            <label
+              key={option.value}
+              htmlFor={inputId}
+              className={`inline-flex select-none items-center gap-2 ${
+                isDisabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
+              }`}
+            >
+              <input
+                id={inputId}
+                type="radio"
+                name="tripType"
+                value={option.value}
+                checked={isChecked}
+                disabled={isDisabled}
+                onChange={() => handleSelect(option.value, isDisabled)}
+                className="sr-only"
+              />
+              <span
+                aria-hidden
+                className={`grid size-5 shrink-0 place-items-center rounded-full border-2 transition-colors ${
+                  isChecked ? 'border-[var(--primary-1)]' : 'border-[#5F5F5C]'
+                }`}
+              >
+                {isChecked ? (
+                  <span className="size-2.5 rounded-full bg-[var(--primary-1)]" />
+                ) : null}
+              </span>
+              <span
+                className={`whitespace-nowrap text-sm leading-none ${
+                  isChecked
+                    ? 'font-semibold text-[var(--primary-1)]'
+                    : 'font-medium text-[#5F5F5C]'
+                }`}
+              >
+                {label}
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <div role="radiogroup" aria-label={resolvedAriaLabel} className={containerClasses}>

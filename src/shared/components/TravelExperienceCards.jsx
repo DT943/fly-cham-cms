@@ -67,6 +67,7 @@ const TravelExperienceCards = ({
   cardBg = '50',
   cardBorderColor = '200',
   arrowBadgeBg = '100',
+  arrowBadgeBgHover,
   arrowColor = 'primary-1',
   links = [],
   showLinks = true,
@@ -92,6 +93,7 @@ const TravelExperienceCards = ({
   const gapClass = CARD_GAP[cardGap] || CARD_GAP.default
   const radiusClass = CARD_RADIUS[cardRadius] || CARD_RADIUS.lg
   const headerVisible = showHeader && (title || (showSubtitle && subtitle))
+  const badgeHover = arrowBadgeBgHover || arrowBadgeBg
 
   const inner = (
     <section className="flex flex-col gap-6 lg:gap-8">
@@ -160,16 +162,19 @@ const TravelExperienceCards = ({
                   href={item.href || '#'}
                   aria-label={item.title}
                   className={cx(
-                    'inline-flex w-fit items-center gap-2.5 text-sm no-underline',
-                    CMS_TEXT_HOVER_CLASS,
-                    item.withLabel ? 'self-start' : 'self-end',
+                    'group/lm relative ms-auto inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm no-underline',
+                    typography.button,
                   )}
-                  style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
                 >
                   <span
-                    className="flex size-[34px] shrink-0 items-center justify-center rounded-full"
-                    style={{ backgroundColor: colorVar(arrowBadgeBg) }}
-                  >
+                    aria-hidden
+                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width,background-color] duration-300 ease-out group-hover/lm:w-full group-hover/lm:[background-color:var(--te-badge-h)]"
+                    style={{
+                      backgroundColor: colorVar(arrowBadgeBg),
+                      '--te-badge-h': colorVar(badgeHover),
+                    }}
+                  />
+                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
                     <ArrowRight
                       size={16}
                       weight="bold"
@@ -177,7 +182,14 @@ const TravelExperienceCards = ({
                       style={{ color: colorVar(arrowColor) }}
                     />
                   </span>
-                  {item.withLabel && learnMore ? <span>{learnMore}</span> : null}
+                  {learnMore ? (
+                    <span
+                      className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                      style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
+                    >
+                      {learnMore}
+                    </span>
+                  ) : null}
                 </LocalizedLink>
               </div>
             </article>

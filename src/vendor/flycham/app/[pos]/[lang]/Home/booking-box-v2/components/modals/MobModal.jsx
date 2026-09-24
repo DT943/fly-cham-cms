@@ -14,11 +14,7 @@ import { useBookingBoxAirportRenderers } from '../../context/BookingBoxAirportRe
 import { getFirstLeg, getLeg } from '../../utils/legsUtils';
 import { useBookingBoxContentOptional } from '@/app/[pos]/[lang]/Home/booking-box/content/BookingBoxContent';
 import { SEARCH_NESTED_MODAL_Z_INDEX } from '@/app/[pos]/[lang]/search-results/components/FlightResults/FlightResultsDesktop/constants';
-import MobileAirportStepHeader from './MobileAirportStepHeader';
-import {
-  getAirportCityLabel,
-  getTripDurationDays,
-} from '../../utils/tripDuration';
+import { getTripDurationDays } from '../../utils/tripDuration';
 
 const getStepTitle = (stepId, copy, { tripType, hasClickCalendar, dateStart, dateEnd } = {}) => {
   switch (stepId) {
@@ -50,7 +46,6 @@ const MobModal = () => {
     formik,
     bookingPreviewV2 = false,
     allowSameDayReturn = false,
-    airPorts,
   } = useBookingBoxForm();
   const { isMobileModalOpen: isOpen, onClose } = useBookingBoxModalsContext();
   const { renderGuests } = useBookingBoxGuests();
@@ -90,15 +85,6 @@ const MobModal = () => {
   const modalTitle = useMemo(
     () => getStepTitle(activeStep, copy, { tripType, hasClickCalendar, dateStart, dateEnd }),
     [activeStep, copy, tripType, hasClickCalendar, dateStart, dateEnd],
-  );
-
-  const sourceCity = useMemo(
-    () => getAirportCityLabel(airPorts, activeLeg?.source),
-    [airPorts, activeLeg?.source],
-  );
-  const destinationCity = useMemo(
-    () => getAirportCityLabel(airPorts, activeLeg?.destination),
-    [airPorts, activeLeg?.destination],
   );
 
   const tripDurationDays = useMemo(() => getTripDurationDays(values), [values]);
@@ -314,23 +300,6 @@ const MobModal = () => {
                       ? copy.flightInfo.flightLeg(activeLegId)
                       : `Flight ${activeLegId}`}
                   </p>
-                ) : null}
-                {isAirportStep ? (
-                  <MobileAirportStepHeader
-                    activeStep={activeStep}
-                    stepIds={STEP_IDS}
-                    isRtl={isRtl}
-                    flyingFromTitle={copy.stepTitles.flyingFrom}
-                    flyingFromValue={
-                      sourceCity || copy.flightInfo.departure
-                    }
-                    flyingToTitle={copy.stepTitles.flyingTo}
-                    flyingToValue={
-                      destinationCity ||
-                      copy.flightInfo.destination ||
-                      copy.airportSelector.fallbacks.arrivalCity
-                    }
-                  />
                 ) : null}
                 {body}
               </div>

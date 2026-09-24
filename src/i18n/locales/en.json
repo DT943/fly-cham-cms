@@ -1905,6 +1905,16 @@
         "Is in-flight entertainment available for children?"
       ],
       "browse": "Browse FAQs"
+    },
+    "infoAccordion": {
+      "terms": {
+        "title": "Terms and Conditions",
+        "body": "Fly Cham’s crew will meet children using this service at the airport check-in desk, escort them to the gate, and ensure their safe boarding. Upon arrival, the person meeting the child must have an ID card to prove their identity. This ID card must match the person named on the original booking form. No one else can represent the person named, even if they have the original person's ID card with them as proof."
+      },
+      "more": {
+        "title": "More Information",
+        "body": "Fly Cham does not offer unaccompanied minors on connecting flights"
+      }
     }
   },
   "ourResponsibility": {

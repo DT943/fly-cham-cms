@@ -8,6 +8,7 @@ import PageMediaHero from '../../shared/components/PageMediaHero.jsx'
 import SeatJourney from './components/SeatJourney.jsx'
 import SeatChoose from './components/SeatChoose.jsx'
 import SeatPlan from './components/SeatPlan.jsx'
+import InfoAccordion from './components/InfoAccordion.jsx'
 import { typography } from '../../styles/typography.js'
 import heroPhoto from '../../assets/images/seat-selection/hero.jpg'
 
@@ -65,6 +66,21 @@ const SeatSelection = () => {
             </LocalizedLink>
           </div>
         </section>
+
+        <InfoAccordion
+          items={[
+            {
+              id: 'terms',
+              title: t('seatSelection.infoAccordion.terms.title'),
+              body: t('seatSelection.infoAccordion.terms.body'),
+            },
+            {
+              id: 'more',
+              title: t('seatSelection.infoAccordion.more.title'),
+              body: t('seatSelection.infoAccordion.more.body'),
+            },
+          ]}
+        />
       </Container>
     </main>
   )

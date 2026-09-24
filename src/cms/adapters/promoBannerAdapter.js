@@ -1,6 +1,29 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
+ * Prefer an absolute uploaded URL (CDN) over a seeded relative path. Blocks
+ * often keep both: `image.fileUrl` = "/about-us/fleet.jpg" and
+ * `imageUrl` = "https://…/fleet.webp" after a CMS upload — picking the
+ * nested seed first breaks the public banner.
+ */
+function pickPromoImageUrl(content = {}) {
+  const candidates = [content.imageUrl, content.image?.fileUrl]
+    .map((u) => (typeof u === 'string' ? u.trim() : ''))
+    .filter(Boolean)
+  const absolute = candidates.find((u) => /^(https?:|data:|blob:)/i.test(u))
+  return absolute || candidates[0] || ''
+}
+
+function pickPromoImageAlt(content = {}) {
+  const nested = typeof content.image?.alt === 'string' ? content.image.alt.trim() : ''
+  const flat = typeof content.imageAlt === 'string' ? content.imageAlt.trim() : ''
+  // Prefer a real description over an upload filename like "fleet.webp".
+  if (nested && !/\.(webp|jpe?g|png|gif|svg)$/i.test(nested)) return nested
+  if (flat && !/\.(webp|jpe?g|png|gif|svg)$/i.test(flat)) return flat
+  return nested || flat || ''
+}
+
+/**
  * Map a CMS "promo-banner" block to <PromoBanner /> props.
  *
  * cms2 stores this block's content nested (`ctaButton.content`,
@@ -12,8 +35,7 @@ export function promoBannerProps(block, lang) {
 
   const ctaLabel = content.ctaButton?.content ?? content.buttonLabel
   const ctaHref = content.ctaButton?.href ?? content.buttonHref
-  const imageUrl = content.image?.fileUrl ?? content.imageUrl
-  const imageAlt = content.image?.alt ?? content.imageAlt
+  const imageUrl = pickPromoImageUrl(content)
 
   return {
     title: content.title,
@@ -21,7 +43,7 @@ export function promoBannerProps(block, lang) {
     cta: ctaLabel,
     href: resolveCmsHref(ctaHref),
     image: resolveCmsAsset(imageUrl) || undefined,
-    imageAlt,
+    imageAlt: pickPromoImageAlt(content),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -43,6 +65,7 @@ const STYLE_KEYS = [
   'sectionPadding',
   'bannerHeight',
   'bannerRadius',
+  'objectPosition',
   'overlayColor',
   'titleColor',
   'titleFontWeight',

@@ -29,12 +29,18 @@ const BeforeYouFlyServices = ({ i18nKey, services }) => {
             </div>
             <LocalizedLink
               href={href}
-              className="inline-flex items-center gap-2.5 text-sm font-semibold text-primary-1 no-underline"
+              className="group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm font-semibold no-underline"
             >
-              <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-primary-1">
+              <span
+                aria-hidden
+                className="absolute inset-y-0 start-0 w-[34px] rounded-full bg-primary-1 transition-[width] duration-300 ease-out group-hover/lm:w-full"
+              />
+              <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
                 <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
               </span>
-              {t(`${i18nKey}.learnMore`)}
+              <span className="relative z-10 pe-3 ps-2.5 text-primary-1 transition-colors duration-300 group-hover/lm:text-50">
+                {t(`${i18nKey}.learnMore`)}
+              </span>
             </LocalizedLink>
           </div>
         </article>

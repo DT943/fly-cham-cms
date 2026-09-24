@@ -30,8 +30,9 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
  * Two-up photo cards with a bottom gold scrim, title, description, and
- * "Learn more" arrow link. Callers pass copy, images, and hrefs.
- * Optional CMS style props default to the static Our Fleet look.
+ * "Learn more" expand-to-pill CTA (same hover as News Grid). Callers pass
+ * copy, images, and hrefs. Optional CMS style props default to the static
+ * Our Fleet look.
  */
 const MediaCards = ({
   cards = [],
@@ -119,24 +120,29 @@ const MediaCards = ({
                 <LocalizedLink
                   href={href}
                   className={cx(
-                    'mt-1 inline-flex w-fit items-center gap-2.5 font-semibold no-underline',
+                    'group/lm relative mt-1 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline',
                     typography.button,
-                    CMS_TEXT_HOVER_CLASS,
                   )}
-                  style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
                 >
                   <span
-                    className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-100"
+                    aria-hidden
+                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
                     style={{ backgroundColor: colorVar(arrowBadgeBg) }}
-                  >
+                  />
+                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
                     <ArrowRight
                       size={16}
                       weight="bold"
-                      className="rtl:rotate-180"
+                      className="rtl:-scale-x-100"
                       style={{ color: colorVar(arrowColor) }}
                     />
                   </span>
-                  {label}
+                  <span
+                    className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
+                  >
+                    {label}
+                  </span>
                 </LocalizedLink>
               ) : null}
             </div>

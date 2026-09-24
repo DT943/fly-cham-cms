@@ -8,7 +8,6 @@ import { useParams } from 'next/navigation';
 import useIsMobile from '@/hooks/useIsMobile';
 import useIsArabic from '@/hooks/useIsArabic';
 import { formatCalendarCaption, isCalendarArabic } from '@/util/calendarI18n';
-import TripTypeSelector from '../../TripTypeSelector';
 import MonthNavigation from './MonthNavigation';
 import SelectedDateDisplay from './SelectedDateDisplay';
 import MobileCalendarDateFields from './MobileCalendarDateFields';
@@ -744,27 +743,6 @@ const Dates = ({
 
     return (
         <div className={containerClass}>
-            {isMobile && !isFlightSchedulePage && !isMultiCityLeg ? (
-                <div className="mb-4 flex w-full flex-col gap-4">
-                    <TripTypeSelector className="flex w-full flex-wrap gap-x-6 gap-y-3" />
-                    <MobileCalendarDateFields
-                        tripType={tripType}
-                        dateStart={dateStart}
-                        dateEnd={dateEnd}
-                        hasClickCalendar={hasClickCalendar}
-                        onPickDeparture={() => {
-                            formik.setFieldValue('hasClickCalendar', false);
-                        }}
-                        onPickReturn={() => {
-                            if (!dateStart) return;
-                            formik.setFieldValue('hasClickCalendar', true);
-                        }}
-                        departureLabel={copy.flightInfo.departure}
-                        returnLabel={copy.flightInfo.return}
-                        selectDatePlaceholder={copy.flightInfo.selectDate}
-                    />
-                </div>
-            ) : null}
             {isMobile && isMultiCityLeg ? (
                 <div className="mb-4 w-full">
                     <MobileCalendarDateFields

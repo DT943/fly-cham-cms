@@ -9,9 +9,9 @@ import LinkedText from './backlinks/LinkedText.jsx'
 import defaultPlane from '../../assets/images/city-sights/newsletter-plane.png'
 
 /**
- * Newsletter capture banner. Presentational (matches the source: it does not
- * submit). Defaults reproduce the static city-sights banner; the CMS overrides
- * the copy, form labels, colours, artwork and backlinks.
+ * Newsletter capture banner. Presentational (does not submit).
+ * - Large: text left + white inline email bar (icon / input / Subscribe) + plane
+ * - Small: dark gradient card, stacked field then full-width Subscribe (no plane)
  */
 const NewsletterSignup = ({
   title = '',
@@ -32,9 +32,9 @@ const NewsletterSignup = ({
   inputBorder = '200',
   inputText = '700',
   iconColor = 'primary-1',
-  buttonBg = 'primary-1',
+  buttonBg = 'secondary',
   buttonHoverBg,
-  buttonText = '50',
+  buttonText = 'btn',
   buttonTextFontWeight = 'medium',
   buttonTextHover,
   buttonTextFontWeightHover,
@@ -56,7 +56,12 @@ const NewsletterSignup = ({
     linkUnderline,
     linkItalic,
   }
-  const titleStyleKeys = { titleColor, titleFontWeight, titleColorHover, titleFontWeightHover }
+  const titleStyleKeys = {
+    titleColor,
+    titleFontWeight,
+    titleColorHover,
+    titleFontWeightHover,
+  }
   const descStyleKeys = {
     descriptionColor,
     descriptionFontWeight,
@@ -75,54 +80,71 @@ const NewsletterSignup = ({
     {
       bgKey: 'buttonBg',
       bgHoverKey: 'buttonHoverBg',
-      bgFallback: 'primary-1',
-      bgHoverFallback: 'primary-800',
+      bgFallback: 'secondary',
+      bgHoverFallback: 'secondary-800',
       textKey: 'buttonText',
-      textFallback: '50',
+      textFallback: 'btn',
       weightFallback: 'medium',
     },
   )
 
+  const inputSurface = {
+    backgroundColor: colorVar(inputBg),
+    borderColor: colorVar(inputBorder),
+  }
+
   return (
-    <section className="relative isolate overflow-hidden rounded-xl bg-linear-to-r from-primary-1 to-[#00141a] rtl:bg-linear-to-l lg:h-[159px]">
+    <section className="relative isolate overflow-hidden rounded-xl bg-linear-to-br from-primary-1 to-[#00141a] rtl:bg-linear-to-bl lg:bg-linear-to-r lg:rtl:bg-linear-to-l lg:h-[159px]">
       <img
         src={planeSrc}
         alt=""
-        className="pointer-events-none absolute inset-y-0 end-0 hidden h-full w-[139.5px] object-cover sm:block rtl:-scale-x-100"
+        className="pointer-events-none absolute inset-y-0 end-0 hidden h-full w-[139.5px] object-cover lg:block rtl:-scale-x-100"
       />
 
       <div className="relative flex flex-col gap-6 p-6 lg:h-full lg:flex-row lg:items-center lg:gap-23 lg:p-0 lg:ps-[37px] lg:pe-[213px]">
         <div className="flex flex-col gap-3.5 lg:w-[401px] lg:shrink-0">
-          <h2
-            className={`m-0 text-xl lg:text-2xl ${CMS_TEXT_HOVER_CLASS}`}
-            style={getTextStyleVars(titleStyleKeys, 'titleColor', '50', 'semibold')}
-          >
-            <LinkedText text={title} {...linkProps} />
-          </h2>
-          <p
-            className={`m-0 text-sm leading-5 ${CMS_TEXT_HOVER_CLASS}`}
-            style={getTextStyleVars(descStyleKeys, 'descriptionColor', '50', 'normal')}
-          >
-            <LinkedText text={description} {...linkProps} />
-          </p>
+          {title ? (
+            <h2
+              className={`m-0 text-xl lg:text-2xl ${CMS_TEXT_HOVER_CLASS}`}
+              style={getTextStyleVars(titleStyleKeys, 'titleColor', '50', 'semibold')}
+            >
+              <LinkedText text={title} {...linkProps} />
+            </h2>
+          ) : null}
+          {description ? (
+            <p
+              className={`m-0 text-sm leading-5 ${CMS_TEXT_HOVER_CLASS}`}
+              style={getTextStyleVars(descStyleKeys, 'descriptionColor', '50', 'normal')}
+            >
+              <LinkedText text={description} {...linkProps} />
+            </p>
+          ) : null}
         </div>
 
         <form
           onSubmit={(event) => event.preventDefault()}
-          className="flex w-full items-center gap-2.5 rounded-lg border border-solid p-2.5 lg:w-[480px] lg:shrink-0"
-          style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
+          className="flex w-full flex-col gap-3 lg:w-[480px] lg:shrink-0 lg:flex-row lg:items-center lg:gap-2.5 lg:rounded-lg lg:border lg:border-solid lg:p-2.5 lg:[background-color:var(--nl-ibg)] lg:[border-color:var(--nl-ibd)]"
+          style={{
+            '--nl-ibg': inputSurface.backgroundColor,
+            '--nl-ibd': inputSurface.borderColor,
+          }}
         >
-          <Envelope size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
-          <input
-            type="email"
-            aria-label={label}
-            placeholder={placeholder}
-            className="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
-            style={{ color: colorVar(inputText) }}
-          />
+          <div
+            className="flex w-full items-center gap-2.5 rounded-lg border border-solid p-2.5 lg:min-w-0 lg:flex-1 lg:border-0 lg:bg-transparent lg:p-0"
+            style={inputSurface}
+          >
+            <Envelope size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+            <input
+              type="email"
+              aria-label={label}
+              placeholder={placeholder}
+              className="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm placeholder:opacity-70 focus:outline-none focus:ring-0"
+              style={{ color: colorVar(inputText) }}
+            />
+          </div>
           <button
             type="submit"
-            className={`h-11 shrink-0 cursor-pointer rounded-lg border-0 px-[15px] text-base transition-colors lg:w-[123px] ${buttonStyle.className}`}
+            className={`h-11 w-full shrink-0 cursor-pointer rounded-lg border-0 px-[15px] text-base transition-colors lg:w-[123px] ${buttonStyle.className}`}
             style={buttonStyle.style}
           >
             {cta}

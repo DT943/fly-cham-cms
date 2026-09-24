@@ -37,7 +37,7 @@ const SeatChoose = () => {
             <img
               src={card.image}
               alt=""
-              className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-linear-to-b from-transparent from-[25%] to-secondary-2" />
             <div className="relative flex flex-col gap-3 p-5 text-50">
@@ -52,7 +52,7 @@ const SeatChoose = () => {
                 <ArrowRight
                   size={16}
                   weight="bold"
-                  className="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
+                  className="rtl:-scale-x-100"
                 />
               </span>
             </div>

@@ -146,7 +146,15 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
     .map((thumb) => thumb?.url || '')
     .filter(Boolean)
   const thumbs = editorThumbs.length ? editorThumbs : THUMBS_BY_ID[item.id] || []
-  const slides = thumbs.length ? thumbs : banner ? [banner] : []
+  // A CMS-set main image leads the carousel so it is what shows first —
+  // otherwise the banner would open on thumbnail #1 and hide the upload.
+  const slides = item.image
+    ? [item.image, ...thumbs.filter((src) => src !== item.image)]
+    : thumbs.length
+      ? thumbs
+      : banner
+        ? [banner]
+        : []
 
   const [active, setActive] = useState(0)
   const currentBanner = slides[active] || banner

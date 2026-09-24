@@ -4,7 +4,7 @@ import Container from '../../../shared/components/Container.jsx'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { travelExperienceCards } from '../utils/travelExperienceContent.js'
 
-const TravelExperienceCard = ({ id, image, gradientTo, href, withLabel }) => {
+const TravelExperienceCard = ({ id, image, gradientTo, href }) => {
   const { t } = useTranslation()
 
   return (
@@ -26,14 +26,18 @@ const TravelExperienceCard = ({ id, image, gradientTo, href, withLabel }) => {
         <LocalizedLink
           href={href}
           aria-label={t(`travelExperience.cards.${id}.title`)}
-          className={`inline-flex w-fit items-center gap-2.5 text-sm font-semibold text-50 no-underline ${
-            withLabel ? 'self-start' : 'self-end'
-          }`}
+          className="group/lm relative ms-auto inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm font-semibold no-underline"
         >
-          <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-100">
+          <span
+            aria-hidden
+            className="absolute inset-y-0 start-0 w-[34px] rounded-full bg-100 transition-[width] duration-300 ease-out group-hover/lm:w-full group-hover/lm:bg-50"
+          />
+          <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
             <ArrowRight size={16} weight="bold" className="text-primary-1 rtl:-scale-x-100" />
           </span>
-          {withLabel && <span>{t('travelExperience.cards.learnMore')}</span>}
+          <span className="relative z-10 pe-3 ps-2.5 text-50 transition-colors duration-300 group-hover/lm:text-primary-1">
+            {t('travelExperience.cards.learnMore')}
+          </span>
         </LocalizedLink>
       </div>
     </article>

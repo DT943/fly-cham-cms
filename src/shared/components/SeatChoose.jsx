@@ -117,12 +117,15 @@ const SeatChoose = ({
             <LocalizedLink
               key={item.id || index}
               href={item.href || '#'}
-              className={cx('group relative flex h-96 flex-col justify-end overflow-hidden no-underline', radiusClass)}
+              className={cx(
+                'group relative flex h-96 flex-col justify-end overflow-hidden no-underline',
+                radiusClass,
+              )}
             >
               <img
                 src={src}
                 alt=""
-                className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               />
               <div
                 aria-hidden
@@ -150,7 +153,7 @@ const SeatChoose = ({
                   <ArrowRight
                     size={16}
                     weight="bold"
-                    className="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
+                    className="rtl:-scale-x-100"
                     style={{ color: ctaVars.color }}
                   />
                 </span>

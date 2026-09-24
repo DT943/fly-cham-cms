@@ -29,29 +29,39 @@ const SeatPlan = () => {
         {planCards.map((card) => (
           <article
             key={card.id}
-            className="flex flex-col overflow-hidden rounded-xl bg-50 shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]"
+            className="group relative flex cursor-pointer flex-col overflow-hidden rounded-xl bg-50 shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]"
           >
+            <LocalizedLink
+              href={card.href}
+              className="absolute inset-0 z-1"
+              aria-label={t(`seatSelection.plan.cards.${card.id}.title`)}
+            />
             <img
               src={card.image}
               alt={t(`seatSelection.plan.cards.${card.id}.imageAlt`)}
-              className="h-49 w-full object-cover"
+              className="h-49 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
             />
-            <div className="flex flex-1 flex-col gap-3 p-4 text-700">
+            <div className="pointer-events-none relative z-2 flex flex-1 flex-col gap-3 p-4 text-700">
               <h3 className={`m-0 font-semibold ${typography.itemTitle}`}>
                 {t(`seatSelection.plan.cards.${card.id}.title`)}
               </h3>
               <p className={`m-0 flex-1 font-normal leading-relaxed ${typography.itemDescription}`}>
                 {t(`seatSelection.plan.cards.${card.id}.description`)}
               </p>
-              <LocalizedLink
-                href={card.href}
-                className={`mt-2 inline-flex items-center gap-2 font-semibold text-primary-1 ${typography.button}`}
+              <span
+                className={`group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full font-semibold ${typography.button}`}
               >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-1 text-50">
-                  <ArrowRight size={18} weight="bold" className="rtl:rotate-180" />
+                <span
+                  aria-hidden
+                  className="absolute inset-y-0 start-0 w-[34px] rounded-full bg-primary-1 transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                />
+                <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                  <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
                 </span>
-                {t('seatSelection.plan.learnMore')}
-              </LocalizedLink>
+                <span className="relative z-10 pe-3 ps-2.5 text-primary-1 transition-colors duration-300 group-hover/lm:text-50">
+                  {t('seatSelection.plan.learnMore')}
+                </span>
+              </span>
             </div>
           </article>
         ))}

@@ -6,7 +6,7 @@ import afterTravelPhoto from '../../../assets/images/travel-experience/card-afte
 /**
  * The four journey cards. Each photo fills its card and is darkened from the
  * bottom with a per-card tint (`gradientTo`) so the white copy stays legible.
- * The first card carries the "Learn More" label; the rest show an arrow only.
+ * Every card shows the "Learn More" expand-to-pill CTA.
  */
 export const travelExperienceCards = [
   {
@@ -21,17 +21,20 @@ export const travelExperienceCards = [
     image: atTheAirportPhoto,
     gradientTo: 'to-[#504834]',
     href: '/travel-experience/at-the-airport',
+    withLabel: true,
   },
   {
     id: 'onboard',
     image: onboardPhoto,
     gradientTo: 'to-[#006080]',
     href: '/travel-experience/onboard',
+    withLabel: true,
   },
   {
     id: 'afterTravel',
     image: afterTravelPhoto,
     gradientTo: 'to-[#01263b]',
     href: '/travel-experience/after-travel',
+    withLabel: true,
   },
 ]

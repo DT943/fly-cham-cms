@@ -195,7 +195,7 @@ const BookingBoxMobile = () => {
         <>
           {!showTabNavigation && <ModalTitle />}
           <div className="mb-4">
-            <TripTypeSelector />
+            <TripTypeSelector variant="radio" />
           </div>
 
           {!isMultiCity && (

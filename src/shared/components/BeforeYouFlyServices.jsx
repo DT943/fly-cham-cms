@@ -139,15 +139,16 @@ const BeforeYouFlyServices = ({
               <LocalizedLink
                 href={item.href || '#'}
                 className={cx(
-                  'inline-flex w-fit items-center gap-2.5 text-sm no-underline',
-                  CMS_TEXT_HOVER_CLASS,
+                  'group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm no-underline',
+                  typography.button,
                 )}
-                style={getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold')}
               >
                 <span
-                  className="flex size-[34px] shrink-0 items-center justify-center rounded-full"
+                  aria-hidden
+                  className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
                   style={{ backgroundColor: colorVar(arrowBadgeBg) }}
-                >
+                />
+                <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
                   <ArrowRight
                     size={16}
                     weight="bold"
@@ -155,7 +156,14 @@ const BeforeYouFlyServices = ({
                     style={{ color: colorVar(arrowColor) }}
                   />
                 </span>
-                {cta || ''}
+                {cta ? (
+                  <span
+                    className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold')}
+                  >
+                    {cta}
+                  </span>
+                ) : null}
               </LocalizedLink>
             </div>
           </article>

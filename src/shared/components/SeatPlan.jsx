@@ -112,44 +112,70 @@ const SeatPlan = ({
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[3], gapClass)}>
         {items.map((item, index) => {
           const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.baggage
-          const labelVars = getTextStyleVars(textStyle, 'buttonText', 'primary-1', 'semibold')
           return (
             <article
               key={item.id || index}
-              className={cx('flex flex-col overflow-hidden shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]', radiusClass)}
+              className={cx(
+                'group relative flex cursor-pointer flex-col overflow-hidden shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]',
+                radiusClass,
+              )}
               style={{ backgroundColor: colorVar(cardBg) }}
             >
+              <LocalizedLink
+                href={item.href || '#'}
+                className="absolute inset-0 z-1"
+                aria-label={item.title || learnMore || 'Learn more'}
+              />
               <img
                 src={src}
                 alt={item.imageAlt || ''}
-                className="h-49 w-full object-cover"
+                className="h-49 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               />
-              <div className="flex flex-1 flex-col gap-3 p-4">
+              <div className="relative z-2 flex flex-1 flex-col gap-3 p-4 pointer-events-none">
                 <h3
-                  className={cx('m-0', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
+                  className={cx('m-0 [&_a]:pointer-events-auto', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'semibold')}
                 >
                   <LinkedText text={item.title} {...linkProps} />
                 </h3>
                 <p
-                  className={cx('m-0 flex-1 leading-relaxed', typography.itemDescription, CMS_TEXT_HOVER_CLASS)}
+                  className={cx(
+                    'm-0 flex-1 leading-relaxed [&_a]:pointer-events-auto',
+                    typography.itemDescription,
+                    CMS_TEXT_HOVER_CLASS,
+                  )}
                   style={getTextStyleVars(textStyle, 'cardDescriptionColor', '700', 'normal')}
                 >
                   <LinkedText text={item.description} {...linkProps} />
                 </p>
-                <LocalizedLink
-                  href={item.href || '#'}
-                  className={cx('mt-2 inline-flex items-center gap-2 no-underline', typography.button, CMS_TEXT_HOVER_CLASS)}
-                  style={labelVars}
+                <span
+                  className={cx(
+                    'group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full',
+                    typography.button,
+                  )}
                 >
                   <span
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full"
-                    style={{ backgroundColor: colorVar(arrowBadgeBg), color: colorVar(arrowColor) }}
-                  >
-                    <ArrowRight size={18} weight="bold" className="rtl:rotate-180" />
+                    aria-hidden
+                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                    style={{ backgroundColor: colorVar(arrowBadgeBg) }}
+                  />
+                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                    <ArrowRight
+                      size={16}
+                      weight="bold"
+                      className="rtl:-scale-x-100"
+                      style={{ color: colorVar(arrowColor) }}
+                    />
                   </span>
-                  {learnMore}
-                </LocalizedLink>
+                  {learnMore ? (
+                    <span
+                      className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                      style={getTextStyleVars(textStyle, 'buttonText', 'primary-1', 'semibold')}
+                    >
+                      {learnMore}
+                    </span>
+                  ) : null}
+                </span>
               </div>
             </article>
           )
