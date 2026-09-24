@@ -30,6 +30,7 @@ import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent
 import ChamMiles from '../../../pages/cham-miles/ChamMiles.jsx'
 import CargoService from '../../../pages/cargo-service/CargoService.jsx'
 import CargoStations from '../../../pages/cargo-stations/CargoStations.jsx'
+import TravelUpdates from '../../../pages/travel-updates/TravelUpdates.jsx'
 import {
   FormsRedirect,
   OurGsaRedirect,
@@ -88,6 +89,7 @@ export const otherPages = {
   '/cham-miles': ChamMiles,
   '/cargo-service': CargoService,
   '/cargo-stations': CargoStations,
+  '/travel-updates': TravelUpdates,
 }
 
 /** Static / legacy app pages. */

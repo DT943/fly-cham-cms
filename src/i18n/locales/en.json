@@ -3733,5 +3733,111 @@
       "cta": "Explore Cargo Guide",
       "imageAlt": "Fly Cham cargo containers"
     }
+  },
+  "travelUpdates": {
+    "breadcrumb": "Travel Updates",
+    "learnMore": "Learn More",
+    "hero": {
+      "title": "Travel Updates",
+      "subtitle": "Stay informed with the latest travel information and guidelines",
+      "imageAlt": "Fly Cham aircraft on the airport tarmac"
+    },
+    "dates": {
+      "october242025": "October 24, 2025",
+      "september182025": "September 18, 2025",
+      "august052025": "August 5, 2025",
+      "july222025": "July 22, 2025",
+      "june102025": "June 10, 2025"
+    },
+    "advisory": {
+      "title": "Latest Advisories",
+      "subtitle": "Showing most recent entries for global and local flight adjustments.",
+      "heading": "Autumn Weather Operations in European Hubs",
+      "description": "Due to seasonal fog and wind forecasts across London Heathrow and Frankfurt airports, minor schedule adjustments may occur. Passengers are advised to check flight statuses before departing for the airport.",
+      "links": {
+        "contactCenter": "Contact Center",
+        "manageBooking": "Manage Your Booking",
+        "flightStatus": "Flight Status"
+      },
+      "items": {
+        "routeChange": {
+          "label": "Route change:",
+          "before": "Request a change between Damascus and Beirut at no additional charge, subject to availability. Changes must be processed through our ",
+          "after": "."
+        },
+        "dateChange": {
+          "label": "Date change:",
+          "before": "You may change your flight date without paying a change fee or fare difference, subject to availability, up to 8 days before or 15 days after your original travel date. This can be done through ",
+          "after": "."
+        },
+        "refund": {
+          "label": "Refund:",
+          "before": "Request a full refund for any unused flight segments:",
+          "after": ""
+        },
+        "refundOnline": {
+          "before": "If you purchased through flycham.com, our Contact Center, or a Fly Cham direct point of sale, you can submit your request on our ",
+          "after": "."
+        },
+        "refundAgency": {
+          "before": "If you purchased through a travel agency, please contact them directly.",
+          "after": ""
+        }
+      }
+    },
+    "entries": {
+      "loungeAccess": {
+        "title": "Introducing Premium Lounge Access for Cham Miles Members",
+        "description": "Starting next month, Gold and Platinum tier Cham Miles members can enjoy our newly renovated premium lounge at Damascus International Airport, featuring local organic dining and private quiet suites."
+      },
+      "deviceRegulations": {
+        "title": "Updated Electronic Device Regulations for Transit Flights",
+        "description": "New safety guidelines require all smart devices and lithium battery packs to be fully charged and easily accessible during security screenings for all international transit routes."
+      },
+      "flightsResume": {
+        "title": "Direct Flights Resume Between Damascus and Paris",
+        "description": "Fly Cham is pleased to announce the resumption of our bi-weekly direct service connecting Damascus and Paris Charles de Gaulle, starting December 1st, 2025. Bookings are now open."
+      },
+      "winterSports": {
+        "title": "Winter Sports Equipment Allowance Special",
+        "description": "Enjoy complimentary baggage allowance for ski and snowboard gear on all flights booked to regional mountain destinations between November and February. Terms and weight limits apply."
+      },
+      "baggagePolicy": {
+        "title": "Updated Cabin Baggage Dimensions",
+        "description": "Please ensure your cabin bag meets the latest size guidelines before arriving at the airport. Oversized items may need to be checked at the gate."
+      },
+      "checkInWindow": {
+        "title": "Online Check-in Window Extended",
+        "description": "Online check-in is now available from 48 hours up to 90 minutes before departure on most Fly Cham routes, giving you more flexibility before you fly."
+      },
+      "visaReminder": {
+        "title": "Visa and Entry Requirements Reminder",
+        "description": "Passengers are responsible for holding valid travel documents for their destination and any transit points. Please verify requirements before travel."
+      },
+      "cabinComfort": {
+        "title": "Enhanced Onboard Comfort Amenities",
+        "description": "We are rolling out refreshed cabin soft products across our Airbus A320 fleet, including upgraded blankets and amenity kits on selected longer sectors."
+      },
+      "scheduleAdjustment": {
+        "title": "Summer Schedule Adjustments for Peak Travel",
+        "description": "Minor timing changes apply on selected Middle East routes during the peak summer period. Please reconfirm your itinerary in Manage Booking."
+      },
+      "loyaltyBonus": {
+        "title": "Cham Miles Bonus Miles Campaign",
+        "description": "Members can earn extra miles on qualifying flights booked and flown during the campaign window. Terms and participating routes apply."
+      },
+      "mobileBoarding": {
+        "title": "Mobile Boarding Pass Availability",
+        "description": "Mobile boarding passes are supported at more Fly Cham stations. Keep your device charged and display brightness high at boarding gates."
+      },
+      "sustainability": {
+        "title": "Our Commitment to More Sustainable Travel",
+        "description": "Learn how Fly Cham is investing in operational efficiency and community initiatives as part of our long-term responsibility roadmap."
+      }
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page"
+    }
   }
 }
