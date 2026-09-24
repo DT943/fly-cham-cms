@@ -16,8 +16,8 @@ const FooterLinkList = ({ columnId, links }) => {
         const highlight = meta.highlight
         const external = meta.external
         const className = highlight
-          ? `${typography.caption} inline-flex items-center gap-1.5 font-semibold text-primary-2 no-underline transition-colors hover:text-50`
-          : `${typography.caption} inline-flex items-center gap-1.5 text-50 no-underline transition-colors hover:text-primary-2`
+          ? `${typography.caption} inline-flex items-center gap-1.5 font-semibold text-secondary no-underline transition-colors hover:text-50`
+          : `${typography.caption} inline-flex items-center gap-1.5 text-50 no-underline transition-colors hover:text-secondary`
 
         return (
           <li key={linkId}>

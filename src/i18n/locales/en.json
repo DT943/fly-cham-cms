@@ -1125,11 +1125,16 @@
     },
     "footer": {
       "copyright": "© All Rights Reserved. Fly Cham 2025",
+      "follow": "Follow and share your experience with us",
       "legal": {
-        "sitemap": "Site Map"
+        "sitemap": "Site Map",
+        "terms": "Website Terms and Conditions",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies Policy",
+        "bookingTerms": "Bookings Terms and Conditions"
       },
       "social": {
-        "threads": "Threads",
+        "whatsapp": "WhatsApp",
         "tiktok": "TikTok",
         "instagram": "Instagram",
         "facebook": "Facebook",
@@ -1140,17 +1145,20 @@
       },
       "columns": {
         "about": {
-          "title": "About Fly Cham",
+          "title": "About",
           "links": {
             "about": "About Fly Cham",
-            "responsibility": "Responsibility",
+            "responsibility": "Our Responsibility",
             "fleet": "Our Fleet",
             "careers": "Careers"
           }
         },
         "book": {
-          "title": "Book & Manage",
+          "title": "Book Flights",
           "links": {
+            "searchFlights": "Search a Flights",
+            "flightSchedule": "Flight Schedule",
+            "flightStatus": "Flight Status",
             "bookFlight": "Book a Flight",
             "manageBooking": "Manage Booking"
           }
@@ -1172,8 +1180,9 @@
           }
         },
         "media": {
-          "title": "Media Center",
+          "title": "Media & News",
           "links": {
+            "mediaCenter": "Media center",
             "recentNews": "Recent News",
             "magazine": "Marhaba Magazine"
           }
@@ -1195,16 +1204,8 @@
             "offices": "Sales Offices",
             "gsa": "General Sales Agents",
             "forms": "Forms Requests",
+            "travelUpdates": "Travel Updates",
             "faqs": "FAQs"
-          }
-        },
-        "legal": {
-          "title": "Legal",
-          "links": {
-            "terms": "Website Terms and Conditions",
-            "privacy": "Privacy Policy",
-            "cookies": "Cookies Policy",
-            "bookingTerms": "Bookings Terms and Conditions"
           }
         }
       }
