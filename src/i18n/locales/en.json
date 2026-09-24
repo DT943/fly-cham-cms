@@ -983,9 +983,7 @@
     "footer": {
       "copyright": "© All Rights Reserved. Fly Cham 2025",
       "legal": {
-        "sitemap": "Site Map",
-        "privacy": "Privacy Policy",
-        "terms": "Website Terms and Conditions"
+        "sitemap": "Site Map"
       },
       "social": {
         "threads": "Threads",
@@ -1001,72 +999,69 @@
         "about": {
           "title": "About Fly Cham",
           "links": {
-            "story": "Our Story",
-            "mission": "Our Mission",
-            "vision": "Our Vision",
-            "values": "Our Values",
-            "responsibility": "Our Responsibility",
+            "about": "About Fly Cham",
+            "responsibility": "Responsibility",
             "fleet": "Our Fleet",
-            "media": "Media Center",
-            "chairman": "Chairman's Message"
+            "careers": "Careers"
           }
         },
         "book": {
-          "title": "Book Flights",
+          "title": "Book & Manage",
           "links": {
-            "searchFlight": "Search A Flight",
-            "schedules": "Flight Schedules",
-            "hotel": "Hotel Booking",
-            "carRental": "Car Rental",
-            "visa": "Visa Information",
-            "groupTravel": "Group Travel",
-            "privateFlights": "Request Private Flights"
+            "bookFlight": "Book a Flight",
+            "manageBooking": "Manage Booking"
           }
         },
-        "destinations": {
-          "title": "Our Destinations Network",
-          "sections": {
-            "holidays": "Holidays"
-          },
+        "whereWeFly": {
+          "title": "Where We Fly",
           "links": {
-            "domestic": "Domestic Destinations",
-            "international": "International Destinations",
-            "indirect": "Indirect Destinations",
-            "discoverSyria": "Discover Syria",
-            "tourism": "Tourism Programs",
-            "family": "Family Holidays Packages",
-            "honeymoon": "Honeymoon Packages"
-          }
-        },
-        "miles": {
-          "title": "Cham Miles Loyalty Program",
-          "links": {
-            "aboutMiles": "About Cham Miles",
-            "join": "Join The Program",
-            "claim": "Claim Miles",
-            "partners": "Cham Miles Partners",
-            "terms": "Terms And Conditions",
-            "calculator": "Miles Calculator"
+            "destinations": "Our Destinations",
+            "activities": "Activities and Attractions"
           }
         },
         "experience": {
           "title": "Travel Experience",
           "links": {
-            "before": "Before Travel",
-            "airport": "At The Airport",
-            "onBoard": "On Board",
-            "additional": "Additional Services"
+            "beforeYouFly": "Before You Fly",
+            "atAirport": "At the Airport",
+            "onboard": "Onboard",
+            "afterTravel": "After Travel"
+          }
+        },
+        "media": {
+          "title": "Media Center",
+          "links": {
+            "recentNews": "Recent News",
+            "magazine": "Marhaba Magazine"
+          }
+        },
+        "business": {
+          "title": "Business",
+          "links": {
+            "businessCenter": "Business Center",
+            "b2b": "B2B Platform",
+            "developers": "Developer Integrations",
+            "partner": "Become a Partner"
           }
         },
         "help": {
           "title": "Help",
           "links": {
+            "helpCenter": "Help Center",
             "contactUs": "Contact Us",
-            "inquiries": "Inquiries & Complaints",
-            "offices": "Our Sales Offices",
-            "agents": "Our Agents Worldwide",
-            "partner": "Join As a Partner",
+            "offices": "Sales Offices",
+            "gsa": "General Sales Agents",
+            "forms": "Forms Requests",
             "faqs": "FAQs"
+          }
+        },
+        "legal": {
+          "title": "Legal",
+          "links": {
+            "terms": "Website Terms and Conditions",
+            "privacy": "Privacy Policy",
+            "cookies": "Cookies Policy",
+            "bookingTerms": "Bookings Terms and Conditions"
           }
         }
       }

@@ -9,58 +9,86 @@ import {
   YoutubeLogoIcon,
 } from '@phosphor-icons/react'
 
+/**
+ * Footer navigation columns — headers and labels under each.
+ */
 export const footerColumns = [
   {
     id: 'about',
-    links: ['story', 'mission', 'vision', 'values', 'responsibility', 'fleet', 'media', 'chairman'],
+    href: '/about-us',
+    links: ['about', 'responsibility', 'fleet', 'careers'],
   },
   {
     id: 'book',
-    links: ['searchFlight', 'schedules', 'hotel', 'carRental', 'visa', 'groupTravel', 'privateFlights'],
+    href: '/',
+    links: ['bookFlight', 'manageBooking'],
   },
   {
-    id: 'destinations',
-    sections: [
-      { links: ['domestic', 'international', 'indirect'] },
-      { titleId: 'holidays', links: ['discoverSyria', 'tourism', 'family', 'honeymoon'] },
-    ],
-  },
-  {
-    id: 'miles',
-    links: ['aboutMiles', 'join', 'claim', 'partners', 'terms', 'calculator'],
+    id: 'whereWeFly',
+    href: '/our-destinations',
+    links: ['destinations', 'activities'],
   },
   {
     id: 'experience',
-    links: ['before', 'airport', 'onBoard', 'additional'],
+    href: '/travel-experience',
+    links: ['beforeYouFly', 'atAirport', 'onboard', 'afterTravel'],
+  },
+  {
+    id: 'media',
+    href: '/media-center',
+    links: ['recentNews', 'magazine'],
+  },
+  {
+    id: 'business',
+    href: '/business-center',
+    links: ['businessCenter', 'b2b', 'developers', 'partner'],
   },
   {
     id: 'help',
-    links: ['contactUs', 'inquiries', 'offices', 'agents', 'partner', 'faqs'],
+    href: '/help',
+    links: ['helpCenter', 'contactUs', 'offices', 'gsa', 'forms', 'faqs'],
+  },
+  {
+    id: 'legal',
+    href: '/legal',
+    links: ['terms', 'privacy', 'cookies', 'bookingTerms'],
   },
 ]
 
-export const footerLinkHrefs = {
-  story: '/about-us',
-  mission: '/about-us',
-  vision: '/about-us',
-  values: '/about-us',
-  responsibility: '/our-responsibility',
-  fleet: '/our-fleet',
-  media: '/media-center',
-  groupTravel: '/help/contact-us/forms',
-  contactUs: '/help/contact-us',
-  inquiries: '/help/contact-us/forms',
-  offices: '/help/contact-us/our-offices',
-  agents: '/help/contact-us/our-gsa',
-  partner: '/help/contact-us/our-gsa',
-  faqs: '/help/faqs',
+/** Optional per-link flags (e.g. external target). */
+export const footerLinkMeta = {
+  careers: { external: true },
 }
 
-export const footerLegal = ['sitemap', 'privacy', 'terms']
-
-export const footerLegalHrefs = {
-  privacy: '/legal/privacy-policy',
+export const footerLinkHrefs = {
+  about: '/about-us',
+  responsibility: '/our-responsibility',
+  fleet: '/our-fleet',
+  careers: 'https://careers.flycham.com/sy/en',
+  bookFlight: '/',
+  manageBooking: '/coming-soon',
+  destinations: '/our-destinations',
+  activities: '/our-destinations/city-sights',
+  beforeYouFly: '/travel-experience/before-you-fly',
+  atAirport: '/travel-experience/at-the-airport',
+  onboard: '/travel-experience/onboard',
+  afterTravel: '/travel-experience/after-travel',
+  recentNews: '/recent-news',
+  magazine: '/travel-experience/traveler-magazine',
+  businessCenter: '/business-center',
+  b2b: '/login-travel-agent',
+  developers: '/coming-soon',
+  partner: '/help/contact-us/forms',
+  helpCenter: '/help',
+  contactUs: '/help/contact-us',
+  offices: '/help/contact-us/our-offices',
+  gsa: '/help/contact-us/our-gsa',
+  forms: '/help/contact-us/forms',
+  faqs: '/help/faqs',
   terms: '/legal/terms-and-conditions',
+  privacy: '/legal/privacy-policy',
+  cookies: '/legal/cookies',
+  bookingTerms: '/legal/booking-terms-and-conditions',
 }
 
 export const socialLinks = [

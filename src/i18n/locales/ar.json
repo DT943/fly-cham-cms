@@ -983,9 +983,7 @@
     "footer": {
       "copyright": "© جميع الحقوق محفوظة. فلاي شام 2025",
       "legal": {
-        "sitemap": "خريطة الموقع",
-        "privacy": "سياسة الخصوصية",
-        "terms": "شروط وأحكام الموقع الإلكتروني"
+        "sitemap": "خريطة الموقع"
       },
       "social": {
         "threads": "ثريدز",
@@ -1001,72 +999,69 @@
         "about": {
           "title": "عن فلاي شام",
           "links": {
-            "story": "قصتنا",
-            "mission": "رسالتنا",
-            "vision": "رؤيتنا",
-            "values": "قيمنا",
-            "responsibility": "مسؤوليتنا",
+            "about": "عن فلاي شام",
+            "responsibility": "المسؤولية",
             "fleet": "أسطولنا",
-            "media": "المركز الإعلامي",
-            "chairman": "كلمة رئيس مجلس الإدارة"
+            "careers": "الوظائف"
           }
         },
         "book": {
-          "title": "حجز الرحلات",
+          "title": "الحجز والإدارة",
           "links": {
-            "searchFlight": "ابحث عن رحلة",
-            "schedules": "جداول الرحلات",
-            "hotel": "حجز الفنادق",
-            "carRental": "تأجير السيارات",
-            "visa": "معلومات التأشيرة",
-            "groupTravel": "السفر الجماعي",
-            "privateFlights": "طلب رحلات خاصة"
+            "bookFlight": "احجز رحلة",
+            "manageBooking": "إدارة الحجز"
           }
         },
-        "destinations": {
-          "title": "شبكة وجهاتنا",
-          "sections": {
-            "holidays": "العطل"
-          },
+        "whereWeFly": {
+          "title": "وجهاتنا",
           "links": {
-            "domestic": "الوجهات الداخلية",
-            "international": "الوجهات الدولية",
-            "indirect": "الوجهات غير المباشرة",
-            "discoverSyria": "اكتشف سوريا",
-            "tourism": "البرامج السياحية",
-            "family": "باقات العطل العائلية",
-            "honeymoon": "باقات شهر العسل"
-          }
-        },
-        "miles": {
-          "title": "برنامج أميال شام",
-          "links": {
-            "aboutMiles": "عن أميال شام",
-            "join": "انضم إلى البرنامج",
-            "claim": "المطالبة بالأميال",
-            "partners": "شركاء أميال شام",
-            "terms": "الشروط والأحكام",
-            "calculator": "حاسبة الأميال"
+            "destinations": "وجهاتنا",
+            "activities": "الأنشطة والمعالم"
           }
         },
         "experience": {
           "title": "تجربة السفر",
           "links": {
-            "before": "قبل السفر",
-            "airport": "في المطار",
-            "onBoard": "على متن الطائرة",
-            "additional": "خدمات إضافية"
+            "beforeYouFly": "قبل السفر",
+            "atAirport": "في المطار",
+            "onboard": "على متن الطائرة",
+            "afterTravel": "بعد السفر"
+          }
+        },
+        "media": {
+          "title": "المركز الإعلامي",
+          "links": {
+            "recentNews": "أحدث الأخبار",
+            "magazine": "مجلة مرحبا"
+          }
+        },
+        "business": {
+          "title": "الأعمال",
+          "links": {
+            "businessCenter": "مركز الأعمال",
+            "b2b": "منصة الأعمال B2B",
+            "developers": "تكاملات المطورين",
+            "partner": "كن شريكاً"
           }
         },
         "help": {
           "title": "المساعدة",
           "links": {
+            "helpCenter": "مركز المساعدة",
             "contactUs": "اتصل بنا",
-            "inquiries": "الاستفسارات والشكاوى",
             "offices": "مكاتب المبيعات",
-            "agents": "وكلاؤنا حول العالم",
-            "partner": "انضم كشريك",
+            "gsa": "وكلاء المبيعات العامون",
+            "forms": "طلبات النماذج",
             "faqs": "الأسئلة الشائعة"
+          }
+        },
+        "legal": {
+          "title": "قانوني",
+          "links": {
+            "terms": "شروط وأحكام الموقع",
+            "privacy": "سياسة الخصوصية",
+            "cookies": "سياسة ملفات تعريف الارتباط",
+            "bookingTerms": "شروط وأحكام الحجز"
           }
         }
       }
