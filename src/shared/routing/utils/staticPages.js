@@ -1,4 +1,4 @@
-import Home from '../../../pages/Home.jsx'
+import Home from '../../../pages/home/Home.jsx'
 import Help from '../../../pages/help/Help.jsx'
 import ContactUs from '../../../pages/contact-us/ContactUs.jsx'
 import OurOffices from '../../../pages/our-offices/OurOffices.jsx'

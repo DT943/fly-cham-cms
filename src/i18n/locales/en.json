@@ -23,6 +23,149 @@
       "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
+  "home": {
+    "hero": {
+      "carouselLabel": "Featured offers",
+      "controlsLabel": "Slider controls",
+      "bookNow": "Book now",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "goToSlide": "Go to slide {{index}}",
+      "slideStatus": "Slide {{current}} of {{total}}",
+      "slides": {
+        "aleppoMersin": {
+          "title": "Book Your Flight",
+          "subtitle": "Aleppo - Mersin and Vice Versa"
+        },
+        "damascusDubai": {
+          "title": "Book Your Flight",
+          "subtitle": "Damascus - Dubai and Vice Versa"
+        },
+        "exploreNetwork": {
+          "title": "Explore Our Network",
+          "subtitle": "Discover destinations across our growing route map"
+        }
+      }
+    },
+    "planTrip": {
+      "title": "Plan Your Trip With Us",
+      "subtitle": "Discover inspiring places across our network.",
+      "viewAll": "View all destinations",
+      "new": "New",
+      "priceFrom": "Round trip From {{price}} {{currency}}",
+      "explore": "Explore {{city}}",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "destinations": {
+        "istanbul": {
+          "name": "Istanbul",
+          "imageAlt": "Hagia Sophia in Istanbul at dusk"
+        },
+        "dubai": {
+          "name": "Dubai",
+          "imageAlt": "Dubai skyline at sunset"
+        },
+        "muscat": {
+          "name": "Muscat",
+          "imageAlt": "Coastal landscape in Muscat"
+        },
+        "yerevan": {
+          "name": "Yerevan",
+          "imageAlt": "Yerevan city view with Mount Ararat"
+        },
+        "erbil": {
+          "name": "Erbil",
+          "imageAlt": "Erbil citadel and cityscape"
+        },
+        "damascus": {
+          "name": "Damascus",
+          "imageAlt": "Historic Damascus cityscape"
+        }
+      }
+    },
+    "extraServices": {
+      "title": "Add extra services",
+      "subtitle": "Customize your journey by adding extra services online before you fly.",
+      "items": {
+        "seatSelection": {
+          "title": "Seat Selection",
+          "description": "Choose your preferred seat in advance for a more comfortable journey."
+        },
+        "extraBaggage": {
+          "title": "Extra Baggage",
+          "description": "Add extra baggage online before you fly and save time at the airport."
+        },
+        "limousine": {
+          "title": "Add Limousine",
+          "description": "Enjoy complimentary limousine service when you fly Business Class."
+        }
+      }
+    },
+    "travelExperience": {
+      "title": "Travel Experience",
+      "subtitle": "Thoughtful service to every step of your journey",
+      "explore": "Explore Our Experiences",
+      "learnMore": "Learn More",
+      "cards": {
+        "beforeTravel": {
+          "title": "Before Travel",
+          "description": "Plan ahead and enjoy a smooth start to your journey. Book services, check flight status, and prepare your documents.",
+          "imageAlt": "A business traveller preparing for a flight"
+        },
+        "atAirport": {
+          "title": "At The Airport",
+          "description": "Make your airport experience smoother with services at the airport, including Business Lounge access, wheelchair support, and VIP boarding.",
+          "imageAlt": "A traveller walking through the airport terminal"
+        },
+        "onboard": {
+          "title": "Onboard",
+          "description": "Enjoy entertainment, comfort, and warm hospitality onboard for a more pleasant journey. With our selection of onboard services and entertainment options.",
+          "imageAlt": "A Fly Cham cabin crew member welcoming passengers onboard"
+        },
+        "afterTravel": {
+          "title": "After Travel",
+          "description": "Find the support you may need after your flight, from baggage claims and tracking to refunds, loyalty miles, and customer support.",
+          "imageAlt": "A Fly Cham cabin crew member on the tarmac after arrival"
+        }
+      }
+    },
+    "chamMilesBanner": {
+      "title": "Join Cham Miles",
+      "description": "Earn miles every time you fly with Fly Cham and enjoy exclusive rewards and benefits with our loyalty program, Cham Miles.",
+      "joinNow": "join now",
+      "discoverMore": "Discover more",
+      "imageAlt": "Passengers looking out the aircraft windows"
+    },
+    "about": {
+      "title": "About Fly Cham",
+      "subtitle": "Flying Together to Your Destination",
+      "cta": "Read more about us",
+      "cards": {
+        "aboutUs": {
+          "title": "About us",
+          "description": "We strive to provide comfortable travel experiences from planning until arrival, combining attention to detail and quality of service, to bring you closer and take you to the destinations that hold the most beautiful moments and memories for you.",
+          "imageAlt": "Fly Cham cabin crew beside an aircraft"
+        },
+        "whoWeAre": {
+          "title": "Who We Are",
+          "description": "Our mission is to deliver integrated aviation services for both passengers and cargo of the highest quality, in line with international standards, and guided by authentic Syrian hospitality.",
+          "imageAlt": "Fly Cham aircraft flying above the clouds"
+        },
+        "ourMission": {
+          "title": "Our Mission",
+          "description": "We design each trip with care, according to the wishes, pace and style of every traveller. Our team coordinates the journey from destination choice to the smallest detail, so every flight feels personal and reliable.",
+          "imageAlt": "A Fly Cham cabin crew member presenting a model aircraft"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Stay Inspired for Your Next Journey",
+      "description": "Receive destination ideas, travel stories, Fly Cham updates for your future journeys directly in your inbox.",
+      "label": "Email address",
+      "placeholder": "Enter your email address",
+      "cta": "Subscribe"
+    }
+  },
   "help": {
     "hero": {
       "title": "Help Center",
