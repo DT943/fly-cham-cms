@@ -5,28 +5,29 @@ import { typography } from '../../../styles/typography.js'
 import { homeChamMilesBanner } from '../utils/homeChamMilesBanner.js'
 
 /**
- * Join Cham Miles split banner — teal geometric panel + cabin photo.
+ * Join Cham Miles split banner — gradient + mark panel + cabin photo.
  */
 const HomeChamMilesBanner = () => {
   const { t } = useTranslation()
-  const { photoImage, joinHref, discoverHref } = homeChamMilesBanner
+  const { photoImage, markImage, joinHref, discoverHref } = homeChamMilesBanner
 
   return (
     <section className="w-full min-w-0">
       <Container className="py-6 md:py-8">
         <div className="grid min-w-0 overflow-hidden rounded-2xl lg:grid-cols-2">
-          {/* Left background: primary teal + diagonal geometric overlays */}
           <div
             className="relative flex min-h-64 flex-col justify-between gap-8 overflow-hidden p-6 sm:min-h-72 sm:p-8 md:p-10 lg:min-h-80"
             style={{
-              backgroundColor: 'var(--color-primary-1, #006080)',
-              backgroundImage: `
-                linear-gradient(145deg, transparent 38%, rgba(1, 38, 59, 0.55) 38.15%, rgba(1, 38, 59, 0.55) 62%, transparent 62.15%),
-                linear-gradient(145deg, transparent 52%, rgba(1, 38, 59, 0.32) 52.15%, rgba(1, 38, 59, 0.32) 82%, transparent 82.15%),
-                linear-gradient(145deg, rgba(0, 96, 128, 0.2) 0%, transparent 48%)
-              `,
+              background: 'linear-gradient(102.31deg, #006080 0%, #00141A 100%)',
             }}
           >
+            <img
+              src={markImage}
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute inset-e-0 top-1/2 h-[220%] w-[min(58%,20rem)] max-w-none -translate-y-2/4 select-none object-cover object-left opacity-10 mix-blend-screen sm:w-[min(52%,24rem)] lg:w-[min(65%,28rem)]"
+            />
+
             <div className="relative z-10 flex max-w-md flex-col gap-3 text-50">
               <h2 className={`m-0 font-semibold leading-tight ${typography.sectionTitle} lg:text-[32px]`}>
                 {t('home.chamMilesBanner.title')}
@@ -45,14 +46,13 @@ const HomeChamMilesBanner = () => {
               </LocalizedLink>
               <LocalizedLink
                 href={discoverHref}
-                className={`inline-flex items-center justify-center rounded-lg bg-50 px-6 py-3 font-semibold text-primary-1 no-underline transition-colors hover:bg-100 ${typography.button}`}
+                className={`inline-flex items-center justify-center rounded-lg bg-50 px-6 py-3 font-semibold text-primary-1 no-underline transition-colors hover:bg-50/90 ${typography.button}`}
               >
                 {t('home.chamMilesBanner.discoverMore')}
               </LocalizedLink>
             </div>
           </div>
 
-          {/* Right background: cabin photograph */}
           <div className="relative min-h-56 overflow-hidden bg-primary-800 sm:min-h-64 lg:min-h-full">
             <img
               src={photoImage}

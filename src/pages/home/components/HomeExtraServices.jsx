@@ -36,7 +36,7 @@ const HomeExtraServices = () => {
               <LocalizedLink
                 key={service.id}
                 href={service.href}
-                className="flex min-w-0 items-center gap-3 rounded-2xl border border-200 bg-50 p-4 no-underline shadow-[0_2px_12px_rgba(33,37,41,0.04)] transition-shadow hover:shadow-[0_4px_16px_rgba(33,37,41,0.08)] sm:gap-4 sm:p-5"
+                className="flex min-w-0 items-start gap-3 rounded-2xl border border-200 bg-50 p-4 no-underline shadow-[0_2px_12px_rgba(33,37,41,0.04)] transition-shadow hover:shadow-[0_4px_16px_rgba(33,37,41,0.08)] sm:gap-4 sm:p-5"
               >
                 <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#E8F1F4] text-primary-1">
                   <Icon size={22} weight="regular" />
@@ -52,7 +52,7 @@ const HomeExtraServices = () => {
                 <CaretRight
                   size={18}
                   weight="bold"
-                  className="shrink-0 text-primary-1 rtl:-scale-x-100"
+                  className="mt-1 shrink-0 self-center text-primary-1 rtl:-scale-x-100"
                   aria-hidden
                 />
               </LocalizedLink>

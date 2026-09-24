@@ -122,54 +122,56 @@ const HomeHeroSlider = () => {
         })}
       </Container>
 
-      <div className="absolute inset-x-0 bottom-28 z-10 flex justify-center sm:bottom-32 md:bottom-36 lg:bottom-40">
-        <div
-          className="flex items-center gap-2.5"
-          role="group"
-          aria-label={t('home.hero.controlsLabel')}
-        >
-          <button
-            type="button"
-            onClick={() => setPaused((value) => !value)}
-            aria-label={paused ? t('home.hero.play') : t('home.hero.pause')}
-            className="grid size-7 place-items-center rounded-full border-0 bg-transparent p-0 text-primary-1"
+      <div className="absolute inset-x-0 bottom-28 z-10 sm:bottom-32 md:bottom-36 lg:bottom-40">
+        <Container className="flex justify-center ml-1">
+          <div
+            className="flex items-center gap-2.5"
+            role="group"
+            aria-label={t('home.hero.controlsLabel')}
           >
-            {paused ? <Play size={14} weight="fill" /> : <Pause size={14} weight="fill" />}
-          </button>
+            <button
+              type="button"
+              onClick={() => setPaused((value) => !value)}
+              aria-label={paused ? t('home.hero.play') : t('home.hero.pause')}
+              className="grid size-7 place-items-center rounded-full border-0 bg-transparent p-0 text-primary-1"
+            >
+              {paused ? <Play size={16} weight="regular" /> : <Pause size={16} weight="regular" />}
+            </button>
 
-          <div className="flex items-center gap-2">
-            {homeHeroSlides.map((slide, index) => {
-              const isActive = index === activeIndex
-              if (isActive) {
+            <div className="flex items-center gap-2">
+              {homeHeroSlides.map((slide, index) => {
+                const isActive = index === activeIndex
+                if (isActive) {
+                  return (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      aria-label={t('home.hero.goToSlide', { index: index + 1 })}
+                      aria-current="true"
+                      onClick={() => goTo(index)}
+                      className="relative h-1.5 w-9 overflow-hidden rounded-full border-0 bg-primary-100 p-0"
+                    >
+                      <span
+                        className="absolute inset-y-0 inset-s-0 rounded-full bg-primary-1"
+                        style={{ width: `${progress * 100}%` }}
+                      />
+                    </button>
+                  )
+                }
+
                 return (
                   <button
                     key={slide.id}
                     type="button"
                     aria-label={t('home.hero.goToSlide', { index: index + 1 })}
-                    aria-current="true"
                     onClick={() => goTo(index)}
-                    className="relative h-1.5 w-9 overflow-hidden rounded-full border-0 bg-primary-100 p-0"
-                  >
-                    <span
-                      className="absolute inset-y-0 inset-s-0 rounded-full bg-primary-1"
-                      style={{ width: `${progress * 100}%` }}
-                    />
-                  </button>
+                    className="size-1.5 shrink-0 rounded-full border-0 bg-primary-200/90 p-0"
+                  />
                 )
-              }
-
-              return (
-                <button
-                  key={slide.id}
-                  type="button"
-                  aria-label={t('home.hero.goToSlide', { index: index + 1 })}
-                  onClick={() => goTo(index)}
-                  className="size-1.5 shrink-0 rounded-full border-0 bg-primary-200/90 p-0"
-                />
-              )
-            })}
+              })}
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       <span className="sr-only" aria-live="polite">
