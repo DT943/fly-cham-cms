@@ -1,22 +1,17 @@
 import { useCallback, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { stripLanguage, withLanguage } from '../../../i18n/languages.js'
+import { useNavigate } from 'react-router-dom'
+import { withLanguage } from '../../../i18n/languages.js'
 import useCurrentLanguage from '../../hooks/useCurrentLanguage.js'
-import { isNewPagePath, toNewPageHref } from '../../routing/utils/toNewPageHref.js'
 import { searchAppContent } from '../utils/searchContent.js'
 import { buildSearchHitHref, scrollToSearchHit } from '../utils/searchHit.js'
 
 function useAppSearch({ types, href } = {}) {
   const navigate = useNavigate()
-  const { pathname } = useLocation()
   const language = useCurrentLanguage()
   const [query, setQuery] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const preferNewPages = isNewPagePath(stripLanguage(pathname))
 
-  const results = searchAppContent(query, { types, href }).map((hit) =>
-    preferNewPages ? { ...hit, href: toNewPageHref(hit.href) } : hit,
-  )
+  const results = searchAppContent(query, { types, href })
 
   function handleQueryChange(event) {
     const value = event.target.value

@@ -22,7 +22,7 @@ import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
 import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
 import { createLanguageRedirect } from '../components/OurOfficesRedirect.jsx'
 
-/** Official CMS help routes (same paths as the old static help pages). */
+/** Official CMS help routes. */
 export const helpPages = {
   '/help': NewHelp,
   '/help/contact-us': NewContactUs,
@@ -40,37 +40,72 @@ export const helpPages = {
 }
 
 export const ourDestinationsPages = {
-  '/new-our-destinations': NewOurDestinations,
-  '/our-destinations/new-flights-to-damascus': NewFlightsToDamascus,
-  '/our-destinations/new-things-to-do-in-damascus': NewThingsToDoInDamascus,
-  '/our-destinations/new-city-sights': NewCitySights,
+  '/our-destinations': NewOurDestinations,
+  '/our-destinations/flights-to-damascus': NewFlightsToDamascus,
+  '/our-destinations/things-to-do-in-damascus': NewThingsToDoInDamascus,
+  '/our-destinations/city-sights': NewCitySights,
+  // Legacy `new-*` URLs
+  '/new-our-destinations': createLanguageRedirect('/our-destinations'),
+  '/our-destinations/new-flights-to-damascus': createLanguageRedirect(
+    '/our-destinations/flights-to-damascus',
+  ),
+  '/our-destinations/new-things-to-do-in-damascus': createLanguageRedirect(
+    '/our-destinations/things-to-do-in-damascus',
+  ),
+  '/our-destinations/new-city-sights': createLanguageRedirect('/our-destinations/city-sights'),
 }
 
 export const travelExperiencePages = {
-  '/new-travel-experience': NewTravelExperience,
-  '/travel-experience/new-seat-selection': NewSeatSelection,
-  '/travel-experience/new-before-you-fly': NewBeforeYouFly,
-  '/travel-experience/new-traveler-magazine': NewTravelerMagazine,
-  '/travel-experience/new-our-responsibility': NewOurResponsibility,
+  '/travel-experience': NewTravelExperience,
+  '/travel-experience/seat-selection': NewSeatSelection,
+  '/travel-experience/before-you-fly': NewBeforeYouFly,
+  '/travel-experience/traveler-magazine': NewTravelerMagazine,
+  '/our-responsibility': NewOurResponsibility,
+  // Legacy `new-*` URLs
+  '/new-travel-experience': createLanguageRedirect('/travel-experience'),
+  '/travel-experience/new-seat-selection': createLanguageRedirect(
+    '/travel-experience/seat-selection',
+  ),
+  '/travel-experience/new-before-you-fly': createLanguageRedirect(
+    '/travel-experience/before-you-fly',
+  ),
+  '/travel-experience/new-traveler-magazine': createLanguageRedirect(
+    '/travel-experience/traveler-magazine',
+  ),
+  '/travel-experience/new-our-responsibility': createLanguageRedirect('/our-responsibility'),
 }
 
 export const legalPages = {
-  '/new-legal': NewLegal,
-  '/legal/new-terms-and-conditions': NewLegalDocument,
-  '/legal/new-booking-terms-and-conditions': NewLegalDocument,
-  '/legal/new-privacy-policy': NewLegalDocument,
-  '/legal/new-cookies': NewLegalDocument,
+  '/legal': NewLegal,
+  '/legal/terms-and-conditions': NewLegalDocument,
+  '/legal/booking-terms-and-conditions': NewLegalDocument,
+  '/legal/privacy-policy': NewLegalDocument,
+  '/legal/cookies': NewLegalDocument,
+  // Legacy `new-*` URLs
+  '/new-legal': createLanguageRedirect('/legal'),
+  '/legal/new-terms-and-conditions': createLanguageRedirect('/legal/terms-and-conditions'),
+  '/legal/new-booking-terms-and-conditions': createLanguageRedirect(
+    '/legal/booking-terms-and-conditions',
+  ),
+  '/legal/new-privacy-policy': createLanguageRedirect('/legal/privacy-policy'),
+  '/legal/new-cookies': createLanguageRedirect('/legal/cookies'),
 }
 
 export const otherPages = {
-  '/new-about-us': NewAboutUs,
-  '/new-our-fleet': NewOurFleet,
-  '/new-media-center': NewMediaCenter,
-  '/new-recent-news': NewRecentNews,
-  '/media-center/news/new-fleetUpdate': NewNewsDetail,
+  '/about-us': NewAboutUs,
+  '/our-fleet': NewOurFleet,
+  '/media-center': NewMediaCenter,
+  '/recent-news': NewRecentNews,
+  '/media-center/news/fleetUpdate': NewNewsDetail,
+  // Legacy `new-*` URLs
+  '/new-about-us': createLanguageRedirect('/about-us'),
+  '/new-our-fleet': createLanguageRedirect('/our-fleet'),
+  '/new-media-center': createLanguageRedirect('/media-center'),
+  '/new-recent-news': createLanguageRedirect('/recent-news'),
+  '/media-center/news/new-fleetUpdate': createLanguageRedirect('/media-center/news/fleetUpdate'),
 }
 
-/** CMS-driven pages. */
+/** CMS-driven pages (official URLs). */
 export const newPages = {
   ...helpPages,
   ...ourDestinationsPages,

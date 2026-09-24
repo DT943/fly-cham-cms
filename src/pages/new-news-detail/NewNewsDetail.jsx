@@ -8,11 +8,11 @@ import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
 /**
  * Dynamic news article pages.
- * Frontend: `/media-center/news/new-fleetUpdate`
+ * Frontend: `/media-center/news/fleetUpdate`
  * CMS slug: `news-fleet-update`
  */
 const ARTICLE_PAGES = {
-  '/media-center/news/new-fleetUpdate': {
+  '/media-center/news/fleetUpdate': {
     slug: 'news-fleet-update',
   },
 }
@@ -28,7 +28,7 @@ const NewNewsDetailContent = () => {
   const { pathname } = useLocation()
   const meta =
     ARTICLE_PAGES[stripLanguage(pathname)] ||
-    ARTICLE_PAGES['/media-center/news/new-fleetUpdate']
+    ARTICLE_PAGES['/media-center/news/fleetUpdate']
   const { data: page, isLoading, isError, error } = usePage(meta.slug, language)
 
   return (

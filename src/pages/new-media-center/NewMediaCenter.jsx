@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page for slug `media-center` (URL `/new-media-center`).
+// Dynamic CMS page for slug `media-center` (URL `/media-center`).
 // Blocks: page-media-hero, page-intro, latest-news, news-grid,
 // magazine-banner, media-contact-cards, media-newsletter-signup (fullBleed).
 const PAGE_SLUG = 'media-center'

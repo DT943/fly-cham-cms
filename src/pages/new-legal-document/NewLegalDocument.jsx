@@ -7,16 +7,16 @@ import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
 const PAGES = {
-  '/legal/new-terms-and-conditions': {
+  '/legal/terms-and-conditions': {
     slug: 'terms-and-conditions',
   },
-  '/legal/new-booking-terms-and-conditions': {
+  '/legal/booking-terms-and-conditions': {
     slug: 'booking-terms-and-conditions',
   },
-  '/legal/new-privacy-policy': {
+  '/legal/privacy-policy': {
     slug: 'privacy-policy',
   },
-  '/legal/new-cookies': {
+  '/legal/cookies': {
     slug: 'cookies',
   },
 }
@@ -30,7 +30,7 @@ const queryClient = new QueryClient({
 const NewLegalDocumentContent = () => {
   const language = useCurrentLanguage()
   const { pathname } = useLocation()
-  const meta = PAGES[stripLanguage(pathname)] || PAGES['/legal/new-terms-and-conditions']
+  const meta = PAGES[stripLanguage(pathname)] || PAGES['/legal/terms-and-conditions']
   const { data: page, isLoading, isError, error } = usePage(meta.slug, language)
 
   return (

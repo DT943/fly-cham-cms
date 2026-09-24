@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page for slug `legal` (URL `/new-legal`).
+// Dynamic CMS page for slug `legal` (URL `/legal`).
 // Blocks: legal-hub (title, directory cards, help banner).
 const PAGE_SLUG = 'legal'
 

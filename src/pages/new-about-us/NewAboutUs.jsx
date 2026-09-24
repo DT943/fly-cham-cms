@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page for slug `about-us` (URL `/new-about-us`).
+// Dynamic CMS page for slug `about-us` (URL `/about-us`).
 // Blocks: page-media-hero, seat-journey × 3 (intro, mission, vision),
 // promo-banner (fleet), faqs.
 const PAGE_SLUG = 'about-us'

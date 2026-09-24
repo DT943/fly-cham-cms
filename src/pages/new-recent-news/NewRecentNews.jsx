@@ -4,7 +4,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 
-// Dynamic CMS page for slug `recent-news` (URL `/new-recent-news`).
+// Dynamic CMS page for slug `recent-news` (URL `/recent-news`).
 // Blocks: recent-news (header + filters + listing), media-cards.
 const PAGE_SLUG = 'recent-news'
 

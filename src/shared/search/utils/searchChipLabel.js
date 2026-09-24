@@ -1,6 +1,4 @@
-import { staticToNewPath } from '../../routing/utils/toNewPageHref.js'
-
-/** Static path → i18n key for the search-result page chip. */
+/** Path → i18n key for the search-result page chip. */
 const PAGE_CHIP_KEYS = {
   '/help': 'common.help',
   '/help/contact-us': 'common.contactUs',
@@ -32,13 +30,9 @@ const PAGE_CHIP_KEYS = {
   '/legal/cookies': 'legal.cookies.breadcrumb',
 }
 
-const newToStaticPath = Object.fromEntries(
-  Object.entries(staticToNewPath).map(([staticPath, newPath]) => [newPath, staticPath]),
-)
-
 function resolvePageChipKey(href = '') {
   if (!href) return null
-  return PAGE_CHIP_KEYS[href] || PAGE_CHIP_KEYS[newToStaticPath[href]] || null
+  return PAGE_CHIP_KEYS[href] || null
 }
 
 /**
