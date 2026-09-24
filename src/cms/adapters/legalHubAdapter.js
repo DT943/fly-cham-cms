@@ -1,13 +1,11 @@
-import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
+import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**
- * Map a CMS "legal-hub" block to <LegalHub /> — page title, 2-up directory
- * cards, and the help banner.
+ * Map a CMS "legal-hub" block to <LegalHub /> — page title and 2-up directory cards.
  */
 export function legalHubProps(block, lang) {
   const content = pickContent(block.content, lang)
   const style = block.style || {}
-  const help = content.help || {}
 
   return {
     title: content.title,
@@ -20,15 +18,6 @@ export function legalHubProps(block, lang) {
       cta: item.cta,
       href: resolveCmsHref(item.href),
     })),
-    help: {
-      title: help.title,
-      description: help.description,
-      cta: help.cta,
-      href: resolveCmsHref(help.href) || '/help',
-      image: resolveCmsAsset(help.imageUrl) || undefined,
-      imageAlt: help.imageAlt,
-      objectPosition: help.objectPosition || '70% center',
-    },
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -44,7 +33,6 @@ const STYLE_KEYS = [
   'showTitle',
   'showSubtitle',
   'showCards',
-  'showHelpCta',
   'showSectionBg',
   'sectionBg',
   'titleColor',
@@ -70,21 +58,6 @@ const STYLE_KEYS = [
   'ctaFontWeight',
   'ctaColorHover',
   'ctaFontWeightHover',
-  'helpTitleColor',
-  'helpTitleFontWeight',
-  'helpTitleColorHover',
-  'helpTitleFontWeightHover',
-  'helpDescriptionColor',
-  'helpDescriptionFontWeight',
-  'helpDescriptionColorHover',
-  'helpDescriptionFontWeightHover',
-  'helpButtonBg',
-  'helpButtonBgHover',
-  'helpButtonText',
-  'helpButtonTextHover',
-  'helpButtonTextFontWeight',
-  'helpButtonTextFontWeightHover',
-  'helpOverlayColor',
   'showLinks',
   'linkColor',
   'linkHoverColor',

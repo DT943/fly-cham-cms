@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next'
 import { Shield, Cookie, AirplaneTilt, Scroll } from '@phosphor-icons/react'
 import Breadcrumbs from '../../shared/components/Breadcrumbs.jsx'
 import Container from '../../shared/components/Container.jsx'
-import HelpCta from '../../shared/components/HelpCta.jsx'
 import { typography } from '../../styles/typography.js'
 import LegalHubCard from './components/LegalHubCard.jsx'
 
@@ -43,15 +42,6 @@ const Legal = () => {
             <LegalHubCard key={card.id} {...card} />
           ))}
         </div>
-
-        <HelpCta
-          contained={false}
-          title={t('legal.hub.help.title')}
-          description={t('legal.hub.help.description')}
-          cta={t('legal.hub.help.cta')}
-          imageAlt={t('legal.hub.help.imageAlt')}
-          href="/help"
-        />
       </Container>
     </main>
   )

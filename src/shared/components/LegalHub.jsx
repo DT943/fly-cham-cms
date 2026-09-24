@@ -11,13 +11,11 @@ import {
   Globe,
 } from '@phosphor-icons/react'
 import LocalizedLink from './LocalizedLink.jsx'
-import HelpCta from './HelpCta.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { typography } from '../../styles/typography.js'
 import {
   colorVar,
   CMS_TEXT_HOVER_CLASS,
-  getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 
@@ -32,28 +30,24 @@ const ICON_MAP = {
   globe: Globe,
 }
 
-const DEFAULT_ICON = Shield
-
 function resolveIcon(name) {
   return ICON_MAP[name] || resolvePhosphorIcon(name)
 }
 
 /**
- * Legal hub: page title, subtitle, 2-up directory cards, and the help banner.
- * Defaults match static `/legal` (Legal.jsx + LegalHubCard + HelpCta).
+ * Legal hub: page title, subtitle, and 2-up directory cards.
+ * Defaults match static `/legal` (Legal.jsx + LegalHubCard).
  */
 const LegalHub = ({
   title = '',
   subtitle = '',
   items = [],
-  help = {},
   links = [],
   showLinks = true,
   showHeader = true,
   showTitle = true,
   showSubtitle = true,
   showCards = true,
-  showHelpCta = true,
   showSectionBg = false,
   sectionBg = '100',
   ...textStyle
@@ -62,29 +56,8 @@ const LegalHub = ({
   const visibleSubtitle = showHeader && showSubtitle && subtitle
   const visibleHeader = visibleTitle || visibleSubtitle
   const visibleCards = showCards !== false && items.length > 0
-  const visibleHelp =
-    showHelpCta !== false && Boolean(help?.title || help?.cta)
 
-  if (!visibleHeader && !visibleCards && !visibleHelp) return null
-
-  const helpButton = getButtonStyle(
-    {
-      helpButtonBg: textStyle.helpButtonBg,
-      helpButtonBgHover: textStyle.helpButtonBgHover,
-      helpButtonText: textStyle.helpButtonText,
-      helpButtonTextHover: textStyle.helpButtonTextHover,
-      helpButtonTextFontWeight: textStyle.helpButtonTextFontWeight,
-      helpButtonTextFontWeightHover: textStyle.helpButtonTextFontWeightHover,
-    },
-    {
-      bgKey: 'helpButtonBg',
-      bgFallback: 'secondary',
-      bgHoverFallback: 'secondary-800',
-      textKey: 'helpButtonText',
-      textFallback: 'btn',
-      weightFallback: 'semibold',
-    },
-  )
+  if (!visibleHeader && !visibleCards) return null
 
   const linkProps = {
     links,
@@ -197,21 +170,6 @@ const LegalHub = ({
             )
           })}
         </div>
-      ) : null}
-
-      {visibleHelp ? (
-        <HelpCta
-          contained={false}
-          {...(help.image ? { image: help.image } : {})}
-          imageAlt={help.imageAlt}
-          title={help.title}
-          description={help.description}
-          cta={help.cta}
-          href={help.href || '/help'}
-          objectPosition={help.objectPosition || '70% center'}
-          buttonClassName={helpButton.className}
-          buttonStyle={helpButton.style}
-        />
       ) : null}
     </section>
   )
