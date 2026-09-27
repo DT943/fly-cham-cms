@@ -10,11 +10,11 @@ const HomeTripCard = ({ id, image, href, isNew, priceFrom, currency }) => {
   const { t } = useTranslation()
 
   return (
-    <article className="group relative aspect-16/13 min-w-0 overflow-hidden rounded-xl">
+    <article className="relative aspect-16/13 min-w-0 overflow-hidden rounded-xl">
       <img
         src={image}
         alt={t(`home.planTrip.destinations.${id}.imageAlt`)}
-        className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+        className="absolute inset-0 size-full object-cover"
       />
       <div
         aria-hidden
@@ -43,7 +43,7 @@ const HomeTripCard = ({ id, image, href, isNew, priceFrom, currency }) => {
           aria-label={t('home.planTrip.explore', {
             city: t(`home.planTrip.destinations.${id}.name`),
           })}
-          className="grid size-9 shrink-0 place-items-center rounded-full bg-primary-1 text-50 no-underline transition-colors hover:bg-primary-700 md:size-10"
+          className="grid size-9 shrink-0 place-items-center rounded-full bg-primary-1 text-50 no-underline md:size-10"
         >
           <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
         </LocalizedLink>

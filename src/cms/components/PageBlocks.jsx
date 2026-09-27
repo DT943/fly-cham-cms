@@ -1,6 +1,20 @@
 import Container from '../../shared/components/Container.jsx'
 import BlockRenderer from './BlockRenderer.jsx'
 import { getSection } from '../sectionRegistry.js'
+import { pickStyle } from '../adapters/pick.js'
+
+/**
+ * A registry entry's `fullBleed` is either a boolean or a function of the
+ * block's (language-resolved) style — e.g. newsletter-signup is full-bleed only
+ * in its `photo` variant.
+ */
+const isFullBleed = (section, block, lang) => {
+  if (!section) return false
+  if (typeof section.fullBleed === 'function') {
+    return Boolean(section.fullBleed(pickStyle(block.style, lang) || {}))
+  }
+  return Boolean(section.fullBleed)
+}
 
 // CMS blocks carry both `order` and `position`; sort by order, then position.
 const byOrder = (a, b) =>
@@ -14,20 +28,39 @@ const byOrder = (a, b) =>
  * the registry (e.g. page-media-hero) render bare so they span the full width of
  * the page — matching the static pages, without any viewport-width hack.
  */
-const PageBlocks = ({ blocks = [], lang, className = '' }) => {
+/**
+ * `flushBottom`: when the last block is full-bleed (e.g. a newsletter photo
+ * band), drop the bottom padding so it sits directly on the footer.
+ * `gapClass`: override the vertical spacing between blocks for a page whose
+ * design uses a different rhythm (e.g. Travel Updates).
+ */
+const PageBlocks = ({
+  blocks = [],
+  lang,
+  className = '',
+  flushBottom = false,
+  gapClass = 'gap-6 md:gap-8',
+}) => {
   const sorted = [...blocks].sort(byOrder)
   // A leading full-bleed block (e.g. a hero) should sit flush under the page
   // header instead of below an empty top-padding band.
-  const leadFullBleed = Boolean(getSection(sorted[0]?.sectionId)?.fullBleed)
-  const paddingClass = leadFullBleed ? 'pb-5 md:pb-10' : 'py-5 md:py-10'
+  const leadFullBleed = sorted[0]
+    ? isFullBleed(getSection(sorted[0].sectionId), sorted[0], lang)
+    : false
+  const last = sorted[sorted.length - 1]
+  const trailFullBleed =
+    flushBottom && last ? isFullBleed(getSection(last.sectionId), last, lang) : false
+  const topClass = leadFullBleed ? '' : 'pt-5 md:pt-10'
+  const bottomClass = trailFullBleed ? '' : 'pb-5 md:pb-10'
+  const paddingClass = `${topClass} ${bottomClass}`.trim()
 
   return (
-    <div className={`flex flex-col gap-6 md:gap-8 ${paddingClass} ${className}`.trim()}>
+    <div className={`flex flex-col ${gapClass} ${paddingClass} ${className}`.trim()}>
       {sorted.map((block) => {
         const section = getSection(block.sectionId)
         const rendered = <BlockRenderer key={block.uid} block={block} lang={lang} />
         // Unregistered (renders null) or full-bleed → no Container wrapper.
-        if (!section || section.fullBleed) return rendered
+        if (!section || isFullBleed(section, block, lang)) return rendered
         return <Container key={block.uid}>{rendered}</Container>
       })}
     </div>

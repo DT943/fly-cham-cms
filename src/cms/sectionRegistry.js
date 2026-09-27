@@ -49,11 +49,31 @@ import LegalHub from '../shared/components/LegalHub.jsx'
 import LegalDocument from '../shared/components/LegalDocument.jsx'
 import LegalMoreInfo from '../shared/components/LegalMoreInfo.jsx'
 import Breadcrumbs from '../shared/components/Breadcrumbs.jsx'
-import BookingWidget from '../shared/booking/BookingWidget.jsx'
+import BookingWidgetBlock from './components/BookingWidgetBlock.jsx'
 import NewsDetailHeader from '../shared/components/NewsDetailHeader.jsx'
 import NewsDetailParagraphs from '../shared/components/NewsDetailParagraphs.jsx'
 import NewsDetailGallery from '../shared/components/NewsDetailGallery.jsx'
 import NewsDetailFigure from '../shared/components/NewsDetailFigure.jsx'
+import HomePlanTrip from '../shared/components/HomePlanTrip.jsx'
+import { homePlanTripProps } from './adapters/homePlanTripAdapter.js'
+import HomeExtraServices from '../shared/components/HomeExtraServices.jsx'
+import { homeExtraServicesProps } from './adapters/homeExtraServicesAdapter.js'
+import HomeTravelExperience from '../shared/components/HomeTravelExperience.jsx'
+import { homeTravelExperienceProps } from './adapters/homeTravelExperienceAdapter.js'
+import HomeChamMilesBanner from '../shared/components/HomeChamMilesBanner.jsx'
+import { homeChamMilesBannerProps } from './adapters/homeChamMilesBannerAdapter.js'
+import HomeAbout from '../shared/components/HomeAbout.jsx'
+import { homeAboutProps } from './adapters/homeAboutAdapter.js'
+import TravelUpdatesAdvisory from '../shared/components/TravelUpdatesAdvisory.jsx'
+import { travelUpdatesAdvisoryProps } from './adapters/travelUpdatesAdvisoryAdapter.js'
+import TravelUpdatesList from '../shared/components/TravelUpdatesList.jsx'
+import { travelUpdatesListProps } from './adapters/travelUpdatesListAdapter.js'
+import CargoShipmentTypes from '../shared/components/CargoShipmentTypes.jsx'
+import { cargoShipmentTypesProps } from './adapters/cargoShipmentTypesAdapter.js'
+import CargoInfoCards from '../shared/components/CargoInfoCards.jsx'
+import { cargoInfoCardsProps } from './adapters/cargoInfoCardsAdapter.js'
+import CargoStationsExplorer from '../shared/components/CargoStationsExplorer.jsx'
+import { cargoStationsExplorerProps } from './adapters/cargoStationsExplorerAdapter.js'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { pageMediaHeroProps } from './adapters/pageMediaHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
@@ -109,6 +129,8 @@ import { newsDetailHeaderProps } from './adapters/newsDetailHeaderAdapter.js'
 import { newsDetailParagraphsProps } from './adapters/newsDetailParagraphsAdapter.js'
 import { newsDetailGalleryProps } from './adapters/newsDetailGalleryAdapter.js'
 import { newsDetailFigureProps } from './adapters/newsDetailFigureAdapter.js'
+import BusinessQuickAccess from '../shared/components/BusinessQuickAccess.jsx'
+import { businessQuickAccessProps } from './adapters/businessQuickAccessAdapter.js'
 
 /**
  * Maps a block's `sectionId` to the component that renders it plus the adapter
@@ -140,7 +162,12 @@ export const sectionRegistry = {
   'landmark-feature': { Component: LandmarkFeature, mapProps: landmarkFeatureProps, fullBleed: true },
   'sights-grid': { Component: SightsGrid, mapProps: sightsGridProps },
   'magazine-banner': { Component: MagazineBanner, mapProps: magazineBannerProps },
-  'newsletter-signup': { Component: NewsletterSignup, mapProps: newsletterSignupProps },
+  // Full-bleed only in the photo-banner variant (the gradient card sits in the Container).
+  'newsletter-signup': {
+    Component: NewsletterSignup,
+    mapProps: newsletterSignupProps,
+    fullBleed: (style) => style.variant === 'photo',
+  },
   'office-directory': { Component: OfficeDirectory, mapProps: officeDirectoryProps },
   'get-help': { Component: GetHelp, mapProps: getHelpProps },
   'promo-banner': { Component: PromoBanner, mapProps: promoBannerProps },
@@ -183,8 +210,23 @@ export const sectionRegistry = {
     fullBleed: true,
   },
   'breadcrumbs': { Component: Breadcrumbs, mapProps: breadcrumbsProps },
-  // Marker block: no CMS content/style — renders the live booking box as-is.
-  'booking-widget': { Component: BookingWidget, mapProps: () => ({}) },
+  // Marker block: the live booking box; CMS style only sets its vertical offset.
+  'booking-widget': {
+    Component: BookingWidgetBlock,
+    mapProps: (block) => ({ offsetY: block.style?.offsetY }),
+  },
+  // Home page sections — each renders its own full-width <section> + Container.
+  'home-plan-trip': { Component: HomePlanTrip, mapProps: homePlanTripProps, fullBleed: true },
+  'home-extra-services': { Component: HomeExtraServices, mapProps: homeExtraServicesProps, fullBleed: true },
+  'home-travel-experience': { Component: HomeTravelExperience, mapProps: homeTravelExperienceProps, fullBleed: true },
+  'home-cham-miles-banner': { Component: HomeChamMilesBanner, mapProps: homeChamMilesBannerProps, fullBleed: true },
+  'home-about': { Component: HomeAbout, mapProps: homeAboutProps, fullBleed: true },
+  'travel-updates-advisory': { Component: TravelUpdatesAdvisory, mapProps: travelUpdatesAdvisoryProps },
+  'travel-updates-list': { Component: TravelUpdatesList, mapProps: travelUpdatesListProps },
+  'cargo-shipment-types': { Component: CargoShipmentTypes, mapProps: cargoShipmentTypesProps },
+  'cargo-info-cards': { Component: CargoInfoCards, mapProps: cargoInfoCardsProps },
+  'cargo-stations-explorer': { Component: CargoStationsExplorer, mapProps: cargoStationsExplorerProps, fullBleed: true },
+  'business-quick-access': { Component: BusinessQuickAccess, mapProps: businessQuickAccessProps },
 }
 
 export function getSection(sectionId) {

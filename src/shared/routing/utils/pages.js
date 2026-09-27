@@ -1,4 +1,3 @@
-import Home from '../../../pages/Home.jsx'
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
 import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
@@ -10,6 +9,10 @@ import TravelUpdateDetail from '../../../pages/travel-updates/TravelUpdateDetail
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import NotFound from '../../../pages/not-found/NotFound.jsx'
 import ComingSoon from '../../../pages/coming-soon/ComingSoon.jsx'
+import ChamMiles from '../../../pages/cham-miles/ChamMiles.jsx'
+import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent.jsx'
+import CmsPage from '../../../pages/cms-page/CmsPage.jsx'
+import { cmsSlugFromPath } from '../../../pages/cms-page/cmsPagePath.js'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { TRAVEL_UPDATES_DETAIL_PATH } from '../../../pages/travel-updates/utils/travelUpdates.js'
@@ -33,10 +36,12 @@ export { newPages } from './newPages.js'
 
 /**
  * Non-CMS app routes that still use static React pages
- * (home, route map, magazine viewer, journey-stage aliases, legacy redirects).
+ * (route map, magazine viewer, journey-stage aliases, legacy redirects).
+ * The home page `/` is CMS-driven (see newPages.js → NewHome).
  */
 export const appPages = {
-  '/': Home,
+  '/cham-miles': ChamMiles,
+  '/login-travel-agent': LoginTravelAgent,
   '/our-destinations/route-map': RouteMap,
   '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
   '/magazine-view': MagazineView,
@@ -57,6 +62,18 @@ export const pages = {
   '/coming-soon': ComingSoon,
 }
 
+/**
+ * Last segments of nested static routes (`/help/faqs` → `faqs`). Those CMS
+ * pages already have their official nested URL, so the root catch-all must not
+ * serve a duplicate at `/faqs`.
+ */
+const nestedRouteSlugs = new Set(
+  Object.keys(pages)
+    .map((path) => path.split('/').filter(Boolean))
+    .filter((segments) => segments.length > 1)
+    .map((segments) => segments[segments.length - 1]),
+)
+
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
 const formDetailPath = /^\/help\/contact-us\/forms\/([^/]+)$/
 const legacyFormDetailPath = /^\/help\/forms\/([^/]+)$/
@@ -71,6 +88,10 @@ export function getPage(path) {
   if (formRequestPath.test(path)) return RequestAForm
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
+  // Any other single-segment URL may be a page created in the CMS admin
+  // ("Add new page"); CmsPage renders it, or NotFound when the slug is unknown.
+  const cmsSlug = cmsSlugFromPath(path)
+  if (cmsSlug && !nestedRouteSlugs.has(cmsSlug)) return CmsPage
   return NotFound
 }
 

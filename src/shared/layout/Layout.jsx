@@ -13,7 +13,7 @@ const Layout = () => {
   const language = getLanguageFromPath(pathname)
   const pagePath = stripLanguage(pathname)
   const fullBleed = isFullBleedPath(pagePath)
-  const hideChrome = pagePath === '/login-travel-agent'
+  const hideChrome = pagePath === '/login-travel-agent' || pagePath === '/cham-miles'
   const hideFooter = hideChrome || pagePath === '/our-destinations/route-map'
 
   useSearchHit()

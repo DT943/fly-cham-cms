@@ -1,6 +1,15 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Pause, Play } from '@phosphor-icons/react'
 import Container from './Container.jsx'
+import LocalizedLink from './LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../styles/cmsStyle.js'
+import {
+  CMS_TEXT_HOVER_CLASS,
+  colorVar,
+  getButtonStyle,
+  getTextStyleVars,
+} from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 
 // Full-bleed media-hero heights (cover layout). `default` reproduces the
@@ -18,6 +27,238 @@ const CONTENT_WIDTH = {
   wide: 'max-w-[760px]',
 }
 
+// Cover-layout title size at lg (`compact` = the home slider's 44px).
+const TITLE_SIZE = {
+  default: 'lg:text-[64px]',
+  compact: 'lg:text-[44px]',
+}
+
+// Cover-layout white fade (`wide` = Travel Updates Figma).
+const OVERLAY = {
+  default:
+    'bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]',
+  wide:
+    'bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)] rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)]',
+}
+
+const HERO_BUTTON = {
+  bgKey: 'buttonBg',
+  bgFallback: 'secondary',
+  bgHoverFallback: 'secondary-800',
+  textKey: 'buttonText',
+  textFallback: '50',
+  weightFallback: 'semibold',
+}
+
+/** Optional CTA — renders only with a label (and `showButton` on). */
+const HeroButton = ({ label, href, show, buttonStyle }) => {
+  if (!label || show === false) return null
+  const btn = getButtonStyle(buttonStyle, HERO_BUTTON)
+  return (
+    <LocalizedLink
+      href={href || '#'}
+      className={`mt-2 inline-flex w-fit self-start items-center justify-center rounded-lg px-7 py-3 no-underline transition-colors md:px-8 md:py-3.5 ${typography.button} ${btn.className}`}
+      style={btn.style}
+    >
+      {label}
+    </LocalizedLink>
+  )
+}
+
+/** Autoplay progress (0 → 1) with pause; advances the slide on completion. */
+const useHeroSlider = (count, durationMs, autoplay) => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [paused, setPaused] = useState(!autoplay)
+  const [progress, setProgress] = useState(0)
+  const startRef = useRef(Date.now())
+  const pausedAtRef = useRef(0)
+  const rafRef = useRef(0)
+
+  const goTo = useCallback(
+    (index) => {
+      setActiveIndex(((index % count) + count) % count)
+      setProgress(0)
+      startRef.current = Date.now()
+      pausedAtRef.current = 0
+    },
+    [count],
+  )
+
+  useEffect(() => {
+    if (count < 2 || paused) {
+      pausedAtRef.current = progress
+      cancelAnimationFrame(rafRef.current)
+      return undefined
+    }
+
+    startRef.current = Date.now() - pausedAtRef.current * durationMs
+
+    const tick = () => {
+      const next = Math.min((Date.now() - startRef.current) / durationMs, 1)
+      setProgress(next)
+      if (next >= 1) {
+        setActiveIndex((current) => (current + 1) % count)
+        setProgress(0)
+        startRef.current = Date.now()
+        pausedAtRef.current = 0
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paused, activeIndex, count, durationMs])
+
+  return { activeIndex, paused, setPaused, progress, goTo }
+}
+
+/**
+ * Cover-layout carousel: crossfading photos + text, with the home slider's
+ * pause button, progress pill and dots. Used only when extra slides exist.
+ */
+const CoverSlider = ({
+  slides,
+  heightClass,
+  widthClass,
+  titleSizeClass,
+  showOverlay,
+  overlayClass,
+  showTitle,
+  showSubtitle,
+  titleVars,
+  subtitleVars,
+  linkProps,
+  showButton,
+  buttonStyle,
+  autoplay,
+  slideDuration,
+  showControls,
+  controlsColor,
+  controlsBottom,
+}) => {
+  const { t } = useTranslation()
+  const durationMs = (Number(slideDuration) || 6) * 1000
+  const slider = useHeroSlider(slides.length, durationMs, autoplay !== false)
+  const accent = colorVar(controlsColor || 'primary-1')
+  const controlsBottomPx = Number(controlsBottom) || 0
+
+  return (
+    <section
+      className={`relative isolate overflow-hidden ${heightClass}`}
+      aria-roledescription="carousel"
+      aria-label={t('home.hero.carouselLabel')}
+    >
+      {slides.map((slide, index) => (
+        <img
+          key={slide.id}
+          src={slide.image}
+          alt={index === slider.activeIndex ? slide.imageAlt : ''}
+          aria-hidden={index !== slider.activeIndex}
+          style={{ objectPosition: slide.objectPosition }}
+          className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out ${
+            index === slider.activeIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
+      {showOverlay && (
+        <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} />
+      )}
+
+      <Container className="relative flex h-full flex-col justify-center">
+        {slides.map((slide, index) => {
+          const isActive = index === slider.activeIndex
+          return (
+            <div
+              key={slide.id}
+              aria-hidden={!isActive}
+              className={`flex flex-col gap-4 transition-opacity duration-500 ${widthClass} ${
+                isActive ? 'relative opacity-100' : 'pointer-events-none absolute opacity-0'
+              }`}
+            >
+              {showTitle && slide.title && (
+                <h1
+                  className={`${typography.pageTitle} m-0 leading-tight ${titleSizeClass} ${CMS_TEXT_HOVER_CLASS}`}
+                  style={titleVars}
+                >
+                  <LinkedText text={slide.title} {...linkProps} />
+                </h1>
+              )}
+              {showSubtitle && slide.subtitle && (
+                <p
+                  className={`${typography.sectionDescription} m-0 max-w-[430px] leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
+                  style={subtitleVars}
+                >
+                  <LinkedText text={slide.subtitle} {...linkProps} />
+                </p>
+              )}
+              <HeroButton
+                label={slide.buttonLabel}
+                href={slide.buttonHref}
+                show={showButton}
+                buttonStyle={buttonStyle}
+              />
+            </div>
+          )
+        })}
+      </Container>
+
+      {showControls !== false && (
+        <div
+          className={`absolute inset-x-0 z-10 ${controlsBottomPx ? '' : 'bottom-6 md:bottom-8'}`}
+          style={controlsBottomPx ? { bottom: `${controlsBottomPx}px` } : undefined}
+        >
+          <Container className="flex justify-center">
+            <div className="flex items-center gap-2.5" role="group" aria-label={t('home.hero.controlsLabel')}>
+              <button
+                type="button"
+                onClick={() => slider.setPaused((value) => !value)}
+                aria-label={slider.paused ? t('home.hero.play') : t('home.hero.pause')}
+                className="grid size-7 place-items-center rounded-full border-0 bg-transparent p-0"
+                style={{ color: accent }}
+              >
+                {slider.paused ? <Play size={16} /> : <Pause size={16} />}
+              </button>
+              <div className="flex items-center gap-2">
+                {slides.map((slide, index) =>
+                  index === slider.activeIndex ? (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      aria-label={t('home.hero.goToSlide', { index: index + 1 })}
+                      aria-current="true"
+                      onClick={() => slider.goTo(index)}
+                      className="relative h-1.5 w-9 overflow-hidden rounded-full border-0 p-0"
+                      style={{ backgroundColor: `color-mix(in srgb, ${accent} 20%, transparent)` }}
+                    >
+                      <span
+                        className="absolute inset-y-0 start-0 rounded-full"
+                        style={{ width: `${slider.progress * 100}%`, backgroundColor: accent }}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      aria-label={t('home.hero.goToSlide', { index: index + 1 })}
+                      onClick={() => slider.goTo(index)}
+                      className="size-1.5 shrink-0 rounded-full border-0 p-0"
+                      style={{ backgroundColor: `color-mix(in srgb, ${accent} 40%, transparent)` }}
+                    />
+                  ),
+                )}
+              </div>
+            </div>
+          </Container>
+        </div>
+      )}
+      <span className="sr-only" aria-live="polite">
+        {t('home.hero.slideStatus', { current: slider.activeIndex + 1, total: slides.length })}
+      </span>
+    </section>
+  )
+}
+
 /**
  * Page media hero with two layouts:
  *  - `cover` (default): full-bleed background photo with a start-anchored fade
@@ -30,6 +271,10 @@ const CONTENT_WIDTH = {
  * that pass only `image`/`title`/`subtitle` (± `objectPosition`,
  * `contentClassName`) render byte-identically; the CMS (via the section
  * registry) can override any of them.
+ *
+ * Optional CMS extras: a CTA button (`buttonLabel`/`buttonHref`) and extra
+ * `slides` — with at least one extra slide the cover layout becomes an
+ * autoplay carousel (slide 1 = the main image/text/button).
  */
 const PageMediaHero = ({
   // content
@@ -39,6 +284,9 @@ const PageMediaHero = ({
   subtitle,
   objectPosition = 'center',
   contentClassName = 'max-w-[605px]',
+  buttonLabel = '',
+  buttonHref = '',
+  slides = [],
   // style
   layout = 'cover',
   sectionBg = '100',
@@ -47,6 +295,7 @@ const PageMediaHero = ({
   showTitle = true,
   showSubtitle = true,
   showOverlay = true,
+  overlayWidth = 'default',
   titleColor = 'primary-1',
   subtitleColor = '700',
   titleFontWeight = 'bold',
@@ -55,6 +304,21 @@ const PageMediaHero = ({
   titleFontWeightHover,
   subtitleColorHover,
   subtitleFontWeightHover,
+  titleSize = 'default',
+  // optional button
+  showButton = true,
+  buttonBg,
+  buttonBgHover,
+  buttonText,
+  buttonTextHover,
+  buttonTextFontWeight,
+  buttonTextFontWeightHover,
+  // slider
+  autoplay = true,
+  slideDuration = '6',
+  showControls = true,
+  controlsColor = 'primary-1',
+  controlsBottom = 0,
   // backlinks
   links = [],
   showLinks = true,
@@ -89,6 +353,17 @@ const PageMediaHero = ({
 
   const titleVars = getTextStyleVars(titleStyleKeys, 'titleColor', 'primary-1', 'bold')
   const subtitleVars = getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '700', 'normal')
+  const buttonStyle = {
+    buttonBg,
+    buttonBgHover,
+    buttonText,
+    buttonTextHover,
+    buttonTextFontWeight,
+    buttonTextFontWeightHover,
+  }
+  const button = (
+    <HeroButton label={buttonLabel} href={buttonHref} show={showButton} buttonStyle={buttonStyle} />
+  )
 
   // ── Side layout: solid background, photo inset on the reading-end side ──────
   if (layout === 'side') {
@@ -115,6 +390,7 @@ const PageMediaHero = ({
                 <LinkedText text={subtitle} {...linkProps} />
               </p>
             )}
+            {button}
           </div>
 
           {image && (
@@ -149,6 +425,47 @@ const PageMediaHero = ({
   const widthClass = contentWidth
     ? CONTENT_WIDTH[contentWidth] || contentClassName
     : contentClassName
+  const titleSizeClass = TITLE_SIZE[titleSize] || TITLE_SIZE.default
+  const overlayClass = OVERLAY[overlayWidth] || OVERLAY.default
+
+  const extraSlides = (Array.isArray(slides) ? slides : []).filter((slide) => slide?.image)
+  if (extraSlides.length) {
+    const allSlides = [
+      { id: 'main', image, imageAlt, objectPosition, title, subtitle, buttonLabel, buttonHref },
+      ...extraSlides.map((slide, index) => ({
+        id: slide.id || `slide-${index + 2}`,
+        image: slide.image,
+        imageAlt: slide.imageAlt || '',
+        objectPosition: slide.objectPosition || objectPosition,
+        title: slide.title || title,
+        subtitle: slide.subtitle || subtitle,
+        buttonLabel: slide.buttonLabel || buttonLabel,
+        buttonHref: slide.buttonHref || buttonHref,
+      })),
+    ]
+    return (
+      <CoverSlider
+        slides={allSlides}
+        heightClass={heightClass}
+        widthClass={widthClass}
+        titleSizeClass={titleSizeClass}
+        showOverlay={showOverlay}
+        overlayClass={overlayClass}
+        showTitle={showTitle}
+        showSubtitle={showSubtitle}
+        titleVars={titleVars}
+        subtitleVars={subtitleVars}
+        linkProps={linkProps}
+        showButton={showButton}
+        buttonStyle={buttonStyle}
+        autoplay={autoplay}
+        slideDuration={slideDuration}
+        showControls={showControls}
+        controlsColor={controlsColor}
+        controlsBottom={controlsBottom}
+      />
+    )
+  }
 
   return (
     <section className={`relative isolate overflow-hidden ${heightClass}`}>
@@ -160,7 +477,7 @@ const PageMediaHero = ({
       />
       {showOverlay && (
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]"
+          className={`pointer-events-none absolute inset-0 ${overlayClass}`}
         />
       )}
 
@@ -168,7 +485,7 @@ const PageMediaHero = ({
         <div className={`flex flex-col gap-4 ${widthClass}`}>
           {showTitle && title && (
             <h1
-              className={`${typography.pageTitle} m-0 leading-tight lg:text-[64px] ${CMS_TEXT_HOVER_CLASS}`}
+              className={`${typography.pageTitle} m-0 leading-tight ${titleSizeClass} ${CMS_TEXT_HOVER_CLASS}`}
               style={titleVars}
             >
               <LinkedText text={title} {...linkProps} />
@@ -182,6 +499,7 @@ const PageMediaHero = ({
               <LinkedText text={subtitle} {...linkProps} />
             </p>
           )}
+          {button}
         </div>
       </Container>
     </section>

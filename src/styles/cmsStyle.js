@@ -69,6 +69,8 @@ export const COLUMN_GAP = {
 
 export const BANNER_HEIGHT = {
   compact: 'min-h-[180px] sm:min-h-[240px] md:min-h-[280px]',
+  // Figma Cargo Guide banner: 360px tall on desktop.
+  medium: 'min-h-[220px] sm:min-h-[320px] md:min-h-[360px]',
   default: 'min-h-[220px] sm:min-h-[360px] md:min-h-[400px]',
   spacious: 'min-h-[280px] sm:min-h-[420px] md:min-h-[480px]',
 }

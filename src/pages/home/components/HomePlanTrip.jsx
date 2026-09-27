@@ -110,7 +110,7 @@ const HomePlanTrip = () => {
           </div>
           <LocalizedLink
             href="/our-destinations"
-            className={`inline-flex shrink-0 items-center gap-1 font-semibold text-primary-1 no-underline hover:underline ${typography.caption}`}
+            className={`inline-flex shrink-0 cursor-pointer items-center gap-1 font-semibold text-primary-1 no-underline ${typography.caption}`}
           >
             {t('home.planTrip.viewAll')}
             <CaretRight size={14} weight="bold" className="rtl:-scale-x-100" />

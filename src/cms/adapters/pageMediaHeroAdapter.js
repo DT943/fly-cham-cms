@@ -33,9 +33,29 @@ export function pageMediaHeroProps(block, lang) {
     subtitle: content.subtitle,
     image: cmsImage || COVER_BY_KEY[content.coverKey] || undefined,
     imageAlt: content.imageAlt || content.image?.alt,
+    buttonLabel: content.buttonLabel || '',
+    buttonHref: resolveCmsHref(content.buttonHref) || '',
+    slides: mapSlides(content.slides),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+/** Extra hero slides — only those with a usable image are kept. */
+function mapSlides(slides) {
+  if (!Array.isArray(slides)) return []
+  return slides
+    .map((slide, index) => ({
+      id: slide?.id || `slide-${index + 2}`,
+      image: resolveCmsAsset(slide?.imageUrl || slide?.image?.fileUrl) || '',
+      imageAlt: slide?.imageAlt || slide?.image?.alt || '',
+      objectPosition: slide?.objectPosition || undefined,
+      title: slide?.title || '',
+      subtitle: slide?.subtitle || '',
+      buttonLabel: slide?.buttonLabel || '',
+      buttonHref: resolveCmsHref(slide?.buttonHref) || '',
+    }))
+    .filter((slide) => slide.image)
 }
 
 /** Resolve each backlink href through the app's CMS href rules. */
@@ -53,6 +73,7 @@ const STYLE_KEYS = [
   'showTitle',
   'showSubtitle',
   'showOverlay',
+  'overlayWidth',
   'titleColor',
   'subtitleColor',
   'titleFontWeight',
@@ -61,6 +82,19 @@ const STYLE_KEYS = [
   'titleFontWeightHover',
   'subtitleColorHover',
   'subtitleFontWeightHover',
+  'titleSize',
+  'showButton',
+  'buttonBg',
+  'buttonBgHover',
+  'buttonText',
+  'buttonTextHover',
+  'buttonTextFontWeight',
+  'buttonTextFontWeightHover',
+  'autoplay',
+  'slideDuration',
+  'showControls',
+  'controlsColor',
+  'controlsBottom',
   'showLinks',
   'linkColor',
   'linkHoverColor',

@@ -81,7 +81,6 @@ const MediaNewsletterSignup = ({
   if (layout === 'fullBleed') {
     return (
       <section className="relative mt-10 w-full overflow-hidden border border-200 border-e-0 bg-100">
-      <section className="relative mt-10 w-full overflow-hidden border border-200 border-e-0 bg-100">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 w-28 overflow-hidden sm:w-36 md:w-44 lg:w-52"

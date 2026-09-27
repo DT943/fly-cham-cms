@@ -19,6 +19,8 @@ const BANNER_RADIUS = {
 const BANNER_HEIGHT = {
   compact: 'min-h-[180px] sm:min-h-[200px] md:min-h-[220px]',
   default: 'min-h-[200px] sm:min-h-[240px] md:min-h-[280px]',
+  // Figma Cargo Guide banner: 360px tall on desktop.
+  medium: 'min-h-[240px] sm:min-h-[300px] md:min-h-[360px]',
   tall: 'min-h-[260px] sm:min-h-[320px] md:min-h-[380px]',
 }
 

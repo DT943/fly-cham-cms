@@ -20,6 +20,11 @@ import NewRecentNews from '../../../pages/new-recent-news/NewRecentNews.jsx'
 import NewNewsDetail from '../../../pages/new-news-detail/NewNewsDetail.jsx'
 import NewLegal from '../../../pages/new-legal/NewLegal.jsx'
 import NewLegalDocument from '../../../pages/new-legal-document/NewLegalDocument.jsx'
+import NewHome from '../../../pages/new-home/NewHome.jsx'
+import NewTravelUpdates from '../../../pages/new-travel-updates/NewTravelUpdates.jsx'
+import NewCargoService from '../../../pages/new-cargo-service/NewCargoService.jsx'
+import NewCargoStations from '../../../pages/new-cargo-stations/NewCargoStations.jsx'
+import NewBusinessCenter from '../../../pages/new-business-center/NewBusinessCenter.jsx'
 import { createLanguageRedirect } from '../components/OurOfficesRedirect.jsx'
 
 /** Official CMS help routes. */
@@ -92,12 +97,22 @@ export const legalPages = {
 }
 
 export const otherPages = {
+  '/': NewHome,
+  '/travel-updates': NewTravelUpdates,
+  '/cargo-service': NewCargoService,
+  '/cargo-stations': NewCargoStations,
+  '/business-center': NewBusinessCenter,
   '/about-us': NewAboutUs,
   '/our-fleet': NewOurFleet,
   '/media-center': NewMediaCenter,
   '/recent-news': NewRecentNews,
   '/media-center/news/fleetUpdate': NewNewsDetail,
   // Legacy `new-*` URLs
+  '/new-home': createLanguageRedirect('/'),
+  '/new-travel-updates': createLanguageRedirect('/travel-updates'),
+  '/new-cargo-service': createLanguageRedirect('/cargo-service'),
+  '/new-cargo-stations': createLanguageRedirect('/cargo-stations'),
+  '/new-business-center': createLanguageRedirect('/business-center'),
   '/new-about-us': createLanguageRedirect('/about-us'),
   '/new-our-fleet': createLanguageRedirect('/our-fleet'),
   '/new-media-center': createLanguageRedirect('/media-center'),

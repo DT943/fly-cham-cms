@@ -16,6 +16,7 @@ export function newsletterSignupProps(block, lang) {
     placeholder: content.placeholder || '',
     cta: content.cta || '',
     plane: resolveCmsAsset(content.planeUrl) || undefined,
+    background: resolveCmsAsset(content.bgUrl) || undefined,
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -27,6 +28,9 @@ function mapBacklinks(links) {
 }
 
 const STYLE_KEYS = [
+  'variant',
+  'overlayOpacity',
+  'bgFocus',
   'titleColor',
   'titleFontWeight',
   'titleColorHover',

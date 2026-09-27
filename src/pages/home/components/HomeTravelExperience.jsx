@@ -5,6 +5,32 @@ import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../../styles/typography.js'
 import { homeTravelExperience } from '../utils/homeTravelExperience.js'
 
+const LearnMoreLink = ({ href, label, className = '' }) => (
+  <LocalizedLink
+    href={href}
+    className={`group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline ${typography.button} ${className}`}
+  >
+    <span
+      aria-hidden
+      className="absolute inset-y-0 start-0 w-[34px] rounded-full bg-primary-1 transition-[width] duration-300 ease-out group-hover/lm:w-full"
+    />
+    <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+      <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
+    </span>
+    <span
+      className="cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300"
+      style={{
+        color: 'var(--color-primary-1)',
+        fontWeight: 600,
+        '--cms-hc': 'var(--color-50)',
+        '--cms-hw': 600,
+      }}
+    >
+      {label}
+    </span>
+  </LocalizedLink>
+)
+
 const CardCopy = ({ id, gapClass = 'gap-1.5', clamp = false }) => {
   const { t } = useTranslation()
 
@@ -29,7 +55,7 @@ const StackCard = ({ id, image, href }) => {
   const { t } = useTranslation()
 
   return (
-    <article className="flex min-w-0 flex-col overflow-hidden rounded-2xl bg-50 shadow-[0_4px_16px_rgba(33,37,41,0.06)]">
+    <article className="flex min-w-0 flex-col overflow-hidden rounded-2xl bg-50">
       <div className="aspect-[16/9] w-full overflow-hidden">
         <img
           src={image}
@@ -40,13 +66,7 @@ const StackCard = ({ id, image, href }) => {
 
       <div className="flex flex-col gap-2.5 p-4">
         <CardCopy id={id} />
-        <LocalizedLink
-          href={href}
-          className={`mt-1 inline-flex w-full items-center justify-between gap-3 font-semibold text-primary-1 no-underline ${typography.caption}`}
-        >
-          {t('home.travelExperience.learnMore')}
-          <ArrowRight size={16} weight="bold" className="shrink-0 rtl:-scale-x-100" />
-        </LocalizedLink>
+        <LearnMoreLink href={href} label={t('home.travelExperience.learnMore')} className="mt-1" />
       </div>
     </article>
   )
@@ -57,7 +77,7 @@ const RowCard = ({ id, image, href }) => {
   const { t } = useTranslation()
 
   return (
-    <article className="grid min-h-0 min-w-0 flex-1 grid-cols-[38%_1fr] overflow-hidden rounded-2xl bg-50 shadow-[0_4px_16px_rgba(33,37,41,0.06)]">
+    <article className="grid min-h-0 min-w-0 flex-1 grid-cols-[38%_1fr] overflow-hidden rounded-2xl bg-50">
       <div className="min-h-0 min-w-0 overflow-hidden">
         <img
           src={image}
@@ -68,13 +88,7 @@ const RowCard = ({ id, image, href }) => {
 
       <div className="flex min-w-0 flex-col p-4 xl:p-5">
         <CardCopy id={id} clamp />
-        <LocalizedLink
-          href={href}
-          className={`mt-auto inline-flex w-fit items-center gap-1.5 pt-3 font-semibold text-primary-1 no-underline ${typography.caption}`}
-        >
-          {t('home.travelExperience.learnMore')}
-          <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
-        </LocalizedLink>
+        <LearnMoreLink href={href} label={t('home.travelExperience.learnMore')} className="mt-auto pt-3" />
       </div>
     </article>
   )
@@ -85,7 +99,7 @@ const FeaturedCard = ({ id, image, href }) => {
   const { t } = useTranslation()
 
   return (
-    <article className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl bg-50 shadow-[0_4px_16px_rgba(33,37,41,0.06)]">
+    <article className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl bg-50">
       <div className="aspect-[16/10] w-full shrink-0 overflow-hidden">
         <img
           src={image}
@@ -96,13 +110,7 @@ const FeaturedCard = ({ id, image, href }) => {
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col p-5">
         <CardCopy id={id} gapClass="gap-2" />
-        <LocalizedLink
-          href={href}
-          className={`mt-auto inline-flex w-fit items-center gap-1.5 pt-4 font-semibold text-primary-1 no-underline ${typography.caption}`}
-        >
-          {t('home.travelExperience.learnMore')}
-          <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
-        </LocalizedLink>
+        <LearnMoreLink href={href} label={t('home.travelExperience.learnMore')} className="mt-auto pt-4" />
       </div>
     </article>
   )
@@ -130,7 +138,7 @@ const HomeTravelExperience = () => {
           </div>
           <LocalizedLink
             href="/travel-experience"
-            className={`inline-flex shrink-0 items-center gap-1 font-semibold text-primary-1 no-underline hover:underline ${typography.caption}`}
+            className={`inline-flex shrink-0 cursor-pointer items-center gap-1 font-semibold text-primary-1 no-underline ${typography.caption}`}
           >
             {t('home.travelExperience.explore')}
             <CaretRight size={14} weight="bold" className="rtl:-scale-x-100" />

@@ -1,9 +1,9 @@
-import heroImage from '../../../assets/images/business-center/hero.png'
-import b2bImage from '../../../assets/images/business-center/b2b.png'
-import agentGuideImage from '../../../assets/images/business-center/agent-guide.png'
-import partnershipImage from '../../../assets/images/business-center/partnership.jpg'
-import apiImage from '../../../assets/images/business-center/api.jpg'
-import enquiryImage from '../../../assets/images/business-center/enquiry.png'
+import heroImage from '../../../assets/images-webp/business-center/hero.webp'
+import b2bImage from '../../../assets/images-webp/business-center/b2b-portal.webp'
+import agentGuideImage from '../../../assets/images-webp/business-center/agent-guide.webp'
+import partnershipImage from '../../../assets/images-webp/business-center/partnership.webp'
+import apiImage from '../../../assets/images-webp/business-center/api-integration.webp'
+import enquiryImage from '../../../assets/images-webp/business-center/b2b-portal.webp'
 
 /**
  * Business Center static content.
