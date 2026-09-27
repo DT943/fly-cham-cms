@@ -1,17 +1,25 @@
 import Container from '../../components/Container.jsx'
+import footerPattern from '../../../assets/images/layout/footer-pattern.png'
 import FooterBrand from './components/FooterBrand.jsx'
-import FooterColumn from './components/FooterColumn.jsx'
 import FooterLegal from './components/FooterLegal.jsx'
-import { footerColumns } from './utils/footerLinks.js'
+import FooterNav from './components/FooterNav.jsx'
 
+/**
+ * Site footer — brand + columns + legal bar, with decorative end pattern.
+ */
 const Footer = () => (
-  <footer className="bg-secondary-2 text-50">
-    <Container className="py-10 md:py-14 flex flex-col gap-10 md:gap-14">
-      <FooterBrand />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-6">
-        {footerColumns.map((column) => (
-          <FooterColumn key={column.id} column={column} />
-        ))}
+  <footer className="relative isolate overflow-hidden bg-primary-1 text-50">
+    <img
+      src={footerPattern}
+      alt=""
+      aria-hidden
+      className="pointer-events-none absolute inset-e-0 bottom-0 z-0 hidden h-[45%] w-auto max-w-[42%] object-contain object-bottom-right sm:block lg:max-w-[36%]"
+    />
+
+    <Container className="relative z-10 flex flex-col gap-10 py-12 md:gap-12 md:py-14">
+      <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-10 xl:gap-14">
+        <FooterBrand />
+        <FooterNav />
       </div>
       <FooterLegal />
     </Container>

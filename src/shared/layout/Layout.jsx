@@ -4,15 +4,17 @@ import { useTranslation } from 'react-i18next'
 import Header from './Header.jsx'
 import Footer from './footer/Footer.jsx'
 import { getLanguageFromPath, isSupportedLanguage, stripLanguage } from '../../i18n/languages.js'
+import { isNotFoundPath, isFullBleedPath } from '../routing/utils/pages.js'
 import useSearchHit from '../search/hooks/useSearchHit.js'
-
-
 
 const Layout = () => {
   const { pathname } = useLocation()
   const { i18n } = useTranslation()
   const language = getLanguageFromPath(pathname)
-  const hideFooter = stripLanguage(pathname) === '/our-destinations/route-map'
+  const pagePath = stripLanguage(pathname)
+  const fullBleed = isFullBleedPath(pagePath)
+  const hideChrome = pagePath === '/login-travel-agent'
+  const hideFooter = hideChrome || pagePath === '/our-destinations/route-map'
 
   useSearchHit()
 
@@ -28,9 +30,9 @@ const Layout = () => {
   }, [language, i18n])
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header dark={false} />
-      <div className="flex-1">
+    <div className="flex min-h-screen min-w-0 flex-col overflow-x-clip">
+      {!hideChrome && <Header dark={fullBleed} hideOnScroll={!fullBleed} />}
+      <div className={`min-w-0 flex-1 ${fullBleed || hideChrome ? 'flex flex-col' : ''}`}>
         <Outlet />
       </div>
       {!hideFooter && <Footer />}

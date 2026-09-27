@@ -23,6 +23,149 @@
       "imageAlt": "A Fly Cham customer service agent wearing a headset"
     }
   },
+  "home": {
+    "hero": {
+      "carouselLabel": "Featured offers",
+      "controlsLabel": "Slider controls",
+      "bookNow": "Book now",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "goToSlide": "Go to slide {{index}}",
+      "slideStatus": "Slide {{current}} of {{total}}",
+      "slides": {
+        "aleppoMersin": {
+          "title": "Book Your Flight",
+          "subtitle": "Aleppo - Mersin and Vice Versa"
+        },
+        "damascusDubai": {
+          "title": "Book Your Flight",
+          "subtitle": "Damascus - Dubai and Vice Versa"
+        },
+        "exploreNetwork": {
+          "title": "Explore Our Network",
+          "subtitle": "Discover destinations across our growing route map"
+        }
+      }
+    },
+    "planTrip": {
+      "title": "Plan Your Trip With Us",
+      "subtitle": "Discover inspiring places across our network.",
+      "viewAll": "View all destinations",
+      "new": "New",
+      "priceFrom": "Round trip From {{price}} {{currency}}",
+      "explore": "Explore {{city}}",
+      "prev": "Previous destinations",
+      "next": "Next destinations",
+      "destinations": {
+        "istanbul": {
+          "name": "Istanbul",
+          "imageAlt": "Hagia Sophia in Istanbul at dusk"
+        },
+        "dubai": {
+          "name": "Dubai",
+          "imageAlt": "Dubai skyline at sunset"
+        },
+        "muscat": {
+          "name": "Muscat",
+          "imageAlt": "Coastal landscape in Muscat"
+        },
+        "yerevan": {
+          "name": "Yerevan",
+          "imageAlt": "Yerevan city view with Mount Ararat"
+        },
+        "erbil": {
+          "name": "Erbil",
+          "imageAlt": "Erbil citadel and cityscape"
+        },
+        "damascus": {
+          "name": "Damascus",
+          "imageAlt": "Historic Damascus cityscape"
+        }
+      }
+    },
+    "extraServices": {
+      "title": "Add extra services",
+      "subtitle": "Customize your journey by adding extra services online before you fly.",
+      "items": {
+        "seatSelection": {
+          "title": "Seat Selection",
+          "description": "Choose your preferred seat in advance for a more comfortable journey."
+        },
+        "extraBaggage": {
+          "title": "Extra Baggage",
+          "description": "Add extra baggage online before you fly and save time at the airport."
+        },
+        "limousine": {
+          "title": "Add Limousine",
+          "description": "Enjoy complimentary limousine service when you fly Business Class."
+        }
+      }
+    },
+    "travelExperience": {
+      "title": "Travel Experience",
+      "subtitle": "Thoughtful service to every step of your journey",
+      "explore": "Explore Our Experiences",
+      "learnMore": "Learn More",
+      "cards": {
+        "beforeTravel": {
+          "title": "Before Travel",
+          "description": "Plan ahead and enjoy a smooth start to your journey. Book services, check flight status, and prepare your documents.",
+          "imageAlt": "A business traveller preparing for a flight"
+        },
+        "atAirport": {
+          "title": "At The Airport",
+          "description": "Make your airport experience smoother with services at the airport, including Business Lounge access, wheelchair support, and VIP boarding.",
+          "imageAlt": "A traveller walking through the airport terminal"
+        },
+        "onboard": {
+          "title": "Onboard",
+          "description": "Enjoy entertainment, comfort, and warm hospitality onboard for a more pleasant journey. With our selection of onboard services and entertainment options.",
+          "imageAlt": "A Fly Cham cabin crew member welcoming passengers onboard"
+        },
+        "afterTravel": {
+          "title": "After Travel",
+          "description": "Find the support you may need after your flight, from baggage claims and tracking to refunds, loyalty miles, and customer support.",
+          "imageAlt": "A Fly Cham cabin crew member on the tarmac after arrival"
+        }
+      }
+    },
+    "chamMilesBanner": {
+      "title": "Join Cham Miles",
+      "description": "Earn miles every time you fly with Fly Cham and enjoy exclusive rewards and benefits with our loyalty program, Cham Miles.",
+      "joinNow": "join now",
+      "discoverMore": "Discover more",
+      "imageAlt": "Passengers looking out the aircraft windows"
+    },
+    "about": {
+      "title": "About Fly Cham",
+      "subtitle": "Flying Together to Your Destination",
+      "cta": "Read more about us",
+      "cards": {
+        "aboutUs": {
+          "title": "About us",
+          "description": "We strive to provide comfortable travel experiences from planning until arrival, combining attention to detail and quality of service, to bring you closer and take you to the destinations that hold the most beautiful moments and memories for you.",
+          "imageAlt": "Fly Cham cabin crew beside an aircraft"
+        },
+        "whoWeAre": {
+          "title": "Who We Are",
+          "description": "Our mission is to deliver integrated aviation services for both passengers and cargo of the highest quality, in line with international standards, and guided by authentic Syrian hospitality.",
+          "imageAlt": "Fly Cham aircraft flying above the clouds"
+        },
+        "ourMission": {
+          "title": "Our Mission",
+          "description": "We design each trip with care, according to the wishes, pace and style of every traveller. Our team coordinates the journey from destination choice to the smallest detail, so every flight feels personal and reliable.",
+          "imageAlt": "A Fly Cham cabin crew member presenting a model aircraft"
+        }
+      }
+    },
+    "newsletter": {
+      "title": "Stay Inspired for Your Next Journey",
+      "description": "Receive destination ideas, travel stories, Fly Cham updates for your future journeys directly in your inbox.",
+      "label": "Email address",
+      "placeholder": "Enter your email address",
+      "cta": "Subscribe"
+    }
+  },
   "help": {
     "hero": {
       "title": "Help Center",
@@ -982,13 +1125,16 @@
     },
     "footer": {
       "copyright": "© All Rights Reserved. Fly Cham 2025",
+      "follow": "Follow and share your experience with us",
       "legal": {
         "sitemap": "Site Map",
+        "terms": "Website Terms and Conditions",
         "privacy": "Privacy Policy",
-        "terms": "Website Terms and Conditions"
+        "cookies": "Cookies Policy",
+        "bookingTerms": "Bookings Terms and Conditions"
       },
       "social": {
-        "threads": "Threads",
+        "whatsapp": "WhatsApp",
         "tiktok": "TikTok",
         "instagram": "Instagram",
         "facebook": "Facebook",
@@ -999,73 +1145,66 @@
       },
       "columns": {
         "about": {
-          "title": "About Fly Cham",
+          "title": "About",
           "links": {
-            "story": "Our Story",
-            "mission": "Our Mission",
-            "vision": "Our Vision",
-            "values": "Our Values",
+            "about": "About Fly Cham",
             "responsibility": "Our Responsibility",
             "fleet": "Our Fleet",
-            "media": "Media Center",
-            "chairman": "Chairman's Message"
+            "careers": "Careers"
           }
         },
         "book": {
           "title": "Book Flights",
           "links": {
-            "searchFlight": "Search A Flight",
-            "schedules": "Flight Schedules",
-            "hotel": "Hotel Booking",
-            "carRental": "Car Rental",
-            "visa": "Visa Information",
-            "groupTravel": "Group Travel",
-            "privateFlights": "Request Private Flights"
+            "searchFlights": "Search a Flights",
+            "flightSchedule": "Flight Schedule",
+            "flightStatus": "Flight Status",
+            "bookFlight": "Book a Flight",
+            "manageBooking": "Manage Booking"
           }
         },
-        "destinations": {
-          "title": "Our Destinations Network",
-          "sections": {
-            "holidays": "Holidays"
-          },
+        "whereWeFly": {
+          "title": "Where We Fly",
           "links": {
-            "domestic": "Domestic Destinations",
-            "international": "International Destinations",
-            "indirect": "Indirect Destinations",
-            "discoverSyria": "Discover Syria",
-            "tourism": "Tourism Programs",
-            "family": "Family Holidays Packages",
-            "honeymoon": "Honeymoon Packages"
-          }
-        },
-        "miles": {
-          "title": "Cham Miles Loyalty Program",
-          "links": {
-            "aboutMiles": "About Cham Miles",
-            "join": "Join The Program",
-            "claim": "Claim Miles",
-            "partners": "Cham Miles Partners",
-            "terms": "Terms And Conditions",
-            "calculator": "Miles Calculator"
+            "destinations": "Our Destinations",
+            "activities": "Activities and Attractions"
           }
         },
         "experience": {
           "title": "Travel Experience",
           "links": {
-            "before": "Before Travel",
-            "airport": "At The Airport",
-            "onBoard": "On Board",
-            "additional": "Additional Services"
+            "beforeYouFly": "Before You Fly",
+            "atAirport": "At the Airport",
+            "onboard": "Onboard",
+            "afterTravel": "After Travel"
+          }
+        },
+        "media": {
+          "title": "Media & News",
+          "links": {
+            "mediaCenter": "Media center",
+            "recentNews": "Recent News",
+            "magazine": "Marhaba Magazine"
+          }
+        },
+        "business": {
+          "title": "Business",
+          "links": {
+            "businessCenter": "Business Center",
+            "b2b": "B2B Platform",
+            "developers": "Developer Integrations",
+            "partner": "Become a Partner"
           }
         },
         "help": {
           "title": "Help",
           "links": {
+            "helpCenter": "Help Center",
             "contactUs": "Contact Us",
-            "inquiries": "Inquiries & Complaints",
-            "offices": "Our Sales Offices",
-            "agents": "Our Agents Worldwide",
-            "partner": "Join As a Partner",
+            "offices": "Sales Offices",
+            "gsa": "General Sales Agents",
+            "forms": "Forms Requests",
+            "travelUpdates": "Travel Updates",
             "faqs": "FAQs"
           }
         }
@@ -3262,6 +3401,634 @@
       "featureTwo": "Feature story page two",
       "featureThree": "Feature story page three",
       "closing": "Closing magazine page"
+    }
+  },
+  "notFound": {
+    "eyebrow": "Oops ...",
+    "title": "404",
+    "description": "The page you are looking for could not be found.",
+    "cta": "Back to Home Page",
+    "imageAlt": "Aerial view of clouds from above"
+  },
+  "comingSoon": {
+    "title": "Coming Soon",
+    "description": "We're working on something new to serve you better stay tuned.",
+    "imageAlt": "Fly Cham aircraft flying above the clouds at sunset"
+  },
+  "businessCenter": {
+    "breadcrumb": "Business Center",
+    "hero": {
+      "title": "Business Center",
+      "subtitle": "Find business resources, partnership opportunities, and integration support",
+      "imageAlt": "Fly Cham cabin crew standing in front of an aircraft"
+    },
+    "services": {
+      "title": "Explore Our Business Services",
+      "description": "Whether you work as a travel agent, an online travel agent, or want to integrate with Fly Cham, find the resources and information you need below.",
+      "learnMore": "Learn more",
+      "b2bPortal": {
+        "title": "Your B2B Travel Portal",
+        "description": "Access the authorized Fly Cham platform for travel agents and manage your business bookings.",
+        "cta": "Access B2B",
+        "imageAlt": "Business traveler using a tablet"
+      },
+      "agentGuide": {
+        "title": "Travel Agent Guide",
+        "description": "Find practical guidance and useful information to help you manage bookings.",
+        "cta": "View Guide",
+        "imageAlt": "Cabin crew member standing in the aircraft aisle"
+      },
+      "partnership": {
+        "title": "Partnership Request",
+        "description": "Interested in becoming a Fly Cham partner? Complete the form and submit your request",
+        "cta": "Submit Your Request",
+        "imageAlt": "Business partners shaking hands"
+      },
+      "apiIntegration": {
+        "title": "API Integration",
+        "description": "Get integration resources and technical information for connecting with Fly Cham services.",
+        "cta": "Request API",
+        "imageAlt": "Developer working at a desk with multiple screens"
+      }
+    },
+    "enquiry": {
+      "title": "Have a Business Enquiry?",
+      "description": "If you need information about travel-agent services or partnerships, choose the right way to connect with us.",
+      "cta": "Get in Touch",
+      "imageAlt": "Business professional working on a tablet"
+    },
+    "quickAccess": {
+      "title": "Quick Access",
+      "items": {
+        "customerCare": "Contact Customer Care",
+        "latestNews": "Read Our Latest News",
+        "whereWeFly": "Discover Where We Fly",
+        "responsibility": "Explore Our Responsibility"
+      },
+      "itemsShort": {
+        "customerCare": "Customer Care",
+        "latestNews": "Latest News",
+        "whereWeFly": "Where We Fly",
+        "responsibility": "Responsibility"
+      }
+    }
+  },
+  "loginTravelAgent": {
+    "welcome": "Welcome to",
+    "headline": "Fly Cham B2B Platform",
+    "planeAlt": "Fly Cham aircraft",
+    "form": {
+      "title": "Travel Agent Login",
+      "subtitle": "Sign in to access the Fly Cham B2B platform",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "login": "Login",
+      "noAccount": "Don't have account?",
+      "joinPartner": "Join as a Partner",
+      "needHelp": "Need help?",
+      "contactSupport": "Contact Travel Agent Support"
+    }
+  },
+  "chamMiles": {
+    "logoAlt": "Cham Miles",
+    "welcome": {
+      "headlineBefore": "Join",
+      "headlineBrand": "Cham Miles",
+      "headlineAfter": "Today",
+      "description": "Create your free ChamMiles account and start earning miles, unlocking rewards, and enjoying exclusive travel benefits with every journey."
+    },
+    "form": {
+      "title": "Create an Account",
+      "subtitle": "Ensure the name provided matches your passport.",
+      "titlePlaceholder": "Title",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "countryCode": "Country code",
+      "phone": "Call number",
+      "dateOfBirth": "Date of birth",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year",
+      "agreeTermsPrefix": "I agree with Fly Cham",
+      "terms": "Terms and conditions",
+      "agreeTermsAnd": "and",
+      "privacy": "privacy policy",
+      "agreeMarketing": "I agree to receive marketing messages from Fly Cham",
+      "continue": "Continue",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "titles": {
+        "mr": "Mr",
+        "mrs": "Mrs",
+        "ms": "Ms",
+        "miss": "Miss"
+      },
+      "countryCodes": {
+        "sy": "Syria (+963)",
+        "ae": "United Arab Emirates (+971)",
+        "sa": "Saudi Arabia (+966)",
+        "lb": "Lebanon (+961)",
+        "jo": "Jordan (+962)",
+        "eg": "Egypt (+20)"
+      },
+      "months": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back to Cham Miles",
+      "email": "Email",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create an account"
+    }
+  },
+  "cargoService": {
+    "breadcrumb": "Cargo Service",
+    "hero": {
+      "title": "Cargo Service",
+      "subtitle": "Choose Safety and Efficiency",
+      "imageAlt": "Cargo pallets on the airport tarmac beside an aircraft wing"
+    },
+    "shipments": {
+      "title": "A Wide Range of Shipment Types",
+      "description": "We provide comprehensive air freight services for the safe transportation of goods, pets, and perishable items, ensuring timely delivery of goods.",
+      "tabsLabel": "Shipment types",
+      "types": {
+        "airFreight": {
+          "label": "Air Freight",
+          "title": "Air Freight",
+          "description": "Fast, reliable and cost-effective transportation for general cargo, with flexible solutions to meet your shipping needs.",
+          "imageAlt": "Cargo aircraft being loaded on the tarmac"
+        },
+        "perishables": {
+          "label": "Perishables",
+          "title": "Perishables",
+          "description": "Temperature-controlled air cargo solutions that keep fresh produce, seafood, and other perishable goods in optimal condition.",
+          "imageAlt": "Perishable cargo ready for air transport"
+        },
+        "pharma": {
+          "label": "Pharma",
+          "title": "Pharma",
+          "description": "Secure and compliant handling for pharmaceutical products, with careful monitoring throughout the journey.",
+          "imageAlt": "Pharmaceutical cargo prepared for shipment"
+        },
+        "liveAnimals": {
+          "label": "Live Animals",
+          "title": "Live Animals",
+          "description": "Specialized care and facilities for transporting live animals safely and comfortably according to international standards.",
+          "imageAlt": "Safe transport arrangements for live animals"
+        },
+        "aog": {
+          "label": "AOG",
+          "title": "AOG",
+          "description": "Priority Aircraft-on-Ground support to move critical aviation parts quickly when every hour matters.",
+          "imageAlt": "Urgent aviation parts cargo handling"
+        },
+        "sensitive": {
+          "label": "Sensitive Shipments",
+          "title": "Sensitive Shipments",
+          "description": "Extra care for high-value or delicate cargo that requires specialized handling and secure processes.",
+          "imageAlt": "Sensitive cargo prepared for secure transport"
+        },
+        "dangerous": {
+          "label": "Dangerous Goods",
+          "title": "Dangerous Goods",
+          "description": "Certified dangerous-goods handling with strict compliance to safety regulations and documentation requirements.",
+          "imageAlt": "Dangerous goods cargo labeled for air transport"
+        },
+        "charter": {
+          "label": "Charter",
+          "title": "Charter",
+          "description": "Dedicated charter capacity for oversized, high-volume, or time-critical cargo moves across our network.",
+          "imageAlt": "Charter cargo aircraft on the apron"
+        }
+      }
+    },
+    "info": {
+      "title": "More information to know",
+      "cards": {
+        "request": {
+          "title": "Request Cargo Service",
+          "description": "Submit a seamless cargo form request to transport goods or documents with Fly Cham air Cargo.",
+          "cta": "Apply form",
+          "imageAlt": "Cargo being loaded onto a Fly Cham aircraft"
+        },
+        "stations": {
+          "title": "Our Cargo Stations",
+          "description": "We bring your cargo to our network of destinations and provide local logistics support and operational excellence.",
+          "cta": "Apply form",
+          "imageAlt": "Fly Cham aircraft flying above the clouds"
+        },
+        "assistance": {
+          "title": "Need any assistance?",
+          "description": "If you have any inquiries or questions related to cargo service please contact our dedicated cargo services team.",
+          "cta": "Get in touch",
+          "imageAlt": "Customer service agent ready to help"
+        }
+      }
+    },
+    "guide": {
+      "title": "Cargo Guide",
+      "description": "Learn more about our cargo services, accepted shipments, and cargo stations.",
+      "cta": "Explore Cargo Guide",
+      "imageAlt": "Fly Cham cargo containers"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "answerPlaceholder": "Our cargo support team is happy to help — please browse our FAQs or contact us for more details about cargo services.",
+      "items": [
+        "Can I change my seat after booking?",
+        "Are seats free or paid?",
+        "Is seat selection available for infant booking?",
+        "Is in-flight entertainment available for children?"
+      ],
+      "browse": "Browse FAQs"
+    },
+    "details": {
+      "items": [
+        {
+          "title": "Terms and Conditions",
+          "body": "Fly Cham's crew will meet children using this service at the airport check-in desk, escort them to the gate, and ensure their safe boarding. Upon arrival, the person meeting the child must have an ID card to prove their identity. This ID card must match the person named on the original booking form. No one else can represent the person named, even if they have the original person's ID card with them as proof."
+        },
+        {
+          "title": "More Information",
+          "body": "Fly Cham does not offer unaccompanied minors on connecting flights"
+        }
+      ]
+    }
+  },
+  "cargoStations": {
+    "breadcrumb": "Cargo Stations",
+    "hero": {
+      "title": "Cargo Stations",
+      "subtitle": "Find out about our current cargo stations and delivery points available for your shipments",
+      "imageAlt": "Cargo aircraft being loaded on the tarmac"
+    },
+    "stations": {
+      "title": "Explore our Cargo Stations",
+      "prev": "Previous station",
+      "next": "Next station",
+      "items": {
+        "damascus": {
+          "name": "Damascus International Airport",
+          "location": "Damascus, Syria",
+          "imageAlt": "Damascus International Airport"
+        },
+        "dubai": {
+          "name": "Dubai International Airport",
+          "location": "Dubai, UAE",
+          "imageAlt": "Dubai International Airport"
+        },
+        "sharjah": {
+          "name": "Sharjah International Airport",
+          "location": "Sharjah, UAE",
+          "imageAlt": "Sharjah International Airport"
+        },
+        "baghdad": {
+          "name": "Baghdad International Airport",
+          "location": "Baghdad, Iraq",
+          "imageAlt": "Baghdad International Airport"
+        },
+        "erbil": {
+          "name": "Erbil International Airport",
+          "location": "Erbil, Iraq",
+          "imageAlt": "Erbil International Airport"
+        },
+        "beirut": {
+          "name": "Beirut Rafic Hariri Airport",
+          "location": "Beirut, Lebanon",
+          "imageAlt": "Beirut Rafic Hariri International Airport"
+        }
+      }
+    },
+    "request": {
+      "title": "Request Your Cargo Service",
+      "description": "Submit your shipment details through our cargo request form, and our team will review your request",
+      "cta": "Send request",
+      "imageAlt": "Cargo being loaded onto a Fly Cham aircraft"
+    },
+    "guide": {
+      "title": "Cargo Guide",
+      "description": "Learn more about our cargo services, accepted shipments, and cargo stations.",
+      "cta": "Explore Cargo Guide",
+      "imageAlt": "Fly Cham cargo containers"
+    }
+  },
+  "travelUpdates": {
+    "breadcrumb": "Travel Updates",
+    "learnMore": "Learn More",
+    "hero": {
+      "title": "Travel Updates",
+      "subtitle": "Stay informed with the latest travel information and guidelines",
+      "imageAlt": "Fly Cham aircraft on the airport tarmac"
+    },
+    "dates": {
+      "october242025": "October 24, 2025",
+      "september182025": "September 18, 2025",
+      "august052025": "August 5, 2025",
+      "july222025": "July 22, 2025",
+      "june102025": "June 10, 2025"
+    },
+    "advisory": {
+      "title": "Latest Advisories",
+      "subtitle": "Showing most recent entries for global and local flight adjustments.",
+      "heading": "Autumn Weather Operations in European Hubs",
+      "description": "Due to seasonal fog and wind forecasts across London Heathrow and Frankfurt airports, minor schedule adjustments may occur. Passengers are advised to check flight statuses before departing for the airport.",
+      "links": {
+        "contactCenter": "Contact Center",
+        "manageBooking": "Manage Your Booking",
+        "flightStatus": "Flight Status"
+      },
+      "items": {
+        "routeChange": {
+          "label": "Route change:",
+          "before": "Request a change between Damascus and Beirut at no additional charge, subject to availability. Changes must be processed through our ",
+          "after": "."
+        },
+        "dateChange": {
+          "label": "Date change:",
+          "before": "You may change your flight date without paying a change fee or fare difference, subject to availability, up to 8 days before or 15 days after your original travel date. This can be done through ",
+          "after": "."
+        },
+        "refund": {
+          "label": "Refund:",
+          "before": "Request a full refund for any unused flight segments:",
+          "after": ""
+        },
+        "refundOnline": {
+          "before": "If you purchased through flycham.com, our Contact Center, or a Fly Cham direct point of sale, you can submit your request on our ",
+          "after": "."
+        },
+        "refundAgency": {
+          "before": "If you purchased through a travel agency, please contact them directly.",
+          "after": ""
+        }
+      }
+    },
+    "entries": {
+      "loungeAccess": {
+        "title": "Introducing Premium Lounge Access for Cham Miles Members",
+        "description": "Starting next month, Gold and Platinum tier Cham Miles members can enjoy our newly renovated premium lounge at Damascus International Airport, featuring local organic dining and private quiet suites."
+      },
+      "deviceRegulations": {
+        "title": "Updated Electronic Device Regulations for Transit Flights",
+        "description": "New safety guidelines require all smart devices and lithium battery packs to be fully charged and easily accessible during security screenings for all international transit routes."
+      },
+      "flightsResume": {
+        "title": "Direct Flights Resume Between Damascus and Paris",
+        "description": "Fly Cham is pleased to announce the resumption of our bi-weekly direct service connecting Damascus and Paris Charles de Gaulle, starting December 1st, 2025. Bookings are now open."
+      },
+      "winterSports": {
+        "title": "Winter Sports Equipment Allowance Special",
+        "description": "Enjoy complimentary baggage allowance for ski and snowboard gear on all flights booked to regional mountain destinations between November and February. Terms and weight limits apply."
+      },
+      "baggagePolicy": {
+        "title": "Updated Cabin Baggage Dimensions",
+        "description": "Please ensure your cabin bag meets the latest size guidelines before arriving at the airport. Oversized items may need to be checked at the gate."
+      },
+      "checkInWindow": {
+        "title": "Online Check-in Window Extended",
+        "description": "Online check-in is now available from 48 hours up to 90 minutes before departure on most Fly Cham routes, giving you more flexibility before you fly."
+      },
+      "visaReminder": {
+        "title": "Visa and Entry Requirements Reminder",
+        "description": "Passengers are responsible for holding valid travel documents for their destination and any transit points. Please verify requirements before travel."
+      },
+      "cabinComfort": {
+        "title": "Enhanced Onboard Comfort Amenities",
+        "description": "We are rolling out refreshed cabin soft products across our Airbus A320 fleet, including upgraded blankets and amenity kits on selected longer sectors."
+      },
+      "scheduleAdjustment": {
+        "title": "Summer Schedule Adjustments for Peak Travel",
+        "description": "Minor timing changes apply on selected Middle East routes during the peak summer period. Please reconfirm your itinerary in Manage Booking."
+      },
+      "loyaltyBonus": {
+        "title": "Cham Miles Bonus Miles Campaign",
+        "description": "Members can earn extra miles on qualifying flights booked and flown during the campaign window. Terms and participating routes apply."
+      },
+      "mobileBoarding": {
+        "title": "Mobile Boarding Pass Availability",
+        "description": "Mobile boarding passes are supported at more Fly Cham stations. Keep your device charged and display brightness high at boarding gates."
+      },
+      "sustainability": {
+        "title": "Our Commitment to More Sustainable Travel",
+        "description": "Learn how Fly Cham is investing in operational efficiency and community initiatives as part of our long-term responsibility roadmap."
+      }
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page"
+    },
+    "detail": {
+      "shared": {
+        "badge": "{{type}} {{date}}",
+        "badgeTypes": {
+          "operationalAdvisory": "Operational Advisory",
+          "travelUpdate": "Travel Update"
+        },
+        "hubStatus": "Current Hub Status",
+        "resources": "Useful Resources",
+        "resourceLinks": {
+          "flightTracker": "Live Flight Tracker",
+          "damascusGuide": "Damascus Airport Guide",
+          "baggageClaim": "Baggage Claim updates"
+        }
+      },
+      "autumnWeather": {
+        "title": "Autumn Weather Operations in European Hubs",
+        "subtitle": "Key guidance and support options for passengers navigating seasonal weather disruptions",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Due to persistent seasonal fog and wind forecasts across major European gateways, including London Heathrow (LHR) and Frankfurt (FRA), airline operations may experience minor schedule adjustments. We are taking preemptive measures to guarantee safety and streamline alternative connections.",
+            "Passengers travelling to, from, or through these destinations are strongly encouraged to check their live flight statuses before leaving for the departure airport."
+          ]
+        },
+        "guidelinesTitle": "Protection Guidelines & Travel Flexibility",
+        "guidelines": {
+          "routeChange": {
+            "title": "Route Change Protection",
+            "before": "Request a change between Damascus (DAM) and Beirut (BEY) at no additional charge, subject to availability. Changes must be processed through our ",
+            "after": "."
+          },
+          "dateChange": {
+            "title": "Date Change Flexibility",
+            "before": "You may change your flight date without paying a change fee or fare difference, subject to availability, up to 8 days before or 15 days after your original travel date. This can be done through ",
+            "after": "."
+          },
+          "refund": {
+            "title": "Full Refund Eligibility",
+            "before": "Request a full refund for any unused flight segments:",
+            "after": "",
+            "bullets": {
+              "online": "If you purchased through flycham.com, our Contact Center, or a Fly Cham direct point of sale, you can submit your request on our Flight Status page.",
+              "agency": "If you purchased through a travel agency, please contact them directly."
+            }
+          }
+        },
+        "hubs": {
+          "lhr": { "name": "London Heathrow (LHR)", "status": "Moderate Fog" },
+          "fra": { "name": "Frankfurt (FRA)", "status": "High Winds" },
+          "dam": { "name": "Damascus (DAM)", "status": "Normal" }
+        }
+      },
+      "loungeAccess": {
+        "title": "Introducing Premium Lounge Access for Cham Miles Members",
+        "subtitle": "Gold and Platinum members can enjoy upgraded lounge hospitality in Damascus",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Starting next month, Gold and Platinum tier Cham Miles members can enjoy our newly renovated premium lounge at Damascus International Airport, featuring local organic dining and private quiet suites.",
+            "Eligible members should present their Cham Miles membership card or digital membership pass when entering the lounge."
+          ]
+        }
+      },
+      "deviceRegulations": {
+        "title": "Updated Electronic Device Regulations for Transit Flights",
+        "subtitle": "New safety guidelines for smart devices and lithium batteries on transit routes",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "New safety guidelines require all smart devices and lithium battery packs to be fully charged and easily accessible during security screenings for all international transit routes.",
+            "Please pack power banks and spare batteries in carry-on baggage only, and follow crew instructions during boarding and screening."
+          ]
+        }
+      },
+      "flightsResume": {
+        "title": "Direct Flights Resume Between Damascus and Paris",
+        "subtitle": "Bi-weekly DAM–CDG service returns from December 2025",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Fly Cham is pleased to announce the resumption of our bi-weekly direct service connecting Damascus and Paris Charles de Gaulle, starting December 1st, 2025. Bookings are now open.",
+            "Schedules and fares are available through flycham.com and authorized travel partners."
+          ]
+        }
+      },
+      "winterSports": {
+        "title": "Winter Sports Equipment Allowance Special",
+        "subtitle": "Complimentary ski and snowboard gear allowance on selected mountain routes",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Enjoy complimentary baggage allowance for ski and snowboard gear on all flights booked to regional mountain destinations between November and February. Terms and weight limits apply.",
+            "Please review the latest baggage policy before travel and declare sports equipment during booking or check-in when required."
+          ]
+        }
+      },
+      "baggagePolicy": {
+        "title": "Updated Cabin Baggage Dimensions",
+        "subtitle": "Please confirm cabin bag size before arriving at the airport",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Please ensure your cabin bag meets the latest size guidelines before arriving at the airport. Oversized items may need to be checked at the gate.",
+            "Dimension details are available on our Before You Fly pages and during online check-in."
+          ]
+        }
+      },
+      "checkInWindow": {
+        "title": "Online Check-in Window Extended",
+        "subtitle": "More time to check in online on most Fly Cham routes",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Online check-in is now available from 48 hours up to 90 minutes before departure on most Fly Cham routes, giving you more flexibility before you fly.",
+            "Mobile boarding passes are supported at participating stations where available."
+          ]
+        }
+      },
+      "visaReminder": {
+        "title": "Visa and Entry Requirements Reminder",
+        "subtitle": "Confirm documents for destination and transit points before travel",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Passengers are responsible for holding valid travel documents for their destination and any transit points. Please verify requirements before travel.",
+            "For assistance, contact our help center or your issuing travel agency."
+          ]
+        }
+      },
+      "cabinComfort": {
+        "title": "Enhanced Onboard Comfort Amenities",
+        "subtitle": "Refreshed cabin soft products across our Airbus A320 fleet",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "We are rolling out refreshed cabin soft products across our Airbus A320 fleet, including upgraded blankets and amenity kits on selected longer sectors.",
+            "Availability may vary by route and cabin class."
+          ]
+        }
+      },
+      "scheduleAdjustment": {
+        "title": "Summer Schedule Adjustments for Peak Travel",
+        "subtitle": "Minor timing changes on selected Middle East routes",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Minor timing changes apply on selected Middle East routes during the peak summer period. Please reconfirm your itinerary in Manage Booking.",
+            "Notifications are also sent to the contact details associated with your reservation."
+          ]
+        }
+      },
+      "loyaltyBonus": {
+        "title": "Cham Miles Bonus Miles Campaign",
+        "subtitle": "Earn extra miles on qualifying flights during the campaign window",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Members can earn extra miles on qualifying flights booked and flown during the campaign window. Terms and participating routes apply.",
+            "Visit Cham Miles for eligibility details and accrual timelines."
+          ]
+        }
+      },
+      "mobileBoarding": {
+        "title": "Mobile Boarding Pass Availability",
+        "subtitle": "Use your phone at more Fly Cham boarding gates",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Mobile boarding passes are supported at more Fly Cham stations. Keep your device charged and display brightness high at boarding gates.",
+            "If a mobile pass is not accepted at a specific station, a printed pass remains available at check-in."
+          ]
+        }
+      },
+      "sustainability": {
+        "title": "Our Commitment to More Sustainable Travel",
+        "subtitle": "Operational efficiency and community initiatives across our network",
+        "overview": {
+          "title": "Overview of Situation",
+          "paragraphs": [
+            "Learn how Fly Cham is investing in operational efficiency and community initiatives as part of our long-term responsibility roadmap.",
+            "Explore Our Responsibility for the latest programs and progress updates."
+          ]
+        }
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+import { Envelope } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
@@ -56,7 +57,11 @@ const InlineForm = ({ t }) => (
   </form>
 )
 
-const MediaNewsletterSignup = ({ layout = 'inline' }) => {
+const MediaNewsletterSignup = ({
+  layout = 'inline',
+  backgroundImage,
+  copyPrefix,
+}) => {
   const { t } = useTranslation()
 
   const mobileCard = (
@@ -75,6 +80,7 @@ const MediaNewsletterSignup = ({ layout = 'inline' }) => {
 
   if (layout === 'fullBleed') {
     return (
+      <section className="relative mt-10 w-full overflow-hidden border border-200 border-e-0 bg-100">
       <section className="relative mt-10 w-full overflow-hidden border border-200 border-e-0 bg-100">
         <div
           aria-hidden

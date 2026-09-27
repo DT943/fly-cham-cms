@@ -61,7 +61,7 @@ const OurFleet = () => {
               id: 'cargo',
               image: cargoPhoto,
               imageAlt: t('ourFleet.banners.cargo.imageAlt'),
-              href: '#',
+              href: '/cargo-service',
               title: t('ourFleet.banners.cargo.title'),
               description: t('ourFleet.banners.cargo.description'),
               cta: t('ourFleet.banners.learnMore'),

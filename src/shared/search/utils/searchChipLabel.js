@@ -23,6 +23,7 @@ const PAGE_CHIP_KEYS = {
   '/our-fleet': 'ourFleet.breadcrumb',
   '/media-center': 'mediaCenter.breadcrumb',
   '/recent-news': 'recentNews.breadcrumb',
+  '/travel-updates': 'travelUpdates.breadcrumb',
   '/legal': 'legal.hub.breadcrumb',
   '/legal/terms-and-conditions': 'legal.terms.breadcrumb',
   '/legal/booking-terms-and-conditions': 'legal.bookingTerms.breadcrumb',

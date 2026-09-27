@@ -292,6 +292,14 @@ body {
   border-radius: 0.75rem;
 }
 
+/* Hide StPageFlip leftover shadows on single-page cover/back-cover views. */
+.magazine-flipbook--single .stf__outerShadow,
+.magazine-flipbook--single .stf__innerShadow,
+.magazine-flipbook--single .stf__hardShadow,
+.magazine-flipbook--single .stf__hardInnerShadow {
+  display: none !important;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
