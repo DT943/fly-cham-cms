@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { CaretDown, GlobeHemisphereWest, UserCircle } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
@@ -65,6 +65,39 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
   const closeMenu = () => setOpenMenu(null)
   const closeMobile = () => setMobileOpen(false)
   const toggle = (id) => setOpenMenu((current) => (current === id ? null : id))
+  const navRef = useRef(null)
+  const itemRefs = useRef({})
+  const linePlaced = useRef(false)
+  const [navLine, setNavLine] = useState(null)
+
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    const item = itemRefs.current[openMenu]
+    const isNavItem = headerMenus.some((menu) => menu.id === openMenu)
+
+    if (!nav || !item || !isNavItem) {
+      linePlaced.current = false
+      setNavLine(null)
+      return undefined
+    }
+
+    const place = () => {
+      const current = itemRefs.current[openMenu]
+      if (!current) return
+      const inset = 8
+      setNavLine({
+        left: current.offsetLeft + inset,
+        width: Math.max(0, current.offsetWidth - inset * 2),
+        animate: linePlaced.current,
+      })
+      linePlaced.current = true
+    }
+
+    place()
+    const observer = new ResizeObserver(place)
+    observer.observe(nav)
+    return () => observer.disconnect()
+  }, [openMenu])
 
   const activeMenu = headerMenus.find((menu) => menu.id === openMenu)
 
@@ -76,7 +109,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div
-        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-50'} shadow-[0_4px_4px_rgba(33,37,41,0.04)]`}
+        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-50'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
       >
         <Container className="flex h-16 items-center justify-between gap-4 md:h-18">
           <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham" onClick={closeMenu}>
@@ -84,8 +117,9 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
           </LocalizedLink>
 
           <nav
+            ref={navRef}
             aria-label={t('layout.header.navLabel')}
-            className="hidden h-full items-stretch gap-2 lg:flex"
+            className="relative hidden h-full items-stretch gap-2 lg:flex"
           >
             {headerMenus.map((menu) => {
               const isOpen = openMenu === menu.id
@@ -93,13 +127,16 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
               return (
                 <button
                   key={menu.id}
+                  ref={(node) => {
+                    itemRefs.current[menu.id] = node
+                  }}
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={`${menu.id}-mega-menu`}
                   onClick={() => toggle(menu.id)}
                   className={`relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${
-                    isOpen ? 'font-medium text-primary-1' : `font-normal ${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
-                  } ${isOpen ? 'after:absolute after:inset-x-2 after:bottom-0 after:h-0.75 after:bg-primary-2' : ''}`}
+                    isOpen ? 'font-normal text-primary-1' : `font-normal ${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
+                  }`}
                 >
                   {t(`layout.header.nav.${menu.labelKey}`)}
                   <CaretDown
@@ -110,6 +147,17 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
                 </button>
               )
             })}
+            {navLine ? (
+              <span
+                aria-hidden
+                className={`pointer-events-none absolute bottom-0 h-[3px] bg-primary-2 ${
+                  navLine.animate
+                    ? 'transition-[left,width] duration-300 ease-out motion-reduce:transition-none'
+                    : ''
+                }`}
+                style={{ left: navLine.left, width: navLine.width }}
+              />
+            ) : null}
           </nav>
 
           <div className="hidden items-stretch gap-2 lg:flex">
@@ -161,7 +209,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
       {(activeMenu || openMenu === REGION_MENU) && (
         <div
           id={`${openMenu}-mega-menu`}
-          className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto lg:block"
+          className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] lg:block"
         >
           {activeMenu && <MegaMenu menu={activeMenu} onNavigate={closeMenu} />}
           {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}

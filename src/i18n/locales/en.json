@@ -1,5 +1,6 @@
 {
   "common": {
+    "loadingPage": "Loading page…",
     "home": "Home",
     "help": "Help",
     "contactUs": "Contact us",

@@ -23,20 +23,50 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
   const { t } = useTranslation()
   const navRef = useRef(null)
   const tabRefs = useRef({})
+  const placed = useRef(false)
+  const [line, setLine] = useState({
+    vertical: true,
+    offset: 0,
+    size: 0,
+    animate: false,
+  })
+
+  useLayoutEffect(() => {
+    placed.current = false
+  }, [menuId])
 
   useLayoutEffect(() => {
     const nav = navRef.current
     const tab = tabRefs.current[activeId]
     if (!nav || !tab) return
-    if (nav.scrollWidth <= nav.clientWidth + 1) return
-    scrollTabToStart(nav, tab)
-  }, [activeId])
+
+    const place = () => {
+      const current = tabRefs.current[activeId]
+      if (!current) return
+      const vertical = window.matchMedia('(min-width: 1024px)').matches
+      setLine((previous) => ({
+        vertical,
+        offset: vertical ? current.offsetTop : current.offsetLeft,
+        size: vertical ? current.offsetHeight : current.offsetWidth,
+        animate: placed.current && previous.vertical === vertical,
+      }))
+      placed.current = true
+    }
+
+    place()
+    const observer = new ResizeObserver(place)
+    observer.observe(nav)
+
+    if (nav.scrollWidth > nav.clientWidth + 1) scrollTabToStart(nav, tab)
+
+    return () => observer.disconnect()
+  }, [activeId, tabs])
 
   return (
     <nav
       ref={navRef}
       aria-label={t(`layout.header.nav.${menuId}`)}
-      className="no-scrollbar px-6 flex w-full shrink-0 flex-row overflow-x-auto border-b border-200 bg-100 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
+      className="no-scrollbar relative px-6 flex w-full shrink-0 flex-row overflow-x-auto border-b border-200 bg-100 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
     >
       {tabs.map((tab) => {
         const Icon = tab.icon
@@ -52,10 +82,8 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
             }}
             aria-current={isActive ? 'true' : undefined}
             onClick={() => onSelect(tab.id)}
-            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent ps-0 pe-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:ps-6 lg:pe-6 ${
-              isActive
-                ? 'border-b-[3px] border-primary-2 text-primary-1 lg:border-b-0 lg:border-s-[3px]'
-                : 'border-b-[3px] border-transparent text-700 hover:text-primary-1 lg:border-b-0 lg:border-s-[3px]'
+            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 border-b-[3px] border-transparent bg-transparent ps-0 pe-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:border-b-0 lg:ps-6 lg:pe-6 ${
+              isActive ? 'text-primary-1' : 'text-700 hover:text-primary-1'
             }`}
           >
             <span className={`relative shrink-0 ${isActive ? 'text-primary-1' : 'text-700'}`}>
@@ -66,33 +94,52 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
                 </span>
               )}
             </span>
-            <span className={`${typography.body} ${isActive ? 'font-semibold' : 'font-medium'}`}>
+            <span className={`${typography.body} font-medium`}>
               {t(`layout.header.tabs.${tab.id}`)}
             </span>
           </button>
         )
       })}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute bg-primary-2 ${
+          line.vertical ? 'start-0 hidden w-[3px] lg:block' : 'bottom-0 h-[3px] lg:hidden'
+        } ${
+          line.animate
+            ? line.vertical
+              ? 'transition-[top,height] duration-300 ease-out motion-reduce:transition-none'
+              : 'transition-[left,width] duration-300 ease-out motion-reduce:transition-none'
+            : ''
+        }`}
+        style={
+          line.vertical
+            ? { top: line.offset, height: line.size }
+            : { left: line.offset, width: line.size }
+        }
+      />
     </nav>
   )
 }
 
 /** Promo image with a teal action bar (used by the link-style tabs). */
 const MegaMenuPromo = ({ image, ctaHref, ctaLabel, onNavigate }) => (
-  <LocalizedLink
-    to={ctaHref}
-    onClick={onNavigate}
-    className="group relative hidden w-full shrink-0 flex-col justify-end overflow-hidden rounded-3xl no-underline outline-none focus:outline-none lg:flex lg:w-[300px]"
-  >
-    <img
-      src={image}
-      alt=""
-      className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-    />
-    <span className="relative mt-40 flex items-center gap-2 bg-primary-1 px-4 py-4">
-      <span className={`${typography.caption} font-semibold text-50`}>{ctaLabel}</span>
-      <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
-    </span>
-  </LocalizedLink>
+  <div className="hidden shrink-0 border-s border-200 ps-5 lg:block">
+    <LocalizedLink
+      to={ctaHref}
+      onClick={onNavigate}
+      className="group relative flex w-full flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:w-[300px]"
+    >
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+      />
+      <span className="relative mt-40 flex items-center gap-2 bg-primary-1 px-4 py-4">
+        <span className={`${typography.caption} font-semibold text-50`}>{ctaLabel}</span>
+        <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
+      </span>
+    </LocalizedLink>
+  </div>
 )
 
 /** Two-column grid of icon links (Book & Manage, Travel Experience, Help). */
@@ -111,9 +158,9 @@ const MegaMenuLinks = ({ tab, onNavigate }) => {
               key={link.id}
               to={link.href}
               onClick={onNavigate}
-              className="group flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors hover:bg-100 focus:outline-none lg:ps-3"
+              className="group flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors focus:outline-none lg:ps-3"
             >
-              <span className="relative mt-0.5 shrink-0 text-primary-1">
+              <span className="relative mt-0.5 shrink-0 text-700 group-hover:text-primary-1">
                 <Icon size={24} weight="regular" />
                 {Badge && (
                   <span className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full bg-50 text-primary-1">
@@ -180,7 +227,7 @@ const MegaMenuDestinations = ({ tab, onNavigate }) => {
             key={card.id}
             to={card.href}
             onClick={onNavigate}
-            className="group relative flex h-56 flex-col justify-end overflow-hidden rounded-3xl no-underline outline-none focus:outline-none"
+            className="group relative flex h-56 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
           >
             <img
               src={card.image}
@@ -221,7 +268,7 @@ const MegaMenuActivities = ({ tab, onNavigate }) => {
             key={card.id}
             to={card.href}
             onClick={onNavigate}
-            className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-3xl no-underline outline-none focus:outline-none"
+            className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
           >
             <img
               src={card.image}
@@ -260,7 +307,7 @@ const MegaMenuMap = ({ tab, onNavigate }) => (
     <LocalizedLink
       to={tab.cta}
       onClick={onNavigate}
-      className="block h-64 overflow-hidden rounded-3xl no-underline outline-none focus:outline-none lg:h-80"
+      className="block h-64 overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:h-80"
     >
       <img src={tab.image} alt="" className="size-full object-cover" />
     </LocalizedLink>

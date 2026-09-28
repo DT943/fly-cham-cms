@@ -321,3 +321,62 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ---- Loading skeleton (shared/components/Skeleton.jsx, PageSkeleton.jsx) ----
+ * A neutral block with a soft highlight sweeping across it in the reading
+ * direction (left→right, right→left under dir="rtl"). Each block can offset
+ * its sweep with --skeleton-delay so a stack of boxes shimmers as a wave. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--color-200);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-50) 65%, transparent) 50%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: var(--skeleton-delay, 0ms);
+}
+
+[dir='rtl'] .skeleton::after {
+  animation-direction: reverse;
+}
+
+/* Don't flash a skeleton on fast loads: fade it in after a short beat. */
+.skeleton-appear {
+  animation: skeletonAppear 300ms ease-out 150ms both;
+}
+
+@keyframes skeletonShimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes skeletonAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    display: none;
+  }
+  .skeleton-appear {
+    animation: none;
+  }
+}

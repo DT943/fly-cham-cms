@@ -1,6 +1,5 @@
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
-import BeforeYouFly from '../../../pages/before-you-fly/BeforeYouFly.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
@@ -10,9 +9,8 @@ import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import NotFound from '../../../pages/not-found/NotFound.jsx'
 import ComingSoon from '../../../pages/coming-soon/ComingSoon.jsx'
 import ChamMiles from '../../../pages/cham-miles/ChamMiles.jsx'
-import LoginTravelAgent from '../../../pages/login-travel-agent/LoginTravelAgent.jsx'
-import CmsPage from '../../../pages/cms-page/CmsPage.jsx'
-import { cmsSlugFromPath } from '../../../pages/cms-page/cmsPagePath.js'
+import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
+import { cmsSlugFromPath } from '../../../pages/dynamic-page/cmsPagePath.js'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
 import { TRAVEL_UPDATES_DETAIL_PATH } from '../../../pages/travel-updates/utils/travelUpdates.js'
@@ -20,10 +18,6 @@ import {
   getDestinationGuide,
   getDestinationGuideSlug,
 } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
-import {
-  getJourneyStage,
-  getJourneyStageSlug,
-} from '../../../pages/before-you-fly/utils/journeyStages.js'
 import {
   FormsRedirect,
   LegacyFormDetailRedirect,
@@ -36,19 +30,14 @@ export { newPages } from './newPages.js'
 
 /**
  * Non-CMS app routes that still use static React pages
- * (route map, magazine viewer, journey-stage aliases, legacy redirects).
- * The home page `/` is CMS-driven (see newPages.js → NewHome).
+ * (route map, magazine viewer, legacy redirects).
+ * The home page `/` is CMS-driven (see newPages.js → dynamicPage('home')).
  */
 export const appPages = {
   '/cham-miles': ChamMiles,
-  '/login-travel-agent': LoginTravelAgent,
   '/our-destinations/route-map': RouteMap,
   '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
   '/magazine-view': MagazineView,
-  // Journey stage pages still use the static BeforeYouFly shell
-  '/travel-experience/at-the-airport': BeforeYouFly,
-  '/travel-experience/onboard': BeforeYouFly,
-  '/travel-experience/after-travel': BeforeYouFly,
   // Legacy help path aliases → official `/help/contact-us/...`
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,
@@ -83,15 +72,15 @@ export function getPage(path) {
   if (RECENT_NEWS_DETAIL_PATH.test(path)) return RecentNewsDetail
   if (TRAVEL_UPDATES_DETAIL_PATH.test(path)) return TravelUpdateDetail
   if (NEWS_DETAIL_PATH.test(path)) return NewsDetail
-  if (getJourneyStage(getJourneyStageSlug(path))) return BeforeYouFly
   if (getDestinationGuide(getDestinationGuideSlug(path))) return ThingsToDoInDamascus
   if (formRequestPath.test(path)) return RequestAForm
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
   // Any other single-segment URL may be a page created in the CMS admin
-  // ("Add new page"); CmsPage renders it, or NotFound when the slug is unknown.
+  // ("Add new page"); DynamicPage (no fixed slug) reads the slug from the URL
+  // and renders NotFound when it's unknown.
   const cmsSlug = cmsSlugFromPath(path)
-  if (cmsSlug && !nestedRouteSlugs.has(cmsSlug)) return CmsPage
+  if (cmsSlug && !nestedRouteSlugs.has(cmsSlug)) return DynamicPage
   return NotFound
 }
 

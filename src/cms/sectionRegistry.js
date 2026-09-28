@@ -71,9 +71,13 @@ import { travelUpdatesListProps } from './adapters/travelUpdatesListAdapter.js'
 import CargoShipmentTypes from '../shared/components/CargoShipmentTypes.jsx'
 import { cargoShipmentTypesProps } from './adapters/cargoShipmentTypesAdapter.js'
 import CargoInfoCards from '../shared/components/CargoInfoCards.jsx'
+import NotFoundHero from '../shared/components/NotFoundHero.jsx'
+import { notFoundHeroProps } from './adapters/notFoundHeroAdapter.js'
 import { cargoInfoCardsProps } from './adapters/cargoInfoCardsAdapter.js'
 import CargoStationsExplorer from '../shared/components/CargoStationsExplorer.jsx'
 import { cargoStationsExplorerProps } from './adapters/cargoStationsExplorerAdapter.js'
+import TravelAgentLogin from '../shared/components/TravelAgentLogin.jsx'
+import { travelAgentLoginProps } from './adapters/travelAgentLoginAdapter.js'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { pageMediaHeroProps } from './adapters/pageMediaHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
@@ -225,8 +229,11 @@ export const sectionRegistry = {
   'travel-updates-list': { Component: TravelUpdatesList, mapProps: travelUpdatesListProps },
   'cargo-shipment-types': { Component: CargoShipmentTypes, mapProps: cargoShipmentTypesProps },
   'cargo-info-cards': { Component: CargoInfoCards, mapProps: cargoInfoCardsProps },
+  // Full-screen standalone B2B login (Layout hides header/footer on this path).
+  'travel-agent-login': { Component: TravelAgentLogin, mapProps: travelAgentLoginProps, fullBleed: true },
   'cargo-stations-explorer': { Component: CargoStationsExplorer, mapProps: cargoStationsExplorerProps, fullBleed: true },
   'business-quick-access': { Component: BusinessQuickAccess, mapProps: businessQuickAccessProps },
+  'not-found-hero': { Component: NotFoundHero, mapProps: notFoundHeroProps, fullBleed: true },
 }
 
 export function getSection(sectionId) {
