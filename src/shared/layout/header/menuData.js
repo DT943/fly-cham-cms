@@ -30,7 +30,3 @@ export const regions = [
   { id: 'global', code: 'GL', global: true, langs: ['en', 'ar'] },
 ]
 
-export const mobileMenuSecondaryLinks = [
-  { id: 'contactUs', href: '/help/contact-us', labelKey: 'navItems.contactUs' },
-  { id: 'helpSupport', href: '/help', labelKey: 'mobile.helpSupport' },
-]

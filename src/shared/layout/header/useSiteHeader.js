@@ -79,6 +79,27 @@ const tabHasContent = (tab) => {
   return tab.cards.length > 0
 }
 
+/** Mobile menu extras; absent/invalid fields fall back to the bundled default. */
+const normalizeMobile = (mobile, base) => {
+  const fallback = base.mobile
+  if (!isObj(mobile)) return fallback
+  const links = Array.isArray(mobile.links)
+    ? mobile.links
+        .filter((link) => isObj(link) && str(link.label))
+        .map((link, index) => ({
+          id: str(link.id) || `mobile-link-${index}`,
+          label: str(link.label),
+          href: str(link.href) || '/',
+        }))
+    : fallback.links
+  return {
+    coverImageUrl: str(mobile.coverImageUrl, fallback.coverImageUrl),
+    coverAlt: str(mobile.coverAlt, fallback.coverAlt),
+    homeLabel: str(mobile.homeLabel) || fallback.homeLabel,
+    links,
+  }
+}
+
 /**
  * Validated + normalised document, ready to render: every field present with
  * the right type, missing style/logo/login/region keys filled from the bundled
@@ -122,6 +143,7 @@ const normalizeDocument = (doc, lang) => {
       show: doc.region?.show !== false,
       label: str(doc.region?.label, base.region.label),
     },
+    mobile: normalizeMobile(doc.mobile, base),
     menus,
     style,
   }

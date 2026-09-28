@@ -2,11 +2,9 @@ import { CaretLeft, CaretRight, GlobeHemisphereWest, UserCircle, X } from '@phos
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
-import coverPhoto from '../../../../assets/images/our-destenations/ph1.png'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { headerHref } from '../headerStyle.js'
-import { mobileMenuSecondaryLinks } from '../menuData.js'
 import MegaMenu from './MegaMenu.jsx'
 import RegionMenu from './RegionMenu.jsx'
 
@@ -118,11 +116,13 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
     >
       {!nested && (
         <div className="relative h-[28vh] min-h-36 max-h-56 shrink-0 overflow-hidden">
-          <img
-            src={coverPhoto}
-            alt={t('layout.header.mobile.coverAlt')}
-            className="size-full object-cover object-[center_35%]"
-          />
+          {header.mobile.coverImageUrl ? (
+            <img
+              src={header.mobile.coverImageUrl}
+              alt={header.mobile.coverAlt}
+              className="size-full object-cover object-[center_35%]"
+            />
+          ) : null}
           <button
             ref={closeRef}
             type="button"
@@ -172,7 +172,7 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
               onClick={onNavigate}
               className={`${typography.itemTitle} py-3.5 font-bold text-800 no-underline`}
             >
-              {t('common.home')}
+              {header.mobile.homeLabel}
             </LocalizedLink>
 
             {header.menus.map((menu) => (
@@ -214,14 +214,14 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
           </div>
 
           <div className="mt-auto flex flex-col gap-3 pt-10 pb-2">
-            {mobileMenuSecondaryLinks.map((link) => (
+            {header.mobile.links.map((link) => (
               <LocalizedLink
                 key={link.id}
-                to={link.href}
+                to={headerHref(link.href)}
                 onClick={onNavigate}
                 className={`${typography.caption} font-medium text-primary-1 no-underline`}
               >
-                {t(`layout.header.${link.labelKey}`)}
+                {link.label}
               </LocalizedLink>
             ))}
           </div>

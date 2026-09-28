@@ -16,6 +16,23 @@
       "show": true,
       "label": "SY"
     },
+    "mobile": {
+      "coverImageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/mobile-menu-cover.webp",
+      "coverAlt": "Fly Cham aircraft in flight",
+      "homeLabel": "Home",
+      "links": [
+        {
+          "id": "contactUs",
+          "label": "Contact us",
+          "href": "/help/contact-us"
+        },
+        {
+          "id": "helpSupport",
+          "label": "Help and support",
+          "href": "/help"
+        }
+      ]
+    },
     "menus": [
       {
         "id": "bookManage",
@@ -672,6 +689,23 @@
     "region": {
       "show": true,
       "label": "SY"
+    },
+    "mobile": {
+      "coverImageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/mobile-menu-cover.webp",
+      "coverAlt": "طائرة فلاي شام أثناء التحليق",
+      "homeLabel": "الرئيسية",
+      "links": [
+        {
+          "id": "contactUs",
+          "label": "اتصل بنا",
+          "href": "/help/contact-us"
+        },
+        {
+          "id": "helpSupport",
+          "label": "المساعدة والدعم",
+          "href": "/help"
+        }
+      ]
     },
     "menus": [
       {
