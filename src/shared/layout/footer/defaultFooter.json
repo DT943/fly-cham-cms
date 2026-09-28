@@ -1,0 +1,742 @@
+{
+  "en": {
+    "schemaVersion": 1,
+    "brand": {
+      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
+      "logoAlt": "Fly Cham",
+      "logoHref": "/",
+      "followText": "Follow and share your experience with us",
+      "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
+    },
+    "social": [
+      {
+        "id": "whatsapp",
+        "icon": "WhatsappLogo",
+        "label": "WhatsApp",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "instagram",
+        "icon": "InstagramLogo",
+        "label": "Instagram",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "facebook",
+        "icon": "FacebookLogo",
+        "label": "Facebook",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "telegram",
+        "icon": "TelegramLogo",
+        "label": "Telegram",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "tiktok",
+        "icon": "TiktokLogo",
+        "label": "TikTok",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "youtube",
+        "icon": "YoutubeLogo",
+        "label": "YouTube",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "x",
+        "icon": "XLogo",
+        "label": "X",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "linkedin",
+        "icon": "LinkedinLogo",
+        "label": "LinkedIn",
+        "href": "#",
+        "showOnMobile": false
+      }
+    ],
+    "columns": [
+      {
+        "id": "about",
+        "title": "About",
+        "href": "/about-us",
+        "group": 1,
+        "links": [
+          {
+            "id": "about",
+            "label": "About Fly Cham",
+            "href": "/about-us",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "responsibility",
+            "label": "Our Responsibility",
+            "href": "/our-responsibility",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "fleet",
+            "label": "Our Fleet",
+            "href": "/our-fleet",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "careers",
+            "label": "Careers",
+            "href": "https://careers.flycham.com/sy/en",
+            "external": true,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "book",
+        "title": "Book Flights",
+        "href": "/",
+        "group": 2,
+        "links": [
+          {
+            "id": "searchFlights",
+            "label": "Search a Flights",
+            "href": "/",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "flightSchedule",
+            "label": "Flight Schedule",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "flightStatus",
+            "label": "Flight Status",
+            "href": "/help",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "whereWeFly",
+        "title": "Where We Fly",
+        "href": "/our-destinations",
+        "group": 3,
+        "links": [
+          {
+            "id": "destinations",
+            "label": "Our Destinations",
+            "href": "/our-destinations",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "activities",
+            "label": "Activities and Attractions",
+            "href": "/our-destinations/city-sights",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "experience",
+        "title": "Travel Experience",
+        "href": "/travel-experience",
+        "group": 4,
+        "links": [
+          {
+            "id": "beforeYouFly",
+            "label": "Before You Fly",
+            "href": "/travel-experience/before-you-fly",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "atAirport",
+            "label": "At the Airport",
+            "href": "/travel-experience/at-the-airport",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "onboard",
+            "label": "Onboard",
+            "href": "/travel-experience/onboard",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "afterTravel",
+            "label": "After Travel",
+            "href": "/travel-experience/after-travel",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "help",
+        "title": "Help",
+        "href": "/help",
+        "group": 1,
+        "links": [
+          {
+            "id": "helpCenter",
+            "label": "Help Center",
+            "href": "/help",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "contactUs",
+            "label": "Contact Us",
+            "href": "/help/contact-us",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "offices",
+            "label": "Sales Offices",
+            "href": "/help/contact-us/our-offices",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "gsa",
+            "label": "General Sales Agents",
+            "href": "/help/contact-us/our-gsa",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "forms",
+            "label": "Forms Requests",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "travelUpdates",
+            "label": "Travel Updates",
+            "href": "/travel-updates",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "faqs",
+            "label": "FAQs",
+            "href": "/help/faqs",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "business",
+        "title": "Business",
+        "href": "/business-center",
+        "group": 2,
+        "links": [
+          {
+            "id": "businessCenter",
+            "label": "Business Center",
+            "href": "/business-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "b2b",
+            "label": "B2B Platform",
+            "href": "/login-travel-agent",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "developers",
+            "label": "Developer Integrations",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "partner",
+            "label": "Become a Partner",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "media",
+        "title": "Media & News",
+        "href": "/media-center",
+        "group": 3,
+        "links": [
+          {
+            "id": "mediaCenter",
+            "label": "Media center",
+            "href": "/media-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "recentNews",
+            "label": "Recent News",
+            "href": "/recent-news",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "magazine",
+            "label": "Marhaba Magazine",
+            "href": "/travel-experience/traveler-magazine",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      }
+    ],
+    "legal": {
+      "copyright": "© All Rights Reserved. Fly Cham 2025",
+      "links": [
+        {
+          "id": "sitemap",
+          "label": "Site Map",
+          "href": "/coming-soon",
+          "showOnMobile": false
+        },
+        {
+          "id": "terms",
+          "label": "Website Terms and Conditions",
+          "href": "/legal/terms-and-conditions",
+          "showOnMobile": true
+        },
+        {
+          "id": "privacy",
+          "label": "Privacy Policy",
+          "href": "/legal/privacy-policy",
+          "showOnMobile": true
+        },
+        {
+          "id": "cookies",
+          "label": "Cookies Policy",
+          "href": "/legal/cookies",
+          "showOnMobile": true
+        },
+        {
+          "id": "bookingTerms",
+          "label": "Bookings Terms and Conditions",
+          "href": "/legal/booking-terms-and-conditions",
+          "showOnMobile": true
+        }
+      ]
+    },
+    "style": {
+      "bg": "primary-1",
+      "showPattern": true,
+      "columnTitleColor": "secondary",
+      "columnTitleColorHover": "50",
+      "columnTitleFontWeight": "semibold",
+      "mobileTitleColor": "50",
+      "mobileTitleColorHover": "secondary",
+      "mobileTitleFontWeight": "semibold",
+      "linkColor": "50",
+      "linkColorHover": "secondary",
+      "linkFontWeight": "normal",
+      "highlightColor": "secondary",
+      "followTextColor": "50",
+      "socialColor": "50",
+      "socialColorHover": "primary-2",
+      "legalColor": "50",
+      "legalColorHover": "primary-2",
+      "dividerColor": "50"
+    }
+  },
+  "ar": {
+    "schemaVersion": 1,
+    "brand": {
+      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
+      "logoAlt": "Fly Cham",
+      "logoHref": "/",
+      "followText": "تابعنا وشارك تجربتك معنا",
+      "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
+    },
+    "social": [
+      {
+        "id": "whatsapp",
+        "icon": "WhatsappLogo",
+        "label": "واتساب",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "instagram",
+        "icon": "InstagramLogo",
+        "label": "إنستغرام",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "facebook",
+        "icon": "FacebookLogo",
+        "label": "فيسبوك",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "telegram",
+        "icon": "TelegramLogo",
+        "label": "تيليغرام",
+        "href": "#",
+        "showOnMobile": true
+      },
+      {
+        "id": "tiktok",
+        "icon": "TiktokLogo",
+        "label": "تيك توك",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "youtube",
+        "icon": "YoutubeLogo",
+        "label": "يوتيوب",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "x",
+        "icon": "XLogo",
+        "label": "إكس",
+        "href": "#",
+        "showOnMobile": false
+      },
+      {
+        "id": "linkedin",
+        "icon": "LinkedinLogo",
+        "label": "لينكد إن",
+        "href": "#",
+        "showOnMobile": false
+      }
+    ],
+    "columns": [
+      {
+        "id": "about",
+        "title": "عن فلاي شام",
+        "href": "/about-us",
+        "group": 1,
+        "links": [
+          {
+            "id": "about",
+            "label": "عن فلاي شام",
+            "href": "/about-us",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "responsibility",
+            "label": "مسؤوليتنا",
+            "href": "/our-responsibility",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "fleet",
+            "label": "أسطولنا",
+            "href": "/our-fleet",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "careers",
+            "label": "الوظائف",
+            "href": "https://careers.flycham.com/sy/en",
+            "external": true,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "book",
+        "title": "حجز الرحلات",
+        "href": "/",
+        "group": 2,
+        "links": [
+          {
+            "id": "searchFlights",
+            "label": "ابحث عن رحلات",
+            "href": "/",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "flightSchedule",
+            "label": "جدول الرحلات",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "flightStatus",
+            "label": "حالة الرحلة",
+            "href": "/help",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "whereWeFly",
+        "title": "وجهاتنا",
+        "href": "/our-destinations",
+        "group": 3,
+        "links": [
+          {
+            "id": "destinations",
+            "label": "وجهاتنا",
+            "href": "/our-destinations",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "activities",
+            "label": "الأنشطة والمعالم",
+            "href": "/our-destinations/city-sights",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "experience",
+        "title": "تجربة السفر",
+        "href": "/travel-experience",
+        "group": 4,
+        "links": [
+          {
+            "id": "beforeYouFly",
+            "label": "قبل السفر",
+            "href": "/travel-experience/before-you-fly",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "atAirport",
+            "label": "في المطار",
+            "href": "/travel-experience/at-the-airport",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "onboard",
+            "label": "على متن الطائرة",
+            "href": "/travel-experience/onboard",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "afterTravel",
+            "label": "بعد السفر",
+            "href": "/travel-experience/after-travel",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "help",
+        "title": "المساعدة",
+        "href": "/help",
+        "group": 1,
+        "links": [
+          {
+            "id": "helpCenter",
+            "label": "مركز المساعدة",
+            "href": "/help",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "contactUs",
+            "label": "اتصل بنا",
+            "href": "/help/contact-us",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "offices",
+            "label": "مكاتب المبيعات",
+            "href": "/help/contact-us/our-offices",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "gsa",
+            "label": "وكلاء المبيعات العامون",
+            "href": "/help/contact-us/our-gsa",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "forms",
+            "label": "طلبات النماذج",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "travelUpdates",
+            "label": "تحديثات السفر",
+            "href": "/travel-updates",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "faqs",
+            "label": "الأسئلة الشائعة",
+            "href": "/help/faqs",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "business",
+        "title": "الأعمال",
+        "href": "/business-center",
+        "group": 2,
+        "links": [
+          {
+            "id": "businessCenter",
+            "label": "مركز الأعمال",
+            "href": "/business-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "b2b",
+            "label": "منصة الأعمال B2B",
+            "href": "/login-travel-agent",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "developers",
+            "label": "تكاملات المطورين",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "partner",
+            "label": "كن شريكاً",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
+        "id": "media",
+        "title": "الإعلام والأخبار",
+        "href": "/media-center",
+        "group": 3,
+        "links": [
+          {
+            "id": "mediaCenter",
+            "label": "المركز الإعلامي",
+            "href": "/media-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "recentNews",
+            "label": "أحدث الأخبار",
+            "href": "/recent-news",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "magazine",
+            "label": "مجلة مرحبا",
+            "href": "/travel-experience/traveler-magazine",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      }
+    ],
+    "legal": {
+      "copyright": "© جميع الحقوق محفوظة. فلاي شام 2025",
+      "links": [
+        {
+          "id": "sitemap",
+          "label": "خريطة الموقع",
+          "href": "/coming-soon",
+          "showOnMobile": false
+        },
+        {
+          "id": "terms",
+          "label": "شروط وأحكام الموقع",
+          "href": "/legal/terms-and-conditions",
+          "showOnMobile": true
+        },
+        {
+          "id": "privacy",
+          "label": "سياسة الخصوصية",
+          "href": "/legal/privacy-policy",
+          "showOnMobile": true
+        },
+        {
+          "id": "cookies",
+          "label": "سياسة ملفات تعريف الارتباط",
+          "href": "/legal/cookies",
+          "showOnMobile": true
+        },
+        {
+          "id": "bookingTerms",
+          "label": "شروط وأحكام الحجز",
+          "href": "/legal/booking-terms-and-conditions",
+          "showOnMobile": true
+        }
+      ]
+    },
+    "style": {
+      "bg": "primary-1",
+      "showPattern": true,
+      "columnTitleColor": "secondary",
+      "columnTitleColorHover": "50",
+      "columnTitleFontWeight": "semibold",
+      "mobileTitleColor": "50",
+      "mobileTitleColorHover": "secondary",
+      "mobileTitleFontWeight": "semibold",
+      "linkColor": "50",
+      "linkColorHover": "secondary",
+      "linkFontWeight": "normal",
+      "highlightColor": "secondary",
+      "followTextColor": "50",
+      "socialColor": "50",
+      "socialColorHover": "primary-2",
+      "legalColor": "50",
+      "legalColorHover": "primary-2",
+      "dividerColor": "50"
+    }
+  }
+}

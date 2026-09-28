@@ -1,6 +1,5 @@
-import { useEffect, useSyncExternalStore } from 'react'
 import { getHeader } from '../../../cms/api/getHeader.js'
-import useCurrentLanguage from '../../hooks/useCurrentLanguage.js'
+import createSiteDocumentHook from '../createSiteDocumentHook.js'
 import defaultHeaders from './defaultHeader.json'
 
 /**
@@ -14,11 +13,10 @@ import defaultHeaders from './defaultHeader.json'
  *     to the default; any other failure (route not deployed, network, 5xx)
  *     keeps whatever is showing, silently.
  *
- * A tiny module-level store (useSyncExternalStore) instead of react-query:
- * the header mounts on every page and there is no global QueryClient.
+ * Store / cache / fetch behaviour lives in createSiteDocumentHook (shared
+ * with the footer).
  */
 
-const LANGS = ['en', 'ar']
 const TAB_TYPES = new Set(['links', 'destinations', 'activities', 'map'])
 const STORAGE_PREFIX = 'flycham:site-header:v1:'
 
@@ -129,108 +127,13 @@ const normalizeDocument = (doc, lang) => {
   }
 }
 
-// ---- storage (every access guarded: private mode / blocked storage) ----
-
-const readCache = (lang) => {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_PREFIX + lang)
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    return isValidDocument(parsed) ? parsed : null
-  } catch {
-    return null
-  }
-}
-
-const writeCache = (lang, doc) => {
-  try {
-    window.localStorage.setItem(STORAGE_PREFIX + lang, JSON.stringify(doc))
-  } catch {
-    // ignore quota / disabled storage
-  }
-}
-
-const clearCache = (lang) => {
-  try {
-    window.localStorage.removeItem(STORAGE_PREFIX + lang)
-  } catch {
-    // ignore
-  }
-}
-
-// ---- store ----
-
-/** lang → { doc (normalised), raw (JSON of the source document), source } */
-const entries = {}
-const requested = new Set()
-const listeners = new Set()
-
-const emit = () => listeners.forEach((listener) => listener())
-
-const setEntry = (lang, rawDoc, source) => {
-  const doc = normalizeDocument(rawDoc, lang)
-  if (!doc) return false
-  entries[lang] = { doc, raw: JSON.stringify(rawDoc), source }
-  return true
-}
-
-const ensureEntry = (lang) => {
-  if (entries[lang]) return entries[lang]
-  const cached = typeof window === 'undefined' ? null : readCache(lang)
-  if (!cached || !setEntry(lang, cached, 'cache')) {
-    setEntry(lang, defaultHeaders[lang] || defaultHeaders.en, 'default')
-  }
-  return entries[lang]
-}
-
-const loadFromApi = (lang) => {
-  if (requested.has(lang)) return
-  requested.add(lang)
-
-  getHeader(lang)
-    .then((result) => {
-      const remote = result?.document
-      if (!isValidDocument(remote)) return
-      const current = ensureEntry(lang)
-      const raw = JSON.stringify(remote)
-      writeCache(lang, remote)
-      if (raw === current.raw) return
-      if (setEntry(lang, remote, 'api')) emit()
-    })
-    .catch((error) => {
-      // The API's own 404 (`not_found` = no document saved for this language):
-      // drop a stale cache and use the default. Anything else — a route that
-      // is not deployed yet, network, 5xx — keeps what is showing.
-      const { status, data } = error?.response || {}
-      if (status !== 404 || data?.error?.code !== 'not_found') return
-      clearCache(lang)
-      if (ensureEntry(lang).source === 'default') return
-      setEntry(lang, defaultHeaders[lang] || defaultHeaders.en, 'default')
-      emit()
-    })
-}
-
-const subscribe = (listener) => {
-  listeners.add(listener)
-  return () => listeners.delete(listener)
-}
-
 /** The header document for the current URL language (always renderable). */
-const useSiteHeader = () => {
-  const current = useCurrentLanguage()
-  const lang = LANGS.includes(current) ? current : 'en'
-
-  const doc = useSyncExternalStore(
-    subscribe,
-    () => ensureEntry(lang).doc,
-    () => ensureEntry(lang).doc
-  )
-
-  useEffect(() => {
-    loadFromApi(lang)
-  }, [lang])
-
-  return doc
-}
+const useSiteHeader = createSiteDocumentHook({
+  fetchDocument: getHeader,
+  defaults: defaultHeaders,
+  storagePrefix: STORAGE_PREFIX,
+  isValidDocument,
+  normalizeDocument,
+})
 
 export default useSiteHeader

@@ -1,41 +1,40 @@
-import { useTranslation } from 'react-i18next'
 import { ArrowSquareOut } from '@phosphor-icons/react'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { footerLinkHrefs, footerLinkMeta } from '../utils/footerLinks.js'
+import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
 
-const FooterLinkList = ({ columnId, links }) => {
-  const { t } = useTranslation()
+const linkClass = `${typography.caption} inline-flex items-center gap-1.5 no-underline transition-colors ${FTR_HOVER}`
+
+const FooterLinkList = ({ links, style }) => {
+  const normal = roleStyle({
+    color: style.linkColor,
+    colorHover: style.linkColorHover,
+    weight: style.linkFontWeight,
+  })
+  // Highlighted links: highlight colour, semibold; hover → the normal link colour.
+  const highlighted = roleStyle({
+    color: style.highlightColor,
+    colorHover: style.linkColor,
+    weight: 'semibold',
+  })
 
   return (
     <ul className="m-0 flex list-none flex-col gap-2 p-0">
-      {links.map((linkId) => {
-        const href = footerLinkHrefs[linkId] || '#'
-        const label = t(`layout.footer.columns.${columnId}.links.${linkId}`)
-        const meta = footerLinkMeta[linkId] || {}
-        const highlight = meta.highlight
-        const external = meta.external
-        const className = highlight
-          ? `${typography.caption} inline-flex items-center gap-1.5 font-semibold text-secondary no-underline transition-colors hover:text-50`
-          : `${typography.caption} inline-flex items-center gap-1.5 text-50 no-underline transition-colors hover:text-secondary`
-
-        return (
-          <li key={linkId}>
-            <LocalizedLink
-              href={href}
-              className={className}
-              {...(external
-                ? { target: '_blank', rel: 'noopener noreferrer' }
-                : {})}
-            >
-              {label}
-              {external ? (
-                <ArrowSquareOut size={14} weight="regular" aria-hidden className="shrink-0" />
-              ) : null}
-            </LocalizedLink>
-          </li>
-        )
-      })}
+      {links.map((link) => (
+        <li key={link.id}>
+          <LocalizedLink
+            href={footerHref(link.href)}
+            className={linkClass}
+            style={link.highlight ? highlighted : normal}
+            {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            {link.label}
+            {link.external ? (
+              <ArrowSquareOut size={14} weight="regular" aria-hidden className="shrink-0" />
+            ) : null}
+          </LocalizedLink>
+        </li>
+      ))}
     </ul>
   )
 }

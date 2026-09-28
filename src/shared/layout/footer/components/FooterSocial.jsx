@@ -1,27 +1,31 @@
-import { useTranslation } from 'react-i18next'
-import { footerMobileSocialIds, socialLinks } from '../utils/footerLinks.js'
+import LocalizedLink from '../../../components/LocalizedLink.jsx'
+import { FTR_SOCIAL_HOVER, footerHref, footerIcon, socialStyle } from '../utils/footerStyle.js'
 
 /**
- * Footer social icons — outlined circular buttons. Mobile shows the four
- * primary networks; the rest appear from `lg` up.
+ * Footer social icons — outlined circular buttons. Mobile shows only the
+ * links flagged `showOnMobile`; every link appears from `lg` up.
  */
-const FooterSocial = () => {
-  const { t } = useTranslation()
+const FooterSocial = ({ social, style }) => {
+  const itemStyle = socialStyle(style)
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {socialLinks.map(({ id, icon: Icon, href }) => (
-        <a
-          key={id}
-          href={href}
-          aria-label={t(`layout.footer.social.${id}`)}
-          className={`${
-            footerMobileSocialIds.includes(id) ? 'grid' : 'hidden lg:grid'
-          } size-8 place-items-center rounded-full border border-50/70 text-50 no-underline transition-colors hover:border-primary-2 hover:bg-primary-2/15 hover:text-primary-2 sm:size-9`}
-        >
-          <Icon size={16} weight="regular" />
-        </a>
-      ))}
+      {social.map(({ id, icon, label, href, showOnMobile }) => {
+        const Icon = footerIcon(icon)
+        return (
+          <LocalizedLink
+            key={id}
+            href={footerHref(href)}
+            aria-label={label || undefined}
+            className={`${
+              showOnMobile ? 'grid' : 'hidden lg:grid'
+            } size-8 place-items-center rounded-full border no-underline transition-colors ${FTR_SOCIAL_HOVER} sm:size-9`}
+            style={itemStyle}
+          >
+            <Icon size={16} weight="regular" />
+          </LocalizedLink>
+        )
+      })}
     </div>
   )
 }
