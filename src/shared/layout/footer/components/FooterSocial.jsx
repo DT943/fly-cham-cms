@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
-import { socialLinks } from '../utils/footerLinks.js'
+import { footerMobileSocialIds, socialLinks } from '../utils/footerLinks.js'
 
 /**
- * Footer social icons — outlined circular buttons.
+ * Footer social icons — outlined circular buttons. Mobile shows the four
+ * primary networks; the rest appear from `lg` up.
  */
 const FooterSocial = () => {
   const { t } = useTranslation()
@@ -14,7 +15,9 @@ const FooterSocial = () => {
           key={id}
           href={href}
           aria-label={t(`layout.footer.social.${id}`)}
-          className="grid size-8 place-items-center rounded-full border border-50/70 text-50 no-underline transition-colors hover:border-primary-2 hover:bg-primary-2/15 hover:text-primary-2 sm:size-9"
+          className={`${
+            footerMobileSocialIds.includes(id) ? 'grid' : 'hidden lg:grid'
+          } size-8 place-items-center rounded-full border border-50/70 text-50 no-underline transition-colors hover:border-primary-2 hover:bg-primary-2/15 hover:text-primary-2 sm:size-9`}
         >
           <Icon size={16} weight="regular" />
         </a>

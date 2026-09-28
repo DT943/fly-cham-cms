@@ -59,8 +59,21 @@ export const footerColumnGroups = [
   ],
 ]
 
-/** Flat list for mobile accordion. */
+/** Flat list of every column (desktop order). */
 export const footerColumns = footerColumnGroups.flat()
+
+/** Mobile accordion order (design): About → … → Media & News. */
+const FOOTER_MOBILE_ORDER = ['about', 'book', 'whereWeFly', 'experience', 'help', 'business', 'media']
+
+export const footerMobileColumns = FOOTER_MOBILE_ORDER.map((id) =>
+  footerColumns.find((column) => column.id === id),
+).filter(Boolean)
+
+/** Social icons shown on mobile (the rest appear from `lg` up). */
+export const footerMobileSocialIds = ['whatsapp', 'instagram', 'facebook', 'telegram']
+
+/** Mobile legal list (stacked) — no Site Map. */
+export const footerMobileLegalLinks = ['terms', 'privacy', 'cookies', 'bookingTerms']
 
 /** Bottom legal bar links (right of copyright). */
 export const footerLegalLinks = [

@@ -3,10 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { footerColumnGroups, footerColumns } from '../utils/footerLinks.js'
+import { footerColumnGroups, footerMobileColumns } from '../utils/footerLinks.js'
 import FooterLinkList from './FooterLinkList.jsx'
 
 const headerLinkClass = `m-0 font-semibold tracking-wide text-secondary uppercase no-underline transition-colors hover:text-50 ${typography.caption}`
+
+// Mobile accordion row title (design): white, semibold, title case.
+const mobileTitleClass = `m-0 font-semibold text-50 no-underline transition-colors hover:text-secondary ${typography.caption}`
 
 const ColumnSection = ({ column }) => {
   const { t } = useTranslation()
@@ -46,7 +49,7 @@ const MobileAccordion = () => {
 
   return (
     <div className="flex flex-col divide-y divide-white/15 border-y border-white/15 lg:hidden">
-      {footerColumns.map((column) => {
+      {footerMobileColumns.map((column) => {
         const isOpen = openId === column.id
         const panelId = `${baseId}-${column.id}-panel`
         const buttonId = `${baseId}-${column.id}-button`
@@ -54,7 +57,7 @@ const MobileAccordion = () => {
         return (
           <div key={column.id} className="min-w-0">
             <div className="flex items-center gap-2 py-3.5">
-              <LocalizedLink href={column.href} className={`min-w-0 flex-1 ${headerLinkClass}`}>
+              <LocalizedLink href={column.href} className={`min-w-0 flex-1 ${mobileTitleClass}`}>
                 {t(`layout.footer.columns.${column.id}.title`)}
               </LocalizedLink>
               <button
@@ -64,7 +67,7 @@ const MobileAccordion = () => {
                 aria-controls={panelId}
                 aria-label={t(`layout.footer.columns.${column.id}.title`)}
                 onClick={() => toggle(column.id)}
-                className="grid size-8 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-secondary"
+                className="grid size-8 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-50/85"
               >
                 <CaretDown
                   size={16}

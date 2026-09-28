@@ -16,8 +16,9 @@ const Footer = () => (
       className="pointer-events-none absolute inset-e-0 bottom-0 z-0 hidden h-[45%] w-auto max-w-[42%] object-contain object-bottom-right sm:block lg:max-w-[36%]"
     />
 
-    <Container className="relative z-10 flex flex-col gap-10 py-12 md:gap-12 md:py-14">
-      <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-10 xl:gap-14">
+    {/* Mobile/tablet (< lg) uses the compact stacked design; lg+ is unchanged. */}
+    <Container className="relative z-10 flex flex-col gap-6 py-8 lg:gap-12 lg:py-14">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10 xl:gap-14">
         <FooterBrand />
         <FooterNav />
       </div>
