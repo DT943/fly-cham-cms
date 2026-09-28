@@ -36,6 +36,23 @@
   color: var(--cms-hc) !important;
   font-weight: var(--cms-hw) !important;
 }
+/*
+ * Site header (CMS header document `style`): same --cms-hc / --cms-hw vars as
+ * .cms-text-hover but without the colour transition (the header swaps
+ * instantly). `.cms-hdr-self-hover` = the element's own hover (top-bar items);
+ * `group/hdr` = hovering a whole link/tab drives its label + icon.
+ */
+.cms-hdr-self-hover:hover {
+  color: var(--cms-hc) !important;
+  font-weight: var(--cms-hw) !important;
+}
+.group\/hdr:hover .cms-hdr-hover {
+  color: var(--cms-hc) !important;
+  font-weight: var(--cms-hw) !important;
+}
+.group\/hdr:hover .cms-hdr-hover-color {
+  color: var(--cms-hc) !important;
+}
 /* Button Normal/Hover background (see getButtonStyle in styles/cmsStyle.js). */
 .cms-btn-hover {
   transition:

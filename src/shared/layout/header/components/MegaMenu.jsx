@@ -1,9 +1,17 @@
 import { ArrowRight } from '@phosphor-icons/react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
+import {
+  HDR_GROUP,
+  HDR_GROUP_COLOR,
+  HDR_GROUP_TEXT,
+  colorVar,
+  headerHref,
+  headerIcon,
+  roleStyle,
+} from '../headerStyle.js'
 
 const scrollTabToStart = (nav, tab) => {
   const navRect = nav.getBoundingClientRect()
@@ -19,8 +27,7 @@ const scrollTabToStart = (nav, tab) => {
 }
 
 /** Left rail: the tabs that switch the panel content. */
-const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
-  const { t } = useTranslation()
+const MegaMenuSidebar = ({ menuId, menuLabel, tabs, activeId, onSelect, headerStyle: hs }) => {
   const navRef = useRef(null)
   const tabRefs = useRef({})
   const placed = useRef(false)
@@ -65,13 +72,21 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
   return (
     <nav
       ref={navRef}
-      aria-label={t(`layout.header.nav.${menuId}`)}
-      className="no-scrollbar relative px-6 flex w-full shrink-0 flex-row overflow-x-auto border-b border-200 bg-100 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
+      aria-label={menuLabel}
+      className="no-scrollbar relative px-6 flex w-full shrink-0 flex-row overflow-x-auto border-b border-200 lg:w-[232px] lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-e lg:py-6"
+      style={{ backgroundColor: colorVar(hs.sidebarBg) }}
     >
       {tabs.map((tab) => {
-        const Icon = tab.icon
-        const Badge = tab.badge
+        const Icon = headerIcon(tab.icon)
+        const Badge = headerIcon(tab.badge)
         const isActive = tab.id === activeId
+        const labelStyle = roleStyle({
+          color: hs.tabColor,
+          colorHover: hs.tabColorHover,
+          weight: hs.tabFontWeight,
+          weightHover: hs.tabFontWeightHover,
+          active: isActive,
+        })
 
         return (
           <button
@@ -82,27 +97,34 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
             }}
             aria-current={isActive ? 'true' : undefined}
             onClick={() => onSelect(tab.id)}
-            className={`relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 border-b-[3px] border-transparent bg-transparent ps-0 pe-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:border-b-0 lg:ps-6 lg:pe-6 ${
-              isActive ? 'text-primary-1' : 'text-700 hover:text-primary-1'
-            }`}
+            className={`${HDR_GROUP} relative flex shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap border-0 border-b-[3px] border-transparent bg-transparent ps-0 pe-6 py-4.5 text-start outline-none focus:outline-none focus-visible:outline-none lg:w-full lg:border-b-0 lg:ps-6 lg:pe-6`}
+            style={{ color: labelStyle.color }}
           >
-            <span className={`relative shrink-0 ${isActive ? 'text-primary-1' : 'text-700'}`}>
-              <Icon size={24} weight="regular" />
-              {Badge && (
-                <span className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full bg-100">
-                  <Badge size={12} weight="fill" />
-                </span>
-              )}
-            </span>
-            <span className={`${typography.body} font-medium`}>
-              {t(`layout.header.tabs.${tab.id}`)}
+            {Icon && (
+              <span
+                className="relative shrink-0"
+                style={{ color: colorVar(isActive ? hs.iconColorHover : hs.iconColor) }}
+              >
+                <Icon size={24} weight="regular" />
+                {Badge && (
+                  <span
+                    className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full"
+                    style={{ backgroundColor: colorVar(hs.sidebarBg) }}
+                  >
+                    <Badge size={12} weight="fill" />
+                  </span>
+                )}
+              </span>
+            )}
+            <span className={`${typography.body} ${HDR_GROUP_TEXT}`} style={labelStyle}>
+              {tab.label}
             </span>
           </button>
         )
       })}
       <span
         aria-hidden
-        className={`pointer-events-none absolute bg-primary-2 ${
+        className={`pointer-events-none absolute ${
           line.vertical ? 'start-0 hidden w-[3px] lg:block' : 'bottom-0 h-[3px] lg:hidden'
         } ${
           line.animate
@@ -111,70 +133,107 @@ const MegaMenuSidebar = ({ menuId, tabs, activeId, onSelect }) => {
               : 'transition-[left,width] duration-300 ease-out motion-reduce:transition-none'
             : ''
         }`}
-        style={
-          line.vertical
+        style={{
+          backgroundColor: colorVar(hs.indicatorColor),
+          ...(line.vertical
             ? { top: line.offset, height: line.size }
-            : { left: line.offset, width: line.size }
-        }
+            : { left: line.offset, width: line.size }),
+        }}
       />
     </nav>
   )
 }
 
 /** Promo image with a teal action bar (used by the link-style tabs). */
-const MegaMenuPromo = ({ image, ctaHref, ctaLabel, onNavigate }) => (
-  <div className="hidden shrink-0 border-s border-200 ps-5 lg:block">
-    <LocalizedLink
-      to={ctaHref}
-      onClick={onNavigate}
-      className="group relative flex w-full flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:w-[300px]"
-    >
-      <img
-        src={image}
-        alt=""
-        className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-      />
-      <span className="relative mt-40 flex items-center gap-2 bg-primary-1 px-4 py-4">
-        <span className={`${typography.caption} font-semibold text-50`}>{ctaLabel}</span>
-        <ArrowRight size={16} weight="bold" className="text-50 rtl:-scale-x-100" />
-      </span>
-    </LocalizedLink>
-  </div>
-)
+const MegaMenuPromo = ({ tab, onNavigate, headerStyle: hs }) => {
+  if (!tab.imageUrl) return null
+
+  return (
+    <div className="hidden shrink-0 border-s border-200 ps-5 lg:block">
+      <LocalizedLink
+        to={headerHref(tab.ctaHref)}
+        onClick={onNavigate}
+        className="group relative flex w-full flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:w-[300px]"
+      >
+        <img
+          src={tab.imageUrl}
+          alt={tab.imageAlt}
+          className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        />
+        {tab.ctaLabel ? (
+          <span
+            className="relative mt-40 flex items-center gap-2 px-4 py-4"
+            style={{ backgroundColor: colorVar(hs.ctaBarBg) }}
+          >
+            <span
+              className={typography.caption}
+              style={roleStyle({ color: hs.ctaTextColor, weight: hs.ctaFontWeight })}
+            >
+              {tab.ctaLabel}
+            </span>
+            <ArrowRight
+              size={16}
+              weight="bold"
+              className="rtl:-scale-x-100"
+              style={{ color: colorVar(hs.ctaTextColor) }}
+            />
+          </span>
+        ) : (
+          <span className="relative mt-40 block py-4" aria-hidden />
+        )}
+      </LocalizedLink>
+    </div>
+  )
+}
 
 /** Two-column grid of icon links (Book & Manage, Travel Experience, Help). */
-const MegaMenuLinks = ({ tab, onNavigate }) => {
-  const { t } = useTranslation()
+const MegaMenuLinks = ({ tab, onNavigate, headerStyle: hs }) => {
+  const iconStyle = roleStyle({ color: hs.iconColor, colorHover: hs.iconColorHover })
+  const titleStyle = roleStyle({
+    color: hs.linkTitleColor,
+    colorHover: hs.linkTitleColorHover,
+    weight: hs.linkTitleFontWeight,
+    weightHover: hs.linkTitleFontWeightHover,
+  })
+  const descriptionStyle = roleStyle({
+    color: hs.linkDescriptionColor,
+    weight: hs.linkDescriptionFontWeight,
+  })
 
   return (
     <div className="flex flex-1 flex-col gap-8 py-6 lg:flex-row lg:py-8">
       <div className="grid flex-1 grid-cols-1 content-start gap-x-6 gap-y-2 sm:grid-cols-2">
         {tab.links.map((link) => {
-          const Icon = link.icon
-          const Badge = link.badge
+          const Icon = headerIcon(link.icon)
+          const Badge = headerIcon(link.badge)
 
           return (
             <LocalizedLink
               key={link.id}
-              to={link.href}
+              to={headerHref(link.href)}
               onClick={onNavigate}
-              className="group flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors focus:outline-none lg:ps-3"
+              className={`group ${HDR_GROUP} flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors focus:outline-none lg:ps-3`}
             >
-              <span className="relative mt-0.5 shrink-0 text-700 group-hover:text-primary-1">
-                <Icon size={24} weight="regular" />
-                {Badge && (
-                  <span className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full bg-50 text-primary-1">
-                    <Badge size={13} weight="fill" />
-                  </span>
-                )}
-              </span>
-              <span className="flex min-w-0 flex-col gap-0.5">
-                <span className={`${typography.body} font-semibold text-700 group-hover:text-primary-1`}>
-                  {t(`layout.header.items.${link.id}.title`)}
+              {Icon && (
+                <span className={`relative mt-0.5 shrink-0 ${HDR_GROUP_COLOR}`} style={iconStyle}>
+                  <Icon size={24} weight="regular" />
+                  {Badge && (
+                    <span
+                      className="absolute -bottom-1 -end-1 flex items-center justify-center rounded-full text-primary-1"
+                      style={{ backgroundColor: colorVar(hs.panelBg) }}
+                    >
+                      <Badge size={13} weight="fill" />
+                    </span>
+                  )}
                 </span>
-                {tab.withDescriptions && (
-                  <span className={`${typography.caption} leading-snug text-500`}>
-                    {t(`layout.header.items.${link.id}.description`)}
+              )}
+              <span className="flex min-w-0 flex-col gap-0.5">
+                <span className={`${typography.body} ${HDR_GROUP_TEXT}`} style={titleStyle}>
+                  {link.title}
+                </span>
+                {tab.withDescriptions && link.description && (
+                  <span className={`${typography.caption} leading-snug`} style={descriptionStyle}>
+                    {link.description}
                   </span>
                 )}
               </span>
@@ -183,31 +242,30 @@ const MegaMenuLinks = ({ tab, onNavigate }) => {
         })}
       </div>
 
-      <MegaMenuPromo
-        image={tab.image}
-        ctaHref={tab.cta}
-        ctaLabel={t(`layout.header.cta.${tab.id}`)}
-        onNavigate={onNavigate}
-      />
+      <MegaMenuPromo tab={tab} onNavigate={onNavigate} headerStyle={hs} />
     </div>
   )
 }
 
 /** Bottom-right "View all …" link shared by the card and map tabs. */
-const MegaMenuInlineCta = ({ tabId, href, onNavigate }) => {
-  const { t } = useTranslation()
+const MegaMenuInlineCta = ({ tab, onNavigate, headerStyle: hs }) => {
+  if (!tab.ctaLabel) return null
+  const color = colorVar(hs.inlineCtaColor)
 
   return (
     <div className="flex justify-end pb-2">
       <LocalizedLink
-        to={href}
+        to={headerHref(tab.ctaHref)}
         onClick={onNavigate}
         className="flex items-center gap-3 text-inherit no-underline outline-none focus:outline-none"
       >
-        <span className={`${typography.caption} font-semibold text-primary-1`}>
-          {t(`layout.header.cta.${tabId}`)}
+        <span className={`${typography.caption} font-semibold`} style={{ color }}>
+          {tab.ctaLabel}
         </span>
-        <span className="flex size-7 items-center justify-center rounded-full border border-primary-1 text-primary-1">
+        <span
+          className="flex size-7 items-center justify-center rounded-full border"
+          style={{ color, borderColor: color }}
+        >
           <ArrowRight size={14} weight="bold" className="rtl:-scale-x-100" />
         </span>
       </LocalizedLink>
@@ -215,103 +273,113 @@ const MegaMenuInlineCta = ({ tabId, href, onNavigate }) => {
   )
 }
 
-/** Where We Fly → Our Destinations (three image cards). */
-const MegaMenuDestinations = ({ tab, onNavigate }) => {
-  const { t } = useTranslation()
+const cardTitleStyle = (hs) => roleStyle({ color: hs.cardTitleColor, weight: hs.cardTitleFontWeight })
 
-  return (
-    <div className="flex flex-1 flex-col gap-4 py-6 lg:py-8">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {tab.cards.map((card) => (
-          <LocalizedLink
-            key={card.id}
-            to={card.href}
-            onClick={onNavigate}
-            className="group relative flex h-56 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
-          >
+/** Where We Fly → Our Destinations (three image cards). */
+const MegaMenuDestinations = ({ tab, onNavigate, headerStyle: hs }) => (
+  <div className="flex flex-1 flex-col gap-4 py-6 lg:py-8">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {tab.cards.map((card) => (
+        <LocalizedLink
+          key={card.id}
+          to={headerHref(card.href)}
+          onClick={onNavigate}
+          className="group relative flex h-56 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
+        >
+          {card.imageUrl && (
             <img
-              src={card.image}
+              src={card.imageUrl}
               alt=""
               className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
-            {card.tag && (
-              <span
-                className={`${typography.caption} absolute start-0 top-5 bg-primary-3 px-2.5 py-1 font-semibold text-700`}
-              >
-                {t(`layout.header.tags.${card.tag}`)}
-              </span>
-            )}
-            <span className="relative flex items-center justify-between gap-3 bg-primary-1 px-4 py-3.5">
-              <span className={`${typography.itemTitle} truncate font-semibold text-50`}>
-                {t(`layout.header.cards.${card.id}.name`)}
-              </span>
-              <span className={`${typography.caption} shrink-0 font-medium text-primary-3`}>{card.code}</span>
+          )}
+          {card.tag && (
+            <span
+              className={`${typography.caption} absolute start-0 top-5 px-2.5 py-1 font-semibold`}
+              style={{ backgroundColor: colorVar(hs.tagBg), color: colorVar(hs.tagTextColor) }}
+            >
+              {card.tag}
             </span>
-          </LocalizedLink>
-        ))}
-      </div>
-
-      <MegaMenuInlineCta tabId={tab.id} href={tab.cta} onNavigate={onNavigate} />
+          )}
+          <span
+            className="relative flex items-center justify-between gap-3 px-4 py-3.5"
+            style={{ backgroundColor: colorVar(hs.cardBarBg) }}
+          >
+            <span className={`${typography.itemTitle} truncate`} style={cardTitleStyle(hs)}>
+              {card.name}
+            </span>
+            <span
+              className={`${typography.caption} shrink-0 font-medium`}
+              style={{ color: colorVar(hs.cardMetaColor) }}
+            >
+              {card.code}
+            </span>
+          </span>
+        </LocalizedLink>
+      ))}
     </div>
-  )
-}
+
+    <MegaMenuInlineCta tab={tab} onNavigate={onNavigate} headerStyle={hs} />
+  </div>
+)
 
 /** Where We Fly → Activities to Do (image cards with location + tag chip). */
-const MegaMenuActivities = ({ tab, onNavigate }) => {
-  const { t } = useTranslation()
-
-  return (
-    <div className="flex flex-1 flex-col gap-4 py-6 lg:py-8">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {tab.cards.map((card) => (
-          <LocalizedLink
-            key={card.id}
-            to={card.href}
-            onClick={onNavigate}
-            className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
-          >
+const MegaMenuActivities = ({ tab, onNavigate, headerStyle: hs }) => (
+  <div className="flex flex-1 flex-col gap-4 py-6 lg:py-8">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {tab.cards.map((card) => (
+        <LocalizedLink
+          key={card.id}
+          to={headerHref(card.href)}
+          onClick={onNavigate}
+          className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
+        >
+          {card.imageUrl && (
             <img
-              src={card.image}
+              src={card.imageUrl}
               alt=""
               className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
-            <span className="relative flex items-center justify-between gap-3 bg-primary-1 px-4 py-3.5">
-              <span className="flex min-w-0 flex-col gap-0.5">
-                <span className={`${typography.itemTitle} truncate font-semibold text-50`}>
-                  {t(`layout.header.cards.${card.id}.name`)}
-                </span>
-                <span className={`${typography.caption} truncate text-200`}>
-                  {t(`layout.header.cards.${card.id}.location`)}
-                </span>
+          )}
+          <span
+            className="relative flex items-center justify-between gap-3 px-4 py-3.5"
+            style={{ backgroundColor: colorVar(hs.cardBarBg) }}
+          >
+            <span className="flex min-w-0 flex-col gap-0.5">
+              <span className={`${typography.itemTitle} truncate`} style={cardTitleStyle(hs)}>
+                {card.name}
               </span>
-              {card.tag && (
-                <span
-                  className={`${typography.caption} shrink-0 rounded-lg bg-white/20 px-2.5 py-1 font-medium text-50`}
-                >
-                  {t(`layout.header.tags.${card.tag}`)}
-                </span>
+              {card.location && (
+                <span className={`${typography.caption} truncate text-200`}>{card.location}</span>
               )}
             </span>
-          </LocalizedLink>
-        ))}
-      </div>
-
-      <MegaMenuInlineCta tabId={tab.id} href={tab.cta} onNavigate={onNavigate} />
+            {card.tag && (
+              <span
+                className={`${typography.caption} shrink-0 rounded-lg bg-white/20 px-2.5 py-1 font-medium text-50`}
+              >
+                {card.tag}
+              </span>
+            )}
+          </span>
+        </LocalizedLink>
+      ))}
     </div>
-  )
-}
+
+    <MegaMenuInlineCta tab={tab} onNavigate={onNavigate} headerStyle={hs} />
+  </div>
+)
 
 /** Where We Fly → Flight Schedules (route map). */
-const MegaMenuMap = ({ tab, onNavigate }) => (
+const MegaMenuMap = ({ tab, onNavigate, headerStyle: hs }) => (
   <div className="flex flex-1 flex-col gap-4 py-6 lg:py-8">
     <LocalizedLink
-      to={tab.cta}
+      to={headerHref(tab.ctaHref)}
       onClick={onNavigate}
       className="block h-64 overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:h-80"
     >
-      <img src={tab.image} alt="" className="size-full object-cover" />
+      <img src={tab.imageUrl} alt={tab.imageAlt} className="size-full object-cover" />
     </LocalizedLink>
-    <MegaMenuInlineCta tabId={tab.id} href={tab.cta} onNavigate={onNavigate} />
+    <MegaMenuInlineCta tab={tab} onNavigate={onNavigate} headerStyle={hs} />
   </div>
 )
 
@@ -322,39 +390,47 @@ const contentByType = {
   map: MegaMenuMap,
 }
 
-const MegaMenu = ({ menu, onNavigate, embedded = false }) => {
-  const [activeId, setActiveId] = useState(menu.tabs[0].id)
+/**
+ * One header dropdown, rendered from a (normalised) header document menu —
+ * see useSiteHeader. `headerStyle` is the document's `style` (theme tokens).
+ */
+const MegaMenu = ({ menu, headerStyle, onNavigate, embedded = false }) => {
+  const [activeId, setActiveId] = useState(menu.tabs[0]?.id)
 
   useEffect(() => {
-    setActiveId(menu.tabs[0].id)
+    setActiveId(menu.tabs[0]?.id)
   }, [menu.id, menu.tabs])
 
   const activeTab = menu.tabs.find((tab) => tab.id === activeId) || menu.tabs[0]
-  const Content = contentByType[activeTab.type]
+  if (!activeTab) return null
+  const Content = contentByType[activeTab.type] || MegaMenuLinks
 
   const body = (
     <>
       <MegaMenuSidebar
         menuId={menu.id}
+        menuLabel={menu.label}
         tabs={menu.tabs}
         activeId={activeTab.id}
         onSelect={setActiveId}
+        headerStyle={headerStyle}
       />
       <div
         className={`flex min-w-0 flex-1 flex-col ${
           embedded ? 'px-6' : 'lg:ps-10 lg:pe-0'
         }`}
       >
-        <Content tab={activeTab} onNavigate={onNavigate} />
+        <Content tab={activeTab} onNavigate={onNavigate} headerStyle={headerStyle} />
       </div>
     </>
   )
 
   return (
     <div
-      className={`w-full border-b-2 border-200 bg-50 ${
+      className={`w-full border-b-2 border-200 ${
         embedded ? '' : 'shadow-[0_4px_16px_rgba(33,37,41,0.08)]'
       }`}
+      style={{ backgroundColor: colorVar(headerStyle.panelBg) }}
     >
       {embedded ? (
         <div className="flex flex-col">{body}</div>

@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import coverPhoto from '../../../../assets/images/our-destenations/ph1.png'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { headerMenus, mobileMenuSecondaryLinks } from '../menuData.js'
+import { headerHref } from '../headerStyle.js'
+import { mobileMenuSecondaryLinks } from '../menuData.js'
 import MegaMenu from './MegaMenu.jsx'
 import RegionMenu from './RegionMenu.jsx'
 
@@ -43,7 +44,8 @@ export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => 
   </button>
 )
 
-const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
+/** `header` is the normalised site-header document (see useSiteHeader). */
+const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
   const { t } = useTranslation()
   const panelRef = useRef(null)
   const closeRef = useRef(null)
@@ -94,12 +96,12 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
   if (!rendered || typeof document === 'undefined') return null
 
   const nested = view !== 'root'
-  const activeMenu = headerMenus.find((menu) => menu.id === view)
+  const activeMenu = header.menus.find((menu) => menu.id === view)
   const nestedTitle =
     view === REGION_VIEW
       ? t('layout.header.regionTitle')
       : activeMenu
-        ? t(`layout.header.nav.${activeMenu.labelKey}`)
+        ? activeMenu.label
         : ''
 
   return createPortal(
@@ -173,38 +175,42 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
               {t('common.home')}
             </LocalizedLink>
 
-            {headerMenus.map((menu) => (
+            {header.menus.map((menu) => (
               <button
                 key={menu.id}
                 type="button"
                 onClick={() => setView(menu.id)}
                 className={`${typography.itemTitle} flex w-full items-center justify-between gap-4 border-0 bg-transparent py-3.5 text-start font-normal text-800 cursor-pointer`}
               >
-                {t(`layout.header.nav.${menu.labelKey}`)}
+                {menu.label}
                 <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
               </button>
             ))}
           </div>
 
           <div className="mt-8 flex flex-col gap-1 border-t border-200 pt-6">
-            <button
-              type="button"
-              onClick={() => setView(REGION_VIEW)}
-              className={`${typography.body} flex w-full items-center gap-3 border-0 bg-transparent py-3 text-start font-medium text-800 cursor-pointer`}
-            >
-              <GlobeHemisphereWest size={22} weight="regular" className="shrink-0 text-700" />
-              {t('layout.header.regionTitle')}
-              <CaretRight size={16} weight="regular" className="ms-auto shrink-0 text-500 rtl:-scale-x-100" />
-            </button>
+            {header.region.show && (
+              <button
+                type="button"
+                onClick={() => setView(REGION_VIEW)}
+                className={`${typography.body} flex w-full items-center gap-3 border-0 bg-transparent py-3 text-start font-medium text-800 cursor-pointer`}
+              >
+                <GlobeHemisphereWest size={22} weight="regular" className="shrink-0 text-700" />
+                {t('layout.header.regionTitle')}
+                <CaretRight size={16} weight="regular" className="ms-auto shrink-0 text-500 rtl:-scale-x-100" />
+              </button>
+            )}
 
-            <LocalizedLink
-              to="/"
-              onClick={onNavigate}
-              className={`${typography.body} flex items-center gap-3 py-3 font-medium text-800 no-underline`}
-            >
-              <UserCircle size={22} weight="regular" className="shrink-0 text-700" />
-              {t('layout.header.login')}
-            </LocalizedLink>
+            {header.login.show && (
+              <LocalizedLink
+                to={headerHref(header.login.href)}
+                onClick={onNavigate}
+                className={`${typography.body} flex items-center gap-3 py-3 font-medium text-800 no-underline`}
+              >
+                <UserCircle size={22} weight="regular" className="shrink-0 text-700" />
+                {header.login.label}
+              </LocalizedLink>
+            )}
           </div>
 
           <div className="mt-auto flex flex-col gap-3 pt-10 pb-2">
@@ -227,7 +233,9 @@ const HeaderMobileMenu = ({ open, onClose, onNavigate }) => {
           }`}
           aria-hidden={!nested}
         >
-          {activeMenu && <MegaMenu menu={activeMenu} embedded onNavigate={onNavigate} />}
+          {activeMenu && (
+            <MegaMenu menu={activeMenu} headerStyle={header.style} embedded onNavigate={onNavigate} />
+          )}
           {view === REGION_VIEW && <RegionMenu embedded onNavigate={onNavigate} />}
         </div>
       </div>

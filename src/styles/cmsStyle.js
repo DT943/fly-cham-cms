@@ -117,7 +117,7 @@ const FONT_WEIGHT_VALUE = {
   extrabold: 800,
 }
 
-const fontWeightValue = (token, fallback = 'medium') =>
+export const fontWeightValue = (token, fallback = 'medium') =>
   FONT_WEIGHT_VALUE[token] ?? FONT_WEIGHT_VALUE[fallback] ?? 500
 
 /** Derive the weight key paired with a text color key (titleColor → titleFontWeight). */

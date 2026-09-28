@@ -2,12 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { CaretDown, GlobeHemisphereWest, UserCircle } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import logo from '../../assets/images/layout/logo.png'
-import logoDark from '../../assets/images/layout/logo-dark.png'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import { headerMenus } from './header/menuData.js'
+import { HDR_SELF_HOVER, colorVar, headerHref, roleStyle } from './header/headerStyle.js'
+import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
@@ -18,6 +17,8 @@ const REGION_MENU = 'region'
 const Header = ({ dark = false, hideOnScroll = true }) => {
   const { t } = useTranslation()
   const location = useLocation()
+  const header = useSiteHeader()
+  const { menus, style: hs } = header
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -73,7 +74,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
   useLayoutEffect(() => {
     const nav = navRef.current
     const item = itemRefs.current[openMenu]
-    const isNavItem = headerMenus.some((menu) => menu.id === openMenu)
+    const isNavItem = menus.some((menu) => menu.id === openMenu)
 
     if (!nav || !item || !isNavItem) {
       linePlaced.current = false
@@ -97,23 +98,44 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
     const observer = new ResizeObserver(place)
     observer.observe(nav)
     return () => observer.disconnect()
-  }, [openMenu])
+  }, [openMenu, menus])
 
-  const activeMenu = headerMenus.find((menu) => menu.id === openMenu)
+  const activeMenu = menus.find((menu) => menu.id === openMenu)
+  const barBg = dark ? undefined : { backgroundColor: colorVar(hs.barBg) }
+  // Top-bar text role (nav buttons, region, login); the dark variant keeps its light text.
+  const navStyle = (active = false) =>
+    roleStyle({
+      color: dark ? '50' : hs.navColor,
+      colorHover: hs.navColorHover,
+      weight: hs.navFontWeight,
+      weightHover: hs.navFontWeightHover,
+      active,
+    })
 
   return (
     <header
       ref={headerRef}
       className={`sticky top-0 z-[1000] transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-        dark ? 'bg-secondary-2' : 'bg-50'
+        dark ? 'bg-secondary-2' : ''
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
+      style={barBg}
     >
       <div
-        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200 bg-50'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
+        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
+        style={barBg}
       >
         <Container className="flex h-16 items-center justify-between gap-4 md:h-18">
-          <LocalizedLink to="/" className="shrink-0" aria-label="Fly Cham" onClick={closeMenu}>
-            <img src={dark ? logo : logoDark} alt="Fly Cham" className="h-9 w-auto md:h-11" />
+          <LocalizedLink
+            to={headerHref(header.logo.href) || '/'}
+            className="shrink-0"
+            aria-label={header.logo.alt || undefined}
+            onClick={closeMenu}
+          >
+            <img
+              src={dark ? header.logo.lightUrl : header.logo.darkUrl}
+              alt={header.logo.alt}
+              className="h-9 w-auto md:h-11"
+            />
           </LocalizedLink>
 
           <nav
@@ -121,7 +143,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
             aria-label={t('layout.header.navLabel')}
             className="relative hidden h-full items-stretch gap-2 lg:flex"
           >
-            {headerMenus.map((menu) => {
+            {menus.map((menu) => {
               const isOpen = openMenu === menu.id
 
               return (
@@ -134,11 +156,10 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
                   aria-expanded={isOpen}
                   aria-controls={`${menu.id}-mega-menu`}
                   onClick={() => toggle(menu.id)}
-                  className={`relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${
-                    isOpen ? 'font-normal text-primary-1' : `font-normal ${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
-                  }`}
+                  className={`relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${HDR_SELF_HOVER}`}
+                  style={navStyle(isOpen)}
                 >
-                  {t(`layout.header.nav.${menu.labelKey}`)}
+                  {menu.label}
                   <CaretDown
                     size={12}
                     weight="bold"
@@ -150,42 +171,46 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
             {navLine ? (
               <span
                 aria-hidden
-                className={`pointer-events-none absolute bottom-0 h-[3px] bg-primary-2 ${
+                className={`pointer-events-none absolute bottom-0 h-[3px] ${
                   navLine.animate
                     ? 'transition-[left,width] duration-300 ease-out motion-reduce:transition-none'
                     : ''
                 }`}
-                style={{ left: navLine.left, width: navLine.width }}
+                style={{
+                  left: navLine.left,
+                  width: navLine.width,
+                  backgroundColor: colorVar(hs.indicatorColor),
+                }}
               />
             ) : null}
           </nav>
 
           <div className="hidden items-stretch gap-2 lg:flex">
-            <button
-              type="button"
-              aria-expanded={openMenu === REGION_MENU}
-              aria-controls="region-mega-menu"
-              onClick={() => toggle(REGION_MENU)}
-              className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${
-                openMenu === REGION_MENU
-                  ? 'text-primary-1'
-                  : `${dark ? 'text-50' : 'text-700'} hover:text-primary-1`
-              }`}
-            >
-              <GlobeHemisphereWest size={24} weight="regular" className="shrink-0" />
-              <span className={`${typography.caption} font-medium`}>{t('layout.header.region')}</span>
-            </button>
+            {header.region.show && (
+              <button
+                type="button"
+                aria-expanded={openMenu === REGION_MENU}
+                aria-controls="region-mega-menu"
+                onClick={() => toggle(REGION_MENU)}
+                className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
+                style={navStyle(openMenu === REGION_MENU)}
+              >
+                <GlobeHemisphereWest size={24} weight="regular" className="shrink-0" />
+                <span className={`${typography.caption} font-medium`}>{header.region.label}</span>
+              </button>
+            )}
 
-            <LocalizedLink
-              to="/"
-              onClick={closeMenu}
-              className={`flex items-center gap-1.5 whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${
-                dark ? 'text-50' : 'text-700'
-              } hover:text-primary-1`}
-            >
-              <UserCircle size={24} weight="regular" className="shrink-0" />
-              <span className={`${typography.body} font-normal`}>{t('layout.header.login')}</span>
-            </LocalizedLink>
+            {header.login.show && (
+              <LocalizedLink
+                to={headerHref(header.login.href)}
+                onClick={closeMenu}
+                className={`flex items-center gap-1.5 whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${HDR_SELF_HOVER}`}
+                style={navStyle()}
+              >
+                <UserCircle size={24} weight="regular" className="shrink-0" />
+                <span className={`${typography.body} font-normal`}>{header.login.label}</span>
+              </LocalizedLink>
+            )}
           </div>
 
           <HeaderMenuButton
@@ -211,12 +236,17 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
           id={`${openMenu}-mega-menu`}
           className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] lg:block"
         >
-          {activeMenu && <MegaMenu menu={activeMenu} onNavigate={closeMenu} />}
+          {activeMenu && <MegaMenu menu={activeMenu} headerStyle={hs} onNavigate={closeMenu} />}
           {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}
         </div>
       )}
 
-      <HeaderMobileMenu open={mobileOpen} onClose={closeMobile} onNavigate={closeMobile} />
+      <HeaderMobileMenu
+        header={header}
+        open={mobileOpen}
+        onClose={closeMobile}
+        onNavigate={closeMobile}
+      />
     </header>
   )
 }
