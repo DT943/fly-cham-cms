@@ -9,7 +9,7 @@ const getApiBaseUrl = () => {
 
     // On server-side, always use production URL (rewrites don't work on server)
     if (isServer) {
-        return 'https://flycham.com/api';
+        return 'http://flycham.com/api';
     }
 
     // On client-side, if API_BASE_URL is not set or points to localhost, return null

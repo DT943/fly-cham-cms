@@ -167,7 +167,7 @@ export const validateEmailService = createAsyncThunk(
     async (email, thunkAPI) => {
         try {
 
-            const response = await apiClient.get(`https://flycham.com/api/AbstractValidation/EmailDetail/ValidateEmail?email=${email}`);
+            const response = await apiClient.get(`http://flycham.com/api/AbstractValidation/EmailDetail/ValidateEmail?email=${email}`);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(
@@ -182,7 +182,7 @@ export const validatePhoneNumberService = createAsyncThunk(
     async (phoneNumber, thunkAPI) => {
         try {
 
-            const response = await axios.get(`https://flycham.com/api/AbstractValidation/PhoneDetail/ValidatePhone?phoneNumber=${phoneNumber}`);
+            const response = await axios.get(`http://flycham.com/api/AbstractValidation/PhoneDetail/ValidatePhone?phoneNumber=${phoneNumber}`);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(

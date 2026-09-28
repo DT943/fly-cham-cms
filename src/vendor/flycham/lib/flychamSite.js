@@ -10,7 +10,7 @@
 import { useParams } from 'next/navigation';
 
 export const FLYCHAM_SITE_URL = (
-  import.meta.env.VITE_FLYCHAM_SITE_URL || 'https://flycham.com'
+  import.meta.env.VITE_FLYCHAM_SITE_URL || 'http://flycham.com'
 ).replace(/\/+$/, '');
 
 /** `/{pos}/{lang}` for the language the visitor is currently browsing in. */
