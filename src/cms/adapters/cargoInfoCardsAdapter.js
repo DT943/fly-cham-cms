@@ -6,7 +6,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  *
  * Stores the editor shape: `{ title, cards[], links }` where each card is
  * `{ id, title, description, cta, href, imageUrl, imageAlt }`. Empty image
- * URLs fall back to the bundled photos (keyed by `id`) in the component.
+ * URLs render no image (no bundled fallback).
  * Only style keys the CMS provided are forwarded.
  */
 export function cargoInfoCardsProps(block, lang) {

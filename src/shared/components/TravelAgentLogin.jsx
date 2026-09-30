@@ -11,9 +11,8 @@ import {
   getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
+// Brand logo stays bundled (site-wide brand asset); bg/plane come only from the CMS.
 import defaultLogo from '../../assets/images/layout/logo.png'
-import defaultBackground from '../../assets/images/login-travel-agent/background.jpg'
-import defaultPlane from '../../assets/images/login-travel-agent/plane.png'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -166,20 +165,22 @@ const TravelAgentLogin = ({
 
   return (
     <section className="relative min-h-dvh w-full min-w-0 overflow-x-clip">
-      <img
-        src={bgUrl || defaultBackground}
-        alt={bgAlt || ''}
-        className="absolute inset-0 size-full object-cover"
-        aria-hidden={bgAlt ? undefined : true}
-      />
+      {bgUrl ? (
+        <img
+          src={bgUrl}
+          alt={bgAlt || ''}
+          className="absolute inset-0 size-full object-cover"
+          aria-hidden={bgAlt ? undefined : true}
+        />
+      ) : null}
 
-      {showPlane ? (
+      {showPlane && planeUrl ? (
         <div
           className="pointer-events-none absolute inset-x-0 top-[18%] z-1 flex justify-center px-4 sm:top-[16%] lg:inset-y-auto lg:inset-s-0 lg:inset-e-[40%] lg:top-[14%] lg:bottom-[1%] lg:items-center lg:justify-center lg:px-6 xl:inset-e-[36%] xl:top-[12%]"
           aria-hidden
         >
           <img
-            src={planeUrl || defaultPlane}
+            src={planeUrl}
             alt=""
             className="w-[min(92%,20rem)] object-contain drop-shadow-md sm:w-[min(85%,24rem)] lg:w-[min(100%,34rem)] xl:w-[min(100%,40rem)]"
           />

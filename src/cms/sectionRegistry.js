@@ -10,6 +10,9 @@ import ContactChannels from '../pages/contact-us/components/ContactChannels.jsx'
 import ContactForms from '../pages/contact-us/components/ContactForms.jsx'
 import FormsDirectory from '../pages/forms/components/FormsDirectory.jsx'
 import TrackRequest from '../shared/components/TrackRequest.jsx'
+import FormAccess from '../shared/components/FormAccess.jsx'
+import TravelUpdateHero from '../shared/components/TravelUpdateHero.jsx'
+import TravelUpdateDetail from '../shared/components/TravelUpdateDetail.jsx'
 import DestinationsExplore from '../shared/components/DestinationsExplore.jsx'
 import DestinationsInspiration from '../shared/components/DestinationsInspiration.jsx'
 import DestinationHeroStats from '../shared/components/DestinationHeroStats.jsx'
@@ -18,6 +21,7 @@ import DestinationThingsToDo from '../shared/components/DestinationThingsToDo.js
 import LandmarkFeature from '../shared/components/LandmarkFeature.jsx'
 import SightsGrid from '../shared/components/SightsGrid.jsx'
 import MagazineBanner from '../shared/components/MagazineBanner.jsx'
+import MagazineView from '../shared/components/MagazineView.jsx'
 import NewsletterSignup from '../shared/components/NewsletterSignup.jsx'
 import OfficeDirectory from '../pages/our-offices/components/OfficeDirectory.jsx'
 import GetHelp from '../pages/our-offices/components/GetHelp.jsx'
@@ -90,6 +94,11 @@ import { contactChannelsProps } from './adapters/contactChannelsAdapter.js'
 import { contactFormsProps } from './adapters/contactFormsAdapter.js'
 import { formsDirectoryProps } from './adapters/formsDirectoryAdapter.js'
 import { trackRequestProps } from './adapters/trackRequestAdapter.js'
+import { formAccessProps } from './adapters/formAccessAdapter.js'
+import {
+  travelUpdateDetailProps,
+  travelUpdateHeroProps,
+} from './adapters/travelUpdateAdapters.js'
 import { destinationsExploreProps } from './adapters/destinationsExploreAdapter.js'
 import { destinationsInspirationProps } from './adapters/destinationsInspirationAdapter.js'
 import { destinationHeroStatsProps } from './adapters/destinationHeroStatsAdapter.js'
@@ -98,6 +107,7 @@ import { destinationThingsToDoProps } from './adapters/destinationThingsToDoAdap
 import { landmarkFeatureProps } from './adapters/landmarkFeatureAdapter.js'
 import { sightsGridProps } from './adapters/sightsGridAdapter.js'
 import { magazineBannerProps } from './adapters/magazineBannerAdapter.js'
+import { magazineViewProps } from './adapters/magazineViewAdapter.js'
 import { newsletterSignupProps } from './adapters/newsletterSignupAdapter.js'
 import { officeDirectoryProps } from './adapters/officeDirectoryAdapter.js'
 import { getHelpProps } from './adapters/getHelpAdapter.js'
@@ -134,6 +144,36 @@ import { newsDetailParagraphsProps } from './adapters/newsDetailParagraphsAdapte
 import { newsDetailGalleryProps } from './adapters/newsDetailGalleryAdapter.js'
 import { newsDetailFigureProps } from './adapters/newsDetailFigureAdapter.js'
 import BusinessQuickAccess from '../shared/components/BusinessQuickAccess.jsx'
+import BaggageAllowance from '../shared/components/BaggageAllowance.jsx'
+import BaggageResourceCards from '../shared/components/BaggageResourceCards.jsx'
+import OfferCards from '../shared/components/OfferCards.jsx'
+import { offerCardsProps } from './adapters/offerCardsAdapter.js'
+import ServiceBenefits from '../shared/components/ServiceBenefits.jsx'
+import { serviceBenefitsProps } from './adapters/serviceBenefitsAdapter.js'
+import FeatureHighlight from '../shared/components/FeatureHighlight.jsx'
+import { featureHighlightProps } from './adapters/featureHighlightAdapter.js'
+import LoungeCards from '../shared/components/LoungeCards.jsx'
+import { loungeCardsProps } from './adapters/loungeCardsAdapter.js'
+import SupportSteps from '../shared/components/SupportSteps.jsx'
+import { supportStepsProps } from './adapters/supportStepsAdapter.js'
+import SplitCards from '../shared/components/SplitCards.jsx'
+import { splitCardsProps } from './adapters/splitCardsAdapter.js'
+import CatalogCards from '../shared/components/CatalogCards.jsx'
+import { catalogCardsProps } from './adapters/catalogCardsAdapter.js'
+import IconTiles from '../shared/components/IconTiles.jsx'
+import { iconTilesProps } from './adapters/iconTilesAdapter.js'
+import SplitBand from '../shared/components/SplitBand.jsx'
+import { splitBandProps } from './adapters/splitBandAdapter.js'
+import ClassPanel from '../shared/components/ClassPanel.jsx'
+import { classPanelProps } from './adapters/classPanelAdapter.js'
+import { baggageAllowanceProps, baggageResourceCardsProps } from './adapters/baggageAdapters.js'
+import ServiceSteps from '../shared/components/ServiceSteps.jsx'
+import { serviceStepsProps } from './adapters/serviceStepsAdapter.js'
+import ProhibitedItemsGrid from '../shared/components/ProhibitedItemsGrid.jsx'
+import InstructionsCard from '../shared/components/InstructionsCard.jsx'
+import { instructionsCardProps, prohibitedItemsGridProps } from './adapters/prohibitedItemsAdapters.js'
+import AirportServiceCards from '../shared/components/AirportServiceCards.jsx'
+import { airportServiceCardsProps } from './adapters/airportServiceCardsAdapter.js'
 import { businessQuickAccessProps } from './adapters/businessQuickAccessAdapter.js'
 
 /**
@@ -157,6 +197,9 @@ export const sectionRegistry = {
   'contact-forms': { Component: ContactForms, mapProps: contactFormsProps },
   'forms-directory': { Component: FormsDirectory, mapProps: formsDirectoryProps },
   'track-request': { Component: TrackRequest, mapProps: trackRequestProps },
+  'form-access': { Component: FormAccess, mapProps: formAccessProps },
+  'travel-update-hero': { Component: TravelUpdateHero, mapProps: travelUpdateHeroProps },
+  'travel-update-detail': { Component: TravelUpdateDetail, mapProps: travelUpdateDetailProps },
   'destinations-explore': { Component: DestinationsExplore, mapProps: destinationsExploreProps },
   'destinations-inspiration': { Component: DestinationsInspiration, mapProps: destinationsInspirationProps },
   // Full-bleed: hero spans edge-to-edge; the stats card overlaps it via -mt.
@@ -166,6 +209,7 @@ export const sectionRegistry = {
   'landmark-feature': { Component: LandmarkFeature, mapProps: landmarkFeatureProps, fullBleed: true },
   'sights-grid': { Component: SightsGrid, mapProps: sightsGridProps },
   'magazine-banner': { Component: MagazineBanner, mapProps: magazineBannerProps },
+  'magazine-view': { Component: MagazineView, mapProps: magazineViewProps },
   // Full-bleed only in the photo-banner variant (the gradient card sits in the Container).
   'newsletter-signup': {
     Component: NewsletterSignup,
@@ -233,6 +277,22 @@ export const sectionRegistry = {
   'travel-agent-login': { Component: TravelAgentLogin, mapProps: travelAgentLoginProps, fullBleed: true },
   'cargo-stations-explorer': { Component: CargoStationsExplorer, mapProps: cargoStationsExplorerProps, fullBleed: true },
   'business-quick-access': { Component: BusinessQuickAccess, mapProps: businessQuickAccessProps },
+  'baggage-allowance': { Component: BaggageAllowance, mapProps: baggageAllowanceProps },
+  'baggage-resource-cards': { Component: BaggageResourceCards, mapProps: baggageResourceCardsProps },
+  'offer-cards': { Component: OfferCards, mapProps: offerCardsProps },
+  'service-benefits': { Component: ServiceBenefits, mapProps: serviceBenefitsProps },
+  'feature-highlight': { Component: FeatureHighlight, mapProps: featureHighlightProps },
+  'lounge-cards': { Component: LoungeCards, mapProps: loungeCardsProps },
+  'support-steps': { Component: SupportSteps, mapProps: supportStepsProps },
+  'split-cards': { Component: SplitCards, mapProps: splitCardsProps },
+  'catalog-cards': { Component: CatalogCards, mapProps: catalogCardsProps },
+  'icon-tiles': { Component: IconTiles, mapProps: iconTilesProps },
+  'split-band': { Component: SplitBand, mapProps: splitBandProps, fullBleed: true },
+  'class-panel': { Component: ClassPanel, mapProps: classPanelProps },
+  'service-steps': { Component: ServiceSteps, mapProps: serviceStepsProps },
+  'prohibited-items-grid': { Component: ProhibitedItemsGrid, mapProps: prohibitedItemsGridProps },
+  'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },
+  'airport-service-cards': { Component: AirportServiceCards, mapProps: airportServiceCardsProps },
   'not-found-hero': { Component: NotFoundHero, mapProps: notFoundHeroProps, fullBleed: true },
 }
 

@@ -20,6 +20,7 @@ export function seatJourneyProps(block, lang) {
     imageAlt: content.imageAlt || '',
     buttonLabel: content.buttonLabel || '',
     buttonHref: resolveCmsHref(content.buttonHref) || '',
+    buttonIcon: content.buttonIcon || '',
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -48,6 +49,7 @@ const STYLE_KEYS = [
   'bodyFontWeightHover',
   'showButton',
   'showButtonIcon',
+  'buttonSize',
   'buttonBg',
   'buttonBgHover',
   'buttonText',

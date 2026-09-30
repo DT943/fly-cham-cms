@@ -3,8 +3,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 /**
  * Map a CMS "sights-grid" block to <SightsGrid /> props — a filterable grid of
  * sight cards with category pills. Each item carries an assigned `category` id
- * that the pills filter on. Empty per-item image falls back to the app's bundled
- * photo (keyed by `id`) in the component.
+ * that the pills filter on. Images come only from
+ * the CMS; an empty image renders nothing.
  */
 export function sightsGridProps(block, lang) {
   const content = pickContent(block.content, lang)

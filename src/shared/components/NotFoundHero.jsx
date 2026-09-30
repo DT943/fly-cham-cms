@@ -6,7 +6,6 @@ import {
   getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-import defaultImage from '../../assets/images/not-found/clouds.jpg'
 
 // Keep these maps byte-identical with flychamadmin cms2
 // cmsComponents/NotFoundHero/utils/style.js.
@@ -24,8 +23,9 @@ const BUTTON_SIZE = 'text-sm sm:text-base'
 /**
  * Full-bleed 404 hero — the CMS "not-found-hero" block (slug `not-found`) AND
  * the built-in fallback when the CMS page can't load. Every prop is optional:
- * missing text falls back to the `notFound.*` translations and a missing photo
- * to the bundled clouds image, so `<NotFoundHero />` alone is the original 404.
+ * missing text falls back to the `notFound.*` translations, so `<NotFoundHero />`
+ * alone is the original 404 copy. The photo comes only from the CMS; without
+ * one the navy section background shows behind the text.
  *
  * Cloud photo + navy overlay (secondary-2 @ 40%), centered eyebrow / "404" /
  * description, and a home CTA.
@@ -73,11 +73,13 @@ const NotFoundHero = ({
       }`}
     >
       <div className="absolute inset-0">
-        <img
-          src={image || defaultImage}
-          alt={imageAlt ?? t('notFound.imageAlt')}
-          className="size-full object-cover"
-        />
+        {image ? (
+          <img
+            src={image}
+            alt={imageAlt ?? t('notFound.imageAlt')}
+            className="size-full object-cover"
+          />
+        ) : null}
         {opacity > 0 ? (
           <div
             className="absolute inset-0"

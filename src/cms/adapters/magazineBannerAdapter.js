@@ -2,8 +2,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "magazine-banner" block to <MagazineBanner /> props — a promo banner
- * with a magazine cover + two spreads cluster, heading and CTA. Empty images
- * fall back to the app's bundled magazine artwork in the component.
+ * with a magazine cover + two spreads cluster, heading and CTA. Images come
+ * only from the CMS; an empty image renders nothing.
  */
 export function magazineBannerProps(block, lang) {
   const content = pickContent(block.content, lang)

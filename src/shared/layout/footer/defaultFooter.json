@@ -177,7 +177,7 @@
           {
             "id": "onboard",
             "label": "Onboard",
-            "href": "/travel-experience/onboard",
+            "href": "/travel-experience/on-board",
             "external": false,
             "highlight": false
           },
@@ -299,7 +299,7 @@
           {
             "id": "recentNews",
             "label": "Recent News",
-            "href": "/recent-news",
+            "href": "/media-center/recent-news",
             "external": false,
             "highlight": false
           },
@@ -547,7 +547,7 @@
           {
             "id": "onboard",
             "label": "على متن الطائرة",
-            "href": "/travel-experience/onboard",
+            "href": "/travel-experience/on-board",
             "external": false,
             "highlight": false
           },
@@ -669,7 +669,7 @@
           {
             "id": "recentNews",
             "label": "أحدث الأخبار",
-            "href": "/recent-news",
+            "href": "/media-center/recent-news",
             "external": false,
             "highlight": false
           },

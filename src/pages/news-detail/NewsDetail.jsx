@@ -19,7 +19,7 @@ const NewsDetail = () => {
   const breadcrumbs = [
     { label: t('common.home'), href: '/' },
     { label: t('mediaCenter.breadcrumb'), href: '/media-center' },
-    { label: t('recentNews.breadcrumb'), href: '/recent-news' },
+    { label: t('recentNews.breadcrumb'), href: '/media-center/recent-news' },
     { label: t(`newsDetail.articles.${article.id}.title`) },
   ]
 

@@ -3,25 +3,6 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/c
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import seatSelectionPhoto from '../../assets/images/before-you-fly/seat-selection.png'
-import manageBookingPhoto from '../../assets/images/before-you-fly/manage-booking.png'
-import yaMarhabaPhoto from '../../assets/images/before-you-fly/ya-marhaba.png'
-import limousinePhoto from '../../assets/images/before-you-fly/limousine.png'
-import unaccompaniedMinorPhoto from '../../assets/images/before-you-fly/unaccompanied-minor.png'
-import oxygenPhoto from '../../assets/images/before-you-fly/oxygen.png'
-
-/** Seed images keyed by row id — mirror the cms2 defaults so an un-uploaded row previews. */
-const IMAGE_BY_ID = {
-  seatSelection: seatSelectionPhoto,
-  manageBooking: manageBookingPhoto,
-  allowedBaggage: manageBookingPhoto,
-  paymentMethods: manageBookingPhoto,
-  yaMarhaba: yaMarhabaPhoto,
-  limousine: limousinePhoto,
-  unaccompaniedMinor: unaccompaniedMinorPhoto,
-  oxygenCylinder: oxygenPhoto,
-  prohibitedItems: oxygenPhoto,
-}
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -42,8 +23,8 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
  * Before-you-fly service rows (optional header + a stacked list of photo +
  * title + description + CTA). CMS-driven: colours/weights/hover, image corners
  * and the section background are all controllable, with defaults matching the
- * source design. Falls back to the bundled photos keyed by `id` when no image
- * is uploaded.
+ * source design. Images come only from the CMS; a row without an uploaded
+ * image renders no photo.
  */
 const BeforeYouFlyServices = ({
   title = '',
@@ -108,7 +89,7 @@ const BeforeYouFlyServices = ({
       ) : null}
 
       {items.map((item, index) => {
-        const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.manageBooking
+        const src = item.image || ''
         const cta = item.cta || learnMore
         return (
           <article
@@ -116,11 +97,13 @@ const BeforeYouFlyServices = ({
             className="flex flex-col gap-4 border-b py-6 sm:flex-row sm:items-center sm:gap-12"
             style={{ borderColor: colorVar(dividerColor) }}
           >
-            <img
-              src={src}
-              alt={item.imageAlt || ''}
-              className={cx('h-48 w-full shrink-0 object-cover sm:h-43 sm:w-82', radiusClass)}
-            />
+            {src ? (
+              <img
+                src={src}
+                alt={item.imageAlt || ''}
+                className={cx('h-48 w-full shrink-0 object-cover sm:h-43 sm:w-82', radiusClass)}
+              />
+            ) : null}
             <div className="flex flex-1 flex-col items-start gap-4">
               <div className="flex flex-col gap-1.5">
                 <h3

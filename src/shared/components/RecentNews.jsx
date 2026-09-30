@@ -10,23 +10,6 @@ import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 import Dropdown from './Dropdown.jsx'
-import coverLatest from '../../assets/images/media-center/latest-news.jpg'
-import coverTwo from '../../assets/images/media-center/news-grid-2.jpg'
-import coverThree from '../../assets/images/media-center/news-grid-3.jpg'
-import coverDamascus from '../../assets/images/our-destenations/damascus.jpeg'
-import coverIstanbul from '../../assets/images/our-destenations/istanbul.jpg'
-import coverDubai from '../../assets/images/our-destenations/dubai.jpg'
-
-const COVER_BY_KEY = {
-  latest: coverLatest,
-  2: coverTwo,
-  3: coverThree,
-  damascus: coverDamascus,
-  istanbul: coverIstanbul,
-  dubai: coverDubai,
-}
-
-const COVER_CYCLE = ['latest', '2', '3', 'damascus', 'istanbul', 'dubai']
 
 const COLUMNS = {
   2: 'grid-cols-1 md:grid-cols-2',
@@ -65,6 +48,7 @@ const RecentNews = ({
   topics = [],
   items = [],
   pageSize = 6,
+  showPagination = true,
   columns = '3',
   cardGap = 'default',
   sectionPadding = 'default',
@@ -128,9 +112,10 @@ const RecentNews = ({
   const safePage = Math.min(currentPage, totalPages)
 
   const paginatedArticles = useMemo(() => {
+    if (showPagination === false) return filteredArticles
     const start = (safePage - 1) * size
     return filteredArticles.slice(start, start + size)
-  }, [filteredArticles, safePage, size])
+  }, [filteredArticles, safePage, size, showPagination])
 
   const articlesByYear = useMemo(() => {
     return paginatedArticles.reduce((groups, article) => {
@@ -301,10 +286,7 @@ const RecentNews = ({
               >
                 {groupArticles.map((article, index) => {
                   const href = article.href || '#'
-                  const cover =
-                    article.image ||
-                    COVER_BY_KEY[article.coverKey] ||
-                    COVER_BY_KEY[COVER_CYCLE[index % COVER_CYCLE.length]]
+                  const cover = article.image || ''
                   return (
                     <article
                       key={article.id || `${group}-${index}`}
@@ -314,13 +296,15 @@ const RecentNews = ({
                         borderColor: colorVar(cardBorderColor),
                       }}
                     >
-                      <LocalizedLink href={href} className="block no-underline">
-                        <img
-                          src={cover}
-                          alt={article.imageAlt || ''}
-                          className="aspect-[4/3] w-full object-cover"
-                        />
-                      </LocalizedLink>
+                      {cover ? (
+                        <LocalizedLink href={href} className="block no-underline">
+                          <img
+                            src={cover}
+                            alt={article.imageAlt || ''}
+                            className="aspect-[4/3] w-full object-cover"
+                          />
+                        </LocalizedLink>
+                      ) : null}
 
                       <div className="flex flex-1 flex-col gap-3 p-5 md:gap-4 md:p-6">
                         <div
@@ -378,6 +362,7 @@ const RecentNews = ({
           ))}
         </div>
 
+        {showPagination !== false ? (
         <nav aria-label="Pagination" className="flex items-center justify-center gap-2 md:gap-3">
           <button
             type="button"
@@ -433,6 +418,7 @@ const RecentNews = ({
             <ArrowRight size={18} className="rtl:-scale-x-100" />
           </button>
         </nav>
+        ) : null}
       </div>
     </section>
   )

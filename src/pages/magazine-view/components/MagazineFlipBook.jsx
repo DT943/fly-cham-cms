@@ -3,10 +3,6 @@ import HTMLFlipBook from 'react-pageflip'
 import { useTranslation } from 'react-i18next'
 import MagazinePage from './MagazinePage.jsx'
 import MagazineControls from './MagazineControls.jsx'
-import {
-  MAGAZINE_PAGE_COUNT,
-  magazinePages,
-} from '../utils/magazinePages.js'
 
 const BASE_WIDTH = 420
 const BASE_HEIGHT = 594
@@ -46,14 +42,34 @@ const getBookSize = (containerWidth, isFullscreen) => {
   return { width: pageWidth, height: pageHeight }
 }
 
-const getCoverOffset = (page, pageWidth) => {
+const getCoverOffset = (page, pageWidth, pageCount) => {
   if (page <= 1) return -Math.round(pageWidth / 2)
-  if (page >= MAGAZINE_PAGE_COUNT) return Math.round(pageWidth / 2)
+  if (page >= pageCount) return Math.round(pageWidth / 2)
   return 0
 }
 
-const MagazineFlipBook = () => {
+const fillTemplate = (template, values) =>
+  Object.entries(values).reduce(
+    (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+    template || '',
+  )
+
+const MagazineFlipBook = ({
+  pages: pageList = [],
+  pdfUrl = '',
+  pdfFilename = '',
+  downloadClassName = '',
+  downloadStyle,
+  labels: labelOverrides = {},
+}) => {
   const { t } = useTranslation()
+  const pages = useMemo(
+    () => (Array.isArray(pageList) ? pageList.filter((page) => page?.src) : []),
+    [pageList],
+  )
+  const pageCount = pages.length
+  const pageCountRef = useRef(pageCount)
+  pageCountRef.current = pageCount
   const bookRef = useRef(null)
   const shellRef = useRef(null)
   const currentPageRef = useRef(1)
@@ -118,7 +134,9 @@ const MagazineFlipBook = () => {
   useEffect(() => {
     // Snap cover offset when the book is remounted at a new size (no transition).
     setOffsetTransition(false)
-    setBookOffsetX(getCoverOffset(currentPageRef.current, bookSize.width))
+    setBookOffsetX(
+      getCoverOffset(currentPageRef.current, bookSize.width, pageCountRef.current),
+    )
   }, [bookSize.width])
 
   const pageFlip = useCallback(() => bookRef.current?.pageFlip?.() ?? null, [])
@@ -129,7 +147,7 @@ const MagazineFlipBook = () => {
 
     setOffsetTransition(true)
     if (direction === 0) {
-      setBookOffsetX(page >= MAGAZINE_PAGE_COUNT - 1 ? width / 2 : 0)
+      setBookOffsetX(page >= pageCountRef.current - 1 ? width / 2 : 0)
       return
     }
     setBookOffsetX(page <= 2 ? -width / 2 : 0)
@@ -139,7 +157,7 @@ const MagazineFlipBook = () => {
     const nextPage = event.data + 1
     currentPageRef.current = nextPage
     setCurrentPage(nextPage)
-    setBookOffsetX(getCoverOffset(nextPage, pageWidthRef.current))
+    setBookOffsetX(getCoverOffset(nextPage, pageWidthRef.current, pageCountRef.current))
   }, [])
 
   const handleChangeState = useCallback(
@@ -152,7 +170,9 @@ const MagazineFlipBook = () => {
 
       if (event.data === 'read') {
         setOffsetTransition(false)
-        setBookOffsetX(getCoverOffset(currentPageRef.current, pageWidthRef.current))
+        setBookOffsetX(
+          getCoverOffset(currentPageRef.current, pageWidthRef.current, pageCountRef.current),
+        )
       }
     },
     [pageFlip, previewOffset],
@@ -161,7 +181,9 @@ const MagazineFlipBook = () => {
   const handleInit = useCallback(() => {
     const targetIndex = Math.max(0, currentPageRef.current - 1)
     setOffsetTransition(false)
-    setBookOffsetX(getCoverOffset(currentPageRef.current, pageWidthRef.current))
+    setBookOffsetX(
+      getCoverOffset(currentPageRef.current, pageWidthRef.current, pageCountRef.current),
+    )
     if (targetIndex === 0) return
 
     requestAnimationFrame(() => {
@@ -195,7 +217,7 @@ const MagazineFlipBook = () => {
   }
 
   const isCoverView = currentPage === 1
-  const isBackCover = currentPage === MAGAZINE_PAGE_COUNT
+  const isBackCover = pageCount > 0 && currentPage === pageCount
   const isSinglePage = (isCoverView || isBackCover) && !offsetTransition
 
   // Clip to one page on covers so the empty opposite half (and spine shadow) is hidden.
@@ -208,30 +230,34 @@ const MagazineFlipBook = () => {
 
   const pageLabel = useMemo(() => {
     if (isCoverView || isBackCover) {
-      return t('magazineView.controls.pageOf')
-        .replace('{current}', String(currentPage))
-        .replace('{total}', String(MAGAZINE_PAGE_COUNT))
+      return fillTemplate(labelOverrides.pageOf || t('magazineView.controls.pageOf'), {
+        current: currentPage,
+        total: pageCount,
+      })
     }
 
-    const rightPage = Math.min(currentPage + 1, MAGAZINE_PAGE_COUNT)
-    return t('magazineView.controls.spreadOf')
-      .replace('{start}', String(currentPage))
-      .replace('{end}', String(rightPage))
-      .replace('{total}', String(MAGAZINE_PAGE_COUNT))
-  }, [currentPage, isBackCover, isCoverView, t])
+    const rightPage = Math.min(currentPage + 1, pageCount)
+    return fillTemplate(labelOverrides.spreadOf || t('magazineView.controls.spreadOf'), {
+      start: currentPage,
+      end: rightPage,
+      total: pageCount,
+    })
+  }, [currentPage, isBackCover, isCoverView, labelOverrides.pageOf, labelOverrides.spreadOf, pageCount, t])
 
   const labels = useMemo(
     () => ({
-      prev: t('magazineView.controls.prev'),
-      next: t('magazineView.controls.next'),
-      download: t('magazineView.controls.download'),
+      prev: labelOverrides.prev || t('magazineView.controls.prev'),
+      next: labelOverrides.next || t('magazineView.controls.next'),
+      download: labelOverrides.download || t('magazineView.controls.download'),
       pageOf: pageLabel,
       fullscreen: isFullscreen
-        ? t('magazineView.controls.exitFullscreen')
-        : t('magazineView.controls.fullscreen'),
+        ? labelOverrides.exitFullscreen || t('magazineView.controls.exitFullscreen')
+        : labelOverrides.fullscreen || t('magazineView.controls.fullscreen'),
     }),
-    [isFullscreen, pageLabel, t],
+    [isFullscreen, labelOverrides, pageLabel, t],
   )
+
+  if (!pageCount) return null
 
   return (
     <div className="flex flex-col gap-6 md:gap-8">
@@ -299,13 +325,13 @@ const MagazineFlipBook = () => {
                   onChangeState={handleChangeState}
                   onInit={handleInit}
                 >
-                  {magazinePages.map((page, index) => (
+                  {pages.map((page, index) => (
                     <MagazinePage
-                      key={page.id}
+                      key={page.id || index}
                       src={page.src}
-                      alt={t(`magazineView.pages.${page.id}`)}
+                      alt={page.alt || ''}
                       pageNumber={index + 1}
-                      isCover={index === 0 || index === magazinePages.length - 1}
+                      isCover={index === 0 || index === pages.length - 1}
                     />
                   ))}
                 </HTMLFlipBook>
@@ -316,9 +342,13 @@ const MagazineFlipBook = () => {
           {isFullscreen ? (
             <MagazineControls
               currentPage={currentPage}
-              totalPages={MAGAZINE_PAGE_COUNT}
+              totalPages={pageCount}
               canGoPrev={currentPage > 1}
-              canGoNext={currentPage < MAGAZINE_PAGE_COUNT}
+              canGoNext={currentPage < pageCount}
+              pdfUrl={pdfUrl}
+              pdfFilename={pdfFilename}
+              downloadClassName={downloadClassName}
+              downloadStyle={downloadStyle}
               isFullscreen={isFullscreen}
               onPrev={handlePrev}
               onNext={handleNext}
@@ -332,9 +362,13 @@ const MagazineFlipBook = () => {
       {!isFullscreen ? (
         <MagazineControls
           currentPage={currentPage}
-          totalPages={MAGAZINE_PAGE_COUNT}
+          totalPages={pageCount}
           canGoPrev={currentPage > 1}
-          canGoNext={currentPage < MAGAZINE_PAGE_COUNT}
+          canGoNext={currentPage < pageCount}
+          pdfUrl={pdfUrl}
+          pdfFilename={pdfFilename}
+          downloadClassName={downloadClassName}
+          downloadStyle={downloadStyle}
           isFullscreen={isFullscreen}
           onPrev={handlePrev}
           onNext={handleNext}

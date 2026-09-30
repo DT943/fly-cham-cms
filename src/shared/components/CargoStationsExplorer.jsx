@@ -4,24 +4,6 @@ import { AirplaneTilt, MapPin, CaretLeft, CaretRight } from '@phosphor-icons/rea
 import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
-import bandImage from '../../assets/images-webp/cargo-stations/band.webp'
-import stationDamascus from '../../assets/images-webp/cargo-stations/station-damascus.webp'
-import stationAleppo from '../../assets/images-webp/cargo-stations/station-aleppo.webp'
-import station1 from '../../assets/images-webp/cargo-stations/station-1.webp'
-import station2 from '../../assets/images-webp/cargo-stations/station-2.webp'
-import station3 from '../../assets/images-webp/cargo-stations/station-3.webp'
-import station4 from '../../assets/images-webp/cargo-stations/station-4.webp'
-
-/** Bundled fallback images keyed by station id (used when the CMS image is empty). */
-const IMAGE_BY_ID = {
-  damascus: stationDamascus,
-  aleppo: stationAleppo,
-  dubai: station2,
-  sharjah: station3,
-  baghdad: station4,
-  erbil: station1,
-  beirut: station2,
-}
 
 /** Figma scrollbar track — no theme token matches it exactly. */
 const SCROLL_TRACK_FALLBACK_COLOR = '#D9D9D9'
@@ -60,7 +42,7 @@ const clampListHeight = (value) => {
 }
 
 const StationCard = ({ station, cardBg, cardBorderColor, stationIconColor, textStyle }) => {
-  const src = station.image || IMAGE_BY_ID[station.id] || station1
+  const src = station.image || ''
 
   return (
     <article
@@ -71,15 +53,17 @@ const StationCard = ({ station, cardBg, cardBorderColor, stationIconColor, textS
       }}
     >
       <div className="size-16 shrink-0 overflow-hidden rounded-[8px] lg:size-[100px]">
-        <img
-          src={src}
-          alt={station.imageAlt || ''}
-          width={100}
-          height={100}
-          decoding="async"
-          loading="lazy"
-          className="size-full object-cover"
-        />
+        {src ? (
+          <img
+            src={src}
+            alt={station.imageAlt || ''}
+            width={100}
+            height={100}
+            decoding="async"
+            loading="lazy"
+            className="size-full object-cover"
+          />
+        ) : null}
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[6px]">
         <div className="flex items-center gap-[6px]">
@@ -409,12 +393,14 @@ const CargoStationsExplorer = ({
       ) : null}
 
       <div className="relative isolate min-h-[480px] w-full overflow-hidden md:min-h-[560px] lg:h-[762px] lg:min-h-0">
-        <img
-          src={bgImage || bandImage}
-          alt={bgAlt}
-          style={{ objectPosition: bgFocusToObjectPosition(bgFocus) }}
-          className="absolute inset-0 size-full object-cover"
-        />
+        {bgImage ? (
+          <img
+            src={bgImage}
+            alt={bgAlt}
+            style={{ objectPosition: bgFocusToObjectPosition(bgFocus) }}
+            className="absolute inset-0 size-full object-cover"
+          />
+        ) : null}
         {overlay > 0 ? (
           <div
             className="pointer-events-none absolute inset-0"

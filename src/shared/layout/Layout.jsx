@@ -30,9 +30,9 @@ const Layout = () => {
   }, [language, i18n])
 
   return (
-    <div className="flex min-h-screen min-w-0 flex-col overflow-x-clip">
+    <div className="flex min-h-dvh min-w-0 flex-col overflow-x-clip">
       {!hideChrome && <Header dark={fullBleed} hideOnScroll={!fullBleed} />}
-      <div className={`min-w-0 flex-1 ${fullBleed || hideChrome ? 'flex flex-col' : ''}`}>
+      <div className="flex min-w-0 flex-1 flex-col">
         <Outlet />
       </div>
       {!hideFooter && <Footer />}

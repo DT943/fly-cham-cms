@@ -7,13 +7,12 @@ import {
 import { typography } from '../../styles/typography.js'
 import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import defaultPattern from '../../assets/images/recent-news/pattern.png'
 
 /**
  * Media Center newsletter capture.
  * - Small: white card, stacked title / description / input / Subscribe
  * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
- * Presentational (does not submit).
+ * Presentational (does not submit). The side pattern comes only from the CMS.
  */
 const MediaNewsletterSignup = ({
   title = '',
@@ -139,12 +138,14 @@ const MediaNewsletterSignup = ({
         borderColor: colorVar(borderColor),
       }}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 w-28 overflow-hidden sm:w-36 md:w-44 lg:w-52"
-      >
-        <img src={pattern || defaultPattern} alt="" className="size-full object-cover object-left" />
-      </div>
+      {pattern ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 w-28 overflow-hidden sm:w-36 md:w-44 lg:w-52"
+        >
+          <img src={pattern} alt="" className="size-full object-cover object-left" />
+        </div>
+      ) : null}
 
       <Container className="relative z-10 py-8 md:py-10">
         <div

@@ -1,13 +1,4 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
-import termsHero from '../../assets/images/legal/terms-hero.jpg'
-import privacyHero from '../../assets/images/legal/privacy-hero.jpg'
-import cookiesHero from '../../assets/images/legal/cookies-hero.png'
-
-const COVER_BY_KEY = {
-  'legal-terms': termsHero,
-  'legal-privacy': privacyHero,
-  'legal-cookies': cookiesHero,
-}
 
 /**
  * Map a CMS "page-media-hero" block to <PageMediaHero /> props.
@@ -16,8 +7,7 @@ const COVER_BY_KEY = {
  *   available language when the current one is missing.
  * - Only the style keys the CMS actually provided are forwarded, so any omitted
  *   key falls through to PageMediaHero's own default.
- * - `coverKey` is an optional local fallback used when the CMS image URL is empty
- *   (legal document heroes).
+ * - The image comes only from the CMS; an empty URL passes no image.
  */
 export function pageMediaHeroProps(block, lang) {
   const content = pickContent(block.content, lang)
@@ -31,7 +21,7 @@ export function pageMediaHeroProps(block, lang) {
   return {
     title: content.title,
     subtitle: content.subtitle,
-    image: cmsImage || COVER_BY_KEY[content.coverKey] || undefined,
+    image: cmsImage || undefined,
     imageAlt: content.imageAlt || content.image?.alt,
     buttonLabel: content.buttonLabel || '',
     buttonHref: resolveCmsHref(content.buttonHref) || '',

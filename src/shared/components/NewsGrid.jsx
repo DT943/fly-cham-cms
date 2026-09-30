@@ -8,11 +8,6 @@ import {
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import coverLatest from '../../assets/images/media-center/latest-news.jpg'
-import coverTwo from '../../assets/images/media-center/news-grid-2.jpg'
-import coverThree from '../../assets/images/media-center/news-grid-3.jpg'
-
-const COVER_BY_KEY = { latest: coverLatest, 2: coverTwo, 3: coverThree }
 
 const COLUMNS = {
   2: 'grid-cols-1 md:grid-cols-2',
@@ -43,7 +38,7 @@ const NewsGrid = ({
   description = '',
   learnMore = '',
   viewAll = '',
-  viewAllHref = '/recent-news',
+  viewAllHref = '/media-center/recent-news',
   items = [],
   columns = '3',
   cardGap = 'default',
@@ -128,10 +123,7 @@ const NewsGrid = ({
         {items.map((item, index) => {
           const href = item.href || '#'
           const cta = item.cta || learnMore
-          const cover =
-            item.image ||
-            COVER_BY_KEY[item.coverKey] ||
-            COVER_BY_KEY[['latest', '2', '3'][index % 3]]
+          const cover = item.image
           return (
             <article
               key={item.id || index}
@@ -141,9 +133,11 @@ const NewsGrid = ({
                 borderColor: colorVar(cardBorderColor),
               }}
             >
-              <LocalizedLink href={href} className="block no-underline">
-                <img src={cover} alt={item.imageAlt || ''} className="aspect-[4/3] w-full object-cover" />
-              </LocalizedLink>
+              {cover ? (
+                <LocalizedLink href={href} className="block no-underline">
+                  <img src={cover} alt={item.imageAlt || ''} className="aspect-[4/3] w-full object-cover" />
+                </LocalizedLink>
+              ) : null}
 
               <div className="flex flex-1 flex-col gap-3 p-5 md:gap-4 md:p-6">
                 <div
@@ -221,7 +215,7 @@ const NewsGrid = ({
       {viewAll ? (
         <div className="flex justify-center">
           <LocalizedLink
-            href={viewAllHref || '/recent-news'}
+            href={viewAllHref || '/media-center/recent-news'}
             className={cx('rounded-lg border px-10 py-3 no-underline', typography.button, viewAllBtn.className)}
             style={{
               ...viewAllBtn.style,

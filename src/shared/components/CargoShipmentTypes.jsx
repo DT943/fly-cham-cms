@@ -2,22 +2,6 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import { useTranslation } from 'react-i18next'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import requestImage from '../../assets/images/cargo-service/request.jpg'
-import stationsImage from '../../assets/images/cargo-service/stations.jpg'
-import assistanceImage from '../../assets/images/cargo-service/assistance.png'
-import heroImage from '../../assets/images/cargo-service/hero.jpg'
-
-/** Bundled fallback images keyed by shipment id (used when the CMS image is empty). */
-const IMAGE_BY_ID = {
-  airFreight: requestImage,
-  perishables: heroImage,
-  pharma: stationsImage,
-  liveAnimals: assistanceImage,
-  aog: requestImage,
-  sensitive: stationsImage,
-  dangerous: heroImage,
-  charter: requestImage,
-}
 
 /** Figma inactive-tab text — no theme token matches it exactly. */
 const INACTIVE_TAB_FALLBACK_COLOR = '#6E6E6A'
@@ -166,7 +150,7 @@ const CargoShipmentTypes = ({
     refs.current[next]?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' })
   }
 
-  const src = active.image || IMAGE_BY_ID[active.id] || IMAGE_BY_ID.airFreight
+  const src = active.image
   const headerVisible = showHeader && (title || (showDescription && description))
 
   return (
@@ -328,19 +312,21 @@ const CargoShipmentTypes = ({
               ) : null}
             </div>
 
-            <div
-              className={cx(
-                'order-1 shrink-0 overflow-hidden lg:order-2 lg:h-[276px] lg:w-[473px] lg:max-w-[48%]',
-                radiusClass,
-              )}
-            >
-              <img
-                key={src}
-                src={src}
-                alt={active.imageAlt || ''}
-                className="aspect-[16/10] w-full object-cover lg:aspect-auto lg:h-full"
-              />
-            </div>
+            {src ? (
+              <div
+                className={cx(
+                  'order-1 shrink-0 overflow-hidden lg:order-2 lg:h-[276px] lg:w-[473px] lg:max-w-[48%]',
+                  radiusClass,
+                )}
+              >
+                <img
+                  key={src}
+                  src={src}
+                  alt={active.imageAlt || ''}
+                  className="aspect-[16/10] w-full object-cover lg:aspect-auto lg:h-full"
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

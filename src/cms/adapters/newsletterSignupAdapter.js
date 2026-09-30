@@ -2,8 +2,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "newsletter-signup" block to <NewsletterSignup /> props — an email
- * capture banner (presentational; the form does not submit). Empty artwork falls
- * back to the app's bundled plane sliver in the component.
+ * capture banner (presentational; the form does not submit). Empty artwork URLs
+ * render no image (no bundled fallback).
  */
 export function newsletterSignupProps(block, lang) {
   const content = pickContent(block.content, lang)

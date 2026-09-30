@@ -6,8 +6,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  *
  * Stores the editor shape:
  * `{ title, subtitle, bgUrl, bgAlt, panelTitle, stations[], links }`.
- * Empty image URLs fall back to the app's bundled cargo-station photos (band,
- * and per-station by `id`) in the component. Only style keys the CMS provided
+ * Images come only from the CMS; an empty image URL renders nothing. Only style keys the CMS provided
  * are forwarded, so omitted keys keep the component's own defaults (Figma look).
  */
 export function cargoStationsExplorerProps(block, lang) {

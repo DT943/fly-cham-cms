@@ -7,7 +7,6 @@ import {
 } from '../../styles/cmsStyle.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import defaultTrackImage from '../../assets/images/forms/ph1.png'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -144,9 +143,8 @@ const TrackRequest = ({
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
 
   const showHeader = (showTitle && title) || (showSubtitle && subtitle)
-  // Fall back to the bundled forms photo when the CMS has no image, so the
-  // public site matches the cms2 preview (byte-identical file in both apps).
-  const imageSrc = image || defaultTrackImage
+  // The photo comes only from the CMS; with no image URL the column is skipped.
+  const imageSrc = image
   const hasImage = showImage && imageSrc
 
   const imageCol = hasImage ? (

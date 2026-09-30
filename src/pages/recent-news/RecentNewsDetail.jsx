@@ -14,12 +14,12 @@ const RecentNewsDetail = () => {
   const article = getNewsArticle(getRecentNewsSlug(pagePath))
 
   if (!article) {
-    return <Navigate to={withLanguage('/recent-news', language)} replace />
+    return <Navigate to={withLanguage('/media-center/recent-news', language)} replace />
   }
 
   const breadcrumbs = [
     { label: t('common.home'), href: '/' },
-    { label: t('recentNews.breadcrumb'), href: '/recent-news' },
+    { label: t('recentNews.breadcrumb'), href: '/media-center/recent-news' },
     { label: t(`newsDetail.articles.${article.id}.title`) },
   ]
 

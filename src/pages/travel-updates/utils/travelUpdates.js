@@ -16,6 +16,13 @@ export const getTravelUpdateDetailHref = (slug) => `/travel-updates/${slug}`
 export const getTravelUpdateSlug = (path) =>
   path.match(TRAVEL_UPDATES_DETAIL_PATH)?.[1] ?? null
 
+/** CMS page slug of an update: `loungeAccess` → `travel-update-lounge-access`. */
+export const TRAVEL_UPDATE_CMS_PREFIX = 'travel-update-'
+export const travelUpdateCmsSlug = (slug) =>
+  slug
+    ? `${TRAVEL_UPDATE_CMS_PREFIX}${slug.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`
+    : ''
+
 const GUIDELINE_ICONS = {
   path: Path,
   calendar: CalendarBlank,

@@ -9,18 +9,8 @@ import LinkedText from './backlinks/LinkedText.jsx'
 import DestinationCard from '../../pages/our-destinations/components/DestinationCard.jsx'
 import FeaturedDestination from '../../pages/our-destinations/components/FeaturedDestination.jsx'
 import DestinationsPagination from '../../pages/our-destinations/components/DestinationsPagination.jsx'
-import {
-  destinations as bundledDestinations,
-  featuredImages as bundledFeaturedImages,
-} from '../../pages/our-destinations/utils/destinations.js'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
-
-// Bundled photo per destination id — the fallback when the CMS has no image,
-// so the public page matches the source without a CMS asset host.
-const DEFAULT_IMAGE_BY_ID = Object.fromEntries(
-  bundledDestinations.map((d) => [d.id, d.image]),
-)
 
 const SECTION_PADDING_CLASS = {
   tight: 'py-4 md:py-6',
@@ -123,12 +113,9 @@ const DestinationsExplore = ({
   }
 
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
-  const featuredImages = (() => {
-    const imgs = Array.isArray(featured.images)
-      ? featured.images.filter(Boolean)
-      : []
-    return imgs.length ? imgs : bundledFeaturedImages
-  })()
+  const featuredImages = Array.isArray(featured.images)
+    ? featured.images.filter(Boolean)
+    : []
 
   return (
     <section
@@ -187,7 +174,7 @@ const DestinationsExplore = ({
               <DestinationCard
                 iata={card.iata}
                 title={card.title}
-                image={card.imageUrl || DEFAULT_IMAGE_BY_ID[card.id]}
+                image={card.imageUrl}
                 imageAlt={card.imageAlt}
                 cta={card.ctaLabel}
                 activities={activitiesLabel}

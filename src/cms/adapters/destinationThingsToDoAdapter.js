@@ -5,8 +5,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * — a heading, a grid of image cards (badge + title + description) and a CTA.
  *
  * Stores the editor shape: `{ title, subtitle, cta, ctaHref, items[], links }`.
- * Empty per-card image URLs fall back to the app's bundled photos (keyed by
- * `id`) in the component. Only style keys the CMS provided are forwarded, so
+ * Empty per-card image URLs render no image (no bundled fallback). Only style keys the CMS provided are forwarded, so
  * omitted keys keep the component's own defaults (the source look).
  */
 export function destinationThingsToDoProps(block, lang) {

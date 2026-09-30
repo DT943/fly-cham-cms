@@ -3,18 +3,6 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/c
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import choose1 from '../../assets/images/seat-selection/choose-1.jpg'
-import choose2 from '../../assets/images/seat-selection/choose-2.jpg'
-import choose3 from '../../assets/images/seat-selection/choose-3.jpg'
-import choose4 from '../../assets/images/seat-selection/choose-4.jpg'
-
-/** Seed images keyed by card id — mirror the cms2 defaults so an un-uploaded card previews. */
-const IMAGE_BY_ID = {
-  bookingFlight: choose1,
-  manageBooking: choose2,
-  loyalty: choose3,
-  salesOffices: choose4,
-}
 
 const COLUMNS = {
   1: 'grid-cols-1',
@@ -111,7 +99,7 @@ const SeatChoose = ({
 
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[4], gapClass)}>
         {items.map((item, index) => {
-          const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.bookingFlight
+          const src = item.image || ''
           const ctaVars = getTextStyleVars(textStyle, 'buttonText', 'primary-3', 'semibold')
           return (
             <LocalizedLink
@@ -122,11 +110,13 @@ const SeatChoose = ({
                 radiusClass,
               )}
             >
-              <img
-                src={src}
-                alt=""
-                className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-              />
+              {src ? (
+                <img
+                  src={src}
+                  alt=""
+                  className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                />
+              ) : null}
               <div
                 aria-hidden
                 className="absolute inset-0"

@@ -23,4 +23,17 @@ export const LegacyFormDetailRedirect = () => {
   return <Navigate to={withLanguage(`/help/contact-us/forms/${formId}`, language)} replace />
 }
 
+/** Old `/help/contact-us/forms/<formId>/request` URLs → the CMS page. */
+const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
+
+export const FormRequestRedirect = () => {
+  const language = useCurrentLanguage()
+  const { pathname } = useLocation()
+  const formId = stripLanguage(pathname).match(formRequestPath)?.[1]
+  const target = formId
+    ? `/help/contact-us/forms/request-a-form?form=${encodeURIComponent(formId)}`
+    : '/help/contact-us/forms/request-a-form'
+  return <Navigate to={withLanguage(target, language)} replace />
+}
+
 export default OurOfficesRedirect

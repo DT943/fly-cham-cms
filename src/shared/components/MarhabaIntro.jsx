@@ -1,7 +1,6 @@
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import coverImage from '../../assets/images/traveler-magazine/cover-1.jpg'
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -21,8 +20,8 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 /**
  * Marhaba magazine intro: blurb on one side, latest cover on the other.
  * CMS-driven colours/weights/hover, image side and corners; defaults match the
- * source Traveler Magazine intro. Falls back to the bundled latest cover when
- * no image is uploaded.
+ * source Traveler Magazine intro. The cover comes only from the CMS; with no
+ * image uploaded it is not rendered.
  */
 const MarhabaIntro = ({
   title = '',
@@ -56,7 +55,7 @@ const MarhabaIntro = ({
   }
   const radiusClass = IMAGE_RADIUS[imageRadius] || IMAGE_RADIUS['3xl']
   const imageFirst = imageSide === 'left'
-  const src = image || coverImage
+  const src = image
 
   const inner = (
     <section
@@ -89,14 +88,16 @@ const MarhabaIntro = ({
         ) : null}
       </div>
 
-      <img
-        src={src}
-        alt={imageAlt || ''}
-        className={cx(
-          'aspect-[3/4] w-full max-w-[300px] shrink-0 object-cover shadow-[0px_12px_32px_rgba(1,38,59,0.18)]',
-          radiusClass,
-        )}
-      />
+      {src ? (
+        <img
+          src={src}
+          alt={imageAlt || ''}
+          className={cx(
+            'aspect-[3/4] w-full max-w-[300px] shrink-0 object-cover shadow-[0px_12px_32px_rgba(1,38,59,0.18)]',
+            radiusClass,
+          )}
+        />
+      ) : null}
     </section>
   )
 

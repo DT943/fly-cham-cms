@@ -16,10 +16,6 @@ import { CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars, colorVar } from
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import thingOnePhoto from '../../assets/images/things-to-do-in-damascus/thing-1.jpg'
-import thingTwoPhoto from '../../assets/images/things-to-do-in-damascus/thing-2.jpg'
-import thingThreePhoto from '../../assets/images/things-to-do-in-damascus/thing-3.jpg'
-import placeholderPhoto from '../../assets/images/our-destenations/ph3.jpg'
 
 const ICON_BY_NAME = {
   shoppingCart: ShoppingCart,
@@ -32,13 +28,6 @@ const ICON_BY_NAME = {
   food: ForkKnife,
   mountains: Mountains,
   storefront: Storefront,
-}
-
-/** Seed images keyed by card id — mirror the cms2 defaults so an un-uploaded card previews. */
-const IMAGE_BY_ID = {
-  souk: thingThreePhoto,
-  oldCity: thingTwoPhoto,
-  umayyadMosque: thingOnePhoto,
 }
 
 const COLUMNS = {
@@ -161,18 +150,20 @@ const DestinationThingsToDo = ({
 
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[3], gapClass)}>
         {items.map((item, index) => {
-          const src = item.image || IMAGE_BY_ID[item.id] || placeholderPhoto
+          const src = item.image
           const BadgeIcon = ICON_BY_NAME[item.icon] || resolvePhosphorIcon(item.icon)
           return (
             <article
               key={item.id || index}
               className={cx('group/card relative h-100 overflow-hidden', radiusClass)}
             >
-              <img
-                src={src}
-                alt={item.imageAlt || ''}
-                className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover/card:scale-105 motion-reduce:transition-none motion-reduce:group-hover/card:scale-100"
-              />
+              {src ? (
+                <img
+                  src={src}
+                  alt={item.imageAlt || ''}
+                  className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover/card:scale-105 motion-reduce:transition-none motion-reduce:group-hover/card:scale-100"
+                />
+              ) : null}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0"

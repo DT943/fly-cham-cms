@@ -3,16 +3,6 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/c
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import plan1 from '../../assets/images/seat-selection/plan-1.jpg'
-import plan2 from '../../assets/images/seat-selection/plan-2.jpg'
-import plan3 from '../../assets/images/seat-selection/plan-3.jpg'
-
-/** Seed images keyed by card id — mirror the cms2 defaults so an un-uploaded card previews. */
-const IMAGE_BY_ID = {
-  baggage: plan1,
-  prohibited: plan2,
-  minor: plan3,
-}
 
 const COLUMNS = {
   1: 'grid-cols-1',
@@ -111,7 +101,7 @@ const SeatPlan = ({
 
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[3], gapClass)}>
         {items.map((item, index) => {
-          const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.baggage
+          const src = item.image
           return (
             <article
               key={item.id || index}
@@ -126,11 +116,13 @@ const SeatPlan = ({
                 className="absolute inset-0 z-1"
                 aria-label={item.title || learnMore || 'Learn more'}
               />
-              <img
-                src={src}
-                alt={item.imageAlt || ''}
-                className="h-49 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-              />
+              {src ? (
+                <img
+                  src={src}
+                  alt={item.imageAlt || ''}
+                  className="h-49 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                />
+              ) : null}
               <div className="relative z-2 flex flex-1 flex-col gap-3 p-4 pointer-events-none">
                 <h3
                   className={cx('m-0 [&_a]:pointer-events-auto', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}

@@ -17,6 +17,64 @@ function dynamicPage(slug, options = {}) {
 // Shared layouts (DynamicPage's default is `bg-100 w-full pb-12 md:pb-16`).
 const HELP_LAYOUT = { className: 'bg-100 min-h-[50vh]', statusClassName: 'py-5 md:py-10' }
 const NO_BOTTOM_PADDING = { className: 'bg-100 w-full' }
+// Allowed Baggage rhythm (Figma 40239:32515): 60px between sections, pulled
+// up for breadcrumbs→hero, hero→intro and FAQs→terms (see nth-child offsets).
+const ALLOWED_BAGGAGE_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[5px] [&>*:nth-child(7)]:-mt-4 md:[&>*:nth-child(7)]:-mt-8'
+
+// Unaccompanied Minors page rhythm (Figma 40347:14643): 60px between sections,
+// tighter breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
+const UNACCOMPANIED_MINORS_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-8 md:[&>*:nth-child(6)]:-mt-8'
+
+// Prohibited Items rhythm (Figma 40329:11857): 60px between sections; hero→grid
+// 84px, grid→grid 67px, FAQs→terms 28px (breadcrumbs/hero as Allowed Baggage).
+const PROHIBITED_ITEMS_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-6 md:[&>*:nth-child(4)]:mt-[7px] [&>*:nth-child(8)]:-mt-4 md:[&>*:nth-child(8)]:-mt-8'
+
+// Limousine Service rhythm (Figma 40375:20093): 60px between sections, tighter
+// breadcrumbs→hero, 80px under the hero, FAQs→terms at 28px.
+const LIMOUSINE_SERVICE_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
+
+// Transportation Service rhythm (Figma 40473:22912): 60px between sections,
+// tighter breadcrumbs→hero, 80px under the hero, FAQs→terms at 28px.
+const TRANSPORTATION_SERVICE_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
+
+// At the Airport rhythm (Figma 39457:12163): 60px between the service cards
+// and the support banner; breadcrumbs sit tight under the header and the
+// hero follows them flush.
+const AT_THE_AIRPORT_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:-mt-3'
+
+// Business Lounge rhythm (Figma 40442:11924): 60px between sections, tighter
+// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
+const BUSINESS_LOUNGE_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
+
+// Wheelchair Service rhythm (Figma 40442:20082): same 60px stack, tighter
+// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
+const WHEELCHAIR_SERVICE_GAP = BUSINESS_LOUNGE_GAP
+
+// VIP Boarding rhythm (Figma 40442:21265): 60px between sections, tighter
+// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
+const ON_BOARD_GAP = 'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7'
+
+const BIRTHDAY_ONBOARD_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
+
+const ONBOARD_WIFI_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
+
+const VIP_BOARDING_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(8)]:-mt-8'
+
+// Oxygen Service rhythm (Figma 40347:13592): 60px between sections; breadcrumbs
+// sit under the header, the hero follows them flush, 105px down to the first
+// row, and the terms card sits 28px under the FAQs.
+const OXYGEN_SERVICE_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[45px] [&>*:nth-child(6)]:-mt-4 md:[&>*:nth-child(6)]:-mt-8'
 
 /** Official CMS help routes. */
 export const helpPages = {
@@ -25,6 +83,10 @@ export const helpPages = {
   '/help/contact-us/our-offices': dynamicPage('our-offices', HELP_LAYOUT),
   '/help/contact-us/our-gsa': dynamicPage('our-gsa', HELP_LAYOUT),
   '/help/contact-us/forms': dynamicPage('forms', HELP_LAYOUT),
+  '/help/contact-us/forms/request-a-form': dynamicPage('request-a-form', {
+    className: 'bg-100 w-full',
+    gapClass: 'gap-6 md:gap-10',
+  }),
   '/help/faqs': dynamicPage('faqs', NO_BOTTOM_PADDING),
   // Legacy `new-*` URLs → official help paths
   '/new-help': createLanguageRedirect('/help'),
@@ -38,6 +100,9 @@ export const helpPages = {
 export const ourDestinationsPages = {
   '/our-destinations': dynamicPage('our-destinations', HELP_LAYOUT),
   '/our-destinations/flights-to-damascus': dynamicPage('flights-to-damascus', {
+    className: 'w-full bg-background lg:bg-100',
+  }),
+  '/our-destinations/flights-to-dubai': dynamicPage('flights-to-dubai', {
     className: 'w-full bg-background lg:bg-100',
   }),
   '/our-destinations/things-to-do-in-damascus': dynamicPage(
@@ -61,8 +126,56 @@ export const travelExperiencePages = {
   '/travel-experience/seat-selection': dynamicPage('seat-selection'),
   // Journey stages — same components (hero, services, next steps) per stage.
   '/travel-experience/before-you-fly': dynamicPage('before-you-fly'),
-  '/travel-experience/at-the-airport': dynamicPage('at-the-airport'),
+  '/travel-experience/before-you-fly/allowed-baggage': dynamicPage('allowed-baggage', {
+    gapClass: ALLOWED_BAGGAGE_GAP,
+  }),
+  '/travel-experience/before-you-fly/prohibited-items': dynamicPage('prohibited-items', {
+    gapClass: PROHIBITED_ITEMS_GAP,
+  }),
+  '/travel-experience/before-you-fly/unaccompanied-minors': dynamicPage('unaccompanied-minors', {
+    gapClass: UNACCOMPANIED_MINORS_GAP,
+  }),
+  '/travel-experience/before-you-fly/oxygen-service': dynamicPage('oxygen-service', {
+    gapClass: OXYGEN_SERVICE_GAP,
+  }),
+  '/travel-experience/before-you-fly/limousine-service': dynamicPage('limousine-service', {
+    gapClass: LIMOUSINE_SERVICE_GAP,
+  }),
+  '/travel-experience/before-you-fly/transportation-service': dynamicPage('transportation-service', {
+    gapClass: TRANSPORTATION_SERVICE_GAP,
+  }),
+  '/travel-experience/at-the-airport': dynamicPage('at-the-airport', {
+    gapClass: AT_THE_AIRPORT_GAP,
+  }),
+  '/travel-experience/at-the-airport/business-lounge': dynamicPage('business-lounge', {
+    gapClass: BUSINESS_LOUNGE_GAP,
+  }),
+  '/travel-experience/at-the-airport/wheelchair-service': dynamicPage('wheelchair-service', {
+    gapClass: WHEELCHAIR_SERVICE_GAP,
+  }),
+  '/travel-experience/at-the-airport/vip-boarding': dynamicPage('vip-boarding', {
+    gapClass: VIP_BOARDING_GAP,
+  }),
   '/travel-experience/onboard': dynamicPage('onboard'),
+  '/travel-experience/on-board': dynamicPage('on-board', { gapClass: ON_BOARD_GAP }),
+  '/travel-experience/on-board/birthday-onboard': dynamicPage('birthday-onboard', {
+    gapClass: BIRTHDAY_ONBOARD_GAP,
+  }),
+  '/travel-experience/on-board/kids-toys': dynamicPage('kids-toys', {
+    gapClass: BIRTHDAY_ONBOARD_GAP,
+  }),
+  '/travel-experience/on-board/entertainment-system': dynamicPage('entertainment-system', {
+    gapClass: BIRTHDAY_ONBOARD_GAP,
+  }),
+  '/travel-experience/on-board/meals-onboard': dynamicPage('meals-onboard', {
+    gapClass: BIRTHDAY_ONBOARD_GAP,
+  }),
+  '/travel-experience/on-board/travel-classes': dynamicPage('travel-classes', {
+    gapClass: BIRTHDAY_ONBOARD_GAP,
+  }),
+  '/travel-experience/on-board/onboard-wi-fi': dynamicPage('onboard-wi-fi', {
+    gapClass: ONBOARD_WIFI_GAP,
+  }),
   '/travel-experience/after-travel': dynamicPage('after-travel'),
   '/travel-experience/traveler-magazine': dynamicPage('traveler-magazine'),
   '/our-responsibility': dynamicPage('our-responsibility'),
@@ -109,7 +222,7 @@ export const otherPages = {
   '/travel-updates': dynamicPage('travel-updates', {
     gapClass: 'gap-6 [&>*:nth-child(2)]:mt-3 md:[&>*:nth-child(2)]:mt-9',
   }),
-  '/cargo-service': dynamicPage('cargo-service', {
+  '/cargo': dynamicPage('cargo', {
     gapClass:
       'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-[11px] md:[&>*:last-child]:-mt-8',
   }),
@@ -130,20 +243,23 @@ export const otherPages = {
   '/about-us': dynamicPage('about-us'),
   '/our-fleet': dynamicPage('our-fleet'),
   '/media-center': dynamicPage('media-center'),
-  '/recent-news': dynamicPage('recent-news'),
+  '/magazine-view': dynamicPage('magazine-view'),
+  '/media-center/recent-news': dynamicPage('recent-news'),
   '/media-center/news/fleetUpdate': dynamicPage('news-fleet-update', {
     className: 'bg-100 w-full overflow-x-clip pb-12 md:pb-16',
   }),
   // Legacy `new-*` URLs
   '/new-home': createLanguageRedirect('/'),
   '/new-travel-updates': createLanguageRedirect('/travel-updates'),
-  '/new-cargo-service': createLanguageRedirect('/cargo-service'),
+  '/cargo-service': createLanguageRedirect('/cargo'),
+  '/new-cargo-service': createLanguageRedirect('/cargo'),
   '/new-cargo-stations': createLanguageRedirect('/cargo-stations'),
   '/new-business-center': createLanguageRedirect('/business-center'),
   '/new-about-us': createLanguageRedirect('/about-us'),
   '/new-our-fleet': createLanguageRedirect('/our-fleet'),
   '/new-media-center': createLanguageRedirect('/media-center'),
-  '/new-recent-news': createLanguageRedirect('/recent-news'),
+  '/recent-news': createLanguageRedirect('/media-center/recent-news'),
+  '/new-recent-news': createLanguageRedirect('/media-center/recent-news'),
   '/media-center/news/new-fleetUpdate': createLanguageRedirect('/media-center/news/fleetUpdate'),
 }
 

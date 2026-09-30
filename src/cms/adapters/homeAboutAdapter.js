@@ -6,8 +6,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  *
  * Stores the editor shape: `{ title, subtitle, cards[], ctaLabel, ctaHref, links }`
  * (each card: `{ id, title, description, imageUrl, imageAlt, imagePosition }`).
- * Empty card image URLs fall back to the bundled photos (by id, then index) in
- * the component. Only style keys the CMS provided are forwarded.
+ * Empty card image URLs render no image (no bundled fallback). Only style keys the CMS provided are forwarded.
  */
 export function homeAboutProps(block, lang) {
   const content = pickContent(block.content, lang)

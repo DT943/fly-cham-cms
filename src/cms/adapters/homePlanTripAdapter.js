@@ -6,8 +6,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  *
  * Stores the editor shape: `{ title, subtitle, viewAllLabel, viewAllHref,
  * newLabel, priceLabel, items[{ id, name, imageUrl, imageAlt, href, isNew,
- * price, currency }], links }`. Empty image URLs fall back to the bundled
- * photos (keyed by `id`) in the component. Only style keys the CMS provided are
+ * price, currency }], links }`. Images come only from the CMS; an empty
+ * image URL renders nothing. Only style keys the CMS provided are
  * forwarded, so omitted keys keep the component's own defaults (the source look).
  */
 export function homePlanTripProps(block, lang) {

@@ -3,7 +3,6 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/c
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
-import defaultAircraftImage from '../../assets/images/our-fleet/aircraft.png'
 
 const SECTION_PADDING = {
   tight: 'py-4 md:py-6',
@@ -33,7 +32,7 @@ const FleetCard = ({
   linkProps,
 }) => {
   const href = card.href || '#'
-  const imageSrc = card.image || defaultAircraftImage
+  const imageSrc = card.image
   const isAnchorWrapped = Boolean(card.href && card.href !== '#')
 
   return (
@@ -69,7 +68,7 @@ const FleetCard = ({
         </p>
       </div>
 
-      {style.showCardImage !== false ? (
+      {style.showCardImage !== false && imageSrc ? (
         <img
           src={imageSrc}
           alt={card.imageAlt || card.name || ''}

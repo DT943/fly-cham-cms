@@ -3,16 +3,13 @@ import { CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars, colorVar } from
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import defaultBg from '../../assets/images/city-sights/magazine-bg.png'
-import defaultCover from '../../assets/images/city-sights/magazine-cover.jpg'
-import defaultSpread1 from '../../assets/images/city-sights/magazine-spread-1.jpg'
-import defaultSpread2 from '../../assets/images/city-sights/magazine-spread-2.jpg'
 
 /**
  * Three Marhaba issues fanned in a layered row (same grid as the media-center
  * MagazineFanCluster): cover in front, side issues scaled down, faded and tucked
  * behind. Arbitrary px sizes keep it pixel-identical to the cms2 (Tailwind v3)
  * copy. The caller supplies the display utility (`flex` / `hidden lg:flex`).
+ * Images come only from the CMS; an empty image is skipped.
  */
 const MagazineCluster = ({ cover, spread1, spread2, compact = false, className = '' }) => {
   const centerSize = compact
@@ -25,19 +22,25 @@ const MagazineCluster = ({ cover, spread1, spread2, compact = false, className =
     ? 'mx-auto h-[144px] w-[224px] md:h-[160px] md:w-[256px]'
     : 'h-[224px] w-[256px] md:w-[288px]'
 
+  if (!cover && !spread1 && !spread2) return null
+
   return (
     <div className={`pointer-events-none relative shrink-0 items-center justify-center ${stageSize} ${className}`}>
-      <img
-        src={spread1}
-        alt=""
-        className={`absolute z-0 object-cover ${sideSize} -translate-x-[68%] rtl:translate-x-[68%]`}
-      />
-      <img src={cover} alt="" className={`relative z-20 object-cover ${centerSize}`} />
-      <img
-        src={spread2}
-        alt=""
-        className={`absolute z-10 object-cover ${sideSize} translate-x-[68%] rtl:-translate-x-[68%]`}
-      />
+      {spread1 ? (
+        <img
+          src={spread1}
+          alt=""
+          className={`absolute z-0 object-cover ${sideSize} -translate-x-[68%] rtl:translate-x-[68%]`}
+        />
+      ) : null}
+      {cover ? <img src={cover} alt="" className={`relative z-20 object-cover ${centerSize}`} /> : null}
+      {spread2 ? (
+        <img
+          src={spread2}
+          alt=""
+          className={`absolute z-10 object-cover ${sideSize} translate-x-[68%] rtl:-translate-x-[68%]`}
+        />
+      ) : null}
     </div>
   )
 }
@@ -80,10 +83,10 @@ const MagazineBanner = ({
   linkItalic,
 }) => {
   const isRtl = useCurrentLanguage() === 'ar'
-  const bgSrc = bg || defaultBg
-  const coverSrc = cover || defaultCover
-  const spread1Src = spread1 || defaultSpread1
-  const spread2Src = spread2 || defaultSpread2
+  const bgSrc = bg || ''
+  const coverSrc = cover || ''
+  const spread1Src = spread1 || ''
+  const spread2Src = spread2 || ''
   const deg = isRtl ? 270 : 90
 
   const linkProps = {
@@ -125,11 +128,13 @@ const MagazineBanner = ({
         className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
         style={{ opacity: 0.9 }}
       >
-        <img
-          src={bgSrc}
-          alt=""
-          className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"
-        />
+        {bgSrc ? (
+          <img
+            src={bgSrc}
+            alt=""
+            className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"
+          />
+        ) : null}
         <div
           className="absolute inset-0 rounded-[12px]"
           style={{

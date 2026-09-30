@@ -1,8 +1,6 @@
 import RouteMap from '../../../pages/route-map/RouteMap.jsx'
-import MagazineView from '../../../pages/magazine-view/MagazineView.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
-import RequestAForm from '../../../pages/forms/RequestAForm.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import TravelUpdateDetail from '../../../pages/travel-updates/TravelUpdateDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
@@ -13,12 +11,16 @@ import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
 import { cmsSlugFromPath } from '../../../pages/dynamic-page/cmsPagePath.js'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
 import { RECENT_NEWS_DETAIL_PATH } from '../../../pages/recent-news/utils/recentNews.js'
-import { TRAVEL_UPDATES_DETAIL_PATH } from '../../../pages/travel-updates/utils/travelUpdates.js'
+import {
+  TRAVEL_UPDATE_CMS_PREFIX,
+  TRAVEL_UPDATES_DETAIL_PATH,
+} from '../../../pages/travel-updates/utils/travelUpdates.js'
 import {
   getDestinationGuide,
   getDestinationGuideSlug,
 } from '../../../pages/things-to-do-in-damascus/utils/destinationGuides.js'
 import {
+  FormRequestRedirect,
   FormsRedirect,
   LegacyFormDetailRedirect,
   OurGsaRedirect,
@@ -30,14 +32,12 @@ export { newPages } from './newPages.js'
 
 /**
  * Non-CMS app routes that still use static React pages
- * (route map, magazine viewer, legacy redirects).
+ * (route map, legacy redirects).
  * The home page `/` is CMS-driven (see newPages.js → dynamicPage('home')).
  */
 export const appPages = {
   '/cham-miles': ChamMiles,
   '/our-destinations/route-map': RouteMap,
-  '/our-destinations/flights-to-dubai': ThingsToDoInDamascus,
-  '/magazine-view': MagazineView,
   // Legacy help path aliases → official `/help/contact-us/...`
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,
@@ -56,12 +56,12 @@ export const pages = {
  * pages already have their official nested URL, so the root catch-all must not
  * serve a duplicate at `/faqs`.
  */
-const nestedRouteSlugs = new Set(
-  Object.keys(pages)
+const nestedRouteSlugs = new Set([
+  ...Object.keys(pages)
     .map((path) => path.split('/').filter(Boolean))
     .filter((segments) => segments.length > 1)
     .map((segments) => segments[segments.length - 1]),
-)
+])
 
 const formRequestPath = /^\/help\/contact-us\/forms\/([^/]+)\/request$/
 const formDetailPath = /^\/help\/contact-us\/forms\/([^/]+)$/
@@ -73,14 +73,21 @@ export function getPage(path) {
   if (TRAVEL_UPDATES_DETAIL_PATH.test(path)) return TravelUpdateDetail
   if (NEWS_DETAIL_PATH.test(path)) return NewsDetail
   if (getDestinationGuide(getDestinationGuideSlug(path))) return ThingsToDoInDamascus
-  if (formRequestPath.test(path)) return RequestAForm
+  if (formRequestPath.test(path)) return FormRequestRedirect
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
   // Any other single-segment URL may be a page created in the CMS admin
   // ("Add new page"); DynamicPage (no fixed slug) reads the slug from the URL
   // and renders NotFound when it's unknown.
   const cmsSlug = cmsSlugFromPath(path)
-  if (cmsSlug && !nestedRouteSlugs.has(cmsSlug)) return DynamicPage
+  // Travel update pages live at /travel-updates/<id>, never at the root.
+  if (
+    cmsSlug &&
+    !nestedRouteSlugs.has(cmsSlug) &&
+    !cmsSlug.startsWith(TRAVEL_UPDATE_CMS_PREFIX)
+  ) {
+    return DynamicPage
+  }
   return NotFound
 }
 

@@ -387,31 +387,14 @@ body {
   animation-direction: reverse;
 }
 
-/* Don't flash a skeleton on fast loads: fade it in after a short beat. */
-.skeleton-appear {
-  animation: skeletonAppear 300ms ease-out 150ms both;
-}
-
 @keyframes skeletonShimmer {
   to {
     transform: translateX(100%);
   }
 }
 
-@keyframes skeletonAppear {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .skeleton::after {
     display: none;
-  }
-  .skeleton-appear {
-    animation: none;
   }
 }

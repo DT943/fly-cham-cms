@@ -5,8 +5,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * image-top cards with a title, description and a "Learn More" link.
  *
  * Stores the editor shape: `{ title, description, learnMore, items[], links }`.
- * Empty per-card image URLs fall back to the app's bundled photos (keyed by
- * `id`) in the component. Only style keys the CMS provided are forwarded.
+ * Empty per-card image URLs render no image (no bundled fallback). Only style keys the CMS provided are forwarded.
  */
 export function seatPlanProps(block, lang) {
   const content = pickContent(block.content, lang)

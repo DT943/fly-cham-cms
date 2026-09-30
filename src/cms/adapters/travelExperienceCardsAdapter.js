@@ -6,8 +6,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * description + arrow link).
  *
  * Stores the editor shape: `{ title, subtitle, learnMore, items[], links }`.
- * Empty per-card image URLs fall back to the app's bundled photos (keyed by
- * `id`) in the component. Only style keys the CMS provided are forwarded, so
+ * Images come only from the CMS; an empty per-card image renders nothing. Only
+ * style keys the CMS provided are forwarded, so
  * omitted keys keep the component's own defaults (the source look).
  */
 export function travelExperienceCardsProps(block, lang) {

@@ -6,7 +6,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * the glass login card).
  *
  * Stores the flat editor shape (cms2 getTravelAgentLoginEditorContent). Empty
- * image URLs fall back to the app's bundled assets in the component. Only style
+ * bg/plane URLs render no image; an empty logo URL falls back to the bundled
+ * brand logo in the component. Only style
  * keys the CMS provided are forwarded, so omitted keys keep the component's own
  * defaults (the source look).
  */

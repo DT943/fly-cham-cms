@@ -5,8 +5,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * header + tabbed shipment-type card (tab label, panel title/description, image).
  *
  * Stores the editor shape: `{ title, description, tabsLabel, items[], links }`.
- * Empty per-item image URLs fall back to the app's bundled cargo photos (keyed
- * by `id`) in the component. Only style keys the CMS provided are forwarded, so
+ * Empty per-item image URLs render no image (no bundled fallback). Only style keys the CMS provided are forwarded, so
  * omitted keys keep the component's own defaults (the Figma look).
  */
 export function cargoShipmentTypesProps(block, lang) {

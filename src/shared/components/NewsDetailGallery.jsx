@@ -2,13 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import { colorVar } from '../../styles/cmsStyle.js'
-import coverThree from '../../assets/images/media-center/news-grid-3.jpg'
-import coverTwo from '../../assets/images/media-center/news-grid-2.jpg'
-import coverLatest from '../../assets/images/media-center/latest-news.jpg'
 
 export const MIN_GALLERY_IMAGES = 3
 
-const DEFAULT_IMAGES = [coverThree, coverTwo, coverLatest]
 const SLIDE_WIDTH = 'w-[calc(100%-2.5rem)] md:w-[62%]'
 
 const IMAGE_RADIUS = {
@@ -153,5 +149,4 @@ const NewsDetailGallery = ({
   )
 }
 
-export { DEFAULT_IMAGES as NEWS_DETAIL_GALLERY_FALLBACKS }
 export default NewsDetailGallery

@@ -149,18 +149,20 @@ const CoverSlider = ({
       aria-roledescription="carousel"
       aria-label={t('home.hero.carouselLabel')}
     >
-      {slides.map((slide, index) => (
-        <img
-          key={slide.id}
-          src={slide.image}
-          alt={index === slider.activeIndex ? slide.imageAlt : ''}
-          aria-hidden={index !== slider.activeIndex}
-          style={{ objectPosition: slide.objectPosition }}
-          className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out ${
-            index === slider.activeIndex ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-      ))}
+      {slides.map((slide, index) =>
+        slide.image ? (
+          <img
+            key={slide.id}
+            src={slide.image}
+            alt={index === slider.activeIndex ? slide.imageAlt : ''}
+            aria-hidden={index !== slider.activeIndex}
+            style={{ objectPosition: slide.objectPosition }}
+            className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out ${
+              index === slider.activeIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ) : null,
+      )}
       {showOverlay && (
         <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} />
       )}
@@ -469,12 +471,14 @@ const PageMediaHero = ({
 
   return (
     <section className={`relative isolate overflow-hidden ${heightClass}`}>
-      <img
-        src={image}
-        alt={imageAlt}
-        style={{ objectPosition }}
-        className="absolute inset-0 size-full object-cover"
-      />
+      {image ? (
+        <img
+          src={image}
+          alt={imageAlt}
+          style={{ objectPosition }}
+          className="absolute inset-0 size-full object-cover"
+        />
+      ) : null}
       {showOverlay && (
         <div
           className={`pointer-events-none absolute inset-0 ${overlayClass}`}

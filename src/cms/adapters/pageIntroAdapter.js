@@ -1,4 +1,4 @@
-import { pick, pickContent, resolveCmsHref } from './pick.js'
+import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "page-intro" block to <PageIntro /> props — a single body paragraph.
@@ -8,7 +8,10 @@ export function pageIntroProps(block, lang) {
   const style = block.style || {}
 
   return {
+    lead: content.lead || '',
     body: content.body || '',
+    imageUrl: resolveCmsAsset(content.imageUrl) || '',
+    imageAlt: content.imageAlt || '',
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -21,8 +24,13 @@ function mapBacklinks(links) {
 
 const STYLE_KEYS = [
   'sectionPadding',
+  'leadSize',
   'showSectionBg',
   'sectionBg',
+  'leadColor',
+  'leadFontWeight',
+  'leadColorHover',
+  'leadFontWeightHover',
   'bodyColor',
   'bodyFontWeight',
   'bodyColorHover',

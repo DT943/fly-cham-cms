@@ -4,17 +4,9 @@ import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
-import beforeTravel from '../../assets/images/travel-experience/card-before-you-fly.png'
-import atAirport from '../../assets/images/travel-experience/card-at-the-airport.png'
-import onboard from '../../assets/images/travel-experience/card-onboard.png'
-import afterTravel from '../../assets/images/travel-experience/card-after-travel.png'
 
-/** Bundled fallbacks keyed by card id (index fallback) — mirror the cms2 defaults. */
-const IMAGE_ORDER = [beforeTravel, atAirport, onboard, afterTravel]
-const IMAGE_BY_ID = { beforeTravel, atAirport, onboard, afterTravel }
-
-const cardImage = (card, index) =>
-  card.image || IMAGE_BY_ID[card.id] || IMAGE_ORDER[Math.abs(index) % IMAGE_ORDER.length]
+/** Images come only from the CMS; an empty image URL renders no photo. */
+const cardImage = (card) => card.image || ''
 
 const CardCopy = ({ card, textStyle, linkProps, gapClass = 'gap-1.5', clamp = false }) => (
   <div className={`flex min-w-0 flex-col ${gapClass}`}>
@@ -68,9 +60,11 @@ const StackCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProps, 
     className="flex min-w-0 flex-col overflow-hidden rounded-2xl"
     style={{ backgroundColor: colorVar(cardBg) }}
   >
-    <div className="aspect-[16/9] w-full overflow-hidden">
-      <img src={image} alt={card.imageAlt || ''} className="size-full object-cover" />
-    </div>
+    {image ? (
+      <div className="aspect-[16/9] w-full overflow-hidden">
+        <img src={image} alt={card.imageAlt || ''} className="size-full object-cover" />
+      </div>
+    ) : null}
     <div className="flex flex-col gap-2.5 p-4">
       <CardCopy card={card} textStyle={textStyle} linkProps={linkProps} />
       <LearnMoreLink
@@ -92,7 +86,9 @@ const RowCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProps, ar
     style={{ backgroundColor: colorVar(cardBg) }}
   >
     <div className="relative min-h-0 min-w-0 overflow-hidden">
-      <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+      {image ? (
+        <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+      ) : null}
     </div>
     <div className="flex min-w-0 flex-col gap-3 p-4 xl:p-5">
       <CardCopy card={card} textStyle={textStyle} linkProps={linkProps} clamp />
@@ -114,9 +110,11 @@ const FeaturedCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProp
     className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl"
     style={{ backgroundColor: colorVar(cardBg) }}
   >
-    <div className="relative min-h-[200px] w-full shrink-0 basis-[54%] overflow-hidden">
-      <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
-    </div>
+    {image ? (
+      <div className="relative min-h-[200px] w-full shrink-0 basis-[54%] overflow-hidden">
+        <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+      </div>
+    ) : null}
     <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 p-5 xl:p-6">
       <CardCopy card={card} textStyle={textStyle} linkProps={linkProps} gapClass="gap-2" />
       <LearnMoreLink
@@ -222,9 +220,9 @@ const HomeTravelExperience = ({
     linkItalic,
   }
 
-  const list = (Array.isArray(cards) ? cards : []).map((card, index) => ({
+  const list = (Array.isArray(cards) ? cards : []).map((card) => ({
     card,
-    image: cardImage(card, index),
+    image: cardImage(card),
   }))
   if (!title && !subtitle && !list.length) return null
 

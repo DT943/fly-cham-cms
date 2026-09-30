@@ -12,7 +12,7 @@ export function newsGridProps(block, lang) {
     description: content.description || '',
     learnMore: content.learnMore || '',
     viewAll: content.viewAll || '',
-    viewAllHref: resolveCmsHref(content.viewAllHref) || '/recent-news',
+    viewAllHref: resolveCmsHref(content.viewAllHref) || '/media-center/recent-news',
     items: (Array.isArray(content.items) ? content.items : []).map((it) => ({
       id: it?.id || '',
       image: resolveCmsAsset(it?.imageUrl) || undefined,

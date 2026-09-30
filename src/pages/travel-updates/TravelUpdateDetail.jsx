@@ -5,18 +5,39 @@ import Container from '../../shared/components/Container.jsx'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import useLocalizedRoute from '../../shared/routing/hooks/useLocalizedRoute.js'
 import { withLanguage } from '../../i18n/languages.js'
+import DynamicPage from '../dynamic-page/DynamicPage.jsx'
 import TravelUpdateDetailContent from './components/TravelUpdateDetailContent.jsx'
 import TravelUpdateDetailHeader from './components/TravelUpdateDetailHeader.jsx'
 import TravelUpdateDetailSidebar from './components/TravelUpdateDetailSidebar.jsx'
 import {
   getTravelUpdateDetail,
   getTravelUpdateSlug,
+  travelUpdateCmsSlug,
 } from './utils/travelUpdates.js'
 
 /**
- * Dynamic Travel Update detail — `/travel-updates/{slug}`.
+ * Travel Update detail — `/travel-updates/{slug}`. Renders the CMS page
+ * `travel-update-<kebab slug>` (breadcrumbs + travel-update-hero +
+ * travel-update-detail blocks) and falls back to the static page below while
+ * an update has no CMS page yet.
  */
 const TravelUpdateDetail = () => {
+  const { pagePath } = useLocalizedRoute()
+  const slug = getTravelUpdateSlug(pagePath)
+
+  return (
+    <DynamicPage
+      key={slug}
+      slug={travelUpdateCmsSlug(slug)}
+      className="bg-100 w-full pb-7 md:pb-10"
+      gapClass="gap-6 md:gap-[37px] [&>*:nth-child(3)]:mt-4 md:[&>*:nth-child(3)]:mt-[61px]"
+      fallback={<StaticTravelUpdateDetail />}
+    />
+  )
+}
+
+/** Static (i18n) detail page — used for updates without a CMS page. */
+const StaticTravelUpdateDetail = () => {
   const { t } = useTranslation()
   const { pagePath } = useLocalizedRoute()
   const language = useCurrentLanguage()

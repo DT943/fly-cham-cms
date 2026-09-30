@@ -5,11 +5,6 @@ import Dropdown from './Dropdown.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
-import coverOne from '../../assets/images/traveler-magazine/cover-1.jpg'
-import coverTwo from '../../assets/images/traveler-magazine/cover-2.jpg'
-import coverThree from '../../assets/images/traveler-magazine/cover-3.jpg'
-
-const COVER_BY_KEY = { 1: coverOne, 2: coverTwo, 3: coverThree }
 
 const UI = {
   en: {
@@ -75,8 +70,8 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 /**
  * Explore Marhaba — year-filtered grid of magazine issue covers. CMS-driven:
  * colours/weights/hover, columns, gap, panel background. Cards are whole-card
- * links (no nested backlinks). Title backlinks apply. Cover URLs fall back to
- * bundled photos keyed by `coverKey`.
+ * links (no nested backlinks). Title backlinks apply. Cover images come only
+ * from the CMS; an empty cover URL renders no image.
  */
 const ExploreMarhaba = ({
   title = '',
@@ -173,10 +168,7 @@ const ExploreMarhaba = ({
           )}
         >
           {visible.map((item, index) => {
-            const cover =
-              item.image ||
-              COVER_BY_KEY[Number(item.coverKey)] ||
-              COVER_BY_KEY[(index % 3) + 1]
+            const cover = item.image
             const label = formatIssueLabel(ui.issueLabel, item.issue)
             return (
               <li key={item.id || `${item.year}-${item.issue}-${index}`}>
@@ -191,7 +183,9 @@ const ExploreMarhaba = ({
                       radiusClass,
                     )}
                   >
-                    <img src={cover} alt="" className="absolute inset-0 size-full object-cover" />
+                    {cover ? (
+                      <img src={cover} alt="" className="absolute inset-0 size-full object-cover" />
+                    ) : null}
                     <div className="absolute inset-0 flex items-center justify-center bg-secondary-2/20 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
                       <span className="text-2xl font-medium text-50">{ui.read}</span>
                     </div>

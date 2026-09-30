@@ -4,8 +4,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Map a CMS "landmark-feature" block to <LandmarkFeature /> props — one or more
  * landmark cards, each a photo + copy side by side closed by a thumbnail
  * carousel. Each card keeps its own side (`imageFirst`), banner and thumbnails.
- * Empty images fall back to the app's bundled photos (keyed by `id`) in the
- * component.
+ * Images come only from the CMS; an empty image renders nothing.
  */
 export function landmarkFeatureProps(block, lang) {
   const content = pickContent(block.content, lang)

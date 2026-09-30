@@ -74,13 +74,15 @@ const DestinationCard = ({
         }
       }}
     >
-      <img
-        src={image}
-        alt={imageAlt}
-        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none lg:transition-transform ${
-          active ? 'lg:scale-[1.041]' : 'scale-100'
-        }`}
-      />
+      {image ? (
+        <img
+          src={image}
+          alt={imageAlt}
+          className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none lg:transition-transform ${
+            active ? 'lg:scale-[1.041]' : 'scale-100'
+          }`}
+        />
+      ) : null}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,37,60,0)_38.122%,#00253C_100%)]"

@@ -1,10 +1,8 @@
 import {
   AirTrafficControl,
   Binoculars,
-  Buildings,
   Clock,
   CloudSun,
-  Globe,
   Money,
   PersonSimpleWalk,
   ShoppingCart,
@@ -17,12 +15,6 @@ import thingOnePhoto from '../../../assets/images/things-to-do-in-damascus/thing
 import thingTwoPhoto from '../../../assets/images/things-to-do-in-damascus/thing-2.jpg'
 import thingThreePhoto from '../../../assets/images/things-to-do-in-damascus/thing-3.jpg'
 import damascusHero from '../../../assets/images/things-to-do-in-damascus/hero.jpg'
-import dubaiHero from '../../../assets/images/our-destenations/dubai.jpg'
-import burjKhalifaPhoto from '../../../assets/images/city-sights/sight-burj-khalifa.png'
-import flameTowersPhoto from '../../../assets/images/city-sights/sight-flame-towers.png'
-import historicPhoto from '../../../assets/images/city-sights/sight-roman-theatre.png'
-import villagePhoto from '../../../assets/images/city-sights/sight-colosseum.png'
-import waterfrontPhoto from '../../../assets/images/city-sights/sight-doha-corniche.png'
 
 export const FLIGHTS_TO_PATH = /^\/our-destinations\/flights-to-([^/]+)$/
 
@@ -56,21 +48,6 @@ const cityGuides = {
       { id: 'umayyadMosque', icon: Binoculars, image: thingOnePhoto },
     ],
     activitiesHref: '/our-destinations/things-to-do-in-damascus',
-  },
-  dubai: {
-    heroImage: dubaiHero,
-    narrativeImages: {
-      special: dubaiHero,
-      cuisine: flameTowersPhoto,
-      places: burjKhalifaPhoto,
-      activities: waterfrontPhoto,
-    },
-    thingsToDo: [
-      { id: 'alFahidi', icon: Buildings, image: historicPhoto },
-      { id: 'globalVillage', icon: Globe, image: villagePhoto },
-      { id: 'burjKhalifa', icon: Binoculars, image: burjKhalifaPhoto },
-    ],
-    activitiesHref: '/our-destinations/city-sights',
   },
 }
 

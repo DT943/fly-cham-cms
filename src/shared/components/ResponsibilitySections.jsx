@@ -1,18 +1,6 @@
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import passengersPhoto from '../../assets/images/our-responsibility/passengers.jpg'
-import communityPhoto from '../../assets/images/our-responsibility/community.jpg'
-import trainingPhoto from '../../assets/images/our-responsibility/training.jpg'
-import futureLeadersPhoto from '../../assets/images/our-responsibility/future-leaders.jpg'
-
-/** Seed images keyed by row id — mirror the cms2 defaults so an un-uploaded row previews. */
-const IMAGE_BY_ID = {
-  passengers: passengersPhoto,
-  community: communityPhoto,
-  training: trainingPhoto,
-  futureLeaders: futureLeadersPhoto,
-}
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -38,8 +26,8 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
 /**
  * Alternating image + text rows (title + paragraph beside a photo). CMS-driven:
  * colours/weights/hover, image side (per row), corners, row gap and the section
- * background are all controllable, with defaults matching the source. Falls back
- * to the bundled photo keyed by row `id` when no image is uploaded.
+ * background are all controllable, with defaults matching the source. Images
+ * come only from the CMS; a row without an uploaded image renders no photo.
  */
 const ResponsibilitySections = ({
   items = [],
@@ -74,7 +62,7 @@ const ResponsibilitySections = ({
   const inner = (
     <div className={cx('flex flex-col', rowGapClass)}>
       {items.map((item, index) => {
-        const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.passengers
+        const src = item.image || ''
         const imageFirst = item.imageFirst !== false
         return (
           <section
@@ -84,13 +72,15 @@ const ResponsibilitySections = ({
               imageFirst ? 'lg:flex-row' : 'lg:flex-row-reverse',
             )}
           >
-            <div className={cx('w-full overflow-hidden lg:w-[607px] lg:shrink-0', radiusClass)}>
-              <img
-                src={src}
-                alt={item.imageAlt || ''}
-                className="aspect-[607/375] w-full object-cover"
-              />
-            </div>
+            {src ? (
+              <div className={cx('w-full overflow-hidden lg:w-[607px] lg:shrink-0', radiusClass)}>
+                <img
+                  src={src}
+                  alt={item.imageAlt || ''}
+                  className="aspect-[607/375] w-full object-cover"
+                />
+              </div>
+            ) : null}
             <div className="flex w-full flex-col gap-3 lg:flex-1">
               <h2
                 className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}

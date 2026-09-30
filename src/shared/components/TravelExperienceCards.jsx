@@ -3,18 +3,6 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/c
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import beforeYouFlyPhoto from '../../assets/images/travel-experience/card-before-you-fly.png'
-import atTheAirportPhoto from '../../assets/images/travel-experience/card-at-the-airport.png'
-import onboardPhoto from '../../assets/images/travel-experience/card-onboard.png'
-import afterTravelPhoto from '../../assets/images/travel-experience/card-after-travel.png'
-
-/** Seed images keyed by card id — mirror the cms2 defaults so an un-uploaded card previews. */
-const IMAGE_BY_ID = {
-  beforeYouFly: beforeYouFlyPhoto,
-  atTheAirport: atTheAirportPhoto,
-  onboard: onboardPhoto,
-  afterTravel: afterTravelPhoto,
-}
 
 const COLUMNS = {
   1: 'grid-cols-1',
@@ -120,7 +108,7 @@ const TravelExperienceCards = ({
 
       <div className={cx('grid', COLUMNS[colKey] || COLUMNS[4], gapClass)}>
         {items.map((item, index) => {
-          const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.beforeYouFly
+          const src = item.image || ''
           const tint = item.tint || '#01263b'
           return (
             <article
@@ -134,11 +122,13 @@ const TravelExperienceCards = ({
                 borderColor: colorVar(cardBorderColor),
               }}
             >
-              <img
-                src={src}
-                alt={item.imageAlt || ''}
-                className="absolute inset-0 size-full object-cover"
-              />
+              {src ? (
+                <img
+                  src={src}
+                  alt={item.imageAlt || ''}
+                  className="absolute inset-0 size-full object-cover"
+                />
+              ) : null}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0"

@@ -3,7 +3,6 @@ import { ArrowRight } from '@phosphor-icons/react'
 import Container from './Container.jsx'
 import Button from './Button.jsx'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
-import helpPhoto from '../../assets/images/travel-experience/help-cta.png'
 
 /**
  * Rounded image banner with a left navy scrim and a title / description / CTA.
@@ -15,7 +14,7 @@ import helpPhoto from '../../assets/images/travel-experience/help-cta.png'
  */
 const HelpCta = ({
   contained = true,
-  image = helpPhoto,
+  image,
   imageAlt,
   title,
   description,
@@ -32,12 +31,14 @@ const HelpCta = ({
 
   const card = (
     <section className="relative isolate overflow-hidden rounded-xl bg-secondary-2">
-      <img
-        src={image}
-        alt={imageAlt ?? t('common.helpCta.imageAlt')}
-        style={{ objectPosition }}
-        className="absolute inset-0 size-full object-cover"
-      />
+      {image ? (
+        <img
+          src={image}
+          alt={imageAlt ?? t('common.helpCta.imageAlt')}
+          style={{ objectPosition }}
+          className="absolute inset-0 size-full object-cover"
+        />
+      ) : null}
       <div
         className="pointer-events-none absolute inset-0"
         style={{

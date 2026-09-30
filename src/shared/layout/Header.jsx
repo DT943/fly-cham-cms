@@ -115,7 +115,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-[1000] transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+      className={`sticky top-0 z-[1000] shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
         dark ? 'bg-secondary-2' : ''
       } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
       style={barBg}

@@ -4,36 +4,6 @@ import { useTranslation } from 'react-i18next'
 import Container from './Container.jsx'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import umayyadImg from '../../assets/images/flights-to-damascus/umayyad.png'
-import oldCityImg from '../../assets/images/flights-to-damascus/old-city.png'
-import souqImg from '../../assets/images/flights-to-damascus/souq.png'
-import umayyadThumb1 from '../../assets/images/flights-to-damascus/umayyad-thumb-1.png'
-import umayyadThumb2 from '../../assets/images/flights-to-damascus/umayyad-thumb-2.png'
-import umayyadThumb3 from '../../assets/images/flights-to-damascus/umayyad-thumb-3.png'
-import umayyadThumb4 from '../../assets/images/flights-to-damascus/umayyad-thumb-4.png'
-import umayyadThumb5 from '../../assets/images/flights-to-damascus/umayyad-thumb-5.png'
-import oldCityThumb1 from '../../assets/images/flights-to-damascus/old-city-thumb-1.png'
-import oldCityThumb2 from '../../assets/images/flights-to-damascus/old-city-thumb-2.png'
-import oldCityThumb3 from '../../assets/images/flights-to-damascus/old-city-thumb-3.png'
-import oldCityThumb4 from '../../assets/images/flights-to-damascus/old-city-thumb-4.png'
-import oldCityThumb5 from '../../assets/images/flights-to-damascus/old-city-thumb-5.png'
-import souqThumb1 from '../../assets/images/flights-to-damascus/souq-thumb-1.png'
-import souqThumb2 from '../../assets/images/flights-to-damascus/souq-thumb-2.png'
-import souqThumb3 from '../../assets/images/flights-to-damascus/souq-thumb-3.png'
-import souqThumb4 from '../../assets/images/flights-to-damascus/souq-thumb-4.png'
-import souqThumb5 from '../../assets/images/flights-to-damascus/souq-thumb-5.png'
-
-const IMAGE_BY_ID = {
-  umayyad: umayyadImg,
-  oldCity: oldCityImg,
-  souq: souqImg,
-}
-
-const THUMBS_BY_ID = {
-  umayyad: [umayyadThumb1, umayyadThumb2, umayyadThumb3, umayyadThumb4, umayyadThumb5],
-  oldCity: [oldCityThumb1, oldCityThumb2, oldCityThumb3, oldCityThumb4, oldCityThumb5],
-  souq: [souqThumb1, souqThumb2, souqThumb3, souqThumb4, souqThumb5],
-}
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -141,11 +111,10 @@ const ThumbnailStrip = ({
 
 /** One landmark: photo + copy side by side, closed by the thumbnail strip. */
 const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleKeys, showCarousel, carouselProps }) => {
-  const banner = item.image || IMAGE_BY_ID[item.id] || ''
-  const editorThumbs = (Array.isArray(item.thumbnails) ? item.thumbnails : [])
+  const banner = item.image || ''
+  const thumbs = (Array.isArray(item.thumbnails) ? item.thumbnails : [])
     .map((thumb) => thumb?.url || '')
     .filter(Boolean)
-  const thumbs = editorThumbs.length ? editorThumbs : THUMBS_BY_ID[item.id] || []
   // A CMS-set main image leads the carousel so it is what shows first —
   // otherwise the banner would open on thumbnail #1 and hide the upload.
   const slides = item.image
@@ -163,11 +132,13 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
   return (
     <>
       <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-28">
-        <img
-          src={currentBanner}
-          alt={item.imageAlt || ''}
-          className={`h-64 w-full shrink-0 object-cover sm:h-80 lg:h-[454px] lg:w-[55%] ${radiusClass} ${imageFirst ? '' : 'lg:order-2'}`}
-        />
+        {currentBanner ? (
+          <img
+            src={currentBanner}
+            alt={item.imageAlt || ''}
+            className={`h-64 w-full shrink-0 object-cover sm:h-80 lg:h-[454px] lg:w-[55%] ${radiusClass} ${imageFirst ? '' : 'lg:order-2'}`}
+          />
+        ) : null}
         <div className={`flex w-full flex-col gap-4 lg:gap-6 ${imageFirst ? '' : 'lg:order-1'}`}>
           <h2
             className={`m-0 text-2xl sm:text-3xl lg:text-[40px] ${CMS_TEXT_HOVER_CLASS}`}

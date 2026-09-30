@@ -4,10 +4,6 @@ import { colorVar, CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars } from
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import planeBg from '../../assets/images/our-destenations/ph5.png'
-import photoFalls from '../../assets/images/our-destenations/ph2.jpg'
-import photoCity from '../../assets/images/our-destenations/ph3.jpg'
-import photoCoast from '../../assets/images/our-destenations/ph4.jpg'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -85,10 +81,12 @@ const DestinationsInspiration = ({
   const radiusClass = BANNER_RADIUS[bannerRadius] ?? BANNER_RADIUS.lg
   const bannerCss = resolveColor(bannerBg, 'secondary-2')
 
-  const bgSrc = bgImage || planeBg
-  const coastSrc = coastImage || photoCoast
-  const fallsSrc = fallsImage || photoFalls
-  const citySrc = cityImage || photoCity
+  // Images come only from the CMS; an empty image URL renders no photo.
+  const bgSrc = bgImage || ''
+  const coastSrc = coastImage || ''
+  const fallsSrc = fallsImage || ''
+  const citySrc = cityImage || ''
+  const hasStack = Boolean(coastSrc || fallsSrc || citySrc)
 
   const linkProps = {
     links,
@@ -187,23 +185,31 @@ const DestinationsInspiration = ({
           ) : null}
         </div>
 
-        <div className="relative flex h-64 w-full max-w-88 shrink-0 items-center justify-center sm:h-72 sm:max-w-96 lg:h-60 lg:max-w-104">
-          <img
-            src={coastSrc}
-            alt={coastImageAlt}
-            className={cx(stackPhotoClass, 'relative z-0 -me-5 h-[80%] w-[37%] sm:-me-4 sm:h-[75%] sm:w-[34%]')}
-          />
-          <img
-            src={fallsSrc}
-            alt={fallsImageAlt}
-            className={cx(stackPhotoClass, 'relative z-10 h-full w-[46%] sm:w-[42%]')}
-          />
-          <img
-            src={citySrc}
-            alt={cityImageAlt}
-            className={cx(stackPhotoClass, 'relative z-0 -ms-5 h-[80%] w-[37%] sm:-ms-4 sm:h-[75%] sm:w-[34%]')}
-          />
-        </div>
+        {hasStack ? (
+          <div className="relative flex h-64 w-full max-w-88 shrink-0 items-center justify-center sm:h-72 sm:max-w-96 lg:h-60 lg:max-w-104">
+            {coastSrc ? (
+              <img
+                src={coastSrc}
+                alt={coastImageAlt}
+                className={cx(stackPhotoClass, 'relative z-0 -me-5 h-[80%] w-[37%] sm:-me-4 sm:h-[75%] sm:w-[34%]')}
+              />
+            ) : null}
+            {fallsSrc ? (
+              <img
+                src={fallsSrc}
+                alt={fallsImageAlt}
+                className={cx(stackPhotoClass, 'relative z-10 h-full w-[46%] sm:w-[42%]')}
+              />
+            ) : null}
+            {citySrc ? (
+              <img
+                src={citySrc}
+                alt={cityImageAlt}
+                className={cx(stackPhotoClass, 'relative z-0 -ms-5 h-[80%] w-[37%] sm:-ms-4 sm:h-[75%] sm:w-[34%]')}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </section>
   )

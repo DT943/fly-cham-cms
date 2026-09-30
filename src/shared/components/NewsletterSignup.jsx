@@ -7,8 +7,6 @@ import {
   getButtonStyle,
 } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import defaultPlane from '../../assets/images/city-sights/newsletter-plane.png'
-import defaultBanner from '../../assets/images/home/newsletter-banner.webp'
 
 const clampPercent = (value, fallback) => {
   const n = Number(value)
@@ -58,7 +56,7 @@ const NewsletterSignup = ({
   linkUnderline,
   linkItalic,
 }) => {
-  const planeSrc = plane || defaultPlane
+  const planeSrc = plane
   const linkProps = {
     links,
     enabled: showLinks,
@@ -105,12 +103,14 @@ const NewsletterSignup = ({
     const focus = clampPercent(bgFocus, 36)
     return (
       <section className="relative isolate w-full overflow-hidden lg:h-[145px]">
-        <img
-          src={background || defaultBanner}
-          alt=""
-          className="pointer-events-none absolute inset-0 size-full object-cover"
-          style={{ objectPosition: `center ${focus}%` }}
-        />
+        {background ? (
+          <img
+            src={background}
+            alt=""
+            className="pointer-events-none absolute inset-0 size-full object-cover"
+            style={{ objectPosition: `center ${focus}%` }}
+          />
+        ) : null}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -172,11 +172,13 @@ const NewsletterSignup = ({
 
   return (
     <section className="relative isolate overflow-hidden rounded-xl bg-linear-to-br from-primary-1 to-[#00141a] rtl:bg-linear-to-bl lg:bg-linear-to-r lg:rtl:bg-linear-to-l lg:h-[159px]">
-      <img
-        src={planeSrc}
-        alt=""
-        className="pointer-events-none absolute inset-y-0 end-0 hidden h-full w-[139.5px] object-cover lg:block rtl:-scale-x-100"
-      />
+      {planeSrc ? (
+        <img
+          src={planeSrc}
+          alt=""
+          className="pointer-events-none absolute inset-y-0 end-0 hidden h-full w-[139.5px] object-cover lg:block rtl:-scale-x-100"
+        />
+      ) : null}
 
       <div className="relative flex flex-col gap-6 p-6 lg:h-full lg:flex-row lg:items-center lg:gap-23 lg:p-0 lg:ps-[37px] lg:pe-[213px]">
         <div className="flex flex-col gap-3.5 lg:w-[401px] lg:shrink-0">

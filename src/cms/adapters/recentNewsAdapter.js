@@ -54,6 +54,7 @@ function mapBacklinks(links) {
 
 const STYLE_KEYS = [
   'pageSize',
+  'showPagination',
   'columns',
   'cardGap',
   'sectionPadding',

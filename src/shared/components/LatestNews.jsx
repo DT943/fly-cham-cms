@@ -7,7 +7,6 @@ import {
 import { typography } from '../../styles/typography.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
-import fallbackImage from '../../assets/images/media-center/latest-news.jpg'
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -93,13 +92,15 @@ const LatestNews = ({
               key={item.id || index}
               className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10 xl:gap-14"
             >
-              <div className={cx('w-full overflow-hidden lg:w-[min(48%,28rem)] lg:shrink-0 xl:w-[32.5rem]', radiusClass)}>
-                <img
-                  src={item.image || fallbackImage}
-                  alt={item.imageAlt || ''}
-                  className="aspect-[4/3] w-full object-cover sm:aspect-[16/10] lg:aspect-[520/375]"
-                />
-              </div>
+              {item.image ? (
+                <div className={cx('w-full overflow-hidden lg:w-[min(48%,28rem)] lg:shrink-0 xl:w-[32.5rem]', radiusClass)}>
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt || ''}
+                    className="aspect-[4/3] w-full object-cover sm:aspect-[16/10] lg:aspect-[520/375]"
+                  />
+                </div>
+              ) : null}
 
               <div className="flex min-w-0 flex-1 flex-col gap-4 md:gap-5">
                 <div

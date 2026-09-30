@@ -15,7 +15,6 @@ import Container from './Container.jsx'
 import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import damascusHero from '../../assets/images/things-to-do-in-damascus/hero.jpg'
 
 const STAT_ICON_MAP = {
   airTrafficControl: AirTrafficControl,
@@ -124,7 +123,7 @@ const DestinationHeroStats = ({
 }) => {
   const isRtl = useCurrentLanguage() === 'ar'
   const heightClass = HERO_HEIGHT[height] || HERO_HEIGHT.default
-  const heroSrc = image || damascusHero
+  const heroSrc = image
   const overlayCss = colorVar(overlayColor) || colorVar('primary-1')
 
   const linkProps = {
@@ -143,11 +142,13 @@ const DestinationHeroStats = ({
   return (
     <div className="w-full">
       <section className={`relative isolate overflow-hidden ${heightClass}`}>
-        <img
-          src={heroSrc}
-          alt={imageAlt}
-          className="absolute inset-0 size-full object-cover object-[center_38%]"
-        />
+        {heroSrc ? (
+          <img
+            src={heroSrc}
+            alt={imageAlt}
+            className="absolute inset-0 size-full object-cover object-[center_38%]"
+          />
+        ) : null}
         <div
           className="pointer-events-none absolute inset-0"
           style={{

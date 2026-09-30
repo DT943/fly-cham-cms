@@ -1,6 +1,5 @@
 import { Clock } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import agentPhoto from '../../../assets/images/contact-us/ph2.png'
 import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
 import {
@@ -116,7 +115,7 @@ const GetInTouch = ({
   const resolvedHours = hours ?? t('contact.getInTouch.hours')
   const resolvedHoursMobile = hoursMobile ?? (hours ? hours : t('contact.getInTouch.hoursMobile'))
   const resolvedNote = note ?? t('contact.getInTouch.note')
-  const resolvedImage = image || agentPhoto
+  const resolvedImage = image
   const resolvedImageAlt = imageAlt ?? t('contact.getInTouch.imageAlt')
   const resolvedPhoneDisplay = phoneDisplay ?? PHONE_DISPLAY
   const resolvedPhoneHref = phoneHref ?? PHONE_HREF

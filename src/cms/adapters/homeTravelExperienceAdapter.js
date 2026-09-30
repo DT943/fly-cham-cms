@@ -6,9 +6,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Stores the flat editor shape:
  * `{ title, subtitle, exploreLabel, exploreHref, learnMoreLabel,
  *    cards: [{ id, title, description, imageUrl, imageAlt, href }], links }`
- * (cards[0] is the featured desktop card). Empty image URLs fall back to the
- * bundled photos (by id, then index) in the component. Only style keys the CMS
- * provided are forwarded, so omitted keys keep the component defaults.
+ * (cards[0] is the featured desktop card). Images come only from the CMS; an
+ * empty image URL renders nothing. Only style keys the CMS provided are forwarded, so omitted keys keep the component defaults.
  */
 export function homeTravelExperienceProps(block, lang) {
   const content = pickContent(block.content, lang)

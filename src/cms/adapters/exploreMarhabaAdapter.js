@@ -4,8 +4,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Map a CMS "explore-marhaba" block to <ExploreMarhaba /> props — a year
  * filter plus a grid of magazine issue covers.
  *
- * Stores the editor shape: `{ title, items[], links }`. Empty cover URLs fall
- * back to bundled photos keyed by `coverKey` in the component.
+ * Stores the editor shape: `{ title, items[], links }`. Empty cover URLs
+ * render no image (no bundled fallback).
  */
 export function exploreMarhabaProps(block, lang) {
   const content = pickContent(block.content, lang)

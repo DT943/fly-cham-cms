@@ -112,7 +112,7 @@
                 "description": "",
                 "icon": "Warning",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/prohibited-items"
               }
             ],
             "cards": []
@@ -342,7 +342,7 @@
                 "description": "Airport transfer service",
                 "icon": "Car",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/transportation-service"
               },
               {
                 "id": "limousine",
@@ -350,7 +350,7 @@
                 "description": "Business class chauffeur",
                 "icon": "SteeringWheel",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/limousine-service"
               },
               {
                 "id": "unaccompaniedMinor",
@@ -389,7 +389,7 @@
                 "description": "Relax before your flight",
                 "icon": "Couch",
                 "badge": "",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/business-lounge"
               },
               {
                 "id": "priorityBoarding",
@@ -397,7 +397,7 @@
                 "description": "Board first, settle in early",
                 "icon": "Seat",
                 "badge": "CaretDoubleUp",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/vip-boarding"
               },
               {
                 "id": "wheelchair",
@@ -405,7 +405,7 @@
                 "description": "Support through the airport",
                 "icon": "Wheelchair",
                 "badge": "",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/wheelchair-service"
               }
             ],
             "cards": []
@@ -420,7 +420,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/travel-experience/card-onboard.webp",
             "imageAlt": "",
             "ctaLabel": "Explore more",
-            "ctaHref": "/travel-experience/onboard",
+            "ctaHref": "/travel-experience/on-board",
             "links": [
               {
                 "id": "travelClasses",
@@ -428,7 +428,7 @@
                 "description": "Economy and business options",
                 "icon": "Armchair",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/travel-classes"
               },
               {
                 "id": "meals",
@@ -436,7 +436,7 @@
                 "description": "Dining at your seat",
                 "icon": "ForkKnife",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/meals-onboard"
               },
               {
                 "id": "entertainment",
@@ -444,7 +444,7 @@
                 "description": "Films, music and more",
                 "icon": "MonitorPlay",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/entertainment-system"
               },
               {
                 "id": "birthdayCakes",
@@ -452,7 +452,7 @@
                 "description": "Celebrate at altitude",
                 "icon": "Cake",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/birthday-onboard"
               },
               {
                 "id": "marhabaMagazine",
@@ -468,7 +468,7 @@
                 "description": "Keep little ones happy",
                 "icon": "PuzzlePiece",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/kids-toys"
               },
               {
                 "id": "wifiOnboard",
@@ -476,7 +476,7 @@
                 "description": "Stay connected in the air",
                 "icon": "WifiHigh",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/onboard-wi-fi"
               }
             ],
             "cards": []
@@ -786,7 +786,7 @@
                 "description": "",
                 "icon": "Warning",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/prohibited-items"
               }
             ],
             "cards": []
@@ -1016,7 +1016,7 @@
                 "description": "خدمة النقل من وإلى المطار",
                 "icon": "Car",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/transportation-service"
               },
               {
                 "id": "limousine",
@@ -1024,7 +1024,7 @@
                 "description": "سائق خاص لدرجة الأعمال",
                 "icon": "SteeringWheel",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/limousine-service"
               },
               {
                 "id": "unaccompaniedMinor",
@@ -1063,7 +1063,7 @@
                 "description": "استرخِ قبل رحلتك",
                 "icon": "Couch",
                 "badge": "",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/business-lounge"
               },
               {
                 "id": "priorityBoarding",
@@ -1071,7 +1071,7 @@
                 "description": "اصعد أولاً واستقر مبكراً",
                 "icon": "Seat",
                 "badge": "CaretDoubleUp",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/vip-boarding"
               },
               {
                 "id": "wheelchair",
@@ -1079,7 +1079,7 @@
                 "description": "الدعم داخل المطار",
                 "icon": "Wheelchair",
                 "badge": "",
-                "href": "/travel-experience/at-the-airport"
+                "href": "/travel-experience/at-the-airport/wheelchair-service"
               }
             ],
             "cards": []
@@ -1094,7 +1094,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/travel-experience/card-onboard.webp",
             "imageAlt": "",
             "ctaLabel": "اكتشف المزيد",
-            "ctaHref": "/travel-experience/onboard",
+            "ctaHref": "/travel-experience/on-board",
             "links": [
               {
                 "id": "travelClasses",
@@ -1102,7 +1102,7 @@
                 "description": "خيارات السياحية والأعمال",
                 "icon": "Armchair",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/travel-classes"
               },
               {
                 "id": "meals",
@@ -1110,7 +1110,7 @@
                 "description": "تناول الطعام في مقعدك",
                 "icon": "ForkKnife",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/meals-onboard"
               },
               {
                 "id": "entertainment",
@@ -1118,7 +1118,7 @@
                 "description": "أفلام وموسيقى والمزيد",
                 "icon": "MonitorPlay",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/entertainment-system"
               },
               {
                 "id": "birthdayCakes",
@@ -1126,7 +1126,7 @@
                 "description": "احتفل في الأجواء",
                 "icon": "Cake",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/birthday-onboard"
               },
               {
                 "id": "marhabaMagazine",
@@ -1142,7 +1142,7 @@
                 "description": "أسعد الصغار",
                 "icon": "PuzzlePiece",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/kids-toys"
               },
               {
                 "id": "wifiOnboard",
@@ -1150,7 +1150,7 @@
                 "description": "ابقَ متصلاً في الجو",
                 "icon": "WifiHigh",
                 "badge": "",
-                "href": "/travel-experience/onboard"
+                "href": "/travel-experience/on-board/onboard-wi-fi"
               }
             ],
             "cards": []

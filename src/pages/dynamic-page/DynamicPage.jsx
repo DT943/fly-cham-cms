@@ -62,7 +62,11 @@ const DynamicPageContent = ({
   if (notFound) return <NotFound />
 
   return (
-    <main className={className}>
+    <main
+      className={
+        isLoading ? 'flex min-h-dvh w-full flex-1 flex-col bg-100' : className
+      }
+    >
       {isLoading && <PageSkeleton />}
       {isError && (
         <Container className={statusClassName}>

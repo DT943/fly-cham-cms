@@ -3,10 +3,6 @@ import LocalizedLink from './LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import cargoCover from '../../assets/images/our-fleet/cargo.jpg'
-import entertainmentCover from '../../assets/images/our-fleet/entertainment.jpg'
-
-const COVER_BY_KEY = { cargo: cargoCover, entertainment: entertainmentCover }
 
 const COLUMNS = {
   1: 'grid-cols-1',
@@ -68,19 +64,21 @@ const MediaCards = ({
 
   const inner = (
     <section className={cx('grid', COLUMNS[columns] || COLUMNS[2], CARD_GAP[cardGap] || CARD_GAP.default)}>
-      {cards.map(({ id, image, imageAlt = '', coverKey, href, title, description, cta }, index) => {
-        const src = image || COVER_BY_KEY[coverKey] || COVER_BY_KEY[['cargo', 'entertainment'][index % 2]]
+      {cards.map(({ id, image, imageAlt = '', href, title, description, cta }) => {
+        const src = image
         const label = cta || learnMore
         return (
           <article
             key={id || title}
             className="relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden rounded-2xl p-8 md:p-10"
           >
-            <img
-              src={src}
-              alt={imageAlt}
-              className="absolute inset-0 -z-10 size-full object-cover"
-            />
+            {src ? (
+              <img
+                src={src}
+                alt={imageAlt}
+                className="absolute inset-0 -z-10 size-full object-cover"
+              />
+            ) : null}
             <div
               className={cx(
                 'absolute inset-0 -z-10',

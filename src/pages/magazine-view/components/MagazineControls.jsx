@@ -13,6 +13,10 @@ const MagazineControls = ({
   onNext,
   onToggleFullscreen,
   labels,
+  pdfUrl = MAGAZINE_PDF_URL,
+  pdfFilename = MAGAZINE_PDF_FILENAME,
+  downloadClassName = '',
+  downloadStyle,
 }) => (
   <div
     className={`flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 ${
@@ -61,11 +65,16 @@ const MagazineControls = ({
       </button>
 
       <a
-        href={MAGAZINE_PDF_URL}
-        download={MAGAZINE_PDF_FILENAME}
+        href={pdfUrl || MAGAZINE_PDF_URL}
+        download={pdfFilename || MAGAZINE_PDF_FILENAME}
         target="_blank"
         rel="noopener noreferrer"
-        className={`inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border-0 bg-secondary px-5 font-semibold text-btn no-underline transition-colors hover:bg-secondary-800 sm:flex-none ${typography.button}`}
+        className={
+          downloadClassName
+            ? `inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border-0 px-5 no-underline sm:flex-none ${typography.button} ${downloadClassName}`
+            : `inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border-0 bg-secondary px-5 font-semibold text-btn no-underline transition-colors hover:bg-secondary-800 sm:flex-none ${typography.button}`
+        }
+        style={downloadStyle}
       >
         <DownloadSimple size={18} weight="bold" />
         {labels.download}

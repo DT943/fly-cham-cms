@@ -10,15 +10,6 @@ import {
   colorVar,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-import istanbul from '../../assets/images/our-destenations/istanbul.jpg'
-import dubai from '../../assets/images/our-destenations/dubai.jpg'
-import muscat from '../../assets/images/our-destenations/muscat.jpg'
-import yerevan from '../../assets/images/our-destenations/yerevan.jpg'
-import erbil from '../../assets/images/our-destenations/erbil.jpg'
-import damascus from '../../assets/images/our-destenations/damascus.jpeg'
-
-/** Bundled photos keyed by card id — used when the CMS image URL is empty. */
-const IMAGE_BY_ID = { istanbul, dubai, muscat, yerevan, erbil, damascus }
 
 const getVisibleCount = (width) => {
   if (width >= 1024) return 4
@@ -42,16 +33,18 @@ const formatPrice = (priceLabel, price, currency) =>
  * Only the arrow is a link, so the name can carry backlinks.
  */
 const TripCard = ({ item, newLabel, priceLabel, textStyle, arrowBg, arrowColor, linkProps, exploreLabel }) => {
-  const src = item.image || IMAGE_BY_ID[item.id] || IMAGE_BY_ID.istanbul
+  const src = item.image || ''
   const priceText = formatPrice(priceLabel, item.price, item.currency)
 
   return (
     <article className="relative aspect-16/13 min-w-0 overflow-hidden rounded-xl">
-      <img
-        src={src}
-        alt={item.imageAlt || ''}
-        className="absolute inset-0 size-full object-cover"
-      />
+      {src ? (
+        <img
+          src={src}
+          alt={item.imageAlt || ''}
+          className="absolute inset-0 size-full object-cover"
+        />
+      ) : null}
       <div
         aria-hidden
         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,38,59,0)_40%,rgba(1,38,59,0.88)_100%)]"

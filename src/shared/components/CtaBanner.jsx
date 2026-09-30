@@ -12,24 +12,27 @@ import {
   getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-import defaultImage from '../../assets/images/help/ph1.png'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
  * Full-bleed photo CTA. Defaults match the original Help / Forms look;
  * the CMS (via the new-help section registry) can override any of them.
+ * The background photo comes only from the CMS (`image`); none is bundled.
  */
 const CtaBanner = ({
   title,
   description,
   cta,
+  ctaIcon = '',
   href,
-  image = defaultImage,
+  image,
   imageAlt = '',
   showTitle = true,
   showButton = true,
+  showButtonIcon = false,
   showDescription = true,
   showHeroImage = true,
   showOverlay = true,
@@ -66,6 +69,7 @@ const CtaBanner = ({
   const { i18n } = useTranslation()
   const dir = i18n.dir() === 'rtl' ? 'rtl' : 'ltr'
   const overlay = colorVar(overlayColor)
+  const CtaIcon = showButtonIcon && ctaIcon ? resolvePhosphorIcon(ctaIcon) : null
   const to = dir === 'rtl' ? 'left' : 'right'
 
   const linkProps = {
@@ -175,10 +179,11 @@ const CtaBanner = ({
           {showButton && cta && (
             <Button
               href={href}
-              className={buttonStyle.className}
+              className={cx(buttonStyle.className, CtaIcon && 'gap-2')}
               style={buttonStyle.style}
             >
               {cta}
+              {CtaIcon ? <CtaIcon size={24} aria-hidden className="shrink-0 rtl:-scale-x-100" /> : null}
             </Button>
           )}
         </div>

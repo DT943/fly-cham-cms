@@ -11,6 +11,7 @@ export function ctaBannerProps(block, lang) {
     title: content.title,
     description: content.description,
     cta: content.buttonLabel,
+    ctaIcon: content.buttonIcon || '',
     href: resolveCmsHref(content.buttonHref),
     image: resolveCmsAsset(content.imageUrl) || undefined,
     imageAlt: content.imageAlt,
@@ -28,6 +29,7 @@ function mapBacklinks(links) {
 const STYLE_KEYS = [
   'showTitle',
   'showButton',
+  'showButtonIcon',
   'showDescription',
   'showHeroImage',
   'showOverlay',

@@ -4,9 +4,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Map a CMS "responsibility-sections" block to <ResponsibilitySections /> props —
  * alternating image + text rows (title + paragraph beside a photo).
  *
- * Stores the editor shape: `{ items[], links }`. Empty per-row image URLs fall
- * back to the app's bundled photos (keyed by `id`) in the component. Only style
- * keys the CMS provided are forwarded.
+ * Stores the editor shape: `{ items[], links }`. Images come only from the
+ * CMS; an empty per-row image renders nothing. Only style keys the CMS provided are forwarded.
  */
 export function responsibilitySectionsProps(block, lang) {
   const content = pickContent(block.content, lang)

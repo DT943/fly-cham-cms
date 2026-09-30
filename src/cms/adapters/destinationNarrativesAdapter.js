@@ -3,8 +3,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 /**
  * Map a CMS "destination-narratives" block to <DestinationNarratives /> props —
  * alternating image + text rows. Each row keeps its own side (`imageFirst`) and
- * title colour/weight. Empty per-row image falls back to the app's bundled photo
- * (keyed by `id`) in the component.
+ * title colour/weight. An empty per-row image URL renders no image (no bundled
+ * fallback).
  */
 export function destinationNarrativesProps(block, lang) {
   const content = pickContent(block.content, lang)

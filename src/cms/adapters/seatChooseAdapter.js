@@ -4,9 +4,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * Map a CMS "seat-choose" block to <SeatChoose /> props — a heading and a grid
  * of photo cards (each a link) with a title, description and a CTA.
  *
- * Stores the editor shape: `{ title, description, items[], links }`. Empty
- * per-card image URLs fall back to the app's bundled photos (keyed by `id`) in
- * the component. Only style keys the CMS provided are forwarded.
+ * Stores the editor shape: `{ title, description, items[], links }`. Images
+ * come only from the CMS; an empty per-card image renders nothing. Only style keys the CMS provided are forwarded.
  */
 export function seatChooseProps(block, lang) {
   const content = pickContent(block.content, lang)

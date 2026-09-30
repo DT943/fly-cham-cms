@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative isolate overflow-hidden text-50"
+      className="relative isolate shrink-0 overflow-hidden text-50"
       style={{
         backgroundColor: colorVar(style.bg),
         // Divider tints used by the accordion and legal-bar border classes.

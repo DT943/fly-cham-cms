@@ -8,8 +8,6 @@ import {
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
-import defaultPhoto from '../../assets/images/home/home-cham.jpg'
-import defaultMark from '../../assets/images/home/cham-miles-mark.png'
 
 /** The left panel's brand gradient — literal, exactly as the source. */
 const GRADIENT = 'linear-gradient(102.31deg, #006080 0%, #00141A 100%)'
@@ -40,7 +38,7 @@ const withOpacity = (css, opacity) => {
  * "Join Cham Miles" split banner — gradient panel (faded Cham Miles mark,
  * title, description, two CTAs) beside a cabin photo. CMS-driven port of
  * pages/home/components/HomeChamMilesBanner.jsx; every style prop defaults to
- * the source look, and empty image URLs fall back to the bundled artwork.
+ * the source look; images come only from the CMS (an empty URL renders none).
  */
 const HomeChamMilesBanner = ({
   title = '',
@@ -177,9 +175,9 @@ const HomeChamMilesBanner = ({
             className="relative flex min-h-64 flex-col justify-between gap-8 overflow-hidden p-6 sm:min-h-72 sm:p-8 md:p-10 lg:min-h-80"
             style={{ background: GRADIENT }}
           >
-            {showMark ? (
+            {showMark && mark ? (
               <img
-                src={mark || defaultMark}
+                src={mark}
                 alt=""
                 aria-hidden
                 className="pointer-events-none absolute inset-e-0 top-1/2 h-[220%] w-[min(58%,20rem)] max-w-none -translate-y-2/4 select-none object-cover object-left mix-blend-screen sm:w-[min(52%,24rem)] lg:w-[min(65%,28rem)]"
@@ -243,11 +241,13 @@ const HomeChamMilesBanner = ({
             className="relative min-h-56 overflow-hidden sm:min-h-64 lg:min-h-full"
             style={{ backgroundColor: colorVar(photoBg) }}
           >
-            <img
-              src={photo || defaultPhoto}
-              alt={photoAlt}
-              className="absolute inset-0 size-full object-cover object-center"
-            />
+            {photo ? (
+              <img
+                src={photo}
+                alt={photoAlt}
+                className="absolute inset-0 size-full object-cover object-center"
+              />
+            ) : null}
           </div>
         </div>
       </Container>

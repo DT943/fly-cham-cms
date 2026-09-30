@@ -8,17 +8,6 @@ import {
   getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-import aboutImage from '../../assets/images/about-us/vision.jpg'
-import whoWeAreImage from '../../assets/images/about-us/mission.jpg'
-import missionImage from '../../assets/images/travel-experience/hero.png'
-
-/** Bundled fallbacks keyed by card id (then by index) — mirror the cms2 defaults. */
-const IMAGE_BY_ID = {
-  aboutUs: aboutImage,
-  whoWeAre: whoWeAreImage,
-  ourMission: missionImage,
-}
-const IMAGES_BY_INDEX = [aboutImage, whoWeAreImage, missionImage]
 
 const COLUMNS = {
   1: 'grid-cols-1',
@@ -114,20 +103,19 @@ const HomeAbout = ({
         {cards.length ? (
           <div className={cx('grid gap-5 lg:gap-6', columnsClass)}>
             {cards.map((card, index) => {
-              const src =
-                card.image ||
-                IMAGE_BY_ID[card.id] ||
-                IMAGES_BY_INDEX[index % IMAGES_BY_INDEX.length]
+              const src = card.image
               return (
                 <article key={card.id || index} className="flex min-w-0 flex-col gap-3 md:gap-4">
-                  <div className={cx('aspect-4/3 w-full overflow-hidden', radiusClass)}>
-                    <img
-                      src={src}
-                      alt={card.imageAlt || ''}
-                      className="size-full object-cover"
-                      style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
-                    />
-                  </div>
+                  {src ? (
+                    <div className={cx('aspect-4/3 w-full overflow-hidden', radiusClass)}>
+                      <img
+                        src={src}
+                        alt={card.imageAlt || ''}
+                        className="size-full object-cover"
+                        style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
+                      />
+                    </div>
+                  ) : null}
                   <div className="flex flex-col gap-1.5 md:gap-2">
                     {card.title ? (
                       <h3

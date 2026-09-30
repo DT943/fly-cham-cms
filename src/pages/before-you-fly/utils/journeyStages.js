@@ -1,11 +1,4 @@
 import { Airplane, AirplaneLanding, AirplaneTakeoff, Headset, Question } from '@phosphor-icons/react'
-import seatSelectionPhoto from '../../../assets/images/before-you-fly/seat-selection.png'
-import manageBookingPhoto from '../../../assets/images/before-you-fly/manage-booking.png'
-import yaMarhabaPhoto from '../../../assets/images/before-you-fly/ya-marhaba.png'
-import limousinePhoto from '../../../assets/images/before-you-fly/limousine.png'
-import unaccompaniedMinorPhoto from '../../../assets/images/before-you-fly/unaccompanied-minor.png'
-import oxygenPhoto from '../../../assets/images/before-you-fly/oxygen.png'
-import heroPhoto from '../../../assets/images/before-you-fly/hero.png'
 
 export const JOURNEY_STAGE_PATH = /^\/travel-experience\/([^/]+)$/
 
@@ -13,22 +6,21 @@ const helpHref = '/help'
 
 /**
  * Shared Before You Fly template data for every travel-experience stage page.
- * Photos are placeholders until stage-specific assets are added.
+ * Text lives under the stage's i18n key; images come only from the CMS.
  */
 const journeyStages = {
   'before-you-fly': {
     i18nKey: 'beforeYouFly',
-    heroImage: heroPhoto,
     services: [
-      { id: 'seatSelection', image: seatSelectionPhoto, href: helpHref },
-      { id: 'manageBooking', image: manageBookingPhoto, href: helpHref },
-      { id: 'allowedBaggage', image: manageBookingPhoto, href: helpHref },
-      { id: 'paymentMethods', image: manageBookingPhoto, href: helpHref },
-      { id: 'yaMarhaba', image: yaMarhabaPhoto, href: helpHref },
-      { id: 'limousine', image: limousinePhoto, href: helpHref },
-      { id: 'unaccompaniedMinor', image: unaccompaniedMinorPhoto, href: helpHref },
-      { id: 'oxygenCylinder', image: oxygenPhoto, href: helpHref },
-      { id: 'prohibitedItems', image: oxygenPhoto, href: helpHref },
+      { id: 'seatSelection', href: helpHref },
+      { id: 'manageBooking', href: helpHref },
+      { id: 'allowedBaggage', href: helpHref },
+      { id: 'paymentMethods', href: helpHref },
+      { id: 'yaMarhaba', href: '/travel-experience/before-you-fly/transportation-service' },
+      { id: 'limousine', href: '/travel-experience/before-you-fly/limousine-service' },
+      { id: 'unaccompaniedMinor', href: '/travel-experience/before-you-fly/unaccompanied-minors' },
+      { id: 'oxygenCylinder', href: helpHref },
+      { id: 'prohibitedItems', href: '/travel-experience/before-you-fly/prohibited-items' },
     ],
     nextSteps: [
       { id: 'airportServices', href: '/travel-experience/at-the-airport', icon: AirplaneTakeoff },
@@ -37,28 +29,26 @@ const journeyStages = {
   },
   'at-the-airport': {
     i18nKey: 'atTheAirport',
-    heroImage: heroPhoto,
     services: [
-      { id: 'lounge', image: manageBookingPhoto, href: helpHref },
-      { id: 'wheelchair', image: unaccompaniedMinorPhoto, href: helpHref },
-      { id: 'vipBoarding', image: yaMarhabaPhoto, href: helpHref },
+      { id: 'lounge', href: helpHref },
+      { id: 'wheelchair', href: '/travel-experience/at-the-airport/wheelchair-service' },
+      { id: 'vipBoarding', href: '/travel-experience/at-the-airport/vip-boarding' },
     ],
     nextSteps: [
-      { id: 'onboardServices', href: '/travel-experience/onboard', icon: Airplane },
+      { id: 'onboardServices', href: '/travel-experience/on-board', icon: Airplane },
       { id: 'getSupport', href: helpHref, icon: Headset },
     ],
   },
   onboard: {
     i18nKey: 'onboard',
-    heroImage: heroPhoto,
     services: [
-      { id: 'travelClasses', image: seatSelectionPhoto, href: helpHref },
-      { id: 'meals', image: limousinePhoto, href: helpHref },
-      { id: 'entertainment', image: yaMarhabaPhoto, href: helpHref },
-      { id: 'birthdayCakes', image: unaccompaniedMinorPhoto, href: helpHref },
-      { id: 'travelerMagazine', image: manageBookingPhoto, href: helpHref },
-      { id: 'kidsToys', image: oxygenPhoto, href: helpHref },
-      { id: 'wifiOnboard', image: seatSelectionPhoto, href: helpHref },
+      { id: 'travelClasses', href: '/travel-experience/on-board/travel-classes' },
+      { id: 'meals', href: '/travel-experience/on-board/meals-onboard' },
+      { id: 'entertainment', href: '/travel-experience/on-board/entertainment-system' },
+      { id: 'birthdayCakes', href: '/travel-experience/on-board/birthday-onboard' },
+      { id: 'travelerMagazine', href: '/travel-experience/traveler-magazine' },
+      { id: 'kidsToys', href: '/travel-experience/on-board/kids-toys' },
+      { id: 'wifiOnboard', href: '/travel-experience/on-board/onboard-wi-fi' },
     ],
     nextSteps: [
       { id: 'afterTravel', href: '/travel-experience/after-travel', icon: AirplaneLanding },
@@ -67,12 +57,11 @@ const journeyStages = {
   },
   'after-travel': {
     i18nKey: 'afterTravel',
-    heroImage: heroPhoto,
     services: [
-      { id: 'baggageClaims', image: manageBookingPhoto, href: helpHref },
-      { id: 'refunds', image: yaMarhabaPhoto, href: helpHref },
-      { id: 'loyaltyMiles', image: limousinePhoto, href: helpHref },
-      { id: 'feedbackSupport', image: oxygenPhoto, href: helpHref },
+      { id: 'baggageClaims', href: helpHref },
+      { id: 'refunds', href: helpHref },
+      { id: 'loyaltyMiles', href: helpHref },
+      { id: 'feedbackSupport', href: helpHref },
     ],
     nextSteps: [
       { id: 'helpSupport', href: helpHref, icon: Headset },

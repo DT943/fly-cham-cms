@@ -1,5 +1,3 @@
-import fallbackImage from '../../assets/images/our-destenations/damascus.jpeg'
-
 const IMAGE_RADIUS = {
   none: 'rounded-none',
   lg: 'rounded-lg',
@@ -9,6 +7,8 @@ const IMAGE_RADIUS = {
 
 /**
  * Closing media panel: muted looping video when provided, otherwise a still.
+ * Media comes only from the CMS; with neither a video nor an image nothing
+ * is rendered.
  */
 const NewsDetailFigure = ({
   image,
@@ -17,7 +17,8 @@ const NewsDetailFigure = ({
   poster,
   imageRadius = 'xl',
 }) => {
-  const src = image || fallbackImage
+  const src = image
+  if (!video && !src) return null
   const radiusClass = IMAGE_RADIUS[imageRadius] || IMAGE_RADIUS.xl
 
   return (
@@ -26,7 +27,7 @@ const NewsDetailFigure = ({
         <video
           className="aspect-[122/63] w-full object-cover"
           src={video}
-          poster={poster || src}
+          poster={poster || src || undefined}
           autoPlay
           muted
           loop

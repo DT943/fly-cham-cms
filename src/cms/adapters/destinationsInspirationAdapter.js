@@ -6,8 +6,8 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  * - Content is language-scoped (`block.content[lang]`), falling back to the
  *   first available language.
  * - Stores the flat editor shape: `{ title, description, buttonLabel,
- *   buttonHref, bgImageUrl, coast/falls/city ImageUrl+Alt, links }`. Empty
- *   image URLs fall back to the app's bundled photos in the component.
+ *   buttonHref, bgImageUrl, coast/falls/city ImageUrl+Alt, links }`. Images
+ *   come only from the CMS; an empty image URL renders nothing.
  * - Only style keys the CMS provided are forwarded, so omitted keys keep the
  *   component's own defaults (the source look).
  */

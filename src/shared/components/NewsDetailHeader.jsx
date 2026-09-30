@@ -6,7 +6,6 @@ import {
 } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import fallbackImage from '../../assets/images/media-center/news-grid-3.jpg'
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -51,13 +50,15 @@ const NewsDetailHeader = ({
 
   return (
     <header className="flex flex-col gap-5 md:gap-6">
-      <div className={`overflow-hidden ${radiusClass}`}>
-        <img
-          src={image || fallbackImage}
-          alt={imageAlt}
-          className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]"
-        />
-      </div>
+      {image ? (
+        <div className={`overflow-hidden ${radiusClass}`}>
+          <img
+            src={image}
+            alt={imageAlt}
+            className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]"
+          />
+        </div>
+      ) : null}
 
       <div className="flex flex-col gap-4 md:gap-5">
         <div

@@ -13,25 +13,6 @@ import {
 } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import blueMosque from '../../assets/images/city-sights/sight-blue-mosque.png'
-import burjKhalifa from '../../assets/images/city-sights/sight-burj-khalifa.png'
-import colosseum from '../../assets/images/city-sights/sight-colosseum.png'
-import dohaCorniche from '../../assets/images/city-sights/sight-doha-corniche.png'
-import eiffelTower from '../../assets/images/city-sights/sight-eiffel-tower.png'
-import flameTowers from '../../assets/images/city-sights/sight-flame-towers.png'
-import operaHouse from '../../assets/images/city-sights/sight-opera-house.png'
-import romanTheatre from '../../assets/images/city-sights/sight-roman-theatre.png'
-
-const IMAGE_BY_ID = {
-  blueMosque,
-  romanTheatre,
-  dohaCorniche,
-  flameTowers,
-  eiffelTower,
-  burjKhalifa,
-  operaHouse,
-  colosseum,
-}
 
 const CATEGORY_ICON = {
   none: null,
@@ -63,15 +44,17 @@ const CARD_RADIUS = {
 }
 
 const SightCard = ({ item, cardRadius, linkProps }) => {
-  const src = item.image || IMAGE_BY_ID[item.id] || ''
+  const src = item.image || ''
   const tags = Array.isArray(item.tags) ? item.tags : []
   return (
     <article className={`group relative flex h-[300px] flex-col justify-end overflow-hidden p-4 ${cardRadius}`}>
-      <img
-        src={src}
-        alt={item.imageAlt || item.name || ''}
-        className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-      />
+      {src ? (
+        <img
+          src={src}
+          alt={item.imageAlt || item.name || ''}
+          className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        />
+      ) : null}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,37,60,0)_45%,#00253c_100%)]" />
 
       <div className="relative flex flex-col gap-3">
