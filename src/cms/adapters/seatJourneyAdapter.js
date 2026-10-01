@@ -35,6 +35,7 @@ function mapBacklinks(links) {
 const STYLE_KEYS = [
   'layout',
   'imageSide',
+  'contentAlign',
   'imageRadius',
   'sectionPadding',
   'showSectionBg',

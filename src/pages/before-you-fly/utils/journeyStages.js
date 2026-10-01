@@ -15,7 +15,7 @@ const journeyStages = {
       { id: 'seatSelection', href: helpHref },
       { id: 'manageBooking', href: helpHref },
       { id: 'allowedBaggage', href: helpHref },
-      { id: 'paymentMethods', href: helpHref },
+      { id: 'paymentMethods', href: '/travel-experience/before-you-fly/payment-methods' },
       { id: 'yaMarhaba', href: '/travel-experience/before-you-fly/transportation-service' },
       { id: 'limousine', href: '/travel-experience/before-you-fly/limousine-service' },
       { id: 'unaccompaniedMinor', href: '/travel-experience/before-you-fly/unaccompanied-minors' },

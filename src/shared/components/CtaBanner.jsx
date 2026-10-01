@@ -148,7 +148,7 @@ const CtaBanner = ({
 
         <div
           className={cx(
-            'relative z-[2] flex flex-col gap-4 md:gap-6 max-w-xl',
+            'relative z-[2] flex w-full max-w-xl flex-col gap-4 md:gap-6',
             ALIGN[titleAlign],
           )}
         >
@@ -179,11 +179,13 @@ const CtaBanner = ({
           {showButton && cta && (
             <Button
               href={href}
-              className={cx(buttonStyle.className, CtaIcon && 'gap-2')}
+              className={cx(buttonStyle.className, 'max-md:!w-full', CtaIcon && 'gap-2')}
               style={buttonStyle.style}
             >
               {cta}
-              {CtaIcon ? <CtaIcon size={24} aria-hidden className="shrink-0 rtl:-scale-x-100" /> : null}
+              {CtaIcon ? (
+                <CtaIcon size={16} aria-hidden className="shrink-0 md:!size-6 rtl:-scale-x-100" />
+              ) : null}
             </Button>
           )}
         </div>

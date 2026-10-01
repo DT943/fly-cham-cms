@@ -152,19 +152,28 @@ const TravelExperienceCards = ({
                   href={item.href || '#'}
                   aria-label={item.title}
                   className={cx(
-                    'group/lm relative ms-auto inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm no-underline',
+                    'group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm no-underline',
+                    learnMore ? 'gap-1.5 self-start md:ms-auto md:gap-0' : 'ms-auto',
                     typography.button,
                   )}
                 >
                   <span
                     aria-hidden
-                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width,background-color] duration-300 ease-out group-hover/lm:w-full group-hover/lm:[background-color:var(--te-badge-h)]"
+                    className={cx(
+                      'absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width,background-color] duration-300 ease-out group-hover/lm:w-full group-hover/lm:[background-color:var(--te-badge-h)]',
+                      learnMore && 'hidden md:block',
+                    )}
                     style={{
                       backgroundColor: colorVar(arrowBadgeBg),
                       '--te-badge-h': colorVar(badgeHover),
                     }}
                   />
-                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                  <span
+                    className={cx(
+                      'relative z-10 flex size-[34px] shrink-0 items-center justify-center',
+                      learnMore && 'hidden md:flex',
+                    )}
+                  >
                     <ArrowRight
                       size={16}
                       weight="bold"
@@ -174,11 +183,19 @@ const TravelExperienceCards = ({
                   </span>
                   {learnMore ? (
                     <span
-                      className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                      className={`cms-lm-label relative z-10 md:pe-3 md:ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
                       style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
                     >
                       {learnMore}
                     </span>
+                  ) : null}
+                  {learnMore ? (
+                    <ArrowRight
+                      size={14}
+                      weight="bold"
+                      className="shrink-0 rtl:-scale-x-100 md:hidden"
+                      style={{ color: colorVar('secondary') }}
+                    />
                   ) : null}
                 </LocalizedLink>
               </div>

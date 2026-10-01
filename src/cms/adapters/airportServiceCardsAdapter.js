@@ -42,6 +42,7 @@ const STYLE_KEYS = [
   ...text('cardDescriptionColor'),
   'showLink',
   'showLinkIcon',
+  'linkAlign',
   ...text('learnMoreColor'),
   'arrowBadgeBg',
   'arrowColor',

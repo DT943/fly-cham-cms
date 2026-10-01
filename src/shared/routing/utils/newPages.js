@@ -70,6 +70,16 @@ const ONBOARD_WIFI_GAP =
 const VIP_BOARDING_GAP =
   'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(8)]:-mt-8'
 
+// Manage booking (Figma 40529:12570): 60px between sections, hero flush under
+// the breadcrumbs, and the terms card pulled up under the FAQs.
+const MANAGE_BOOKING_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
+
+// Payment Methods (Figma 40502:24283): 60px between sections, hero flush under
+// the breadcrumbs, and the terms card pulled up under the FAQs.
+const PAYMENT_METHODS_GAP =
+  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(8)]:-mt-8'
+
 // Oxygen Service rhythm (Figma 40347:13592): 60px between sections; breadcrumbs
 // sit under the header, the hero follows them flush, 105px down to the first
 // row, and the terms card sits 28px under the FAQs.
@@ -143,6 +153,12 @@ export const travelExperiencePages = {
   }),
   '/travel-experience/before-you-fly/transportation-service': dynamicPage('transportation-service', {
     gapClass: TRANSPORTATION_SERVICE_GAP,
+  }),
+  '/travel-experience/before-you-fly/manage-booking': dynamicPage('manage-booking', {
+    gapClass: MANAGE_BOOKING_GAP,
+  }),
+  '/travel-experience/before-you-fly/payment-methods': dynamicPage('payment-methods', {
+    gapClass: PAYMENT_METHODS_GAP,
   }),
   '/travel-experience/at-the-airport': dynamicPage('at-the-airport', {
     gapClass: AT_THE_AIRPORT_GAP,

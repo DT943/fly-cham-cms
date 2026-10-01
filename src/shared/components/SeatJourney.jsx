@@ -28,7 +28,7 @@ const WIDE_BODY_SIZE = 'text-sm sm:text-base'
 
 // Figma CTA: h 55, padding 10, radius 8, gap 10, label 18px, icon 29px.
 const BUTTON_CLASS =
-  'inline-flex items-center justify-center self-start rounded-lg no-underline transition-colors'
+  'inline-flex w-full items-center justify-center self-start rounded-lg no-underline transition-colors lg:w-fit'
 
 // Keep byte-identical with cms2 SeatJourney BUTTON_SIZE_CLASS ("large" = original CTA).
 const BUTTON_SIZE_CLASS = {
@@ -36,6 +36,12 @@ const BUTTON_SIZE_CLASS = {
   medium: 'h-[52px] gap-2 px-[14px] py-3 text-base',
 }
 const BUTTON_ICON_SIZE = { large: 29, medium: 18 }
+
+const CONTENT_ALIGN_CLASS = {
+  start: 'lg:items-start',
+  center: 'lg:items-center',
+  end: 'lg:items-end',
+}
 
 const OVERLAY_WASH = {
   backgroundImage:
@@ -70,6 +76,7 @@ const SeatJourney = ({
   showButton = true,
   showButtonIcon = true,
   imageSide = 'right',
+  contentAlign = 'center',
   imageRadius = '3xl',
   sectionPadding = 'default',
   showSectionBg = false,
@@ -162,30 +169,33 @@ const SeatJourney = ({
     <section
       className={cx(
         'flex flex-col items-center gap-8 lg:gap-[105px]',
+        CONTENT_ALIGN_CLASS[contentAlign] || CONTENT_ALIGN_CLASS.center,
         imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row',
       )}
     >
-      <div className="flex flex-col gap-4 lg:max-w-[508px] lg:gap-5">
-        {title ? (
-          <h2
-            className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
-            style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
-          >
-            <LinkedText text={title} {...linkProps} />
-          </h2>
-        ) : null}
-        {description ? (
-          <p
-            className={cx('m-0 whitespace-pre-line leading-relaxed', typography.sectionDescription, CMS_TEXT_HOVER_CLASS)}
-            style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
-          >
-            <LinkedText text={description} {...linkProps} />
-          </p>
-        ) : null}
-        {button}
+      <div className="contents lg:flex lg:w-auto lg:max-w-[508px] lg:flex-col lg:gap-5">
+        <div className="order-1 flex w-full flex-col gap-4 lg:contents">
+          {title ? (
+            <h2
+              className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+            >
+              <LinkedText text={title} {...linkProps} />
+            </h2>
+          ) : null}
+          {description ? (
+            <p
+              className={cx('m-0 whitespace-pre-line leading-relaxed', typography.sectionDescription, CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
+            >
+              <LinkedText text={description} {...linkProps} />
+            </p>
+          ) : null}
+        </div>
+        {button ? <div className="order-3 w-full lg:order-none lg:w-auto">{button}</div> : null}
       </div>
       {src ? (
-        <div className={cx('w-full overflow-hidden lg:w-[615px] lg:shrink-0', radiusClass)}>
+        <div className={cx('order-2 w-full overflow-hidden lg:order-none lg:w-[615px] lg:shrink-0', radiusClass)}>
           <img
             src={src}
             alt={imageAlt || ''}

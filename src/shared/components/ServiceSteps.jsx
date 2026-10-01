@@ -29,7 +29,7 @@ const NUMBER_SIZE = 'text-sm leading-[normal]'
 const STEP_TITLE_SIZE = 'text-base leading-[normal]'
 const STEP_DESCRIPTION_SIZE = 'text-sm leading-[1.4]'
 const BUTTON_CLASS =
-  'inline-flex h-[52px] w-fit items-center justify-center gap-2 self-start rounded-lg px-[14px] py-3 text-base leading-[normal] no-underline transition-colors'
+  'inline-flex h-[52px] w-full items-center justify-center gap-2 self-start rounded-lg px-[14px] py-3 text-base leading-[normal] no-underline transition-colors lg:w-fit'
 
 /** Figma step-circle fill — default whenever the CMS `markerBg` token is empty. */
 const DEFAULT_MARKER_BG = 'rgba(83,147,200,0.15)'

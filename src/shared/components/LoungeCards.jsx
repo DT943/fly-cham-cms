@@ -15,9 +15,9 @@ const RADIUS_CLASS = {
   xl: 'rounded-2xl',
 }
 const CARD_BASIS = {
-  1: 'w-full',
-  2: 'w-full md:w-[calc(50%-8px)]',
-  3: 'w-full md:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)]',
+  1: 'w-[85%] md:w-full',
+  2: 'w-[85%] md:w-[calc(50%-8px)]',
+  3: 'w-[85%] md:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)]',
   4: 'w-[85%] md:w-[calc(50%-8px)] lg:w-[calc(25%-12px)]',
 }
 const SECTION_PADDING = {
@@ -93,9 +93,9 @@ const LoungeCards = ({
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
       dir={dir}
     >
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-5 md:gap-8">
         {showHeader && title ? (
-          <h2 className={cx('m-0 w-full', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}>
+          <h2 className={cx('m-0 w-full text-start md:text-center', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}>
             <LinkedText text={title} {...linkProps} />
           </h2>
         ) : null}
@@ -108,30 +108,42 @@ const LoungeCards = ({
             >
               {items.map((item, index) => {
                 const Icon = showLink && showLinkIcon && item.icon ? resolvePhosphorIcon(item.icon) : null
-                const showItemLink = showLink && item.href && Icon
+                const badge = Icon ? (
+                  <Icon size={16} weight="bold" aria-hidden className="rtl:-scale-x-100" style={{ color: colorVar(arrowColor) || colorVar('50') }} />
+                ) : null
+                const badgeClass = 'flex size-[34px] shrink-0 items-center justify-center rounded-full no-underline'
+                const badgeStyle = { backgroundColor: colorVar(arrowBadgeBg) || colorVar('primary-1') }
                 return (
-                  <article key={item.id || index} data-lounge-card className={cx('relative h-[320px] shrink-0 snap-start overflow-hidden', basisClass, radiusClass)}>
+                  <article key={item.id || index} data-lounge-card className={cx('relative h-[240px] shrink-0 snap-start overflow-hidden md:h-[320px]', basisClass, radiusClass)}>
                     {item.imageUrl ? (
                       <img src={item.imageUrl} alt={item.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
                     ) : (
                       <span className="absolute inset-0 bg-secondary-2" />
                     )}
                     {showOverlay ? <span aria-hidden className="absolute inset-0" style={{ backgroundImage: WASH }} /> : null}
-                    <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 px-5 pb-5">
-                      {item.title ? (
-                        <h3 className={cx('m-0', CARD_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(textStyle, 'cardTitleColor', '50', 'semibold')}>
-                          <LinkedText text={item.title} {...linkProps} />
-                        </h3>
-                      ) : null}
-                      {item.description ? (
-                        <p className={cx('m-0', CARD_DESCRIPTION_SIZE, CMS_TEXT_HOVER_CLASS)} style={{ ...getTextStyleVars(textStyle, 'cardDescriptionColor', '50', 'normal'), opacity: 0.8 }}>
-                          <LinkedText text={item.description} {...linkProps} />
-                        </p>
-                      ) : null}
-                      {showItemLink ? (
-                        <LocalizedLink href={item.href} aria-label={item.title || 'Open'} className="mt-1 flex size-[34px] items-center justify-center rounded-full no-underline" style={{ backgroundColor: colorVar(arrowBadgeBg) || colorVar('primary-1') }}>
-                          <Icon size={16} weight="bold" aria-hidden className="rtl:-scale-x-100" style={{ color: colorVar(arrowColor) || colorVar('50') }} />
-                        </LocalizedLink>
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 px-4 pb-4 md:px-5 md:pb-5">
+                      <div className="flex min-w-0 flex-col gap-1.5 md:gap-2">
+                        {item.title ? (
+                          <h3 className={cx('m-0', CARD_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(textStyle, 'cardTitleColor', '50', 'semibold')}>
+                            <LinkedText text={item.title} {...linkProps} />
+                          </h3>
+                        ) : null}
+                        {item.description ? (
+                          <p className={cx('m-0', CARD_DESCRIPTION_SIZE, CMS_TEXT_HOVER_CLASS)} style={{ ...getTextStyleVars(textStyle, 'cardDescriptionColor', '50', 'normal'), opacity: 0.8 }}>
+                            <LinkedText text={item.description} {...linkProps} />
+                          </p>
+                        ) : null}
+                      </div>
+                      {badge ? (
+                        item.href ? (
+                          <LocalizedLink href={item.href} aria-label={item.title || 'Open'} className={badgeClass} style={badgeStyle}>
+                            {badge}
+                          </LocalizedLink>
+                        ) : (
+                          <span className={badgeClass} style={badgeStyle} aria-hidden>
+                            {badge}
+                          </span>
+                        )
                       ) : null}
                     </div>
                   </article>
@@ -140,10 +152,10 @@ const LoungeCards = ({
             </div>
             {showArrows && items.length > 1 ? (
               <>
-                <button type="button" aria-label="Previous" onClick={() => scrollByCard(-1)} className="absolute start-[-20px] top-1/2 z-[1] flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)]">
+                <button type="button" aria-label="Previous" onClick={() => scrollByCard(-1)} className="absolute start-[-20px] top-1/2 z-[1] hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)] md:flex">
                   <CaretLeftIcon size={18} className="rtl:rotate-180" aria-hidden />
                 </button>
-                <button type="button" aria-label="Next" onClick={() => scrollByCard(1)} className="absolute end-[-20px] top-1/2 z-[1] flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)]">
+                <button type="button" aria-label="Next" onClick={() => scrollByCard(1)} className="absolute end-[-20px] top-1/2 z-[1] hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)] md:flex">
                   <CaretRightIcon size={18} className="rtl:rotate-180" aria-hidden />
                 </button>
               </>
@@ -151,9 +163,9 @@ const LoungeCards = ({
           </div>
         ) : null}
         {showDots && items.length > 1 ? (
-          <div className="flex items-center gap-1.5" aria-hidden>
+          <div className="hidden items-center gap-1.5 md:flex" aria-hidden>
             {items.map((item, index) => (
-              <span key={item.id || index} className={cx('size-2 rounded-full', index === active ? 'bg-primary-1' : 'bg-300')} />
+              <span key={item.id || index} className={cx('rounded-full', index === active ? 'h-2 w-6 bg-secondary' : 'size-2 bg-secondary-400')} />
             ))}
           </div>
         ) : null}

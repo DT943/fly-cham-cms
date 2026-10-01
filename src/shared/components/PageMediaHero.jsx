@@ -33,12 +33,14 @@ const TITLE_SIZE = {
   compact: 'lg:text-[44px]',
 }
 
-// Cover-layout white fade (`wide` = Travel Updates Figma).
+// Cover-layout white fade. Small screens wash up from the bottom so the title
+// sits on white; from `md` the fade comes in from the reading-start edge.
+// `wide` = Travel Updates Figma.
+const OVERLAY_BOTTOM =
+  'bg-[linear-gradient(to_top,rgb(253_253_252)_0%,rgb(253_253_252/0.92)_28%,rgb(253_253_252/0)_62%)]'
 const OVERLAY = {
-  default:
-    'bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]',
-  wide:
-    'bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)] rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)]',
+  default: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]`,
+  wide: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)]`,
 }
 
 const HERO_BUTTON = {
@@ -167,7 +169,7 @@ const CoverSlider = ({
         <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} />
       )}
 
-      <Container className="relative flex h-full flex-col justify-center">
+      <Container className="relative flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0">
         {slides.map((slide, index) => {
           const isActive = index === slider.activeIndex
           return (
@@ -188,7 +190,7 @@ const CoverSlider = ({
               )}
               {showSubtitle && slide.subtitle && (
                 <p
-                  className={`${typography.sectionDescription} m-0 max-w-[430px] leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
+                  className={`${typography.sectionDescription} m-0 max-w-[430px] whitespace-pre-wrap leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
                   style={subtitleVars}
                 >
                   <LinkedText text={slide.subtitle} {...linkProps} />
@@ -485,7 +487,7 @@ const PageMediaHero = ({
         />
       )}
 
-      <Container className="relative flex h-full flex-col justify-center">
+      <Container className="relative flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0">
         <div className={`flex flex-col gap-4 ${widthClass}`}>
           {showTitle && title && (
             <h1
@@ -497,7 +499,7 @@ const PageMediaHero = ({
           )}
           {showSubtitle && subtitle && (
             <p
-              className={`${typography.sectionDescription} m-0 max-w-[430px] leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
+              className={`${typography.sectionDescription} m-0 max-w-[430px] whitespace-pre-wrap leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
               style={subtitleVars}
             >
               <LinkedText text={subtitle} {...linkProps} />

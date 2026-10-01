@@ -34,12 +34,19 @@ function LearnMore({ item, style }) {
   if (style.showLink === false || !item.cta || !item.href) return null
   const Icon = style.showLinkIcon !== false && item.icon ? resolvePhosphorIcon(item.icon) : null
   return (
-    <LocalizedLink href={item.href} className={`inline-flex items-center gap-1.5 no-underline ${LINK_SIZE}`}>
+    <LocalizedLink
+      href={item.href}
+      className={`group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline ${LINK_SIZE}`}
+    >
       {Icon ? (
         <span
-          className="flex size-[34px] shrink-0 items-center justify-center rounded-full"
+          aria-hidden
+          className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
           style={{ backgroundColor: colorVar(style.arrowBadgeBg || 'primary-1') }}
-        >
+        />
+      ) : null}
+      {Icon ? (
+        <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
           <Icon
             size={16}
             weight="bold"
@@ -49,7 +56,10 @@ function LearnMore({ item, style }) {
           />
         </span>
       ) : null}
-      <span className={CMS_TEXT_HOVER_CLASS} style={getTextStyleVars(style, 'learnMoreColor', 'primary-1', 'semibold')}>
+      <span
+        className={`cms-lm-label relative z-10 transition-[color,font-weight] duration-300 ${Icon ? 'pe-3 ps-2.5' : ''} ${CMS_TEXT_HOVER_CLASS}`}
+        style={getTextStyleVars(style, 'learnMoreColor', 'primary-1', 'semibold')}
+      >
         {item.cta}
       </span>
     </LocalizedLink>
@@ -158,11 +168,11 @@ const SplitCards = ({
             {gridItems.map((item, index) => (
               <article
                 key={item.id || index}
-                className={`flex overflow-hidden rounded-xl ${pair ? 'min-h-[220px] md:h-[284px]' : 'min-h-[180px] md:h-[180px]'}`}
+                className={`flex flex-col overflow-hidden rounded-xl ${pair ? 'md:h-[284px] md:flex-row' : 'md:h-[180px] md:flex-row'}`}
                 style={{ backgroundColor: surface }}
               >
                 {item.imageUrl ? (
-                  <div className={`h-full shrink-0 ${pair ? 'w-[42%] md:w-[288px]' : 'size-[140px] md:size-[180px]'}`}>
+                  <div className={`w-full shrink-0 ${pair ? 'h-[200px] md:h-full md:w-[288px]' : 'h-[180px] md:size-[180px]'}`}>
                     <img src={item.imageUrl} alt={item.imageAlt || ''} className="size-full object-cover" />
                   </div>
                 ) : null}

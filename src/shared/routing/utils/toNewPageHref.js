@@ -25,6 +25,8 @@ export const cmsPagePaths = [
   '/travel-experience/before-you-fly/oxygen-service',
   '/travel-experience/before-you-fly/limousine-service',
   '/travel-experience/before-you-fly/transportation-service',
+  '/travel-experience/before-you-fly/manage-booking',
+  '/travel-experience/before-you-fly/payment-methods',
   '/travel-experience/at-the-airport',
   '/travel-experience/at-the-airport/business-lounge',
   '/travel-experience/at-the-airport/wheelchair-service',

@@ -127,7 +127,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/before-you-fly/manage-booking.webp",
             "imageAlt": "",
             "ctaLabel": "Manage Your Booking",
-            "ctaHref": "/",
+            "ctaHref": "/travel-experience/before-you-fly/manage-booking",
             "links": [
               {
                 "id": "changeFlight",
@@ -326,7 +326,7 @@
                 "description": "Update your reservation",
                 "icon": "Gear",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/manage-booking"
               },
               {
                 "id": "paymentMethods",
@@ -334,7 +334,7 @@
                 "description": "Ways to pay for your trip",
                 "icon": "CreditCard",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/payment-methods"
               },
               {
                 "id": "yaMarhaba",
@@ -801,7 +801,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/before-you-fly/manage-booking.webp",
             "imageAlt": "",
             "ctaLabel": "أدر حجزك",
-            "ctaHref": "/",
+            "ctaHref": "/travel-experience/before-you-fly/manage-booking",
             "links": [
               {
                 "id": "changeFlight",
@@ -1000,7 +1000,7 @@
                 "description": "حدّث حجزك",
                 "icon": "Gear",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/manage-booking"
               },
               {
                 "id": "paymentMethods",
@@ -1008,7 +1008,7 @@
                 "description": "طرق دفع تكاليف رحلتك",
                 "icon": "CreditCard",
                 "badge": "",
-                "href": "/travel-experience/before-you-fly"
+                "href": "/travel-experience/before-you-fly/payment-methods"
               },
               {
                 "id": "yaMarhaba",

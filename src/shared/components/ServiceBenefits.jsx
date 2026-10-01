@@ -117,7 +117,7 @@ const ServiceBenefits = ({
             </h2>
           ) : null}
           {items.length ? (
-            <div className={cx('grid w-full items-center gap-6', columnsClass)}>
+            <div className={cx('grid w-full items-center gap-10 md:gap-6', columnsClass)}>
               {items.map((item, index) => {
                 const Icon = showIcon && item.icon ? resolvePhosphorIcon(item.icon) : null
                 const LinkIcon =
@@ -126,7 +126,7 @@ const ServiceBenefits = ({
                     : null
                 const showItemLink = showLink && item.linkLabel && item.href
                 return (
-                  <article key={item.id || index} className="flex min-w-0 items-center gap-3.5">
+                  <article key={item.id || index} className="flex min-w-0 flex-col items-center gap-3 text-center md:flex-row md:items-center md:gap-3.5 md:text-start">
                     {Icon ? (
                       <span
                         className="flex size-[60px] shrink-0 items-center justify-center rounded-full"
@@ -134,12 +134,13 @@ const ServiceBenefits = ({
                       >
                         <Icon
                           size={24}
+                          weight="fill"
                           aria-hidden
                           style={{ color: colorVar(iconColor) || colorVar('secondary-2') }}
                         />
                       </span>
                     ) : null}
-                    <div className="flex min-w-0 flex-col gap-2.5">
+                    <div className="flex min-w-0 flex-col items-center gap-2.5 md:items-start">
                       {item.title ? (
                         <h3
                           className={cx('m-0', ITEM_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}

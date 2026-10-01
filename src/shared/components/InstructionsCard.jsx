@@ -124,7 +124,7 @@ const InstructionsCard = ({
         ) : null}
         <div
           className={cx(
-            'flex min-w-0 flex-col gap-6 p-4 md:items-start md:justify-between md:gap-[46px] md:p-6',
+            'flex min-w-0 flex-col-reverse gap-6 p-4 md:items-start md:justify-between md:gap-[46px] md:p-6',
             imageSide === 'left' ? 'md:flex-row-reverse' : 'md:flex-row',
             RADIUS_CLASS[cardRadius] ?? RADIUS_CLASS.lg,
             showCardShadow && CARD_SHADOW,

@@ -197,7 +197,7 @@ const PromoBanner = ({
           />
         ) : null}
 
-        <div className="relative z-2 flex max-w-xl flex-col gap-3 md:gap-5">
+        <div className="relative z-2 flex w-full max-w-xl flex-col gap-3 md:gap-5">
           {showTitle && title ? (
             <h2
               className={cx(typography.sectionTitle, 'm-0', CMS_TEXT_HOVER_CLASS)}
@@ -219,14 +219,14 @@ const PromoBanner = ({
               href={href}
               className={cx(
                 typography.button,
-                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 inline-flex w-fit items-center gap-2.5',
+                'no-underline rounded-lg px-6 py-3 md:px-8 md:py-3.5 inline-flex w-full items-center justify-center gap-2.5 md:w-fit md:justify-start',
                 dimOnHover && 'hover:opacity-90',
                 buttonStyle.className,
               )}
               style={buttonStyle.style}
             >
               {cta}
-              <ArrowRight size={24} weight="bold" className="rtl:-scale-x-100" />
+              <ArrowRight size={16} weight="bold" className="md:!size-6 rtl:-scale-x-100" />
             </LocalizedLink>
           ) : null}
         </div>

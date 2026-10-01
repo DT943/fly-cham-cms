@@ -9,7 +9,7 @@ import LinkedText from './backlinks/LinkedText.jsx'
 
 const COLUMNS_CLASS = {
   1: 'grid-cols-1',
-  2: 'grid-cols-1 sm:grid-cols-2',
+  2: 'grid-cols-1 lg:grid-cols-2',
 }
 const RADIUS_CLASS = {
   none: 'rounded-none',
@@ -23,7 +23,7 @@ const SECTION_PADDING = {
   loose: 'py-10 md:py-16',
 }
 
-const TITLE_SIZE = 'text-2xl leading-[1.5] md:text-[28px]'
+const TITLE_SIZE = 'text-2xl leading-snug md:text-[28px]'
 const BODY_SIZE = 'text-sm leading-[1.5]'
 const FEATURE_TITLE_SIZE = 'text-base leading-[normal]'
 const FEATURE_DESCRIPTION_SIZE = 'text-xs leading-4'
@@ -79,8 +79,8 @@ const FeatureHighlight = ({
       className={cx('w-full min-w-0', SECTION_PADDING[sectionPadding] ?? '')}
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      <div className={cx('flex flex-col items-start gap-8 lg:justify-between', imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row')}>
-        <div className="flex w-full max-w-[555px] flex-col gap-[22px]">
+      <div className={cx('flex flex-col items-start gap-6 lg:items-stretch lg:justify-between lg:gap-8', imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row')}>
+        <div className="flex w-full max-w-[555px] flex-col gap-5">
           {title || description ? (
             <div className="flex flex-col gap-4">
               {title ? (
@@ -102,10 +102,10 @@ const FeatureHighlight = ({
                 const LinkIcon = showLink && showLinkIcon && item.linkIcon ? resolvePhosphorIcon(item.linkIcon) : null
                 const showItemLink = showLink && item.linkLabel && item.href
                 return (
-                  <article key={item.id || index} className="flex min-w-0 items-start gap-4">
+                  <article key={item.id || index} className="flex min-w-0 items-center gap-3">
                     {Icon ? (
-                      <span className="flex size-12 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: colorVar(iconBg) || colorVar('primary-1') }}>
-                        <Icon size={20} aria-hidden style={{ color: colorVar(iconColor) || colorVar('50') }} />
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: colorVar(iconBg) || colorVar('primary-1') }}>
+                        <Icon size={18} aria-hidden style={{ color: colorVar(iconColor) || colorVar('50') }} />
                       </span>
                     ) : null}
                     <div className="flex min-w-0 flex-col gap-0.5">
@@ -133,8 +133,8 @@ const FeatureHighlight = ({
           ) : null}
         </div>
         {imageUrl ? (
-          <div className={cx('h-[240px] w-full overflow-hidden lg:h-[375px] lg:w-[621px] lg:shrink-0', radiusClass)}>
-            <img src={imageUrl} alt={imageAlt || ''} className={cx('size-full object-cover', radiusClass)} />
+          <div className={cx('relative h-[200px] w-full overflow-hidden lg:h-auto lg:min-h-[320px] lg:w-[621px] lg:shrink-0', radiusClass)}>
+            <img src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
           </div>
         ) : null}
       </div>

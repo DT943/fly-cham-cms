@@ -166,6 +166,12 @@ import SplitBand from '../shared/components/SplitBand.jsx'
 import { splitBandProps } from './adapters/splitBandAdapter.js'
 import ClassPanel from '../shared/components/ClassPanel.jsx'
 import { classPanelProps } from './adapters/classPanelAdapter.js'
+import BookingLookup from '../shared/components/BookingLookup.jsx'
+import { bookingLookupProps } from './adapters/bookingLookupAdapter.js'
+import OverlayCards from '../shared/components/OverlayCards.jsx'
+import { overlayCardsProps } from './adapters/overlayCardsAdapter.js'
+import GatewayCards from '../shared/components/GatewayCards.jsx'
+import { gatewayCardsProps } from './adapters/gatewayCardsAdapter.js'
 import { baggageAllowanceProps, baggageResourceCardsProps } from './adapters/baggageAdapters.js'
 import ServiceSteps from '../shared/components/ServiceSteps.jsx'
 import { serviceStepsProps } from './adapters/serviceStepsAdapter.js'
@@ -289,6 +295,9 @@ export const sectionRegistry = {
   'icon-tiles': { Component: IconTiles, mapProps: iconTilesProps },
   'split-band': { Component: SplitBand, mapProps: splitBandProps, fullBleed: true },
   'class-panel': { Component: ClassPanel, mapProps: classPanelProps },
+  'booking-lookup': { Component: BookingLookup, mapProps: bookingLookupProps },
+  'overlay-cards': { Component: OverlayCards, mapProps: overlayCardsProps },
+  'gateway-cards': { Component: GatewayCards, mapProps: gatewayCardsProps },
   'service-steps': { Component: ServiceSteps, mapProps: serviceStepsProps },
   'prohibited-items-grid': { Component: ProhibitedItemsGrid, mapProps: prohibitedItemsGridProps },
   'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },

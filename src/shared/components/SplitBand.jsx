@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@phosphor-icons/react'
 import {
   CMS_TEXT_HOVER_CLASS,
-  colorVar,
+  getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
@@ -41,31 +41,30 @@ const SplitBand = ({
   const showCta = showButton !== false && Boolean(buttonLabel)
   const linkProps = { links, enabled: showLinks }
   const gutter = 'max(1rem, calc((100vw - min(100vw, var(--max-width-page, 1219px))) / 2))'
-  const panelPad = imageFirst
-    ? { paddingInlineStart: '3rem', paddingInlineEnd: gutter }
-    : { paddingInlineStart: gutter, paddingInlineEnd: '4rem' }
+  const panelPad = {
+    '--band-ps': imageFirst ? '3rem' : gutter,
+    '--band-pe': imageFirst ? gutter : '4rem',
+  }
+
+  const buttonStyle = getButtonStyle(style, {
+    bgKey: 'buttonBg',
+    bgFallback: 'secondary',
+    bgHoverFallback: 'secondary-800',
+    textKey: 'buttonColor',
+    textFallback: '700',
+    weightFallback: 'semibold',
+  })
+  const buttonClass =
+    'flex h-[52px] w-full items-center justify-between rounded-md px-6 text-sm no-underline'
 
   const button = showCta ? (
     buttonHref ? (
-      <LocalizedLink
-        href={buttonHref}
-        className="inline-flex h-[52px] items-center gap-2 rounded-md px-6 text-sm no-underline"
-        style={{
-          backgroundColor: colorVar(style.buttonBg || 'secondary'),
-          ...getTextStyleVars(style, 'buttonColor', '700', 'semibold'),
-        }}
-      >
+      <LocalizedLink href={buttonHref} className={`${buttonClass} ${buttonStyle.className}`} style={buttonStyle.style}>
         {buttonLabel}
         {Icon ? <Icon size={16} weight="bold" aria-hidden className="rtl:-scale-x-100" /> : null}
       </LocalizedLink>
     ) : (
-      <span
-        className="inline-flex h-[52px] items-center gap-2 rounded-md px-6 text-sm"
-        style={{
-          backgroundColor: colorVar(style.buttonBg || 'secondary'),
-          ...getTextStyleVars(style, 'buttonColor', '700', 'semibold'),
-        }}
-      >
+      <span className={`${buttonClass} ${buttonStyle.className}`} style={buttonStyle.style}>
         {buttonLabel}
         {Icon ? <Icon size={16} weight="bold" aria-hidden className="rtl:-scale-x-100" /> : null}
       </span>
@@ -75,28 +74,28 @@ const SplitBand = ({
   return (
     <section
       className={cx(
-        'flex w-full flex-col overflow-hidden md:min-h-[480px] md:flex-row',
-        imageFirst ? 'flex-col-reverse md:flex-row-reverse' : '',
+        'flex w-full flex-col-reverse overflow-hidden md:min-h-[480px]',
+        imageFirst ? 'md:flex-row-reverse' : 'md:flex-row',
       )}
     >
       <div
-        className="flex w-full flex-col justify-center gap-6 px-4 py-12 md:w-[45%] md:shrink-0 md:py-16"
+        className="flex w-full flex-col justify-center gap-3 px-4 py-5 md:w-[45%] md:shrink-0 md:gap-6 md:py-16 md:[padding-inline-end:var(--band-pe)] md:[padding-inline-start:var(--band-ps)]"
         style={{ backgroundColor: PANEL_BG[panelTone] || PANEL_BG.primary, ...panelPad }}
       >
         {title ? (
-          <h2 className={cx('m-0 text-[28px] leading-[normal] text-white md:text-[32px]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'titleColor', '50', 'semibold')}>
+          <h2 className={cx('m-0 text-xl leading-snug text-white md:text-[28px] md:leading-[normal] lg:text-[32px]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'titleColor', '50', 'semibold')}>
             <LinkedText text={title} {...linkProps} />
           </h2>
         ) : null}
         {description ? (
-          <p className={cx('m-0 text-base leading-[26px] text-white', imageFirst ? 'max-w-[464px]' : '', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'descriptionColor', '50', 'normal')}>
+          <p className={cx('m-0 text-sm leading-6 text-white md:text-base md:leading-[26px]', imageFirst ? 'md:max-w-[464px]' : '', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'descriptionColor', '50', 'normal')}>
             <LinkedText text={description} {...linkProps} />
           </p>
         ) : null}
         {button}
       </div>
       {imageUrl ? (
-        <div className="relative min-h-[240px] flex-1 md:min-h-[480px]">
+        <div className="relative h-[200px] w-full shrink-0 md:h-auto md:min-h-[480px] md:flex-1">
           <img src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
         </div>
       ) : null}

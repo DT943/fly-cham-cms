@@ -32,11 +32,15 @@ const IMAGE_HEIGHT_CLASS = {
   medium: 'h-[180px]',
   default: 'h-[200px]',
   tall: 'h-[240px]',
-  xl: 'h-[240px] md:h-[332px]',
+  xl: 'h-[180px] md:h-[332px]',
 }
 const HEADER_ALIGN_CLASS = {
   start: 'items-start text-start',
   center: 'items-center text-center',
+}
+const LINK_ALIGN_CLASS = {
+  start: 'max-md:self-end md:self-start',
+  end: 'self-end',
 }
 const SECTION_PADDING = {
   none: '',
@@ -79,6 +83,7 @@ const AirportServiceCards = ({
   showCardShadow = true,
   showLink = true,
   showLinkIcon = true,
+  linkAlign = 'start',
   arrowBadgeBg = 'primary-1',
   arrowColor = '50',
   links = [],
@@ -189,17 +194,19 @@ const AirportServiceCards = ({
                     {visibleLink ? (
                       <LocalizedLink
                         href={item.href || '#'}
-                        className={`group/lm relative inline-flex h-[34px] w-fit items-center self-start overflow-hidden rounded-full no-underline ${LINK_SIZE}`}
+                        className={`group/lm relative inline-flex w-fit items-center no-underline ${
+                          Icon ? 'h-10 overflow-hidden rounded-full md:h-[34px]' : ''
+                        } ${LINK_ALIGN_CLASS[linkAlign] || LINK_ALIGN_CLASS.start} ${LINK_SIZE}`}
                       >
                         {Icon ? (
                           <span
                             aria-hidden
-                            className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                            className="absolute inset-y-0 start-0 w-10 rounded-full md:w-[34px] md:transition-[width] md:duration-300 md:ease-out md:group-hover/lm:w-full"
                             style={{ backgroundColor: colorVar(arrowBadgeBg) }}
                           />
                         ) : null}
                         {Icon ? (
-                          <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                          <span className="relative z-10 flex size-10 shrink-0 items-center justify-center md:size-[34px]">
                             <Icon
                               size={16}
                               weight="bold"
@@ -212,7 +219,7 @@ const AirportServiceCards = ({
                         {item.cta ? (
                           <span
                             className={`cms-lm-label relative z-10 pe-1 transition-[color,font-weight] duration-300 ${
-                              Icon ? 'ps-2.5' : ''
+                              Icon ? 'hidden md:inline md:ps-2.5' : ''
                             } ${CMS_TEXT_HOVER_CLASS}`}
                             style={getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold')}
                           >

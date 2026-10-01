@@ -5,10 +5,10 @@ import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 
 const IMAGE_RADIUS = {
-  none: 'rounded-none',
-  lg: 'rounded-xl',
-  '2xl': 'rounded-2xl',
-  '3xl': 'rounded-3xl',
+  none: 'sm:rounded-none',
+  lg: 'sm:rounded-xl',
+  '2xl': 'sm:rounded-2xl',
+  '3xl': 'sm:rounded-3xl',
 }
 
 const SECTION_PADDING = {
@@ -66,7 +66,7 @@ const BeforeYouFlyServices = ({
     showHeader && ((showTitle && title) || (showSubtitle && subtitle))
 
   const inner = (
-    <section className="flex flex-col">
+    <section className="flex flex-col gap-4 sm:gap-0">
       {headerVisible ? (
         <div className="flex flex-col gap-2 pb-8 md:pb-10">
           {showTitle && title ? (
@@ -94,7 +94,7 @@ const BeforeYouFlyServices = ({
         return (
           <article
             key={item.id || index}
-            className="flex flex-col gap-4 border-b py-6 sm:flex-row sm:items-center sm:gap-12"
+            className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0px_4px_6px_rgba(33,37,41,0.05)] sm:flex-row sm:items-center sm:gap-12 sm:overflow-visible sm:rounded-none sm:border-b sm:bg-transparent sm:py-6 sm:shadow-none"
             style={{ borderColor: colorVar(dividerColor) }}
           >
             {src ? (
@@ -104,8 +104,8 @@ const BeforeYouFlyServices = ({
                 className={cx('h-48 w-full shrink-0 object-cover sm:h-43 sm:w-82', radiusClass)}
               />
             ) : null}
-            <div className="flex flex-1 flex-col items-start gap-4">
-              <div className="flex flex-col gap-1.5">
+            <div className="flex flex-1 flex-col gap-3 p-4 sm:items-start sm:gap-4 sm:p-0">
+              <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                 <h3
                   className={cx('m-0 text-xl', CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'semibold')}
@@ -122,13 +122,13 @@ const BeforeYouFlyServices = ({
               <LocalizedLink
                 href={item.href || '#'}
                 className={cx(
-                  'group/lm relative inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full text-sm no-underline',
+                  'group/lm relative inline-flex h-[34px] w-fit shrink-0 items-center self-end overflow-hidden rounded-full text-sm no-underline sm:self-auto',
                   typography.button,
                 )}
               >
                 <span
                   aria-hidden
-                  className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                  className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out sm:group-hover/lm:w-full"
                   style={{ backgroundColor: colorVar(arrowBadgeBg) }}
                 />
                 <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
@@ -141,7 +141,7 @@ const BeforeYouFlyServices = ({
                 </span>
                 {cta ? (
                   <span
-                    className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                    className={`cms-lm-label relative z-10 hidden pe-3 ps-2.5 transition-[color,font-weight] duration-300 sm:inline ${CMS_TEXT_HOVER_CLASS}`}
                     style={getTextStyleVars(textStyle, 'learnMoreColor', 'primary-1', 'semibold')}
                   >
                     {cta}

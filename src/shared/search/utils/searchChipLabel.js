@@ -15,6 +15,8 @@ const PAGE_CHIP_KEYS = {
   '/travel-experience': 'travelExperience.breadcrumb',
   '/travel-experience/seat-selection': 'seatSelection.breadcrumb',
   '/travel-experience/before-you-fly': 'beforeYouFly.breadcrumb',
+  '/travel-experience/before-you-fly/manage-booking': 'beforeYouFly.breadcrumb',
+  '/travel-experience/before-you-fly/payment-methods': 'beforeYouFly.breadcrumb',
   '/travel-experience/at-the-airport': 'atTheAirport.breadcrumb',
   '/travel-experience/onboard': 'onboard.breadcrumb',
   '/travel-experience/on-board': 'onboard.breadcrumb',

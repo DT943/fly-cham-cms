@@ -140,15 +140,16 @@ const SeatPlan = ({
                 >
                   <LinkedText text={item.description} {...linkProps} />
                 </p>
-                <span
+                <LocalizedLink
+                  href={item.href || '#'}
                   className={cx(
-                    'group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full',
+                    'group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center self-end overflow-hidden rounded-full no-underline sm:self-auto',
                     typography.button,
                   )}
                 >
                   <span
                     aria-hidden
-                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out sm:group-hover/lm:w-full"
                     style={{ backgroundColor: colorVar(arrowBadgeBg) }}
                   />
                   <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
@@ -161,13 +162,13 @@ const SeatPlan = ({
                   </span>
                   {learnMore ? (
                     <span
-                      className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                      className={`cms-lm-label relative z-10 hidden pe-3 ps-2.5 transition-[color,font-weight] duration-300 sm:inline ${CMS_TEXT_HOVER_CLASS}`}
                       style={getTextStyleVars(textStyle, 'buttonText', 'primary-1', 'semibold')}
                     >
                       {learnMore}
                     </span>
                   ) : null}
-                </span>
+                </LocalizedLink>
               </div>
             </article>
           )

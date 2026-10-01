@@ -3,12 +3,13 @@ import Container from './Container.jsx'
 import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, colorMix, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import shieldIcon from '../../assets/images/legal/shield-check.svg'
-import cookieIcon from '../../assets/images/legal/cookie.svg'
+// Icons live in the cms-media bucket (legal/*.svg).
+const LEGAL_ICONS_URL =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/legal'
 
 const ICONS = {
-  shield: shieldIcon,
-  cookie: cookieIcon,
+  shield: `${LEGAL_ICONS_URL}/shield-check.svg`,
+  cookie: `${LEGAL_ICONS_URL}/cookie.svg`,
 }
 
 /**

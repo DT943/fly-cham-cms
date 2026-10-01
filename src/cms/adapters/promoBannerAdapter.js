@@ -26,15 +26,16 @@ function pickPromoImageAlt(content = {}) {
 /**
  * Map a CMS "promo-banner" block to <PromoBanner /> props.
  *
- * cms2 stores this block's content nested (`ctaButton.content`,
- * `image.fileUrl`); flat keys are read as a fallback for robustness.
+ * The page builder saves the fields you edit (`buttonLabel`, `buttonHref`).
+ * Older seeds also keep `ctaButton`, which can stay on the old page after an
+ * edit, so the flat fields win when they are present.
  */
 export function promoBannerProps(block, lang) {
   const content = pickContent(block.content, lang)
   const style = block.style || {}
 
-  const ctaLabel = content.ctaButton?.content ?? content.buttonLabel
-  const ctaHref = content.ctaButton?.href ?? content.buttonHref
+  const ctaLabel = content.buttonLabel ?? content.ctaButton?.content
+  const ctaHref = content.buttonHref ?? content.ctaButton?.href
   const imageUrl = pickPromoImageUrl(content)
 
   return {
