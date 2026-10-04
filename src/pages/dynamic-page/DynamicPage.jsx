@@ -16,7 +16,8 @@ import { cmsSlugFromPath } from './cmsPagePath.js'
 // - Official routes pass a fixed `slug` (+ layout options) — see
 //   `dynamicPage()` in shared/routing/utils/newPages.js.
 // - Without a `slug` it serves pages created in the admin ("Add new page"):
-//   the URL's single segment IS the slug (`/summer-offers`).
+//   the last URL segment is the flat CMS slug (`/summer-offers`, or
+//   `/travel-experience/on-board/summer-offers` when a parent was chosen).
 // - The 404 page is itself a DynamicPage (slug `not-found`, see
 //   pages/not-found/NotFound.jsx) with a built-in `fallback`, so a missing page
 //   never loops back into another failing load.
@@ -55,10 +56,10 @@ const DynamicPageContent = ({
   // failed, or no blocks) — used by the 404 page, which must never fail.
   if (fallback && (!slug || isError || (page && !hasBlocks))) return fallback
 
-  // Unknown slug or draft page (anon can't read it) → not found. An admin-created
-  // page also counts as missing in a language where it has no components yet.
-  const notFound =
-    !slug || error?.response?.status === 404 || (!fixedSlug && page && !hasBlocks)
+  // Unknown slug or draft page (anon can't read it) → not found. A page the API
+  // returns with an empty blocks list still opens, so a new page is reachable
+  // before any components are added.
+  const notFound = !slug || error?.response?.status === 404
   if (notFound) return <NotFound />
 
   return (

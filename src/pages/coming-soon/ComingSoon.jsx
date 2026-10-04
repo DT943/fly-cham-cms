@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import Container from '../../shared/components/Container.jsx'
 import { typography } from '../../styles/typography.js'
-import heroImage from '../../assets/images/coming-soon/hero.jpg'
+// Unrouted legacy page (now the CMS coming-soon-hero block) — cms-media copy.
+const heroImage = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/coming-soon/hero.webp'
 
 /**
  * Full-bleed Coming Soon: Fly Cham aircraft over clouds, navy overlay

@@ -1,34 +1,5 @@
 import manifest from '../../../vendor/flycham/data/flightmanifestData.json'
 import { airportsByCode, legsFor } from './routeNetwork.js'
-import damascus from '../../../assets/images/our-destenations/damascus.jpeg'
-import dubai from '../../../assets/images/our-destenations/dubai.jpg'
-import sharjah from '../../../assets/images/our-destenations/sharja.jpg'
-import abuDhabi from '../../../assets/images/our-destenations/abu-dhabi.jpg'
-import kuwait from '../../../assets/images/our-destenations/kuwait.jpg'
-import muscat from '../../../assets/images/our-destenations/muscat.jpg'
-import baghdad from '../../../assets/images/our-destenations/baghdad.jpg'
-import erbil from '../../../assets/images/our-destenations/erbil.jpg'
-import yerevan from '../../../assets/images/our-destenations/yerevan.jpg'
-import istanbul from '../../../assets/images/our-destenations/istanbul.jpg'
-import tripoli from '../../../assets/images/our-destenations/tripoli.jpeg'
-
-/**
- * Destination photo per city. Aleppo has no shot yet, so it is left out and the
- * card renders its branded fallback header instead of a wrong city.
- */
-export const destinationImageByCity = {
-  damascus,
-  dubai,
-  sharjah,
-  abuDhabi,
-  kuwait,
-  muscat,
-  baghdad,
-  erbil,
-  yerevan,
-  istanbul,
-  tripoli,
-}
 
 /**
  * Average flights per week to each airport, counted from the bundled manifest

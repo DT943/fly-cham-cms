@@ -32,6 +32,17 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
     setMobileOpen(false)
   }, [location.pathname])
 
+  // Browser tab icon comes from the header document (admin → Header → Logo).
+  const faviconUrl = header.logo?.faviconUrl
+  useEffect(() => {
+    if (!faviconUrl) return
+    const link = document.querySelector('link[rel="icon"]')
+    if (link && link.getAttribute('href') !== faviconUrl) {
+      link.setAttribute('href', faviconUrl)
+      link.setAttribute('type', 'image/webp')
+    }
+  }, [faviconUrl])
+
   useEffect(() => {
     if (!openMenu) return undefined
 
@@ -127,14 +138,14 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
         <Container className="flex h-16 items-center justify-between gap-4 md:h-18">
           <LocalizedLink
             to={headerHref(header.logo.href) || '/'}
-            className="shrink-0"
+            className="flex h-11 w-[160px] shrink-0 items-center lg:h-[72px] lg:w-[241px]"
             aria-label={header.logo.alt || undefined}
             onClick={closeMenu}
           >
             <img
               src={dark ? header.logo.lightUrl : header.logo.darkUrl}
               alt={header.logo.alt}
-              className="h-[39px] w-[172px] max-w-none object-contain"
+              className="h-full w-full max-w-none object-contain object-left"
             />
           </LocalizedLink>
 

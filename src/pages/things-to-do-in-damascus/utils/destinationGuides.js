@@ -7,14 +7,17 @@ import {
   PersonSimpleWalk,
   ShoppingCart,
 } from '@phosphor-icons/react'
-import specialPhoto from '../../../assets/images/things-to-do-in-damascus/special.png'
-import cuisinePhoto from '../../../assets/images/things-to-do-in-damascus/cuisine.png'
-import placesPhoto from '../../../assets/images/things-to-do-in-damascus/places.png'
-import activitiesPhoto from '../../../assets/images/things-to-do-in-damascus/activities.png'
-import thingOnePhoto from '../../../assets/images/things-to-do-in-damascus/thing-1.jpg'
-import thingTwoPhoto from '../../../assets/images/things-to-do-in-damascus/thing-2.jpg'
-import thingThreePhoto from '../../../assets/images/things-to-do-in-damascus/thing-3.jpg'
-import damascusHero from '../../../assets/images/things-to-do-in-damascus/hero.jpg'
+// The live /our-destinations/flights-to-damascus page is the CMS page of the
+// same slug; these cms-media images only back the static fallback + search.
+const MEDIA = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/things-to-do-in-damascus'
+const specialPhoto = `${MEDIA}/special.webp`
+const cuisinePhoto = `${MEDIA}/cuisine.webp`
+const placesPhoto = `${MEDIA}/places.webp`
+const activitiesPhoto = `${MEDIA}/activities.webp`
+const thingOnePhoto = `${MEDIA}/thing-1.webp`
+const thingTwoPhoto = `${MEDIA}/thing-2.webp`
+const thingThreePhoto = `${MEDIA}/thing-3.webp`
+const damascusHero = `${MEDIA}/hero.webp`
 
 export const FLIGHTS_TO_PATH = /^\/our-destinations\/flights-to-([^/]+)$/
 

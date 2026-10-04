@@ -7,7 +7,9 @@ import {
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import defaultHeroMask from '../../assets/images/page-hero-mask.png'
+// Default hero shape (content.imageMask overrides it per language).
+const defaultHeroMask =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/page-hero-mask.webp'
 
 // Logical alignment (start/end, not left/right) so the hero mirrors under RTL.
 // `left` maps to the reading start, `right` to the reading end — matching the

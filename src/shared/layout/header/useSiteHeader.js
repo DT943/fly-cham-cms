@@ -133,6 +133,7 @@ const normalizeDocument = (doc, lang) => {
       darkUrl: str(doc.logo?.darkUrl) || base.logo.darkUrl,
       alt: str(doc.logo?.alt, base.logo.alt),
       href: str(doc.logo?.href) || base.logo.href,
+      faviconUrl: str(doc.logo?.faviconUrl) || base.logo.faviconUrl,
     },
     login: {
       show: doc.login?.show !== false,

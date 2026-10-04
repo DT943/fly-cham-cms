@@ -11,8 +11,11 @@ import RouteBookingDrawer from './RouteBookingDrawer.jsx'
 /**
  * Full-bleed route map: pick From and To (from the fields or by clicking pins),
  * see the leg drawn, then open the booking drawer to finish the search.
+ *
+ * Images come from the CMS (route-map-explorer block): `planeUrl` is the
+ * flying-plane marker, `cityImages` maps cityKey → destination photo.
  */
-const RouteMapExplorer = () => {
+const RouteMapExplorer = ({ planeUrl = '', cityImages = {} }) => {
   const { t } = useTranslation()
   const language = useCurrentLanguage()
   const [fromCode, setFromCode] = useState(null)
@@ -89,6 +92,7 @@ const RouteMapExplorer = () => {
         fromCode={fromCode}
         toCode={toCode}
         onSelect={selectFromMap}
+        planeUrl={planeUrl}
         labelFor={(airport) =>
           `${t(`destinations.cities.${airport.cityKey}.name`)} (${airport.code})`
         }
@@ -107,6 +111,7 @@ const RouteMapExplorer = () => {
               to={to}
               findingFlights={findingFlights}
               onFindFlights={findFlights}
+              cityImages={cityImages}
             />
           </div>
         </div>

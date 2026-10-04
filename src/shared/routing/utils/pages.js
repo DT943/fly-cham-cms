@@ -1,12 +1,9 @@
-import RouteMap from '../../../pages/route-map/RouteMap.jsx'
 import ThingsToDoInDamascus from '../../../pages/things-to-do-in-damascus/ThingsToDoInDamascus.jsx'
 import FormDetail from '../../../pages/forms/FormDetail.jsx'
 import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import TravelUpdateDetail from '../../../pages/travel-updates/TravelUpdateDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import NotFound from '../../../pages/not-found/NotFound.jsx'
-import ComingSoon from '../../../pages/coming-soon/ComingSoon.jsx'
-import ChamMiles from '../../../pages/cham-miles/ChamMiles.jsx'
 import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
 import { cmsSlugFromPath } from '../../../pages/dynamic-page/cmsPagePath.js'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
@@ -32,12 +29,10 @@ export { newPages } from './newPages.js'
 
 /**
  * Non-CMS app routes that still use static React pages
- * (route map, legacy redirects).
+ * (legacy redirects). The route map is CMS-driven (newPages.js → dynamicPage('route-map')).
  * The home page `/` is CMS-driven (see newPages.js → dynamicPage('home')).
  */
 export const appPages = {
-  '/cham-miles': ChamMiles,
-  '/our-destinations/route-map': RouteMap,
   // Legacy help path aliases → official `/help/contact-us/...`
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,
@@ -48,7 +43,7 @@ export const pages = {
   ...appPages,
   ...newPages,
   '/404': NotFound,
-  '/coming-soon': ComingSoon,
+  // '/coming-soon' is CMS-driven (newPages.js → dynamicPage('coming-soon')).
 }
 
 /**
@@ -76,9 +71,9 @@ export function getPage(path) {
   if (formRequestPath.test(path)) return FormRequestRedirect
   if (formDetailPath.test(path)) return FormDetail
   if (legacyFormDetailPath.test(path)) return LegacyFormDetailRedirect
-  // Any other single-segment URL may be a page created in the CMS admin
-  // ("Add new page"); DynamicPage (no fixed slug) reads the slug from the URL
-  // and renders NotFound when it's unknown.
+  // Any other URL may be a page created in the CMS admin. A top-level page is
+  // `/<slug>`; a page with a parent is `/<parent>/…/<slug>`. The last segment
+  // is the flat CMS slug. DynamicPage shows NotFound when that slug is unknown.
   const cmsSlug = cmsSlugFromPath(path)
   // Travel update pages live at /travel-updates/<id>, never at the root.
   if (

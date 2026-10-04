@@ -1,29 +1,18 @@
 import { Navigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import useLocalizedRoute from '../../shared/routing/hooks/useLocalizedRoute.js'
 import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import { withLanguage } from '../../i18n/languages.js'
-import NewsArticleView from '../news-detail/components/NewsArticleView.jsx'
-import { getNewsArticle } from '../news-detail/utils/newsArticles.js'
+import { getNewsArticle, getNewsDetailHref } from '../news-detail/utils/newsArticles.js'
 import { getRecentNewsSlug } from './utils/recentNews.js'
 
+/** Legacy /recent-news/<id> → the article's CMS page at /media-center/news/<id>. */
 const RecentNewsDetail = () => {
-  const { t } = useTranslation()
   const { pagePath } = useLocalizedRoute()
   const language = useCurrentLanguage()
   const article = getNewsArticle(getRecentNewsSlug(pagePath))
+  const target = article ? getNewsDetailHref(article.id) : '/media-center/recent-news'
 
-  if (!article) {
-    return <Navigate to={withLanguage('/media-center/recent-news', language)} replace />
-  }
-
-  const breadcrumbs = [
-    { label: t('common.home'), href: '/' },
-    { label: t('recentNews.breadcrumb'), href: '/media-center/recent-news' },
-    { label: t(`newsDetail.articles.${article.id}.title`) },
-  ]
-
-  return <NewsArticleView article={article} breadcrumbs={breadcrumbs} />
+  return <Navigate to={withLanguage(target, language)} replace />
 }
 
 export default RecentNewsDetail

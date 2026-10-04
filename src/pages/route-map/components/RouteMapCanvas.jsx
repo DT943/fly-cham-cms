@@ -4,7 +4,6 @@ import { MapContainer, Marker, Polyline, Tooltip, ZoomControl, useMap } from 're
 import 'leaflet/dist/leaflet.css'
 import { airportsByCode, arcBetween, legsFor } from '../utils/routeNetwork.js'
 import VectorBaseLayer from './VectorBaseLayer.jsx'
-import planeImg from '../../../assets/images/routes-map/plane.png'
 
 const HUB = '#baa981'
 const PIN = '#006080'
@@ -26,8 +25,15 @@ function createPin({ hub, selected, dimmed }) {
   })
 }
 
-/** A small plane sitting on the route line, rotated to face along it. */
-function createPlaneIcon(angle) {
+/** Escape a URL for use inside a double-quoted HTML attribute. */
+const escapeAttr = (value) =>
+  String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+
+/**
+ * A small plane sitting on the route line, rotated to face along it. The image
+ * comes from the CMS (route-map-explorer `planeUrl`).
+ */
+function createPlaneIcon(angle, planeUrl) {
   const size = 50
   return L.divIcon({
     className: 'route-map-plane',
@@ -35,7 +41,7 @@ function createPlaneIcon(angle) {
     iconAnchor: [size / 2, size / 2],
     html: `<span style="display:block;width:${size}px;height:${size}px;transform:rotate(${angle}deg);
       filter:drop-shadow(0 1px 3px rgba(1,38,59,0.35));">
-      <img src="${planeImg}" alt="" style="width:100%;height:100%;object-fit:contain;display:block;" />
+      <img src="${escapeAttr(planeUrl)}" alt="" style="width:100%;height:100%;object-fit:contain;display:block;" />
     </span>`,
   })
 }
@@ -60,15 +66,15 @@ function planeAtFraction(arc, t) {
 }
 
 /** Flies the plane marker from origin to destination along the arc, on a loop. */
-const FlyingPlane = ({ arc }) => {
+const FlyingPlane = ({ arc, planeUrl }) => {
   const map = useMap()
 
   useEffect(() => {
-    if (!arc || arc.length < 2) return
+    if (!arc || arc.length < 2 || !planeUrl) return
 
     const first = planeAtFraction(arc, 0)
     const marker = L.marker(first.position, {
-      icon: createPlaneIcon(first.angle),
+      icon: createPlaneIcon(first.angle, planeUrl),
       interactive: false,
       keyboard: false,
       zIndexOffset: 1100,
@@ -93,7 +99,7 @@ const FlyingPlane = ({ arc }) => {
       cancelAnimationFrame(raf)
       marker.remove()
     }
-  }, [map, arc])
+  }, [map, arc, planeUrl])
 
   return null
 }
@@ -208,7 +214,14 @@ const MapSync = ({ points, zoomIn }) => {
   return null
 }
 
-const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }) => {
+const RouteMapCanvas = ({
+  fromCode,
+  toCode,
+  onSelect,
+  labelFor,
+  planeUrl = '',
+  className = '',
+}) => {
   const from = fromCode ? airportsByCode[fromCode] : null
   const to = toCode ? airportsByCode[toCode] : null
   const chosen = useMemo(
@@ -271,7 +284,8 @@ const RouteMapCanvas = ({ fromCode, toCode, onSelect, labelFor, className = '' }
         )}
 
         {/* A plane flying the route, origin → destination, on a smooth loop. */}
-        {drawnLeg && <FlyingPlane arc={drawnLeg} />}
+        {/* The plane image comes from the CMS; no plane is drawn when it is empty. */}
+        {drawnLeg && planeUrl && <FlyingPlane arc={drawnLeg} planeUrl={planeUrl} />}
 
         {Object.values(airportsByCode).map((airport) => {
           const isChosen = chosen.includes(airport.code)

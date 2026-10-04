@@ -2,7 +2,8 @@ import { Envelope } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Container from '../../../shared/components/Container.jsx'
 import { typography } from '../../../styles/typography.js'
-import newsletterPattern from '../../../assets/images/recent-news/pattern.png'
+const newsletterPattern =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/recent-news/pattern.webp'
 
 const copyPrefix = 'mediaCenter.newsletter'
 

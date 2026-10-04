@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import logo from '../../assets/images/layout/logo.png'
-import backgroundImage from '../../assets/images/login-travel-agent/background.jpg'
-import planeImage from '../../assets/images/login-travel-agent/plane.png'
+// Unrouted legacy page (now the CMS travel-agent-login block) — cms-media copies.
+const logo = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp'
+const backgroundImage = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/login-travel-agent/background.webp'
+const planeImage = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/login-travel-agent/plane.webp'
 import TravelAgentLoginForm from './components/TravelAgentLoginForm.jsx'
 
 /**

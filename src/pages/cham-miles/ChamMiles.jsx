@@ -1,9 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import backgroundImage from '../../assets/images/cham-miles/background.png'
-import chamMilesLogo from '../../assets/images/cham-miles/logo.png'
 import ChamMilesRegisterForm from './components/ChamMilesRegisterForm.jsx'
+
+// Legacy static page — unrouted (/cham-miles is now the CMS page "cham-miles",
+// block "cham-miles-register"). Artwork lives only in the cms-media bucket.
+const MEDIA =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/cham-miles'
+const backgroundImage = `${MEDIA}/background.webp`
+const chamMilesLogo = `${MEDIA}/logo.webp`
 
 /**
  * Cham Miles registration — full-bleed geometric background,

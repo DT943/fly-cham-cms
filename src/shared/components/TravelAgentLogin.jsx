@@ -11,8 +11,10 @@ import {
   getButtonStyle,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-// Brand logo stays bundled (site-wide brand asset); bg/plane come only from the CMS.
-import defaultLogo from '../../assets/images/layout/logo.png'
+// Logo is a CMS field (content.logoUrl); empty falls back to the brand logo in
+// the cms-media bucket. bg/plane come only from the CMS.
+const defaultLogo =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 

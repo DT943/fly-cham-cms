@@ -1,12 +1,15 @@
-import latestNewsPhoto from '../../../assets/images/media-center/latest-news.jpg'
-import newsGridPhotoTwo from '../../../assets/images/media-center/news-grid-2.jpg'
-import newsGridPhotoThree from '../../../assets/images/media-center/news-grid-3.jpg'
-import damascusPhoto from '../../../assets/images/our-destenations/damascus.jpeg'
-import istanbulPhoto from '../../../assets/images/our-destenations/istanbul.jpg'
-import dubaiPhoto from '../../../assets/images/our-destenations/dubai.jpg'
-import ph2Photo from '../../../assets/images/our-destenations/ph2.jpg'
-import newsVideo from '../../../assets/videos/news-expansion.mp4'
-import newsVideoPoster from '../../../assets/images/recent-news/news-video-poster.jpg'
+// Each article is a CMS page (news-<kebab id>, see newPages.js); this data
+// only backs ids and the static fallback view, using cms-media copies.
+const MEDIA = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media'
+const latestNewsPhoto = `${MEDIA}/media-center/latest-news.webp`
+const newsGridPhotoTwo = `${MEDIA}/media-center/news-grid-2.webp`
+const newsGridPhotoThree = `${MEDIA}/media-center/news-grid-3.webp`
+const damascusPhoto = `${MEDIA}/our-destenations/damascus.webp`
+const istanbulPhoto = `${MEDIA}/our-destenations/istanbul.webp`
+const dubaiPhoto = `${MEDIA}/our-destenations/dubai.webp`
+const ph2Photo = `${MEDIA}/our-destenations/ph2.webp`
+const newsVideo = `${MEDIA}/recent-news/news-expansion.mp4`
+const newsVideoPoster = `${MEDIA}/recent-news/news-video-poster.webp`
 
 export const NEWS_DETAIL_PATH = /^\/media-center\/news\/([^/]+)$/
 

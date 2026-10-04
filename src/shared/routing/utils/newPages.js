@@ -120,6 +120,14 @@ export const ourDestinationsPages = {
     NO_BOTTOM_PADDING,
   ),
   '/our-destinations/city-sights': dynamicPage('city-sights', NO_BOTTOM_PADDING),
+  // Full-screen interactive map (one full-bleed route-map-explorer block):
+  // <main> fills the viewport under the header (Layout hides the footer here).
+  '/our-destinations/route-map': dynamicPage('route-map', {
+    className: 'bg-100 h-[calc(100dvh-65px)] w-full overflow-hidden md:h-[calc(100dvh-73px)]',
+    flushBottom: true,
+    gapClass: 'gap-0',
+    blocksClassName: 'h-full',
+  }),
   // Legacy `new-*` URLs
   '/new-our-destinations': createLanguageRedirect('/our-destinations'),
   '/our-destinations/new-flights-to-damascus': createLanguageRedirect(
@@ -256,14 +264,42 @@ export const otherPages = {
     flushBottom: true,
     gapClass: 'gap-0',
   }),
+  // One full-bleed "coming-soon-hero" block that pulls itself under the header
+  // (dark over media — isFullBleedPath in pages.js) and fills the viewport.
+  '/coming-soon': dynamicPage('coming-soon', {
+    className: 'flex w-full flex-1 flex-col',
+    blocksClassName: 'flex-1',
+    flushBottom: true,
+    gapClass: 'gap-0',
+  }),
+  '/cham-miles': dynamicPage('cham-miles', {
+    className: 'relative min-h-dvh w-full min-w-0 overflow-x-clip bg-100',
+    flushBottom: true,
+    gapClass: 'gap-0',
+  }),
   '/about-us': dynamicPage('about-us'),
   '/our-fleet': dynamicPage('our-fleet'),
   '/media-center': dynamicPage('media-center'),
   '/magazine-view': dynamicPage('magazine-view'),
   '/media-center/recent-news': dynamicPage('recent-news'),
-  '/media-center/news/fleetUpdate': dynamicPage('news-fleet-update', {
-    className: 'bg-100 w-full overflow-x-clip pb-12 md:pb-16',
-  }),
+  // News articles: one CMS page each (slug news-<kebab id>).
+  ...Object.fromEntries(
+    [
+      'fleetUpdate',
+      'expansionPlans',
+      'newRoutes',
+      'corporateUpdate',
+      'sponsorshipLaunch',
+      'communityEvent',
+      'customerExperience',
+      'routeExpansion',
+    ].map((id) => [
+      `/media-center/news/${id}`,
+      dynamicPage(`news-${id.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`, {
+        className: 'bg-100 w-full overflow-x-clip pb-12 md:pb-16',
+      }),
+    ]),
+  ),
   // Legacy `new-*` URLs
   '/new-home': createLanguageRedirect('/'),
   '/new-travel-updates': createLanguageRedirect('/travel-updates'),

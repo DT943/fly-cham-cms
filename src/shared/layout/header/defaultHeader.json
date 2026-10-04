@@ -5,7 +5,8 @@
       "lightUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
       "darkUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo-dark.webp",
       "alt": "Fly Cham",
-      "href": "/"
+      "href": "/",
+      "faviconUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/tab-icon.webp"
     },
     "login": {
       "show": true,
@@ -679,7 +680,8 @@
       "lightUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
       "darkUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo-dark.webp",
       "alt": "Fly Cham",
-      "href": "/"
+      "href": "/",
+      "faviconUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/tab-icon.webp"
     },
     "login": {
       "show": true,

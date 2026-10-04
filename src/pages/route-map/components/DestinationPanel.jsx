@@ -1,22 +1,30 @@
 import { CircleNotch, Star } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
-import { destinationImageByCity } from '../utils/routeFacts.js'
 
 /**
  * Compact destination card: a photo header, the city with its country and IATA
  * code, and the actions — Find Flights (primary, once both ends are chosen) and
  * View Flight Schedule (outline). `focus` is the end being travelled to
  * (falling back to the chosen origin).
+ *
+ * `cityImages` maps a cityKey to its photo URL (from the CMS route-map-explorer
+ * block). A city without a photo renders the branded fallback header.
  */
-const DestinationPanel = ({ from, to, onFindFlights, findingFlights = false }) => {
+const DestinationPanel = ({
+  from,
+  to,
+  onFindFlights,
+  findingFlights = false,
+  cityImages = {},
+}) => {
   const { t } = useTranslation()
   const focus = to || from
   if (!focus) return null
 
   const city = t(`destinations.cities.${focus.cityKey}.name`)
   const country = t(`destinations.countries.${focus.countryKey}`)
-  const image = destinationImageByCity[focus.cityKey]
+  const image = cityImages?.[focus.cityKey] || ''
 
   return (
     <article className="w-full max-w-[320px] overflow-hidden rounded-2xl bg-50 ">

@@ -82,6 +82,12 @@ import CargoStationsExplorer from '../shared/components/CargoStationsExplorer.js
 import { cargoStationsExplorerProps } from './adapters/cargoStationsExplorerAdapter.js'
 import TravelAgentLogin from '../shared/components/TravelAgentLogin.jsx'
 import { travelAgentLoginProps } from './adapters/travelAgentLoginAdapter.js'
+import ComingSoonHero from '../shared/components/ComingSoonHero.jsx'
+import { comingSoonHeroProps } from './adapters/comingSoonHeroAdapter.js'
+import ChamMilesRegister from '../shared/components/ChamMilesRegister.jsx'
+import { chamMilesRegisterProps } from './adapters/chamMilesRegisterAdapter.js'
+import RouteMapExplorerBlock from '../shared/components/RouteMapExplorerBlock.jsx'
+import { routeMapExplorerProps } from './adapters/routeMapExplorerAdapter.js'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
 import { pageMediaHeroProps } from './adapters/pageMediaHeroAdapter.js'
 import { searchConsoleProps } from './adapters/searchConsoleAdapter.js'
@@ -281,6 +287,11 @@ export const sectionRegistry = {
   'cargo-info-cards': { Component: CargoInfoCards, mapProps: cargoInfoCardsProps },
   // Full-screen standalone B2B login (Layout hides header/footer on this path).
   'travel-agent-login': { Component: TravelAgentLogin, mapProps: travelAgentLoginProps, fullBleed: true },
+  'coming-soon-hero': { Component: ComingSoonHero, mapProps: comingSoonHeroProps, fullBleed: true },
+  // Full-screen Cham Miles registration (Layout hides header/footer on this path).
+  'cham-miles-register': { Component: ChamMilesRegister, mapProps: chamMilesRegisterProps, fullBleed: true },
+  // Full-screen interactive route map (/our-destinations/route-map).
+  'route-map-explorer': { Component: RouteMapExplorerBlock, mapProps: routeMapExplorerProps, fullBleed: true },
   'cargo-stations-explorer': { Component: CargoStationsExplorer, mapProps: cargoStationsExplorerProps, fullBleed: true },
   'business-quick-access': { Component: BusinessQuickAccess, mapProps: businessQuickAccessProps },
   'baggage-allowance': { Component: BaggageAllowance, mapProps: baggageAllowanceProps },
