@@ -20,7 +20,7 @@ const RegionMenu = ({ onNavigate, embedded = false }) => {
         embedded ? '' : 'shadow-[0_4px_16px_rgba(33,37,41,0.08)]'
       }`}
     >
-      <Container className={`py-8 ${embedded ? 'px-0 sm:px-0 md:px-0 xl:px-0' : ''}`}>
+      {/* <Container className={`py-8 ${embedded ? 'px-0 sm:px-0 md:px-0 xl:px-0' : ''}`}>
         <p className={`${typography.itemTitle} m-0 font-medium text-700`}>
           {t('layout.header.regionTitle')}
         </p>
@@ -60,7 +60,7 @@ const RegionMenu = ({ onNavigate, embedded = false }) => {
             </li>
           ))}
         </ul>
-      </Container>
+      </Container> */}
     </div>
   )
 }
