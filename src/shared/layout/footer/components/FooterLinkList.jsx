@@ -2,6 +2,7 @@ import { ArrowSquareOut } from '@phosphor-icons/react'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
+import FooterItemIcon from './FooterItemIcon.jsx'
 
 const linkClass = `${typography.caption} inline-flex items-center gap-1.5 no-underline transition-colors ${FTR_HOVER}`
 
@@ -28,6 +29,7 @@ const FooterLinkList = ({ links, style }) => {
             style={link.highlight ? highlighted : normal}
             {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           >
+            <FooterItemIcon name={link.icon} />
             {link.label}
             {link.external ? (
               <ArrowSquareOut size={14} weight="regular" aria-hidden className="shrink-0" />

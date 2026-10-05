@@ -73,6 +73,8 @@ export const BANNER_HEIGHT = {
   medium: 'min-h-[220px] sm:min-h-[320px] md:min-h-[360px]',
   default: 'min-h-[220px] sm:min-h-[360px] md:min-h-[400px]',
   spacious: 'min-h-[280px] sm:min-h-[420px] md:min-h-[480px]',
+  // Figma Baggage Calculator banner: 405px on every screen.
+  poster: 'min-h-[405px]',
 }
 
 export const VERTICAL_ALIGN = {
@@ -213,6 +215,10 @@ export const getButtonStyle = (style, opts) => {
       ...(border ? { borderColor: colorVar(bgToken) } : {}),
       color: colorVar(colorToken),
       fontWeight: fontWeightValue(weight, weightFallback),
+      // `.cms-text-hover` paints these with !important — without them the
+      // label falls back to the inherited color.
+      '--cms-c': colorVar(colorToken),
+      '--cms-w': fontWeightValue(weight, weightFallback),
       '--cms-bgh': colorVar(bgHoverToken),
       '--cms-hc': colorVar(colorHoverToken),
       '--cms-hw': fontWeightValue(weightHover, weightFallback),

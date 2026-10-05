@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next'
 import Button from './Button.jsx'
 import { typography } from '../../styles/typography.js'
 import {
-  RADIUS,
   ALIGN,
   SECTION_PADDING,
   BANNER_HEIGHT,
@@ -16,6 +15,18 @@ import LinkedText from './backlinks/LinkedText.jsx'
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
+
+// Byte-identical with cms2 CtaBanner BANNER_RADIUS_CLASS (the drawer's
+// Square / Small / Rounded / Pill options) — the generic RADIUS map uses the
+// same keys for different sizes (`full` = pill there, 24px here).
+const BANNER_RADIUS = {
+  none: 'rounded-none',
+  sm: 'rounded-xl',
+  lg: 'rounded-2xl',
+  full: 'rounded-3xl',
+  // Prop default when the CMS sends no radius.
+  '2xl': 'rounded-2xl',
+}
 
 /**
  * Full-bleed photo CTA. Defaults match the original Help / Forms look;
@@ -123,7 +134,7 @@ const CtaBanner = ({
       <div
         className={cx(
           'relative overflow-hidden w-full bg-cover bg-no-repeat bg-center flex px-5 py-8 sm:px-12 md:px-20 md:py-16',
-          RADIUS[bannerRadius] || RADIUS['2xl'],
+          BANNER_RADIUS[bannerRadius] || BANNER_RADIUS['2xl'],
           BANNER_HEIGHT[bannerHeight] || BANNER_HEIGHT.default,
           VERTICAL_ALIGN[verticalAlign] || VERTICAL_ALIGN.center,
         )}

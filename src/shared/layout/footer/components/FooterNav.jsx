@@ -3,6 +3,7 @@ import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
+import FooterItemIcon from './FooterItemIcon.jsx'
 import FooterLinkList from './FooterLinkList.jsx'
 
 const headerLinkClass = `m-0 tracking-wide uppercase no-underline transition-colors ${FTR_HOVER} ${typography.caption}`
@@ -10,13 +11,17 @@ const headerLinkClass = `m-0 tracking-wide uppercase no-underline transition-col
 // Mobile accordion row title (design): title case.
 const mobileTitleClass = `m-0 no-underline transition-colors ${FTR_HOVER} ${typography.caption}`
 
+// Only titles that carry an icon become flex rows, so icon-less titles render exactly as before.
+const withIcon = (icon) => (icon ? " inline-flex items-center gap-1.5" : "")
+
 /** Desktop grid columns; a column's sections are the `columns` with that `group`. */
 const DESKTOP_GROUPS = [1, 2, 3, 4]
 
 const ColumnSection = ({ column, style, titleStyle }) => (
   <div className="flex min-w-0 flex-col gap-3.5">
     <h2 className="m-0">
-      <LocalizedLink href={footerHref(column.href)} className={headerLinkClass} style={titleStyle}>
+      <LocalizedLink href={footerHref(column.href)} className={`${headerLinkClass}${withIcon(column.icon)}`} style={titleStyle}>
+        <FooterItemIcon name={column.icon} />
         {column.title}
       </LocalizedLink>
     </h2>
@@ -71,9 +76,10 @@ const MobileAccordion = ({ columns, style }) => {
             <div className="flex items-center gap-2 py-3.5">
               <LocalizedLink
                 href={footerHref(column.href)}
-                className={`min-w-0 flex-1 ${mobileTitleClass}`}
+                className={`min-w-0 flex-1 ${mobileTitleClass}${withIcon(column.icon)}`}
                 style={titleStyle}
               >
+                <FooterItemIcon name={column.icon} />
                 {column.title}
               </LocalizedLink>
               <button

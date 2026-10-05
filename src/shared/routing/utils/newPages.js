@@ -83,6 +83,13 @@ const PAYMENT_METHODS_GAP =
 // Oxygen Service rhythm (Figma 40347:13592): 60px between sections; breadcrumbs
 // sit under the header, the hero follows them flush, 105px down to the first
 // row, and the terms card sits 28px under the FAQs.
+// Baggage Calculator rhythm (Figma 40814:21591 / mobile 40814:22088): the
+// calculator card overlaps the hero itself (overlapHero); Important Information
+// sits 76px (41px mobile) under it; 24px between blocks on mobile; the terms card
+// hugs the FAQs (32px desktop).
+const BAGGAGE_CALCULATOR_GAP =
+  'gap-8 md:gap-[60px] [&>*:nth-child(4)]:mt-[9px] md:[&>*:nth-child(4)]:mt-4 [&>*:nth-child(5)]:-mt-2 md:[&>*:nth-child(5)]:mt-0 [&>*:nth-child(6)]:-mt-2 md:[&>*:nth-child(6)]:mt-0 [&>*:nth-child(7)]:-mt-2 md:[&>*:nth-child(7)]:-mt-7'
+
 const OXYGEN_SERVICE_GAP =
   'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[45px] [&>*:nth-child(6)]:-mt-4 md:[&>*:nth-child(6)]:-mt-8'
 
@@ -155,6 +162,9 @@ export const travelExperiencePages = {
   }),
   '/travel-experience/before-you-fly/oxygen-service': dynamicPage('oxygen-service', {
     gapClass: OXYGEN_SERVICE_GAP,
+  }),
+  '/travel-experience/before-you-fly/baggage-calculator': dynamicPage('baggage-calculator', {
+    gapClass: BAGGAGE_CALCULATOR_GAP,
   }),
   '/travel-experience/before-you-fly/limousine-service': dynamicPage('limousine-service', {
     gapClass: LIMOUSINE_SERVICE_GAP,

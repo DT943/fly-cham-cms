@@ -23,6 +23,7 @@ export const cmsPagePaths = [
   '/travel-experience/before-you-fly/prohibited-items',
   '/travel-experience/before-you-fly/unaccompanied-minors',
   '/travel-experience/before-you-fly/oxygen-service',
+  '/travel-experience/before-you-fly/baggage-calculator',
   '/travel-experience/before-you-fly/limousine-service',
   '/travel-experience/before-you-fly/transportation-service',
   '/travel-experience/before-you-fly/manage-booking',

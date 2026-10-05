@@ -35,6 +35,7 @@ const GROUPS = [1, 2, 3, 4]
 
 const normalizeLink = (link, index) => ({
   id: str(link?.id) || `link-${index}`,
+  icon: str(link?.icon),
   label: str(link?.label),
   href: str(link?.href) || '#',
   external: link?.external === true,
@@ -60,6 +61,7 @@ const normalizeColumn = (column) => {
   const group = Number(column.group)
   return {
     id: column.id,
+    icon: str(column.icon),
     title: str(column.title),
     href: str(column.href),
     group: GROUPS.includes(group) ? group : 1,

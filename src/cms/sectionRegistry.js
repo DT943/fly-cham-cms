@@ -183,6 +183,9 @@ import { gatewayCardsProps } from './adapters/gatewayCardsAdapter.js'
 import { baggageAllowanceProps, baggageResourceCardsProps } from './adapters/baggageAdapters.js'
 import ServiceSteps from '../shared/components/ServiceSteps.jsx'
 import { serviceStepsProps } from './adapters/serviceStepsAdapter.js'
+import BaggageCalculator from '../shared/components/BaggageCalculator.jsx'
+import TitleWithList from '../shared/components/TitleWithList.jsx'
+import { baggageCalculatorProps, titleWithListProps } from './adapters/baggageCalculatorAdapters.js'
 import ProhibitedItemsGrid from '../shared/components/ProhibitedItemsGrid.jsx'
 import InstructionsCard from '../shared/components/InstructionsCard.jsx'
 import { instructionsCardProps, prohibitedItemsGridProps } from './adapters/prohibitedItemsAdapters.js'
@@ -312,6 +315,8 @@ export const sectionRegistry = {
   'overlay-cards': { Component: OverlayCards, mapProps: overlayCardsProps },
   'gateway-cards': { Component: GatewayCards, mapProps: gatewayCardsProps },
   'service-steps': { Component: ServiceSteps, mapProps: serviceStepsProps },
+  'baggage-calculator': { Component: BaggageCalculator, mapProps: baggageCalculatorProps },
+  'title-with-list': { Component: TitleWithList, mapProps: titleWithListProps },
   'prohibited-items-grid': { Component: ProhibitedItemsGrid, mapProps: prohibitedItemsGridProps },
   'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },
   'airport-service-cards': { Component: AirportServiceCards, mapProps: airportServiceCardsProps },
