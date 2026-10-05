@@ -1,0 +1,73 @@
+# Public site (new_fly_cham) CI/CD.
+#
+#   pull request → main   build (no deploy)
+#   push to main          build, then deploy to the VPS
+#   "Run workflow" button redeploy main by hand (Actions → Site CI/CD)
+#
+# Deploying = SSH to the VPS and run `update-flycham <sha>`
+# (deploy/update-flycham.sh), so the server builds exactly the commit that
+# passed here and keeps the previous build if anything fails. One-time setup:
+# DEPLOY.md.
+
+name: Site CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20 # same major as the VPS
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+      - name: Build
+        run: |
+          cp .env.production.example .env.production
+          npm run build
+
+  deploy:
+    name: Deploy to VPS
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: production
+    # Never run two deploys at once; a newer push waits for the current one.
+    concurrency:
+      group: site-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Run update-flycham on the VPS
+        env:
+          SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
+          SSH_USER: ${{ secrets.VPS_SSH_USER }}
+          SSH_PORT: ${{ secrets.VPS_SSH_PORT || '22' }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
+            -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 \
+            "$SSH_USER@$SSH_HOST" "update-flycham ${GITHUB_SHA}"
