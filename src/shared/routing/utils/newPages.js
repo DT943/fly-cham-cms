@@ -83,12 +83,26 @@ const PAYMENT_METHODS_GAP =
 // Oxygen Service rhythm (Figma 40347:13592): 60px between sections; breadcrumbs
 // sit under the header, the hero follows them flush, 105px down to the first
 // row, and the terms card sits 28px under the FAQs.
-// Baggage Calculator rhythm (Figma 40814:21591 / mobile 40814:22088): the
-// calculator card overlaps the hero itself (overlapHero); Important Information
-// sits 76px (41px mobile) under it; 24px between blocks on mobile; the terms card
-// hugs the FAQs (32px desktop).
-const BAGGAGE_CALCULATOR_GAP =
-  'gap-8 md:gap-[60px] [&>*:nth-child(4)]:mt-[9px] md:[&>*:nth-child(4)]:mt-4 [&>*:nth-child(5)]:-mt-2 md:[&>*:nth-child(5)]:mt-0 [&>*:nth-child(6)]:-mt-2 md:[&>*:nth-child(6)]:mt-0 [&>*:nth-child(7)]:-mt-2 md:[&>*:nth-child(7)]:-mt-7'
+// Baggage Calculator rhythm (Figma 40814:21591 / results 40814:22701, mobile
+// 40814:22088 / 40814:23739). Blocks: 1 crumbs, 2 hero, 3 calculator (overlaps
+// the hero itself), 4 route summary, 5-6 adult panels (economy / business, one
+// shows), 7 infant panel, 8 add-ons, 9 Important Information, 10 banner,
+// 11 FAQs, 12 terms. Results (4-8) render nothing until Calculate, so empty
+// wrappers are hidden; Important Information sits 76px under the calculator,
+// or 32px under the add-ons once results show (:has).
+const BAGGAGE_CALCULATOR_GAP = [
+  'gap-8 md:gap-[60px] [&>*:empty]:hidden',
+  '[&>*:nth-child(4)]:mt-[41px] md:[&>*:nth-child(4)]:mt-4',
+  '[&>*:nth-child(5)]:mt-[18px] md:[&>*:nth-child(5)]:-mt-5',
+  '[&>*:nth-child(6)]:mt-[18px] md:[&>*:nth-child(6)]:-mt-5',
+  '[&>*:nth-child(7)]:mt-0.5 md:[&>*:nth-child(7)]:-mt-9',
+  '[&>*:nth-child(8)]:-mt-[11px] md:[&>*:nth-child(8)]:-mt-5',
+  '[&>*:nth-child(9)]:mt-[9px] md:[&>*:nth-child(9)]:mt-4',
+  '[&:has(>*:nth-child(4):not(:empty))>*:nth-child(9)]:mt-0 md:[&:has(>*:nth-child(4):not(:empty))>*:nth-child(9)]:-mt-7',
+  '[&>*:nth-child(10)]:-mt-2 md:[&>*:nth-child(10)]:mt-0',
+  '[&>*:nth-child(11)]:-mt-2 md:[&>*:nth-child(11)]:mt-0',
+  '[&>*:nth-child(12)]:-mt-2 md:[&>*:nth-child(12)]:-mt-7',
+].join(' ')
 
 const OXYGEN_SERVICE_GAP =
   'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[45px] [&>*:nth-child(6)]:-mt-4 md:[&>*:nth-child(6)]:-mt-8'
@@ -288,10 +302,17 @@ export const otherPages = {
     gapClass: 'gap-0',
   }),
   '/about-us': dynamicPage('about-us'),
+  '/site-map': dynamicPage('site-map', {
+    className: 'bg-100 w-full',
+    gapClass: 'gap-0',
+  }),
   '/our-fleet': dynamicPage('our-fleet'),
   '/media-center': dynamicPage('media-center'),
   '/magazine-view': dynamicPage('magazine-view'),
   '/media-center/recent-news': dynamicPage('recent-news'),
+  '/media-center/newsletter': dynamicPage('newsletter', {
+    gapClass: 'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7',
+  }),
   // News articles: one CMS page each (slug news-<kebab id>).
   ...Object.fromEntries(
     [

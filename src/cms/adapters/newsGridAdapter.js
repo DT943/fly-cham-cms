@@ -56,6 +56,7 @@ const STYLE_KEYS = [
   'metaFontWeight',
   'metaColorHover',
   'metaFontWeightHover',
+  'chipBg',
   'chipText',
   'chipTextFontWeight',
   'chipTextHover',

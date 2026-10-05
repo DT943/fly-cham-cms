@@ -27,6 +27,8 @@ const SECTION_PADDING = {
 }
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
+/** Category pill fill when the CMS `chipBg` token is empty (Primary 1 at 10%). */
+const DEFAULT_CHIP_BG = 'rgba(0,96,128,0.1)'
 
 /**
  * News card grid with a View All CTA. Defaults match Media Center News Grid.
@@ -47,6 +49,7 @@ const NewsGrid = ({
   sectionBg = '100',
   cardBg = '50',
   cardBorderColor = '200',
+  chipBg = '',
   arrowBadgeBg = 'primary-1',
   arrowColor = '50',
   viewAllBg = 'background',
@@ -150,8 +153,11 @@ const NewsGrid = ({
                   </span>
                   <span aria-hidden className="text-500">·</span>
                   <span
-                    className={cx('rounded-full bg-primary-1/10 px-3 py-1', typography.caption, CMS_TEXT_HOVER_CLASS)}
-                    style={getTextStyleVars(textStyle, 'chipText', 'primary-1', 'medium')}
+                    className={cx('rounded-full px-3 py-1', typography.caption, CMS_TEXT_HOVER_CLASS)}
+                    style={{
+                      ...getTextStyleVars(textStyle, 'chipText', 'primary-1', 'medium'),
+                      backgroundColor: colorVar(chipBg) || DEFAULT_CHIP_BG,
+                    }}
                   >
                     {item.category}
                   </span>

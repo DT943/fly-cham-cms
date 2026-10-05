@@ -319,7 +319,7 @@
         {
           "id": "sitemap",
           "label": "Site Map",
-          "href": "/coming-soon",
+          "href": "/site-map",
           "showOnMobile": false
         },
         {
@@ -689,7 +689,7 @@
         {
           "id": "sitemap",
           "label": "خريطة الموقع",
-          "href": "/coming-soon",
+          "href": "/site-map",
           "showOnMobile": false
         },
         {

@@ -9,6 +9,7 @@ import {
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import useBaggageQuery from '../hooks/useBaggageQuery.js'
 
 // Keep these class maps byte-identical with the cms2 BaggageCalculator block.
 const SECTION_PADDING = {
@@ -55,7 +56,10 @@ function buildCalculateHref(href, values) {
   })
   const query = params.toString()
   if (!query) return base
-  return `${base}${base.includes('?') ? '&' : '?'}${query}`
+  // Keep a #hash (e.g. #results) after the query string.
+  const [path, hash] = base.split('#')
+  const joined = `${path}${path.includes('?') ? '&' : '?'}${query}`
+  return hash ? `${joined}#${hash}` : joined
 }
 
 /** Figma field (label over value + caret) with a native <select> on top. */
@@ -150,9 +154,16 @@ const BaggageCalculator = ({
   linkItalic,
   ...textStyle
 }) => {
+  // After Calculate the page reloads with the choices in the URL — keep them.
+  const query = useBaggageQuery()
   const defaults = useMemo(
-    () => ({ from: defaultFrom, to: defaultTo, class: defaultClass, tier: defaultTier }),
-    [defaultFrom, defaultTo, defaultClass, defaultTier],
+    () => ({
+      from: query.from || defaultFrom,
+      to: query.to || defaultTo,
+      class: query.class || defaultClass,
+      tier: query.tier || defaultTier,
+    }),
+    [query.from, query.to, query.class, query.tier, defaultFrom, defaultTo, defaultClass, defaultTier],
   )
   const [values, setValues] = useState(defaults)
   useEffect(() => setValues(defaults), [defaults])

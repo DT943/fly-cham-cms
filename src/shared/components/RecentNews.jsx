@@ -347,12 +347,28 @@ const RecentNews = ({
                           >
                             <LocalizedLink
                               href={href}
-                              className="text-inherit no-underline hover:underline"
+                              className="text-inherit no-underline hover:!no-underline"
+                              style={{ textDecoration: 'none' }}
                             >
                               {article.title}
                             </LocalizedLink>
                           </h2>
                         ) : null}
+
+                        <div className="mt-auto flex justify-end pt-1">
+                          <LocalizedLink
+                            href={href}
+                            aria-label={article.title || 'Read article'}
+                            className="flex size-10 items-center justify-center rounded-full bg-primary-1 no-underline"
+                          >
+                            <ArrowRight
+                              size={18}
+                              weight="bold"
+                              className="text-white rtl:-scale-x-100"
+                              aria-hidden
+                            />
+                          </LocalizedLink>
+                        </div>
                       </div>
                     </article>
                   )

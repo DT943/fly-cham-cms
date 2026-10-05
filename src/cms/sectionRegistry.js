@@ -144,6 +144,10 @@ import { aboutValuesProps } from './adapters/aboutValuesAdapter.js'
 import { recentNewsProps } from './adapters/recentNewsAdapter.js'
 import { helpFaqsProps } from './adapters/helpFaqsAdapter.js'
 import { legalHubProps } from './adapters/legalHubAdapter.js'
+import SiteMap from '../shared/components/SiteMap.jsx'
+import NewsletterForm from '../shared/components/NewsletterForm.jsx'
+import { siteMapProps } from './adapters/siteMapAdapter.js'
+import { newsletterFormProps } from './adapters/newsletterFormAdapter.js'
 import { legalDocumentProps } from './adapters/legalDocumentAdapter.js'
 import { legalMoreInfoProps } from './adapters/legalMoreInfoAdapter.js'
 import { breadcrumbsProps } from './adapters/breadcrumbsAdapter.js'
@@ -186,6 +190,14 @@ import { serviceStepsProps } from './adapters/serviceStepsAdapter.js'
 import BaggageCalculator from '../shared/components/BaggageCalculator.jsx'
 import TitleWithList from '../shared/components/TitleWithList.jsx'
 import { baggageCalculatorProps, titleWithListProps } from './adapters/baggageCalculatorAdapters.js'
+import BaggageRouteSummary from '../shared/components/BaggageRouteSummary.jsx'
+import BaggageAllowanceBreakdown from '../shared/components/BaggageAllowanceBreakdown.jsx'
+import BaggageAddons from '../shared/components/BaggageAddons.jsx'
+import {
+  baggageAddonsProps,
+  baggageAllowanceBreakdownProps,
+  baggageRouteSummaryProps,
+} from './adapters/baggageResultsAdapters.js'
 import ProhibitedItemsGrid from '../shared/components/ProhibitedItemsGrid.jsx'
 import InstructionsCard from '../shared/components/InstructionsCard.jsx'
 import { instructionsCardProps, prohibitedItemsGridProps } from './adapters/prohibitedItemsAdapters.js'
@@ -268,6 +280,8 @@ export const sectionRegistry = {
   'recent-news': { Component: RecentNews, mapProps: recentNewsProps },
   'help-faqs': { Component: HelpFaqs, mapProps: helpFaqsProps },
   'legal-hub': { Component: LegalHub, mapProps: legalHubProps },
+  'site-map': { Component: SiteMap, mapProps: siteMapProps },
+  'newsletter-form': { Component: NewsletterForm, mapProps: newsletterFormProps },
   'legal-document': { Component: LegalDocument, mapProps: legalDocumentProps },
   'legal-more-info': {
     Component: LegalMoreInfo,
@@ -317,6 +331,9 @@ export const sectionRegistry = {
   'service-steps': { Component: ServiceSteps, mapProps: serviceStepsProps },
   'baggage-calculator': { Component: BaggageCalculator, mapProps: baggageCalculatorProps },
   'title-with-list': { Component: TitleWithList, mapProps: titleWithListProps },
+  'baggage-route-summary': { Component: BaggageRouteSummary, mapProps: baggageRouteSummaryProps },
+  'baggage-allowance-breakdown': { Component: BaggageAllowanceBreakdown, mapProps: baggageAllowanceBreakdownProps },
+  'baggage-addons': { Component: BaggageAddons, mapProps: baggageAddonsProps },
   'prohibited-items-grid': { Component: ProhibitedItemsGrid, mapProps: prohibitedItemsGridProps },
   'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },
   'airport-service-cards': { Component: AirportServiceCards, mapProps: airportServiceCardsProps },
