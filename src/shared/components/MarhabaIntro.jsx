@@ -93,7 +93,7 @@ const MarhabaIntro = ({
           src={src}
           alt={imageAlt || ''}
           className={cx(
-            'aspect-[3/4] w-full max-w-[300px] shrink-0 object-cover shadow-[0px_12px_32px_rgba(1,38,59,0.18)]',
+            'aspect-[3/4] w-full max-w-[300px] shrink-0 object-cover ',
             radiusClass,
           )}
         />

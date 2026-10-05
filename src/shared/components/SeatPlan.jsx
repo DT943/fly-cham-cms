@@ -106,7 +106,7 @@ const SeatPlan = ({
             <article
               key={item.id || index}
               className={cx(
-                'group relative flex cursor-pointer flex-col overflow-hidden shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]',
+                'group relative flex cursor-pointer flex-col overflow-hidden ',
                 radiusClass,
               )}
               style={{ backgroundColor: colorVar(cardBg) }}

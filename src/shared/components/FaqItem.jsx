@@ -52,7 +52,7 @@ const FaqItem = ({
 
   return (
     <div
-      className={cx('border', radiusClass)}
+      className={cx('border transition-colors duration-200', !open && 'hover:!bg-100', radiusClass)}
       style={{ backgroundColor: colorVar(itemBg), borderColor: colorVar(itemBorderColor) }}
     >
       <h3 className="m-0">
@@ -67,7 +67,12 @@ const FaqItem = ({
             CMS_TEXT_HOVER_CLASS,
             'w-full bg-transparent border-0 flex items-center justify-between gap-4 cursor-pointer px-4 py-4 md:px-6 md:py-5 text-start',
           )}
-          style={getTextStyleVars(questionStyleKeys, 'questionColor', '700', 'medium')}
+          style={{
+            ...getTextStyleVars(questionStyleKeys, 'questionColor', '700', 'medium'),
+            ...(open
+              ? { color: colorVar('primary-1'), '--cms-hc': colorVar('primary-1') }
+              : {}),
+          }}
         >
           <span className="min-w-0">
             <LinkedText text={question} {...linkProps} />

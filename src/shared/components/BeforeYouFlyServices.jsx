@@ -94,7 +94,7 @@ const BeforeYouFlyServices = ({
         return (
           <article
             key={item.id || index}
-            className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0px_4px_6px_rgba(33,37,41,0.05)] sm:flex-row sm:items-center sm:gap-12 sm:overflow-visible sm:rounded-none sm:border-b sm:bg-transparent sm:py-6 sm:shadow-none"
+            className="flex flex-col overflow-hidden rounded-2xl bg-white  sm:flex-row sm:items-center sm:gap-12 sm:overflow-visible sm:rounded-none sm:border-b sm:bg-transparent sm:py-6 "
             style={{ borderColor: colorVar(dividerColor) }}
           >
             {src ? (

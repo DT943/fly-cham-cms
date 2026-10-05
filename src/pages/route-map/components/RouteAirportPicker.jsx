@@ -139,7 +139,7 @@ const PickerInner = ({ from, to, onChange, onReset }) => {
   // panel opens exactly like the From panel instead of overflowing off-screen.
   return (
     <div className="relative">
-      <div className="flex items-stretch rounded-xl border border-solid border-200 bg-background shadow-[0_10px_30px_rgba(1,38,59,0.18)]">
+      <div className="flex items-stretch rounded-xl border border-solid border-200 bg-background">
         {renderField('from')}
         <span className="my-2 w-px shrink-0 bg-200" aria-hidden="true" />
         {renderField('to')}
@@ -162,7 +162,7 @@ const PickerInner = ({ from, to, onChange, onReset }) => {
       </div>
 
       {openField && (
-        <div className="route-map-airports absolute start-0 top-full z-20 mt-1 w-[min(40rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-solid border-200 bg-background shadow-[0_12px_32px_rgba(1,38,59,0.18)] sm:w-[min(44rem,calc(100vw-2.5rem))]">
+        <div className="route-map-airports absolute start-0 top-full z-20 mt-1 w-[min(40rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-solid border-200 bg-background shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:w-[min(44rem,calc(100vw-2.5rem))]">
           <AirportDropdownPanel
             isOpen
             fieldType={FIELD[openField]}

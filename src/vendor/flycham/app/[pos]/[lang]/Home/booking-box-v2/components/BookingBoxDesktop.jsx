@@ -211,7 +211,7 @@ const BookingBoxDesktop = () => {
   return (
     <div
       id="search-widget"
-      className={`bg-white rounded-2xl shadow-md py-3 w-full relative z-20 overflow-visible ${containerHeightClass} px-6`}
+      className={`bg-white rounded-2xl py-3 w-full relative z-20 overflow-visible ${containerHeightClass} px-6`}
     >
       {showTabNavigation && <TabNavigation />}
       {activeTab === ACTIVE_TABS.MANAGE && <ManageTap />}

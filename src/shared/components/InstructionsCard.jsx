@@ -39,7 +39,7 @@ const DESCRIPTION_SIZE = 'text-base leading-[27px]'
 const LIST_SIZE = 'text-sm leading-[27px]'
 const BUTTON_SIZE = 'text-base leading-[normal]'
 // Figma "shadow 2".
-const CARD_SHADOW = 'shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]'
+const CARD_SHADOW = ''
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 

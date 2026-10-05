@@ -158,7 +158,7 @@ const OfficeCard = ({ office, isSelected, onSelect, openMapLabel, style, linkPro
       role="button"
       tabIndex={0}
       aria-pressed={isSelected}
-      className={cx('rounded-lg p-5 flex flex-col gap-4 cursor-pointer border', !isSelected && 'shadow-[0_8px_24px_rgba(0,0,0,0.06)]')}
+      className={cx('rounded-lg p-5 flex flex-col gap-4 cursor-pointer border', !isSelected && '')}
       style={{ backgroundColor: colorVar(style.cardBg), borderColor: isSelected ? colorVar(style.selectedBorderColor) : 'transparent' }}
       onClick={() => onSelect()}
       onKeyDown={(event) => {

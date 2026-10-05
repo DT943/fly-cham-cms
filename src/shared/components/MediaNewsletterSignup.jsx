@@ -12,15 +12,18 @@ import LinkedText from './backlinks/LinkedText.jsx'
  * Media Center newsletter capture.
  * - Small: white card, stacked title / description / input / Subscribe
  * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
- * Presentational (does not submit). The side pattern comes only from the CMS.
+ * Presentational (does not submit). An empty CMS pattern uses the same
+ * side pattern the admin preview falls back to.
  */
+const DEFAULT_PATTERN = '/media-center/pattern.png'
+
 const MediaNewsletterSignup = ({
   title = '',
   description = '',
   label = '',
   placeholder = '',
   cta = '',
-  pattern,
+  pattern = DEFAULT_PATTERN,
   sectionBg = '100',
   borderColor = '200',
   cardBg = 'background',
@@ -149,7 +152,7 @@ const MediaNewsletterSignup = ({
 
       <Container className="relative z-10 py-8 md:py-10">
         <div
-          className="flex w-full flex-col gap-6 rounded-xl p-6 shadow-[0_4px_16px_rgba(33,37,41,0.06)] md:gap-8 md:p-8 lg:hidden"
+          className="flex w-full flex-col gap-6 rounded-xl p-6  md:gap-8 md:p-8 lg:hidden"
           style={{ backgroundColor: colorVar(cardBg) }}
         >
           {titleBlock}

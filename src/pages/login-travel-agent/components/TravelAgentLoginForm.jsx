@@ -51,7 +51,7 @@ const TravelAgentLoginForm = () => {
   }
 
   return (
-    <div className="w-full max-w-md rounded-2xl border border-50/40 bg-50/75 p-6 shadow-[0_8px_32px_rgba(1,38,59,0.12)] backdrop-blur-md sm:p-8">
+    <div className="w-full max-w-md rounded-2xl border border-50/40 bg-50/75 p-6  backdrop-blur-md sm:p-8">
       <div className="mb-6 flex flex-col gap-1.5">
         <h1 className={`m-0 font-semibold text-primary-1 ${typography.sectionTitle}`}>
           {t('loginTravelAgent.form.title')}

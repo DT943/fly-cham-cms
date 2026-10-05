@@ -41,7 +41,7 @@ const DestinationQuickStats = ({ i18nKey, stats, variant = 'responsive' }) => {
 
   const card = (
     <Container className="relative z-10 -mt-12.5">
-      <div className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+      <div className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 ">
         {items.map(({ id, Icon, detail }) => (
           <div key={id} className="flex items-center gap-4 text-start">
             <Icon size={32} className="size-8 shrink-0 text-primary-1" />

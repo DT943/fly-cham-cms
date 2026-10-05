@@ -124,7 +124,7 @@ const BookingLookup = ({
       <form
         onSubmit={onSubmit}
         noValidate
-        className="flex flex-col gap-5 rounded-2xl px-5 py-6 shadow-[0_8px_24px_rgba(0,0,0,0.06)] md:px-8 md:py-8"
+        className="flex flex-col gap-5 rounded-2xl px-5 py-6  md:px-8 md:py-8"
         style={{ backgroundColor: colorVar(cardBg) }}
       >
         {showTitle && title ? (

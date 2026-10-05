@@ -48,7 +48,7 @@ const CARD_TITLE_SIZE = 'text-lg leading-[normal] md:text-xl'
 const CARD_DESCRIPTION_SIZE = 'text-sm leading-[1.5]'
 const BUTTON_SIZE = 'text-base leading-[normal]'
 // Figma "shadow 2".
-const CARD_SHADOW = 'shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]'
+const CARD_SHADOW = ''
 // Card hover motion standard (Figma prototype): 500ms soft ease-out, 1.041 zoom.
 const IMAGE_MOTION =
   'transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] group-hover:scale-[1.041]'

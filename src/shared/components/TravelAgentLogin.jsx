@@ -225,7 +225,7 @@ const TravelAgentLogin = ({
 
           <div className="relative z-10 flex w-full justify-center lg:justify-end lg:translate-x-3 xl:translate-x-6 rtl:lg:-translate-x-3 rtl:xl:-translate-x-6">
             <div
-              className="w-full max-w-md rounded-2xl border p-6 shadow-[0_8px_32px_rgba(1,38,59,0.12)] backdrop-blur-md sm:p-8"
+              className="w-full max-w-md rounded-2xl border p-6 backdrop-blur-md sm:p-8"
               style={{
                 backgroundColor: colorMix(cardBg, clampOpacity(cardBgOpacity)),
                 borderColor: colorMix('50', 40),

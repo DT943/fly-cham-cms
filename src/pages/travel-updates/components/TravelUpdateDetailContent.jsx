@@ -53,7 +53,7 @@ const TravelUpdateDetailContent = ({ update }) => {
   const isAdvisory = update.layout === 'advisory'
 
   return (
-    <div className="flex min-w-0 flex-col gap-6 rounded-2xl border border-200 bg-50 p-5 shadow-[0_2px_16px_rgba(33,37,41,0.05)] sm:p-7 md:p-8">
+    <div className="flex min-w-0 flex-col gap-6 rounded-2xl border border-200 bg-50 p-5  sm:p-7 md:p-8">
       <div className="flex flex-col gap-3 md:gap-4">
         <h2 className={`m-0 font-semibold text-800 ${typography.sectionTitle}`}>
           {t(`${copy}.overview.title`)}

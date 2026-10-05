@@ -66,7 +66,7 @@ const MediaNewsletterSignup = ({
   const { t } = useTranslation()
 
   const mobileCard = (
-    <div className="flex w-full flex-col gap-6 rounded-xl bg-background p-6 shadow-[0_4px_16px_rgba(33,37,41,0.06)] md:gap-8 md:p-8 lg:hidden">
+    <div className="flex w-full flex-col gap-6 rounded-xl bg-background p-6  md:gap-8 md:p-8 lg:hidden">
       <TitleBlock t={t} />
       <StackedForm t={t} />
     </div>

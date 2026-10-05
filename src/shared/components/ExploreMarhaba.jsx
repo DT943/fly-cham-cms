@@ -179,7 +179,7 @@ const ExploreMarhaba = ({
                 >
                   <div
                     className={cx(
-                      'relative aspect-[293/347] overflow-hidden shadow-[0px_4px_4px_rgba(33,37,41,0.04)]',
+                      'relative aspect-[293/347] overflow-hidden ',
                       radiusClass,
                     )}
                   >

@@ -48,7 +48,7 @@ const LABEL_SIZE = 'text-sm leading-[21.7px]'
 const CARD_BOX =
   'flex min-w-0 flex-col items-center justify-center gap-[17px] px-[14.5px] pb-6 pt-[29px] text-center'
 // Figma "shadow 2".
-const CARD_SHADOW = 'shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]'
+const CARD_SHADOW = ''
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
@@ -209,7 +209,7 @@ const ProhibitedItemsGrid = ({
                   href={item.href}
                   className={cx(
                     cardClass,
-                    'no-underline transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]',
+                    'no-underline',
                   )}
                   style={cardStyle}
                 >

@@ -54,8 +54,8 @@ const HelpCategoryCard = ({
   }
   const className = cx(
     'flex cursor-pointer flex-row items-center gap-3 border border-200 p-4 no-underline text-inherit',
-    'transition-shadow md:min-h-[220px] md:flex-col md:items-stretch md:justify-between md:gap-0 md:border-0',
-    'md:hover:shadow-[0_3px_11px_rgba(0,0,0,0.06)]',
+    'md:min-h-[220px] md:flex-col md:items-stretch md:justify-between md:gap-0 md:border-0',
+    '',
     'lg:min-h-[247px]',
     RADIUS[cardRadius] || RADIUS.xl,
   )

@@ -114,7 +114,7 @@ const TravelExperienceCards = ({
             <article
               key={item.id || index}
               className={cx(
-                'relative isolate h-105 overflow-hidden border border-solid shadow-[0px_4px_6px_rgba(33,37,41,0.05)] md:h-111',
+                'relative isolate h-105 overflow-hidden border border-solid  md:h-111',
                 radiusClass,
               )}
               style={{

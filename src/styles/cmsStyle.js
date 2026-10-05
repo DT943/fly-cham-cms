@@ -143,9 +143,15 @@ export const getTextStyleVars = (style, colorKey, colorFallback, weightFallback 
     ? (style?.[`${weightKey}Hover`] ?? normalWeight)
     : undefined
 
+  const color = colorVar(normalColor)
+  const weight = fontWeightValue(normalWeight, weightFallback)
   return {
-    color: colorVar(normalColor),
-    fontWeight: fontWeightValue(normalWeight, weightFallback),
+    color,
+    fontWeight: weight,
+    // `--cms-c` / `--cms-w` are what `.cms-text-hover` paints (with !important),
+    // so a drawer color wins over link and heading styles.
+    '--cms-c': color,
+    '--cms-w': weight,
     '--cms-hc': colorVar(hoverColor),
     '--cms-hw': fontWeightValue(hoverWeight, weightFallback),
   }

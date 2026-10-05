@@ -71,7 +71,7 @@ const MediaContactCards = ({
         return (
           <article
             key={item.id || index}
-            className="flex h-full flex-col rounded-2xl border p-6 shadow-[0px_4px_6px_rgba(33,37,41,0.05)] md:p-8"
+            className="flex h-full flex-col rounded-2xl border p-6  md:p-8"
             style={{
               backgroundColor: colorVar(cardBg),
               borderColor: colorVar(cardBorderColor),

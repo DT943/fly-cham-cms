@@ -55,7 +55,7 @@ const CARD_TITLE_SIZE = 'text-xl leading-[normal]'
 const CARD_DESCRIPTION_SIZE = 'text-[15px] leading-[1.5]'
 const LINK_SIZE = 'text-base leading-[19px]'
 const CARD_SHADOW =
-  'shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]'
+  ''
 const IMAGE_MOTION =
   'transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] group-hover:scale-[1.041]'
 

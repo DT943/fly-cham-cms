@@ -21,7 +21,7 @@ const PlanJourney = () => {
         {cards.map(({ id, icon: Icon, href }) => (
           <article
             key={id}
-            className="group flex flex-col gap-4 rounded-2xl border border-solid border-200 bg-50 p-6 transition-shadow hover:shadow-[0_10px_28px_rgba(1,38,59,0.1)]"
+            className="group flex flex-col gap-4 rounded-2xl border border-solid border-200 bg-50 p-6"
           >
             <span className="flex size-11 items-center justify-center rounded-full bg-primary-1/10 text-primary-1">
               <Icon size={22} />

@@ -136,7 +136,7 @@ const FormAccess = ({
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <div
-        className="rounded-2xl border border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)] px-5 py-6 sm:px-8 md:px-10 md:py-8 flex flex-col gap-5 md:gap-6"
+        className="rounded-2xl border border-200/80  px-5 py-6 sm:px-8 md:px-10 md:py-8 flex flex-col gap-5 md:gap-6"
         style={{ backgroundColor: colorVar(cardBg) }}
       >
         <div className="flex flex-col gap-2">

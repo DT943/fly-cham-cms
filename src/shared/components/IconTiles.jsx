@@ -43,7 +43,7 @@ function Tile({ item, style, links, showLinks }) {
       ) : null}
     </>
   )
-  const className = 'flex flex-col items-center gap-1.5 rounded-xl bg-white p-3 text-inherit no-underline shadow-[0px_2px_1px_rgba(33,37,41,0.06)] md:gap-2 md:p-6'
+  const className = 'flex flex-col items-center gap-1.5 rounded-xl bg-white p-3 text-inherit no-underline  md:gap-2 md:p-6'
   if (linked) {
     return (
       <LocalizedLink href={item.href} className={className}>

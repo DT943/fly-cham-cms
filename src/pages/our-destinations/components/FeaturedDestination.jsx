@@ -68,7 +68,7 @@ const FeaturedDestination = ({
 
   return (
     <article
-      className="group relative overflow-clip rounded-xl w-full min-h-[28rem] lg:w-[20.4rem] lg:min-w-[20.4rem] lg:h-[46.9rem] lg:shrink-0 cursor-pointer shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)]"
+      className="group relative overflow-clip rounded-xl w-full min-h-[28rem] lg:w-[20.4rem] lg:min-w-[20.4rem] lg:h-[46.9rem] lg:shrink-0 cursor-pointer "
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onPointerDown={onPointerDown}

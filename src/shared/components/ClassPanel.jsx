@@ -65,7 +65,7 @@ const ClassPanel = ({
   ) : null
 
   return (
-    <section className="flex flex-col gap-6 rounded-2xl bg-white px-[18px] py-[30px] shadow-[0px_2px_1px_rgba(33,37,41,0.06)]">
+    <section className="flex flex-col gap-6 rounded-2xl bg-white px-[18px] py-[30px] ">
       <div className={cx('flex flex-col items-center gap-8 lg:flex-row lg:gap-12', imageFirst ? '' : 'lg:flex-row-reverse')}>
         {photo}
         {copy}

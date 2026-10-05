@@ -49,7 +49,6 @@ const FormCard = ({ card, style, links, showLinks }) => {
 
   const className = cx(
     'flex h-full w-full flex-col gap-4 p-5 md:p-6 text-start no-underline text-inherit',
-    'shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)]',
     radiusClass,
   )
   const cardStyle = {

@@ -103,7 +103,7 @@ const LegalHub = ({
               <LocalizedLink
                 key={item.id || `${item.href}-${index}`}
                 href={item.href || '#'}
-                className="group flex h-full flex-col gap-6 rounded-2xl border border-200 bg-50 p-6 no-underline shadow-sm transition-shadow hover:shadow-md sm:p-8"
+                className="group flex h-full flex-col gap-6 rounded-2xl border border-200 bg-50 p-6 no-underline sm:p-8"
                 style={
                   textStyle.cardBg
                     ? { backgroundColor: colorVar(textStyle.cardBg) }

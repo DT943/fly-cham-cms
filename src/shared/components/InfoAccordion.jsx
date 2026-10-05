@@ -127,7 +127,7 @@ const InfoAccordion = ({
   const card = (
     <div
       className={cx(
-        'overflow-hidden px-5 shadow-[0px_2px_1px_rgba(33,37,41,0.06),0px_0px_0.5px_rgba(33,37,41,0.08)] sm:px-6',
+        'overflow-hidden px-5  sm:px-6',
         radiusClass,
       )}
       style={{ backgroundColor: colorVar(cardBg) }}

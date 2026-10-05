@@ -188,7 +188,7 @@ const RecentNews = ({
               </span>
             ) : null}
 
-            <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex min-w-0 flex-1 flex-row items-center gap-3">
               {monthOptions.length ? (
                 <Dropdown
                   label={monthLabel}

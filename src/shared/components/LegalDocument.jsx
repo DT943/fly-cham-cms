@@ -205,7 +205,7 @@ const LegalDocument = ({
         </div>
       </div>
     ) : layout === 'sheet' ? (
-      <div className="flex flex-col gap-10 rounded-[14px] border border-200 bg-50 px-5 py-10 shadow-sm md:px-8 md:py-14">
+      <div className="flex flex-col gap-10 rounded-[14px] border border-200 bg-50 px-5 py-10 md:px-8 md:py-14">
         {stack}
       </div>
     ) : (

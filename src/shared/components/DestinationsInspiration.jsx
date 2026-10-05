@@ -16,7 +16,7 @@ const BANNER_RADIUS = {
 }
 
 const stackPhotoClass =
-  'rounded-2xl object-cover shadow-[0_8px_20px_rgba(0,0,0,0.28)] sm:shadow-none'
+  'rounded-2xl object-cover  '
 
 /** Accepts a theme token OR a raw #hex. */
 const resolveColor = (value, fallbackToken) => {

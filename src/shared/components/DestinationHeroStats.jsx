@@ -198,7 +198,7 @@ const DestinationHeroStats = ({
           {/* Desktop: floating white card — Figma: 40×20 pad, r12, shadow 0 10 30 */}
           <Container className="relative z-10 -mt-12.5 hidden pb-4 lg:block">
             <div
-              className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
+              className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 "
               style={
                 cardBg && cardBg !== 'white'
                   ? { backgroundColor: colorVar(cardBg) }

@@ -74,7 +74,7 @@ const BusinessQuickAccess = ({
                 <LocalizedLink
                   key={item.id ? `${item.id}-${index}` : index}
                   href={item.href || '#'}
-                  className="flex min-w-0 flex-col gap-3 rounded-[8px] p-4 no-underline transition-shadow hover:shadow-[0_8px_24px_rgba(33,37,41,0.08)] sm:p-5 lg:min-h-[102px] lg:flex-row lg:items-center lg:gap-4 lg:p-5"
+                  className="flex min-w-0 flex-col gap-3 rounded-[8px] p-4 no-underline sm:p-5 lg:min-h-[102px] lg:flex-row lg:items-center lg:gap-4 lg:p-5"
                   style={{ backgroundColor: colorVar(cardBg) }}
                 >
                   <span

@@ -27,7 +27,7 @@ const DestinationPanel = ({
   const image = cityImages?.[focus.cityKey] || ''
 
   return (
-    <article className="w-full max-w-[320px] overflow-hidden rounded-2xl bg-50 ">
+    <article className="w-full max-w-[320px] overflow-hidden rounded-2xl bg-50">
       <div className="relative h-65">
         {image ? (
           <img src={image} alt={`${city}, ${country}`} className="absolute inset-0 size-full object-cover" />

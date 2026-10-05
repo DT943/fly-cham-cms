@@ -69,10 +69,16 @@ const DestinationThingsToDo = ({
   subtitle = '',
   cta = '',
   ctaHref = '',
+  learnMore = '',
   items = [],
   showHeader = true,
   showSubtitle = true,
   showCta = true,
+  hideCardDescription = true,
+  showCardButton = true,
+  arrowBadgeBg = '50',
+  arrowBadgeBgHover,
+  arrowColor = 'primary-1',
   columns = 3,
   cardGap = 'default',
   cardRadius = 'lg',
@@ -139,7 +145,7 @@ const DestinationThingsToDo = ({
           ) : null}
           {showSubtitle && subtitle ? (
             <p
-              className={cx(typography.sectionDescription, 'm-0 max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+              className={cx(typography.sectionDescription, 'm-0', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(textStyle, 'subtitleColor', '800', 'normal')}
             >
               <LinkedText text={subtitle} {...linkProps} />
@@ -199,13 +205,54 @@ const DestinationThingsToDo = ({
                 >
                   <LinkedText text={item.title} {...linkProps} />
                 </h3>
-                {item.description ? (
+                {item.description && !hideCardDescription ? (
                   <p
                     className={cx(typography.itemDescription, 'm-0 leading-relaxed', CMS_TEXT_HOVER_CLASS)}
                     style={getTextStyleVars(textStyle, 'cardDescriptionColor', '50', 'normal')}
                   >
                     <LinkedText text={item.description} {...linkProps} />
                   </p>
+                ) : null}
+                {showCardButton ? (
+                  <LocalizedLink
+                    href={item.href || '#'}
+                    aria-label={learnMore || item.title}
+                    className={cx(
+                      typography.button,
+                      'group/lm relative mt-2 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline',
+                    )}
+                  >
+                    {/* Arrow badge that fills out to a full pill on hover. */}
+                    <span
+                      aria-hidden
+                      className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width,background-color] duration-300 ease-out group-hover/lm:w-full group-hover/lm:[background-color:var(--ttd-badge-h)] motion-reduce:transition-none"
+                      style={{
+                        backgroundColor: colorVar(arrowBadgeBg),
+                        '--ttd-badge-h': colorVar(arrowBadgeBgHover || arrowBadgeBg),
+                      }}
+                    />
+                    <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                      <ArrowRight
+                        size={16}
+                        weight="bold"
+                        className="rtl:-scale-x-100"
+                        style={{ color: colorVar(arrowColor) }}
+                      />
+                    </span>
+                    {learnMore ? (
+                      <span
+                        className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                        style={getTextStyleVars(
+                          { learnMoreColorHover: 'primary-1', ...textStyle },
+                          'learnMoreColor',
+                          '50',
+                          'semibold',
+                        )}
+                      >
+                        {learnMore}
+                      </span>
+                    ) : null}
+                  </LocalizedLink>
                 ) : null}
               </div>
             </article>

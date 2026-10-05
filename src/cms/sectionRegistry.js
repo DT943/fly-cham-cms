@@ -31,6 +31,7 @@ import Faqs from '../shared/components/Faqs.jsx'
 import GsaNetwork from '../shared/components/GsaNetwork.jsx'
 import TravelExperienceCards from '../shared/components/TravelExperienceCards.jsx'
 import SeatJourney from '../shared/components/SeatJourney.jsx'
+import OfferBanner from '../shared/components/offerBanner/OfferBanner.jsx'
 import SeatChoose from '../shared/components/SeatChoose.jsx'
 import SeatPlan from '../shared/components/SeatPlan.jsx'
 import InfoAccordion from '../shared/components/InfoAccordion.jsx'
@@ -123,6 +124,7 @@ import { faqsProps } from './adapters/faqsAdapter.js'
 import { gsaNetworkProps } from './adapters/gsaNetworkAdapter.js'
 import { travelExperienceCardsProps } from './adapters/travelExperienceCardsAdapter.js'
 import { seatJourneyProps } from './adapters/seatJourneyAdapter.js'
+import { offerBannerProps } from './adapters/offerBannerAdapter.js'
 import { seatChooseProps } from './adapters/seatChooseAdapter.js'
 import { seatPlanProps } from './adapters/seatPlanAdapter.js'
 import { infoAccordionProps } from './adapters/infoAccordionAdapter.js'
@@ -314,6 +316,14 @@ export const sectionRegistry = {
   'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },
   'airport-service-cards': { Component: AirportServiceCards, mapProps: airportServiceCardsProps },
   'not-found-hero': { Component: NotFoundHero, mapProps: notFoundHeroProps, fullBleed: true },
+  // Offer banners — one shared renderer, seven block types.
+  'offer-destination': { Component: OfferBanner, mapProps: offerBannerProps('offer-destination') },
+  'offer-one-way': { Component: OfferBanner, mapProps: offerBannerProps('offer-one-way') },
+  'offer-round-trip': { Component: OfferBanner, mapProps: offerBannerProps('offer-round-trip') },
+  'offer-multi-city': { Component: OfferBanner, mapProps: offerBannerProps('offer-multi-city') },
+  'offer-baggage': { Component: OfferBanner, mapProps: offerBannerProps('offer-baggage') },
+  'offer-seat': { Component: OfferBanner, mapProps: offerBannerProps('offer-seat') },
+  'offer-payment-option': { Component: OfferBanner, mapProps: offerBannerProps('offer-payment-option') },
 }
 
 export function getSection(sectionId) {

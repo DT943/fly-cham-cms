@@ -619,7 +619,7 @@ const ChamMilesRegister = ({
           <div className="relative z-10 flex w-full justify-center lg:justify-end lg:translate-x-3 xl:translate-x-6 rtl:lg:-translate-x-3 rtl:xl:-translate-x-6">
             <div
               className={cx(
-                'w-full max-w-xl rounded-2xl p-5 shadow-[0_8px_32px_rgba(1,38,59,0.08)] sm:p-7 md:p-8',
+                'w-full max-w-xl rounded-2xl p-5  sm:p-7 md:p-8',
                 !cardBg && 'bg-[#E8E8E8]',
               )}
               style={{

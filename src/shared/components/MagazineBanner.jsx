@@ -14,10 +14,10 @@ import LinkedText from './backlinks/LinkedText.jsx'
 const MagazineCluster = ({ cover, spread1, spread2, compact = false, className = '' }) => {
   const centerSize = compact
     ? 'h-[128px] w-[96px] rounded-md md:h-[144px] md:w-[108px]'
-    : 'h-[208px] w-[156px] rounded-lg shadow-[0_12px_32px_rgba(0,0,0,0.28)]'
+    : 'h-[208px] w-[156px] rounded-lg '
   const sideSize = compact
     ? 'h-[104px] w-[80px] rounded-md md:h-[120px] md:w-[92px]'
-    : 'h-[160px] w-[120px] rounded-lg opacity-70 shadow-[0_8px_24px_rgba(0,0,0,0.18)]'
+    : 'h-[160px] w-[120px] rounded-lg opacity-70 '
   const stageSize = compact
     ? 'mx-auto h-[144px] w-[224px] md:h-[160px] md:w-[256px]'
     : 'h-[224px] w-[256px] md:w-[288px]'

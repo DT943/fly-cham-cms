@@ -69,7 +69,7 @@ const LegalMoreInfo = ({
             <LocalizedLink
               key={card.id || `${card.href}-${index}`}
               href={card.href || '#'}
-              className="group flex overflow-hidden rounded-2xl bg-50 no-underline shadow-sm transition-shadow hover:shadow-md"
+              className="group flex overflow-hidden rounded-2xl bg-50 no-underline"
             >
               <div className="flex w-[92px] shrink-0 items-center justify-center bg-main sm:w-[120px]">
                 <img

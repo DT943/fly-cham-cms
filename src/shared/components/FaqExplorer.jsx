@@ -39,7 +39,7 @@ const CategoryNav = ({ categories, activeIndex, onSelect, mobileOpen, onToggleMo
   return (
     <nav
       aria-label={t('faq.explorer.navLabel')}
-      className="bg-background rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] h-fit lg:sticky lg:top-24"
+      className="bg-background rounded-xl  h-fit lg:sticky lg:top-24"
     >
       <button
         type="button"
@@ -335,7 +335,7 @@ const FaqExplorer = ({
           <section
             className={cx(
               'border py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28',
-              showItemBg ? 'border-200/80 shadow-[0_8px_24px_rgba(0,0,0,0.06)]' : 'border-transparent',
+              showItemBg ? 'border-200/80 ' : 'border-transparent',
               panelRadius,
             )}
             style={{ backgroundColor: showItemBg ? colorVar(itemBg) : 'transparent' }}

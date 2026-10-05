@@ -157,11 +157,12 @@ const NewsGrid = ({
                   </span>
                 </div>
 
-                <h3
-                  className={cx('m-0', typography.itemTitle)}
-                  style={getTextStyleVars(textStyle, 'cardTitleColor', 'primary-1', 'semibold')}
-                >
-                  <LocalizedLink href={href} className="text-inherit no-underline hover:underline">
+                <h3 className={cx('m-0', typography.itemTitle)}>
+                  <LocalizedLink
+                    href={href}
+                    className={cx('no-underline hover:underline', CMS_TEXT_HOVER_CLASS)}
+                    style={getTextStyleVars(textStyle, 'cardTitleColor', 'primary-1', 'semibold')}
+                  >
                     {item.title}
                   </LocalizedLink>
                 </h3>

@@ -78,7 +78,7 @@ const ContactChannelCard = ({
 
   return (
     <article
-      className="rounded-2xl p-5 flex flex-col gap-4 border border-200 md:border-0 md:p-6 md:shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+      className="rounded-2xl p-5 flex flex-col gap-4 border border-200 md:border-0 md:p-6 "
       style={{ backgroundColor: colorVar(cardBg) }}
     >
       <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-4">

@@ -383,7 +383,7 @@ const ChamMilesRegisterForm = () => {
   const [mode, setMode] = useState('register')
 
   return (
-    <div className="w-full max-w-xl rounded-2xl bg-[#E8E8E8] p-5 shadow-[0_8px_32px_rgba(1,38,59,0.08)] sm:p-7 md:p-8">
+    <div className="w-full max-w-xl rounded-2xl bg-[#E8E8E8] p-5  sm:p-7 md:p-8">
       {mode === 'register' ? (
         <RegisterForm onSwitchToLogin={() => setMode('login')} />
       ) : (
