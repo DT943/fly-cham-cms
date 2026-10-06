@@ -842,6 +842,11 @@
         "pnrMin": "PNR must be at least 6 characters.",
         "lastNameRequired": "Please enter the passenger's last name.",
         "lastNameEnglish": "Last name must be in English letters only."
+      },
+      "lookup": {
+        "notFoundTitle": "Booking not found",
+        "genericError": "We could not load your booking. Please check your PNR and last name, and try again.",
+        "timeout": "The request timed out. Please try again."
       }
     }
   },

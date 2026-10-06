@@ -47,7 +47,7 @@ const normalizeSocial = (item, index) => ({
   icon: str(item?.icon),
   label: str(item?.label),
   href: str(item?.href) || '#',
-  showOnMobile: item?.showOnMobile === true,
+  showOnMobile: item?.showOnMobile !== false,
 })
 
 const normalizeLegalLink = (link, index) => ({

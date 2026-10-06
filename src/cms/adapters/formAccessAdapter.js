@@ -33,6 +33,8 @@ function mapBacklinks(links) {
 
 // Keep in sync with cms2 `DEFAULT_FORM_ACCESS_STYLE`.
 const STYLE_KEYS = [
+  // Not visual: the reservation system Find booking looks the PNR up in.
+  'bookingSystem',
   'showEyebrow',
   'showTitle',
   'showSubtitle',

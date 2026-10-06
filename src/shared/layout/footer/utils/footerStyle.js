@@ -32,13 +32,11 @@ export const colorAlpha = (token, opacity) =>
 export const dividerAlpha = (token, opacity) =>
   colorAlpha(!token || token === '50' ? 'white' : token, opacity)
 
-/** Social icon button: colour + 70% border, Hover colour / border / 15% fill. */
+/** Social icon button: icon colour + 70% border. Hover fills the circle solid. */
 export const socialStyle = (style) => ({
   color: colorVar(style.socialColor),
   borderColor: colorAlpha(style.socialColor, 70),
-  '--cms-hc': colorVar(style.socialColorHover || style.socialColor),
-  '--cms-hbc': colorVar(style.socialColorHover || style.socialColor),
-  '--cms-hbg': colorAlpha(style.socialColorHover || style.socialColor, 15),
+  '--cms-social': colorVar(style.socialColor),
 })
 
 /** Legal bar text (links + copyright) at the design's 85% opacity. */

@@ -10,59 +10,66 @@
     },
     "social": [
       {
-        "id": "whatsapp",
-        "icon": "WhatsappLogo",
-        "label": "WhatsApp",
-        "href": "#",
+        "id": "facebook",
+        "icon": "FacebookLogo",
+        "label": "Facebook",
+        "href": "https://www.facebook.com/people/%D9%81%D9%84%D8%A7%D9%8A-%D8%B4%D8%A7%D9%85-Fly-Cham/61575817032233/",
         "showOnMobile": true
       },
       {
         "id": "instagram",
         "icon": "InstagramLogo",
         "label": "Instagram",
-        "href": "#",
+        "href": "https://www.instagram.com/fly.cham/",
         "showOnMobile": true
       },
       {
-        "id": "facebook",
-        "icon": "FacebookLogo",
-        "label": "Facebook",
-        "href": "#",
+        "id": "whatsapp",
+        "icon": "WhatsappLogo",
+        "label": "WhatsApp",
+        "href": "https://www.whatsapp.com/channel/0029Vb61PQ2HQbS4UsXPC83a",
         "showOnMobile": true
       },
       {
         "id": "telegram",
         "icon": "TelegramLogo",
         "label": "Telegram",
-        "href": "#",
+        "href": "https://t.me/flychamchannel",
         "showOnMobile": true
       },
       {
-        "id": "tiktok",
-        "icon": "TiktokLogo",
-        "label": "TikTok",
-        "href": "#",
+        "id": "x",
+        "icon": "XLogo",
+        "label": "X",
+        "href": "https://x.com/fly_cham",
         "showOnMobile": false
       },
       {
         "id": "youtube",
         "icon": "YoutubeLogo",
         "label": "YouTube",
-        "href": "#",
-        "showOnMobile": false
-      },
-      {
-        "id": "x",
-        "icon": "XLogo",
-        "label": "X",
-        "href": "#",
+        "href": "https://youtube.com/@FlyChamAirlines",
         "showOnMobile": false
       },
       {
         "id": "linkedin",
         "icon": "LinkedinLogo",
         "label": "LinkedIn",
-        "href": "#",
+        "href": "https://www.linkedin.com/company/fly-cham/",
+        "showOnMobile": false
+      },
+      {
+        "id": "threads",
+        "icon": "ThreadsLogo",
+        "label": "Threads",
+        "href": "https://www.threads.com/@fly.cham",
+        "showOnMobile": false
+      },
+      {
+        "id": "tiktok",
+        "icon": "TiktokLogo",
+        "label": "TikTok",
+        "href": "https://www.tiktok.com/@flycham",
         "showOnMobile": false
       }
     ],
@@ -380,59 +387,66 @@
     },
     "social": [
       {
-        "id": "whatsapp",
-        "icon": "WhatsappLogo",
-        "label": "واتساب",
-        "href": "#",
+        "id": "facebook",
+        "icon": "FacebookLogo",
+        "label": "فيسبوك",
+        "href": "https://www.facebook.com/people/%D9%81%D9%84%D8%A7%D9%8A-%D8%B4%D8%A7%D9%85-Fly-Cham/61575817032233/",
         "showOnMobile": true
       },
       {
         "id": "instagram",
         "icon": "InstagramLogo",
         "label": "إنستغرام",
-        "href": "#",
+        "href": "https://www.instagram.com/fly.cham/",
         "showOnMobile": true
       },
       {
-        "id": "facebook",
-        "icon": "FacebookLogo",
-        "label": "فيسبوك",
-        "href": "#",
+        "id": "whatsapp",
+        "icon": "WhatsappLogo",
+        "label": "واتساب",
+        "href": "https://www.whatsapp.com/channel/0029Vb61PQ2HQbS4UsXPC83a",
         "showOnMobile": true
       },
       {
         "id": "telegram",
         "icon": "TelegramLogo",
         "label": "تيليغرام",
-        "href": "#",
+        "href": "https://t.me/flychamchannel",
         "showOnMobile": true
       },
       {
-        "id": "tiktok",
-        "icon": "TiktokLogo",
-        "label": "تيك توك",
-        "href": "#",
+        "id": "x",
+        "icon": "XLogo",
+        "label": "إكس",
+        "href": "https://x.com/fly_cham",
         "showOnMobile": false
       },
       {
         "id": "youtube",
         "icon": "YoutubeLogo",
         "label": "يوتيوب",
-        "href": "#",
-        "showOnMobile": false
-      },
-      {
-        "id": "x",
-        "icon": "XLogo",
-        "label": "إكس",
-        "href": "#",
+        "href": "https://youtube.com/@FlyChamAirlines",
         "showOnMobile": false
       },
       {
         "id": "linkedin",
         "icon": "LinkedinLogo",
         "label": "لينكد إن",
-        "href": "#",
+        "href": "https://www.linkedin.com/company/fly-cham/",
+        "showOnMobile": false
+      },
+      {
+        "id": "threads",
+        "icon": "ThreadsLogo",
+        "label": "ثريدز",
+        "href": "https://www.threads.com/@fly.cham",
+        "showOnMobile": false
+      },
+      {
+        "id": "tiktok",
+        "icon": "TiktokLogo",
+        "label": "تيك توك",
+        "href": "https://www.tiktok.com/@flycham",
         "showOnMobile": false
       }
     ],

@@ -1,6 +1,5 @@
 import { typography } from '../../styles/typography.js'
 import {
-  RADIUS,
   SECTION_PADDING,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
@@ -20,6 +19,18 @@ const TITLE_ALIGN = {
   right: 'text-end items-end',
 }
 
+// Same scale as the cms2 Page Hero editor. `lg` is the editor default ("Rounded").
+// `xl` / `2xl` / `3xl` cover older saved values so every header photo matches.
+const IMAGE_RADIUS = {
+  none: 'rounded-none',
+  sm: 'rounded-xl',
+  lg: 'rounded-2xl',
+  full: 'rounded-3xl',
+  xl: 'rounded-xl',
+  '2xl': 'rounded-2xl',
+  '3xl': 'rounded-3xl',
+}
+
 const maskStyle = (mask) => ({
   WebkitMaskImage: `url(${mask})`,
   maskImage: `url(${mask})`,
@@ -36,7 +47,7 @@ const PageHeroImage = ({ image, mask, imageAlt, radius }) => (
     <img
       src={image}
       alt={imageAlt}
-      className={`w-full h-auto ${RADIUS[radius] || RADIUS['2xl']} object-cover object-[center_20%] aspect-[380/180] ${mask ? 'md:hidden' : ''}`}
+      className={`w-full h-auto ${IMAGE_RADIUS[radius] || IMAGE_RADIUS.lg} object-cover object-[center_20%] aspect-[380/180] ${mask ? 'md:hidden' : ''}`}
     />
     {mask && (
       <div
@@ -74,7 +85,7 @@ const PageHero = ({
   showImage = true,
   showMask = true,
   imageSide = 'right',
-  imageRadius = '2xl',
+  imageRadius = 'lg',
   titleAlign = 'left',
   titleColor = 'primary-1',
   subtitleColor = '700',

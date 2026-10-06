@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next'
 import Input from '../../../shared/components/Input.jsx'
 import Button from '../../../shared/components/Button.jsx'
 import useFormAccess from '../hooks/useFormAccess.js'
+import LookupError from './LookupError.jsx'
 
-const FormAccessForm = ({ formId }) => {
+const FormAccessForm = ({ formId, bookingSystem }) => {
   const { t } = useTranslation()
-  const { formik, handlePnrChange, handleLastNameChange, fieldError, canSearch } =
-    useFormAccess(formId)
+  const { formik, handlePnrChange, handleLastNameChange, fieldError, canSearch, lookupError } =
+    useFormAccess(formId, bookingSystem)
 
   return (
     <form onSubmit={formik.handleSubmit} noValidate className="flex flex-col gap-4 md:gap-5">
@@ -44,6 +45,7 @@ const FormAccessForm = ({ formId }) => {
           error={fieldError('lastName')}
         />
       </div>
+      <LookupError error={lookupError} />
       <Button
         type="submit"
         disabled={!canSearch}

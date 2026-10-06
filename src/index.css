@@ -57,8 +57,8 @@
 /*
  * Site footer (CMS footer document `style`, see layout/footer/utils/footerStyle.js):
  * the same --cms-hc / --cms-hw vars; the element keeps its own
- * `transition-colors`. `.cms-ftr-social` also swaps border (--cms-hbc) and
- * fill (--cms-hbg) for the outlined social buttons.
+ * `transition-colors`. `.cms-ftr-social` fills the circle solid on hover
+ * and keeps the icon at its resting colour.
  */
 .cms-ftr-hover:hover {
   color: var(--cms-hc) !important;
@@ -67,10 +67,11 @@
 .cms-ftr-hover-color:hover {
   color: var(--cms-hc) !important;
 }
-.cms-ftr-social:hover {
-  color: var(--cms-hc) !important;
-  border-color: var(--cms-hbc) !important;
-  background-color: var(--cms-hbg) !important;
+.cms-ftr-social:hover,
+.cms-ftr-social:focus-visible {
+  color: var(--cms-social) !important;
+  border-color: #09a4d5 !important;
+  background-color: #09a4d5 !important;
 }
 /* Button Normal/Hover background (see getButtonStyle in styles/cmsStyle.js). */
 .cms-btn-hover {

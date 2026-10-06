@@ -37,16 +37,20 @@ const DesktopColumns = ({ columns, style }) => {
   })
 
   return (
-    <div className="hidden min-w-0 flex-1 lg:grid lg:grid-cols-4 lg:gap-x-5 xl:gap-x-8">
-      {DESKTOP_GROUPS.map((group) => (
-        <div key={group} className="flex min-w-0 flex-col gap-8">
-          {columns
-            .filter((column) => column.group === group)
-            .map((column) => (
-              <ColumnSection key={column.id} column={column} style={style} titleStyle={titleStyle} />
-            ))}
-        </div>
-      ))}
+    <div className="hidden min-w-0 flex-1 lg:grid lg:grid-cols-4 lg:gap-x-5 lg:gap-y-8 xl:gap-x-8">
+      {DESKTOP_GROUPS.flatMap((group) =>
+        columns
+          .filter((column) => column.group === group)
+          .map((column, index) => (
+            <div
+              key={column.id}
+              className="min-w-0 self-start"
+              style={{ gridColumn: group, gridRow: index + 1 }}
+            >
+              <ColumnSection column={column} style={style} titleStyle={titleStyle} />
+            </div>
+          )),
+      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Ticket, User } from '@phosphor-icons/react'
+import { CircleNotch, Ticket, User } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import {
   colorVar,
@@ -10,6 +10,8 @@ import { typography } from '../../styles/typography.js'
 import useLocalizedRoute from '../routing/hooks/useLocalizedRoute.js'
 import { getSupportForm } from '../../pages/forms/utils/supportForms.js'
 import useFormAccess from '../../pages/forms/hooks/useFormAccess.js'
+import LookupError from '../../pages/forms/components/LookupError.jsx'
+import { BOOKING_SYSTEMS } from '../../pages/forms/api/retrieveBooking.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
@@ -89,7 +91,9 @@ const Field = ({ id, name, icon: Icon, label, hint, error, style, ...props }) =>
  * CMS-driven "Find your booking" card of the request-a-form page
  * (`/help/contact-us/forms/request-a-form?form=<formId>`). The stage label and
  * title come from that form; the copy, labels and colors come from the CMS.
- * Submitting validates PNR + last name and opens that form's detail page.
+ * Submitting validates PNR + last name and looks the PNR up in the reservation
+ * system picked for this block in the CMS (`bookingSystem`: AccelAero / iFly);
+ * a hit opens that form's detail page with the booking in router state.
  * Mirrors flychamadmin cms2's FormAccess renderer.
  */
 const FormAccess = ({
@@ -99,6 +103,7 @@ const FormAccess = ({
   lastNameLabel,
   submitLabel,
   links = [],
+  bookingSystem = BOOKING_SYSTEMS.accelAero,
   showLinks = true,
   showEyebrow = true,
   showTitle = true,
@@ -114,8 +119,15 @@ const FormAccess = ({
   const { t } = useTranslation()
   const { pagePath, search } = useLocalizedRoute()
   const form = getSupportForm(formIdFromRoute(pagePath, search))
-  const { formik, handlePnrChange, handleLastNameChange, fieldError, canSearch } =
-    useFormAccess(form?.id)
+  const {
+    formik,
+    handlePnrChange,
+    handleLastNameChange,
+    fieldError,
+    canSearch,
+    searching,
+    lookupError,
+  } = useFormAccess(form?.id, bookingSystem)
 
   if (!form) return null
 
@@ -202,9 +214,11 @@ const FormAccess = ({
               style={style}
             />
           </div>
+          <LookupError error={lookupError} />
           <button
             type="submit"
             disabled={!canSearch}
+            aria-busy={searching}
             className={cx(
               typography.button,
               'rounded-lg border-none px-6 py-3 md:px-8 md:py-4 w-full sm:w-fit sm:self-end transition-colors',
@@ -213,7 +227,10 @@ const FormAccess = ({
             )}
             style={submitButtonStyle.style}
           >
-            {submitLabel}
+            <span className="inline-flex items-center justify-center gap-2">
+              {searching && <CircleNotch size={18} className="animate-spin" aria-hidden />}
+              {submitLabel}
+            </span>
           </button>
         </form>
       </div>
