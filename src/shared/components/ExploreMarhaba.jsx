@@ -127,7 +127,7 @@ const ExploreMarhaba = ({
       className="flex flex-col gap-7 rounded-xl p-5 sm:p-8"
       style={{ backgroundColor: colorVar(panelBg) }}
     >
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="relative z-20 flex flex-wrap items-center justify-between gap-4">
         {title ? (
           <h2
             className={cx(typography.sectionTitle, 'm-0 lg:text-[28px]', CMS_TEXT_HOVER_CLASS)}
