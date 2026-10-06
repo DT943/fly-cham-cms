@@ -1,6 +1,9 @@
+import { useEffect, useRef, useState } from 'react'
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons'
 import {
   ArrowRight,
+  CaretLeft,
+  CaretRight,
   ShoppingCart,
   PersonSimpleWalk,
   Binoculars,
@@ -43,6 +46,13 @@ const CARD_GAP = {
   loose: 'gap-8 lg:gap-12',
 }
 
+// Widths that keep 1 / 2 / 3 cards in view, matching CARD_GAP at each breakpoint.
+const CAROUSEL_BASIS = {
+  tight: 'w-full sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/3)]',
+  default: 'w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-4.5rem)/3)]',
+  loose: 'w-full sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-6rem)/3)]',
+}
+
 const CARD_RADIUS = {
   none: 'rounded-none',
   sm: 'rounded-xl',
@@ -57,6 +67,9 @@ const SECTION_PADDING = {
 }
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
+
+const CAROUSEL_ARROW =
+  'absolute top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full border border-solid shadow-[0_2px_10px_rgba(33,37,41,0.12)] transition-colors [color:var(--ttd-arrow)] hover:[color:var(--ttd-arrow-h)] disabled:pointer-events-none disabled:opacity-40 md:grid'
 
 /**
  * Things-to-do image cards for a destination (heading + grid + CTA). Every card
@@ -79,6 +92,10 @@ const DestinationThingsToDo = ({
   arrowBadgeBg = '50',
   arrowBadgeBgHover,
   arrowColor = 'primary-1',
+  carouselArrowBg = '50',
+  carouselArrowColor = '600',
+  carouselArrowBorder = '200',
+  carouselArrowHover = 'primary-1',
   columns = 3,
   cardGap = 'default',
   cardRadius = 'lg',
@@ -102,6 +119,27 @@ const DestinationThingsToDo = ({
   linkItalic,
   ...textStyle
 }) => {
+  const scrollerRef = useRef(null)
+  const [canScroll, setCanScroll] = useState({ prev: false, next: false })
+  const isCarousel = items.length > 3
+
+  useEffect(() => {
+    const el = scrollerRef.current
+    if (!el) return undefined
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth
+      const left = Math.abs(el.scrollLeft)
+      setCanScroll({ prev: left > 2, next: max - left > 2 })
+    }
+    update()
+    el.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      el.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [items.length, isCarousel])
+
   if (!items.length) return null
 
   const linkProps = {
@@ -131,6 +169,23 @@ const DestinationThingsToDo = ({
     },
   )
 
+  const scrollByCard = (direction) => {
+    const el = scrollerRef.current
+    const card = el?.querySelector('[data-ttd-card]')
+    if (!el || !card) return
+    const gap = Number.parseFloat(getComputedStyle(el).columnGap) || 0
+    const amount = card.getBoundingClientRect().width + gap
+    const rtl = el.closest('[dir]')?.getAttribute('dir') === 'rtl'
+    el.scrollBy({ left: direction * (rtl ? -1 : 1) * amount, behavior: 'smooth' })
+  }
+
+  const carouselArrowStyle = {
+    backgroundColor: colorVar(carouselArrowBg),
+    borderColor: colorVar(carouselArrowBorder),
+    '--ttd-arrow': colorVar(carouselArrowColor),
+    '--ttd-arrow-h': colorVar(carouselArrowHover),
+  }
+
   const inner = (
     <section className="flex flex-col gap-6 lg:gap-8">
       {headerVisible ? (
@@ -154,14 +209,30 @@ const DestinationThingsToDo = ({
         </div>
       ) : null}
 
-      <div className={cx('grid', COLUMNS[colKey] || COLUMNS[3], gapClass)}>
+      <div className="relative min-w-0">
+        <div
+          ref={isCarousel ? scrollerRef : undefined}
+          className={cx(
+            isCarousel
+              ? 'flex snap-x snap-mandatory overflow-x-auto scroll-smooth motion-reduce:scroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+              : 'grid',
+            isCarousel ? '' : COLUMNS[colKey] || COLUMNS[3],
+            gapClass,
+          )}
+        >
         {items.map((item, index) => {
           const src = item.image
           const BadgeIcon = ICON_BY_NAME[item.icon] || resolvePhosphorIcon(item.icon)
           return (
             <article
               key={item.id || index}
-              className={cx('group/card relative h-100 overflow-hidden', radiusClass)}
+              data-ttd-card
+              className={cx(
+                'group/card relative h-100 overflow-hidden',
+                radiusClass,
+                isCarousel && 'shrink-0 snap-start',
+                isCarousel && (CAROUSEL_BASIS[cardGap] || CAROUSEL_BASIS.default),
+              )}
             >
               {src ? (
                 <img
@@ -258,6 +329,31 @@ const DestinationThingsToDo = ({
             </article>
           )
         })}
+        </div>
+        {isCarousel ? (
+          <>
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={() => scrollByCard(-1)}
+              disabled={!canScroll.prev}
+              className={cx(CAROUSEL_ARROW, 'start-0 -translate-x-1/2 rtl:translate-x-1/2')}
+              style={carouselArrowStyle}
+            >
+              <CaretLeft size={16} weight="bold" className="rtl:-scale-x-100" aria-hidden />
+            </button>
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={() => scrollByCard(1)}
+              disabled={!canScroll.next}
+              className={cx(CAROUSEL_ARROW, 'end-0 translate-x-1/2 rtl:-translate-x-1/2')}
+              style={carouselArrowStyle}
+            >
+              <CaretRight size={16} weight="bold" className="rtl:-scale-x-100" aria-hidden />
+            </button>
+          </>
+        ) : null}
       </div>
 
       {ctaVisible ? (
