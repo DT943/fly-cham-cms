@@ -158,7 +158,7 @@ const FleetExplore = ({
         <div className="flex flex-col gap-4">
           {title ? (
             <h2
-              className={cx('m-0 font-semibold', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
+              className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(textStyle, 'titleColor', '800', 'semibold')}
             >
               <LinkedText text={title} {...linkProps} />
@@ -169,7 +169,7 @@ const FleetExplore = ({
               {paragraphs.map((item) => (
                 <p
                   key={item.id}
-                  className={cx('m-0 font-normal leading-relaxed', typography.body, CMS_TEXT_HOVER_CLASS)}
+                  className={cx('m-0 leading-relaxed', typography.body, CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
                 >
                   <LinkedText text={item.body} {...linkProps} />

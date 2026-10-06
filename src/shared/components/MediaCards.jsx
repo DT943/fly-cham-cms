@@ -118,16 +118,18 @@ const MediaCards = ({
                 <LocalizedLink
                   href={href}
                   className={cx(
-                    'group/lm relative mt-1 inline-flex h-[34px] w-fit items-center overflow-hidden rounded-full no-underline',
+                    'group/lm relative inline-flex items-center justify-center no-underline',
+                    'max-md:mt-3 max-md:h-11 max-md:w-full max-md:self-stretch max-md:gap-2 max-md:rounded-lg max-md:bg-primary-1 max-md:px-6',
+                    'md:mt-1 md:h-[34px] md:w-fit md:self-start md:overflow-hidden md:rounded-full',
                     typography.button,
                   )}
                 >
                   <span
                     aria-hidden
-                    className="absolute inset-y-0 start-0 w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full"
+                    className="absolute inset-y-0 start-0 hidden w-[34px] rounded-full transition-[width] duration-300 ease-out group-hover/lm:w-full md:block"
                     style={{ backgroundColor: colorVar(arrowBadgeBg) }}
                   />
-                  <span className="relative z-10 flex size-[34px] shrink-0 items-center justify-center">
+                  <span className="relative z-10 hidden size-[34px] shrink-0 items-center justify-center md:flex">
                     <ArrowRight
                       size={16}
                       weight="bold"
@@ -136,11 +138,17 @@ const MediaCards = ({
                     />
                   </span>
                   <span
-                    className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                    className={`cms-lm-label relative z-10 transition-[color,font-weight] duration-300 max-md:text-white md:pe-3 md:ps-2.5 ${CMS_TEXT_HOVER_CLASS}`}
                     style={getTextStyleVars(textStyle, 'learnMoreColor', '50', 'semibold')}
                   >
                     {label}
                   </span>
+                  <ArrowRight
+                    size={16}
+                    weight="bold"
+                    aria-hidden
+                    className="relative z-10 text-white rtl:-scale-x-100 md:hidden"
+                  />
                 </LocalizedLink>
               ) : null}
             </div>
