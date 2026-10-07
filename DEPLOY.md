@@ -80,14 +80,14 @@ pair you created for the CMS pipeline:
 
 | Secret | Value |
 | --- | --- |
-| `VPS_SSH_HOST` | `187.127.155.20` |
+| `VPS_SSH_HOST` | `191.215.44.115` |
 | `VPS_SSH_USER` | `root` (the user that owns pm2) |
 | `VPS_SSH_KEY` | the private key |
-| `VPS_SSH_KNOWN_HOSTS` | output of `ssh-keyscan -t ed25519 187.127.155.20` |
+| `VPS_SSH_KNOWN_HOSTS` | output of `ssh-keyscan -t ed25519 191.215.44.115` |
 | `VPS_SSH_PORT` | optional, only if SSH is not on port 22 |
 
 **D. Put a domain in front (optional).** The site answers on
-`http://187.127.155.20:4000`. To serve it on a domain with HTTPS, route the
+`http://191.215.44.115:4000`. To serve it on a domain with HTTPS, route the
 domain to port 4000 in the VPS's reverse proxy (traefik) the same way
 `cms-api.cms-flycham.alpatrose.com` is routed to port 3000, then point the
-domain's DNS A record at `187.127.155.20`.
+domain's DNS A record at `191.215.44.115`.
