@@ -86,7 +86,9 @@ import { travelAgentLoginProps } from './adapters/travelAgentLoginAdapter.js'
 import ComingSoonHero from '../shared/components/ComingSoonHero.jsx'
 import { comingSoonHeroProps } from './adapters/comingSoonHeroAdapter.js'
 import ChamMilesRegister from '../shared/components/ChamMilesRegister.jsx'
+import ChamMilesJoin from '../shared/components/ChamMilesJoin.jsx'
 import { chamMilesRegisterProps } from './adapters/chamMilesRegisterAdapter.js'
+import { chamMilesJoinProps } from './adapters/chamMilesJoinAdapter.js'
 import RouteMapExplorerBlock from '../shared/components/RouteMapExplorerBlock.jsx'
 import { routeMapExplorerProps } from './adapters/routeMapExplorerAdapter.js'
 import { pageHeroProps } from './adapters/pageHeroAdapter.js'
@@ -309,6 +311,8 @@ export const sectionRegistry = {
   'coming-soon-hero': { Component: ComingSoonHero, mapProps: comingSoonHeroProps, fullBleed: true },
   // Full-screen Cham Miles registration (Layout hides header/footer on this path).
   'cham-miles-register': { Component: ChamMilesRegister, mapProps: chamMilesRegisterProps, fullBleed: true },
+  // Full-screen Cham Miles join step (flychamwebsite's latest /cham-miles form step).
+  'cham-miles-join': { Component: ChamMilesJoin, mapProps: chamMilesJoinProps, fullBleed: true },
   // Full-screen interactive route map (/our-destinations/route-map).
   'route-map-explorer': { Component: RouteMapExplorerBlock, mapProps: routeMapExplorerProps, fullBleed: true },
   'cargo-stations-explorer': { Component: CargoStationsExplorer, mapProps: cargoStationsExplorerProps, fullBleed: true },
