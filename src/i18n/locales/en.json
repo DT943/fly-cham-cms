@@ -882,6 +882,20 @@
       "login": "Log in",
       "menu": "Open menu",
       "closeMenu": "Close menu",
+      "travelNotice": {
+        "label": "Important Notice:",
+        "regionLabel": "Travel updates",
+        "previous": "Previous update",
+        "next": "Next update",
+        "pause": "Pause updates",
+        "play": "Play updates",
+        "close": "Dismiss travel updates",
+        "items": {
+          "airspace": "Temporary flight suspensions due to airspace closures.",
+          "autumnWeather": "Autumn weather may affect flights through London and Frankfurt. Check your flight status before you leave",
+          "flightsResume": "Direct flights between Damascus and Paris resume on 1 December 2025"
+        }
+      },
       "mobile": {
         "coverAlt": "Fly Cham aircraft in flight",
         "helpSupport": "Help and support",

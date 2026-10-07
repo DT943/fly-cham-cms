@@ -10,11 +10,12 @@ import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
+import TravelUpdatesNotice from './header/TravelUpdatesNotice.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
 
 const REGION_MENU = 'region'
 
-const Header = ({ dark = false, hideOnScroll = true }) => {
+const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const header = useSiteHeader()
@@ -126,15 +127,23 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-[1000] shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-        dark ? 'bg-secondary-2' : ''
-      } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
+      className={`sticky top-0 z-[1000] shrink-0 ${dark ? 'bg-secondary-2' : ''}`}
       style={barBg}
     >
+      {showTravelNotice && <TravelUpdatesNotice />}
+      {/* Only the nav bar collapses on scroll. The notice stays pinned above it. */}
       <div
-        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
-        style={barBg}
+        className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+          hidden ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'
+        }`}
       >
+        <div className="min-h-0 overflow-hidden">
+          <div
+            className={`border-b-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+              hidden ? '-translate-y-full' : 'translate-y-0'
+            } ${dark ? 'border-white/10 bg-secondary-2' : 'border-200'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
+            style={barBg}
+          >
         <Container className="flex h-16 items-center justify-between gap-4 md:h-18">
           <LocalizedLink
             to={headerHref(header.logo.href) || '/'}
@@ -235,6 +244,8 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
             }}
           />
         </Container>
+          </div>
+        </div>
       </div>
 
       {/*
