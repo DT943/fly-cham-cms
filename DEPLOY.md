@@ -1,16 +1,42 @@
-# Deploying the public site (new_fly_cham) to the VPS
+# Deploying the public site (new_fly_cham)
 
-The site is a static Vite build. On the VPS it lives next to the CMS backend:
+**Live hosting: Hostinger web hosting.** `cms-flycham.alpatrose.com` points at
+Hostinger's shared hosting (LiteSpeed), so the site is a static upload there.
+The CMS API stays on the VPS (`cms-api.cms-flycham.alpatrose.com`).
 
-| App | Folder | PM2 name | Port | Deploy command |
-| --- | --- | --- | --- | --- |
-| CMS backend (other repo) | `/var/www/flycham-cms` | `flycham-cms` | 3000 | `update-cms` |
-| Public site (this repo) | `/var/www/flycham-web` | `flycham-web` | 4000 | `update-flycham` |
+## CI/CD (GitHub Actions → Hostinger FTP)
 
-[deploy/serve.mjs](deploy/serve.mjs) serves `dist/` (single-page-app fallback,
-long cache for hashed `/assets`, gzip, `/healthz`). `VITE_*` settings are baked
-in at build time from `.env.production` (created from
-[.env.production.example](.env.production.example) when missing).
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml):
+
+| Event | What runs |
+| --- | --- |
+| Pull request to `main` | build (nothing is deployed) |
+| Push to `main` | build, upload `dist/` over FTP, check the live site serves the new build |
+| Actions → **Site CI/CD** → *Run workflow* | same as a push (manual redeploy) |
+
+The upload sends the new hashed `assets/` first, then `index.html` and the
+rest, and only then deletes stale files, so the live site is never
+half-updated. [public/.htaccess](public/.htaccess) (copied into `dist/`) routes
+every path to `index.html` and stops `index.html` from being cached.
+
+### One-time setup: repository secrets
+
+From hPanel → **Websites → (the cms-flycham site) → Files → FTP Accounts**:
+
+| Secret | Value |
+| --- | --- |
+| `HOSTINGER_FTP_HOST` | FTP IP / hostname shown there |
+| `HOSTINGER_FTP_USER` | FTP username |
+| `HOSTINGER_FTP_PASSWORD` | FTP password (reset it there if unknown) |
+| `HOSTINGER_FTP_DIR` | the folder that holds the live `index.html`, as the FTP user sees it (e.g. `domains/cms-flycham.alpatrose.com/public_html`); `.` if the FTP account opens directly in it |
+
+---
+
+## Alternative: running the site on the VPS
+
+`deploy/serve.mjs`, `ecosystem.config.cjs` and `deploy/update-flycham.sh` still
+let the VPS serve the site on port 4000 if the domain is ever pointed at it.
+The VPS pipeline is in git history (commit 0f893f7).
 
 ## Fresh or wiped VPS
 
@@ -39,16 +65,6 @@ commit, runs `npm ci`, builds into `dist.next`, swaps it in as `dist` (keeping
 `dist.prev`), reloads PM2 and checks the home page. The live site is not touched
 until the build succeeds, and a failed health check puts the previous build
 back.
-
-## CI/CD
-
-[.github/workflows/deploy.yml](.github/workflows/deploy.yml):
-
-| Event | What runs |
-| --- | --- |
-| Pull request to `main` | build (nothing is deployed) |
-| Push to `main` | build, then SSH to the VPS and run `update-flycham <sha>` |
-| Actions → **Site CI/CD** → *Run workflow* | same as a push (manual redeploy) |
 
 ## One-time setup
 

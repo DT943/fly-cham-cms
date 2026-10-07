@@ -1,13 +1,22 @@
 # Public site (new_fly_cham) CI/CD.
 #
 #   pull request → main   build (no deploy)
-#   push to main          build, then deploy to the VPS
+#   push to main          build, then upload to the Hostinger web hosting
 #   "Run workflow" button redeploy main by hand (Actions → Site CI/CD)
 #
-# Deploying = SSH to the VPS and run `update-flycham <sha>`
-# (deploy/update-flycham.sh), so the server builds exactly the commit that
-# passed here and keeps the previous build if anything fails. One-time setup:
-# DEPLOY.md.
+# cms-flycham.alpatrose.com is served by Hostinger web hosting (LiteSpeed), so
+# the site is built here and the static dist/ is uploaded over FTP.
+# public/.htaccess (copied into dist/) does the SPA routing + no-cache index.
+# The CMS API stays on the VPS (cms-api.cms-flycham.alpatrose.com).
+#
+# Secrets (Settings → Secrets and variables → Actions), from hPanel →
+# Websites → (site) → Files → FTP Accounts:
+#   HOSTINGER_FTP_HOST      FTP host/IP (e.g. 76.13.35.251 or ftp.alpatrose.com)
+#   HOSTINGER_FTP_USER      FTP username (u123456789 or u123456789.something)
+#   HOSTINGER_FTP_PASSWORD  FTP password
+#   HOSTINGER_FTP_DIR       the site's folder as the FTP user sees it, e.g.
+#                           domains/cms-flycham.alpatrose.com/public_html
+#                           (use . when the FTP account opens in that folder)
 
 name: Site CI/CD
 
@@ -21,6 +30,9 @@ on:
 permissions:
   contents: read
 
+env:
+  SITE_URL: https://cms-flycham.alpatrose.com
+
 jobs:
   build:
     name: Build
@@ -31,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22 # same major as the VPS
+          node-version: 22
           cache: npm
 
       - run: npm ci --no-audit --no-fund
@@ -39,9 +51,17 @@ jobs:
         run: |
           cp .env.production.example .env.production
           npm run build
+          test -f dist/.htaccess || { echo "::error::dist/.htaccess missing (SPA routing)"; exit 1; }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          include-hidden-files: true # keep .htaccess
+          retention-days: 7
 
   deploy:
-    name: Deploy to VPS
+    name: Deploy to Hostinger
     needs: build
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -52,36 +72,52 @@ jobs:
       group: site-deploy
       cancel-in-progress: false
     steps:
-      - name: Configure SSH
-        env:
-          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
-        run: |
-          install -m 700 -d ~/.ssh
-          # The key may be pasted as-is (-----BEGIN ...) or as one base64 line
-          # (`base64 -w0 key` on the server), which survives copy/paste intact.
-          key="$(printf '%s' "$SSH_KEY" | tr -d '\r')"
-          case "$key" in
-            -----BEGIN*) printf '%s\n' "$key" > ~/.ssh/deploy_key ;;
-            *) printf '%s' "$key" | tr -d ' \n\t' | base64 -d > ~/.ssh/deploy_key ;;
-          esac
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null \
-            || { echo "::error::the SSH key secret is not a valid private key, re-copy it"; exit 1; }
-          printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
 
-      - name: Run update-flycham on the VPS
-        env:
-          SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
-          SSH_USER: ${{ secrets.VPS_SSH_USER }}
-          SSH_PORT: ${{ secrets.VPS_SSH_PORT || '22' }}
-        run: |
-          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
-            -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 \
-            "$SSH_USER@$SSH_HOST" "update-flycham ${GITHUB_SHA}"
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp > /dev/null
 
-      - name: Check the public site
+      # Order keeps the live site whole: new hashed assets first, then
+      # index.html + the rest, and only then remove stale assets.
+      - name: Upload over FTP
+        env:
+          FTP_HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+          FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.HOSTINGER_FTP_DIR || '.' }}
         run: |
-          code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' "https://cms-flycham.alpatrose.com/")
-          echo "GET https://cms-flycham.alpatrose.com/ → HTTP $code"
-          [ "$code" = 200 ]
+          [ -n "$FTP_HOST" ] && [ -n "$FTP_USER" ] && [ -n "$LFTP_PASSWORD" ] \
+            || { echo "::error::set the HOSTINGER_FTP_* secrets (see the top of this file)"; exit 1; }
+          # Stop at the first failed command (a failed `cd` must never let the
+          # --delete mirror run against the wrong folder). TLS when the server
+          # offers it; Hostinger's FTP certificate usually does not match the
+          # host name, so it is not verified.
+          lftp -c "
+            set cmd:fail-exit true
+            set ftp:ssl-allow true
+            set ssl:verify-certificate false
+            set net:max-retries 3
+            set net:timeout 30
+            set mirror:parallel-transfer-count 4
+            open --env-password -u '$FTP_USER' '$FTP_HOST'
+            cd '$FTP_DIR'
+            mkdir -p -f assets
+            mirror -R --no-perms --verbose=1 dist/assets assets
+            mirror -R --no-perms --delete --verbose=1 -x '^assets/' -x '^\.well-known/' -x '^cgi-bin/' dist .
+            mirror -R --no-perms --delete --verbose=1 dist/assets assets
+          "
+
+      - name: Check the live site serves this build
+        run: |
+          want=$(grep -o 'assets/index-[^"]*\.js' dist/index.html | head -1)
+          for i in $(seq 1 10); do
+            live=$(curl -fsS -m 15 "$SITE_URL/?v=$GITHUB_SHA" | grep -o 'assets/index-[^"]*\.js' | head -1 || true)
+            echo "expected $want, live ${live:-none}"
+            [ "$live" = "$want" ] && exit 0
+            sleep 6
+          done
+          echo "::error::$SITE_URL is not serving the new build (wrong HOSTINGER_FTP_DIR, or a cache in front)"
+          exit 1
