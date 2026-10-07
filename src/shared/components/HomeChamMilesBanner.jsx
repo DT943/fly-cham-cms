@@ -14,7 +14,7 @@ const GRADIENT = 'linear-gradient(102.31deg, #006080 0%, #00141A 100%)'
 
 const SECTION_PADDING = {
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-8',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

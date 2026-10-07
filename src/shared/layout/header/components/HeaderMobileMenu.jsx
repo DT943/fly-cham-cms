@@ -1,10 +1,11 @@
 import { CaretLeft, CaretRight, GlobeHemisphereWest, UserCircle, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { headerHref } from '../headerStyle.js'
+import { findHeaderLocation, headerHref } from '../headerStyle.js'
 import MegaMenu from './MegaMenu.jsx'
 import RegionMenu from './RegionMenu.jsx'
 
@@ -45,6 +46,9 @@ export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => 
 /** `header` is the normalised site-header document (see useSiteHeader). */
 const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
+  const currentLocation = findHeaderLocation(header.menus, pathname)
+  const currentMenuId = currentLocation?.menuId
   const panelRef = useRef(null)
   const closeRef = useRef(null)
   const [rendered, setRendered] = useState(open)
@@ -175,17 +179,23 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
               {header.mobile.homeLabel}
             </LocalizedLink>
 
-            {header.menus.map((menu) => (
+            {header.menus.map((menu) => {
+              const isCurrent = menu.id === currentMenuId
+              return (
               <button
                 key={menu.id}
                 type="button"
+                aria-current={isCurrent ? 'page' : undefined}
                 onClick={() => setView(menu.id)}
-                className={`${typography.itemTitle} flex w-full items-center justify-between gap-4 border-0 bg-transparent py-3.5 text-start font-normal text-800 cursor-pointer`}
+                className={`${typography.itemTitle} flex w-full items-center justify-between gap-4 border-0 bg-transparent py-3.5 text-start cursor-pointer ${
+                  isCurrent ? 'font-semibold text-primary-1' : 'font-normal text-800'
+                }`}
               >
                 {menu.label}
                 <CaretRight size={16} weight="regular" className="shrink-0 text-500 rtl:-scale-x-100" />
               </button>
-            ))}
+              )
+            })}
           </div>
 
           <div className="mt-8 flex flex-col gap-1 border-t border-200 pt-6">
@@ -234,7 +244,13 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
           aria-hidden={!nested}
         >
           {activeMenu && (
-            <MegaMenu menu={activeMenu} headerStyle={header.style} embedded onNavigate={onNavigate} />
+            <MegaMenu
+              menu={activeMenu}
+              headerStyle={header.style}
+              embedded
+              onNavigate={onNavigate}
+              currentLocation={currentLocation}
+            />
           )}
           {view === REGION_VIEW && <RegionMenu embedded onNavigate={onNavigate} />}
         </div>

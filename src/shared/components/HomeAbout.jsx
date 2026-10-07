@@ -78,7 +78,7 @@ const HomeAbout = ({
       className="w-full min-w-0"
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      <Container className="flex min-w-0 flex-col gap-6 py-10 md:gap-8 md:py-14">
+      <Container className="flex min-w-0 flex-col gap-6 md:gap-8">
         {title || subtitle ? (
           <div className="flex max-w-2xl flex-col gap-1.5 md:gap-2">
             {title ? (

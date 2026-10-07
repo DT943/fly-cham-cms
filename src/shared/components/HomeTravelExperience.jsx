@@ -234,7 +234,7 @@ const HomeTravelExperience = ({
       className="w-full min-w-0"
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      <Container className="flex min-w-0 flex-col gap-5 py-8 md:gap-6 md:py-10">
+      <Container className="flex min-w-0 flex-col gap-5 md:gap-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div className="flex max-w-3xl flex-col gap-1.5 md:gap-2">
             {title ? (

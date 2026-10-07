@@ -142,7 +142,8 @@ const CoverSlider = ({
   const { t } = useTranslation()
   const durationMs = (Number(slideDuration) || 6) * 1000
   const slider = useHeroSlider(slides.length, durationMs, autoplay !== false)
-  const accent = colorVar(controlsColor || 'primary-1')
+  const accent = colorVar(controlsColor || 'secondary-2')
+  const trackColor = `color-mix(in srgb, ${accent} 25%, white)`
   const controlsBottomPx = Number(controlsBottom) || 0
 
   return (
@@ -209,21 +210,25 @@ const CoverSlider = ({
 
       {showControls !== false && (
         <div
-          className={`absolute inset-x-0 z-10 ${controlsBottomPx ? '' : 'bottom-6 md:bottom-8'}`}
+          className={`absolute inset-x-0 z-10 ${controlsBottomPx ? '' : 'bottom-4'}`}
           style={controlsBottomPx ? { bottom: `${controlsBottomPx}px` } : undefined}
         >
           <Container className="flex justify-center">
-            <div className="flex items-center gap-2.5" role="group" aria-label={t('home.hero.controlsLabel')}>
+            <div
+              className="flex items-center gap-2.5 rounded-xl bg-white px-3 py-1.5 shadow-[0_4px_16px_rgba(40,40,38,0.12)]"
+              role="group"
+              aria-label={t('home.hero.controlsLabel')}
+            >
               <button
                 type="button"
                 onClick={() => slider.setPaused((value) => !value)}
                 aria-label={slider.paused ? t('home.hero.play') : t('home.hero.pause')}
-                className="grid size-7 place-items-center rounded-full border-0 bg-transparent p-0"
+                className="grid size-7 cursor-pointer place-items-center rounded-full border-0 bg-transparent p-0"
                 style={{ color: accent }}
               >
                 {slider.paused ? <Play size={16} /> : <Pause size={16} />}
               </button>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 {slides.map((slide, index) =>
                   index === slider.activeIndex ? (
                     <button
@@ -232,8 +237,8 @@ const CoverSlider = ({
                       aria-label={t('home.hero.goToSlide', { index: index + 1 })}
                       aria-current="true"
                       onClick={() => slider.goTo(index)}
-                      className="relative h-1.5 w-9 overflow-hidden rounded-full border-0 p-0"
-                      style={{ backgroundColor: `color-mix(in srgb, ${accent} 20%, transparent)` }}
+                      className="relative h-2 w-[60px] cursor-pointer overflow-hidden rounded-full border-0 p-0"
+                      style={{ backgroundColor: trackColor }}
                     >
                       <span
                         className="absolute inset-y-0 start-0 rounded-full"
@@ -246,8 +251,8 @@ const CoverSlider = ({
                       type="button"
                       aria-label={t('home.hero.goToSlide', { index: index + 1 })}
                       onClick={() => slider.goTo(index)}
-                      className="size-1.5 shrink-0 rounded-full border-0 p-0"
-                      style={{ backgroundColor: `color-mix(in srgb, ${accent} 40%, transparent)` }}
+                      className="size-2 shrink-0 cursor-pointer rounded-full border-0 p-0"
+                      style={{ backgroundColor: trackColor }}
                     />
                   ),
                 )}
@@ -321,7 +326,7 @@ const PageMediaHero = ({
   autoplay = true,
   slideDuration = '6',
   showControls = true,
-  controlsColor = 'primary-1',
+  controlsColor = 'secondary-2',
   controlsBottom = 0,
   // backlinks
   links = [],

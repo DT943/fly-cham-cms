@@ -14,7 +14,8 @@ export function recentNewsProps(block, lang) {
     filterLabel: content.filterLabel || '',
     monthLabel: content.monthLabel || '',
     yearLabel: content.yearLabel || '',
-    searchLabel: content.searchLabel || '',
+    // Shown when no article matches the filters.
+    emptyLabel: content.emptyLabel || EMPTY_LABEL[lang === 'ar' ? 'ar' : 'en'],
     previousLabel: content.previousLabel || '',
     nextLabel: content.nextLabel || '',
     months: mapOptions(content.months),
@@ -37,6 +38,11 @@ export function recentNewsProps(block, lang) {
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
+}
+
+const EMPTY_LABEL = {
+  en: 'No news matches the selected filters.',
+  ar: 'لا توجد أخبار تطابق عوامل التصفية المحددة.',
 }
 
 function mapOptions(options) {
@@ -63,8 +69,6 @@ const STYLE_KEYS = [
   'cardBg',
   'cardBorderColor',
   'iconColor',
-  'searchBg',
-  'searchHoverBg',
   'topicActiveBg',
   'topicInactiveBg',
   'pageActiveBg',
@@ -83,10 +87,6 @@ const STYLE_KEYS = [
   'labelFontWeight',
   'labelColorHover',
   'labelFontWeightHover',
-  'buttonText',
-  'buttonTextFontWeight',
-  'buttonTextHover',
-  'buttonTextFontWeightHover',
   'chipActiveText',
   'chipActiveTextFontWeight',
   'chipActiveTextHover',

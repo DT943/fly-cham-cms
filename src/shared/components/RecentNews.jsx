@@ -1,10 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight, Clock } from '@phosphor-icons/react'
 import {
   CMS_TEXT_HOVER_CLASS,
   getTextStyleVars,
   colorVar,
-  getButtonStyle,
 } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -30,6 +29,86 @@ const SECTION_PADDING = {
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
+/*
+ * Filtering — topic chip + month/year dropdowns, applied as soon as a value
+ * changes (no Search button). Mirrors cms2 RecentNews/utils/filter.js.
+ * Option ids match each article's topic / month / year; a missing month/year
+ * comes from the ISO dateTime. An empty or "all" value does not filter.
+ */
+const MONTH_IDS = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
+]
+
+const isAll = (value) => !value || String(value).toLowerCase() === 'all'
+
+function articleMonth(article) {
+  if (article?.month) return String(article.month).toLowerCase()
+  const match = /^\d{4}-(\d{2})/.exec(String(article?.dateTime || ''))
+  return match ? MONTH_IDS[Number(match[1]) - 1] || '' : ''
+}
+
+function articleYear(article) {
+  if (article?.year) return String(article.year)
+  const match = /^(\d{4})/.exec(String(article?.dateTime || ''))
+  return match ? match[1] : ''
+}
+
+function calendarYear() {
+  return String(new Date().getFullYear())
+}
+
+const isYearId = (value) => /^\d{4}$/.test(String(value || ''))
+
+/** Years saved in the CMS only. A deleted year is not put back. */
+function recentNewsYearOptions(years = []) {
+  const labels = new Map()
+
+  for (const option of years) {
+    const id = String(option?.id || '')
+    if (!isYearId(id) || labels.has(id)) continue
+    labels.set(id, option?.label || id)
+  }
+
+  return [...labels.keys()]
+    .sort((a, b) => Number(b) - Number(a))
+    .map((id) => ({ id, label: labels.get(id) }))
+}
+
+function defaultRecentNewsYear(options = []) {
+  const current = calendarYear()
+  if (options.some((option) => String(option.id) === current)) return current
+  return options[0] ? String(options[0].id) : current
+}
+
+/** Month option ids may be names ("july") or numbers ("7" / "07"). */
+function monthMatches(article, month) {
+  const value = String(month).toLowerCase()
+  const actual = articleMonth(article)
+  if (actual === value) return true
+  const number = Number(value)
+  return Number.isInteger(number) && MONTH_IDS[number - 1] === actual
+}
+
+function filterArticles(articles, { topic, month, year }) {
+  return articles.filter(
+    (article) =>
+      (isAll(topic) || article?.topic === topic) &&
+      (isAll(month) || monthMatches(article, month)) &&
+      (isAll(year) || articleYear(article) === String(year)),
+  )
+}
+
 /**
  * Recent News listing: page title, month/year filters, topic chips, year-grouped
  * cards, and pagination. Defaults match the static Recent News page.
@@ -40,7 +119,7 @@ const RecentNews = ({
   filterLabel = '',
   monthLabel = '',
   yearLabel = '',
-  searchLabel = '',
+  emptyLabel = '',
   previousLabel = '',
   nextLabel = '',
   months = [],
@@ -57,8 +136,6 @@ const RecentNews = ({
   cardBg = '50',
   cardBorderColor = '200',
   iconColor = '600',
-  searchBg = 'secondary',
-  searchHoverBg,
   topicActiveBg = 'primary-1',
   topicInactiveBg = '200',
   pageActiveBg = 'primary-1',
@@ -75,38 +152,41 @@ const RecentNews = ({
   ...textStyle
 }) => {
   const monthOptions = Array.isArray(months) ? months : []
-  const yearOptions = Array.isArray(years) ? years : []
   const topicOptions = Array.isArray(topics) ? topics : []
   const articles = Array.isArray(items) ? items : []
+  const yearOptions = useMemo(() => recentNewsYearOptions(years), [years])
   const size = Math.max(1, Number(pageSize) || 6)
-  const searchBtn = getButtonStyle(
-    { ...textStyle, searchBg, searchHoverBg },
-    {
-      bgKey: 'searchBg',
-      bgHoverKey: 'searchHoverBg',
-      bgFallback: 'secondary',
-      bgHoverFallback: 'secondary-800',
-      textKey: 'buttonText',
-      textFallback: 'btn',
-      weightFallback: 'semibold',
-    },
-  )
 
   const defaultTopic = topicOptions[0]?.id || 'all'
   const [activeTopic, setActiveTopic] = useState(defaultTopic)
   const [currentPage, setCurrentPage] = useState(1)
   const [month, setMonth] = useState(monthOptions[0]?.id || 'all')
-  const [year, setYear] = useState(yearOptions[0]?.id || 'all')
+  const [year, setYear] = useState(() => defaultRecentNewsYear(recentNewsYearOptions(years)))
 
+  useEffect(() => {
+    if (!yearOptions.some((option) => String(option.id) === String(year))) {
+      setYear(defaultRecentNewsYear(yearOptions))
+    }
+  }, [yearOptions, year])
+
+  // Every filter applies immediately and returns to the first page.
   const handleTopicChange = (topic) => {
     setActiveTopic(topic)
     setCurrentPage(1)
   }
+  const handleMonthChange = (value) => {
+    setMonth(value)
+    setCurrentPage(1)
+  }
+  const handleYearChange = (value) => {
+    setYear(value)
+    setCurrentPage(1)
+  }
 
-  const filteredArticles = useMemo(() => {
-    if (!activeTopic || activeTopic === 'all') return articles
-    return articles.filter((article) => article.topic === activeTopic)
-  }, [activeTopic, articles])
+  const filteredArticles = useMemo(
+    () => filterArticles(articles, { topic: activeTopic, month, year }),
+    [articles, activeTopic, month, year],
+  )
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / size))
   const safePage = Math.min(currentPage, totalPages)
@@ -193,7 +273,7 @@ const RecentNews = ({
                 <Dropdown
                   label={monthLabel}
                   value={month}
-                  onChange={setMonth}
+                  onChange={handleMonthChange}
                   options={monthOptions.map((option) => ({
                     value: option.id,
                     label: option.label,
@@ -205,7 +285,7 @@ const RecentNews = ({
                 <Dropdown
                   label={yearLabel}
                   value={year}
-                  onChange={setYear}
+                  onChange={handleYearChange}
                   options={yearOptions.map((option) => ({
                     value: option.id,
                     label: option.label,
@@ -215,19 +295,6 @@ const RecentNews = ({
               ) : null}
             </div>
 
-            {searchLabel ? (
-              <button
-                type="button"
-                className={cx(
-                  'h-12 w-full shrink-0 cursor-pointer rounded-lg border-0 px-10 font-semibold transition-colors md:w-auto md:min-w-[7.5rem]',
-                  typography.button,
-                  searchBtn.className,
-                )}
-                style={searchBtn.style}
-              >
-                {searchLabel}
-              </button>
-            ) : null}
           </div>
 
           {topicOptions.length ? (
@@ -266,6 +333,15 @@ const RecentNews = ({
 
       <div className="flex flex-col gap-8 md:gap-10">
         <div className="flex flex-col gap-8 md:gap-10">
+          {!filteredArticles.length && articles.length ? (
+            <p
+              role="status"
+              className={cx('m-0 py-10 text-center', typography.body, CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(textStyle, 'metaColor', '600', 'normal')}
+            >
+              {emptyLabel}
+            </p>
+          ) : null}
           {Object.entries(articlesByYear).map(([group, groupArticles]) => (
             <div key={group || 'items'} className="flex flex-col gap-5 md:gap-6">
               {group ? (
@@ -378,7 +454,7 @@ const RecentNews = ({
           ))}
         </div>
 
-        {showPagination !== false ? (
+        {showPagination !== false && filteredArticles.length ? (
         <nav aria-label="Pagination" className="flex items-center justify-center gap-2 md:gap-3">
           <button
             type="button"

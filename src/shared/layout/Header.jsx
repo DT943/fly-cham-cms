@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
 import { typography } from '../../styles/typography.js'
-import { HDR_SELF_HOVER, colorVar, headerHref, roleStyle } from './header/headerStyle.js'
+import { HDR_SELF_HOVER, colorVar, findHeaderLocation, headerHref, roleStyle } from './header/headerStyle.js'
 import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
@@ -32,15 +32,21 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
     setMobileOpen(false)
   }, [location.pathname])
 
-  // Browser tab icon comes from the header document (admin → Header → Logo).
+  // Browser tab icon. The bundled mark matches the admin tab; a custom header
+  // favicon still replaces it, except the old default webp.
   const faviconUrl = header.logo?.faviconUrl
   useEffect(() => {
-    if (!faviconUrl) return
-    const link = document.querySelector('link[rel="icon"]')
-    if (link && link.getAttribute('href') !== faviconUrl) {
-      link.setAttribute('href', faviconUrl)
-      link.setAttribute('type', 'image/webp')
-    }
+    const href =
+      faviconUrl && !faviconUrl.includes('tab-icon.webp') ? faviconUrl : '/favicon.png'
+    const type = href.endsWith('.webp')
+      ? 'image/webp'
+      : href.endsWith('.svg')
+        ? 'image/svg+xml'
+        : 'image/png'
+    document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]').forEach((link) => {
+      if (link.getAttribute('href') !== href) link.setAttribute('href', href)
+      link.setAttribute('type', type)
+    })
   }, [faviconUrl])
 
   useEffect(() => {
@@ -81,20 +87,23 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
   const itemRefs = useRef({})
   const linePlaced = useRef(false)
   const [navLine, setNavLine] = useState(null)
+  const currentLocation = findHeaderLocation(menus, location.pathname)
+  const indicatorId = menus.some((menu) => menu.id === openMenu)
+    ? openMenu
+    : currentLocation?.menuId || null
 
   useLayoutEffect(() => {
     const nav = navRef.current
-    const item = itemRefs.current[openMenu]
-    const isNavItem = menus.some((menu) => menu.id === openMenu)
+    const item = itemRefs.current[indicatorId]
 
-    if (!nav || !item || !isNavItem) {
+    if (!nav || !item) {
       linePlaced.current = false
       setNavLine(null)
       return undefined
     }
 
     const place = () => {
-      const current = itemRefs.current[openMenu]
+      const current = itemRefs.current[indicatorId]
       if (!current) return
       const inset = 8
       setNavLine({
@@ -109,7 +118,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
     const observer = new ResizeObserver(place)
     observer.observe(nav)
     return () => observer.disconnect()
-  }, [openMenu, menus])
+  }, [indicatorId, menus])
 
   const activeMenu = menus.find((menu) => menu.id === openMenu)
   const barBg = dark ? undefined : { backgroundColor: colorVar(hs.barBg) }
@@ -156,6 +165,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
           >
             {menus.map((menu) => {
               const isOpen = openMenu === menu.id
+              const isCurrent = menu.id === currentLocation?.menuId
 
               return (
                 <button
@@ -165,10 +175,11 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
                   }}
                   type="button"
                   aria-expanded={isOpen}
+                  aria-current={isCurrent ? 'page' : undefined}
                   aria-controls={`${menu.id}-mega-menu`}
                   onClick={() => toggle(menu.id)}
                   className={`relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${HDR_SELF_HOVER}`}
-                  style={navStyle(isOpen)}
+                  style={navStyle(isOpen || (!openMenu && isCurrent))}
                 >
                   {menu.label}
                   <CaretDown
@@ -247,7 +258,14 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
           id={`${openMenu}-mega-menu`}
           className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] lg:block"
         >
-          {activeMenu && <MegaMenu menu={activeMenu} headerStyle={hs} onNavigate={closeMenu} />}
+          {activeMenu && (
+            <MegaMenu
+              menu={activeMenu}
+              headerStyle={hs}
+              onNavigate={closeMenu}
+              currentLocation={currentLocation}
+            />
+          )}
           {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}
         </div>
       )}

@@ -1,5 +1,6 @@
 import { resolveCmsHref } from '../../../cms/adapters/pick.js'
 import { resolvePhosphorIcon } from '../../../cms/adapters/phosphorIcons.js'
+import { stripLanguage } from '../../../i18n/languages.js'
 import { colorVar, fontWeightValue } from '../../../styles/cmsStyle.js'
 
 /**
@@ -39,5 +40,68 @@ export const headerIcon = (name) => (name ? resolvePhosphorIcon(name) : null)
 
 /** CMS href → app path (no language prefix) or absolute URL for LocalizedLink. */
 export const headerHref = (href) => resolveCmsHref(href)
+
+const pagePathname = (path) => {
+  const stripped = stripLanguage(path || '/')
+  const pathname = stripped.split('?')[0].split('#')[0] || '/'
+  if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1)
+  return pathname
+}
+
+/** App path for a header href. External links and the bare home path are ignored. */
+const matchablePath = (href) => {
+  const resolved = headerHref(href)
+  if (!resolved || /^(https?:|mailto:|tel:|#)/i.test(resolved)) return ''
+  const path = pagePathname(resolved)
+  return path === '/' ? '' : path
+}
+
+/** Longest header path that owns the current page, among the given hrefs. */
+export function currentHeaderPath(hrefs, pathname) {
+  const current = pagePathname(pathname)
+  if (!current || current === '/') return ''
+
+  let best = ''
+  for (const href of hrefs || []) {
+    const path = matchablePath(href)
+    if (!path) continue
+    if (current !== path && !current.startsWith(`${path}/`)) continue
+    if (path.length > best.length) best = path
+  }
+  return best
+}
+
+/** True when this href is exactly the header path that owns the current page. */
+export function hrefMatchesHeaderPath(href, path) {
+  return Boolean(path) && matchablePath(href) === path
+}
+
+/**
+ * Menu and tab that own the current page. The longest matching link wins, so
+ * a child page stays on its own item when a parent link is also in the menu.
+ */
+export function findHeaderLocation(menus, pathname) {
+  const current = pagePathname(pathname)
+  if (!current || current === '/') return null
+
+  let best = null
+  let bestLength = -1
+
+  for (const menu of menus || []) {
+    for (const tab of menu.tabs || []) {
+      const hrefs = [
+        ...(tab.links || []).map((link) => link.href),
+        ...(tab.cards || []).map((card) => card.href),
+        tab.ctaHref,
+      ]
+      const path = currentHeaderPath(hrefs, pathname)
+      if (!path || path.length <= bestLength) continue
+      bestLength = path.length
+      best = { menuId: menu.id, tabId: tab.id, path }
+    }
+  }
+
+  return best
+}
 
 export { colorVar }

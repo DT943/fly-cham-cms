@@ -1,0 +1,54 @@
+/* Same pattern as booking-box AirportList: hide native scrollbar, custom overlay thumb */
+
+.scrollWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollArea {
+  max-height: inherit;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-right: 10px;
+  /* Hide the native scrollbar entirely (incl. its up/down arrow buttons) */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Custom scrollbar overlay: transparent track + primary-1 thumb, no arrows */
+.scrollTrack {
+  position: absolute;
+  top: 0;
+  bottom: 8px;
+  right: 1px;
+  width: 6px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.scrollThumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  border-radius: 3px;
+  background: var(--primary-1);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.scrollThumb:active {
+  cursor: grabbing;
+}

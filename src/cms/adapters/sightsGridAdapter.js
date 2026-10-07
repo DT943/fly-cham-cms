@@ -25,6 +25,7 @@ export function sightsGridProps(block, lang) {
       imageAlt: it?.imageAlt || '',
       tags: Array.isArray(it?.tags) ? it.tags : [],
       category: it?.category || '',
+      href: resolveCmsHref(it?.href) || '',
     })),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),

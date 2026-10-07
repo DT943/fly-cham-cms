@@ -6,7 +6,7 @@
       "darkUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo-dark.webp",
       "alt": "Fly Cham",
       "href": "/",
-      "faviconUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/tab-icon.webp"
+      "faviconUrl": "/favicon.png"
     },
     "login": {
       "show": true,
@@ -681,7 +681,7 @@
       "darkUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo-dark.webp",
       "alt": "Fly Cham",
       "href": "/",
-      "faviconUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/tab-icon.webp"
+      "faviconUrl": "/favicon.png"
     },
     "login": {
       "show": true,

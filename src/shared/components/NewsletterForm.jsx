@@ -8,6 +8,7 @@ import {
 } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 
 const BUTTON = {
   bgKey: 'buttonBg',
@@ -20,15 +21,25 @@ const BUTTON = {
 
 const optionId = (item, index, prefix) => item?.id || `${prefix}-${index}`
 
-const Radio = ({ name, checked, onChange, label }) => (
-  <label className="inline-flex cursor-pointer items-center gap-1.5 text-sm text-700">
-    <input
-      type="radio"
-      name={name}
-      checked={checked}
-      onChange={onChange}
-      className="size-5 accent-primary-1"
-    />
+const Radio = ({ name, checked, onChange, label, size = 'size-6', labelClass = 'text-sm leading-6' }) => (
+  <label className={`inline-flex cursor-pointer items-center gap-1 font-normal text-700 ${labelClass}`}>
+    <span className={`relative grid ${size} shrink-0 place-items-center`}>
+      <input
+        type="radio"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className={`absolute inset-0 m-0 cursor-pointer appearance-none rounded-full border-2 bg-white ${
+          checked ? 'border-primary-1' : 'border-[#d2d5da]'
+        }`}
+      />
+      <span
+        aria-hidden
+        className={`pointer-events-none relative z-[1] rounded-full bg-primary-1 ${
+          size === 'size-5' ? 'size-2.5' : 'size-3'
+        } ${checked ? '' : 'hidden'}`}
+      />
+    </span>
     <span>{label}</span>
   </label>
 )
@@ -109,6 +120,8 @@ const NewsletterForm = ({
     () => languageOptions.find((item) => item.selected)?.id || languageOptions[0]?.id || '',
   )
   const [checked, setChecked] = useState({})
+  const language = useCurrentLanguage()
+  const anyLabel = language === 'ar' ? 'أي' : 'Any'
   const [destination, setDestination] = useState('')
 
   const linkProps = {
@@ -143,14 +156,14 @@ const NewsletterForm = ({
 
   return (
     <form
-      className="flex w-full flex-col gap-5 rounded-xl bg-white p-6 md:p-8"
+      className="flex w-full min-w-0 flex-col gap-[19px] overflow-x-clip rounded-xl bg-white p-6 md:p-[33px]"
       style={{ backgroundColor: colorVar(cardBg) }}
       onSubmit={(event) => event.preventDefault()}
     >
       <div className="flex flex-col gap-4">
         {title ? (
           <h2
-            className={`m-0 text-[22px] leading-snug md:text-[28px] ${CMS_TEXT_HOVER_CLASS}`}
+            className={`m-0 text-[22px] leading-[1.5] md:text-[28px] ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(
               { titleColor, titleFontWeight, titleColorHover, titleFontWeightHover },
               'titleColor',
@@ -163,7 +176,7 @@ const NewsletterForm = ({
         ) : null}
         {description ? (
           <p
-            className={`m-0 text-base leading-normal ${CMS_TEXT_HOVER_CLASS}`}
+            className={`m-0 text-base leading-[1.5] ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(
               { descriptionColor, descriptionFontWeight, descriptionColorHover, descriptionFontWeightHover },
               'descriptionColor',
@@ -176,18 +189,18 @@ const NewsletterForm = ({
         ) : null}
       </div>
 
-      <div className="flex flex-col items-stretch gap-8 lg:flex-row lg:gap-16">
+      <div className="flex min-w-0 flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:gap-[89px]">
         {image ? (
           <img
             src={image}
             alt={imageAlt}
-            className="h-72 w-full rounded-xl object-cover sm:h-96 lg:h-auto lg:min-h-[520px] lg:w-[46%] lg:shrink-0"
+            className="aspect-[537/583] w-full min-w-0 rounded-xl object-cover lg:h-[583px] lg:w-[min(537px,46%)] lg:shrink"
           />
         ) : null}
 
-        <div className="flex min-w-0 flex-1 flex-col gap-5">
+        <div className="flex min-w-0 flex-1 flex-col gap-[19px]">
           {titleOptions.length ? (
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-2">
               {titleOptions.map((item) => (
                 <Radio
                   key={item.id}
@@ -200,14 +213,14 @@ const NewsletterForm = ({
             </div>
           ) : null}
 
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
             <input
               type="text"
               name="firstName"
               autoComplete="given-name"
               placeholder={firstNameLabel}
               aria-label={firstNameLabel}
-              className="h-12 min-w-0 flex-1 rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600"
+              className="h-12 min-w-0 flex-1 rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600 focus:outline-none focus:ring-0"
             />
             <input
               type="text"
@@ -215,7 +228,7 @@ const NewsletterForm = ({
               autoComplete="family-name"
               placeholder={lastNameLabel}
               aria-label={lastNameLabel}
-              className="h-12 min-w-0 flex-1 rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600"
+              className="h-12 min-w-0 flex-1 rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600 focus:outline-none focus:ring-0"
             />
           </div>
 
@@ -226,7 +239,7 @@ const NewsletterForm = ({
             required
             placeholder={emailLabel}
             aria-label={emailLabel}
-            className="h-12 w-full rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600"
+            className="h-12 w-full rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600 focus:outline-none focus:ring-0"
           />
 
           <div className="relative">
@@ -235,10 +248,15 @@ const NewsletterForm = ({
               aria-label={destinationLabel}
               value={destination}
               onChange={(event) => setDestination(event.target.value)}
-              className={`h-12 w-full appearance-none rounded-lg border-0 bg-100 px-3.5 pe-10 text-sm font-medium outline-none ${destination ? 'text-700' : 'text-600'}`}
+              className={`h-12 w-full appearance-none rounded-lg border-0 bg-100 px-3.5 pe-10 text-sm font-medium outline-none focus:outline-none focus:ring-0 ${destination ? 'text-700' : 'text-600'}`}
             >
-              <option value="">{destinationLabel}</option>
-              {destinations.map((item, index) => (
+              <option value="" disabled hidden>
+                {destinationLabel}
+              </option>
+              <option value="any">{anyLabel}</option>
+              {destinations
+                .filter((item) => String(item.label || '').trim().toLowerCase() !== anyLabel.toLowerCase())
+                .map((item, index) => (
                 <option key={optionId(item, index, 'dest')} value={item.label}>
                   {item.label}
                 </option>
@@ -255,7 +273,7 @@ const NewsletterForm = ({
             <fieldset className="m-0 flex flex-col gap-3 border-0 p-0">
               {preferencesLabel ? (
                 <legend
-                  className={`text-sm ${CMS_TEXT_HOVER_CLASS}`}
+                  className={`mb-4 block text-sm ${CMS_TEXT_HOVER_CLASS}`}
                   style={getTextStyleVars(
                     { labelColor, labelFontWeight, labelColorHover, labelFontWeightHover },
                     'labelColor',
@@ -266,16 +284,16 @@ const NewsletterForm = ({
                   {preferencesLabel}
                 </legend>
               ) : null}
-              <div className="grid grid-cols-1 gap-x-16 gap-y-4 sm:grid-cols-2">
+              <div className="flex flex-col gap-[27px]">
                 {preferenceOptions.map((item) => (
-                  <label key={item.id} className="inline-flex cursor-pointer items-center gap-3 text-sm text-700">
+                  <label key={item.id} className="inline-flex cursor-pointer items-center gap-3 text-sm font-normal text-700">
                     <input
                       type="checkbox"
                       name="preferences"
                       value={item.id}
                       checked={Boolean(checked[item.id])}
                       onChange={() => togglePreference(item.id)}
-                      className="size-5 shrink-0 rounded accent-primary-1"
+                      className="size-5 shrink-0 appearance-none rounded border border-[#d2d5da] bg-white bg-center bg-no-repeat checked:border-primary-1 checked:bg-primary-1 checked:bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M3.5%208.5%206.5%2011.5%2012.5%204.5%22%20stroke%3D%22white%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')]"
                     />
                     <span>{item.label}</span>
                   </label>
@@ -285,16 +303,18 @@ const NewsletterForm = ({
           ) : null}
 
           {languageOptions.length ? (
-            <div className="flex h-auto min-h-12 flex-col justify-center gap-3 rounded-lg border border-200 px-3.5 py-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex h-12 min-w-0 items-center justify-between gap-3 rounded-lg border border-200 py-0 ps-[13px] pe-[18px]">
               {languageLabel ? (
-                <span className="text-xs text-700">{languageLabel}</span>
+                <span className="shrink-0 text-xs font-normal text-700">{languageLabel}</span>
               ) : null}
-              <div className="flex flex-wrap items-center gap-6">
+              <div className="flex shrink-0 items-center gap-6">
                 {languageOptions.map((item) => (
                   <Radio
                     key={item.id}
                     name="newsletter-language"
                     label={item.label}
+                    size="size-5"
+                    labelClass="text-base leading-normal"
                     checked={languageValue === item.id}
                     onChange={() => setLanguageValue(item.id)}
                   />
@@ -305,7 +325,7 @@ const NewsletterForm = ({
 
           {(consentBefore || privacyLabel || consentAfter) && (
             <p
-              className={`m-0 text-sm leading-normal ${CMS_TEXT_HOVER_CLASS}`}
+              className={`m-0 text-sm leading-[1.5] ${CMS_TEXT_HOVER_CLASS}`}
               style={getTextStyleVars(
                 { bodyColor, bodyFontWeight, bodyColorHover, bodyFontWeightHover },
                 'bodyColor',

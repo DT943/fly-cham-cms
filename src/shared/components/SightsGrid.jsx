@@ -13,6 +13,7 @@ import {
 } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
+import LocalizedLink from './LocalizedLink.jsx'
 
 const CATEGORY_ICON = {
   none: null,
@@ -43,11 +44,30 @@ const CARD_RADIUS = {
   full: 'rounded-3xl',
 }
 
-const SightCard = ({ item, cardRadius, linkProps }) => {
+const SightCard = ({ item, cardRadius, linkProps, categories }) => {
   const src = item.image || ''
-  const tags = Array.isArray(item.tags) ? item.tags : []
+  const categoryLabel = (categories || [])
+    .find((cat) => cat.id && cat.id === item.category)
+    ?.label?.trim()
+  const tags = categoryLabel
+    ? [categoryLabel]
+    : Array.isArray(item.tags)
+      ? item.tags
+      : []
+  const href = String(item.href || '').trim()
   return (
-    <article className={`group relative flex h-[300px] flex-col justify-end overflow-hidden p-4 ${cardRadius}`}>
+    <article
+      className={`group relative flex h-[300px] flex-col justify-end overflow-hidden p-4 ${cardRadius} ${
+        href ? 'cursor-pointer' : ''
+      }`}
+    >
+      {href ? (
+        <LocalizedLink
+          href={href}
+          aria-label={item.name || item.location || 'Sight'}
+          className="absolute inset-0 z-10 cursor-pointer"
+        />
+      ) : null}
       {src ? (
         <img
           src={src}
@@ -129,7 +149,9 @@ const SightsGrid = ({
   return (
     <section className="flex flex-col gap-6">
       {categories.length > 0 && (
-        <div className="flex flex-nowrap items-center gap-2.5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:gap-4 lg:overflow-visible">
+        // Mobile: one swipeable row. md+: each pill sizes to its label + icon
+        // and the row wraps onto a second line when they don't fit.
+        <div className="flex flex-nowrap items-center gap-2.5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:flex-wrap md:gap-4 md:overflow-visible">
           {categories.map((cat, index) => {
             const isActive = (active ?? allId) === cat.id
             const Icon = CATEGORY_ICON[cat.icon]
@@ -146,8 +168,8 @@ const SightsGrid = ({
                     setActive(cat.id)
                   }
                 }}
-                className={`flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 md:gap-2.5 md:px-4 md:py-3 lg:min-w-0 lg:flex-1 lg:shrink ${
-                  isActive ? 'bg-primary-1 lg:flex-none' : 'bg-50'
+                className={`flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 md:gap-2.5 md:px-4 md:py-3 ${
+                  isActive ? 'bg-primary-1' : 'bg-50'
                 }`}
               >
                 <span
@@ -177,7 +199,13 @@ const SightsGrid = ({
 
       <div className={`grid ${columnsClass} ${gapClass}`}>
         {visible.map((item, index) => (
-          <SightCard key={item.id || index} item={item} cardRadius={radiusClass} linkProps={linkProps} />
+          <SightCard
+            key={item.id || index}
+            item={item}
+            cardRadius={radiusClass}
+            linkProps={linkProps}
+            categories={categories}
+          />
         ))}
       </div>
     </section>

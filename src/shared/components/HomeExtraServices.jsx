@@ -67,7 +67,7 @@ const HomeExtraServices = ({
 
   return (
     <section
-      className="w-full min-w-0 pb-12 md:pb-16"
+      className="w-full min-w-0"
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <Container className="flex min-w-0 flex-col gap-5 md:gap-7">

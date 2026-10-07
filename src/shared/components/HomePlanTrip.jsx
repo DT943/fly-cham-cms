@@ -29,15 +29,25 @@ const formatPrice = (priceLabel, price, currency) =>
     .join(' ')
 
 /**
- * One destination card — mirrors pages/home/components/HomeTripCard.jsx.
- * Only the arrow is a link, so the name can carry backlinks.
+ * One destination card. The whole card opens `item.href`; the arrow is the
+ * visible control, not a separate link.
  */
 const TripCard = ({ item, newLabel, priceLabel, textStyle, arrowBg, arrowColor, linkProps, exploreLabel }) => {
   const src = item.image || ''
   const priceText = formatPrice(priceLabel, item.price, item.currency)
+  const href = String(item.href || '').trim()
 
   return (
-    <article className="relative aspect-16/13 min-w-0 overflow-hidden rounded-xl">
+    <article
+      className={`relative aspect-16/13 min-w-0 overflow-hidden rounded-xl ${href ? 'cursor-pointer' : ''}`}
+    >
+      {href ? (
+        <LocalizedLink
+          href={href}
+          aria-label={exploreLabel}
+          className="absolute inset-0 z-[1] cursor-pointer"
+        />
+      ) : null}
       {src ? (
         <img
           src={src}
@@ -50,7 +60,7 @@ const TripCard = ({ item, newLabel, priceLabel, textStyle, arrowBg, arrowColor, 
         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,38,59,0)_40%,rgba(1,38,59,0.88)_100%)]"
       />
 
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3.5 md:p-4">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex items-end justify-between gap-3 p-3.5 md:p-4">
         <div className="flex min-w-0 flex-col gap-1">
           {item.isNew && newLabel ? (
             <span
@@ -79,17 +89,16 @@ const TripCard = ({ item, newLabel, priceLabel, textStyle, arrowBg, arrowColor, 
           ) : null}
         </div>
 
-        <LocalizedLink
-          href={item.href || '#'}
-          aria-label={exploreLabel}
-          className="grid size-9 shrink-0 place-items-center rounded-full no-underline md:size-10"
+        <span
+          aria-hidden
+          className="grid size-9 shrink-0 place-items-center rounded-full md:size-10"
           style={{
             backgroundColor: colorVar(arrowBg || 'primary-1'),
             color: colorVar(arrowColor),
           }}
         >
           <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
-        </LocalizedLink>
+        </span>
       </div>
     </article>
   )
@@ -129,6 +138,7 @@ const HomePlanTrip = ({
   const { t, i18n } = useTranslation()
   const viewportRef = useRef(null)
   const dragRef = useRef({ active: false, startX: 0, lastX: 0 })
+  const swipedRef = useRef(false)
   const [index, setIndex] = useState(0)
   const [layout, setLayout] = useState({ cardWidth: 0, gap: 16, visible: 1 })
   const [dragOffset, setDragOffset] = useState(0)
@@ -172,6 +182,7 @@ const HomePlanTrip = ({
 
   const onPointerDown = (event) => {
     if (event.pointerType === 'mouse') return
+    swipedRef.current = false
     dragRef.current = { active: true, startX: event.clientX, lastX: event.clientX }
     setIsDragging(true)
     event.currentTarget.setPointerCapture?.(event.pointerId)
@@ -194,8 +205,16 @@ const HomePlanTrip = ({
     const threshold = Math.min(72, layout.cardWidth * 0.2)
     if (Math.abs(delta) < threshold) return
 
+    swipedRef.current = true
     const forward = isRtl ? delta > 0 : delta < 0
     go(forward ? 1 : -1)
+  }
+
+  const onClickCapture = (event) => {
+    if (!swipedRef.current) return
+    swipedRef.current = false
+    event.preventDefault()
+    event.stopPropagation()
   }
 
   if (!items.length && !title) return null
@@ -221,7 +240,7 @@ const HomePlanTrip = ({
 
   return (
     <section
-      className="w-full min-w-0 pt-6 pb-10 md:pt-8 md:pb-12"
+      className="w-full min-w-0"
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <Container className="flex min-w-0 flex-col gap-5 md:gap-7">
@@ -270,6 +289,7 @@ const HomePlanTrip = ({
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}
+              onClickCapture={onClickCapture}
             >
               <div
                 className="flex will-change-transform"

@@ -32,14 +32,15 @@ const byOrder = (a, b) =>
  * `flushBottom`: when the last block is full-bleed (e.g. a newsletter photo
  * band), drop the bottom padding so it sits directly on the footer.
  * `gapClass`: override the vertical spacing between blocks for a page whose
- * design uses a different rhythm (e.g. Travel Updates).
+ * design uses a different rhythm (e.g. Travel Updates). The default matches
+ * the page builder canvas: 32px, then 60px from the md breakpoint.
  */
 const PageBlocks = ({
   blocks = [],
   lang,
   className = '',
   flushBottom = false,
-  gapClass = 'gap-6 md:gap-8',
+  gapClass = 'gap-8 md:gap-[60px]',
 }) => {
   const sorted = [...blocks].sort(byOrder)
   // A leading full-bleed block (e.g. a hero) should sit flush under the page

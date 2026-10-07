@@ -10,6 +10,7 @@ import {
   colorVar,
   headerHref,
   headerIcon,
+  hrefMatchesHeaderPath,
   roleStyle,
 } from '../headerStyle.js'
 
@@ -187,14 +188,7 @@ const MegaMenuPromo = ({ tab, onNavigate, headerStyle: hs }) => {
 }
 
 /** Two-column grid of icon links (Book & Manage, Travel Experience, Help). */
-const MegaMenuLinks = ({ tab, onNavigate, headerStyle: hs }) => {
-  const iconStyle = roleStyle({ color: hs.iconColor, colorHover: hs.iconColorHover })
-  const titleStyle = roleStyle({
-    color: hs.linkTitleColor,
-    colorHover: hs.linkTitleColorHover,
-    weight: hs.linkTitleFontWeight,
-    weightHover: hs.linkTitleFontWeightHover,
-  })
+const MegaMenuLinks = ({ tab, onNavigate, headerStyle: hs, activePath = '' }) => {
   const descriptionStyle = roleStyle({
     color: hs.linkDescriptionColor,
     weight: hs.linkDescriptionFontWeight,
@@ -206,12 +200,26 @@ const MegaMenuLinks = ({ tab, onNavigate, headerStyle: hs }) => {
         {tab.links.map((link) => {
           const Icon = headerIcon(link.icon)
           const Badge = headerIcon(link.badge)
+          const isCurrent = hrefMatchesHeaderPath(link.href, activePath)
+          const iconStyle = roleStyle({
+            color: hs.iconColor,
+            colorHover: hs.iconColorHover,
+            active: isCurrent,
+          })
+          const titleStyle = roleStyle({
+            color: hs.linkTitleColor,
+            colorHover: hs.linkTitleColorHover,
+            weight: hs.linkTitleFontWeight,
+            weightHover: hs.linkTitleFontWeightHover,
+            active: isCurrent,
+          })
 
           return (
             <LocalizedLink
               key={link.id}
               to={headerHref(link.href)}
               onClick={onNavigate}
+              aria-current={isCurrent ? 'page' : undefined}
               className={`group ${HDR_GROUP} flex items-start gap-3 rounded-xl ps-0 pe-3 py-3 text-inherit no-underline outline-none transition-colors focus:outline-none lg:ps-3`}
             >
               {Icon && (
@@ -394,12 +402,15 @@ const contentByType = {
  * One header dropdown, rendered from a (normalised) header document menu —
  * see useSiteHeader. `headerStyle` is the document's `style` (theme tokens).
  */
-const MegaMenu = ({ menu, headerStyle, onNavigate, embedded = false }) => {
-  const [activeId, setActiveId] = useState(menu.tabs[0]?.id)
+const MegaMenu = ({ menu, headerStyle, onNavigate, embedded = false, currentLocation = null }) => {
+  const ownsPage = currentLocation?.menuId === menu.id
+  const currentTabId = ownsPage ? currentLocation.tabId : null
+  const activePath = ownsPage ? currentLocation.path : ''
+  const [activeId, setActiveId] = useState(currentTabId || menu.tabs[0]?.id)
 
   useEffect(() => {
-    setActiveId(menu.tabs[0]?.id)
-  }, [menu.id, menu.tabs])
+    setActiveId(currentTabId || menu.tabs[0]?.id)
+  }, [menu.id, currentTabId])
 
   const activeTab = menu.tabs.find((tab) => tab.id === activeId) || menu.tabs[0]
   if (!activeTab) return null
@@ -420,7 +431,12 @@ const MegaMenu = ({ menu, headerStyle, onNavigate, embedded = false }) => {
           embedded ? 'px-6' : 'lg:ps-10 lg:pe-0'
         }`}
       >
-        <Content tab={activeTab} onNavigate={onNavigate} headerStyle={headerStyle} />
+        <Content
+          tab={activeTab}
+          onNavigate={onNavigate}
+          headerStyle={headerStyle}
+          activePath={activeTab.id === currentTabId ? activePath : ''}
+        />
       </div>
     </>
   )
