@@ -12,6 +12,18 @@ long cache for hashed `/assets`, gzip, `/healthz`). `VITE_*` settings are baked
 in at build time from `.env.production` (created from
 [.env.production.example](.env.production.example) when missing).
 
+## Fresh or wiped VPS
+
+One script in the CMS repo sets up both apps, HTTPS (Caddy for
+`cms-flycham.alpatrose.com` → :4000 and `cms-api.cms-flycham.alpatrose.com` →
+:3000) and the CI login key. As root on the VPS:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/Digital2025-byte/library-love-cloned/main/deploy/bootstrap-vps.sh)
+```
+
+The *One-time setup* steps below are what it automates.
+
 ## Deploying
 
 Pushing to `main` deploys automatically (see *CI/CD* below). By hand, on the VPS:

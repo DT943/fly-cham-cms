@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # same major as the VPS
+          node-version: 22 # same major as the VPS
           cache: npm
 
       - run: npm ci --no-audit --no-fund
@@ -71,3 +71,9 @@ jobs:
           ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
             -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 \
             "$SSH_USER@$SSH_HOST" "update-flycham ${GITHUB_SHA}"
+
+      - name: Check the public site
+        run: |
+          code=$(curl -s -o /dev/null -m 15 -w '%{http_code}' "https://cms-flycham.alpatrose.com/")
+          echo "GET https://cms-flycham.alpatrose.com/ → HTTP $code"
+          [ "$code" = 200 ]
