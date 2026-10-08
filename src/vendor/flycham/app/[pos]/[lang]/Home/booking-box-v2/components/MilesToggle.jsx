@@ -9,15 +9,14 @@ const MilesToggle = ({ isMobile: isMobileProp }) => {
   const isMobile = isMobileProp ?? isMobileFromContext;
 
   return (
-    // Toggle sizing and label per Figma node 38353:30597 (Component 29).
-    <div className={`flex items-center gap-[10px] ${isMobile ? 'mt-2' : ''}`}>
-      <label className="relative inline-flex items-center w-[37px] h-[22.49px] cursor-pointer">
+    <div className={`flex items-center gap-2 ${isMobile ? 'mt-2' : ''}`}>
+      <label className="relative inline-flex items-center w-9 h-5 cursor-pointer">
         <input type="checkbox" className="sr-only peer" disabled />
-        <div className="w-full h-full bg-[rgba(120,120,128,0.16)] rounded-full peer-checked:bg-[var(--primary-1)] transition-colors duration-300" />
-        <div className="absolute top-[1.45px] start-[1.45px] w-[19.588px] h-[19.588px] bg-white rounded-full shadow-[0px_2.176px_5.804px_0px_rgba(0,0,0,0.15),0px_2.176px_0.725px_0px_rgba(0,0,0,0.06)] transition-all duration-300 transform peer-checked:translate-x-[14.5px] rtl:peer-checked:-translate-x-[14.5px]" />
+        <div className="w-full h-full bg-gray-300 rounded-full peer-checked:bg-main transition-colors duration-300" />
+        <div className="absolute top-[2px] start-[2px] w-4 h-4 bg-white rounded-full shadow-md transition-all duration-300 transform peer-checked:translate-x-[16px] rtl:peer-checked:-translate-x-[16px]" />
       </label>
 
-      <span className="text-sm text-[var(--primary-1)] font-medium whitespace-nowrap">
+      <span className="text-sm text-main font-semibold whitespace-nowrap">
         {copy.milesToggle.label}
       </span>
     </div>

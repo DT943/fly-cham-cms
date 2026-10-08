@@ -10,7 +10,6 @@ const TripTypeSelector = ({
   onChange: onChangeProp,
   className = '',
   ariaLabel,
-  variant = 'pill',
 }) => {
   const copy = useBookingBoxContentOptional();
   const { formik, handleTripTypeChange } = useBookingBoxForm();
@@ -39,75 +38,16 @@ const TripTypeSelector = ({
     [onChange, tripType]
   );
 
-  // Segmented pill control per Figma node 38353:30597 (Component 29).
   const containerClasses = useMemo(
     () =>
       [
-        'inline-flex items-center gap-[18.171px] rounded-[12px] bg-[#F5F5F4] px-[8.653px] py-[10.383px]',
+        'inline-flex items-center gap-8',
         className,
       ]
         .filter(Boolean)
         .join(' '),
     [className]
   );
-
-  // Mobile: plain radio buttons (ring + filled dot) instead of the pill control.
-  if (variant === 'radio') {
-    return (
-      <div
-        role="radiogroup"
-        aria-label={resolvedAriaLabel}
-        className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${className}`.trim()}
-      >
-        {TRIP_TYPE_OPTIONS.map((option) => {
-          const inputId = `trip-type-${option.value}`;
-          const isChecked = tripType === option.value;
-          const isDisabled = Boolean(option.disabled);
-          const label = tripTypeLabels[option.value] ?? option.label;
-
-          return (
-            <label
-              key={option.value}
-              htmlFor={inputId}
-              className={`inline-flex select-none items-center gap-2 ${
-                isDisabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
-              }`}
-            >
-              <input
-                id={inputId}
-                type="radio"
-                name="tripType"
-                value={option.value}
-                checked={isChecked}
-                disabled={isDisabled}
-                onChange={() => handleSelect(option.value, isDisabled)}
-                className="sr-only"
-              />
-              <span
-                aria-hidden
-                className={`grid size-5 shrink-0 place-items-center rounded-full border-2 transition-colors ${
-                  isChecked ? 'border-[var(--primary-1)]' : 'border-[#5F5F5C]'
-                }`}
-              >
-                {isChecked ? (
-                  <span className="size-2.5 rounded-full bg-[var(--primary-1)]" />
-                ) : null}
-              </span>
-              <span
-                className={`whitespace-nowrap text-sm leading-none ${
-                  isChecked
-                    ? 'font-semibold text-[var(--primary-1)]'
-                    : 'font-medium text-[#5F5F5C]'
-                }`}
-              >
-                {label}
-              </span>
-            </label>
-          );
-        })}
-      </div>
-    );
-  }
 
   return (
     <div role="radiogroup" aria-label={resolvedAriaLabel} className={containerClasses}>
@@ -121,13 +61,7 @@ const TripTypeSelector = ({
           <label
             key={option.value}
             htmlFor={inputId}
-            className={`inline-flex items-center justify-center select-none transition-colors
-              ${
-                isChecked
-                  ? 'h-[35px] min-w-[104px] rounded-[8px] bg-[var(--primary-1)] p-[8.653px]'
-                  : 'px-[8.653px] py-[10.383px]'
-              }
-              ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+            className={`inline-flex items-center gap-3 select-none ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           >
             <input
               id={inputId}
@@ -140,8 +74,16 @@ const TripTypeSelector = ({
               className="sr-only"
             />
             <span
-              className={`whitespace-nowrap text-sm leading-none
-                ${isChecked ? 'font-semibold text-white' : 'font-medium text-[var(--primary-1)]'}
+              aria-hidden="true"
+              className={`h-[20px] w-[20px] rounded-full border flex items-center justify-center transition-colors
+                ${isChecked ? 'border-[3px] border-[var(--primary-1)]' : 'border-2 border-[#6B6B6B]'}
+                ${isDisabled ? 'opacity-60' : ''}`}
+            >
+              {isChecked && <span className="h-[10px] w-[10px] rounded-full bg-[var(--primary-1)]" />}
+            </span>
+            <span
+              className={`text-xs md:text-sm leading-none
+                ${isChecked ? 'text-[var(--primary-1)] font-semibold' : 'text-[#5F5F5C] font-medium'}
                 ${isDisabled ? 'opacity-80' : ''}`}
             >
               {label}

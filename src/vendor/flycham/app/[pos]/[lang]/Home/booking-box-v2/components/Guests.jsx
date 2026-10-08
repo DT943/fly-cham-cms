@@ -240,21 +240,18 @@ const Guests = ({
                 </button>
 
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={currentValue}
                   tabIndex={-1}
                   onChange={(e) => {
-                    const parsed = parseInt(e.target.value, 10) || 0;
+                    const parsed = parseInt(String(e.target.value).replace(/\D/g, ''), 10) || 0;
                     const value = key === 'adults' ? Math.max(1, parsed) : Math.max(0, parsed);
                     handleInputChange(key, value);
                   }}
-                  className="w-10 h-8 text-center border border-gray-400 rounded-md text-sm font-medium focus:outline-none custom-number-input"
-                  style={{
-                    appearance: 'textfield',
-                    WebkitAppearance: 'none',
-                    MozAppearance: 'textfield',
-                    textAlign: 'center',
-                  }}
+                  className="w-10 h-8 text-center border border-gray-400 rounded-md text-sm font-medium focus:outline-none"
+                  aria-label={label}
                 />
 
                 <button
