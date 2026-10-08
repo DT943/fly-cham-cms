@@ -139,15 +139,23 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     <header
       ref={headerRef}
       onMouseLeave={closeMenu}
-      className={`sticky top-0 z-[1000] shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-        dark ? 'bg-secondary-2' : ''
-      } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
+      className={`sticky top-0 z-[1000] shrink-0 ${dark ? 'bg-secondary-2' : ''}`}
       style={barBg}
     >
+      {showTravelNotice && <TravelUpdatesNotice />}
+
       <div
-        className={`border-b-2 ${dark ? 'border-white/10 bg-secondary-2' : 'border-200'} shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)]`}
-        style={barBg}
+        className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+          hidden ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'
+        }`}
       >
+        <div className="min-h-0 overflow-hidden">
+          <div
+            className={`border-b-2 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+              dark ? 'border-white/10 bg-secondary-2' : 'border-200'
+            } shadow-[0_4px_12px_-2px_rgba(33,37,41,0.12)] ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
+            style={barBg}
+          >
         <Container
           ref={navRef}
           className="relative flex h-16 items-center justify-between gap-4 md:h-18"
