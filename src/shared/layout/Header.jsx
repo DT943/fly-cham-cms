@@ -12,17 +12,25 @@ import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
 import TravelUpdatesNotice from './header/TravelUpdatesNotice.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
+import useCurrentPos from '../hooks/useCurrentPos.js'
 
 const REGION_MENU = 'region'
 const LOGIN_ITEM = 'login'
+/** How far the page must scroll down before an open menu closes. */
+const SCROLL_CLOSE_PX = 8
 
 const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const header = useSiteHeader()
+  // The country (POS) in the URL, shown on the region button (e.g. "AE").
+  const currentPos = useCurrentPos()
   const { menus, style: hs } = header
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
+  // A clicked menu stays open after the pointer leaves the header; it closes on
+  // a click outside, Escape, scrolling down, navigation or a second click.
+  const [pinned, setPinned] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const hidden = useHideOnScroll({
     enabled: hideOnScroll && !openMenu && !mobileOpen,
@@ -31,6 +39,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
 
   useEffect(() => {
     setOpenMenu(null)
+    setPinned(false)
     setMobileOpen(false)
   }, [location.pathname])
 
@@ -54,21 +63,35 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
   useEffect(() => {
     if (!openMenu) return undefined
 
+    const close = () => {
+      setOpenMenu(null)
+      setPinned(false)
+    }
+
     const handlePointerDown = (event) => {
-      if (!headerRef.current?.contains(event.target)) {
-        setOpenMenu(null)
-      }
+      if (!headerRef.current?.contains(event.target)) close()
     }
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setOpenMenu(null)
+      if (event.key === 'Escape') close()
+    }
+
+    // Scrolling the page down (not the panel itself) closes the menu, measured
+    // from the highest point since it opened (scrolling up keeps it open).
+    let topY = window.scrollY
+    const handleScroll = () => {
+      const y = window.scrollY
+      if (y < topY) topY = y
+      else if (y - topY > SCROLL_CLOSE_PX) close()
     }
 
     document.addEventListener('mousedown', handlePointerDown)
     document.addEventListener('keydown', handleKeyDown)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [openMenu])
 
@@ -82,7 +105,23 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     return () => media.removeEventListener('change', closeMobile)
   }, [])
 
-  const closeMenu = () => setOpenMenu(null)
+  const closeMenu = () => {
+    setOpenMenu(null)
+    setPinned(false)
+  }
+  // Hover only previews a menu; it closes when the pointer leaves unless pinned.
+  const handleHeaderLeave = () => {
+    if (!pinned) closeMenu()
+  }
+  // Click pins the menu open; clicking the pinned item again closes it.
+  const toggleMenu = (id) => {
+    if (openMenu === id && pinned) {
+      closeMenu()
+      return
+    }
+    setOpenMenu(id)
+    setPinned(true)
+  }
   const closeMobile = () => setMobileOpen(false)
   const navRef = useRef(null)
   const itemRefs = useRef({})
@@ -140,7 +179,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
   return (
     <header
       ref={headerRef}
-      onMouseLeave={closeMenu}
+      onMouseLeave={handleHeaderLeave}
       className={`sticky top-0 z-[1000] shrink-0 ${dark ? 'bg-secondary-2' : ''}`}
       style={barBg}
     >
@@ -172,7 +211,11 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
             <img
               src={dark ? header.logo.lightUrl : header.logo.darkUrl}
               alt={header.logo.alt}
-              className="h-full w-full max-w-none object-contain object-start"
+              // First visit: stay hidden until the CMS header loads, so the
+              // bundled default logo never flashes before the real one.
+              className={`h-full w-full max-w-none object-contain object-start transition-opacity duration-200 motion-reduce:transition-none ${
+                header.ready ? 'opacity-100' : 'opacity-0'
+              }`}
             />
           </LocalizedLink>
 
@@ -196,6 +239,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                     aria-controls={`${menu.id}-mega-menu`}
                     onMouseEnter={() => setOpenMenu(menu.id)}
                     onFocus={() => setOpenMenu(menu.id)}
+                    onClick={() => toggleMenu(menu.id)}
                     className={`relative flex cursor-pointer items-center whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${HDR_SELF_HOVER}`}
                     style={navStyle(isOpen || (!openMenu && isCurrent))}
                   >
@@ -216,11 +260,14 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                   aria-controls="region-mega-menu"
                   onMouseEnter={() => setOpenMenu(REGION_MENU)}
                   onFocus={() => setOpenMenu(REGION_MENU)}
+                  onClick={() => toggleMenu(REGION_MENU)}
                   className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
                   style={navStyle(openMenu === REGION_MENU)}
                 >
                   <GlobeHemisphereWest size={24} weight="regular" className="shrink-0" />
-                  <span className={`${typography.caption} font-medium`}>{header.region.label}</span>
+                  <span className={`${typography.caption} font-medium`}>
+                    {currentPos.toUpperCase()}
+                  </span>
                 </button>
               )}
 
@@ -285,6 +332,8 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
       {(activeMenu || openMenu === REGION_MENU) && (
         <div
           id={`${openMenu}-mega-menu`}
+          // Clicking inside the panel (e.g. a tab) keeps it open.
+          onPointerDown={() => setPinned(true)}
           className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] lg:block"
         >
           {activeMenu && (

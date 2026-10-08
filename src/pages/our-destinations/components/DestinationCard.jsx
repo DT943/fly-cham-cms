@@ -34,6 +34,8 @@ const DestinationCard = ({
   cta,
   activities,
   href = '#',
+  // "Things to Do" link; falls back to the card link when not set.
+  activitiesHref,
   radius = 'lg',
   iataColor = '100',
   titleColor = '100',
@@ -44,6 +46,7 @@ const DestinationCard = ({
   buttonClassName,
   buttonStyle,
 }) => {
+  const thingsToDoHref = activitiesHref || href
   const radiusClass = RADIUS_CLASS[radius] ?? RADIUS_CLASS.lg
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
@@ -110,7 +113,7 @@ const DestinationCard = ({
             {cta}
           </LocalizedLink>
           <LocalizedLink
-            href={href}
+            href={thingsToDoHref}
             className={`${activitiesClass} min-w-0 justify-center`}
             style={{ color: colorVar(activitiesColor) }}
           >
@@ -156,7 +159,7 @@ const DestinationCard = ({
             {cta}
           </LocalizedLink>
           <LocalizedLink
-            href={href}
+            href={thingsToDoHref}
             className={`${activitiesClass} justify-center`}
             style={{ color: colorVar(activitiesColor) }}
           >

@@ -9,6 +9,11 @@ import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
  *     for this language, or from the bundled default.
  *  2. Fetch the document, then refresh it while the tab stays visible.
  *  3. When the response passes the shape check, swap it in and cache it.
+ *
+ * The returned document carries `ready`: false only on a first visit (no cache)
+ * while the first fetch is still pending — at most READY_TIMEOUT_MS. Callers can
+ * hide CMS-owned assets (the logo) until then, so a stale bundled default never
+ * flashes before the CMS version.
  *     The API's `not_found` 404 (nothing saved) drops the cache and falls back
  *     to the default; any other failure (route not deployed, network, 5xx)
  *     keeps whatever is showing, silently.
@@ -25,6 +30,9 @@ import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
  * @returns {() => object} hook returning the normalised document for the URL language
  */
 const LANGS = ['en', 'ar']
+
+/** Longest a first-visit render waits for the API before showing the default. */
+const READY_TIMEOUT_MS = 2500
 
 const createSiteDocumentHook = ({
   fetchDocument,
@@ -73,11 +81,19 @@ const createSiteDocumentHook = ({
 
   const emit = () => listeners.forEach((listener) => listener())
 
-  const setEntry = (lang, rawDoc, source) => {
+  const setEntry = (lang, rawDoc, source, ready = source !== 'default') => {
     const doc = normalizeDocument(rawDoc, lang)
     if (!doc) return false
-    entries[lang] = { doc, raw: JSON.stringify(rawDoc), source }
+    entries[lang] = { doc: { ...doc, ready }, raw: JSON.stringify(rawDoc), source }
     return true
+  }
+
+  /** The first fetch settled (or timed out): show whatever is current. */
+  const markReady = (lang) => {
+    const entry = entries[lang]
+    if (!entry || entry.doc.ready) return
+    entries[lang] = { ...entry, doc: { ...entry.doc, ready: true } }
+    emit()
   }
 
   const ensureEntry = (lang) => {
@@ -92,6 +108,7 @@ const createSiteDocumentHook = ({
   const loadFromApi = (lang) => {
     if (inflight.has(lang)) return
     inflight.add(lang)
+    const readyTimer = window.setTimeout(() => markReady(lang), READY_TIMEOUT_MS)
 
     fetchDocument(lang)
       .then((result) => {
@@ -116,6 +133,8 @@ const createSiteDocumentHook = ({
       })
       .finally(() => {
         inflight.delete(lang)
+        window.clearTimeout(readyTimer)
+        markReady(lang)
       })
   }
 

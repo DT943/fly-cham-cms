@@ -5,14 +5,17 @@ import { replaceLanguage } from '../../../../i18n/languages.js'
 import { typography } from '../../../../styles/typography.js'
 import Container from '../../../components/Container.jsx'
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage.js'
+import useCurrentPos from '../../../hooks/useCurrentPos.js'
 import { regions } from '../menuData.js'
 
 const RegionMenu = ({ onNavigate, embedded = false }) => {
   const { t } = useTranslation()
   const { pathname, search, hash } = useLocation()
   const currentLanguage = useCurrentLanguage()
+  const currentPos = useCurrentPos()
 
-  const toLanguage = (lang) => `${replaceLanguage(pathname, lang)}${search}${hash}`
+  // Same page, only the POS and language in the URL change.
+  const toLocale = (lang, pos) => `${replaceLanguage(pathname, lang, pos)}${search}${hash}`
 
   return (
     <div
@@ -41,20 +44,25 @@ const RegionMenu = ({ onNavigate, embedded = false }) => {
                   {t(`layout.header.regions.${region.id}`)}
                 </span>
                 <span className={`${typography.caption} flex items-center gap-1 text-700`}>
-                  {region.langs.map((lang, index) => (
-                    <span key={lang} className="flex items-center gap-1">
-                      {index > 0 && <span aria-hidden="true">·</span>}
-                      <Link
-                        to={toLanguage(lang)}
-                        onClick={onNavigate}
-                        className={`no-underline ${
-                          lang === currentLanguage ? 'font-semibold text-primary-1' : 'text-700 hover:text-primary-1'
-                        }`}
-                      >
-                        {t(`layout.header.langNames.${lang}`)}
-                      </Link>
-                    </span>
-                  ))}
+                  {region.langs.map((lang, index) => {
+                    const pos = region.code.toLowerCase()
+                    const active = pos === currentPos && lang === currentLanguage
+                    return (
+                      <span key={lang} className="flex items-center gap-1">
+                        {index > 0 && <span aria-hidden="true">·</span>}
+                        <Link
+                          to={toLocale(lang, pos)}
+                          onClick={onNavigate}
+                          aria-current={active ? 'true' : undefined}
+                          className={`no-underline ${
+                            active ? 'font-semibold text-primary-1' : 'text-700 hover:text-primary-1'
+                          }`}
+                        >
+                          {t(`layout.header.langNames.${lang}`)}
+                        </Link>
+                      </span>
+                    )
+                  })}
                 </span>
               </span>
             </li>

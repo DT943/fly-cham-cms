@@ -1,16 +1,12 @@
-import { Navigate } from 'react-router-dom'
-import { hasLanguageSuffix, withLanguage } from '../../i18n/languages.js'
+import { hasLocalePrefix } from '../../i18n/languages.js'
 import useLocalizedRoute from './hooks/useLocalizedRoute.js'
 import LanguageRedirect from './components/LanguageRedirect.jsx'
 
 const LocalizedRoutes = () => {
-  const { language, Page, pathname, search, hash } = useLocalizedRoute()
+  const { Page, pathname } = useLocalizedRoute()
 
-  if (hasLanguageSuffix(pathname)) {
-    return <Navigate to={withLanguage(`${pathname}${search}${hash}`, language)} replace />
-  }
-
-  if (!language) return <LanguageRedirect />
+  // Every page lives under /<pos>/<lang>; anything else is redirected there.
+  if (!hasLocalePrefix(pathname)) return <LanguageRedirect />
 
   return <Page />
 }

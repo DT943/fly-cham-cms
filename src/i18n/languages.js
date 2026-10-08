@@ -1,5 +1,22 @@
+/**
+ * Site URLs are `/<pos>/<lang>/<page>`, e.g. `/sy/en`, `/ae/ar/our-destinations`.
+ *
+ * POS (point of sale = the country picked in the header) only changes the URL
+ * and the header's active country — page content is the same for every POS.
+ * Older URLs without a POS (`/en/...`), without a language (`/ae/...`) or with
+ * a language suffix (`/help/en`) are redirected to the full form by
+ * LocalizedRoutes.
+ */
 export const SUPPORTED_LANGUAGES = ['en', 'ar']
 export const DEFAULT_LANGUAGE = 'en'
+
+/** POS codes, one per country in the header's region menu (`gl` = Global). */
+export const SUPPORTED_POS = ['sy', 'ae', 'kw', 'iq', 'om', 'tr', 'ly', 'sa', 'am', 'gl']
+export const DEFAULT_POS = 'sy'
+
+export function isSupportedPos(value) {
+  return SUPPORTED_POS.includes(value)
+}
 
 export function isSupportedLanguage(value) {
   return SUPPORTED_LANGUAGES.includes(value)
@@ -28,45 +45,73 @@ function pathSegments(pathname) {
   return pathname.split('/').filter(Boolean)
 }
 
-export function getLanguageFromPath(path) {
-  const { pathname } = splitPath(path)
+/**
+ * Split a pathname into its locale parts and the page segments:
+ *   /sy/en/help → { pos: 'sy', lang: 'en', page: ['help'] }
+ *   /en/help    → { pos: null, lang: 'en', page: ['help'] }   (legacy)
+ *   /ae/help    → { pos: 'ae', lang: null, page: ['help'] }
+ *   /help/en    → { pos: null, lang: 'en', page: ['help'], suffix: true }
+ *   /ae/help/en → { pos: 'ae', lang: 'en', page: ['help'], suffix: true }
+ */
+function parseLocale(pathname) {
   const segments = pathSegments(pathname)
-  if (isSupportedLanguage(segments[0])) return segments[0]
-  const last = segments[segments.length - 1]
-  return isSupportedLanguage(last) ? last : null
+  let index = 0
+  const pos = isSupportedPos(segments[index]) ? segments[index++] : null
+  let lang = isSupportedLanguage(segments[index]) ? segments[index++] : null
+  let page = segments.slice(index)
+  let suffix = false
+  if (!lang && page.length > 1 && isSupportedLanguage(page[page.length - 1])) {
+    lang = page[page.length - 1]
+    page = page.slice(0, -1)
+    suffix = true
+  }
+  return { pos, lang, page, suffix }
+}
+
+export function getLanguageFromPath(path) {
+  return parseLocale(splitPath(path).pathname).lang
+}
+
+export function getPosFromPath(path) {
+  return parseLocale(splitPath(path).pathname).pos
+}
+
+/** The POS of the page being shown (from the browser URL), else the default. */
+export function getCurrentPos() {
+  if (typeof window === 'undefined') return DEFAULT_POS
+  return getPosFromPath(window.location.pathname) || DEFAULT_POS
+}
+
+/** True when the URL already has the full `/<pos>/<lang>/...` form. */
+export function hasLocalePrefix(path) {
+  const { pos, lang } = parseLocale(splitPath(path).pathname)
+  return Boolean(pos && lang)
 }
 
 export function hasLanguageSuffix(path) {
-  const { pathname } = splitPath(path)
-  const segments = pathSegments(pathname)
-  if (segments.length < 2) return false
-  return isSupportedLanguage(segments[segments.length - 1]) && !isSupportedLanguage(segments[0])
+  return parseLocale(splitPath(path).pathname).suffix
 }
 
+/** The page path without POS and language: `/sy/en/help?x=1` → `/help?x=1`. */
 export function stripLanguage(path) {
   const { pathname, search, hash } = splitPath(path)
-  const segments = pathSegments(pathname)
-
-  if (isSupportedLanguage(segments[0])) {
-    const stripped = `/${segments.slice(1).join('/')}`
-    return `${stripped === '/' ? '/' : stripped}${search}${hash}`
-  }
-
-  if (isSupportedLanguage(segments[segments.length - 1])) {
-    const stripped = `/${segments.slice(0, -1).join('/')}`
-    return `${stripped === '/' ? '/' : stripped}${search}${hash}`
-  }
-
-  return `${pathname}${search}${hash}`
+  const { page } = parseLocale(pathname)
+  return `/${page.join('/')}${search}${hash}`
 }
 
-export function withLanguage(path, lang) {
+/**
+ * `path` under `/<pos>/<lang>`. The POS defaults to the one in the current URL,
+ * so links keep the visitor's chosen country.
+ */
+export function withLanguage(path, lang, pos = getCurrentPos()) {
   const language = getPreferredLanguage(lang)
+  const market = isSupportedPos(pos) ? pos : DEFAULT_POS
   const { pathname, search, hash } = splitPath(stripLanguage(path))
   const rest = pathname === '/' ? '' : pathname
-  return `/${language}${rest}${search}${hash}`
+  return `/${market}/${language}${rest}${search}${hash}`
 }
 
-export function replaceLanguage(path, lang) {
-  return withLanguage(path, lang)
+/** Same page under another language and/or POS (header region menu). */
+export function replaceLanguage(path, lang, pos) {
+  return withLanguage(path, lang, pos)
 }

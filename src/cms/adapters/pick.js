@@ -54,9 +54,27 @@ export function resolveCmsAsset(url) {
 /** FlyCham CMS links are often `/gb/en/...` (POS + language). Strip those for this app. */
 const POS_AND_LANG = /^\/[a-z]{2}\/(en|ar)(?=\/|$)/i
 
+/** This site's own hosts: full URLs to them are treated as in-app links. */
+const SITE_HOSTS = new Set(['cms-flycham.alpatrose.com'])
+
+/** `https://<this site>/en/help?x` → `/en/help?x`; any other value is unchanged. */
+function toSitePath(href) {
+  if (!/^https?:\/\//i.test(href)) return href
+  try {
+    const url = new URL(href)
+    const own =
+      SITE_HOSTS.has(url.host) ||
+      (typeof window !== 'undefined' && url.host === window.location.host)
+    return own ? `${url.pathname}${url.search}${url.hash}` : href
+  } catch {
+    return href
+  }
+}
+
 export function resolveCmsHref(href) {
   if (!href || typeof href !== 'string') return undefined
-  const trimmed = href.trim()
+  // Same-site full URLs become app paths, so they keep the visitor's POS/language.
+  const trimmed = toSitePath(href.trim())
   if (!trimmed) return undefined
   if (/^(https?:|mailto:|tel:|#)/i.test(trimmed) || trimmed.startsWith('//')) {
     return trimmed

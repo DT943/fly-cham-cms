@@ -22,6 +22,8 @@ const FeaturedDestination = ({
   images,
   imageAlt,
   href = '#',
+  // "Things to Do" link; falls back to the main link when not set.
+  activitiesHref,
   // Optional Normal/Hover button styling from getButtonStyle (CMS block).
   buttonClassName = '',
   buttonStyle,
@@ -111,7 +113,7 @@ const FeaturedDestination = ({
             {cta}
           </LocalizedLink>
           <LocalizedLink
-            href={href}
+            href={activitiesHref || href}
             className={`${typography.body} font-semibold text-50 inline-flex items-center justify-center gap-2.5 no-underline rounded-lg transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
           >
             {activities}
