@@ -155,7 +155,7 @@ const RecentNews = ({
   const topicOptions = Array.isArray(topics) ? topics : []
   const articles = Array.isArray(items) ? items : []
   const yearOptions = useMemo(() => recentNewsYearOptions(years), [years])
-  const size = Math.max(1, Number(pageSize) || 6)
+  const size = Math.min(48, Math.max(1, Number(pageSize) || 6))
 
   const defaultTopic = topicOptions[0]?.id || 'all'
   const [activeTopic, setActiveTopic] = useState(defaultTopic)

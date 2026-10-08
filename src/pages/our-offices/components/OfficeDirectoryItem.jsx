@@ -20,6 +20,28 @@ export function toEmailHref(email = '') {
   return value ? `mailto:${value}` : ''
 }
 
+/**
+ * "Weekend" + "Friday" → "Weekend: Friday".
+ * Skip a second copy when the label already ends with the day, or the day
+ * was saved as the full "Weekend: Friday" line.
+ */
+export function formatWeekendLine(label, value) {
+  const day = String(value || '').trim()
+  const prefix = String(label || '').trim()
+  if (!day) return ''
+  if (!prefix) return day
+
+  const lowerDay = day.toLowerCase()
+  const lowerPrefix = prefix.toLowerCase()
+  if (lowerPrefix === lowerDay || lowerDay.startsWith(`${lowerPrefix}:`)) {
+    return day
+  }
+
+  const tail = prefix.split(':').pop().trim().toLowerCase()
+  if (tail && tail === lowerDay) return prefix
+  return `${prefix}: ${day}`
+}
+
 function ContactRow({ icon: Icon, color, children }) {
   return (
     <div
@@ -132,7 +154,10 @@ const OfficeDirectoryItem = ({
                   className={cx(typography.caption, 'ps-7', CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(style, 'rowColor', '800', 'normal')}
                 >
-                  {labels.weekendLabel}: <LinkedText text={office.weekend} {...linkProps} />
+                  <LinkedText
+                    text={formatWeekendLine(labels.weekendLabel, office.weekend)}
+                    {...linkProps}
+                  />
                 </span>
               )}
             </div>

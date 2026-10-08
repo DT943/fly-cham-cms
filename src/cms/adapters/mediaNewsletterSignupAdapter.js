@@ -13,7 +13,7 @@ export function mediaNewsletterSignupProps(block, lang) {
     label: content.label || '',
     placeholder: content.placeholder || '',
     cta: content.cta || '',
-    pattern: resolveCmsAsset(content.patternUrl) || undefined,
+    pattern: resolveCmsAsset(content.patternUrl) || '',
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }

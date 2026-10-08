@@ -12,18 +12,15 @@ import LinkedText from './backlinks/LinkedText.jsx'
  * Media Center newsletter capture.
  * - Small: white card, stacked title / description / input / Subscribe
  * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
- * Presentational (does not submit). An empty CMS pattern uses the same
- * side pattern the admin preview falls back to.
+ * Presentational (does not submit). The side pattern comes from the CMS.
  */
-const DEFAULT_PATTERN = '/media-center/pattern.png'
-
 const MediaNewsletterSignup = ({
   title = '',
   description = '',
   label = '',
   placeholder = '',
   cta = '',
-  pattern = DEFAULT_PATTERN,
+  pattern = '',
   sectionBg = '100',
   borderColor = '200',
   cardBg = 'background',

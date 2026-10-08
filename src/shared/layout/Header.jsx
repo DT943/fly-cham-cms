@@ -161,7 +161,7 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
             <img
               src={dark ? header.logo.lightUrl : header.logo.darkUrl}
               alt={header.logo.alt}
-              className="h-full w-full max-w-none object-contain object-left"
+              className="h-full w-full max-w-none object-contain object-start"
             />
           </LocalizedLink>
 
