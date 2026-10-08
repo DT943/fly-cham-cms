@@ -2,7 +2,7 @@
   "en": {
     "schemaVersion": 1,
     "brand": {
-      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
+      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-logo.svg",
       "logoAlt": "Fly Cham",
       "logoHref": "/",
       "followText": "Follow and share your experience with us",
@@ -379,7 +379,7 @@
   "ar": {
     "schemaVersion": 1,
     "brand": {
-      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/logo.webp",
+      "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-logo.svg",
       "logoAlt": "Fly Cham",
       "logoHref": "/",
       "followText": "تابعنا وشارك تجربتك معنا",

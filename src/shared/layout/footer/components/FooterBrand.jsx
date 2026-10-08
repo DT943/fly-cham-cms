@@ -15,7 +15,13 @@ const FooterBrand = ({ brand, social, style }) => (
         aria-label={brand.logoAlt || undefined}
         className="inline-flex w-fit shrink-0"
       >
-        <img src={brand.logoUrl} alt={brand.logoAlt} className="h-9 w-auto md:h-11" />
+        <img
+          src={brand.logoUrl}
+          alt={brand.logoAlt}
+          width={185}
+          height={44}
+          className="block h-[44px] w-[185px] max-w-none"
+        />
       </LocalizedLink>
       {brand.followText ? (
         <p
