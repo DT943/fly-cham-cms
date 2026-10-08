@@ -14,9 +14,9 @@
 #   HOSTINGER_FTP_HOST      FTP host/IP (e.g. 76.13.35.251 or ftp.alpatrose.com)
 #   HOSTINGER_FTP_USER      FTP username (u123456789 or u123456789.something)
 #   HOSTINGER_FTP_PASSWORD  FTP password
-#   HOSTINGER_FTP_DIR       the site's folder as the FTP user sees it, e.g.
-#                           domains/cms-flycham.alpatrose.com/public_html
-#                           (use . when the FTP account opens in that folder)
+#   HOSTINGER_FTP_DIR       the site's folder relative to where the FTP login
+#                           lands. This site's account lands in /public_html
+#                           already, so it is `.` (also the default when unset)
 
 name: Site CI/CD
 
@@ -95,7 +95,7 @@ jobs:
           # --delete mirror run against the wrong folder). TLS when the server
           # offers it; Hostinger's FTP certificate usually does not match the
           # host name, so it is not verified.
-          lftp -c "
+          LFTP_OPEN="
             set cmd:fail-exit true
             set ftp:ssl-allow true
             set ssl:verify-certificate false
@@ -104,6 +104,32 @@ jobs:
             set mirror:parallel-transfer-count 4
             open --env-password -u '$FTP_USER' '$FTP_HOST'
             cd '$FTP_DIR'
+          "
+
+          # Safety: the mirror below deletes whatever is not in dist/, so only
+          # run it in the folder the live site is actually served from — its
+          # index.html must load the same bundle as $SITE_URL does right now
+          # (or the folder must be empty, for a first deploy).
+          rm -rf remote && mkdir remote
+          lftp -c "$LFTP_OPEN
+            cls -1a > remote/listing.txt
+            get -O remote index.html
+          " || true
+          [ -f remote/listing.txt ] || { echo "::error::could not open HOSTINGER_FTP_DIR on the FTP server"; exit 1; }
+          remote_js=$(grep -o 'assets/index-[^"]*\.js' remote/index.html 2>/dev/null | head -1 || true)
+          live_js=$(curl -fsS -m 15 "$SITE_URL/?v=$GITHUB_SHA" | grep -o 'assets/index-[^"]*\.js' | head -1 || true)
+          echo "FTP folder index.html loads: ${remote_js:-none}; $SITE_URL loads: ${live_js:-none}"
+          if [ -n "$remote_js" ] && [ "$remote_js" = "$live_js" ]; then
+            echo "FTP folder is the live site folder."
+          elif ! grep -qvE '^(\./?|\.\./?)?$' remote/listing.txt; then
+            echo "FTP folder is empty: first deploy."
+          else
+            echo "::error::HOSTINGER_FTP_DIR is not the folder $SITE_URL is served from; refusing to mirror --delete into it. Contents:"
+            cat remote/listing.txt
+            exit 1
+          fi
+
+          lftp -c "$LFTP_OPEN
             mkdir -p -f assets
             mirror -R --no-perms --verbose=1 dist/assets assets
             mirror -R --no-perms --delete --verbose=1 -x '^assets/' -x '^\.well-known/' -x '^cgi-bin/' dist .
