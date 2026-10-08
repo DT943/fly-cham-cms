@@ -4051,6 +4051,59 @@
       }
     }
   },
+  "bookAFlightPage": {
+    "breadcrumbHome": "Home",
+    "breadcrumb": "Book a Flight",
+    "hero": {
+      "title": "Book A Flight",
+      "subtitle": "Care at Every Step",
+      "imageAlt": "Fly Cham aircraft flying above the clouds"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "browse": "Browse all FAQs",
+      "items": [
+        {
+          "question": "Can I change my seat after booking?",
+          "answer": "Yes. You can change your seat through Manage Booking or at online check-in, subject to availability and your fare conditions."
+        },
+        {
+          "question": "Are seats free or paid?",
+          "answer": "Standard seat selection depends on your fare type. Some fares include free seat selection, while preferred seats may carry an extra charge."
+        },
+        {
+          "question": "How much baggage can I bring?",
+          "answer": "Your baggage allowance depends on your fare type and route. Check your booking confirmation or the baggage section of the website for the exact checked and cabin allowance."
+        },
+        {
+          "question": "Can I book a flight using my Cham Miles?",
+          "answer": "Yes. Switch on \"Book With Miles\" in the booking box to search for flights you can pay for with your Cham Miles balance."
+        }
+      ]
+    },
+    "plan": {
+      "title": "Plan Before You Fly",
+      "description": "Everything you need to know and do before you fly to make your journey as smooth and enjoyable as possible",
+      "learnMore": "Learn More",
+      "cards": {
+        "baggage": {
+          "title": "Allowed Baggage",
+          "description": "Find baggage allowance information for different classes and fare types before packing for your flight.",
+          "imageAlt": "Suitcases ready for travel"
+        },
+        "prohibited": {
+          "title": "Prohibited Items",
+          "description": "Check the list of restricted and prohibited items to stay safe and compliant with international aviation regulations.",
+          "imageAlt": "Prohibited items sign"
+        },
+        "seat": {
+          "title": "Seat selection",
+          "description": "Choose your preferred seat in advance and enjoy a more comfortable journey with Fly Cham.",
+          "imageAlt": "Passenger seats on board a Fly Cham aircraft"
+        }
+      }
+    }
+  },
   "flightSchedulePage": {
     "title": "Flight Schedule",
     "range": "From {{from}} to {{to}} . {{trip}}",

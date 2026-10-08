@@ -51,6 +51,7 @@ const SeatPlan = ({
   cardBg = '50',
   arrowBadgeBg = 'primary-1',
   arrowColor = '50',
+  learnMoreAlign = 'auto',
   links = [],
   showLinks = true,
   linkColor,
@@ -143,7 +144,8 @@ const SeatPlan = ({
                 <LocalizedLink
                   href={item.href || '#'}
                   className={cx(
-                    'group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center self-end overflow-hidden rounded-full no-underline sm:self-auto',
+                    'group/lm pointer-events-auto relative mt-2 inline-flex h-[34px] w-fit items-center self-end overflow-hidden rounded-full no-underline',
+                    learnMoreAlign !== 'end' && 'sm:self-auto',
                     typography.button,
                   )}
                 >
