@@ -102,7 +102,7 @@ const MediaNewsletterSignup = ({
       />
       <button
         type="submit"
-        className={`flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 md:h-14 ${typography.button} ${buttonStyle.className}`}
+        className={`flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 px-6 md:h-14 md:w-auto md:self-start md:px-8 ${typography.button} ${buttonStyle.className}`}
         style={buttonStyle.style}
       >
         {cta}

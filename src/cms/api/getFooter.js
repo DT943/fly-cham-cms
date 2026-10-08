@@ -10,7 +10,8 @@ import cmsClient from './cmsClient.js'
  */
 export async function getFooter(lang, { signal } = {}) {
   const { data } = await cmsClient.get('/api/public/get-footer', {
-    params: { lang },
+    // Unique query so a browser/CDN cached copy cannot hide a footer save.
+    params: { lang, _: Date.now() },
     timeout: 10000,
     signal,
   })

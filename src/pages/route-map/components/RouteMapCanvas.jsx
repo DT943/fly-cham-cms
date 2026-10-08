@@ -263,6 +263,7 @@ const RouteMapCanvas = ({
         zoom={5}
         scrollWheelZoom
         zoomControl={false}
+        attributionControl={false}
         className="route-map-canvas h-full w-full bg-100 z-0"
       >
         {/* Zoom sits on the right so it clears the left-edge search panel. */}

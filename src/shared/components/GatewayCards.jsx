@@ -1,10 +1,15 @@
+import { useState } from 'react'
 import {
   CMS_TEXT_HOVER_CLASS,
   colorVar,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
+import { FLYCHAM_POS } from '../../vendor/shims/next-navigation.jsx'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import Dropdown from './Dropdown.jsx'
+import { GATEWAY_POS_OPTIONS, cardMatchesPos } from './gatewayPos.js'
 
 const COLUMNS_CLASS = {
   2: 'grid-cols-1 sm:grid-cols-2',
@@ -38,6 +43,7 @@ const GatewayCards = ({
   showHeader = true,
   cardBg = 'background',
   links = [],
+  filterByPos = false,
   showLinks = true,
   linkColor,
   linkHoverColor,
@@ -46,7 +52,16 @@ const GatewayCards = ({
   linkItalic,
   ...textStyle
 }) => {
+  const language = useCurrentLanguage()
+  const [pos, setPos] = useState(
+    GATEWAY_POS_OPTIONS.some((option) => option.value === FLYCHAM_POS) ? FLYCHAM_POS : 'gb',
+  )
   const list = items.filter((item) => item?.title || item?.imageUrl)
+  const visible = list.filter((item) => cardMatchesPos(item, pos, filterByPos))
+  const posOptions = GATEWAY_POS_OPTIONS.map((option) => ({
+    value: option.value,
+    label: language === 'ar' ? option.ar : option.en,
+  }))
   if (!title && !list.length) return null
 
   const linkProps = {
@@ -65,17 +80,32 @@ const GatewayCards = ({
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <div className="flex min-w-0 flex-col gap-6">
-        {showHeader !== false && title ? (
-          <h2
-            className={cx('m-0', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
-            style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
-          >
-            <LinkedText text={title} {...linkProps} />
-          </h2>
+        {(showHeader !== false && title) || filterByPos ? (
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            {showHeader !== false && title ? (
+              <h2
+                className={cx('m-0', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
+                style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+              >
+                <LinkedText text={title} {...linkProps} />
+              </h2>
+            ) : (
+              <span />
+            )}
+            {filterByPos ? (
+              <Dropdown
+                label={language === 'ar' ? 'نقطة البيع' : 'Point of sale'}
+                value={pos}
+                onChange={setPos}
+                options={posOptions}
+                className="w-full sm:w-[220px]"
+              />
+            ) : null}
+          </div>
         ) : null}
-        {list.length ? (
+        {visible.length ? (
           <div className={cx('grid min-w-0 items-stretch gap-[19px]', COLUMNS_CLASS[columns] ?? COLUMNS_CLASS[4])}>
-            {list.map((item, index) => {
+            {visible.map((item, index) => {
               const body = (
                 <>
                   {item.imageUrl ? (

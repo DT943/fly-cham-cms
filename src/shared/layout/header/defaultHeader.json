@@ -274,16 +274,33 @@
           },
           {
             "id": "flightSchedules",
-            "label": "Flight Schedules",
+            "label": "Flight info",
             "icon": "CalendarCheck",
             "badge": "",
-            "type": "map",
+            "type": "links",
             "withDescriptions": false,
-            "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/routes-map/flight-route-map.webp",
+            "imageUrl": "",
             "imageAlt": "",
-            "ctaLabel": "Check flight schedules",
-            "ctaHref": "/our-destinations/route-map",
-            "links": [],
+            "ctaLabel": "",
+            "ctaHref": "",
+            "links": [
+              {
+                "id": "flightSchedule",
+                "title": "Flight schedule",
+                "description": "",
+                "icon": "CalendarCheck",
+                "badge": "",
+                "href": "/our-destinations/route-map"
+              },
+              {
+                "id": "flightStatus",
+                "title": "Flight status",
+                "description": "",
+                "icon": "ClockCounterClockwise",
+                "badge": "",
+                "href": "/"
+              }
+            ],
             "cards": []
           }
         ]
@@ -949,16 +966,33 @@
           },
           {
             "id": "flightSchedules",
-            "label": "مواعيد الرحلات",
+            "label": "معلومات الرحلة",
             "icon": "CalendarCheck",
             "badge": "",
-            "type": "map",
+            "type": "links",
             "withDescriptions": false,
-            "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/routes-map/flight-route-map.webp",
+            "imageUrl": "",
             "imageAlt": "",
-            "ctaLabel": "تحقق من مواعيد الرحلات",
-            "ctaHref": "/our-destinations/route-map",
-            "links": [],
+            "ctaLabel": "",
+            "ctaHref": "",
+            "links": [
+              {
+                "id": "flightSchedule",
+                "title": "جدول الرحلات",
+                "description": "",
+                "icon": "CalendarCheck",
+                "badge": "",
+                "href": "/our-destinations/route-map"
+              },
+              {
+                "id": "flightStatus",
+                "title": "حالة الرحلة",
+                "description": "",
+                "icon": "ClockCounterClockwise",
+                "badge": "",
+                "href": "/"
+              }
+            ],
             "cards": []
           }
         ]

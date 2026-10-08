@@ -59,6 +59,8 @@ const HomeChamMilesBanner = ({
   markOpacity = 10,
   photoBg = 'primary-800',
   descriptionOpacity = 90,
+  showJoinButton = true,
+  showDiscoverButton = true,
   joinButtonBg = 'secondary',
   joinButtonBgHover = '',
   joinButtonText = '700',
@@ -213,9 +215,9 @@ const HomeChamMilesBanner = ({
               ) : null}
             </div>
 
-            {joinLabel || discoverLabel ? (
+            {(showJoinButton && joinLabel) || (showDiscoverButton && discoverLabel) ? (
               <div className="relative z-10 flex flex-wrap items-center gap-3">
-                {joinLabel ? (
+                {showJoinButton && joinLabel ? (
                   <LocalizedLink
                     href={joinHref || '#'}
                     className={cx(buttonBase, 'lowercase', joinBtn.className)}
@@ -224,7 +226,7 @@ const HomeChamMilesBanner = ({
                     {joinLabel}
                   </LocalizedLink>
                 ) : null}
-                {discoverLabel ? (
+                {showDiscoverButton && discoverLabel ? (
                   <LocalizedLink
                     href={discoverHref || '#'}
                     className={cx(buttonBase, discoverBtn.className)}

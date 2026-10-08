@@ -37,8 +37,10 @@ export function gatewayCardsProps(block, lang) {
       title: item?.title || '',
       description: item?.description || '',
       href: resolveCmsHref(item?.href) || '',
+      pos: Array.isArray(item?.pos) ? item.pos : [],
     })),
     links: mapBacklinks(content.links),
+    filterByPos: content.filterByPos === true,
     ...pick(style, STYLE_KEYS),
   }
 }

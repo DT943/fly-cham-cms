@@ -82,7 +82,13 @@ const GsaMap = ({ countryIndex, locations, selectedIndex, onSelect, pinColor }) 
   if (!selectedOffice) return null
   return (
     <div dir="ltr" className="h-[280px] md:h-[400px] lg:h-[580px] rounded-2xl overflow-hidden">
-      <MapContainer center={center} zoom={14} scrollWheelZoom className="h-full w-full z-0">
+      <MapContainer
+        center={center}
+        zoom={14}
+        scrollWheelZoom
+        attributionControl={false}
+        className="h-full w-full z-0"
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

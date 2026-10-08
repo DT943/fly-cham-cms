@@ -60,19 +60,24 @@ const TripCard = ({ item, newLabel, priceLabel, textStyle, arrowBg, arrowColor, 
         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,38,59,0)_40%,rgba(1,38,59,0.88)_100%)]"
       />
 
+      {item.isNew && newLabel ? (
+        <span
+          className={cx(
+            'pointer-events-none absolute top-3.5 start-3.5 z-[2] w-fit rounded px-2 py-0.5 md:top-4 md:start-4',
+            typography.caption,
+            CMS_TEXT_HOVER_CLASS,
+          )}
+          style={{
+            ...getTextStyleVars(textStyle, 'badgeText', '700', 'semibold'),
+            backgroundColor: colorVar(textStyle.badgeBg || 'secondary'),
+          }}
+        >
+          {newLabel}
+        </span>
+      ) : null}
+
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex items-end justify-between gap-3 p-3.5 md:p-4">
         <div className="flex min-w-0 flex-col gap-1">
-          {item.isNew && newLabel ? (
-            <span
-              className={cx('w-fit rounded px-2 py-0.5', typography.caption, CMS_TEXT_HOVER_CLASS)}
-              style={{
-                ...getTextStyleVars(textStyle, 'badgeText', '700', 'semibold'),
-                backgroundColor: colorVar(textStyle.badgeBg || 'secondary'),
-              }}
-            >
-              {newLabel}
-            </span>
-          ) : null}
           <h3
             className={cx('m-0', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
             style={getTextStyleVars(textStyle, 'cardTitleColor', '50', 'semibold')}

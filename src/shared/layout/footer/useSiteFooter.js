@@ -8,7 +8,7 @@ import defaultFooters from './defaultFooter.json'
  *
  *  1. Render immediately from the last good document cached in localStorage
  *     for this language, or from the bundled default (defaultFooter.json).
- *  2. Fetch GET /api/public/get-footer?lang= once per language per page load.
+ *  2. Fetch GET /api/public/get-footer?lang= and refresh while the tab is open.
  *  3. When the response passes the shape check, swap it in and cache it.
  *     The API's `not_found` 404 drops the cache and falls back to the default;
  *     any other failure keeps whatever is showing, silently.

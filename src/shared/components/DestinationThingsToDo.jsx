@@ -120,8 +120,8 @@ const DestinationThingsToDo = ({
   ...textStyle
 }) => {
   const scrollerRef = useRef(null)
-  const [canScroll, setCanScroll] = useState({ prev: false, next: false })
   const isCarousel = items.length > 3
+  const [canScroll, setCanScroll] = useState({ prev: false, next: isCarousel })
 
   useEffect(() => {
     const el = scrollerRef.current
@@ -214,7 +214,7 @@ const DestinationThingsToDo = ({
           ref={isCarousel ? scrollerRef : undefined}
           className={cx(
             isCarousel
-              ? 'flex snap-x snap-mandatory overflow-x-auto scroll-smooth motion-reduce:scroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+              ? 'flex flex-nowrap snap-x snap-mandatory overflow-x-auto scroll-smooth motion-reduce:scroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
               : 'grid',
             isCarousel ? '' : COLUMNS[colKey] || COLUMNS[3],
             gapClass,
@@ -228,7 +228,7 @@ const DestinationThingsToDo = ({
               key={item.id || index}
               data-ttd-card
               className={cx(
-                'group/card relative h-100 overflow-hidden',
+                'group/card relative h-[400px] overflow-hidden',
                 radiusClass,
                 isCarousel && 'shrink-0 snap-start',
                 isCarousel && (CAROUSEL_BASIS[cardGap] || CAROUSEL_BASIS.default),
@@ -312,7 +312,7 @@ const DestinationThingsToDo = ({
                     </span>
                     {learnMore ? (
                       <span
-                        className={`cms-lm-label relative z-10 pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
+                        className={`cms-lm-label relative z-10 whitespace-nowrap pe-3 ps-2.5 transition-[color,font-weight] duration-300 ${CMS_TEXT_HOVER_CLASS}`}
                         style={getTextStyleVars(
                           { learnMoreColorHover: 'primary-1', ...textStyle },
                           'learnMoreColor',

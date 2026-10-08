@@ -10,7 +10,7 @@ import cmsClient from './cmsClient.js'
  */
 export async function getHeader(lang, { signal } = {}) {
   const { data } = await cmsClient.get('/api/public/get-header', {
-    params: { lang },
+    params: { lang, _: Date.now() },
     timeout: 10000,
     signal,
   })

@@ -12,7 +12,7 @@ import cmsClient from './cmsClient.js'
  */
 export async function getPage(slug, lang) {
   const { data } = await cmsClient.get('/api/public/get-page', {
-    params: { slug, ...(lang ? { lang } : {}) },
+    params: { slug, ...(lang ? { lang } : {}), _: Date.now() },
   })
   return data
 }

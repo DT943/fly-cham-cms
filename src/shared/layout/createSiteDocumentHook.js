@@ -7,7 +7,7 @@ import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
  *
  *  1. Render immediately from the last good document cached in localStorage
  *     for this language, or from the bundled default.
- *  2. Fetch the document once per language per page load.
+ *  2. Fetch the document, then refresh it while the tab stays visible.
  *  3. When the response passes the shape check, swap it in and cache it.
  *     The API's `not_found` 404 (nothing saved) drops the cache and falls back
  *     to the default; any other failure (route not deployed, network, 5xx)
@@ -68,7 +68,7 @@ const createSiteDocumentHook = ({
 
   /** lang → { doc (normalised), raw (JSON of the source document), source } */
   const entries = {}
-  const requested = new Set()
+  const inflight = new Set()
   const listeners = new Set()
 
   const emit = () => listeners.forEach((listener) => listener())
@@ -90,8 +90,8 @@ const createSiteDocumentHook = ({
   }
 
   const loadFromApi = (lang) => {
-    if (requested.has(lang)) return
-    requested.add(lang)
+    if (inflight.has(lang)) return
+    inflight.add(lang)
 
     fetchDocument(lang)
       .then((result) => {
@@ -114,6 +114,9 @@ const createSiteDocumentHook = ({
         setEntry(lang, defaultFor(lang), 'default')
         emit()
       })
+      .finally(() => {
+        inflight.delete(lang)
+      })
   }
 
   const subscribe = (listener) => {
@@ -134,6 +137,18 @@ const createSiteDocumentHook = ({
 
     useEffect(() => {
       loadFromApi(lang)
+      // Pick up a footer/header save while this tab stays open.
+      const refresh = () => {
+        if (document.visibilityState === 'visible') loadFromApi(lang)
+      }
+      const timer = window.setInterval(refresh, 20000)
+      document.addEventListener('visibilitychange', refresh)
+      window.addEventListener('focus', refresh)
+      return () => {
+        window.clearInterval(timer)
+        document.removeEventListener('visibilitychange', refresh)
+        window.removeEventListener('focus', refresh)
+      }
     }, [lang])
 
     return doc

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Clock } from '@phosphor-icons/react'
 import {
   CMS_TEXT_HOVER_CLASS,
@@ -189,7 +189,21 @@ const RecentNews = ({
   )
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / size))
-  const safePage = Math.min(currentPage, totalPages)
+  const safePage = Math.min(Math.max(currentPage, 1), totalPages)
+  const resultsRef = useRef(null)
+  const didMountPage = useRef(false)
+
+  useEffect(() => {
+    if (currentPage !== safePage) setCurrentPage(safePage)
+  }, [currentPage, safePage])
+
+  useEffect(() => {
+    if (!didMountPage.current) {
+      didMountPage.current = true
+      return
+    }
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [safePage])
 
   const paginatedArticles = useMemo(() => {
     if (showPagination === false) return filteredArticles
@@ -331,7 +345,7 @@ const RecentNews = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-8 md:gap-10">
+      <div ref={resultsRef} className="flex scroll-mt-24 flex-col gap-8 md:gap-10">
         <div className="flex flex-col gap-8 md:gap-10">
           {!filteredArticles.length && articles.length ? (
             <p
@@ -460,7 +474,7 @@ const RecentNews = ({
             type="button"
             aria-label={previousLabel}
             disabled={safePage <= 1}
-            onClick={() => setCurrentPage(safePage - 1)}
+            onClick={() => setCurrentPage((page) => Math.max(1, Math.min(page, totalPages) - 1))}
             className="flex size-10 shrink-0 items-center justify-center rounded-full border-0"
             style={{
               backgroundColor: colorVar(safePage <= 1 ? navDisabledBg : navBg),
@@ -499,7 +513,7 @@ const RecentNews = ({
             type="button"
             aria-label={nextLabel}
             disabled={safePage >= totalPages}
-            onClick={() => setCurrentPage(safePage + 1)}
+            onClick={() => setCurrentPage((page) => Math.min(totalPages, Math.max(page, 1) + 1))}
             className="flex size-10 shrink-0 items-center justify-center rounded-full border-0"
             style={{
               backgroundColor: colorVar(safePage >= totalPages ? navDisabledBg : 'primary-1'),

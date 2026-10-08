@@ -14,6 +14,10 @@ export default function usePage(slug, lang) {
     queryKey: pageQueryKey(slug, lang),
     queryFn: () => getPage(slug, lang),
     enabled: Boolean(slug),
-    staleTime: 5 * 60_000,
+    // Admin saves must show on the next visit. The app-wide client turns
+    // window-focus refetch off, so this query opts back in.
+    staleTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
   })
 }
