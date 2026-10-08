@@ -4050,5 +4050,73 @@
         }
       }
     }
+  },
+  "flightSchedulePage": {
+    "title": "Flight Schedule",
+    "range": "From {{from}} to {{to}} . {{trip}}",
+    "rangeOneWay": "{{date}} . {{trip}}",
+    "roundTrip": "Round trip",
+    "oneWay": "One way",
+    "noFlights": "There are no flights on this route for the selected dates.",
+    "hero": {
+      "subtitle": "View flight schedules by destination, date and time.",
+      "imageAlt": "Fly Cham aircraft on the airport tarmac"
+    },
+    "form": {
+      "tripType": "Trip type",
+      "roundTrip": "Round-trip",
+      "oneWay": "One-way",
+      "from": "From",
+      "to": "To",
+      "clear": "Clear departure airport",
+      "swap": "Swap airports",
+      "viewSchedule": "View schedule"
+    },
+    "errors": {
+      "airports": "Choose both airports.",
+      "sameAirport": "Choose two different airports.",
+      "departure": "Choose a departure date.",
+      "return": "Choose a return date on or after the departure date."
+    },
+    "changeSearch": "Change search",
+    "departure": "Departure",
+    "return": "Return",
+    "results_one": "{{count}} Result",
+    "results_other": "{{count}} Results",
+    "nearby": "Include nearby airports",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "nonStop": "Non-stop",
+    "flightDetails": "Flight details",
+    "close": "Close flight details",
+    "totalDuration": "Total duration {{duration}}",
+    "amenities": {
+      "entertainment": "Entertainment",
+      "meal": "Optional Meal",
+      "magazine": "Magazine"
+    },
+    "months": {
+      "0": "Jan",
+      "1": "Feb",
+      "2": "Mar",
+      "3": "Apr",
+      "4": "May",
+      "5": "Jun",
+      "6": "Jul",
+      "7": "Aug",
+      "8": "Sep",
+      "9": "Oct",
+      "10": "Nov",
+      "11": "Dec"
+    },
+    "weekdays": {
+      "0": "Sun",
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat"
+    }
   }
 }

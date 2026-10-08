@@ -4,6 +4,7 @@ import RecentNewsDetail from '../../../pages/recent-news/RecentNewsDetail.jsx'
 import TravelUpdateDetail from '../../../pages/travel-updates/TravelUpdateDetail.jsx'
 import NewsDetail from '../../../pages/news-detail/NewsDetail.jsx'
 import NotFound from '../../../pages/not-found/NotFound.jsx'
+import FlightSchedule from '../../../pages/flight-schedule/FlightSchedule.jsx'
 import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
 import { cmsSlugFromPath } from '../../../pages/dynamic-page/cmsPagePath.js'
 import { NEWS_DETAIL_PATH } from '../../../pages/news-detail/utils/newsArticles.js'
@@ -33,6 +34,7 @@ export { newPages } from './newPages.js'
  * The home page `/` is CMS-driven (see newPages.js → dynamicPage('home')).
  */
 export const appPages = {
+  '/flight-schedule': FlightSchedule,
   // Legacy help path aliases → official `/help/contact-us/...`
   '/help/our-gsa': OurGsaRedirect,
   '/help/forms': FormsRedirect,

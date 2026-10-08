@@ -105,7 +105,7 @@
                 "description": "",
                 "icon": "CalendarCheck",
                 "badge": "",
-                "href": "/our-destinations/route-map"
+                "href": "/flight-schedule"
               },
               {
                 "id": "prohibitedItems",
@@ -282,7 +282,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/routes-map/flight-route-map.webp",
             "imageAlt": "",
             "ctaLabel": "Check flight schedules",
-            "ctaHref": "/our-destinations/route-map",
+            "ctaHref": "/flight-schedule",
             "links": [],
             "cards": []
           }
@@ -780,7 +780,7 @@
                 "description": "",
                 "icon": "CalendarCheck",
                 "badge": "",
-                "href": "/our-destinations/route-map"
+                "href": "/flight-schedule"
               },
               {
                 "id": "prohibitedItems",
@@ -957,7 +957,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/routes-map/flight-route-map.webp",
             "imageAlt": "",
             "ctaLabel": "تحقق من مواعيد الرحلات",
-            "ctaHref": "/our-destinations/route-map",
+            "ctaHref": "/flight-schedule",
             "links": [],
             "cards": []
           }
