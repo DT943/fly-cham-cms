@@ -10,12 +10,13 @@ import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
+import TravelUpdatesNotice from './header/TravelUpdatesNotice.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
 
 const REGION_MENU = 'region'
 const LOGIN_ITEM = 'login'
 
-const Header = ({ dark = false, hideOnScroll = true }) => {
+const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const header = useSiteHeader()
@@ -262,6 +263,8 @@ const Header = ({ dark = false, hideOnScroll = true }) => {
             }}
           />
         </Container>
+          </div>
+        </div>
       </div>
 
       {/*

@@ -50,7 +50,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/our-fleet/hero.webp",
             "imageAlt": "",
             "ctaLabel": "Start Your Booking",
-            "ctaHref": "/",
+            "ctaHref": "/book-a-flight",
             "links": [
               {
                 "id": "bookAFlight",
@@ -58,7 +58,7 @@
                 "description": "",
                 "icon": "MagnifyingGlass",
                 "badge": "",
-                "href": "/"
+                "href": "/book-a-flight"
               },
               {
                 "id": "offersDeals",
@@ -105,7 +105,7 @@
                 "description": "",
                 "icon": "CalendarCheck",
                 "badge": "",
-                "href": "/our-destinations/route-map"
+                "href": "/flight-schedule"
               },
               {
                 "id": "prohibitedItems",
@@ -742,7 +742,7 @@
             "imageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/our-fleet/hero.webp",
             "imageAlt": "",
             "ctaLabel": "ابدأ الحجز",
-            "ctaHref": "/",
+            "ctaHref": "/book-a-flight",
             "links": [
               {
                 "id": "bookAFlight",
@@ -750,7 +750,7 @@
                 "description": "",
                 "icon": "MagnifyingGlass",
                 "badge": "",
-                "href": "/"
+                "href": "/book-a-flight"
               },
               {
                 "id": "offersDeals",
@@ -797,7 +797,7 @@
                 "description": "",
                 "icon": "CalendarCheck",
                 "badge": "",
-                "href": "/our-destinations/route-map"
+                "href": "/flight-schedule"
               },
               {
                 "id": "prohibitedItems",

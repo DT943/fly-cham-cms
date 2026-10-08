@@ -126,7 +126,7 @@
           {
             "id": "flightSchedule",
             "label": "Flight Schedule",
-            "href": "/coming-soon",
+            "href": "/flight-schedule",
             "external": false,
             "highlight": false
           },
@@ -503,7 +503,7 @@
           {
             "id": "flightSchedule",
             "label": "جدول الرحلات",
-            "href": "/coming-soon",
+            "href": "/flight-schedule",
             "external": false,
             "highlight": false
           },

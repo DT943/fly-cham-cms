@@ -31,7 +31,13 @@ const Layout = () => {
 
   return (
     <div className="flex min-h-dvh min-w-0 flex-col overflow-x-clip">
-      {!hideChrome && <Header dark={fullBleed} hideOnScroll={!fullBleed} />}
+      {!hideChrome && (
+        <Header
+          dark={fullBleed}
+          hideOnScroll={!fullBleed}
+          showTravelNotice={pagePath === '/'}
+        />
+      )}
       <div className="flex min-w-0 flex-1 flex-col">
         <Outlet />
       </div>
