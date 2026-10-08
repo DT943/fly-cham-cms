@@ -18,6 +18,16 @@
 }
 
 /*
+ * The sticky header hides by collapsing its own height. Scroll anchoring would
+ * rewrite scrollY to keep the page still, which immediately shows the bar again
+ * and flickers it (visible on pages where a nav item is current, such as
+ * /our-destinations).
+ */
+html {
+  overflow-anchor: none;
+}
+
+/*
  * Per-role CMS text hover (driven by the block's *Hover style keys).
  * The element carries its Normal color/weight as --cms-c / --cms-w (painted
  * with !important so a drawer color wins over link and heading styles) plus

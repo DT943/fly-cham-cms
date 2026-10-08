@@ -109,10 +109,12 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
       const current = itemRefs.current[indicatorId]
       if (!current) return
       const inset = 8
-      setNavLine({
-        left: current.offsetLeft + inset,
-        width: Math.max(0, current.offsetWidth - inset * 2),
-        animate: linePlaced.current,
+      const left = current.offsetLeft + inset
+      const width = Math.max(0, current.offsetWidth - inset * 2)
+      const animate = linePlaced.current
+      setNavLine((prev) => {
+        if (prev && prev.left === left && prev.width === width && prev.animate === animate) return prev
+        return { left, width, animate }
       })
       linePlaced.current = true
     }
