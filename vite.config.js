@@ -20,7 +20,9 @@ export default defineConfig({
   },
   define: {
     // The vendored files read Next.js-style `process.env.NEXT_PUBLIC_*`.
-    'process.env.NEXT_PUBLIC_API_BASE_URL': JSON.stringify('http://flycham.com/api'),
+    // Must be https: the live site is served over https, so the browser blocks
+    // http API calls as mixed content (the booking widget's routes/schedules).
+    'process.env.NEXT_PUBLIC_API_BASE_URL': JSON.stringify('https://flycham.com/api'),
     'process.env.NEXT_PUBLIC_IBE_API_BASE_URL': JSON.stringify(''),
     'process.env.NEXT_PUBLIC_SEARCH_TOKEN_SECRET': JSON.stringify(''),
     'process.env.NEXT_PUBLIC_ANALYTICS_BYPASS_CONSENT': JSON.stringify('false'),

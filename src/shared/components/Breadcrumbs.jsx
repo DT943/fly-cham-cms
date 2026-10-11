@@ -4,11 +4,13 @@ import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 
+// Blocks are spaced by the page gap only. `chrome` is kept as a stored value
+// but adds nothing: the page already pads the top under the header.
 const SECTION_PADDING = {
   none: '',
-  chrome: 'pt-5 md:pt-10 pb-4 md:pb-6',
+  chrome: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

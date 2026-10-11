@@ -97,7 +97,8 @@ const OfficeDirectoryItem = ({
 
   return (
     <div className="relative">
-      <div className="flex items-start gap-3 py-6 md:gap-6 md:py-8">
+      {/* The last row has no bottom padding: the page gap spaces the next block. */}
+      <div className={`flex items-start gap-3 pt-6 md:gap-6 md:pt-8 ${isLast ? '' : 'pb-6 md:pb-8'}`}>
         {style.showPin && (
           <div className="relative z-10 flex w-9 shrink-0 justify-center md:w-11">
             <div

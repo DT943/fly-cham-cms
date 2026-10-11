@@ -267,10 +267,13 @@ export const sectionRegistry = {
   'latest-news': { Component: LatestNews, mapProps: latestNewsProps },
   'news-grid': { Component: NewsGrid, mapProps: newsGridProps },
   'media-contact-cards': { Component: MediaContactCards, mapProps: mediaContactCardsProps },
+  // Full-bleed for its edge pattern, but it paints no band of its own, so a
+  // `flushBottom` page still keeps its bottom padding above the footer.
   'media-newsletter-signup': {
     Component: MediaNewsletterSignup,
     mapProps: mediaNewsletterSignupProps,
     fullBleed: true,
+    keepBottomPadding: true,
   },
   'news-detail-header': { Component: NewsDetailHeader, mapProps: newsDetailHeaderProps },
   'news-detail-paragraphs': { Component: NewsDetailParagraphs, mapProps: newsDetailParagraphsProps },

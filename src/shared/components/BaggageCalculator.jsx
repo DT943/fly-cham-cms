@@ -15,7 +15,7 @@ import useBaggageQuery from '../hooks/useBaggageQuery.js'
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 // Page gap (gap-8 md:gap-[60px]) + Figma overlap (71px mobile / 91px desktop).

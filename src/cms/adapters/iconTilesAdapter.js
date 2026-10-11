@@ -19,7 +19,6 @@ const STYLE_KEYS = [
   'sectionBg',
   'showHeader',
   'showSubtitle',
-  'showLink',
   'iconColor',
   ...text('titleColor'),
   ...text('subtitleColor'),

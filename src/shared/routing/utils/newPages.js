@@ -15,97 +15,11 @@ function dynamicPage(slug, options = {}) {
 }
 
 // Shared layouts (DynamicPage's default is `bg-100 w-full pb-12 md:pb-16`).
+// Every page spaces its blocks with the PageBlocks default gap only (32px,
+// 60px from md) — no per-page gapClass offsets; single-block full-screen
+// pages use `gap-0`.
 const HELP_LAYOUT = { className: 'bg-100 min-h-[50vh]', statusClassName: 'py-5 md:py-10' }
 const NO_BOTTOM_PADDING = { className: 'bg-100 w-full' }
-// Allowed Baggage rhythm (Figma 40239:32515): 60px between sections, pulled
-// up for breadcrumbs→hero, hero→intro and FAQs→terms (see nth-child offsets).
-const ALLOWED_BAGGAGE_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[5px] [&>*:nth-child(7)]:-mt-4 md:[&>*:nth-child(7)]:-mt-8'
-
-// Unaccompanied Minors page rhythm (Figma 40347:14643): 60px between sections,
-// tighter breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
-const UNACCOMPANIED_MINORS_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-8 md:[&>*:nth-child(6)]:-mt-8'
-
-// Prohibited Items rhythm (Figma 40329:11857): 60px between sections; hero→grid
-// 84px, grid→grid 67px, FAQs→terms 28px (breadcrumbs/hero as Allowed Baggage).
-const PROHIBITED_ITEMS_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-6 md:[&>*:nth-child(4)]:mt-[7px] [&>*:nth-child(8)]:-mt-4 md:[&>*:nth-child(8)]:-mt-8'
-
-// Limousine Service rhythm (Figma 40375:20093): 60px between sections, tighter
-// breadcrumbs→hero, 80px under the hero, FAQs→terms at 28px.
-const LIMOUSINE_SERVICE_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
-
-// Transportation Service rhythm (Figma 40473:22912): 60px between sections,
-// tighter breadcrumbs→hero, 80px under the hero, FAQs→terms at 28px.
-const TRANSPORTATION_SERVICE_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
-
-// At the Airport rhythm (Figma 39457:12163): 60px between the service cards
-// and the support banner; breadcrumbs sit tight under the header and the
-// hero follows them flush.
-const AT_THE_AIRPORT_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:-mt-3'
-
-// Business Lounge rhythm (Figma 40442:11924): 60px between sections, tighter
-// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
-const BUSINESS_LOUNGE_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
-
-// Wheelchair Service rhythm (Figma 40442:20082): same 60px stack, tighter
-// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
-const WHEELCHAIR_SERVICE_GAP = BUSINESS_LOUNGE_GAP
-
-// VIP Boarding rhythm (Figma 40442:21265): 60px between sections, tighter
-// breadcrumbs→hero, extra space under the hero, FAQs→terms at 28px.
-const ON_BOARD_GAP = 'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7'
-
-const BIRTHDAY_ONBOARD_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
-
-const ONBOARD_WIFI_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(6)]:-mt-8'
-
-const VIP_BOARDING_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(8)]:-mt-8'
-
-// Manage booking (Figma 40529:12570): 60px between sections, hero flush under
-// the breadcrumbs, and the terms card pulled up under the FAQs.
-const MANAGE_BOOKING_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(7)]:-mt-8'
-
-// Payment Methods (Figma 40502:24283): 60px between sections, hero flush under
-// the breadcrumbs, and the terms card pulled up under the FAQs.
-const PAYMENT_METHODS_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7 md:[&>*:nth-child(3)]:mt-5 md:[&>*:nth-child(8)]:-mt-8'
-
-// Oxygen Service rhythm (Figma 40347:13592): 60px between sections; breadcrumbs
-// sit under the header, the hero follows them flush, 105px down to the first
-// row, and the terms card sits 28px under the FAQs.
-// Baggage Calculator rhythm (Figma 40814:21591 / results 40814:22701, mobile
-// 40814:22088 / 40814:23739). Blocks: 1 crumbs, 2 hero, 3 calculator (overlaps
-// the hero itself), 4 route summary, 5-6 adult panels (economy / business, one
-// shows), 7 infant panel, 8 add-ons, 9 Important Information, 10 banner,
-// 11 FAQs, 12 terms. Results (4-8) render nothing until Calculate, so empty
-// wrappers are hidden; Important Information sits 76px under the calculator,
-// or 32px under the add-ons once results show (:has).
-const BAGGAGE_CALCULATOR_GAP = [
-  'gap-8 md:gap-[60px] [&>*:empty]:hidden',
-  '[&>*:nth-child(4)]:mt-[41px] md:[&>*:nth-child(4)]:mt-4',
-  '[&>*:nth-child(5)]:mt-[18px] md:[&>*:nth-child(5)]:-mt-5',
-  '[&>*:nth-child(6)]:mt-[18px] md:[&>*:nth-child(6)]:-mt-5',
-  '[&>*:nth-child(7)]:mt-0.5 md:[&>*:nth-child(7)]:-mt-9',
-  '[&>*:nth-child(8)]:-mt-[11px] md:[&>*:nth-child(8)]:-mt-5',
-  '[&>*:nth-child(9)]:mt-[9px] md:[&>*:nth-child(9)]:mt-4',
-  '[&:has(>*:nth-child(4):not(:empty))>*:nth-child(9)]:mt-0 md:[&:has(>*:nth-child(4):not(:empty))>*:nth-child(9)]:-mt-7',
-  '[&>*:nth-child(10)]:-mt-2 md:[&>*:nth-child(10)]:mt-0',
-  '[&>*:nth-child(11)]:-mt-2 md:[&>*:nth-child(11)]:mt-0',
-  '[&>*:nth-child(12)]:-mt-2 md:[&>*:nth-child(12)]:-mt-7',
-].join(' ')
-
-const OXYGEN_SERVICE_GAP =
-  'gap-8 md:gap-[60px] md:[&>*:nth-child(1)]:-mt-3 [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[42px] md:[&>*:nth-child(3)]:mt-[45px] [&>*:nth-child(6)]:-mt-4 md:[&>*:nth-child(6)]:-mt-8'
 
 /** Official CMS help routes. */
 export const helpPages = {
@@ -116,7 +30,6 @@ export const helpPages = {
   '/help/contact-us/forms': dynamicPage('forms', HELP_LAYOUT),
   '/help/contact-us/forms/request-a-form': dynamicPage('request-a-form', {
     className: 'bg-100 w-full',
-    gapClass: 'gap-6 md:gap-10',
   }),
   '/help/faqs': dynamicPage('faqs', NO_BOTTOM_PADDING),
   // Legacy `new-*` URLs → official help paths
@@ -165,65 +78,27 @@ export const travelExperiencePages = {
   '/travel-experience/seat-selection': dynamicPage('seat-selection'),
   // Journey stages — same components (hero, services, next steps) per stage.
   '/travel-experience/before-you-fly': dynamicPage('before-you-fly'),
-  '/travel-experience/before-you-fly/allowed-baggage': dynamicPage('allowed-baggage', {
-    gapClass: ALLOWED_BAGGAGE_GAP,
-  }),
-  '/travel-experience/before-you-fly/prohibited-items': dynamicPage('prohibited-items', {
-    gapClass: PROHIBITED_ITEMS_GAP,
-  }),
-  '/travel-experience/before-you-fly/unaccompanied-minors': dynamicPage('unaccompanied-minors', {
-    gapClass: UNACCOMPANIED_MINORS_GAP,
-  }),
-  '/travel-experience/before-you-fly/oxygen-service': dynamicPage('oxygen-service', {
-    gapClass: OXYGEN_SERVICE_GAP,
-  }),
-  '/travel-experience/before-you-fly/baggage-calculator': dynamicPage('baggage-calculator', {
-    gapClass: BAGGAGE_CALCULATOR_GAP,
-  }),
-  '/travel-experience/before-you-fly/limousine-service': dynamicPage('limousine-service', {
-    gapClass: LIMOUSINE_SERVICE_GAP,
-  }),
-  '/travel-experience/before-you-fly/transportation-service': dynamicPage('transportation-service', {
-    gapClass: TRANSPORTATION_SERVICE_GAP,
-  }),
-  '/travel-experience/before-you-fly/manage-booking': dynamicPage('manage-booking', {
-    gapClass: MANAGE_BOOKING_GAP,
-  }),
-  '/travel-experience/before-you-fly/payment-methods': dynamicPage('payment-methods', {
-    gapClass: PAYMENT_METHODS_GAP,
-  }),
-  '/travel-experience/at-the-airport': dynamicPage('at-the-airport', {
-    gapClass: AT_THE_AIRPORT_GAP,
-  }),
-  '/travel-experience/at-the-airport/business-lounge': dynamicPage('business-lounge', {
-    gapClass: BUSINESS_LOUNGE_GAP,
-  }),
-  '/travel-experience/at-the-airport/wheelchair-service': dynamicPage('wheelchair-service', {
-    gapClass: WHEELCHAIR_SERVICE_GAP,
-  }),
-  '/travel-experience/at-the-airport/vip-boarding': dynamicPage('vip-boarding', {
-    gapClass: VIP_BOARDING_GAP,
-  }),
+  '/travel-experience/before-you-fly/allowed-baggage': dynamicPage('allowed-baggage'),
+  '/travel-experience/before-you-fly/prohibited-items': dynamicPage('prohibited-items'),
+  '/travel-experience/before-you-fly/unaccompanied-minors': dynamicPage('unaccompanied-minors'),
+  '/travel-experience/before-you-fly/oxygen-service': dynamicPage('oxygen-service'),
+  '/travel-experience/before-you-fly/baggage-calculator': dynamicPage('baggage-calculator'),
+  '/travel-experience/before-you-fly/limousine-service': dynamicPage('limousine-service'),
+  '/travel-experience/before-you-fly/transportation-service': dynamicPage('transportation-service'),
+  '/travel-experience/before-you-fly/manage-booking': dynamicPage('manage-booking'),
+  '/travel-experience/before-you-fly/payment-methods': dynamicPage('payment-methods'),
+  '/travel-experience/at-the-airport': dynamicPage('at-the-airport'),
+  '/travel-experience/at-the-airport/business-lounge': dynamicPage('business-lounge'),
+  '/travel-experience/at-the-airport/wheelchair-service': dynamicPage('wheelchair-service'),
+  '/travel-experience/at-the-airport/vip-boarding': dynamicPage('vip-boarding'),
   '/travel-experience/onboard': dynamicPage('onboard'),
-  '/travel-experience/on-board': dynamicPage('on-board', { gapClass: ON_BOARD_GAP }),
-  '/travel-experience/on-board/birthday-onboard': dynamicPage('birthday-onboard', {
-    gapClass: BIRTHDAY_ONBOARD_GAP,
-  }),
-  '/travel-experience/on-board/kids-toys': dynamicPage('kids-toys', {
-    gapClass: BIRTHDAY_ONBOARD_GAP,
-  }),
-  '/travel-experience/on-board/entertainment-system': dynamicPage('entertainment-system', {
-    gapClass: BIRTHDAY_ONBOARD_GAP,
-  }),
-  '/travel-experience/on-board/meals-onboard': dynamicPage('meals-onboard', {
-    gapClass: BIRTHDAY_ONBOARD_GAP,
-  }),
-  '/travel-experience/on-board/travel-classes': dynamicPage('travel-classes', {
-    gapClass: BIRTHDAY_ONBOARD_GAP,
-  }),
-  '/travel-experience/on-board/onboard-wi-fi': dynamicPage('onboard-wi-fi', {
-    gapClass: ONBOARD_WIFI_GAP,
-  }),
+  '/travel-experience/on-board': dynamicPage('on-board'),
+  '/travel-experience/on-board/birthday-onboard': dynamicPage('birthday-onboard'),
+  '/travel-experience/on-board/kids-toys': dynamicPage('kids-toys'),
+  '/travel-experience/on-board/entertainment-system': dynamicPage('entertainment-system'),
+  '/travel-experience/on-board/meals-onboard': dynamicPage('meals-onboard'),
+  '/travel-experience/on-board/travel-classes': dynamicPage('travel-classes'),
+  '/travel-experience/on-board/onboard-wi-fi': dynamicPage('onboard-wi-fi'),
   '/travel-experience/after-travel': dynamicPage('after-travel'),
   '/travel-experience/traveler-magazine': dynamicPage('traveler-magazine'),
   '/our-responsibility': dynamicPage('our-responsibility'),
@@ -266,21 +141,10 @@ export const otherPages = {
     className: 'w-full min-w-0 overflow-x-clip bg-100',
     flushBottom: true,
   }),
-  // Page-specific vertical rhythm (measured against Figma) via `gapClass`.
-  '/travel-updates': dynamicPage('travel-updates', {
-    gapClass: 'gap-6 [&>*:nth-child(2)]:mt-3 md:[&>*:nth-child(2)]:mt-9',
-  }),
-  '/cargo': dynamicPage('cargo', {
-    gapClass:
-      'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-[11px] md:[&>*:last-child]:-mt-8',
-  }),
-  '/cargo-stations': dynamicPage('cargo-stations', {
-    gapClass: 'gap-8 md:gap-[56px] md:[&>*:nth-child(2)]:mt-[46px]',
-  }),
-  '/business-center': dynamicPage('business-center', {
-    gapClass:
-      'gap-10 md:gap-[60px] [&>*:nth-child(2)]:-mt-5 md:[&>*:nth-child(2)]:-mt-[39px] [&>*:nth-child(3)]:-mt-10 md:[&>*:nth-child(3)]:-mt-[63px] [&>*:nth-child(4)]:-mt-8 md:[&>*:nth-child(4)]:-mt-10',
-  }),
+  '/travel-updates': dynamicPage('travel-updates'),
+  '/cargo': dynamicPage('cargo'),
+  '/cargo-stations': dynamicPage('cargo-stations'),
+  '/business-center': dynamicPage('business-center'),
   // Full-screen standalone login (Layout.jsx hides header/footer for this path):
   // one full-bleed block, no page padding around it.
   '/login-travel-agent': dynamicPage('login-travel-agent', {
@@ -310,9 +174,7 @@ export const otherPages = {
   '/media-center': dynamicPage('media-center'),
   '/magazine-view': dynamicPage('magazine-view'),
   '/media-center/recent-news': dynamicPage('recent-news'),
-  '/media-center/newsletter': dynamicPage('newsletter', {
-    gapClass: 'gap-8 md:gap-[60px] md:[&>*:nth-child(2)]:-mt-7',
-  }),
+  '/media-center/newsletter': dynamicPage('newsletter'),
   // News articles: one CMS page each (slug news-<kebab id>).
   ...Object.fromEntries(
     [

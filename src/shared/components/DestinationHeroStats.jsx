@@ -186,7 +186,7 @@ const DestinationHeroStats = ({
         <>
           {/* Mobile / tablet: overlapping white sheet + 2×2 tiles */}
           <section className="relative z-10 -mt-12 rounded-t-[28px] bg-background pt-5 sm:-mt-16 sm:rounded-t-[32px] sm:pt-6 md:-mt-20 md:pt-8 lg:hidden">
-            <Container className="pb-2 md:pb-4">
+            <Container>
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {stats.map((stat, index) => (
                   <StatItem key={index} stat={stat} layout="tile" {...tileStyle} />
@@ -196,7 +196,7 @@ const DestinationHeroStats = ({
           </section>
 
           {/* Desktop: floating white card — Figma: 40×20 pad, r12, shadow 0 10 30 */}
-          <Container className="relative z-10 -mt-12.5 hidden pb-4 lg:block">
+          <Container className="relative z-10 -mt-12.5 hidden lg:block">
             <div
               className="flex w-full items-start justify-between rounded-xl bg-white px-10 py-5 "
               style={

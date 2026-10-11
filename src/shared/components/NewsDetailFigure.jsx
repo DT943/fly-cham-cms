@@ -22,7 +22,7 @@ const NewsDetailFigure = ({
   const radiusClass = IMAGE_RADIUS[imageRadius] || IMAGE_RADIUS.xl
 
   return (
-    <figure className={`mb-8 overflow-hidden md:mb-10 ${radiusClass}`}>
+    <figure className={`overflow-hidden ${radiusClass}`}>
       {video ? (
         <video
           className="aspect-[122/63] w-full object-cover"

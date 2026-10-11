@@ -382,7 +382,9 @@ const PageMediaHero = ({
         style={{ backgroundColor: colorVar(sectionBg) }}
       >
         <Container className="relative z-10">
-          <div className="flex flex-col justify-center gap-2 md:gap-4 py-8 md:py-14 lg:py-16 md:min-h-[20rem] lg:min-h-[24rem] md:w-[46%] lg:w-[42%]">
+          {/* Mobile: no padding above the title or below the photo (the page gap
+              spaces the block); pb-8 only separates the text from the photo. */}
+          <div className={`flex flex-col justify-center gap-2 md:gap-4 ${image ? 'pb-8' : ''} md:py-14 lg:py-16 md:min-h-[20rem] lg:min-h-[24rem] md:w-[46%] lg:w-[42%]`}>
             {showTitle && title && (
               <h1
                 className={`${typography.pageTitle} leading-tight m-0 ${CMS_TEXT_HOVER_CLASS}`}
@@ -406,7 +408,7 @@ const PageMediaHero = ({
             <img
               src={image}
               alt={imageAlt}
-              className="md:hidden w-full h-auto rounded-2xl object-cover object-[center_30%] aspect-[380/180] mb-6"
+              className="md:hidden w-full h-auto rounded-2xl object-cover object-[center_30%] aspect-[380/180]"
             />
           )}
         </Container>

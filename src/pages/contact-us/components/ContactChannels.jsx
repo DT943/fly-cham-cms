@@ -100,26 +100,29 @@ const ContactChannels = ({
           </h2>
         </div>
       )}
-      <div className={cx('grid', gridColsClass, gapClass)}>
-        {resolvedChannels.map((channel) => (
-          <ContactChannelCard
-            key={channel.id || channel.title}
-            icon={channel.icon}
-            href={channel.href}
-            title={channel.title}
-            description={channel.description}
-            cta={channel.cta}
-            links={links}
-            showLinks={showLinks}
-            linkColor={linkColor}
-            linkHoverColor={linkHoverColor}
-            linkFontWeight={linkFontWeight}
-            linkUnderline={linkUnderline}
-            linkItalic={linkItalic}
-            {...cardStyle}
-          />
-        ))}
-      </div>
+      {/* No empty grid: it would add the flex gap under the title. */}
+      {resolvedChannels.length > 0 && (
+        <div className={cx('grid', gridColsClass, gapClass)}>
+          {resolvedChannels.map((channel) => (
+            <ContactChannelCard
+              key={channel.id || channel.title}
+              icon={channel.icon}
+              href={channel.href}
+              title={channel.title}
+              description={channel.description}
+              cta={channel.cta}
+              links={links}
+              showLinks={showLinks}
+              linkColor={linkColor}
+              linkHoverColor={linkHoverColor}
+              linkFontWeight={linkFontWeight}
+              linkUnderline={linkUnderline}
+              linkItalic={linkItalic}
+              {...cardStyle}
+            />
+          ))}
+        </div>
+      )}
     </SearchAnchor>
   )
 }

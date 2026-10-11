@@ -1,12 +1,15 @@
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
-import { FTR_SOCIAL_HOVER, footerHref, footerIcon, socialStyle } from '../utils/footerStyle.js'
+import { footerHref, socialStyle } from '../utils/footerStyle.js'
+import { socialIcon } from '../utils/socialIcons.js'
 
 /**
- * Footer social icons — outlined circular buttons.
+ * Footer social icons — outlined circular buttons, styled like flychamwebsite's
+ * footer (32px → 40px from `sm`, 1px border in the icon colour, 18px brand
+ * glyph, dims to 80% on hover).
  * Below `lg`, only links flagged `showOnMobile` render. From `lg` up, every link does.
  */
 const SocialLink = ({ item, style }) => {
-  const Icon = footerIcon(item.icon)
+  const Icon = socialIcon(item.icon)
   const url = footerHref(item.href)
 
   return (
@@ -14,10 +17,10 @@ const SocialLink = ({ item, style }) => {
       href={url}
       aria-label={item.label || undefined}
       {...(/^https?:\/\//.test(url) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className={`grid size-10 shrink-0 place-items-center rounded-full border no-underline transition-colors ${FTR_SOCIAL_HOVER}`}
+      className="flex size-8 shrink-0 items-center justify-center rounded-full border no-underline transition hover:opacity-80 focus-visible:opacity-80 sm:size-10"
       style={style}
     >
-      <Icon size={20} weight="regular" className="block shrink-0" aria-hidden />
+      <Icon size={18} className="block shrink-0" aria-hidden />
     </LocalizedLink>
   )
 }

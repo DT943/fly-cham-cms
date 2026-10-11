@@ -6,7 +6,7 @@ import LinkedText from './backlinks/LinkedText.jsx'
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 const ITEM_GAP_CLASS = {
@@ -82,9 +82,11 @@ const TitleWithList = ({
   }
   const TitleIcon = showIcon !== false ? resolvePhosphorIcon(icon || 'Info') : null
 
+  // Vertical card padding only with a card background; without one the page
+  // gap alone spaces the block.
   const inner = (
     <div
-      className="flex flex-col gap-[15px] rounded-xl px-[17px] py-3 md:px-[27px]"
+      className={cx('flex flex-col gap-[15px] rounded-xl px-[17px] md:px-[27px]', showCardBg && 'py-3')}
       style={showCardBg ? { backgroundColor: colorVar(cardBg) } : undefined}
     >
       {title ? (

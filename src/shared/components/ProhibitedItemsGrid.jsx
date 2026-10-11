@@ -37,7 +37,7 @@ const PHOSPHOR_ICON_SIZE = { auto: 56, sm: 40, md: 56, lg: 72 }
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

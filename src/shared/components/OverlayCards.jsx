@@ -19,7 +19,7 @@ const RADIUS_CLASS = {
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 const WASH = 'linear-gradient(to bottom, rgba(1,38,59,0) 40%, rgba(1,38,59,0.6) 100%)'

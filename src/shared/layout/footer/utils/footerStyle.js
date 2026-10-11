@@ -13,7 +13,6 @@ import { roleStyle } from '../../header/headerStyle.js'
  */
 export const FTR_HOVER = 'cms-ftr-hover'
 export const FTR_HOVER_COLOR = 'cms-ftr-hover-color'
-export const FTR_SOCIAL_HOVER = 'cms-ftr-social'
 
 export { colorVar, roleStyle }
 
@@ -32,11 +31,10 @@ export const colorAlpha = (token, opacity) =>
 export const dividerAlpha = (token, opacity) =>
   colorAlpha(!token || token === '50' ? 'white' : token, opacity)
 
-/** Social icon button: icon colour + 70% border. Hover fills the circle solid. */
+/** Social icon button: icon and border in the same colour (flychamwebsite footer). */
 export const socialStyle = (style) => ({
   color: colorVar(style.socialColor),
-  borderColor: colorAlpha(style.socialColor, 70),
-  '--cms-social': colorVar(style.socialColor),
+  borderColor: colorVar(style.socialColor),
 })
 
 /** Legal bar text (links + copyright) at the design's 85% opacity. */

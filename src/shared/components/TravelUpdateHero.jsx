@@ -15,7 +15,7 @@ const SUBTITLE_SIZE_CLASS = 'text-base md:text-[18px] leading-[normal]'
 const SECTION_PADDING_CLASS = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

@@ -15,15 +15,37 @@ const COLUMNS_CLASS = {
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
+const FONT_WEIGHT_VALUE = { light: 300, normal: 400, medium: 500, semibold: 600, bold: 700, extrabold: 800 }
+
+const LINK_UNDERLINE_CLASS = {
+  always: 'underline underline-offset-2',
+  hover: 'no-underline group-hover/lm:underline group-hover/lm:underline-offset-2',
+  none: 'no-underline',
+}
+
+// The optional link label uses the block's "Links" style and takes its hover
+// color while the whole tile is hovered.
+function linkLabelStyle(style) {
+  const weight = FONT_WEIGHT_VALUE[style.linkFontWeight] ?? FONT_WEIGHT_VALUE.semibold
+  return {
+    '--cms-c': colorVar(style.linkColor || 'primary-1'),
+    '--cms-w': weight,
+    '--cms-hc': colorVar(style.linkHoverColor || style.linkColor || 'primary-2'),
+    '--cms-hw': weight,
+  }
+}
+
 function Tile({ item, style, links, showLinks }) {
   const Icon = item.icon ? resolvePhosphorIcon(item.icon) : null
-  const linked = style.showLink !== false && item.cta && item.href
+  // A tile with a page/URL is one link; its own text skips backlinks so links never nest.
+  const linked = Boolean(item.href)
+  const backlinks = showLinks && !linked
   const body = (
     <>
       {Icon ? (
@@ -33,20 +55,33 @@ function Tile({ item, style, links, showLinks }) {
       ) : null}
       {item.title ? (
         <p className={cx('m-0 text-center text-sm leading-snug md:text-base md:leading-[normal]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'cardTitleColor', '700', 'semibold')}>
-          <LinkedText text={item.title} links={links} enabled={showLinks} />
+          <LinkedText text={item.title} links={links} enabled={backlinks} />
         </p>
       ) : null}
       {item.description ? (
         <p className={cx('m-0 text-center text-[11px] leading-snug md:text-xs md:leading-[normal]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'cardDescriptionColor', '700', 'normal')}>
-          <LinkedText text={item.description} links={links} enabled={showLinks} />
+          <LinkedText text={item.description} links={links} enabled={backlinks} />
         </p>
+      ) : null}
+      {linked && item.cta ? (
+        <span
+          className={cx(
+            'cms-lm-label mt-1 text-center text-xs md:text-sm',
+            CMS_TEXT_HOVER_CLASS,
+            LINK_UNDERLINE_CLASS[style.linkUnderline] || LINK_UNDERLINE_CLASS.always,
+            style.linkItalic && 'italic',
+          )}
+          style={linkLabelStyle(style)}
+        >
+          {item.cta}
+        </span>
       ) : null}
     </>
   )
-  const className = 'flex flex-col items-center gap-1.5 rounded-xl bg-white p-3 text-inherit no-underline  md:gap-2 md:p-6'
+  const className = 'flex flex-col items-center gap-1.5 rounded-xl bg-white p-3 text-inherit no-underline md:gap-2 md:p-6'
   if (linked) {
     return (
-      <LocalizedLink href={item.href} className={className}>
+      <LocalizedLink href={item.href} className={cx('group/lm', className)}>
         {body}
       </LocalizedLink>
     )

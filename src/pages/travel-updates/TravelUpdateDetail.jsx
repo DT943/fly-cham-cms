@@ -30,7 +30,6 @@ const TravelUpdateDetail = () => {
       key={slug}
       slug={travelUpdateCmsSlug(slug)}
       className="bg-100 w-full pb-7 md:pb-10"
-      gapClass="gap-6 md:gap-[37px] [&>*:nth-child(3)]:mt-4 md:[&>*:nth-child(3)]:mt-[61px]"
       fallback={<StaticTravelUpdateDetail />}
     />
   )

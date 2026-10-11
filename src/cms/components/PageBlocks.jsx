@@ -30,10 +30,12 @@ const byOrder = (a, b) =>
  */
 /**
  * `flushBottom`: when the last block is full-bleed (e.g. a newsletter photo
- * band), drop the bottom padding so it sits directly on the footer.
- * `gapClass`: override the vertical spacing between blocks for a page whose
- * design uses a different rhythm (e.g. Travel Updates). The default matches
- * the page builder canvas: 32px, then 60px from the md breakpoint.
+ * band), drop the bottom padding so it sits directly on the footer — unless
+ * its registry entry sets `keepBottomPadding` (full-bleed without a band).
+ * `gapClass`: the vertical spacing between blocks. Every page uses the
+ * default — 32px, then 60px from the md breakpoint, same as the page builder
+ * canvas; blocks add no outer padding of their own. Only single-block
+ * full-screen pages override it (`gap-0`).
  */
 const PageBlocks = ({
   blocks = [],
@@ -49,14 +51,19 @@ const PageBlocks = ({
     ? isFullBleed(getSection(sorted[0].sectionId), sorted[0], lang)
     : false
   const last = sorted[sorted.length - 1]
+  const lastSection = last ? getSection(last.sectionId) : null
   const trailFullBleed =
-    flushBottom && last ? isFullBleed(getSection(last.sectionId), last, lang) : false
+    flushBottom && last && !lastSection?.keepBottomPadding
+      ? isFullBleed(lastSection, last, lang)
+      : false
   const topClass = leadFullBleed ? '' : 'pt-5 md:pt-10'
   const bottomClass = trailFullBleed ? '' : 'pb-5 md:pb-10'
   const paddingClass = `${topClass} ${bottomClass}`.trim()
 
+  // Empty wrappers (a block that renders nothing yet, e.g. baggage results
+  // before Calculate) are hidden so they don't add a second gap.
   return (
-    <div className={`flex flex-col ${gapClass} ${paddingClass} ${className}`.trim()}>
+    <div className={`flex flex-col [&>*:empty]:hidden ${gapClass} ${paddingClass} ${className}`.trim()}>
       {sorted.map((block) => {
         const section = getSection(block.sectionId)
         const rendered = <BlockRenderer key={block.uid} block={block} lang={lang} />

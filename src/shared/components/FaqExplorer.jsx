@@ -21,7 +21,7 @@ const ITEM_RADIUS_CLASS = {
 
 const SECTION_PADDING_CLASS = {
   tight: 'py-4 md:py-6',
-  default: 'py-6 md:py-10',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

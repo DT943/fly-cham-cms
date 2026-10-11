@@ -13,6 +13,8 @@ import LinkedText from './backlinks/LinkedText.jsx'
  * - Small: white card, stacked title / description / input / Subscribe
  * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
  * Presentational (does not submit). The side pattern comes from the CMS.
+ * No vertical padding or border: the page gap spaces it from the block above,
+ * and the page's bottom padding from the footer (registry `keepBottomPadding`).
  */
 const MediaNewsletterSignup = ({
   title = '',
@@ -22,7 +24,6 @@ const MediaNewsletterSignup = ({
   cta = '',
   pattern = '',
   sectionBg = '100',
-  borderColor = '200',
   cardBg = 'background',
   inputBg = '100',
   inputText = '700',
@@ -132,11 +133,8 @@ const MediaNewsletterSignup = ({
 
   return (
     <section
-      className="relative mt-10 w-full overflow-hidden border border-e-0"
-      style={{
-        backgroundColor: colorVar(sectionBg),
-        borderColor: colorVar(borderColor),
-      }}
+      className="relative w-full overflow-hidden"
+      style={{ backgroundColor: colorVar(sectionBg) }}
     >
       {pattern ? (
         <div
@@ -147,7 +145,7 @@ const MediaNewsletterSignup = ({
         </div>
       ) : null}
 
-      <Container className="relative z-10 py-8 md:py-10">
+      <Container className="relative z-10">
         <div
           className="flex w-full flex-col gap-6 rounded-xl p-6  md:gap-8 md:p-8 lg:hidden"
           style={{ backgroundColor: colorVar(cardBg) }}

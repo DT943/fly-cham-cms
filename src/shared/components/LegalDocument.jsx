@@ -15,7 +15,7 @@ const COLUMN_GAP = {
 const PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
-  default: 'py-10 md:py-14',
+  default: '',
   loose: 'py-10 md:py-16',
 }
 

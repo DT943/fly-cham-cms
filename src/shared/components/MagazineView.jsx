@@ -62,7 +62,7 @@ const MagazineView = ({
   )
 
   return (
-    <div className="flex flex-col gap-6 pt-2 md:gap-8 md:pt-4">
+    <div className="flex flex-col gap-6 md:gap-8">
       {title || description ? (
         <header className="flex flex-col gap-2 md:gap-3">
           {title ? (

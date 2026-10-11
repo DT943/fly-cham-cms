@@ -15,6 +15,12 @@
   --color-main-dark: #01263b;
   --color-secondary: #baa981;
   --color-text: #3e3e3b;
+  /*
+   * CMS palette token "gold" (flychamwebsite's footer social icons). Plain
+   * :root, not @theme: the CMS picks it by name at runtime, so Tailwind would
+   * never see it used and would drop it from the build.
+   */
+  --color-gold: #d6b680;
 }
 
 /*
@@ -67,8 +73,7 @@ html {
 /*
  * Site footer (CMS footer document `style`, see layout/footer/utils/footerStyle.js):
  * the same --cms-hc / --cms-hw vars; the element keeps its own
- * `transition-colors`. `.cms-ftr-social` fills the circle solid on hover
- * and keeps the icon at its resting colour.
+ * `transition-colors`.
  */
 .cms-ftr-hover:hover {
   color: var(--cms-hc) !important;
@@ -76,12 +81,6 @@ html {
 }
 .cms-ftr-hover-color:hover {
   color: var(--cms-hc) !important;
-}
-.cms-ftr-social:hover,
-.cms-ftr-social:focus-visible {
-  color: var(--cms-social) !important;
-  border-color: #09a4d5 !important;
-  background-color: #09a4d5 !important;
 }
 /* Button Normal/Hover background (see getButtonStyle in styles/cmsStyle.js). */
 .cms-btn-hover {

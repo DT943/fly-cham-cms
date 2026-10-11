@@ -18,7 +18,7 @@ const OfficeDirectoryList = ({
       {showDashedLine && showPin && offices.length > 1 ? (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-6 bottom-6 start-0 z-0 flex w-9 justify-center md:top-8 md:bottom-8 md:w-11"
+          className="pointer-events-none absolute top-6 bottom-0 start-0 z-0 flex w-9 justify-center md:top-8 md:w-11"
         >
           <span
             className="block h-full w-0.5"
