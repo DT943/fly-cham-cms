@@ -16,7 +16,7 @@ import useCurrentPos from '../hooks/useCurrentPos.js'
 
 const REGION_MENU = 'region'
 const LOGIN_ITEM = 'login'
-/** How far the page must scroll down before an open menu closes. */
+/** How far the page must scroll down before a hovered (unpinned) menu closes. */
 const SCROLL_CLOSE_PX = 8
 
 const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false }) => {
@@ -28,8 +28,9 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
   const { menus, style: hs } = header
   const headerRef = useRef(null)
   const [openMenu, setOpenMenu] = useState(null)
-  // A clicked menu stays open after the pointer leaves the header; it closes on
-  // a click outside, Escape, scrolling down, navigation or a second click.
+  // A clicked menu stays open after the pointer leaves the header and while the
+  // page scrolls; it closes on a click outside, Escape, navigation or a second
+  // click. A hovered menu also closes when the page scrolls down.
   const [pinned, setPinned] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const hidden = useHideOnScroll({
@@ -76,8 +77,9 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
       if (event.key === 'Escape') close()
     }
 
-    // Scrolling the page down (not the panel itself) closes the menu, measured
-    // from the highest point since it opened (scrolling up keeps it open).
+    // Scrolling the page down (not the panel itself) closes a hovered menu,
+    // measured from the highest point since it opened (scrolling up keeps it
+    // open). A clicked (pinned) menu stays open while the page scrolls.
     let topY = window.scrollY
     const handleScroll = () => {
       const y = window.scrollY
@@ -87,13 +89,13 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
 
     document.addEventListener('mousedown', handlePointerDown)
     document.addEventListener('keydown', handleKeyDown)
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    if (!pinned) window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [openMenu])
+  }, [openMenu, pinned])
 
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1024px)')

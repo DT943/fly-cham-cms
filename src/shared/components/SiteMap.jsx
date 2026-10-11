@@ -9,6 +9,16 @@ const LINK_ROW = 'flex flex-col gap-0.5 md:flex-row md:flex-wrap md:items-center
 const LINK_ITEM =
   'text-base font-medium leading-[26px] no-underline hover:underline max-md:flex max-md:min-h-[42px] max-md:w-full max-md:items-center max-md:py-2'
 
+// Section/group titles link only when the editor picked a page or URL for them.
+function TitleText({ href, children }) {
+  if (!href) return children
+  return (
+    <LocalizedLink href={href} className="no-underline hover:underline">
+      {children}
+    </LocalizedLink>
+  )
+}
+
 function LinkRow({ links, style }) {
   if (!links?.length) return null
   const linkStyle = getTextStyleVars(style, 'linkColor', 'primary-1', 'medium')
@@ -116,7 +126,7 @@ const SiteMap = ({
                     )}
                     style={getTextStyleVars(style, 'sectionTitleColor', '700', 'semibold')}
                   >
-                    {section.title}
+                    <TitleText href={section.href}>{section.title}</TitleText>
                   </h2>
                 ) : null}
                 {hasGroupTitles(section) ? (
@@ -134,7 +144,7 @@ const SiteMap = ({
                             )}
                             style={getTextStyleVars(style, 'groupTitleColor', '700', 'semibold')}
                           >
-                            {group.title}
+                            <TitleText href={group.href}>{group.title}</TitleText>
                           </p>
                         ) : null}
                         <LinkRow links={group.links} style={style} />

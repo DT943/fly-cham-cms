@@ -54,8 +54,10 @@ export function siteMapProps(block, lang) {
     description: content.description,
     sections: sections.map((section) => ({
       title: section?.title || '',
+      href: resolveCmsHref(section?.href),
       groups: (Array.isArray(section?.groups) ? section.groups : []).map((group) => ({
         title: group?.title || '',
+        href: resolveCmsHref(group?.href),
         links: (Array.isArray(group?.links) ? group.links : []).map(mapLink),
       })),
     })),
