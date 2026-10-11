@@ -882,6 +882,8 @@
       "login": "تسجيل الدخول",
       "menu": "فتح القائمة",
       "closeMenu": "إغلاق القائمة",
+      "openSearch": "فتح البحث",
+      "closeSearch": "إغلاق البحث",
       "travelNotice": {
         "label": "تنبيه هام:",
         "regionLabel": "تحديثات السفر",

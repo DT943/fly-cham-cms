@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { GlobeHemisphereWest, UserCircle } from '@phosphor-icons/react'
+import { GlobeHemisphereWest, MagnifyingGlass, UserCircle } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
@@ -9,6 +9,7 @@ import { HDR_SELF_HOVER, colorVar, findHeaderLocation, headerHref, roleStyle } f
 import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
+import HeaderSearch from './header/components/HeaderSearch.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
 import TravelUpdatesNotice from './header/TravelUpdatesNotice.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
@@ -16,6 +17,8 @@ import useCurrentPos from '../hooks/useCurrentPos.js'
 
 const REGION_MENU = 'region'
 const LOGIN_ITEM = 'login'
+// Search opens on click only (never on hover) and is always pinned.
+const SEARCH_MENU = 'search'
 /** How far the page must scroll down before a hovered (unpinned) menu closes. */
 const SCROLL_CLOSE_PX = 8
 
@@ -124,6 +127,10 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     setOpenMenu(id)
     setPinned(true)
   }
+  // Hover previews a menu, except while search is open (it stays until closed).
+  const previewMenu = (id) => {
+    if (openMenu !== SEARCH_MENU) setOpenMenu(id)
+  }
   const closeMobile = () => setMobileOpen(false)
   const navRef = useRef(null)
   const itemRefs = useRef({})
@@ -205,9 +212,13 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
         >
           <LocalizedLink
             to={headerHref(header.logo.href) || '/'}
-            className="flex h-11 w-[160px] shrink-0 items-center lg:h-[72px] lg:w-[241px]"
+            // lg–xl: logo box = drawn logo width (and tighter menu padding) so the
+            // bar fits with the search icon; xl+ keeps the Figma spacing.
+            className="flex h-11 w-[160px] shrink-0 items-center lg:h-[72px] lg:w-[185px] xl:w-[241px]"
             aria-label={header.logo.alt || undefined}
-            onMouseEnter={closeMenu}
+            onMouseEnter={() => {
+              if (openMenu !== SEARCH_MENU) closeMenu()
+            }}
             onClick={closeMenu}
           >
             <img
@@ -239,10 +250,10 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                     aria-expanded={isOpen}
                     aria-current={isCurrent ? 'page' : undefined}
                     aria-controls={`${menu.id}-mega-menu`}
-                    onMouseEnter={() => setOpenMenu(menu.id)}
+                    onMouseEnter={() => previewMenu(menu.id)}
                     onFocus={() => setOpenMenu(menu.id)}
                     onClick={() => toggleMenu(menu.id)}
-                    className={`relative flex cursor-pointer items-center whitespace-nowrap border-0 bg-transparent px-4 outline-none focus:outline-none focus-visible:outline-none ${typography.body} ${HDR_SELF_HOVER}`}
+                    className={`relative flex cursor-pointer items-center whitespace-nowrap border-0 bg-transparent px-3 outline-none focus:outline-none focus-visible:outline-none xl:px-4 ${typography.body} ${HDR_SELF_HOVER}`}
                     style={navStyle(isOpen || (!openMenu && isCurrent))}
                   >
                     {menu.label}
@@ -252,6 +263,24 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
           </nav>
 
           <div className="hidden h-full items-stretch gap-2 lg:flex">
+              {header.search.show && (
+                <button
+                  type="button"
+                  aria-expanded={openMenu === SEARCH_MENU}
+                  aria-controls="search-mega-menu"
+                  aria-label={t('layout.header.openSearch')}
+                  // Leaving a hovered mega menu for the icon closes it (not the pinned search).
+                  onMouseEnter={() => {
+                    if (!pinned) closeMenu()
+                  }}
+                  onClick={() => toggleMenu(SEARCH_MENU)}
+                  className={`relative flex cursor-pointer items-center border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
+                  style={navStyle(openMenu === SEARCH_MENU)}
+                >
+                  <MagnifyingGlass size={24} weight="regular" className="shrink-0" />
+                </button>
+              )}
+
               {header.region.show && (
                 <button
                   ref={(node) => {
@@ -260,7 +289,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                   type="button"
                   aria-expanded={openMenu === REGION_MENU}
                   aria-controls="region-mega-menu"
-                  onMouseEnter={() => setOpenMenu(REGION_MENU)}
+                  onMouseEnter={() => previewMenu(REGION_MENU)}
                   onFocus={() => setOpenMenu(REGION_MENU)}
                   onClick={() => toggleMenu(REGION_MENU)}
                   className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
@@ -279,7 +308,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                     itemRefs.current[LOGIN_ITEM] = node
                   }}
                   className="flex h-full items-stretch"
-                  onMouseEnter={() => setOpenMenu(LOGIN_ITEM)}
+                  onMouseEnter={() => previewMenu(LOGIN_ITEM)}
                 >
                   <LocalizedLink
                     to={headerHref(header.login.href)}
@@ -311,16 +340,35 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
             />
           ) : null}
 
-          <HeaderMenuButton
-            open={mobileOpen}
-            dark={dark}
-            controlsId="header-mobile-menu"
-            label={t(mobileOpen ? 'layout.header.closeMenu' : 'layout.header.menu')}
-            onClick={() => {
-              setOpenMenu(null)
-              setMobileOpen((isOpen) => !isOpen)
-            }}
-          />
+          <div className="ms-auto flex items-center gap-1 lg:hidden">
+            {header.search.show && (
+              <button
+                type="button"
+                aria-expanded={openMenu === SEARCH_MENU}
+                aria-controls="search-mega-menu"
+                aria-label={t('layout.header.openSearch')}
+                onClick={() => {
+                  setMobileOpen(false)
+                  toggleMenu(SEARCH_MENU)
+                }}
+                className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-secondary ${
+                  dark ? 'text-50' : 'text-700'
+                }`}
+              >
+                <MagnifyingGlass size={24} weight="regular" />
+              </button>
+            )}
+            <HeaderMenuButton
+              open={mobileOpen}
+              dark={dark}
+              controlsId="header-mobile-menu"
+              label={t(mobileOpen ? 'layout.header.closeMenu' : 'layout.header.menu')}
+              onClick={() => {
+                setOpenMenu(null)
+                setMobileOpen((isOpen) => !isOpen)
+              }}
+            />
+          </div>
         </Container>
           </div>
         </div>
@@ -331,12 +379,15 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
         `sticky` on the header makes it the containing block. The max height is
         the viewport minus the bar above it, so a tall panel scrolls internally.
       */}
-      {(activeMenu || openMenu === REGION_MENU) && (
+      {(activeMenu || openMenu === REGION_MENU || openMenu === SEARCH_MENU) && (
         <div
           id={`${openMenu}-mega-menu`}
           // Clicking inside the panel (e.g. a tab) keeps it open.
           onPointerDown={() => setPinned(true)}
-          className="absolute inset-x-0 top-full hidden max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] lg:block"
+          // The search panel also opens below lg (mobile icon); mega menus are lg-only.
+          className={`absolute inset-x-0 top-full max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] ${
+            openMenu === SEARCH_MENU ? 'block' : 'hidden lg:block'
+          }`}
         >
           {activeMenu && (
             <MegaMenu
@@ -347,6 +398,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
             />
           )}
           {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}
+          {openMenu === SEARCH_MENU && <HeaderSearch search={header.search} onClose={closeMenu} />}
         </div>
       )}
 

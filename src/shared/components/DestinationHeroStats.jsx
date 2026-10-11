@@ -11,10 +11,13 @@ import {
   AirplaneTilt,
   CalendarBlank,
 } from '@phosphor-icons/react'
+import { useLocation } from 'react-router-dom'
 import Container from './Container.jsx'
 import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { destinationFromSlug } from './destinationHeroStats/liveStats.js'
+import useLiveDestinationStats from './destinationHeroStats/useLiveDestinationStats.js'
 
 const STAT_ICON_MAP = {
   airTrafficControl: AirTrafficControl,
@@ -94,7 +97,7 @@ const DestinationHeroStats = ({
   country,
   image,
   imageAlt = '',
-  stats = [],
+  stats: storedStats = [],
   // style
   height = 'default',
   overlayColor = 'primary-1',
@@ -121,7 +124,14 @@ const DestinationHeroStats = ({
   linkUnderline,
   linkItalic,
 }) => {
-  const isRtl = useCurrentLanguage() === 'ar'
+  const language = useCurrentLanguage()
+  const isRtl = language === 'ar'
+  // On a destination page (flights-to-<city>, things-to-do-in-<city>) the stats
+  // are live: airport/currency from the destination table, local time from its
+  // time zone, weather from Open-Meteo. Other pages keep the CMS stats.
+  const { pathname } = useLocation()
+  const liveStats = useLiveDestinationStats(destinationFromSlug(pathname), language)
+  const stats = liveStats || storedStats
   const heightClass = HERO_HEIGHT[height] || HERO_HEIGHT.default
   const heroSrc = image
   const overlayCss = colorVar(overlayColor) || colorVar('primary-1')

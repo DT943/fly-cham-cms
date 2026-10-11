@@ -101,6 +101,32 @@ const normalizeMobile = (mobile, base) => {
 }
 
 /**
+ * Header search panel (Figma 39439:37653). Absent/invalid fields fall back to
+ * the bundled default, so a document saved before search existed still shows it.
+ */
+const normalizeSearch = (search, base) => {
+  const fallback = base.search
+  if (!isObj(search)) return fallback
+  const quickLinks = Array.isArray(search.quickLinks)
+    ? search.quickLinks
+        .filter((link) => isObj(link) && str(link.label))
+        .map((link, index) => ({
+          id: str(link.id) || `search-link-${index}`,
+          label: str(link.label),
+          href: str(link.href) || '/',
+        }))
+    : fallback.quickLinks
+  return {
+    show: search.show !== false,
+    placeholder: str(search.placeholder) || fallback.placeholder,
+    buttonLabel: str(search.buttonLabel) || fallback.buttonLabel,
+    quickLinksTitle: str(search.quickLinksTitle, fallback.quickLinksTitle),
+    emptyText: str(search.emptyText) || fallback.emptyText,
+    quickLinks,
+  }
+}
+
+/**
  * Validated + normalised document, ready to render: every field present with
  * the right type, missing style/logo/login/region keys filled from the bundled
  * default, hidden menus and empty tabs/menus removed. Returns null if invalid.
@@ -145,6 +171,7 @@ const normalizeDocument = (doc, lang) => {
       label: str(doc.region?.label, base.region.label),
     },
     mobile: normalizeMobile(doc.mobile, base),
+    search: normalizeSearch(doc.search, base),
     menus,
     style,
   }

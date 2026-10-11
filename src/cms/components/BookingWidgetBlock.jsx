@@ -11,7 +11,9 @@ const OFFSET_MAX = 120
  */
 const BookingWidgetBlock = ({ offsetY = 0 }) => {
   const offset = Math.min(OFFSET_MAX, Math.max(OFFSET_MIN, Math.round(Number(offsetY) || 0)))
-  if (!offset) return <BookingWidget className="w-full" />
+  // Below md the vendored box starts with its tab bar's `my-2` (no card yet);
+  // -mt-2 cancels it so only the page gap sits above the widget.
+  if (!offset) return <BookingWidget className="w-full -mt-2 md:mt-0" />
 
   return (
     <div

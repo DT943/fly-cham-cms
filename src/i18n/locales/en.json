@@ -882,6 +882,8 @@
       "login": "Log in",
       "menu": "Open menu",
       "closeMenu": "Close menu",
+      "openSearch": "Open search",
+      "closeSearch": "Close search",
       "travelNotice": {
         "label": "Important Notice:",
         "regionLabel": "Travel updates",

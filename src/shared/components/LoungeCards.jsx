@@ -104,7 +104,7 @@ const LoungeCards = ({
             <div
               ref={scrollerRef}
               onScroll={onScroll}
-              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1 -mb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {items.map((item, index) => {
                 const Icon = showLink && showLinkIcon && item.icon ? resolvePhosphorIcon(item.icon) : null

@@ -34,6 +34,45 @@
         }
       ]
     },
+    "search": {
+      "show": true,
+      "placeholder": "Search",
+      "buttonLabel": "Search",
+      "quickLinksTitle": "Quick links",
+      "emptyText": "No results found. Try another word.",
+      "quickLinks": [
+        {
+          "id": "onlineCheckIn",
+          "label": "Online check in",
+          "href": "/"
+        },
+        {
+          "id": "manageBooking",
+          "label": "Manage booking",
+          "href": "/travel-experience/before-you-fly/manage-booking"
+        },
+        {
+          "id": "baggage",
+          "label": "Baggage",
+          "href": "/travel-experience/before-you-fly/allowed-baggage"
+        },
+        {
+          "id": "flightStatus",
+          "label": "Flight status",
+          "href": "/"
+        },
+        {
+          "id": "faqs",
+          "label": "FAQs",
+          "href": "/help/faqs"
+        },
+        {
+          "id": "travellingWithPet",
+          "label": "Travelling with pet",
+          "href": "/help/faqs"
+        }
+      ]
+    },
     "menus": [
       {
         "id": "bookManage",
@@ -723,6 +762,45 @@
           "id": "helpSupport",
           "label": "المساعدة والدعم",
           "href": "/help"
+        }
+      ]
+    },
+    "search": {
+      "show": true,
+      "placeholder": "بحث",
+      "buttonLabel": "بحث",
+      "quickLinksTitle": "روابط سريعة",
+      "emptyText": "لا توجد نتائج. جرّب كلمة أخرى.",
+      "quickLinks": [
+        {
+          "id": "onlineCheckIn",
+          "label": "تسجيل الوصول عبر الإنترنت",
+          "href": "/"
+        },
+        {
+          "id": "manageBooking",
+          "label": "إدارة الحجز",
+          "href": "/travel-experience/before-you-fly/manage-booking"
+        },
+        {
+          "id": "baggage",
+          "label": "الأمتعة",
+          "href": "/travel-experience/before-you-fly/allowed-baggage"
+        },
+        {
+          "id": "flightStatus",
+          "label": "حالة الرحلة",
+          "href": "/"
+        },
+        {
+          "id": "faqs",
+          "label": "الأسئلة الشائعة",
+          "href": "/help/faqs"
+        },
+        {
+          "id": "travellingWithPet",
+          "label": "السفر مع حيوان أليف",
+          "href": "/help/faqs"
         }
       ]
     },
