@@ -3434,8 +3434,9 @@
   },
   "comingSoon": {
     "title": "Coming Soon",
-    "description": "We're working on something new to serve you better stay tuned.",
-    "imageAlt": "Fly Cham aircraft flying above the clouds at sunset"
+    "description": "We're upgrading this page for a better experience. Stay tuned for updates,\nThank you for your patience.",
+    "backHome": "Back to home page",
+    "imageAlt": "Fly Cham Airbus A320 aircraft"
   },
   "businessCenter": {
     "breadcrumb": "Business Center",

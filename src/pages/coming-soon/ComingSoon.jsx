@@ -1,40 +1,51 @@
 import { useTranslation } from 'react-i18next'
+import { ArrowLeft } from '@phosphor-icons/react'
 import Container from '../../shared/components/Container.jsx'
+import LocalizedLink from '../../shared/components/LocalizedLink.jsx'
+import MediaNewsletterSignup from '../../shared/components/MediaNewsletterSignup.jsx'
 import { typography } from '../../styles/typography.js'
-// Unrouted legacy page (now the CMS coming-soon-hero block) — cms-media copy.
-const heroImage = 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/coming-soon/hero.webp'
+import planeImage from '../../assets/images-webp/coming-soon/plane.webp'
 
-/**
- * Full-bleed Coming Soon: Fly Cham aircraft over clouds, navy overlay
- * (#01263B at 40%), title and supporting copy aligned top-start.
- */
+const NEWSLETTER_PATTERN =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/media-newsletter/pattern.png'
+
 const ComingSoon = () => {
   const { t } = useTranslation()
 
   return (
-    <main className="relative flex min-h-dvh w-full flex-1 overflow-hidden -mt-16 pt-16 md:-mt-18 md:pt-18">
-      <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt={t('comingSoon.imageAlt')}
-          className="object-cover w-full h-full"
-        />
-        {/* Design overlay: #01263B66 */}
-        <div className="absolute inset-0 bg-[#000000]/20" aria-hidden />
-      </div>
+    <main className="flex w-full flex-1 flex-col bg-100">
+      <Container className="flex flex-col items-center pt-12 text-center md:pt-20">
+        <h1 className={`m-0 font-semibold leading-tight text-700 ${typography.pageTitle}`}>
+          {t('comingSoon.title')}
+        </h1>
+        <p className="m-0 mt-4 max-w-140 whitespace-pre-line text-sm leading-relaxed text-700 md:text-base">
+          {t('comingSoon.description')}
+        </p>
+        <LocalizedLink
+          href="/"
+          className={`mt-6 inline-flex h-11 items-center gap-3 rounded-lg bg-primary-1 px-5 text-50 no-underline transition-colors hover:bg-primary-800 md:h-12 md:px-6 ${typography.button}`}
+        >
+          <ArrowLeft size={16} weight="bold" className="rtl:-scale-x-100" aria-hidden />
+          {t('comingSoon.backHome')}
+        </LocalizedLink>
 
-      <Container className="relative z-10 flex w-full flex-col justify-start pt-10 pb-16 md:pt-14 lg:pt-20">
-        <div className="flex max-w-xl flex-col gap-3 md:max-w-2xl md:gap-4">
-          <h1
-            className={`m-0 font-bold leading-tight tracking-tight text-50 ${typography.pageTitle} lg:text-[56px]`}
-          >
-            {t('comingSoon.title')}
-          </h1>
-          <p className={`m-0 max-w-lg font-normal leading-relaxed text-50/90 ${typography.sectionDescription}`}>
-            {t('comingSoon.description')}
-          </p>
-        </div>
+        <img
+          src={planeImage}
+          alt={t('comingSoon.imageAlt')}
+          className="mt-8 block h-auto w-full max-w-140 md:mt-6"
+        />
       </Container>
+
+      <div className="border-y border-solid border-200 py-6 md:py-8">
+        <MediaNewsletterSignup
+          title={t('mediaCenter.newsletter.title')}
+          description={t('mediaCenter.newsletter.description')}
+          label={t('mediaCenter.newsletter.label')}
+          placeholder={t('mediaCenter.newsletter.placeholder')}
+          cta={t('mediaCenter.newsletter.cta')}
+          pattern={NEWSLETTER_PATTERN}
+        />
+      </div>
     </main>
   )
 }
