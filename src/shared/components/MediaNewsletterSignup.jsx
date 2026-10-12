@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CheckCircle, CircleNotch } from '@phosphor-icons/react'
 import {
   CMS_TEXT_HOVER_CLASS,
@@ -40,8 +41,13 @@ const MediaNewsletterSignup = ({
   linkItalic,
   ...textStyle
 }) => {
+  const { t } = useTranslation()
+  const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+  const [signedUp, setSignedUp] = useState(false)
+  const [formKey, setFormKey] = useState(0)
   const timer = useRef(null)
+  const emailInputs = useRef([])
 
   useEffect(() => () => {
     if (timer.current) window.clearTimeout(timer.current)
@@ -53,21 +59,55 @@ const MediaNewsletterSignup = ({
     event.preventDefault()
     if (status !== 'idle') return
     setStatus('loading')
-    timer.current = window.setTimeout(() => setStatus('done'), 2000)
+    timer.current = window.setTimeout(() => {
+      emailInputs.current.forEach((input) => {
+        input.value = ''
+        input.blur()
+      })
+      setEmail('')
+      setSignedUp(true)
+      setStatus('success')
+      timer.current = window.setTimeout(() => {
+        setStatus('idle')
+        setFormKey((key) => key + 1)
+      }, 1000)
+    }, 2000)
   }
 
+  const successNote = signedUp ? (
+    <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
+      {t('common.signedUp')}
+    </p>
+  ) : null
+
+  const emailField = (className, style) => (
+    <input
+      ref={(node) => {
+        if (node && !emailInputs.current.includes(node)) emailInputs.current.push(node)
+      }}
+      type="email"
+      autoComplete="off"
+      value={email}
+      onChange={(event) => setEmail(event.target.value)}
+      aria-label={label}
+      placeholder={placeholder}
+      className={`newsletter-email ${className}`}
+      style={{ ...style, '--cms-input-text': colorVar(inputText) }}
+    />
+  )
+
   const subscribeControl = (className) => {
-    if (status === 'done') {
+    if (status === 'success') {
       return (
-        <span className="inline-flex h-10 shrink-0 items-center justify-center md:h-12" role="status">
-          <CheckCircle size={32} weight="fill" className="text-[#16803C]" aria-hidden />
-          <span className="sr-only">Subscribed</span>
+        <span className={`${className} bg-transparent`} aria-hidden>
+          <CheckCircle size={32} weight="fill" className="text-[#16803C]" />
         </span>
       )
     }
 
     return (
       <button
+        key={formKey}
         type="submit"
         disabled={status === 'loading'}
         aria-busy={status === 'loading'}
@@ -127,20 +167,14 @@ const MediaNewsletterSignup = ({
   )
 
   const stackedForm = (
-    <form
-      onSubmit={submit}
-      className="flex w-full flex-col gap-3"
-    >
-      <input
-        type="email"
-        aria-label={label}
-        placeholder={placeholder}
-        className={`h-12 w-full rounded-lg border-0 px-4 placeholder:text-600 focus:outline-none focus:ring-0 md:h-14 md:text-base ${typography.body}`}
-        style={{
-          backgroundColor: colorVar(inputBg),
-          color: colorVar(inputText),
-        }}
-      />
+    <form onSubmit={submit} className="flex w-full flex-col gap-3">
+      <div className="flex flex-col gap-2">
+        {emailField(
+          `h-12 w-full rounded-lg border-0 px-4 placeholder:text-600 focus:outline-none focus:ring-0 md:h-14 md:text-base ${typography.body}`,
+          { backgroundColor: colorVar(inputBg), color: colorVar(inputText) },
+        )}
+        {successNote}
+      </div>
       {subscribeControl(
         `flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-14 md:w-auto md:self-start md:px-8 ${typography.button} ${buttonStyle.className}`,
       )}
@@ -148,22 +182,22 @@ const MediaNewsletterSignup = ({
   )
 
   const inlineForm = (
-    <form
-      onSubmit={submit}
-      className="flex w-full min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-lg px-4 py-2 md:px-5 md:py-2 lg:max-w-148"
-      style={{ backgroundColor: colorVar(cardBg) }}
-    >
-      <input
-        type="email"
-        aria-label={label}
-        placeholder={placeholder}
-        className={`min-w-0 flex-1 border-0 bg-transparent p-0 placeholder:text-600 focus:outline-none focus:ring-0 md:text-base ${typography.body}`}
-        style={{ color: colorVar(inputText) }}
-      />
-      {subscribeControl(
-        `flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-12 md:px-8 lg:min-w-35 ${typography.button} ${buttonStyle.className}`,
-      )}
-    </form>
+    <div className="flex w-full min-w-0 flex-1 flex-col gap-2 lg:max-w-148">
+      <form
+        onSubmit={submit}
+        className="flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-2 md:px-5 md:py-2"
+        style={{ backgroundColor: colorVar(cardBg) }}
+      >
+        {emailField(
+          `min-w-0 flex-1 border-0 bg-transparent p-0 placeholder:text-600 focus:outline-none focus:ring-0 md:text-base ${typography.body}`,
+          { color: colorVar(inputText) },
+        )}
+        {subscribeControl(
+          `flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-12 md:px-8 lg:min-w-35 ${typography.button} ${buttonStyle.className}`,
+        )}
+      </form>
+      {successNote}
+    </div>
   )
 
   return (

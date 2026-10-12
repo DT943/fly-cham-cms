@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { typography } from '../../styles/typography.js'
 import {
   colorVar,
@@ -18,7 +19,7 @@ const SECTION_PADDING_CLASS = {
   loose: 'py-10 md:py-16',
 }
 
-const GRID_CLASS = 'sm:grid-cols-2 xl:grid-cols-3'
+const GRID_CLASS = 'lg:grid-cols-2 xl:grid-cols-3'
 
 const linkStyle = (style) => ({
   linkColor: style.linkColor,
@@ -68,9 +69,10 @@ const DestinationsExplore = ({
   featuredButtonTextFontWeightHover,
   ...rest
 }) => {
+  const { t } = useTranslation()
   const style = { showLinks, ...rest }
 
-  // Card CTA: built-in hover is a 90% fade, dropped once a hover bg is chosen.
+  // Card CTA (destination guide): the card hover reveals it. Its own fill stays put.
   const cardBtn = getButtonStyle(
     {
       cardButtonBg,
@@ -88,8 +90,9 @@ const DestinationsExplore = ({
       weightFallback: 'semibold',
     },
   )
-  const cardBtnClass = cx(cardBtn.className, !cardButtonBgHover && 'hover:opacity-90')
-  // Featured CTA: built-in hover is the background at 90% (bg-primary-1/90).
+  cardBtn.style['--cms-bgh'] = cardBtn.style.backgroundColor
+  const cardBtnClass = cardBtn.className
+  // Featured Discover button keeps its fill; the card does not tint it on hover.
   const featuredBtn = getButtonStyle(
     {
       featuredButtonBg,
@@ -107,10 +110,7 @@ const DestinationsExplore = ({
       weightFallback: 'semibold',
     },
   )
-  if (!featuredButtonBgHover) {
-    featuredBtn.style['--cms-bgh'] =
-      `color-mix(in oklab, ${featuredBtn.style.backgroundColor} 90%, transparent)`
-  }
+  featuredBtn.style['--cms-bgh'] = featuredBtn.style.backgroundColor
 
   const paddingClass = SECTION_PADDING_CLASS[sectionPadding] ?? SECTION_PADDING_CLASS.default
   const featuredImages = Array.isArray(featured.images)
@@ -165,7 +165,14 @@ const DestinationsExplore = ({
           />
         )}
 
-        <div className={cx('grid grid-cols-1', GRID_CLASS, 'gap-4 flex-1 min-w-0')}>
+        <div className="flex min-w-0 flex-1 flex-col gap-4">
+          <h3
+            className={cx('m-0 text-base font-semibold lg:hidden', CMS_TEXT_HOVER_CLASS)}
+            style={getTextStyleVars(style, 'titleColor', '800', 'semibold')}
+          >
+            {t('destinations.explore.routes')}
+          </h3>
+          <div className={cx('grid grid-cols-1', GRID_CLASS, 'gap-4')}>
           {cards.map((card, index) => (
             <div
               key={card.id || index}
@@ -192,6 +199,7 @@ const DestinationsExplore = ({
               />
             </div>
           ))}
+          </div>
         </div>
       </div>
 

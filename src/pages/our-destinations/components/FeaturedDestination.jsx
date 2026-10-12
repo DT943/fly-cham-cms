@@ -70,7 +70,7 @@ const FeaturedDestination = ({
 
   return (
     <article
-      className="group relative overflow-clip rounded-xl w-full min-h-[28rem] lg:w-[20.4rem] lg:min-w-[20.4rem] lg:h-[46.9rem] lg:shrink-0 cursor-pointer "
+      className="group relative h-[420px] w-full cursor-pointer overflow-clip rounded-xl lg:h-[46.9rem] lg:w-[20.4rem] lg:min-w-[20.4rem] lg:shrink-0"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onPointerDown={onPointerDown}
@@ -91,34 +91,35 @@ const FeaturedDestination = ({
         className="absolute inset-0 z-10 pointer-events-none bg-[linear-gradient(180deg,rgba(0,37,60,0)_23.302%,#00253C_100%)]"
       />
 
-      <div className="absolute top-10 start-[18px] end-[18px] z-20 pointer-events-none flex flex-col gap-1">
-        <p className={`${typography.body} font-semibold text-50 m-0`}>{country}</p>
-        <p className={`${typography.itemTitle} font-semibold text-50 m-0`}>{title}</p>
+      <div className="pointer-events-none absolute start-4 end-4 top-6 z-20 flex flex-col gap-1 lg:start-[18px] lg:end-[18px] lg:top-10">
+        <p className="m-0 text-xs font-semibold text-50 lg:text-base">{country}</p>
+        <p className="m-0 text-lg font-bold text-50 lg:font-semibold">{title}</p>
       </div>
 
-      <div className="absolute inset-x-[18px] bottom-7 z-20 flex flex-col gap-10 pointer-events-none">
-        <div className="flex flex-col gap-4 [text-shadow:0px_4px_6px_rgba(33,37,41,0.2),0px_0px_1px_rgba(33,37,41,0.32)]">
-          <h3 className={`${typography.body} font-semibold text-white m-0`}>{heading}</h3>
-          <p className={`${typography.caption} font-normal text-50 m-0 leading-5`}>
+      <div className="pointer-events-none absolute inset-x-4 bottom-[30px] z-20 flex flex-col gap-3 lg:inset-x-[18px] lg:bottom-7 lg:gap-10">
+        <div className="flex flex-col gap-2 [text-shadow:0px_4px_6px_rgba(33,37,41,0.2),0px_0px_1px_rgba(33,37,41,0.32)] lg:gap-4">
+          <h3 className={`${typography.body} m-0 font-semibold text-white`}>{heading}</h3>
+          <p className="m-0 text-xs font-normal leading-4 text-50 lg:text-sm lg:leading-5">
             {description}
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 pointer-events-auto">
+        <div className="pointer-events-auto flex flex-col gap-3">
           <LocalizedLink
             href={href}
-            className={`${typography.caption} font-semibold text-white bg-primary-1 hover:bg-primary-1/90 no-underline rounded-lg px-[15px] py-2.5 min-h-[45px] flex items-center justify-center text-center transition-colors duration-200 ease-out motion-reduce:transition-none ${buttonClassName}`}
+            className={`flex min-h-0 items-center justify-center rounded-lg bg-primary-1 px-3 py-2 text-center text-xs font-semibold text-white no-underline lg:min-h-[45px] lg:px-[15px] lg:py-2.5 lg:text-sm ${buttonClassName}`}
             style={buttonStyle}
           >
             {cta}
           </LocalizedLink>
           <LocalizedLink
             href={activitiesHref || href}
-            className={`${typography.body} font-semibold text-50 inline-flex items-center justify-center gap-2.5 no-underline rounded-lg transition-transform duration-200 hover:translate-x-1 rtl:hover:-translate-x-1 motion-reduce:transition-none motion-reduce:hover:translate-x-0`}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg text-[13px] font-semibold text-50 no-underline lg:gap-2.5 lg:text-base"
           >
             {activities}
-            <span className="flex items-center justify-center size-[29px] shrink-0">
-              <ArrowRight size={20} className="rtl:-scale-x-100" />
+            <span className="flex size-4 shrink-0 items-center justify-center lg:size-[29px]">
+              <ArrowRight size={16} className="rtl:-scale-x-100 lg:hidden" />
+              <ArrowRight size={20} className="hidden rtl:-scale-x-100 lg:block" />
             </span>
           </LocalizedLink>
         </div>

@@ -1,4 +1,6 @@
+import { useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import Container from '../../shared/components/Container.jsx'
 import PageSkeleton from '../../shared/components/PageSkeleton.jsx'
@@ -8,6 +10,7 @@ import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 import NotFound from '../not-found/NotFound.jsx'
 import { cmsSlugFromPath } from './cmsPagePath.js'
+import { withDestinationBreadcrumbs } from './destinationBreadcrumbs.js'
 
 // The ONE page component for every CMS-driven route. It loads the CMS page for
 // `slug` in the URL's language and renders its blocks through the section
@@ -47,10 +50,16 @@ const DynamicPageContent = ({
   fallback,
 }) => {
   const { pathname } = useLocation()
+  const { t } = useTranslation()
   const language = useCurrentLanguage()
-  const slug = fixedSlug || cmsSlugFromPath(stripLanguage(pathname))
+  const pagePath = stripLanguage(pathname)
+  const slug = fixedSlug || cmsSlugFromPath(pagePath)
   const { data: page, isLoading, isError, error } = usePage(slug, language)
   const hasBlocks = page?.blocks?.length > 0
+  const blocks = useMemo(
+    () => withDestinationBreadcrumbs(page?.blocks, pagePath, t, language),
+    [page?.blocks, pagePath, t, language],
+  )
 
   // `fallback`: what to show whenever the page can't be displayed (missing,
   // failed, or no blocks) — used by the 404 page, which must never fail.
@@ -78,7 +87,7 @@ const DynamicPageContent = ({
       )}
       {page && (
         <PageBlocks
-          blocks={page.blocks}
+          blocks={blocks}
           lang={language}
           flushBottom={flushBottom}
           {...(gapClass ? { gapClass } : {})}

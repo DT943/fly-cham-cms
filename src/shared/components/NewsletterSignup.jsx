@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CheckCircle, CircleNotch, Envelope, EnvelopeSimple } from '@phosphor-icons/react'
 import Container from './Container.jsx'
 import {
@@ -15,7 +16,8 @@ const clampPercent = (value, fallback) => {
 }
 
 /**
- * Newsletter capture banner. Subscribe shows a spinner, then a check, like Media Newsletter.
+ * Newsletter capture banner. Subscribe shows a spinner, then the field and button
+ * reset with a success note under the email, like Media Newsletter.
  * - Large: text left + white inline email bar (icon / input / Subscribe) + plane
  * - Small: dark gradient card, stacked field then full-width Subscribe (no plane)
  */
@@ -57,8 +59,13 @@ const NewsletterSignup = ({
   linkUnderline,
   linkItalic,
 }) => {
+  const { t } = useTranslation()
+  const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+  const [signedUp, setSignedUp] = useState(false)
+  const [formKey, setFormKey] = useState(0)
   const timer = useRef(null)
+  const emailInputs = useRef([])
 
   useEffect(() => () => {
     if (timer.current) window.clearTimeout(timer.current)
@@ -114,21 +121,39 @@ const NewsletterSignup = ({
     event.preventDefault()
     if (status !== 'idle') return
     setStatus('loading')
-    timer.current = window.setTimeout(() => setStatus('done'), 2000)
+    timer.current = window.setTimeout(() => {
+      emailInputs.current.forEach((input) => {
+        input.value = ''
+        input.blur()
+      })
+      setEmail('')
+      setSignedUp(true)
+      setStatus('success')
+      timer.current = window.setTimeout(() => {
+        setStatus('idle')
+        setFormKey((key) => key + 1)
+      }, 1000)
+    }, 2000)
   }
 
-  const subscribeControl = (className, doneClassName) => {
-    if (status === 'done') {
+  const successNote = signedUp ? (
+    <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
+      {t('common.signedUp')}
+    </p>
+  ) : null
+
+  const subscribeControl = (className) => {
+    if (status === 'success') {
       return (
-        <span className={doneClassName} role="status">
-          <CheckCircle size={32} weight="fill" className="text-[#16803C]" aria-hidden />
-          <span className="sr-only">Subscribed</span>
+        <span className={`${className} bg-transparent`} aria-hidden>
+          <CheckCircle size={32} weight="fill" className="text-[#16803C]" />
         </span>
       )
     }
 
     return (
       <button
+        key={formKey}
         type="submit"
         disabled={status === 'loading'}
         aria-busy={status === 'loading'}
@@ -183,26 +208,34 @@ const NewsletterSignup = ({
             ) : null}
           </div>
 
-          <form
-            onSubmit={submit}
-            className="flex w-full items-center justify-between gap-2.5 rounded-lg border border-solid p-2.5 lg:w-[449px] lg:shrink-0"
-            style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
-          >
-            <div className="flex min-w-0 flex-1 items-center gap-2.5">
-              <EnvelopeSimple size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
-              <input
-                type="email"
-                aria-label={label}
-                placeholder={placeholder}
-                className="cms-input-text min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
-                style={inputTextStyle}
-              />
-            </div>
-            {subscribeControl(
-              `inline-flex h-[35px] w-[113px] shrink-0 cursor-pointer items-center justify-center rounded border-0 p-1 text-sm transition-colors disabled:cursor-wait ${buttonStyle.className}`,
-              'inline-flex h-[35px] w-[113px] shrink-0 items-center justify-center',
-            )}
-          </form>
+          <div className="flex w-full flex-col gap-2 lg:w-[449px] lg:shrink-0">
+            <form
+              onSubmit={submit}
+              className="flex w-full items-center justify-between gap-2.5 rounded-lg border border-solid p-2.5"
+              style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
+            >
+              <div className="flex min-w-0 flex-1 items-center gap-2.5">
+                <EnvelopeSimple size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+                <input
+                  ref={(node) => {
+                    if (node && !emailInputs.current.includes(node)) emailInputs.current.push(node)
+                  }}
+                  type="email"
+                  autoComplete="off"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  aria-label={label}
+                  placeholder={placeholder}
+                  className="cms-input-text newsletter-email min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
+                  style={inputTextStyle}
+                />
+              </div>
+              {subscribeControl(
+                `inline-flex h-[35px] w-[113px] shrink-0 cursor-pointer items-center justify-center rounded border-0 p-1 text-sm transition-colors disabled:cursor-wait ${buttonStyle.className}`,
+              )}
+            </form>
+            {successNote}
+          </div>
         </Container>
       </section>
     )
@@ -243,32 +276,40 @@ const NewsletterSignup = ({
           ) : null}
         </div>
 
-        <form
-          onSubmit={submit}
-          className="flex w-full flex-col gap-3 lg:w-[480px] lg:shrink-0 lg:flex-row lg:items-center lg:gap-2.5 lg:rounded-lg lg:border lg:border-solid lg:p-2.5 lg:[background-color:var(--nl-ibg)] lg:[border-color:var(--nl-ibd)]"
-          style={{
-            '--nl-ibg': inputSurface.backgroundColor,
-            '--nl-ibd': inputSurface.borderColor,
-          }}
-        >
-          <div
-            className="flex w-full items-center gap-2.5 rounded-lg border border-solid p-2.5 lg:min-w-0 lg:flex-1 lg:border-0 lg:bg-transparent lg:p-0"
-            style={inputSurface}
+        <div className="flex w-full flex-col gap-2 lg:w-[480px] lg:shrink-0">
+          <form
+            onSubmit={submit}
+            className="flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:gap-2.5 lg:rounded-lg lg:border lg:border-solid lg:p-2.5 lg:[background-color:var(--nl-ibg)] lg:[border-color:var(--nl-ibd)]"
+            style={{
+              '--nl-ibg': inputSurface.backgroundColor,
+              '--nl-ibd': inputSurface.borderColor,
+            }}
           >
-            <Envelope size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
-            <input
-              type="email"
-              aria-label={label}
-              placeholder={placeholder}
-              className="cms-input-text min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
-              style={inputTextStyle}
-            />
-          </div>
-          {subscribeControl(
-            `inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-[15px] text-base transition-colors disabled:cursor-wait lg:w-[123px] ${buttonStyle.className}`,
-            'inline-flex h-11 w-full shrink-0 items-center justify-center lg:w-[123px]',
-          )}
-        </form>
+            <div
+              className="flex w-full items-center gap-2.5 rounded-lg border border-solid p-2.5 lg:min-w-0 lg:flex-1 lg:border-0 lg:bg-transparent lg:p-0"
+              style={inputSurface}
+            >
+              <Envelope size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+              <input
+                ref={(node) => {
+                  if (node && !emailInputs.current.includes(node)) emailInputs.current.push(node)
+                }}
+                type="email"
+                autoComplete="off"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                aria-label={label}
+                placeholder={placeholder}
+                className="cms-input-text newsletter-email min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
+                style={inputTextStyle}
+              />
+            </div>
+            {subscribeControl(
+              `inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-[15px] text-base transition-colors disabled:cursor-wait lg:w-[123px] ${buttonStyle.className}`,
+            )}
+          </form>
+          {successNote}
+        </div>
       </div>
     </section>
   )

@@ -92,7 +92,7 @@ const MediaContactCards = ({
               </h3>
             </div>
 
-            <div className="mt-5 flex flex-col gap-3 md:mt-6">
+            <div className="mt-5 flex flex-1 flex-col gap-3 md:mt-6">
               {item.description ? (
                 <p
                   className={cx('m-0 leading-relaxed', typography.body, CMS_TEXT_HOVER_CLASS)}

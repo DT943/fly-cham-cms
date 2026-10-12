@@ -12,6 +12,7 @@
     "ourDestinations": "Our destinations",
     "english": "EN",
     "arabic": "AR",
+    "signedUp": "Successfully signed up",
     "liveChat": {
       "title": "Start Live Chat",
       "description": "Chat with our Customer Service team and get immediate support for your questions and inquiries.",
@@ -1241,7 +1242,12 @@
     },
     "explore": {
       "title": "Explore Fly Cham Destinations",
-      "subtitle": "Explore our destinations and discover the cities across our network. Browse destination guides, find travel inspiration, and plan your next journey with Fly Cham."
+      "subtitle": "Explore our destinations and discover the cities across our network. Browse destination guides, find travel inspiration, and plan your next journey with Fly Cham.",
+      "routes": "More Popular Flight Routes"
+    },
+    "breadcrumb": {
+      "flights": "Flights to {{city}}",
+      "thingsToDo": "Things to do in {{city}}"
     },
     "inspiration": {
       "title": "Find Inspiration for Your Next Journey",
@@ -2271,6 +2277,7 @@
       }
     },
     "newsletter": {
+      "breadcrumb": "Newsletter",
       "title": "Stay Connected",
       "description": "Subscribe to our newsletter to receive our latest news, activities, and Marhaba magazine updates.",
       "label": "Email address",

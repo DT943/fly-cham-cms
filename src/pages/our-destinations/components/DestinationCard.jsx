@@ -5,19 +5,19 @@ import { colorVar } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 
 /**
- * Figma: "Our destinations" → Frame 1000004182 (node 38328:9001).
+ * Figma: Frame 1000004182 (38313:3792).
+ * Prototype: On hover → Property 1=Variant2, smart animate, ease out, 500ms.
  *
- * Desktop (lg+): hover swaps eyebrow/title out while Discover + Explore CTAs
- * rise in (~500ms soft ease-out). Image zooms to 1.041.
+ * Desktop (lg+): the bottom stack stays pinned. Country + title fade while
+ * the clipped Discover + Explore block expands into view. Image scales to
+ * 1.041 from center (294×183 over 282×176).
  *
- * Mobile / tablet (< lg): always-visible layout from the mobile frame —
- * country + title at the top, Discover + Explore in a horizontal row at the
- * bottom (no hover required on touch).
+ * Mobile (< lg): Figma our-destinations-mobile card (358×179). Country and
+ * title stay at the top; Discover and Explore sit in one row at the bottom.
  *
  * Scrim: `rgba(0,37,60,0) 38.122% → #00253C`.
  */
-const swapTransition =
-  'transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none'
+const hoverMotion = 'duration-500 ease-out motion-reduce:transition-none'
 
 const RADIUS_CLASS = {
   none: 'rounded-none',
@@ -55,9 +55,7 @@ const DestinationCard = ({
   const active = hovered || focused
 
   const buttonProps = {
-    className: `${typography.caption} rounded-lg p-2.5 text-center font-semibold no-underline transition-[opacity,colors] duration-200 ease-out motion-reduce:transition-none ${
-      buttonStyle ? buttonClassName || '' : 'hover:opacity-90'
-    }`,
+    className: `rounded-lg p-2.5 text-center no-underline ${buttonClassName || ''}`,
     style:
       buttonStyle || {
         color: colorVar(buttonTextColor),
@@ -69,7 +67,7 @@ const DestinationCard = ({
 
   return (
     <article
-      className={`relative overflow-hidden ${radiusClass} aspect-[282/176] cursor-pointer`}
+      className={`relative overflow-hidden ${radiusClass} h-[179px] cursor-pointer lg:h-auto lg:aspect-[282/176]`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => setFocused(true)}
@@ -83,7 +81,7 @@ const DestinationCard = ({
         <img
           src={image}
           alt={imageAlt}
-          className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] motion-reduce:transition-none lg:transition-transform ${
+          className={`absolute inset-0 h-full w-full object-cover transition-transform ${hoverMotion} ${
             active ? 'lg:scale-[1.041]' : 'scale-100'
           }`}
         />
@@ -94,29 +92,23 @@ const DestinationCard = ({
       />
 
       {/* Mobile: title top + CTAs row bottom — always visible */}
-      <div className="absolute inset-0 flex flex-col justify-between p-4 lg:hidden">
+      <div className="absolute inset-0 flex flex-col justify-between p-3.5 lg:hidden">
         <div className="flex flex-col gap-1 pointer-events-none">
-          <p
-            className={`${typography.caption} m-0 font-semibold`}
-            style={{ color: colorVar(iataColor) }}
-          >
+          <p className="m-0 text-xs font-semibold" style={{ color: colorVar(iataColor) }}>
             {place}
           </p>
-          <p
-            className={`${typography.body} m-0 font-medium`}
-            style={{ color: colorVar(titleColor) }}
-          >
+          <p className="m-0 text-sm font-medium" style={{ color: colorVar(titleColor) }}>
             {title}
           </p>
         </div>
 
-        <div className="flex flex-row items-center gap-2.5">
-          <LocalizedLink href={href} {...buttonProps} className={`${buttonProps.className} shrink-0`}>
+        <div className="flex flex-row items-center gap-2">
+          <LocalizedLink href={href} {...buttonProps} className={`${buttonProps.className} shrink-0 text-sm font-medium`}>
             {cta}
           </LocalizedLink>
           <LocalizedLink
             href={thingsToDoHref}
-            className={`${activitiesClass} min-w-0 justify-center`}
+            className="inline-flex min-w-0 items-center justify-center gap-2.5 rounded-lg text-sm font-medium no-underline"
             style={{ color: colorVar(activitiesColor) }}
           >
             <span className="truncate">{activities}</span>
@@ -127,13 +119,11 @@ const DestinationCard = ({
         </div>
       </div>
 
-      {/* Desktop: hover swap (Figma Property 1=Default → Variant2) */}
-      <div className="absolute inset-x-0 bottom-0 hidden p-4 lg:grid">
+      {/* Desktop: prototype smart-animate (Default → Variant2) */}
+      <div className="absolute inset-x-0 bottom-0 hidden flex-col p-4 lg:flex">
         <div
-          className={`col-start-1 row-start-1 flex flex-col gap-1 self-end pointer-events-none ${swapTransition} ${
-            active
-              ? 'opacity-0 -translate-y-full motion-reduce:translate-y-0'
-              : 'opacity-100 translate-y-0'
+          className={`flex flex-col gap-1 pointer-events-none transition-opacity ${hoverMotion} ${
+            active ? 'opacity-0' : 'opacity-100'
           }`}
         >
           <p
@@ -151,25 +141,27 @@ const DestinationCard = ({
         </div>
 
         <div
-          className={`col-start-1 row-start-1 flex flex-col gap-2 self-end ${swapTransition} ${
+          className={`grid transition-[grid-template-rows,opacity,margin] ${hoverMotion} ${
             active
-              ? 'pointer-events-auto translate-y-0 opacity-100'
-              : 'pointer-events-none translate-y-full opacity-0 motion-reduce:translate-y-0'
+              ? 'mt-3 grid-rows-[1fr] opacity-100'
+              : 'mt-0 grid-rows-[0fr] opacity-0'
           }`}
         >
-          <LocalizedLink href={href} {...buttonProps}>
-            {cta}
-          </LocalizedLink>
-          <LocalizedLink
-            href={thingsToDoHref}
-            className={`${activitiesClass} justify-center`}
-            style={{ color: colorVar(activitiesColor) }}
-          >
-            {activities}
-            <span className="flex size-[29px] shrink-0 items-center justify-center">
-              <ArrowRight size={20} className="rtl:-scale-x-100" />
-            </span>
-          </LocalizedLink>
+          <div className={`flex min-h-0 flex-col gap-2 overflow-hidden ${active ? '' : 'pointer-events-none'}`}>
+            <LocalizedLink href={href} {...buttonProps} className={`${buttonProps.className} ${typography.caption} font-semibold`}>
+              {cta}
+            </LocalizedLink>
+            <LocalizedLink
+              href={thingsToDoHref}
+              className={`${activitiesClass} justify-center`}
+              style={{ color: colorVar(activitiesColor) }}
+            >
+              {activities}
+              <span className="flex size-[29px] shrink-0 items-center justify-center">
+                <ArrowRight size={20} className="rtl:-scale-x-100" />
+              </span>
+            </LocalizedLink>
+          </div>
         </div>
       </div>
     </article>

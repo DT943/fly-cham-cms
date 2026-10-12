@@ -143,6 +143,19 @@ html {
   -webkit-text-fill-color: var(--cms-input-text) !important;
   opacity: 0.72;
 }
+.newsletter-email:-webkit-autofill,
+.newsletter-email:-webkit-autofill:hover,
+.newsletter-email:-webkit-autofill:focus,
+.newsletter-email:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: var(--cms-input-text, currentColor) !important;
+  caret-color: var(--cms-input-text, currentColor);
+  transition: background-color 9999s ease-out 0s;
+}
+.newsletter-email::selection {
+  background: transparent;
+}
 
 
 /* Preline UI */
