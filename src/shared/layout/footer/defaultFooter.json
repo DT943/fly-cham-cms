@@ -155,7 +155,7 @@
           {
             "id": "activities",
             "label": "Activities and Attractions",
-            "href": "/our-destinations/city-sights",
+            "href": "/our-destinations/activities-and-attractions",
             "external": false,
             "highlight": false
           }
@@ -532,7 +532,7 @@
           {
             "id": "activities",
             "label": "الأنشطة والمعالم",
-            "href": "/our-destinations/city-sights",
+            "href": "/our-destinations/activities-and-attractions",
             "external": false,
             "highlight": false
           }

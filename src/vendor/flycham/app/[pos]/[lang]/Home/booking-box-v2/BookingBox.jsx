@@ -423,39 +423,18 @@ const BookingBox = ({
 
 
     const handleTripTypeChange = useCallback((type) => {
-        const prevType = formik.values.tripType;
-        if (type === prevType) return;
-
-        formik.setFieldValue('tripType', type);
-
-        // Leaving multi-city: drop legs 2+
+        formik.setFieldValue("tripType", type);
         if (type !== TRIP_TYPES.MULTICITY) {
             clearLegsFrom(formik, 1);
-        }
-
-        // Preserve outbound (dateStart / legs.0.dateStart); only drop the return.
-        // Previously resetPrimaryTripDates() wiped both dates on every mode switch.
-        const outbound =
-            formik.values.dateStart || getFirstLeg(formik.values).dateStart || null;
-
-        if (outbound) {
-            formik.setFieldValue('dateStart', outbound);
-            formik.setFieldValue('legs.0.dateStart', outbound);
-        }
-
-        formik.setFieldValue('dateEnd', null);
-
-        if (type === TRIP_TYPES.RETURN && outbound) {
-            // Departure already chosen → next calendar pick is the return.
-            formik.setFieldValue('hasClickCalendar', true);
         } else {
-            formik.setFieldValue('hasClickCalendar', false);
+            formik.setFieldValue("dateEnd", "");
         }
-
         setOpenDropdown(null);
         setOpenDateRowId(null);
         clearAllAirportDropdowns();
-    }, [formik, setOpenDropdown, setOpenDateRowId, clearAllAirportDropdowns]);
+        // Always clear the primary trip dates when switching modes (not leg-scoped).
+        resetPrimaryTripDates();
+    }, [formik, resetPrimaryTripDates, setOpenDropdown, setOpenDateRowId, clearAllAirportDropdowns]);
 
     const renderGuests = useCallback(
         (opts) => (

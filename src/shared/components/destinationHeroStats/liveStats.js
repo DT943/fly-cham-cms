@@ -31,12 +31,41 @@ const LABELS = {
   ar: { airport: 'المطار', weather: 'الطقس', localTime: 'الوقت المحلي', currency: 'العملة', loading: 'جارٍ التحميل…', unavailable: 'غير متاح' },
 }
 
+/** Country (POS code) of each destination. */
+const DESTINATION_COUNTRY = {
+  'abu-dhabi': 'ae', dubai: 'ae', sharjah: 'ae',
+  aleppo: 'sy', damascus: 'sy',
+  baghdad: 'iq', erbil: 'iq',
+  dammam: 'sa', istanbul: 'tr', kuwait: 'kw', muscat: 'om', tripoli: 'ly', yerevan: 'am',
+}
+
+/** The Fly Cham city shown for each POS (header country). Global (`gl`) has none. */
+const POS_CITY = {
+  sy: 'damascus', ae: 'dubai', kw: 'kuwait', iq: 'baghdad', om: 'muscat',
+  tr: 'istanbul', ly: 'tripoli', sa: 'dammam', am: 'yerevan',
+}
+
+const withKey = (key) => (DESTINATIONS[key] ? { key, ...DESTINATIONS[key] } : null)
+
 /** Page slug (or path) → destination entry, or null when it isn't a known destination page. */
 export function destinationFromSlug(slugOrPath) {
   const slug = String(slugOrPath || '').split('/').filter(Boolean).pop() || ''
   const match = slug.replace(/^new-/, '').match(/^(?:flights-to|things-to-do-in)-(.+)$/)
-  const key = match?.[1]
-  return key && DESTINATIONS[key] ? { key, ...DESTINATIONS[key] } : null
+  return match ? withKey(match[1]) : null
+}
+
+/**
+ * The city whose stats a destination page shows: the visitor's POS country
+ * picks its Fly Cham city (SA → Dammam, AE → Dubai…), but the page's own city
+ * wins when it is already in that country (AE on Sharjah stays Sharjah).
+ * Global / unknown POS → the page's city. Non-destination pages → null.
+ */
+export function destinationForPage(pathname, pos) {
+  const page = destinationFromSlug(pathname)
+  if (!page) return null
+  const code = String(pos || '').toLowerCase()
+  if (!POS_CITY[code] || DESTINATION_COUNTRY[page.key] === code) return page
+  return withKey(POS_CITY[code]) || page
 }
 
 // WMO weather code → day/night labels and Phosphor icon names.

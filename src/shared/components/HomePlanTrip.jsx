@@ -336,7 +336,7 @@ const HomePlanTrip = ({
               onClick={() => go(-1)}
               disabled={index <= 0}
               aria-label={t('home.planTrip.prev')}
-              className="absolute inset-s-0 top-1/2 z-10 hidden size-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-200 bg-50 text-600 shadow-[0_2px_10px_rgba(33,37,41,0.12)] transition-opacity hover:text-primary-1 disabled:pointer-events-none disabled:opacity-40 md:grid rtl:translate-x-1/2"
+              className="absolute inset-s-0 top-1/2 z-10 hidden size-9 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-200 bg-50 text-600 shadow-[0_2px_10px_rgba(33,37,41,0.12)] transition-opacity hover:text-primary-1 disabled:pointer-events-none disabled:opacity-40 md:grid rtl:translate-x-1/2"
             >
               <CaretLeft size={16} weight="bold" className="rtl:-scale-x-100" />
             </button>
@@ -345,7 +345,7 @@ const HomePlanTrip = ({
               onClick={() => go(1)}
               disabled={index >= maxIndex}
               aria-label={t('home.planTrip.next')}
-              className="absolute inset-e-0 top-1/2 z-10 hidden size-9 translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-200 bg-50 text-600 shadow-[0_2px_10px_rgba(33,37,41,0.12)] transition-opacity hover:text-primary-1 disabled:pointer-events-none disabled:opacity-40 md:grid rtl:-translate-x-1/2"
+              className="absolute inset-e-0 top-1/2 z-10 hidden size-9 translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-200 bg-50 text-600 shadow-[0_2px_10px_rgba(33,37,41,0.12)] transition-opacity hover:text-primary-1 disabled:pointer-events-none disabled:opacity-40 md:grid rtl:-translate-x-1/2"
             >
               <CaretRight size={16} weight="bold" className="rtl:-scale-x-100" />
             </button>

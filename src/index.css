@@ -31,6 +31,37 @@
  */
 html {
   overflow-anchor: none;
+  /* Firefox: brand primary thumb, transparent track. Inherited by nested scrollers. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-1) transparent;
+}
+
+/*
+ * Chromium / Safari scrollbars use the same primary thumb. More specific
+ * rules (.no-scrollbar, scrollbar-width: none) still hide theirs.
+ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-primary-1) 82%, #000);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /*
@@ -97,6 +128,20 @@ html {
 }
 .cms-crumb-focus:focus-visible {
   color: var(--cms-fc) !important;
+}
+/*
+ * CMS input text (newsletter signup). The token is `--cms-input-text`.
+ * Placeholder has its own color, so it must be set too or the empty field
+ * stays the browser default and the color picker looks like it did nothing.
+ */
+.cms-input-text {
+  color: var(--cms-input-text) !important;
+  -webkit-text-fill-color: var(--cms-input-text) !important;
+}
+.cms-input-text::placeholder {
+  color: var(--cms-input-text) !important;
+  -webkit-text-fill-color: var(--cms-input-text) !important;
+  opacity: 0.72;
 }
 
 

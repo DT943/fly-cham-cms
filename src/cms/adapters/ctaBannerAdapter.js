@@ -36,6 +36,7 @@ const STYLE_KEYS = [
   'overlayColor',
   'bannerHeight',
   'bannerRadius',
+  'objectPosition',
   'titleAlign',
   'titleColor',
   'titleFontWeight',

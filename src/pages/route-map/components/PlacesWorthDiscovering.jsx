@@ -16,7 +16,7 @@ const PlacesWorthDiscovering = () => {
         </div>
 
         <LocalizedLink
-          href="/our-destinations/city-sights"
+          href="/our-destinations/activities-and-attractions"
           className="flex h-14 w-full shrink-0 items-center justify-center gap-2.5 rounded-lg bg-secondary px-6 text-base font-semibold text-btn no-underline transition-colors hover:bg-secondary-800 lg:w-fit"
         >
           {t('routeMap.places.cta')}

@@ -1,6 +1,6 @@
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../../styles/typography.js'
-import { CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../../styles/cmsStyle.js'
+import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../../styles/cmsStyle.js'
 import LinkedText from '../backlinks/LinkedText.jsx'
 
 const HelpFaqsAccordionItem = ({
@@ -20,20 +20,27 @@ const HelpFaqsAccordionItem = ({
     .filter(Boolean)
   const hasBody = paragraphs.length > 0 || Boolean(extra)
 
+  // Closed questions keep their colour and turn primary-1 on hover. An open
+  // question stays text-primary, including the caret.
+  const questionStyle = getTextStyleVars(style, 'questionColor', '700', 'medium')
+  const primary = colorVar('primary-1')
   return (
-    <div id={id} className="border-b border-200 last:border-b-0 scroll-mt-28">
+    <div
+      id={id}
+      className={`border-b border-200 last:border-b-0 scroll-mt-28 transition-colors duration-200 ${
+        open ? '' : 'hover:bg-100'
+      }`}
+    >
       <h3 className="m-0">
         <button
           type="button"
           aria-expanded={open}
           onClick={onToggle}
-          className={`${typography.itemTitle} ${CMS_TEXT_HOVER_CLASS} w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer px-4 sm:px-8 md:px-10 py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none ${
-            open ? 'font-medium text-primary-1' : 'font-medium text-800'
-          }`}
+          className={`${typography.itemTitle} ${CMS_TEXT_HOVER_CLASS} w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer px-4 sm:px-8 md:px-10 py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none`}
           style={
             open
-              ? undefined
-              : getTextStyleVars(style, 'questionColor', '800')
+              ? { ...questionStyle, '--cms-c': primary, '--cms-hc': primary }
+              : questionStyle
           }
         >
           <span className="min-w-0">
@@ -43,8 +50,9 @@ const HelpFaqsAccordionItem = ({
             size={16}
             weight="bold"
             className={`shrink-0 mt-1 md:mt-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-              open ? 'rotate-180 text-primary-1' : 'text-500'
+              open ? 'rotate-180' : ''
             }`}
+            style={{ color: open ? primary : colorVar(style.iconColor || '700') }}
           />
         </button>
       </h3>

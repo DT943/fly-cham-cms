@@ -53,7 +53,10 @@ export const ourDestinationsPages = {
     'things-to-do-in-damascus',
     NO_BOTTOM_PADDING,
   ),
-  '/our-destinations/city-sights': dynamicPage('city-sights', NO_BOTTOM_PADDING),
+  '/our-destinations/activities-and-attractions': dynamicPage(
+    'activities-and-attractions',
+    NO_BOTTOM_PADDING,
+  ),
   // Full-screen interactive map (one full-bleed route-map-explorer block):
   // <main> fills the viewport under the header (Layout hides the footer here).
   '/our-destinations/route-map': dynamicPage('route-map', {
@@ -70,7 +73,12 @@ export const ourDestinationsPages = {
   '/our-destinations/new-things-to-do-in-damascus': createLanguageRedirect(
     '/our-destinations/things-to-do-in-damascus',
   ),
-  '/our-destinations/new-city-sights': createLanguageRedirect('/our-destinations/city-sights'),
+  '/our-destinations/city-sights': createLanguageRedirect(
+    '/our-destinations/activities-and-attractions',
+  ),
+  '/our-destinations/new-city-sights': createLanguageRedirect(
+    '/our-destinations/activities-and-attractions',
+  ),
 }
 
 export const travelExperiencePages = {

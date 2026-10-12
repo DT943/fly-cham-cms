@@ -82,7 +82,7 @@ const HelpFaqsTopicPanel = ({
   }
 
   return (
-    <section className="bg-background rounded-xl border border-200/80  py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28">
+    <section className="bg-background rounded-[12px] border border-200/80  py-5 sm:py-6 md:py-8 overflow-hidden flex-1 min-w-0 scroll-mt-28">
       <div className="flex flex-col">
         <div className="flex flex-col gap-4 px-4 sm:px-8 md:px-10 pb-5 border-b border-200">
           <div className="flex flex-col gap-1">

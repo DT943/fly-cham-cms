@@ -1,4 +1,5 @@
-import { Envelope, EnvelopeSimple } from '@phosphor-icons/react'
+import { useEffect, useRef, useState } from 'react'
+import { CheckCircle, CircleNotch, Envelope, EnvelopeSimple } from '@phosphor-icons/react'
 import Container from './Container.jsx'
 import {
   CMS_TEXT_HOVER_CLASS,
@@ -14,7 +15,7 @@ const clampPercent = (value, fallback) => {
 }
 
 /**
- * Newsletter capture banner. Presentational (does not submit).
+ * Newsletter capture banner. Subscribe shows a spinner, then a check, like Media Newsletter.
  * - Large: text left + white inline email bar (icon / input / Subscribe) + plane
  * - Small: dark gradient card, stacked field then full-width Subscribe (no plane)
  */
@@ -56,6 +57,13 @@ const NewsletterSignup = ({
   linkUnderline,
   linkItalic,
 }) => {
+  const [status, setStatus] = useState('idle')
+  const timer = useRef(null)
+
+  useEffect(() => () => {
+    if (timer.current) window.clearTimeout(timer.current)
+  }, [])
+
   const planeSrc = plane
   const linkProps = {
     links,
@@ -98,6 +106,44 @@ const NewsletterSignup = ({
     },
   )
 
+  const inputTextStyle = {
+    '--cms-input-text': colorVar(inputText),
+  }
+
+  const submit = (event) => {
+    event.preventDefault()
+    if (status !== 'idle') return
+    setStatus('loading')
+    timer.current = window.setTimeout(() => setStatus('done'), 2000)
+  }
+
+  const subscribeControl = (className, doneClassName) => {
+    if (status === 'done') {
+      return (
+        <span className={doneClassName} role="status">
+          <CheckCircle size={32} weight="fill" className="text-[#16803C]" aria-hidden />
+          <span className="sr-only">Subscribed</span>
+        </span>
+      )
+    }
+
+    return (
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        aria-busy={status === 'loading'}
+        className={className}
+        style={buttonStyle.style}
+      >
+        {status === 'loading' ? (
+          <CircleNotch size={20} className="animate-spin" aria-hidden />
+        ) : (
+          cta
+        )}
+      </button>
+    )
+  }
+
   if (variant === 'photo') {
     const overlay = clampPercent(overlayOpacity, 20) / 100
     const focus = clampPercent(bgFocus, 36)
@@ -138,7 +184,7 @@ const NewsletterSignup = ({
           </div>
 
           <form
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={submit}
             className="flex w-full items-center justify-between gap-2.5 rounded-lg border border-solid p-2.5 lg:w-[449px] lg:shrink-0"
             style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
           >
@@ -148,17 +194,14 @@ const NewsletterSignup = ({
                 type="email"
                 aria-label={label}
                 placeholder={placeholder}
-                className="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm placeholder:opacity-70 focus:outline-none focus:ring-0"
-                style={{ color: colorVar(inputText) }}
+                className="cms-input-text min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
+                style={inputTextStyle}
               />
             </div>
-            <button
-              type="submit"
-              className={`h-[35px] w-[113px] shrink-0 cursor-pointer rounded border-0 p-1 text-sm transition-colors ${buttonStyle.className}`}
-              style={buttonStyle.style}
-            >
-              {cta}
-            </button>
+            {subscribeControl(
+              `inline-flex h-[35px] w-[113px] shrink-0 cursor-pointer items-center justify-center rounded border-0 p-1 text-sm transition-colors disabled:cursor-wait ${buttonStyle.className}`,
+              'inline-flex h-[35px] w-[113px] shrink-0 items-center justify-center',
+            )}
           </form>
         </Container>
       </section>
@@ -201,7 +244,7 @@ const NewsletterSignup = ({
         </div>
 
         <form
-          onSubmit={(event) => event.preventDefault()}
+          onSubmit={submit}
           className="flex w-full flex-col gap-3 lg:w-[480px] lg:shrink-0 lg:flex-row lg:items-center lg:gap-2.5 lg:rounded-lg lg:border lg:border-solid lg:p-2.5 lg:[background-color:var(--nl-ibg)] lg:[border-color:var(--nl-ibd)]"
           style={{
             '--nl-ibg': inputSurface.backgroundColor,
@@ -217,17 +260,14 @@ const NewsletterSignup = ({
               type="email"
               aria-label={label}
               placeholder={placeholder}
-              className="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm placeholder:opacity-70 focus:outline-none focus:ring-0"
-              style={{ color: colorVar(inputText) }}
+              className="cms-input-text min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
+              style={inputTextStyle}
             />
           </div>
-          <button
-            type="submit"
-            className={`h-11 w-full shrink-0 cursor-pointer rounded-lg border-0 px-[15px] text-base transition-colors lg:w-[123px] ${buttonStyle.className}`}
-            style={buttonStyle.style}
-          >
-            {cta}
-          </button>
+          {subscribeControl(
+            `inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-[15px] text-base transition-colors disabled:cursor-wait lg:w-[123px] ${buttonStyle.className}`,
+            'inline-flex h-11 w-full shrink-0 items-center justify-center lg:w-[123px]',
+          )}
         </form>
       </div>
     </section>

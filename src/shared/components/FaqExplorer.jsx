@@ -115,8 +115,15 @@ const AccordionItem = ({ item, linkProps, open, onToggle, questionStyleKeys, ans
     .filter(Boolean)
   const hasBody = paragraphs.length > 0
 
+  // Same states as the FAQs block (FaqItem): closed rows tint on hover, the
+  // question stays its colour when open and turns primary-1 on hover, caret 700.
   return (
-    <div className="border-b border-200 last:border-b-0 scroll-mt-28">
+    <div
+      className={cx(
+        'border-b border-200 last:border-b-0 scroll-mt-28 transition-colors duration-200',
+        !open && 'hover:bg-100',
+      )}
+    >
       <h3 className="m-0">
         <button
           type="button"
@@ -127,7 +134,10 @@ const AccordionItem = ({ item, linkProps, open, onToggle, questionStyleKeys, ans
             CMS_TEXT_HOVER_CLASS,
             'w-full bg-transparent border-0 flex items-start justify-between gap-3 md:items-center md:gap-6 cursor-pointer px-4 sm:px-8 md:px-10 py-4 md:py-5 text-start transition-colors duration-300 ease-in-out motion-reduce:transition-none',
           )}
-          style={getTextStyleVars(questionStyleKeys, 'questionColor', '800', 'medium')}
+          style={{
+            ...getTextStyleVars(questionStyleKeys, 'questionColor', '700', 'medium'),
+            ...(open ? { '--cms-hc': colorVar('primary-1') } : {}),
+          }}
         >
           <span className="min-w-0">
             <LinkedText text={item.question} {...linkProps} />
@@ -139,7 +149,7 @@ const AccordionItem = ({ item, linkProps, open, onToggle, questionStyleKeys, ans
               'shrink-0 mt-1 md:mt-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none',
               open ? 'rotate-180' : '',
             )}
-            style={{ color: open ? colorVar('primary-1') : colorVar('500') }}
+            style={{ color: colorVar('700') }}
           />
         </button>
       </h3>

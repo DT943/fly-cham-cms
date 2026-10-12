@@ -320,13 +320,13 @@ function buildPageRecords() {
     }),
     pageRecord({
       id: 'city-sights-hero',
-      href: '/our-destinations/city-sights',
+      href: '/our-destinations/activities-and-attractions',
       titlePath: 'citySights.hero.title',
       textPaths: ['citySights.hero.description', 'citySights.breadcrumb'],
     }),
     pageRecord({
       id: 'city-sights-grid',
-      href: '/our-destinations/city-sights',
+      href: '/our-destinations/activities-and-attractions',
       titlePath: 'citySights.grid.title',
       textPaths: [
         'citySights.magazine.title',

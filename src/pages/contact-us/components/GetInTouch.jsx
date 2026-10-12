@@ -112,8 +112,18 @@ const GetInTouch = ({
 
   const resolvedTitle = title ?? t('contact.getInTouch.title')
   const resolvedLabel = label ?? t('contact.getInTouch.label')
-  const resolvedHours = hours ?? t('contact.getInTouch.hours')
-  const resolvedHoursMobile = hoursMobile ?? (hours ? hours : t('contact.getInTouch.hoursMobile'))
+  // An empty CMS hours string means the line was cleared. Only the static page,
+  // which omits the prop, falls back to the translation.
+  const resolvedHours =
+    hours === undefined || hours === null
+      ? t('contact.getInTouch.hours')
+      : String(hours).trim()
+  const resolvedHoursMobile =
+    hoursMobile === undefined || hoursMobile === null
+      ? hours === undefined || hours === null
+        ? t('contact.getInTouch.hoursMobile')
+        : resolvedHours
+      : String(hoursMobile).trim()
   const resolvedNote = note ?? t('contact.getInTouch.note')
   const resolvedImage = image
   const resolvedImageAlt = imageAlt ?? t('contact.getInTouch.imageAlt')
@@ -161,24 +171,32 @@ const GetInTouch = ({
           {resolvedPhoneDisplay}
         </a>
       )}
-      {showHours && (resolvedHours || resolvedHoursMobile) && (
+      {showHours && resolvedHoursMobile ? (
         <p
           className={cx(
             typography.caption,
-            'font-medium m-0 inline-flex items-center justify-center gap-1.5',
+            'font-medium m-0 inline-flex items-center justify-center gap-1.5 md:hidden',
             CMS_TEXT_HOVER_CLASS,
           )}
           style={getTextStyleVars(hoursStyleKeys, 'hoursColor', '700', 'medium')}
         >
-          <span className="md:hidden">
-            <LinkedText text={resolvedHoursMobile} {...linkProps} />
-          </span>
-          <span className="hidden md:inline">
-            <LinkedText text={resolvedHours} {...linkProps} />
-          </span>
-          <Clock size={14} weight="regular" className="shrink-0" />
+          <LinkedText text={resolvedHoursMobile} {...linkProps} />
+          <Clock size={14} weight="regular" aria-hidden className="shrink-0" />
         </p>
-      )}
+      ) : null}
+      {showHours && resolvedHours ? (
+        <p
+          className={cx(
+            typography.caption,
+            'font-medium m-0 hidden items-center justify-center gap-1.5 md:inline-flex',
+            CMS_TEXT_HOVER_CLASS,
+          )}
+          style={getTextStyleVars(hoursStyleKeys, 'hoursColor', '700', 'medium')}
+        >
+          <LinkedText text={resolvedHours} {...linkProps} />
+          <Clock size={14} weight="regular" aria-hidden className="shrink-0" />
+        </p>
+      ) : null}
       {showNote && resolvedNote && (
         <p
           className={cx(

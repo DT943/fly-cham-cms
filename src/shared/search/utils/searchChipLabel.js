@@ -10,7 +10,7 @@ const PAGE_CHIP_KEYS = {
   '/our-destinations/flights-to-damascus': 'destinationGuides.damascus.breadcrumb',
   '/our-destinations/flights-to-dubai': 'destinationGuides.dubai.breadcrumb',
   '/our-destinations/things-to-do-in-damascus': 'flightsToDamascus.breadcrumb',
-  '/our-destinations/city-sights': 'citySights.breadcrumb',
+  '/our-destinations/activities-and-attractions': 'citySights.breadcrumb',
   '/our-destinations/route-map': 'routeMap.breadcrumb',
   '/travel-experience': 'travelExperience.breadcrumb',
   '/travel-experience/seat-selection': 'seatSelection.breadcrumb',

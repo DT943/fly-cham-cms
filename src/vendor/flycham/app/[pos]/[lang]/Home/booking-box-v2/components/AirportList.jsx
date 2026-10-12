@@ -119,7 +119,6 @@ const AirportList = ({
   const itemRefs = useRef([]);
   const scrollRef = useRef(null);
   const thumbRef = useRef(null);
-  const isProgrammaticScrollRef = useRef(false);
 
   const MIN_THUMB_HEIGHT = 28;
 
@@ -194,8 +193,6 @@ const AirportList = ({
     const container = scrollRef.current;
     if (!el || !container || index < 0) return;
 
-    isProgrammaticScrollRef.current = true;
-
     const itemTop = el.offsetTop;
     const itemHeight = el.offsetHeight;
     const viewHeight = container.clientHeight;
@@ -212,43 +209,7 @@ const AirportList = ({
         container.scrollTop = Math.min(itemTop + itemHeight - viewHeight, maxScroll);
       }
     }
-
-    requestAnimationFrame(() => {
-      isProgrammaticScrollRef.current = false;
-    });
   }, []);
-
-  const stepScrollIndex = useCallback(
-    (direction) => {
-      const count = selectableAirports.length;
-      if (!count) return;
-      const current = activeIndexRef.current < 0 ? 0 : activeIndexRef.current;
-      const next =
-        direction > 0
-          ? Math.min(current + 1, count - 1)
-          : Math.max(current - 1, 0);
-      if (next === current && activeIndexRef.current >= 0) return;
-      activeIndexRef.current = next;
-      setActiveIndex(next);
-      scrollToItemIndex(next);
-    },
-    [selectableAirports.length, scrollToItemIndex]
-  );
-
-  useEffect(() => {
-    if (!useSearchV2Ui) return undefined;
-    const container = scrollRef.current;
-    if (!container) return undefined;
-
-    const onWheel = (e) => {
-      if (isProgrammaticScrollRef.current) return;
-      e.preventDefault();
-      stepScrollIndex(e.deltaY > 0 ? 1 : -1);
-    };
-
-    container.addEventListener('wheel', onWheel, { passive: false });
-    return () => container.removeEventListener('wheel', onWheel);
-  }, [useSearchV2Ui, stepScrollIndex, selectableAirports]);
 
   useEffect(() => {
     if (!useSearchV2Ui) return undefined;
@@ -303,11 +264,7 @@ const AirportList = ({
       if (maxThumbTop <= 0) return;
       const scrollRange = scrollHeight - clientHeight;
       const deltaY = e.clientY - startY;
-      isProgrammaticScrollRef.current = true;
       container.scrollTop = startScrollTop + (deltaY / maxThumbTop) * scrollRange;
-      requestAnimationFrame(() => {
-        isProgrammaticScrollRef.current = false;
-      });
     };
 
     const onPointerUp = () => {

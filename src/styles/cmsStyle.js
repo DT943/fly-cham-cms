@@ -77,6 +77,27 @@ export const BANNER_HEIGHT = {
   poster: 'min-h-[405px]',
 }
 
+/** Pixel height for a CTA banner. Presets stay readable; `default` is 360px (was 400). */
+const CTA_BANNER_HEIGHT_PX = {
+  compact: 280,
+  medium: 340,
+  default: 360,
+  tall: 480,
+  poster: 380,
+  spacious: 440,
+}
+
+const CTA_BANNER_HEIGHT_MIN = 160
+const CTA_BANNER_HEIGHT_MAX = 720
+
+export function ctaBannerHeightPx(value) {
+  const legacy = CTA_BANNER_HEIGHT_PX[value]
+  if (legacy) return legacy
+  const n = Number(value)
+  if (!Number.isFinite(n)) return CTA_BANNER_HEIGHT_PX.default
+  return Math.min(CTA_BANNER_HEIGHT_MAX, Math.max(CTA_BANNER_HEIGHT_MIN, Math.round(n)))
+}
+
 export const VERTICAL_ALIGN = {
   start: 'items-start',
   center: 'items-center',

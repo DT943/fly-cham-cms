@@ -12,6 +12,7 @@ import {
 } from '../../../styles/cmsStyle.js'
 import {
   contactForms as defaultForms,
+  resolveContactFormHref,
   resolveContactFormIcon,
 } from '../utils/contactForms.jsx'
 import ContactFormCard from './ContactFormCard.jsx'
@@ -120,7 +121,7 @@ const ContactForms = ({
     defaultForms.map((form) => ({
       id: form.id,
       icon: resolveContactFormIcon(form.icon),
-      href: form.href,
+      href: resolveContactFormHref(form),
       title: t(`contact.forms.items.${form.id}.title`),
       description: t(`contact.forms.items.${form.id}.description`),
     }))

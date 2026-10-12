@@ -16,7 +16,8 @@ import Container from './Container.jsx'
 import { colorVar, CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-import { destinationFromSlug } from './destinationHeroStats/liveStats.js'
+import useCurrentPos from '../hooks/useCurrentPos.js'
+import { destinationForPage } from './destinationHeroStats/liveStats.js'
 import useLiveDestinationStats from './destinationHeroStats/useLiveDestinationStats.js'
 
 const STAT_ICON_MAP = {
@@ -127,10 +128,14 @@ const DestinationHeroStats = ({
   const language = useCurrentLanguage()
   const isRtl = language === 'ar'
   // On a destination page (flights-to-<city>, things-to-do-in-<city>) the stats
-  // are live: airport/currency from the destination table, local time from its
-  // time zone, weather from Open-Meteo. Other pages keep the CMS stats.
+  // are live for the visitor's POS country (its Fly Cham city; the page's own
+  // city when it is in that country or the POS is Global): airport/currency from
+  // the destination table, local time from its time zone, weather from
+  // Open-Meteo. Switching POS changes the URL, so the stats refetch. Other pages
+  // keep the CMS stats.
   const { pathname } = useLocation()
-  const liveStats = useLiveDestinationStats(destinationFromSlug(pathname), language)
+  const pos = useCurrentPos()
+  const liveStats = useLiveDestinationStats(destinationForPage(pathname, pos), language)
   const stats = liveStats || storedStats
   const heightClass = HERO_HEIGHT[height] || HERO_HEIGHT.default
   const heroSrc = image

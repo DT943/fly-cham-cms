@@ -82,5 +82,11 @@ export function resolveCmsHref(href) {
 
   let path = trimmed.replace(POS_AND_LANG, '') || '/'
   if (!path.startsWith('/')) path = `/${path}`
-  return stripLanguage(path)
+  path = stripLanguage(path)
+  // The city-sights page slug is now activities-and-attractions. CMS buttons
+  // saved with the old path still land on the new page.
+  return path.replace(
+    /\/our-destinations\/(?:new-)?city-sights(?=$|[?#])/,
+    '/our-destinations/activities-and-attractions',
+  )
 }

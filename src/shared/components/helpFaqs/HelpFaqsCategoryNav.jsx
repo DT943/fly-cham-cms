@@ -13,11 +13,10 @@ const HelpFaqsCategoryNav = ({
   onToggleMobile,
   navLabel = '',
   changeTopic = '',
-  iconColor = '800',
+  iconColor = '700',
   focusColor = 'primary-1',
   activeTabColor,
-  inactiveTabColor = '800',
-  focusWashColor = 'primary-100',
+  focusWashColor = 'secondary-1',
   hasNestedTopics,
 }) => {
   const currentCategory =
@@ -30,15 +29,14 @@ const HelpFaqsCategoryNav = ({
 
   const resolvedFocus = focusColor || activeTabColor || 'primary-1'
   const focusCss = colorVar(resolvedFocus)
-  const inactiveCss = colorVar(inactiveTabColor)
   const iconCss = colorVar(iconColor)
-  const washSoft = colorMix(focusWashColor, 30)
-  const washStrong = colorMix(focusWashColor, 55)
+  const washSoft = colorMix(focusWashColor, 10)
+  const washStrong = colorMix(focusWashColor, 15)
 
   return (
     <nav
       aria-label={navLabel}
-      className="bg-background rounded-lg lg:rounded-xl h-fit border border-200 lg:border-0 lg:sticky lg:top-24"
+      className="bg-background overflow-hidden rounded-[12px] h-fit border border-200 lg:border-0"
     >
       <button
         type="button"
@@ -55,7 +53,7 @@ const HelpFaqsCategoryNav = ({
         />
         <span
           className={`${typography.body} font-medium flex-1 min-w-0 truncate`}
-          style={{ color: inactiveCss }}
+          style={{ color: colorVar('700') }}
         >
           {currentCategory?.title}
         </span>
@@ -72,7 +70,7 @@ const HelpFaqsCategoryNav = ({
         id="help-faqs-topic-list"
         className={`${
           mobileOpen ? 'flex border-t border-200' : 'hidden'
-        } lg:flex lg:border-t-0 list-none m-0 p-0 flex-col max-h-[min(60vh,24rem)] overflow-y-auto overscroll-contain lg:max-h-none`}
+        } lg:flex lg:gap-2 lg:border-t-0 list-none m-0 p-0 flex-col max-h-[min(60vh,24rem)] overflow-y-auto overscroll-contain lg:max-h-none`}
       >
         {categories.map((category) => {
           const Icon = getHelpFaqsIcon(category.icon)
@@ -92,7 +90,7 @@ const HelpFaqsCategoryNav = ({
                 type="button"
                 aria-expanded={nestedTopics ? isExpanded : undefined}
                 onClick={() => onSelectCategory(category.id)}
-                className="w-full flex items-center gap-3 px-4 py-3.5 border-none cursor-pointer text-start transition-colors"
+                className="w-full flex items-center gap-2 px-3.5 py-3.5 lg:h-[38px] lg:py-0 border-none cursor-pointer text-start transition-colors"
                 style={{ backgroundColor: isHot ? washStrong : 'transparent' }}
                 onMouseEnter={(event) => {
                   if (!isHot) {
@@ -113,7 +111,7 @@ const HelpFaqsCategoryNav = ({
                 />
                 <span
                   className={`${typography.body} font-medium flex-1 min-w-0`}
-                  style={{ color: inactiveCss }}
+                  style={{ color: colorVar('700') }}
                 >
                   {category.title}
                 </span>
@@ -132,7 +130,7 @@ const HelpFaqsCategoryNav = ({
                     isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                   }`}
                 >
-                  <ul className="overflow-hidden min-h-0 list-none m-0 p-0 pb-3 pt-1 flex flex-col">
+                  <ul className="overflow-hidden min-h-0 list-none m-0 flex flex-col p-0 pb-3 pt-1 lg:pb-0 lg:pt-0">
                     {(category.topics || []).map((topic) => {
                       const isActiveTopic = topic.id === topicId
 
@@ -144,10 +142,10 @@ const HelpFaqsCategoryNav = ({
                             onClick={() =>
                               onSelectTopic(category.id, topic.id, topic.questions || [])
                             }
-                            className={`${typography.caption} w-full bg-transparent border-none cursor-pointer text-start ps-12 pe-4 py-2`}
+                            className={`${typography.caption} flex w-full items-center bg-transparent border-none cursor-pointer text-start ps-[50px] pe-3.5 py-2 lg:h-[34px] lg:py-0`}
                             style={{
-                              color: isActiveTopic ? focusCss : inactiveCss,
-                              fontWeight: isActiveTopic ? 600 : 400,
+                              color: isActiveTopic ? focusCss : colorVar('700'),
+                              fontWeight: isActiveTopic ? 600 : 500,
                             }}
                             onMouseEnter={(event) => {
                               if (!isActiveTopic) {
@@ -156,7 +154,7 @@ const HelpFaqsCategoryNav = ({
                             }}
                             onMouseLeave={(event) => {
                               if (!isActiveTopic) {
-                                event.currentTarget.style.color = inactiveCss
+                                event.currentTarget.style.color = colorVar('700')
                               }
                             }}
                           >

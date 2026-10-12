@@ -20,6 +20,26 @@ const isFullBleed = (section, block, lang) => {
 const byOrder = (a, b) =>
   (a.order ?? a.position ?? 0) - (b.order ?? b.position ?? 0)
 
+// Breadcrumbs stays the first block on every page, even when a saved
+// position still has it further down.
+const withBreadcrumbsFirst = (blocks) => {
+  const sorted = [...blocks].sort(byOrder)
+  const crumbs = []
+  const rest = []
+  let seenRest = false
+  let needsPin = false
+  for (const block of sorted) {
+    if (block?.sectionId === 'breadcrumbs') {
+      crumbs.push(block)
+      if (seenRest) needsPin = true
+    } else {
+      rest.push(block)
+      seenRest = true
+    }
+  }
+  return needsPin ? [...crumbs, ...rest] : sorted
+}
+
 /**
  * Loop the page's blocks in order and render each through the section registry.
  *
@@ -44,7 +64,7 @@ const PageBlocks = ({
   flushBottom = false,
   gapClass = 'gap-8 md:gap-[60px]',
 }) => {
-  const sorted = [...blocks].sort(byOrder)
+  const sorted = withBreadcrumbsFirst(blocks)
   // A leading full-bleed block (e.g. a hero) should sit flush under the page
   // header instead of below an empty top-padding band.
   const leadFullBleed = sorted[0]

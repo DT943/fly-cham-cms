@@ -15,7 +15,7 @@ export const cmsPagePaths = [
   '/our-destinations/flights-to-damascus',
   '/our-destinations/flights-to-dubai',
   '/our-destinations/things-to-do-in-damascus',
-  '/our-destinations/city-sights',
+  '/our-destinations/activities-and-attractions',
   '/travel-experience',
   '/travel-experience/seat-selection',
   '/travel-experience/before-you-fly',

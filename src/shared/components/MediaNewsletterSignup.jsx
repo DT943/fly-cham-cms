@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+import { CheckCircle, CircleNotch } from '@phosphor-icons/react'
 import {
   CMS_TEXT_HOVER_CLASS,
   getTextStyleVars,
@@ -38,7 +40,48 @@ const MediaNewsletterSignup = ({
   linkItalic,
   ...textStyle
 }) => {
+  const [status, setStatus] = useState('idle')
+  const timer = useRef(null)
+
+  useEffect(() => () => {
+    if (timer.current) window.clearTimeout(timer.current)
+  }, [])
+
   if (!title && !description) return null
+
+  const submit = (event) => {
+    event.preventDefault()
+    if (status !== 'idle') return
+    setStatus('loading')
+    timer.current = window.setTimeout(() => setStatus('done'), 2000)
+  }
+
+  const subscribeControl = (className) => {
+    if (status === 'done') {
+      return (
+        <span className="inline-flex h-10 shrink-0 items-center justify-center md:h-12" role="status">
+          <CheckCircle size={32} weight="fill" className="text-[#16803C]" aria-hidden />
+          <span className="sr-only">Subscribed</span>
+        </span>
+      )
+    }
+
+    return (
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        aria-busy={status === 'loading'}
+        className={className}
+        style={buttonStyle.style}
+      >
+        {status === 'loading' ? (
+          <CircleNotch size={20} className="animate-spin" aria-hidden />
+        ) : (
+          cta
+        )}
+      </button>
+    )
+  }
 
   const linkProps = {
     links,
@@ -85,7 +128,7 @@ const MediaNewsletterSignup = ({
 
   const stackedForm = (
     <form
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={submit}
       className="flex w-full flex-col gap-3"
     >
       <input
@@ -98,19 +141,15 @@ const MediaNewsletterSignup = ({
           color: colorVar(inputText),
         }}
       />
-      <button
-        type="submit"
-        className={`flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 px-6 md:h-14 md:w-auto md:self-start md:px-8 ${typography.button} ${buttonStyle.className}`}
-        style={buttonStyle.style}
-      >
-        {cta}
-      </button>
+      {subscribeControl(
+        `flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-14 md:w-auto md:self-start md:px-8 ${typography.button} ${buttonStyle.className}`,
+      )}
     </form>
   )
 
   const inlineForm = (
     <form
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={submit}
       className="flex w-full min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-lg px-4 py-2 md:px-5 md:py-2 lg:max-w-148"
       style={{ backgroundColor: colorVar(cardBg) }}
     >
@@ -121,13 +160,9 @@ const MediaNewsletterSignup = ({
         className={`min-w-0 flex-1 border-0 bg-transparent p-0 placeholder:text-600 focus:outline-none focus:ring-0 md:text-base ${typography.body}`}
         style={{ color: colorVar(inputText) }}
       />
-      <button
-        type="submit"
-        className={`h-10 shrink-0 cursor-pointer rounded-lg border-0 px-6 md:h-12 md:px-8 lg:min-w-35 ${typography.button} ${buttonStyle.className}`}
-        style={buttonStyle.style}
-      >
-        {cta}
-      </button>
+      {subscribeControl(
+        `flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-12 md:px-8 lg:min-w-35 ${typography.button} ${buttonStyle.className}`,
+      )}
     </form>
   )
 

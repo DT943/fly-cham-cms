@@ -21,6 +21,8 @@ const LOGIN_ITEM = 'login'
 const SEARCH_MENU = 'search'
 /** How far the page must scroll down before a hovered (unpinned) menu closes. */
 const SCROLL_CLOSE_PX = 8
+// Crossing a label on the way into the open panel must not steal the underline.
+const PREVIEW_SWITCH_MS = 180
 
 const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false }) => {
   const { t } = useTranslation()
@@ -36,6 +38,8 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
   // click. A hovered menu also closes when the page scrolls down.
   const [pinned, setPinned] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [menuOrigin, setMenuOrigin] = useState(null)
+  const [linkMenu, setLinkMenu] = useState(null)
   const hidden = useHideOnScroll({
     enabled: hideOnScroll && !openMenu && !mobileOpen,
     resetKey: location.pathname,
@@ -45,6 +49,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     setOpenMenu(null)
     setPinned(false)
     setMobileOpen(false)
+    setLinkMenu(null)
   }, [location.pathname])
 
   // Browser tab icon. The bundled mark matches the admin tab; a custom header
@@ -110,7 +115,28 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     return () => media.removeEventListener('change', closeMobile)
   }, [])
 
+  const previewTimer = useRef(null)
+  const cancelPreview = () => {
+    if (previewTimer.current) {
+      window.clearTimeout(previewTimer.current)
+      previewTimer.current = null
+    }
+  }
+  useEffect(() => cancelPreview, [])
+
   const closeMenu = () => {
+    cancelPreview()
+    setOpenMenu(null)
+    setPinned(false)
+  }
+  // A link click remembers its menu, then closes. Other closes (outside click,
+  // Escape, pointer leave) do not, so the line returns to the current page.
+  const closeFromLink = () => {
+    cancelPreview()
+    if (menus.some((menu) => menu.id === openMenu)) {
+      setMenuOrigin(openMenu)
+      setLinkMenu(openMenu)
+    }
     setOpenMenu(null)
     setPinned(false)
   }
@@ -120,6 +146,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
   }
   // Click pins the menu open; clicking the pinned item again closes it.
   const toggleMenu = (id) => {
+    cancelPreview()
     if (openMenu === id && pinned) {
       closeMenu()
       return
@@ -128,20 +155,36 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     setPinned(true)
   }
   // Hover previews a menu, except while search is open (it stays until closed).
+  // Switching an already-open menu waits briefly so a pass over Help on the way
+  // to a link does not move the line.
   const previewMenu = (id) => {
-    if (openMenu !== SEARCH_MENU) setOpenMenu(id)
+    if (openMenu === SEARCH_MENU || openMenu === id) return
+    cancelPreview()
+    if (!openMenu) {
+      setOpenMenu(id)
+      return
+    }
+    previewTimer.current = window.setTimeout(() => {
+      previewTimer.current = null
+      setOpenMenu(id)
+    }, PREVIEW_SWITCH_MS)
+  }
+  const previewFromKeyboard = (event, id) => {
+    if (!event.currentTarget.matches(':focus-visible')) return
+    cancelPreview()
+    setOpenMenu(id)
   }
   const closeMobile = () => setMobileOpen(false)
   const navRef = useRef(null)
   const itemRefs = useRef({})
   const linePlaced = useRef(false)
   const [navLine, setNavLine] = useState(null)
-  const currentLocation = findHeaderLocation(menus, location.pathname)
+  const currentLocation = findHeaderLocation(menus, location.pathname, menuOrigin)
   const indicatorId =
     openMenu &&
     (openMenu === REGION_MENU || openMenu === LOGIN_ITEM || menus.some((menu) => menu.id === openMenu))
       ? openMenu
-      : currentLocation?.menuId || null
+      : linkMenu || currentLocation?.menuId || null
 
   useLayoutEffect(() => {
     const nav = navRef.current
@@ -251,7 +294,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                     aria-current={isCurrent ? 'page' : undefined}
                     aria-controls={`${menu.id}-mega-menu`}
                     onMouseEnter={() => previewMenu(menu.id)}
-                    onFocus={() => setOpenMenu(menu.id)}
+                    onFocus={(event) => previewFromKeyboard(event, menu.id)}
                     onClick={() => toggleMenu(menu.id)}
                     className={`relative flex cursor-pointer items-center whitespace-nowrap border-0 bg-transparent px-3 outline-none focus:outline-none focus-visible:outline-none xl:px-4 ${typography.body} ${HDR_SELF_HOVER}`}
                     style={navStyle(isOpen || (!openMenu && isCurrent))}
@@ -290,7 +333,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                   aria-expanded={openMenu === REGION_MENU}
                   aria-controls="region-mega-menu"
                   onMouseEnter={() => previewMenu(REGION_MENU)}
-                  onFocus={() => setOpenMenu(REGION_MENU)}
+                  onFocus={(event) => previewFromKeyboard(event, REGION_MENU)}
                   onClick={() => toggleMenu(REGION_MENU)}
                   className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
                   style={navStyle(openMenu === REGION_MENU)}
@@ -312,7 +355,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                 >
                   <LocalizedLink
                     to={headerHref(header.login.href)}
-                    onFocus={() => setOpenMenu(LOGIN_ITEM)}
+                    onFocus={(event) => previewFromKeyboard(event, LOGIN_ITEM)}
                     onClick={closeMenu}
                     className={`flex items-center gap-1.5 whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${HDR_SELF_HOVER}`}
                     style={navStyle(openMenu === LOGIN_ITEM)}
@@ -383,6 +426,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
         <div
           id={`${openMenu}-mega-menu`}
           // Clicking inside the panel (e.g. a tab) keeps it open.
+          onPointerEnter={cancelPreview}
           onPointerDown={() => setPinned(true)}
           // The search panel also opens below lg (mobile icon); mega menus are lg-only.
           className={`absolute inset-x-0 top-full max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] ${
@@ -393,11 +437,11 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
             <MegaMenu
               menu={activeMenu}
               headerStyle={hs}
-              onNavigate={closeMenu}
+              onNavigate={closeFromLink}
               currentLocation={currentLocation}
             />
           )}
-          {openMenu === REGION_MENU && <RegionMenu onNavigate={closeMenu} />}
+          {openMenu === REGION_MENU && <RegionMenu onNavigate={closeFromLink} />}
           {openMenu === SEARCH_MENU && <HeaderSearch search={header.search} onClose={closeMenu} />}
         </div>
       )}

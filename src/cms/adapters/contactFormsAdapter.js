@@ -1,4 +1,7 @@
-import { resolveContactFormIcon } from '../../pages/contact-us/utils/contactForms.jsx'
+import {
+  resolveContactFormHref,
+  resolveContactFormIcon,
+} from '../../pages/contact-us/utils/contactForms.jsx'
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**
@@ -28,7 +31,10 @@ export function contactFormsProps(block, lang) {
     forms: (content.forms || []).map((form, index) => ({
       id: form.id || `${form.title}-${index}`,
       icon: resolveContactFormIcon(form.icon),
-      href: resolveCmsHref(form.href),
+      href: resolveContactFormHref({
+        ...form,
+        href: resolveCmsHref(form.href) || form.href || '',
+      }),
       title: form.title,
       description: form.description,
     })),

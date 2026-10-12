@@ -79,8 +79,10 @@ export function hrefMatchesHeaderPath(href, path) {
 /**
  * Menu and tab that own the current page. The longest matching link wins, so
  * a child page stays on its own item when a parent link is also in the menu.
+ * When two menus share that same path, `preferredMenuId` (the menu the visitor
+ * actually clicked) keeps the underline there instead of the first menu in the list.
  */
-export function findHeaderLocation(menus, pathname) {
+export function findHeaderLocation(menus, pathname, preferredMenuId = null) {
   const current = pagePathname(pathname)
   if (!current || current === '/') return null
 
@@ -95,7 +97,9 @@ export function findHeaderLocation(menus, pathname) {
         tab.ctaHref,
       ]
       const path = currentHeaderPath(hrefs, pathname)
-      if (!path || path.length <= bestLength) continue
+      if (!path || path.length < bestLength) continue
+      const preferred = Boolean(preferredMenuId) && menu.id === preferredMenuId
+      if (path.length === bestLength && !preferred) continue
       bestLength = path.length
       best = { menuId: menu.id, tabId: tab.id, path }
     }

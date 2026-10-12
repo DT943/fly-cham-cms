@@ -4,8 +4,8 @@ import { typography } from '../../styles/typography.js'
 import {
   ALIGN,
   SECTION_PADDING,
-  BANNER_HEIGHT,
   VERTICAL_ALIGN,
+  ctaBannerHeightPx,
   CMS_TEXT_HOVER_CLASS,
   colorVar,
   getButtonStyle,
@@ -50,6 +50,7 @@ const CtaBanner = ({
   overlayColor = 'main',
   bannerHeight = 'default',
   bannerRadius = '2xl',
+  objectPosition = 'center',
   titleAlign,
   titleColor = '50',
   titleFontWeight = 'semibold',
@@ -133,12 +134,15 @@ const CtaBanner = ({
     >
       <div
         className={cx(
-          'relative overflow-hidden w-full bg-cover bg-no-repeat bg-center flex px-5 py-8 sm:px-12 md:px-20 md:py-16',
+          'relative overflow-hidden w-full bg-cover bg-no-repeat flex px-5 py-8 sm:px-12 md:px-20 md:py-16',
           BANNER_RADIUS[bannerRadius] || BANNER_RADIUS['2xl'],
-          BANNER_HEIGHT[bannerHeight] || BANNER_HEIGHT.default,
           VERTICAL_ALIGN[verticalAlign] || VERTICAL_ALIGN.center,
         )}
-        style={showHeroImage && image ? { backgroundImage: `url(${image})` } : undefined}
+        style={{
+          minHeight: `${ctaBannerHeightPx(bannerHeight)}px`,
+          backgroundPosition: objectPosition || 'center',
+          ...(showHeroImage && image ? { backgroundImage: `url(${image})` } : {}),
+        }}
       >
         {showOverlay && overlay && (
           <>

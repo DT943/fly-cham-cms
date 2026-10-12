@@ -27,6 +27,7 @@ const RADIUS_CLASS = {
 }
 
 const DestinationCard = ({
+  country,
   iata,
   title,
   image,
@@ -47,6 +48,7 @@ const DestinationCard = ({
   buttonStyle,
 }) => {
   const thingsToDoHref = activitiesHref || href
+  const place = country || iata
   const radiusClass = RADIUS_CLASS[radius] ?? RADIUS_CLASS.lg
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
@@ -98,7 +100,7 @@ const DestinationCard = ({
             className={`${typography.caption} m-0 font-semibold`}
             style={{ color: colorVar(iataColor) }}
           >
-            {iata}
+            {place}
           </p>
           <p
             className={`${typography.body} m-0 font-medium`}
@@ -138,7 +140,7 @@ const DestinationCard = ({
             className={`${typography.caption} m-0 font-semibold`}
             style={{ color: colorVar(iataColor) }}
           >
-            {iata}
+            {place}
           </p>
           <p
             className={`${typography.body} m-0 font-medium`}
