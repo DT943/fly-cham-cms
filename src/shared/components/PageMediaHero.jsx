@@ -18,6 +18,15 @@ const HERO_HEIGHT = {
   compact: 'h-64 sm:h-80 md:h-90 lg:h-100',
   default: 'h-80 sm:h-100 md:h-110 lg:h-125',
   tall: 'h-90 sm:h-110 md:h-125 lg:h-150',
+  // Offers & Deals Figma: 270px on phones, the default 500px from lg.
+  slim: 'h-[270px] sm:h-100 md:h-110 lg:h-125',
+}
+
+// Text column padding: `slim` sits 24px off the bottom on phones and 10px
+// below centre from md (Figma 40951:24302).
+const HERO_TEXT_PAD = {
+  default: 'pb-8 md:pb-0',
+  slim: 'pb-6 md:pb-0 md:pt-5',
 }
 
 // Width of the text column (cover layout). `default` matches `max-w-[605px]`.
@@ -31,16 +40,27 @@ const CONTENT_WIDTH = {
 const TITLE_SIZE = {
   default: 'lg:text-[64px]',
   compact: 'lg:text-[44px]',
+  display: 'lg:text-[64px]',
 }
+
+// `display` (Offers & Deals Figma) sets the whole copy scale instead of the
+// shared typography tokens: title 32px/1.2 → 64px, subtitle 14px/1.45 → 18px,
+// 8px → 16px apart. Keep byte-identical with cms2 PageMediaHero utils/style.js.
+const DISPLAY_TITLE_CLASS =
+  'text-[32px] leading-[1.2] sm:text-4xl md:text-5xl lg:text-[64px] lg:leading-[normal]'
+const DISPLAY_SUBTITLE_CLASS = 'text-sm leading-[1.45] lg:text-lg'
+const DISPLAY_COPY_GAP_CLASS = 'gap-2 md:gap-4'
 
 // Cover-layout white fade. Small screens wash up from the bottom so the title
 // sits on white; from `md` the fade comes in from the reading-start edge.
-// `wide` = Travel Updates Figma.
+// `wide` = Travel Updates Figma, `solid` = Offers & Deals (opaque to 34%, clear
+// by 51%; a white wash on phones).
 const OVERLAY_BOTTOM =
   'bg-[linear-gradient(to_top,rgb(253_253_252)_0%,rgb(253_253_252/0.92)_28%,rgb(253_253_252/0)_62%)]'
 const OVERLAY = {
   default: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]`,
   wide: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)]`,
+  solid: 'bg-[linear-gradient(to_bottom,rgb(255_255_255/0)_15%,rgb(255_255_255/0.81)_66%,rgb(255_255_255)_100%)] md:bg-[linear-gradient(to_right,rgb(253_253_252)_34.077%,rgb(253_253_252/0)_51.328%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252)_34.077%,rgb(253_253_252/0)_51.328%)]',
 }
 
 const HERO_BUTTON = {
@@ -124,6 +144,10 @@ const CoverSlider = ({
   heightClass,
   widthClass,
   titleSizeClass,
+  titleClass,
+  subtitleClass,
+  copyGapClass = 'gap-4',
+  textPadClass = 'pb-8 md:pb-0',
   showOverlay,
   overlayClass,
   showTitle,
@@ -170,20 +194,20 @@ const CoverSlider = ({
         <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} />
       )}
 
-      <Container className="relative flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0">
+      <Container className={`relative flex h-full flex-col justify-end md:justify-center ${textPadClass}`}>
         {slides.map((slide, index) => {
           const isActive = index === slider.activeIndex
           return (
             <div
               key={slide.id}
               aria-hidden={!isActive}
-              className={`flex flex-col gap-4 transition-opacity duration-500 ${widthClass} ${
+              className={`flex flex-col ${copyGapClass} transition-opacity duration-500 ${widthClass} ${
                 isActive ? 'relative opacity-100' : 'pointer-events-none absolute opacity-0'
               }`}
             >
               {showTitle && slide.title && (
                 <h1
-                  className={`${typography.pageTitle} m-0 leading-tight ${titleSizeClass} ${CMS_TEXT_HOVER_CLASS}`}
+                  className={`${titleClass || `${typography.pageTitle} leading-tight ${titleSizeClass}`} m-0 ${CMS_TEXT_HOVER_CLASS}`}
                   style={titleVars}
                 >
                   <LinkedText text={slide.title} {...linkProps} />
@@ -191,7 +215,7 @@ const CoverSlider = ({
               )}
               {showSubtitle && slide.subtitle && (
                 <p
-                  className={`${typography.sectionDescription} m-0 max-w-[430px] whitespace-pre-wrap leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
+                  className={`${subtitleClass || `${typography.sectionDescription} leading-relaxed lg:text-lg`} m-0 max-w-[430px] whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
                   style={subtitleVars}
                 >
                   <LinkedText text={slide.subtitle} {...linkProps} />
@@ -438,6 +462,15 @@ const PageMediaHero = ({
     : contentClassName
   const titleSizeClass = TITLE_SIZE[titleSize] || TITLE_SIZE.default
   const overlayClass = OVERLAY[overlayWidth] || OVERLAY.default
+  const display = titleSize === 'display'
+  const titleClass = display
+    ? DISPLAY_TITLE_CLASS
+    : `${typography.pageTitle} leading-tight ${titleSizeClass}`
+  const subtitleClass = display
+    ? DISPLAY_SUBTITLE_CLASS
+    : `${typography.sectionDescription} leading-relaxed lg:text-lg`
+  const copyGapClass = display ? DISPLAY_COPY_GAP_CLASS : 'gap-4'
+  const textPadClass = HERO_TEXT_PAD[height] || HERO_TEXT_PAD.default
 
   const extraSlides = (Array.isArray(slides) ? slides : []).filter((slide) => slide?.image)
   if (extraSlides.length) {
@@ -460,6 +493,10 @@ const PageMediaHero = ({
         heightClass={heightClass}
         widthClass={widthClass}
         titleSizeClass={titleSizeClass}
+        titleClass={titleClass}
+        subtitleClass={subtitleClass}
+        copyGapClass={copyGapClass}
+        textPadClass={textPadClass}
         showOverlay={showOverlay}
         overlayClass={overlayClass}
         showTitle={showTitle}
@@ -494,11 +531,11 @@ const PageMediaHero = ({
         />
       )}
 
-      <Container className="relative flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0">
-        <div className={`flex flex-col gap-4 ${widthClass}`}>
+      <Container className={`relative flex h-full flex-col justify-end md:justify-center ${textPadClass}`}>
+        <div className={`flex flex-col ${copyGapClass} ${widthClass}`}>
           {showTitle && title && (
             <h1
-              className={`${typography.pageTitle} m-0 leading-tight ${titleSizeClass} ${CMS_TEXT_HOVER_CLASS}`}
+              className={`${titleClass} m-0 ${CMS_TEXT_HOVER_CLASS}`}
               style={titleVars}
             >
               <LinkedText text={title} {...linkProps} />
@@ -506,7 +543,7 @@ const PageMediaHero = ({
           )}
           {showSubtitle && subtitle && (
             <p
-              className={`${typography.sectionDescription} m-0 max-w-[430px] whitespace-pre-wrap leading-relaxed lg:text-lg ${CMS_TEXT_HOVER_CLASS}`}
+              className={`${subtitleClass} m-0 max-w-[430px] whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
               style={subtitleVars}
             >
               <LinkedText text={subtitle} {...linkProps} />

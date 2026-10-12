@@ -168,6 +168,10 @@ import FeatureHighlight from '../shared/components/FeatureHighlight.jsx'
 import { featureHighlightProps } from './adapters/featureHighlightAdapter.js'
 import LoungeCards from '../shared/components/LoungeCards.jsx'
 import { loungeCardsProps } from './adapters/loungeCardsAdapter.js'
+import FlightDeals from '../shared/components/FlightDeals.jsx'
+import { flightDealsProps } from './adapters/flightDealsAdapter.js'
+import ServiceDeals from '../shared/components/ServiceDeals.jsx'
+import { serviceDealsProps } from './adapters/serviceDealsAdapter.js'
 import SupportSteps from '../shared/components/SupportSteps.jsx'
 import { supportStepsProps } from './adapters/supportStepsAdapter.js'
 import SplitCards from '../shared/components/SplitCards.jsx'
@@ -297,7 +301,10 @@ export const sectionRegistry = {
   // Marker block: the live booking box; CMS style only sets its vertical offset.
   'booking-widget': {
     Component: BookingWidgetBlock,
-    mapProps: (block) => ({ offsetY: block.style?.offsetY }),
+    mapProps: (block) => ({
+      offsetY: block.style?.offsetY,
+      offsetYMobile: block.style?.offsetYMobile,
+    }),
   },
   // Home page sections — each renders its own full-width <section> + Container.
   'home-plan-trip': { Component: HomePlanTrip, mapProps: homePlanTripProps, fullBleed: true },
@@ -326,6 +333,9 @@ export const sectionRegistry = {
   'service-benefits': { Component: ServiceBenefits, mapProps: serviceBenefitsProps },
   'feature-highlight': { Component: FeatureHighlight, mapProps: featureHighlightProps },
   'lounge-cards': { Component: LoungeCards, mapProps: loungeCardsProps },
+  // Offers & Deals page (Figma 40951:24297).
+  'flight-deals': { Component: FlightDeals, mapProps: flightDealsProps },
+  'service-deals': { Component: ServiceDeals, mapProps: serviceDealsProps },
   'support-steps': { Component: SupportSteps, mapProps: supportStepsProps },
   'split-cards': { Component: SplitCards, mapProps: splitCardsProps },
   'catalog-cards': { Component: CatalogCards, mapProps: catalogCardsProps },

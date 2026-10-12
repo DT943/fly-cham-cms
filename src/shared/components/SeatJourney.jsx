@@ -37,6 +37,14 @@ const BUTTON_SIZE_CLASS = {
 }
 const BUTTON_ICON_SIZE = { large: 29, medium: 18 }
 
+// 'promo' layout (Offers & Deals Cham Miles row, Figma 40951:24674): 22px →
+// 28px title, 14px → 16px body, a 171 × 48/49px button, photo first on mobile.
+// Keep byte-identical with cms2 SeatJourneyPanel.
+const PROMO_TITLE_SIZE = 'text-[22px] leading-[1.4] lg:text-[28px] lg:leading-[1.5]'
+const PROMO_BODY_SIZE = 'text-sm leading-[1.75] lg:text-base lg:leading-[28px]'
+const PROMO_BUTTON_CLASS =
+  'inline-flex h-12 w-[171px] max-w-full items-center justify-center gap-[10px] self-start rounded-lg px-[10px] py-3 text-base leading-[normal] no-underline transition-colors lg:h-[49px]'
+
 const CONTENT_ALIGN_CLASS = {
   start: 'lg:items-start',
   center: 'lg:items-center',
@@ -108,11 +116,16 @@ const SeatJourney = ({
   const btn = hasButton ? getButtonStyle(textStyle, BUTTON_OPTS) : null
   const size = buttonSize in BUTTON_SIZE_CLASS ? buttonSize : 'large'
   const ButtonIcon = resolvePhosphorIcon(buttonIcon || 'ArrowRight')
+  const promo = layout === 'promo'
   const button = hasButton ? (
-    <LocalizedLink href={buttonHref || '#'} className={cx(BUTTON_CLASS, BUTTON_SIZE_CLASS[size], btn.className)} style={btn.style}>
+    <LocalizedLink
+      href={buttonHref || '#'}
+      className={cx(promo ? PROMO_BUTTON_CLASS : cx(BUTTON_CLASS, BUTTON_SIZE_CLASS[size]), btn.className)}
+      style={btn.style}
+    >
       <span>{buttonLabel}</span>
       {showButtonIcon !== false ? (
-        <ButtonIcon size={BUTTON_ICON_SIZE[size]} aria-hidden="true" className="shrink-0 rtl:-scale-x-100" />
+        <ButtonIcon size={promo ? 18 : BUTTON_ICON_SIZE[size]} aria-hidden="true" className="shrink-0 rtl:-scale-x-100" />
       ) : null}
     </LocalizedLink>
   ) : null
@@ -125,7 +138,39 @@ const SeatJourney = ({
     bodyColorHover: '50',
   }
 
-  const inner = layout === 'wide' ? (
+  const inner = promo ? (
+    <section
+      className={cx(
+        'flex flex-col gap-5 lg:items-center lg:gap-[105px]',
+        imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row',
+      )}
+    >
+      <div className="flex flex-col gap-5 lg:min-w-0 lg:flex-1 lg:gap-[22px]">
+        {title ? (
+          <h2
+            className={cx('m-0', PROMO_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
+            style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+          >
+            <LinkedText text={title} {...linkProps} />
+          </h2>
+        ) : null}
+        {description ? (
+          <p
+            className={cx('m-0 whitespace-normal lg:whitespace-pre-line', PROMO_BODY_SIZE, CMS_TEXT_HOVER_CLASS)}
+            style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
+          >
+            <LinkedText text={description} {...linkProps} />
+          </p>
+        ) : null}
+        {button}
+      </div>
+      {src ? (
+        <div className={cx('order-first w-full overflow-hidden lg:order-none lg:w-[621px] lg:shrink-0', radiusClass)}>
+          <img src={src} alt={imageAlt || ''} className="block h-[216px] w-full object-cover lg:h-[375px]" />
+        </div>
+      ) : null}
+    </section>
+  ) : layout === 'wide' ? (
     <section
       className={cx('relative isolate min-h-[280px] overflow-hidden md:min-h-[340px]', radiusClass)}
       style={{

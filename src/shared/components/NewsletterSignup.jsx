@@ -179,8 +179,9 @@ const NewsletterSignup = ({
           <img
             src={background}
             alt=""
-            className="pointer-events-none absolute inset-0 size-full object-cover"
-            style={{ objectPosition: `center ${focus}%` }}
+            // Phones show the photo's end (tail fin) side, as in Figma 40954:91402.
+            className="pointer-events-none absolute inset-0 size-full object-cover object-[100%_var(--nl-focus)] lg:object-[center_var(--nl-focus)]"
+            style={{ '--nl-focus': `${focus}%` }}
           />
         ) : null}
         <div
@@ -189,11 +190,13 @@ const NewsletterSignup = ({
           style={{ backgroundColor: `rgba(0, 0, 0, ${overlay})` }}
         />
 
-        <Container className="relative flex h-full flex-col gap-6 py-8 lg:flex-row lg:items-center lg:gap-[134px] lg:py-0">
+        {/* Phones (Figma 40954:91402): 24px sides, 16px rhythm, the email field
+            and a full-width Subscribe button stacked. lg+: one 449px email bar. */}
+        <Container className="relative flex h-full flex-col gap-4 py-8 max-sm:px-6 lg:flex-row lg:items-center lg:gap-[134px] lg:py-0">
           <div className="flex flex-col gap-4 lg:w-[563px] lg:shrink-0">
             {title ? (
               <h2
-                className={`m-0 text-xl lg:text-2xl ${CMS_TEXT_HOVER_CLASS}`}
+                className={`m-0 text-[22px] leading-[1.4] lg:text-2xl lg:leading-[normal] ${CMS_TEXT_HOVER_CLASS}`}
                 style={getTextStyleVars(titleStyleKeys, 'titleColor', '50', 'semibold')}
               >
                 <LinkedText text={title} {...linkProps} />
@@ -201,7 +204,7 @@ const NewsletterSignup = ({
             ) : null}
             {description ? (
               <p
-                className={`m-0 text-sm ${CMS_TEXT_HOVER_CLASS}`}
+                className={`m-0 text-[13px] leading-[1.6] lg:text-sm lg:leading-[normal] ${CMS_TEXT_HOVER_CLASS}`}
                 style={getTextStyleVars(descStyleKeys, 'descriptionColor', '50', 'normal')}
               >
                 <LinkedText text={description} {...linkProps} />
@@ -212,11 +215,14 @@ const NewsletterSignup = ({
           <div className="flex w-full flex-col gap-2 lg:w-[449px] lg:shrink-0">
             <form
               onSubmit={submit}
-              className="flex w-full items-center justify-between gap-2.5 rounded-lg border border-solid p-2.5"
-              style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
+              className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-2.5 lg:rounded-lg lg:border lg:border-solid lg:p-2.5 lg:[background-color:var(--nl-ibg)] lg:[border-color:var(--nl-ibd)]"
+              style={{ '--nl-ibg': colorVar(inputBg), '--nl-ibd': colorVar(inputBorder) }}
             >
-              <div className="flex min-w-0 flex-1 items-center gap-2.5">
-                <EnvelopeSimple size={24} className="shrink-0" style={{ color: colorVar(iconColor) }} />
+              <div
+                className="flex h-12 min-w-0 items-center gap-2.5 rounded-lg border border-solid p-3 lg:h-auto lg:flex-1 lg:border-0 lg:p-0"
+                style={{ backgroundColor: colorVar(inputBg), borderColor: colorVar(inputBorder) }}
+              >
+                <EnvelopeSimple size={24} className="size-5 shrink-0 lg:size-6" style={{ color: colorVar(iconColor) }} />
                 <input
                   ref={(node) => {
                     if (node && !emailInputs.current.includes(node)) emailInputs.current.push(node)
@@ -227,12 +233,12 @@ const NewsletterSignup = ({
                   onChange={(event) => setEmail(event.target.value)}
                   aria-label={label}
                   placeholder={placeholder}
-                  className="cms-input-text newsletter-email min-w-0 flex-1 border-0 bg-transparent p-0 text-sm focus:outline-none focus:ring-0"
+                  className="cms-input-text newsletter-email min-w-0 flex-1 border-0 bg-transparent p-0 text-[13px] focus:outline-none focus:ring-0 lg:text-sm"
                   style={inputTextStyle}
                 />
               </div>
               {subscribeControl(
-                `inline-flex h-[35px] w-[113px] shrink-0 cursor-pointer items-center justify-center rounded border-0 p-1 text-sm transition-colors disabled:cursor-wait ${buttonStyle.className}`,
+                `inline-flex h-12 w-full shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 p-1 text-base transition-colors disabled:cursor-wait lg:h-[35px] lg:w-[113px] lg:rounded lg:text-sm ${buttonStyle.className}`,
               )}
             </form>
             {successNote}

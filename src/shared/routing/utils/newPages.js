@@ -150,6 +150,12 @@ export const otherPages = {
     className: 'w-full min-w-0 overflow-x-clip bg-100',
     flushBottom: true,
   }),
+  // Offers & Deals (Figma 40951:24297): hero + booking box + deals, ends in
+  // the full-width newsletter band → flush with the footer, like home.
+  '/offers-and-deals': dynamicPage('offers-and-deals', {
+    className: 'w-full min-w-0 overflow-x-clip bg-100',
+    flushBottom: true,
+  }),
   '/travel-updates': dynamicPage('travel-updates'),
   '/cargo': dynamicPage('cargo'),
   '/cargo-stations': dynamicPage('cargo-stations'),
