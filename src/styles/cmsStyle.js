@@ -22,10 +22,12 @@ export const WEIGHT = {
   bold: 'font-bold',
 }
 
+// `left` is the reading start and `right` the reading end, so Arabic (dir=rtl)
+// mirrors them without a second set of components.
 export const ALIGN = {
-  left: 'text-left',
+  left: 'text-start',
   center: 'text-center',
-  right: 'text-right',
+  right: 'text-end',
 }
 
 export const SECTION_PADDING = {
