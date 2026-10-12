@@ -74,7 +74,7 @@ const AccordionItem = ({
           {item.body ? (
             <p
               className={cx(
-                'm-0 pb-5 leading-relaxed',
+                'm-0 whitespace-pre-line pb-5 leading-relaxed',
                 typography.itemDescription,
                 CMS_TEXT_HOVER_CLASS,
               )}

@@ -67,6 +67,8 @@ const SECTION_PADDING = {
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
+const CARD_HOVER_MOTION = 'duration-300 ease-[cubic-bezier(0.42,0,1,1)]'
+
 /**
  * Explore Marhaba — year-filtered grid of magazine issue covers. CMS-driven:
  * colours/weights/hover, columns, gap, panel background. Cards are whole-card
@@ -183,11 +185,19 @@ const ExploreMarhaba = ({
                       radiusClass,
                     )}
                   >
+                    {/* Figma hover (300ms ease-in): cover zooms ~3.6%, navy wash fades in, and
+                        "Read" settles from 24px to 16px as it appears (scale-150 → 100). */}
                     {cover ? (
-                      <img src={cover} alt="" className="absolute inset-0 size-full object-cover" />
+                      <img
+                        src={cover}
+                        alt=""
+                        className={cx('absolute inset-0 size-full object-cover transition-transform group-hover:scale-[1.036]', CARD_HOVER_MOTION)}
+                      />
                     ) : null}
-                    <div className="absolute inset-0 flex items-center justify-center bg-secondary-2/20 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
-                      <span className="text-2xl font-medium text-50">{ui.read}</span>
+                    <div className={cx('absolute inset-0 flex items-center justify-center bg-secondary-2/50 opacity-0 transition-opacity group-hover:opacity-100', CARD_HOVER_MOTION)}>
+                      <span className={cx('scale-150 text-base font-semibold text-50 transition-transform group-hover:scale-100', CARD_HOVER_MOTION)}>
+                        {ui.read}
+                      </span>
                     </div>
                     {item.isNew ? (
                       <span

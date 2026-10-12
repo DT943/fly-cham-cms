@@ -22,6 +22,8 @@ const BANNER_HEIGHT = {
   // Figma Cargo Guide banner: 360px tall on desktop.
   medium: 'min-h-[240px] sm:min-h-[300px] md:min-h-[360px]',
   tall: 'min-h-[260px] sm:min-h-[320px] md:min-h-[380px]',
+  // Figma baggage calculator extra-baggage banner: 405px on desktop.
+  feature: 'min-h-[280px] sm:min-h-[340px] md:min-h-[405px]',
 }
 
 const SECTION_PADDING = {
@@ -71,6 +73,7 @@ const PromoBanner = ({
   buttonTextFontWeight = 'medium',
   buttonTextHover,
   buttonTextFontWeightHover,
+  showButtonIcon = true,
   links = [],
   showLinks = true,
   linkColor,
@@ -226,7 +229,9 @@ const PromoBanner = ({
               style={buttonStyle.style}
             >
               {cta}
-              <ArrowRight size={16} weight="bold" className="md:!size-6 rtl:-scale-x-100" />
+              {showButtonIcon ? (
+                <ArrowRight size={16} weight="bold" className="md:!size-6 rtl:-scale-x-100" />
+              ) : null}
             </LocalizedLink>
           ) : null}
         </div>

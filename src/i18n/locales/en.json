@@ -4116,6 +4116,69 @@
       }
     }
   },
+  "baggageCalculatorPage": {
+    "breadcrumbHome": "Home",
+    "breadcrumbTravel": "Travel experience",
+    "breadcrumbBefore": "Before You Fly",
+    "breadcrumb": "Baggage Calculator",
+    "hero": {
+      "title": "Baggage Calculator",
+      "subtitle": "Calculate your baggage allowance and excess fees before you travel.",
+      "imageAlt": "A yellow suitcase on an airport baggage carousel"
+    },
+    "info": {
+      "title": "Important Information",
+      "items": [
+        "This calculator provides estimates only. Final charges may vary based on actual weight at check-in.",
+        "Baggage allowances vary by route, fare type, and frequent flyer status. Check your booking confirmation for exact details.",
+        "Excess baggage is subject to availability and must be purchased before check-in for the best rates.",
+        "Special items such as sports equipment, musical instruments, and medical devices have different policies.",
+        "Maximum weight per bag is typically 32 kg. Bags over this weight will not be accepted for safety reasons."
+      ]
+    },
+    "promo": {
+      "title": "Do you need extra baggage?",
+      "description": "Plan ahead by purchasing excess baggage online and avoid last-minute arrangements at the airport.",
+      "cta": "Add Extra Baggage",
+      "imageAlt": "A passenger checking in extra baggage at the airport"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "browse": "Browse FAQs",
+      "items": [
+        {
+          "question": "Who is considered an infant or a child when traveling?",
+          "answer": "An infant is a passenger under 2 years old. A child is a passenger from 2 years old up to their 12th birthday."
+        },
+        {
+          "question": "Can I travel with a newborn baby?",
+          "answer": "Yes. Newborns can travel as infants on a parent’s lap when they meet the age rules for the route. Tell us when you book so the right documents and baggage allowance are applied."
+        },
+        {
+          "question": "Does an infant or child passenger need to have their own passport?",
+          "answer": "Yes. Every passenger, including infants, needs their own valid passport and any visas required for the trip."
+        },
+        {
+          "question": "How much baggage allowance do children have?",
+          "answer": "Children with their own seat receive the same checked and cabin allowance as an adult on that fare. Infants without a seat have a smaller allowance, shown in the calculator result."
+        },
+        {
+          "question": "Can my child travel on my lap?",
+          "answer": "Infants under 2 years old can travel on an adult’s lap when a lap infant fare is booked. A child seat can be requested when one is available."
+        },
+        {
+          "question": "Is in-flight entertainment available for children?",
+          "answer": "Selected aircraft offer in-flight entertainment. Family content depends on the aircraft operating your flight."
+        }
+      ]
+    },
+    "terms": {
+      "termsTitle": "Terms and Conditions",
+      "termsBody": "Fly Cham’s crew will meet children using this service at the airport check-in desk, escort them to the gate, and ensure their safe boarding.\n\nUpon arrival, the person meeting the child must have an ID card to prove their identity. This ID card must match the person named on the original booking form. No one else can represent the person named, even if they have the original person's ID card with them as proof.",
+      "moreTitle": "More Information",
+      "moreBody": "Fly Cham does not offer unaccompanied minors on connecting flights"
+    }
+  },
   "flightSchedulePage": {
     "title": "Flight Schedule",
     "range": "From {{from}} to {{to}} . {{trip}}",
