@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import LocalizedLink from './LocalizedLink.jsx'
+import cloudsImage from '../../assets/images/not-found/clouds.jpg'
 import {
   CMS_TEXT_HOVER_CLASS,
   colorVar,
@@ -24,10 +25,10 @@ const BUTTON_SIZE = 'text-sm sm:text-base'
  * Full-bleed 404 hero — the CMS "not-found-hero" block (slug `not-found`) AND
  * the built-in fallback when the CMS page can't load. Every prop is optional:
  * missing text falls back to the `notFound.*` translations, so `<NotFoundHero />`
- * alone is the original 404 copy. The photo comes only from the CMS; without
- * one the navy section background shows behind the text.
+ * alone is the original 404 copy. Without a CMS photo the bundled clouds
+ * photo is used.
  *
- * Cloud photo + navy overlay (secondary-2 @ 40%), centered eyebrow / "404" /
+ * Cloud photo + navy overlay (#01263B66: secondary-2 @ 40%), centered eyebrow / "404" /
  * description, and a home CTA.
  */
 const NotFoundHero = ({
@@ -55,6 +56,7 @@ const NotFoundHero = ({
   const descriptionText = text(description, 'notFound.description')
   const ctaText = text(ctaLabel, 'notFound.cta')
   const opacity = OVERLAY_OPACITY[overlayOpacity] ?? OVERLAY_OPACITY[40]
+  const photo = image || cloudsImage
 
   const button = getButtonStyle(style, {
     bgKey: 'buttonBg',
@@ -73,13 +75,11 @@ const NotFoundHero = ({
       }`}
     >
       <div className="absolute inset-0">
-        {image ? (
-          <img
-            src={image}
-            alt={imageAlt ?? t('notFound.imageAlt')}
-            className="size-full object-cover"
-          />
-        ) : null}
+        <img
+          src={photo}
+          alt={imageAlt ?? t('notFound.imageAlt')}
+          className="size-full object-cover"
+        />
         {opacity > 0 ? (
           <div
             className="absolute inset-0"

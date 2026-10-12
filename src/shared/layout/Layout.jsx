@@ -5,7 +5,6 @@ import Header from './Header.jsx'
 import Footer from './footer/Footer.jsx'
 import CookieConsent from './CookieConsent.jsx'
 import { getLanguageFromPath, isSupportedLanguage, stripLanguage } from '../../i18n/languages.js'
-import { isNotFoundPath, isFullBleedPath } from '../routing/utils/pages.js'
 import useSearchHit from '../search/hooks/useSearchHit.js'
 
 const Layout = () => {
@@ -13,7 +12,6 @@ const Layout = () => {
   const { i18n } = useTranslation()
   const language = getLanguageFromPath(pathname)
   const pagePath = stripLanguage(pathname)
-  const fullBleed = isFullBleedPath(pagePath)
   const hideChrome = pagePath === '/login-travel-agent' || pagePath === '/cham-miles'
   const hideFooter = hideChrome || pagePath === '/our-destinations/route-map'
 
@@ -33,11 +31,7 @@ const Layout = () => {
   return (
     <div className="flex min-h-dvh min-w-0 flex-col overflow-x-clip">
       {!hideChrome && (
-        <Header
-          dark={fullBleed}
-          hideOnScroll={!fullBleed}
-          showTravelNotice={pagePath === '/'}
-        />
+        <Header showTravelNotice={pagePath === '/'} />
       )}
       <div className="flex min-w-0 flex-1 flex-col">
         <Outlet />

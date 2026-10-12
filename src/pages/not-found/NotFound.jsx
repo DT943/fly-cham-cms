@@ -1,9 +1,6 @@
 import DynamicPage from '../dynamic-page/DynamicPage.jsx'
 import NotFoundHero from '../../shared/components/NotFoundHero.jsx'
 
-// The hero pulls up under the sticky header (which turns dark over it — see
-// isFullBleedPath) so the photo always covers the full viewport.
-const PULL_UNDER_HEADER = '-mt-16 md:-mt-[4.5rem]'
 const MAIN_CLASS = 'flex w-full flex-1 flex-col'
 
 /**
@@ -19,10 +16,9 @@ const NotFound = () => (
   <DynamicPage
     slug="not-found"
     className={MAIN_CLASS}
-    blocksClassName={PULL_UNDER_HEADER}
     flushBottom
     fallback={
-      <main className={`${MAIN_CLASS} ${PULL_UNDER_HEADER}`}>
+      <main className={MAIN_CLASS}>
         <NotFoundHero />
       </main>
     }

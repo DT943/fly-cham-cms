@@ -97,8 +97,3 @@ export function isNotFoundPath(path) {
   if (pages[path]) return false
   return getPage(path) === NotFound
 }
-
-/** Full-bleed hero pages that use a dark header over media. */
-export function isFullBleedPath(path) {
-  return isNotFoundPath(path)
-}

@@ -19,8 +19,7 @@ const withAlpha = (css, opacity) =>
 /**
  * CMS "coming-soon-hero" block — the whole /coming-soon page as one full-bleed
  * block: photo (CMS URL only), color wash, title + description aligned
- * top-start. Pulls up under the sticky header (dark over media, see
- * isFullBleedPath). Defaults reproduce the old static ComingSoon page exactly.
+ * top-start. Defaults reproduce the old static ComingSoon page exactly.
  */
 const ComingSoonHero = ({
   imageUrl,
