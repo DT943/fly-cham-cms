@@ -2407,7 +2407,10 @@
   "newsDetail": {
     "gallery": {
       "prev": "Previous photo",
-      "next": "Next photo"
+      "next": "Next photo",
+      "expand": "Expand photo",
+      "download": "Download photo",
+      "close": "Close"
     },
     "categories": {
       "network": "Network",

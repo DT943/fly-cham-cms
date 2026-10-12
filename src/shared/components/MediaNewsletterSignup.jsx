@@ -74,7 +74,8 @@ const MediaNewsletterSignup = ({
     }, 2000)
   }
 
-  const successNote = signedUp ? (
+  // The check replaces the button on its own. The note follows once that check is gone.
+  const successNote = signedUp && status === 'idle' ? (
     <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
       {t('common.signedUp')}
     </p>

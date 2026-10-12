@@ -16,8 +16,8 @@ const clampPercent = (value, fallback) => {
 }
 
 /**
- * Newsletter capture banner. Subscribe shows a spinner, then the field and button
- * reset with a success note under the email, like Media Newsletter.
+ * Newsletter capture banner. Subscribe shows a spinner, then a check in place of
+ * the button, then the field resets and the success note appears under the email.
  * - Large: text left + white inline email bar (icon / input / Subscribe) + plane
  * - Small: dark gradient card, stacked field then full-width Subscribe (no plane)
  */
@@ -136,7 +136,8 @@ const NewsletterSignup = ({
     }, 2000)
   }
 
-  const successNote = signedUp ? (
+  // The check replaces the button on its own. The note follows once that check is gone.
+  const successNote = signedUp && status === 'idle' ? (
     <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
       {t('common.signedUp')}
     </p>

@@ -2415,7 +2415,10 @@
   "newsDetail": {
     "gallery": {
       "prev": "الصورة السابقة",
-      "next": "الصورة التالية"
+      "next": "الصورة التالية",
+      "expand": "توسيع الصورة",
+      "download": "تنزيل الصورة",
+      "close": "إغلاق"
     },
     "categories": {
       "network": "الشبكة",
