@@ -7,6 +7,7 @@ import {
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
+import Dropdown from './Dropdown.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import useBaggageQuery from '../hooks/useBaggageQuery.js'
@@ -62,44 +63,42 @@ function buildCalculateHref(href, values) {
   return hash ? `${joined}#${hash}` : joined
 }
 
-/** Figma field (label over value + caret) with a native <select> on top. */
+/** Figma field (label over value + caret) opening the shared dropdown menu. */
 function CalculatorSelect({ id, label, placeholder, options, value, onChange, textStyle, fieldBg, iconColor }) {
-  const selected = options.find((option) => option.value === value)
   return (
-    <label htmlFor={id} className={FIELD_CLASS} style={{ backgroundColor: colorVar(fieldBg) }}>
-      <span className="flex min-w-0 flex-col gap-1">
-        <span
-          className={cx(LABEL_SIZE, CMS_TEXT_HOVER_CLASS)}
-          style={getTextStyleVars(textStyle, 'labelColor', '700', 'normal')}
-        >
-          {label}
-        </span>
-        <span
-          className={cx('truncate', VALUE_SIZE, CMS_TEXT_HOVER_CLASS)}
-          style={
-            selected
-              ? getTextStyleVars(textStyle, 'valueColor', '700', 'medium')
-              : getTextStyleVars(textStyle, 'placeholderColor', '600', 'normal')
-          }
-        >
-          {selected ? selected.label : placeholder}
-        </span>
-      </span>
-      <CaretDown size={16} aria-hidden className="shrink-0" style={{ color: colorVar(iconColor) }} />
-      <select
-        id={id}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-      >
-        <option value="">{placeholder || label}</option>
-        {options.map((option, index) => (
-          <option key={option.id || `${option.value}-${index}`} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
+    <Dropdown
+      id={id}
+      label={label}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      options={options}
+      buttonClassName={FIELD_CLASS}
+      buttonStyle={{ backgroundColor: colorVar(fieldBg) }}
+      renderButton={({ selected }) => (
+        <>
+          <span className="flex min-w-0 flex-col gap-1 text-start">
+            <span
+              className={cx(LABEL_SIZE, CMS_TEXT_HOVER_CLASS)}
+              style={getTextStyleVars(textStyle, 'labelColor', '700', 'normal')}
+            >
+              {label}
+            </span>
+            <span
+              className={cx('truncate', VALUE_SIZE, CMS_TEXT_HOVER_CLASS)}
+              style={
+                selected
+                  ? getTextStyleVars(textStyle, 'valueColor', '700', 'medium')
+                  : getTextStyleVars(textStyle, 'placeholderColor', '600', 'normal')
+              }
+            >
+              {selected ? selected.label : placeholder}
+            </span>
+          </span>
+          <CaretDown size={16} aria-hidden className="shrink-0" style={{ color: colorVar(iconColor) }} />
+        </>
+      )}
+    />
   )
 }
 

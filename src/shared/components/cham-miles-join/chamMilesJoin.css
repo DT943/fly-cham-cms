@@ -349,7 +349,7 @@
   overscroll-behavior: contain;
   list-style: none;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 96, 128, 0.35) transparent;
+  scrollbar-color: #006080 transparent;
 }
 
 .cmj-select__option {
@@ -370,13 +370,11 @@
 }
 
 .cmj-select__option:hover,
-.cmj-select__option--active {
-  background: var(--cmj-input-bg);
-}
-
+.cmj-select__option--active,
 .cmj-select__option--selected {
-  color: var(--cmj-primary);
-  font-weight: 600;
+  background: #006080;
+  color: #ffffff;
+  font-weight: 500;
 }
 
 .cmj-select__empty {

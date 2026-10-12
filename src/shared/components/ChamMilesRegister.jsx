@@ -1,5 +1,6 @@
 import { Fragment, useMemo, useState } from 'react'
-import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react'
+import { Eye, EyeSlash } from '@phosphor-icons/react'
+import Dropdown from './Dropdown.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { typography } from '../../styles/typography.js'
@@ -42,9 +43,6 @@ const CONTINUE_BUTTON = {
 const CONTINUE_BG = '#D0D0D0'
 const CONTINUE_BG_HOVER = '#C4C4C4'
 
-const fieldShell =
-  'flex min-h-12 w-full items-center rounded-lg border border-(--cm-input-border) bg-(--cm-input-bg) px-3.5 text-800 outline-none transition-colors placeholder:text-500 focus:border-primary-1 focus:ring-0'
-
 const FormInput = ({ id, type = 'text', placeholder, value, onChange, autoComplete, trailing }) => (
   <div className="flex min-h-12 w-full items-center gap-2 rounded-lg border border-(--cm-input-border) bg-(--cm-input-bg) px-3.5">
     <input
@@ -62,31 +60,15 @@ const FormInput = ({ id, type = 'text', placeholder, value, onChange, autoComple
 )
 
 const FormSelect = ({ id, value, onChange, options, placeholder, 'aria-label': ariaLabel }) => (
-  <div className="relative min-w-0">
-    <select
-      id={id}
-      name={id}
-      value={value}
-      onChange={onChange}
-      aria-label={ariaLabel}
-      className={`${fieldShell} cursor-pointer appearance-none pe-9 ${typography.caption} ${
-        value ? 'text-800' : 'text-500'
-      }`}
-    >
-      <option value="">{placeholder}</option>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-    <CaretDown
-      size={14}
-      weight="bold"
-      className="pointer-events-none absolute inset-e-3 top-1/2 -translate-y-1/2 text-600"
-      aria-hidden
-    />
-  </div>
+  <Dropdown
+    id={id}
+    name={id}
+    label={ariaLabel}
+    value={value}
+    onChange={(next) => onChange({ target: { value: next } })}
+    options={options}
+    placeholder={placeholder}
+  />
 )
 
 const CardHeader = ({ title, subtitle, textStyle }) => (

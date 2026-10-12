@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
+import Dropdown from './Dropdown.jsx'
 import {
   CMS_TEXT_HOVER_CLASS,
   colorVar,
@@ -242,32 +242,19 @@ const NewsletterForm = ({
             className="h-12 w-full rounded-lg border-0 bg-100 px-3.5 text-sm font-medium text-700 outline-none placeholder:font-medium placeholder:text-600 focus:outline-none focus:ring-0"
           />
 
-          <div className="relative">
-            <select
-              name="destination"
-              aria-label={destinationLabel}
-              value={destination}
-              onChange={(event) => setDestination(event.target.value)}
-              className={`h-12 w-full appearance-none rounded-lg border-0 bg-100 px-3.5 pe-10 text-sm font-medium outline-none focus:outline-none focus:ring-0 ${destination ? 'text-700' : 'text-600'}`}
-            >
-              <option value="" disabled hidden>
-                {destinationLabel}
-              </option>
-              <option value="any">{anyLabel}</option>
-              {destinations
+          <Dropdown
+            name="destination"
+            label={destinationLabel}
+            value={destination}
+            onChange={setDestination}
+            placeholder={destinationLabel}
+            options={[
+              { value: 'any', label: anyLabel },
+              ...destinations
                 .filter((item) => String(item.label || '').trim().toLowerCase() !== anyLabel.toLowerCase())
-                .map((item, index) => (
-                <option key={optionId(item, index, 'dest')} value={item.label}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
-            <CaretDown
-              size={16}
-              className="pointer-events-none absolute end-3.5 top-1/2 -translate-y-1/2 text-600"
-              aria-hidden
-            />
-          </div>
+                .map((item) => ({ value: item.label, label: item.label })),
+            ]}
+          />
 
           {preferenceOptions.length ? (
             <fieldset className="m-0 flex flex-col gap-3 border-0 p-0">

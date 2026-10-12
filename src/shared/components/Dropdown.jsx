@@ -12,6 +12,7 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
  */
 const Dropdown = ({
   id,
+  name,
   label,
   labelHidden = true,
   value,
@@ -20,15 +21,20 @@ const Dropdown = ({
   placeholder,
   disabled = false,
   className = '',
+  buttonClassName = '',
+  buttonStyle,
+  renderButton,
 }) => {
   const generatedId = useId()
   const buttonId = id || generatedId
   const listboxId = `${buttonId}-listbox`
   const labelId = `${buttonId}-label`
   const rootRef = useRef(null)
+  const listRef = useRef(null)
   const optionRefs = useRef([])
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [scrollMetrics, setScrollMetrics] = useState(null)
 
   const selectedIndex = options.findIndex((option) => option.value === value)
   const selected = selectedIndex >= 0 ? options[selectedIndex] : null
@@ -36,23 +42,47 @@ const Dropdown = ({
   useEffect(() => {
     if (!open) return undefined
 
+    const doc = rootRef.current?.ownerDocument || document
     const handlePointerDown = (event) => {
       if (!rootRef.current?.contains(event.target)) setOpen(false)
     }
 
-    document.addEventListener('pointerdown', handlePointerDown)
-    return () => document.removeEventListener('pointerdown', handlePointerDown)
+    doc.addEventListener('pointerdown', handlePointerDown)
+    return () => doc.removeEventListener('pointerdown', handlePointerDown)
   }, [open])
 
   useEffect(() => {
     if (!open) return
-    setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0)
+    setActiveIndex(selectedIndex)
   }, [open, selectedIndex])
 
   useEffect(() => {
     if (!open || activeIndex < 0) return
     optionRefs.current[activeIndex]?.scrollIntoView({ block: 'nearest' })
   }, [open, activeIndex])
+
+  useEffect(() => {
+    if (!open) return undefined
+    const list = listRef.current
+    if (!list) return undefined
+
+    const measure = () => {
+      setScrollMetrics({
+        scrollTop: list.scrollTop,
+        clientHeight: list.clientHeight,
+        scrollHeight: list.scrollHeight,
+      })
+    }
+
+    measure()
+    list.addEventListener('scroll', measure, { passive: true })
+    const observer = new ResizeObserver(measure)
+    observer.observe(list)
+    return () => {
+      list.removeEventListener('scroll', measure)
+      observer.disconnect()
+    }
+  }, [open, options.length])
 
   const selectIndex = (index) => {
     const option = options[index]
@@ -110,6 +140,7 @@ const Dropdown = ({
 
   return (
     <div ref={rootRef} className={cx('relative', className)}>
+      {name != null ? <input type="hidden" name={name} value={value ?? ''} /> : null}
       {label && !labelHidden && (
         <span
           id={labelId}
@@ -129,29 +160,40 @@ const Dropdown = ({
         aria-labelledby={!labelHidden && label ? labelId : undefined}
         onClick={() => !disabled && setOpen((isOpen) => !isOpen)}
         onKeyDown={handleKeyDown}
+        style={buttonStyle}
         className={cx(
-          'flex w-full min-h-12 cursor-pointer items-center justify-between gap-3 rounded-lg border bg-50 px-4 py-3 text-start font-regular text-700',
+          'flex w-full min-h-12 cursor-pointer items-center justify-between gap-3 rounded-lg border bg-50 px-4 py-3 text-start font-normal text-700',
           typography.body,
           open ? 'border-primary-1' : 'border-500',
           'focus:border-primary-1 focus:outline-none',
           disabled && 'cursor-not-allowed opacity-50',
+          buttonClassName,
         )}
       >
-        <span className="min-w-0 truncate">{selected?.label ?? placeholder}</span>
-        <CaretDown
-          size={16}
-          weight="bold"
-          className={cx('shrink-0 text-700 transition-transform', open && 'rotate-180')}
-          aria-hidden
-        />
+        {renderButton ? (
+          renderButton({ open, selected, placeholder })
+        ) : (
+          <>
+            <span className="min-w-0 truncate">{selected?.label ?? placeholder}</span>
+            <CaretDown
+              size={16}
+              weight="bold"
+              className={cx('shrink-0 text-700 transition-transform', open && 'rotate-180')}
+              aria-hidden
+            />
+          </>
+        )}
       </button>
 
       {open && (
+        <div className="absolute inset-x-0 z-30 mt-1 overflow-hidden rounded-lg bg-background shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
         <ul
+          ref={listRef}
           id={listboxId}
           role="listbox"
           aria-labelledby={buttonId}
-          className="absolute inset-x-0 z-20 mt-1 max-h-60 overflow-auto rounded-lg border border-200 bg-background py-1 shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+          className="dropdown-menu-scroll max-h-60 overflow-y-auto py-1 pe-4"
+          style={{ marginInlineEnd: -24, paddingInlineEnd: 28, scrollbarWidth: 'none' }}
         >
           {options.map((option, index) => {
             const isSelected = option.value === value
@@ -170,9 +212,7 @@ const Dropdown = ({
                 className={cx(
                   'cursor-pointer px-4 py-2.5 font-medium',
                   typography.body,
-                  isSelected && 'bg-primary-1 text-50',
-                  !isSelected && isActive && 'bg-100 text-700',
-                  !isSelected && !isActive && 'bg-background text-700',
+                  isActive ? 'bg-primary-1 text-50' : 'text-700',
                 )}
               >
                 {option.label}
@@ -180,6 +220,30 @@ const Dropdown = ({
             )
           })}
         </ul>
+        {scrollMetrics && scrollMetrics.scrollHeight > scrollMetrics.clientHeight + 1 ? (
+          <div className="pointer-events-none absolute inset-y-1 end-1 w-1.5" aria-hidden>
+            <div
+              className="absolute inset-x-0 rounded-full bg-primary-1"
+              style={{
+                height: Math.max(
+                  28,
+                  (scrollMetrics.clientHeight / scrollMetrics.scrollHeight) * scrollMetrics.clientHeight,
+                ),
+                transform: `translateY(${
+                  ((scrollMetrics.scrollTop /
+                    (scrollMetrics.scrollHeight - scrollMetrics.clientHeight)) *
+                    (scrollMetrics.clientHeight -
+                      Math.max(
+                        28,
+                        (scrollMetrics.clientHeight / scrollMetrics.scrollHeight) *
+                          scrollMetrics.clientHeight,
+                      )))
+                }px)`,
+              }}
+            />
+          </div>
+        ) : null}
+        </div>
       )}
     </div>
   )

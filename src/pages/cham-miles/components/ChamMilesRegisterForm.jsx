@@ -1,11 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react'
+import { Eye, EyeSlash } from '@phosphor-icons/react'
+import Dropdown from '../../../shared/components/Dropdown.jsx'
 import LocalizedLink from '../../../shared/components/LocalizedLink.jsx'
 import { typography } from '../../../styles/typography.js'
-
-const fieldShell =
-  'flex min-h-12 w-full items-center rounded-lg border border-200 bg-50 px-3.5 text-800 outline-none transition-colors placeholder:text-500 focus:border-primary-1 focus:ring-0'
 
 const FormInput = ({
   id,
@@ -33,31 +31,16 @@ const FormInput = ({
 )
 
 const FormSelect = ({ id, value, onChange, options, placeholder, className = '', 'aria-label': ariaLabel }) => (
-  <div className={`relative min-w-0 ${className}`}>
-    <select
-      id={id}
-      name={id}
-      value={value}
-      onChange={onChange}
-      aria-label={ariaLabel}
-      className={`${fieldShell} cursor-pointer appearance-none pe-9 ${typography.caption} ${
-        value ? 'text-800' : 'text-500'
-      }`}
-    >
-      <option value="">{placeholder}</option>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
-    <CaretDown
-      size={14}
-      weight="bold"
-      className="pointer-events-none absolute inset-e-3 top-1/2 -translate-y-1/2 text-600"
-      aria-hidden
-    />
-  </div>
+  <Dropdown
+    id={id}
+    name={id}
+    label={ariaLabel}
+    value={value}
+    onChange={(next) => onChange({ target: { value: next } })}
+    options={options}
+    placeholder={placeholder}
+    className={className}
+  />
 )
 
 const RegisterForm = ({ onSwitchToLogin }) => {

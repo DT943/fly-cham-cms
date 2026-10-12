@@ -8,6 +8,7 @@ import {
   X,
 } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import Dropdown from '../../../shared/components/Dropdown.jsx'
 
 const toInputValue = (date) =>
   date
@@ -33,25 +34,20 @@ const AirportField = ({ label, Icon, value, airports, onChange, onClear, clearLa
   return (
     <div className="relative flex min-h-16 flex-1 items-center gap-3 rounded-lg bg-100 px-3 py-2.5">
       <FieldIcon Icon={Icon} />
-      <div className="relative min-w-0 flex-1">
-        <label htmlFor={id} className="block text-xs text-500">
-          {label}
-        </label>
-        <select
+      <div className="min-w-0 flex-1">
+        <Dropdown
           id={id}
+          label={label}
+          labelHidden={false}
           value={value}
-          onChange={(event) => onChange(event.target.value)}
-          className="w-full cursor-pointer appearance-none border-0 bg-transparent p-0 text-sm font-semibold text-800 outline-none focus-visible:underline"
-        >
-          <option value="" disabled>
-            —
-          </option>
-          {Object.values(airports).map((option) => (
-            <option key={option.code} value={option.code}>
-              {option.city}, {option.code}
-            </option>
-          ))}
-        </select>
+          onChange={onChange}
+          placeholder="—"
+          options={Object.values(airports).map((option) => ({
+            value: option.code,
+            label: `${option.city}, ${option.code}`,
+          }))}
+          buttonClassName="!min-h-0 !border-0 !bg-transparent !px-0 !py-0 text-sm font-semibold"
+        />
         <p className="m-0 truncate text-xs text-500">{airport ? airport.name : '\u00a0'}</p>
       </div>
       {onClear && value ? (

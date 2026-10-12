@@ -58,10 +58,42 @@ html {
   background: color-mix(in srgb, var(--color-primary-1) 82%, #000);
 }
 
-::-webkit-scrollbar-button {
+/*
+ * Windows paints up/down arrow buttons once a custom scrollbar is set, and
+ * `display: none` on the buttons is ignored. Dropdown menus opt out with
+ * `.dropdown-menu-scroll` and draw their own thumb.
+ */
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:single-button,
+::-webkit-scrollbar-button:double-button,
+::-webkit-scrollbar-button:vertical:start:decrement,
+::-webkit-scrollbar-button:vertical:end:increment,
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement,
+::-webkit-scrollbar-button:horizontal:start:decrement,
+::-webkit-scrollbar-button:horizontal:end:increment,
+::-webkit-scrollbar-button:horizontal:start:increment,
+::-webkit-scrollbar-button:horizontal:end:decrement {
   display: none;
   width: 0;
   height: 0;
+  background: transparent;
+}
+
+.dropdown-menu-scroll {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.dropdown-menu-scroll::-webkit-scrollbar,
+.dropdown-menu-scroll::-webkit-scrollbar-button,
+.dropdown-menu-scroll::-webkit-scrollbar-thumb,
+.dropdown-menu-scroll::-webkit-scrollbar-track,
+.dropdown-menu-scroll::-webkit-scrollbar-corner {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 
 /*
