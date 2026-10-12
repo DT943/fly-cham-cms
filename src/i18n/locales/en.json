@@ -4053,6 +4053,15 @@
       }
     }
   },
+  "cookieConsent": {
+    "message": "We use cookies for things like analytics, personalization, marketing and making sure our website functions properly.",
+    "readOur": "Read our",
+    "policy": "Cookies Policy",
+    "settings": "for more or check cookie settings at any time to change your preferences or opt out.",
+    "decline": "Decline",
+    "accept": "Accept",
+    "close": "Close cookie notice"
+  },
   "bookAFlightPage": {
     "breadcrumbHome": "Home",
     "breadcrumb": "Book a Flight",

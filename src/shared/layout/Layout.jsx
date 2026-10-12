@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Header from './Header.jsx'
 import Footer from './footer/Footer.jsx'
+import CookieConsent from './CookieConsent.jsx'
 import { getLanguageFromPath, isSupportedLanguage, stripLanguage } from '../../i18n/languages.js'
 import { isNotFoundPath, isFullBleedPath } from '../routing/utils/pages.js'
 import useSearchHit from '../search/hooks/useSearchHit.js'
@@ -42,6 +43,7 @@ const Layout = () => {
         <Outlet />
       </div>
       {!hideFooter && <Footer />}
+      <CookieConsent />
     </div>
   )
 }
