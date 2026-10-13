@@ -1,4 +1,4 @@
-import { ArrowRight, Cookie, ShieldCheck } from '@phosphor-icons/react'
+import { ArrowRight, Cookie, Phone, Question, ShieldCheck } from '@phosphor-icons/react'
 import LocalizedLink from './LocalizedLink.jsx'
 import Container from './Container.jsx'
 import { typography } from '../../styles/typography.js'
@@ -8,6 +8,8 @@ import LinkedText from './backlinks/LinkedText.jsx'
 const ICONS = {
   shield: ShieldCheck,
   cookie: Cookie,
+  question: Question,
+  phone: Phone,
 }
 
 /**

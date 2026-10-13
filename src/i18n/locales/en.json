@@ -4063,6 +4063,24 @@
     "accept": "Accept",
     "close": "Close cookie notice"
   },
+  "searchInSite": {
+    "title": "Search In Site",
+    "placeholder": "Search",
+    "submit": "Search",
+    "help": {
+      "title": "Do you need any help?",
+      "faqs": {
+        "title": "FAQs",
+        "description": "Explore answers to the most common questions and find the information you need, all in one place.",
+        "cta": "Browse FAQs"
+      },
+      "contact": {
+        "title": "Contact us",
+        "description": "Have a question or need a hand? Get in touch with our team—we're here to help you find the answers and support you need.",
+        "cta": "Contact us"
+      }
+    }
+  },
   "bookFromSchedule": {
     "breadcrumbHome": "Home",
     "title": "Book from schedule",
