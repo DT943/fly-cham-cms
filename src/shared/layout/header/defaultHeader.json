@@ -106,6 +106,14 @@
                 "icon": "SealPercent",
                 "badge": "",
                 "href": "/"
+              },
+              {
+                "id": "bookFromSchedule",
+                "title": "Book from schedule",
+                "description": "",
+                "icon": "CalendarCheck",
+                "badge": "",
+                "href": "/book-from-schedule"
               }
             ],
             "cards": []
@@ -837,6 +845,14 @@
                 "icon": "SealPercent",
                 "badge": "",
                 "href": "/"
+              },
+              {
+                "id": "bookFromSchedule",
+                "title": "احجز من جدول الرحلات",
+                "description": "",
+                "icon": "CalendarCheck",
+                "badge": "",
+                "href": "/book-from-schedule"
               }
             ],
             "cards": []

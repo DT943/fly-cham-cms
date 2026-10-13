@@ -33,7 +33,7 @@ const FALLBACK_BLOCK_MINUTES = 150
 const DEPARTURE_HOURS = [6, 7, 8, 10, 12, 13, 15, 17, 19, 20, 22]
 const MINUTES_PER_DAY = 24 * 60
 
-const hashString = (value) => {
+export const hashString = (value) => {
   let hash = 2166136261
   for (let index = 0; index < value.length; index += 1) {
     hash ^= value.charCodeAt(index)
@@ -43,7 +43,7 @@ const hashString = (value) => {
 }
 
 /** Deterministic 0–1 generator (mulberry32). */
-const seededRandom = (seed) => {
+export const seededRandom = (seed) => {
   let state = seed
   return () => {
     state = (state + 0x6d2b79f5) | 0
@@ -70,7 +70,8 @@ const distanceKm = (a, b) => {
   return 2 * 6371 * Math.asin(Math.sqrt(h))
 }
 
-const blockMinutes = (from, to) => {
+/** Gate-to-gate minutes for `from → to`. */
+export const blockMinutes = (from, to) => {
   const a = AIRPORT_GEO[from]
   const b = AIRPORT_GEO[to]
   if (!a || !b) return FALLBACK_BLOCK_MINUTES
