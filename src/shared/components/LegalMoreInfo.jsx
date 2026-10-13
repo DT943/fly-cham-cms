@@ -1,3 +1,4 @@
+import { ArrowRight, Cookie, ShieldCheck } from '@phosphor-icons/react'
 import LocalizedLink from './LocalizedLink.jsx'
 import Container from './Container.jsx'
 import { CMS_TEXT_HOVER_CLASS, colorMix, getTextStyleVars } from '../../styles/cmsStyle.js'

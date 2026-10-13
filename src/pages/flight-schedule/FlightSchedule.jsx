@@ -18,39 +18,13 @@ import Container from '../../shared/components/Container.jsx'
 import planeMark from '../../assets/images/logo.png'
 import FlightScheduleHero from './components/FlightScheduleHero.jsx'
 import FlightScheduleSearch from './components/FlightScheduleSearch.jsx'
+import useScheduleAirports from './useScheduleAirports.js'
+import { getRouteFlights, getRouteOperatingDays } from './scheduleData.js'
+import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
-const AIRPORTS = {
-  DAM: {
-    city: 'Damascus',
-    airport: 'Damascus Intl (DAM)',
-    name: 'Damascus International Airport',
-    code: 'DAM',
-    image: 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/our-destenations/damascus.webp',
-  },
-  DXB: {
-    city: 'Dubai',
-    airport: 'Dubai Intl (DXB)',
-    name: 'Dubai International Airport',
-    code: 'DXB',
-    image: 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/our-destenations/dubai.webp',
-  },
-}
-
-/** Flights per route (`FROM-TO`). `days` are operating weekdays (0 Sunday … 6 Saturday). */
-const ROUTE_FLIGHTS = {
-  'DAM-DXB': [
-    { id: 'dam-dxb-0700', depart: '07:00', arrive: '11:10', duration: '2h 30m', number: 'XH700', days: [1, 4, 6] },
-    { id: 'dam-dxb-1000', depart: '10:00', arrive: '12:10', duration: '2h 30m', number: 'XH700', days: [4, 6] },
-  ],
-  'DXB-DAM': [
-    { id: 'dxb-dam-1310', depart: '13:10', arrive: '16:00', duration: '2h 30m', number: 'XH700', days: [1, 4, 6] },
-    { id: 'dxb-dam-2010', depart: '20:10', arrive: '23:00', duration: '2h 30m', number: 'XH700', days: [4, 6] },
-  ],
-}
-
-const buildJourneys = (search) => {
+const buildJourneys = (search, airports) => {
   const legs = [
     { id: 'departure', labelKey: 'flightSchedulePage.departure', from: search.from, to: search.to, date: search.departure },
   ]
@@ -60,10 +34,10 @@ const buildJourneys = (search) => {
   return legs.map((leg) => ({
     id: leg.id,
     labelKey: leg.labelKey,
-    from: AIRPORTS[leg.from],
-    to: AIRPORTS[leg.to],
+    from: airports[leg.from],
+    to: airports[leg.to],
     startDate: leg.date,
-    flights: ROUTE_FLIGHTS[`${leg.from}-${leg.to}`] || [],
+    flights: getRouteFlights(leg.from, leg.to),
   }))
 }
 
@@ -164,7 +138,10 @@ const FlightDetailsDialog = ({ flight, from, to, date, onClose }) => {
             </ul>
           </div>
 
-          <p className="m-0 text-sm text-700">{flight.arrive}</p>
+          <p className="m-0 text-sm text-700">
+            {flight.arrive}
+            {flight.nextDay ? <sup className="ms-0.5 text-[0.65em] text-primary-1">+1</sup> : null}
+          </p>
           <div className="flex justify-center pt-1">
             <span className="size-2.5 rounded-full border-2 border-primary-1 bg-white" />
           </div>
@@ -225,7 +202,12 @@ const FlightRow = ({ flight, from, to, dates, selectedDate, open, onToggle }) =>
             </div>
           </div>
           <div className="w-20 shrink-0 text-center">
-            <p className="m-0 text-2xl font-light text-800 md:text-3xl">{flight.arrive}</p>
+            <p className="m-0 whitespace-nowrap text-2xl font-light text-800 md:text-3xl">
+              {flight.arrive}
+              {flight.nextDay ? (
+                <sup className="ms-0.5 text-[0.45em] font-medium text-primary-1">+1</sup>
+              ) : null}
+            </p>
             <p className="m-0 mt-1 text-sm text-600">{to.code}</p>
           </div>
         </div>
@@ -292,7 +274,7 @@ const JourneySection = ({ journey, initialNearby }) => {
             {t(journey.labelKey)}
           </h2>
           <div className="mt-3 flex flex-wrap items-center gap-4">
-            <img src={to.image} alt="" className="size-12 rounded-full object-cover" />
+            {to.image ? <img src={to.image} alt="" className="size-12 rounded-full object-cover" /> : null}
             <div className="flex flex-wrap items-center gap-5">
               <div>
                 <p className="m-0 text-xl font-bold text-800">{from.city}</p>
@@ -386,9 +368,9 @@ const DEFAULT_SEARCH = {
   nearby: true,
 }
 
-const ScheduleResults = ({ search, onChangeSearch }) => {
+const ScheduleResults = ({ search, airports, onChangeSearch }) => {
   const { t } = useTranslation()
-  const journeys = useMemo(() => buildJourneys(search), [search])
+  const journeys = useMemo(() => buildJourneys(search, airports), [search, airports])
   const roundTrip = search.tripType === 'roundTrip'
   const range = roundTrip
     ? t('flightSchedulePage.range', {
@@ -432,13 +414,15 @@ const ScheduleResults = ({ search, onChangeSearch }) => {
 const FlightSchedule = () => {
   const [search, setSearch] = useState(null)
   const [draft, setDraft] = useState(DEFAULT_SEARCH)
+  const lang = useCurrentLanguage()
+  const { airports, destinationsFor } = useScheduleAirports(lang)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [search])
 
   if (search) {
-    return <ScheduleResults search={search} onChangeSearch={() => setSearch(null)} />
+    return <ScheduleResults search={search} airports={airports} onChangeSearch={() => setSearch(null)} />
   }
 
   return (
@@ -446,8 +430,10 @@ const FlightSchedule = () => {
       <FlightScheduleHero />
       <Container className="relative z-10 -mt-12 md:-mt-16">
         <FlightScheduleSearch
-          airports={AIRPORTS}
+          airports={airports}
+          destinationsFor={destinationsFor}
           initialValue={draft}
+          operatingDays={getRouteOperatingDays}
           onSubmit={(value) => {
             setDraft(value)
             setSearch(value)

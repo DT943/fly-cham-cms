@@ -3460,8 +3460,9 @@
   },
   "comingSoon": {
     "title": "Coming Soon",
-    "description": "We're working on something new to serve you better stay tuned.",
-    "imageAlt": "Fly Cham aircraft flying above the clouds at sunset"
+    "description": "We're upgrading this page for a better experience. Stay tuned for updates,\nThank you for your patience.",
+    "backHome": "Back to home page",
+    "imageAlt": "Fly Cham Airbus A320 aircraft"
   },
   "businessCenter": {
     "breadcrumb": "Business Center",
@@ -4079,6 +4080,49 @@
       }
     }
   },
+  "cookieConsent": {
+    "message": "We use cookies for things like analytics, personalization, marketing and making sure our website functions properly.",
+    "readOur": "Read our",
+    "policy": "Cookies Policy",
+    "settings": "for more or check cookie settings at any time to change your preferences or opt out.",
+    "decline": "Decline",
+    "accept": "Accept",
+    "close": "Close cookie notice"
+  },
+  "bookFromSchedule": {
+    "breadcrumbHome": "Home",
+    "title": "Book from schedule",
+    "description": "View the latest flights and find the best flight ticket deals.",
+    "filters": {
+      "from": "From",
+      "to": "To",
+      "cabin": "Cabin Class",
+      "budget": "Input max budget",
+      "origin": "Origin",
+      "destination": "Destination",
+      "anyOrigin": "All origins",
+      "anyDestination": "All destinations",
+      "budgetPlaceholder": "Max budget"
+    },
+    "columns": {
+      "from": "From",
+      "to": "To",
+      "cabin": "Cabin class",
+      "dates": "Dates",
+      "price": "Price"
+    },
+    "cabins": {
+      "economy": "Economy",
+      "business": "Business"
+    },
+    "from": "From",
+    "updated_one": "Last update {{count}} hr ago",
+    "updated_other": "Last update {{count}} hrs ago",
+    "bookNow": "Book now",
+    "showMore": "Show more flights",
+    "empty": "No flights match your filters. Try another route or a higher budget.",
+    "note": "*Lowest one-way fare found, including taxes. Fares are subject to availability and may change."
+  },
   "bookAFlightPage": {
     "breadcrumbHome": "Home",
     "breadcrumb": "Book a Flight",
@@ -4215,7 +4259,15 @@
       "to": "To",
       "clear": "Clear departure airport",
       "swap": "Swap airports",
-      "viewSchedule": "View schedule"
+      "viewSchedule": "View schedule",
+      "selectOrigin": "Select your origin",
+      "selectDestination": "Select your destination",
+      "searchAirport": "Search for a city or airport",
+      "allAirports": "All airports",
+      "noAirports": "No airports found",
+      "departureDate": "Departure date",
+      "returnDate": "Return date",
+      "clearDates": "Clear dates"
     },
     "errors": {
       "airports": "Choose both airports.",

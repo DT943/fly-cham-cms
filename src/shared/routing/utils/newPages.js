@@ -167,14 +167,6 @@ export const otherPages = {
     flushBottom: true,
     gapClass: 'gap-0',
   }),
-  // One full-bleed "coming-soon-hero" block that pulls itself under the header
-  // (dark over media — isFullBleedPath in pages.js) and fills the viewport.
-  '/coming-soon': dynamicPage('coming-soon', {
-    className: 'flex w-full flex-1 flex-col',
-    blocksClassName: 'flex-1',
-    flushBottom: true,
-    gapClass: 'gap-0',
-  }),
   '/cham-miles': dynamicPage('cham-miles', {
     className: 'relative min-h-dvh w-full min-w-0 overflow-x-clip bg-100',
     flushBottom: true,

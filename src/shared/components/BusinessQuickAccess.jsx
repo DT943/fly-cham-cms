@@ -1,4 +1,4 @@
-import { CaretRight } from '@phosphor-icons/react'
+import { ArrowRight } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -14,10 +14,9 @@ const SECTION_PADDING = {
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
- * CMS-driven Quick Access (Figma 39658:410): 28px title + four white link
- * cards (102px, p-20, gap 16) with a 40px round icon holder, primary label and
- * 16px chevron. Below lg: 2-col grid, icon above the short label.
- * Mirrors the cms2 BusinessQuickAccess block.
+ * CMS-driven Quick Access: 28px title + four white link cards, each with a
+ * round icon holder on top, the label, and a round arrow badge at the
+ * bottom-end. 2 columns below lg, 4 from lg.
  */
 const BusinessQuickAccess = ({
   title = '',
@@ -27,8 +26,9 @@ const BusinessQuickAccess = ({
   sectionBg = '100',
   cardBg = '50',
   iconBg = '100',
-  iconColor = 'primary-1',
-  chevronColor = 'primary-1',
+  cardIconColor = '700',
+  arrowBg = 'primary-1',
+  arrowColor = '50',
   links = [],
   showLinks = true,
   linkColor,
@@ -40,7 +40,7 @@ const BusinessQuickAccess = ({
 }) => {
   if (!items.length && !title) return null
 
-  const labelStyle = getTextStyleVars(textStyle, 'labelColor', 'primary-1', 'semibold')
+  const labelStyle = getTextStyleVars(textStyle, 'cardLabelColor', '700', 'semibold')
   const linkProps = {
     links,
     enabled: showLinks,
@@ -74,35 +74,27 @@ const BusinessQuickAccess = ({
                 <LocalizedLink
                   key={item.id ? `${item.id}-${index}` : index}
                   href={item.href || '#'}
-                  className="flex min-w-0 flex-col gap-3 rounded-[8px] p-4 no-underline sm:p-5 lg:min-h-[102px] lg:flex-row lg:items-center lg:gap-4 lg:p-5"
+                  className="group flex min-h-37 min-w-0 flex-col gap-4 rounded-2xl p-4 no-underline sm:p-5"
                   style={{ backgroundColor: colorVar(cardBg) }}
                 >
                   <span
                     className="flex size-10 shrink-0 items-center justify-center rounded-full"
-                    style={{ backgroundColor: colorVar(iconBg), color: colorVar(iconColor) }}
+                    style={{ backgroundColor: colorVar(iconBg), color: colorVar(cardIconColor) }}
                   >
-                    {Icon ? <Icon size={24} /> : null}
+                    {Icon ? <Icon size={22} /> : null}
                   </span>
                   <span
-                    className={cx('text-sm leading-[normal] sm:text-base lg:hidden', CMS_TEXT_HOVER_CLASS)}
+                    className={cx('text-sm leading-[normal] sm:text-base', CMS_TEXT_HOVER_CLASS)}
                     style={labelStyle}
                   >
-                    {item.shortLabel || item.label}
+                    {item.label || item.shortLabel}
                   </span>
                   <span
-                    className={cx(
-                      'hidden min-w-0 flex-1 text-base leading-[normal] lg:inline',
-                      CMS_TEXT_HOVER_CLASS,
-                    )}
-                    style={labelStyle}
+                    className="mt-auto flex size-7 shrink-0 items-center justify-center self-end rounded-full transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                    style={{ backgroundColor: colorVar(arrowBg), color: colorVar(arrowColor) }}
                   >
-                    {item.label}
+                    <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
                   </span>
-                  <CaretRight
-                    size={16}
-                    className="hidden shrink-0 lg:block rtl:-scale-x-100"
-                    style={{ color: colorVar(chevronColor) }}
-                  />
                 </LocalizedLink>
               )
             })}
