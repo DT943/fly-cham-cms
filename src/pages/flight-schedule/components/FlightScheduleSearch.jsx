@@ -151,7 +151,7 @@ const FlightScheduleSearch = ({ airports, initialValue, onSubmit }) => {
       noValidate
       className="rounded-2xl bg-white px-4 py-5 shadow-[0_8px_24px_-8px_rgba(33,37,41,0.18)] md:px-6"
     >
-      <fieldset className="m-2 flex flex-wrap gap-6 border-0 p-0">
+      {/* <fieldset className="m-2 flex flex-wrap gap-6 border-0 p-0">
         <legend className="sr-only">{t('flightSchedulePage.form.tripType')}</legend>
         <TripTypeOption
           name={tripName}
@@ -167,7 +167,7 @@ const FlightScheduleSearch = ({ airports, initialValue, onSubmit }) => {
           label={t('flightSchedulePage.form.oneWay')}
           onChange={(tripType) => update({ tripType })}
         />
-      </fieldset>
+      </fieldset> */}
 
       <div className="relative mt-4 flex flex-col gap-2 md:flex-row">
         <AirportField
@@ -216,7 +216,7 @@ const FlightScheduleSearch = ({ airports, initialValue, onSubmit }) => {
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-200 pt-5">
         <label className="flex cursor-pointer items-center gap-2 text-xs text-700">
-          <input
+          {/* <input
             type="checkbox"
             className="peer sr-only"
             checked={form.nearby}
@@ -229,7 +229,7 @@ const FlightScheduleSearch = ({ airports, initialValue, onSubmit }) => {
           >
             {form.nearby ? <Check size={12} weight="bold" /> : null}
           </span>
-          {t('flightSchedulePage.nearby')}
+          {t('flightSchedulePage.nearby')} */}
         </label>
         <button
           type="submit"
