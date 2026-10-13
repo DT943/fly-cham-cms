@@ -4143,7 +4143,15 @@
       "to": "إلى",
       "clear": "مسح مطار المغادرة",
       "swap": "تبديل المطارات",
-      "viewSchedule": "عرض المواعيد"
+      "viewSchedule": "عرض المواعيد",
+      "selectOrigin": "اختر مدينة المغادرة",
+      "selectDestination": "اختر وجهتك",
+      "searchAirport": "ابحث عن مدينة أو مطار",
+      "allAirports": "جميع المطارات",
+      "noAirports": "لا توجد مطارات مطابقة",
+      "departureDate": "تاريخ المغادرة",
+      "returnDate": "تاريخ العودة",
+      "clearDates": "مسح التواريخ"
     },
     "errors": {
       "airports": "اختر المطارين.",

@@ -4135,7 +4135,15 @@
       "to": "To",
       "clear": "Clear departure airport",
       "swap": "Swap airports",
-      "viewSchedule": "View schedule"
+      "viewSchedule": "View schedule",
+      "selectOrigin": "Select your origin",
+      "selectDestination": "Select your destination",
+      "searchAirport": "Search for a city or airport",
+      "allAirports": "All airports",
+      "noAirports": "No airports found",
+      "departureDate": "Departure date",
+      "returnDate": "Return date",
+      "clearDates": "Clear dates"
     },
     "errors": {
       "airports": "Choose both airports.",
