@@ -54,7 +54,7 @@ const HelpCta = ({
       />
 
       <div className="relative flex flex-col gap-6 px-6 py-10 sm:px-10 md:px-14 md:py-16 lg:min-h-90">
-        <div className="flex max-w-160 flex-col gap-3 text-50">
+        <div className="flex flex-col gap-3 text-50">
           <h2 className="m-0 text-2xl font-semibold leading-tight sm:text-3xl lg:text-[36px]">
             {title ?? t('common.helpCta.title')}
           </h2>

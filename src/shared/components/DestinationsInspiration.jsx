@@ -151,7 +151,7 @@ const DestinationsInspiration = ({
       ) : null}
 
       <div className="relative z-10 flex flex-col items-center gap-8 px-5 py-8 sm:gap-10 sm:px-8 sm:py-10 md:px-12 md:py-12 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-14 lg:py-12">
-        <div className="flex w-full max-w-xl flex-col items-start gap-3 md:gap-5 lg:flex-1">
+        <div className="flex w-full min-w-0 flex-col items-start gap-3 md:gap-5 lg:flex-1">
           {showTitle && title ? (
             <h2
               className={cx(typography.sectionTitle, 'm-0 leading-tight', CMS_TEXT_HOVER_CLASS)}

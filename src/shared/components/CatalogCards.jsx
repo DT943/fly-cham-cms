@@ -91,7 +91,7 @@ const CatalogCards = ({
               </h2>
             ) : null}
             {showSubtitle && subtitle ? (
-              <p className={`m-0 max-w-[780px] ${SUBTITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'subtitleColor', '700', 'normal')}>
+              <p className={`m-0 ${SUBTITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'subtitleColor', '700', 'normal')}>
                 <LinkedText text={subtitle} {...linkProps} />
               </p>
             ) : null}

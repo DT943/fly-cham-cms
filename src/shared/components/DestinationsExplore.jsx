@@ -138,7 +138,7 @@ const DestinationsExplore = ({
           ) : null}
           {showSubtitle && subtitle ? (
             <p
-              className={cx(typography.caption, 'm-0 leading-relaxed max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+              className={cx(typography.caption, 'm-0 leading-relaxed', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(style, 'subtitleColor', '700', 'normal')}
             >
               <LinkedText text={subtitle} links={links} enabled={showLinks} {...linkStyle(style)} />

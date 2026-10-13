@@ -88,7 +88,7 @@ const SplitBand = ({
           </h2>
         ) : null}
         {description ? (
-          <p className={cx('m-0 text-sm leading-6 text-white md:text-base md:leading-[26px]', imageFirst ? 'md:max-w-[464px]' : '', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'descriptionColor', '50', 'normal')}>
+          <p className={cx('m-0 text-sm leading-6 text-white md:text-base md:leading-[26px]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'descriptionColor', '50', 'normal')}>
             <LinkedText text={description} {...linkProps} />
           </p>
         ) : null}

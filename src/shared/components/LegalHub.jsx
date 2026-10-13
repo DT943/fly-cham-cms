@@ -86,7 +86,7 @@ const LegalHub = ({
           ) : null}
           {visibleSubtitle ? (
             <p
-              className={`m-0 max-w-[900px] font-normal leading-relaxed text-700 ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
+              className={`m-0 font-normal leading-relaxed text-700 ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
               style={getTextStyleVars(textStyle, 'subtitleColor', '700', 'normal')}
             >
               <LinkedText text={subtitle} {...linkProps} />

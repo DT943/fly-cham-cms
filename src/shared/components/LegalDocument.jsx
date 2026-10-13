@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -20,6 +21,10 @@ const PADDING = {
 }
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
+
+/** Sidebar shows the heading without a leading "A." / "1." counter. */
+const sidebarLabel = (title) =>
+  title.replace(/^\s*(?:[A-Za-z]|\d{1,3})\s*[.)]\s+/, '').trim() || title
 
 /**
  * Reusable legal document body for Terms, Privacy, Booking Terms, and Cookies.
@@ -64,7 +69,20 @@ const LegalDocument = ({
     contact &&
       (contact.title || contact.intro || contact.email || contact.phone || contact.company),
   )
-  const showSidebar = layout !== 'sheet' && showNav !== false && navItems.length > 0
+  const sectionAnchors = useMemo(() => {
+    const anchors = []
+    if (introTitle) anchors.push({ id: 'legal-intro', label: sidebarLabel(introTitle) })
+    sections.forEach((section, index) => {
+      if (!section.title) return
+      anchors.push({
+        id: section.id || `legal-section-${index + 1}`,
+        label: sidebarLabel(section.title),
+      })
+    })
+    return anchors
+  }, [introTitle, sections])
+  const sidebarItems = sectionAnchors.length ? sectionAnchors : navItems
+  const showSidebar = layout !== 'sheet' && showNav !== false && sidebarItems.length > 0
 
   if (
     !dateLine &&
@@ -99,7 +117,10 @@ const LegalDocument = ({
   ) : null
 
   const introNode = hasIntro ? (
-    <div className={cx('flex flex-col', introTitle ? 'gap-4' : 'gap-3')}>
+    <div
+      id={introTitle ? 'legal-intro' : undefined}
+      className={cx('flex scroll-mt-24 flex-col', introTitle ? 'gap-4' : 'gap-3')}
+    >
       {introTitle ? (
         <h2
           className={`m-0 font-semibold text-700 ${typography.sectionTitle} ${CMS_TEXT_HOVER_CLASS}`}
@@ -160,7 +181,7 @@ const LegalDocument = ({
       <ol className={`m-0 grid list-none gap-2 p-0 sm:grid-cols-2 ${typography.caption}`}>
         {tocItems.map((item, index) => (
           <li key={index}>
-            <a href={item.href || `#legal-section-${index + 1}`} className={linkClass}>
+            <a href={item.href || `#${sections[index]?.id || `legal-section-${index + 1}`}`} className={linkClass}>
               {item.text || item}
             </a>
           </li>
@@ -219,8 +240,8 @@ const LegalDocument = ({
     >
       {showSidebar ? (
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-6">
-          <aside className="lg:w-[280px] lg:shrink-0">
-            <LegalDocumentNav items={navItems} activeId={activeId} />
+          <aside className="lg:sticky lg:top-24 lg:z-10 lg:w-[280px] lg:shrink-0 lg:self-start">
+            <LegalDocumentNav items={sidebarItems} activeId={activeId} />
           </aside>
           {column}
         </div>

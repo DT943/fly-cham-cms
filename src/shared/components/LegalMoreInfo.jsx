@@ -1,20 +1,25 @@
 import LocalizedLink from './LocalizedLink.jsx'
 import Container from './Container.jsx'
-import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, colorMix, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
-// Icons live in the cms-media bucket (legal/*.svg).
-const LEGAL_ICONS_URL =
-  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/legal'
+import arrowIcon from '../../assets/icons/legal/arrow-down.svg'
+import cookieIcon from '../../assets/icons/legal/cookie.svg'
+import shieldIcon from '../../assets/icons/legal/shield-check.svg'
 
-const ICONS = {
-  shield: `${LEGAL_ICONS_URL}/shield-check.svg`,
-  cookie: `${LEGAL_ICONS_URL}/cookie.svg`,
+const CardIcon = ({ icon }) => {
+  if (icon === 'cookie') {
+    return <img src={cookieIcon} alt="" width={60} height={60} />
+  }
+  return (
+    <span className="flex size-[60px] shrink-0 items-center justify-center rounded-full bg-[#F5F5F4]">
+      <img src={shieldIcon} alt="" width="32.7273" height="32.7273" />
+    </span>
+  )
 }
 
 /**
  * Full-bleed "Get more information" band shared by every legal document page.
- * Cards are whole-card links, so title/description/CTA stay plain text.
+ * Each card is one link. The arrow is the action; the label stays in the card title.
  */
 const LegalMoreInfo = ({
   title = '',
@@ -54,7 +59,7 @@ const LegalMoreInfo = ({
       <Container className="flex flex-col gap-6">
         {title ? (
           <h2
-            className={`m-0 font-semibold text-700 ${typography.sectionTitle} ${CMS_TEXT_HOVER_CLASS}`}
+            className={`m-0 text-2xl font-semibold leading-[22px] text-[#3E3E3B] ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
           >
             {showLinks && links.length ? (
@@ -64,48 +69,42 @@ const LegalMoreInfo = ({
             )}
           </h2>
         ) : null}
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           {cards.map((card, index) => (
             <LocalizedLink
               key={card.id || `${card.href}-${index}`}
               href={card.href || '#'}
-              className="group flex overflow-hidden rounded-2xl bg-50 no-underline"
+              className="flex min-h-[240px] cursor-pointer flex-col justify-between rounded-xl bg-white p-6 no-underline"
             >
-              <div className="flex w-[92px] shrink-0 items-center justify-center bg-main sm:w-[120px]">
-                <img
-                  src={ICONS[card.icon] || ICONS.shield}
-                  alt=""
-                  className="size-11"
-                />
+              <div className="flex w-full flex-col items-start gap-4">
+                <CardIcon icon={card.icon} />
+                <div className="flex w-full flex-col gap-2">
+                  <h3
+                    className={`m-0 text-lg font-semibold leading-6 text-[#3E3E3B] ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'semibold')}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className={`m-0 text-sm font-normal leading-[22px] text-[#3E3E3B] ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(
+                      textStyle,
+                      'cardDescriptionColor',
+                      '700',
+                      'normal',
+                    )}
+                  >
+                    {card.description}
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col gap-2 px-4 py-6">
-                <h3
-                  className={`m-0 font-semibold text-primary-1 ${typography.itemTitle} leading-6 ${CMS_TEXT_HOVER_CLASS}`}
-                  style={getTextStyleVars(textStyle, 'cardTitleColor', 'primary-1', 'semibold')}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  className={`m-0 font-normal leading-relaxed text-700 ${typography.caption} ${CMS_TEXT_HOVER_CLASS}`}
-                  style={getTextStyleVars(
-                    textStyle,
-                    'cardDescriptionColor',
-                    '700',
-                    'normal',
-                  )}
-                >
-                  {card.description}
-                </p>
-                <span
-                  className={`mt-1 inline-flex items-center gap-1 font-semibold text-primary-1 ${typography.caption} group-hover:underline ${CMS_TEXT_HOVER_CLASS}`}
-                  style={getTextStyleVars(textStyle, 'ctaColor', 'primary-1', 'semibold')}
-                >
-                  {card.cta}
-                  <span aria-hidden className="rtl:-scale-x-100">
-                    →
-                  </span>
-                </span>
-              </div>
+              <img
+                src={arrowIcon}
+                alt=""
+                width={33}
+                height={33}
+                className="shrink-0 -rotate-90 self-end rtl:rotate-90"
+              />
             </LocalizedLink>
           ))}
         </div>

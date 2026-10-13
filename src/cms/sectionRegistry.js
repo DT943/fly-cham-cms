@@ -171,6 +171,8 @@ import { loungeCardsProps } from './adapters/loungeCardsAdapter.js'
 import FlightDeals from '../shared/components/FlightDeals.jsx'
 import { flightDealsProps } from './adapters/flightDealsAdapter.js'
 import ServiceDeals from '../shared/components/ServiceDeals.jsx'
+import BookingSearch from '../shared/booking-search/BookingSearch.jsx'
+import { bookingSearchProps } from './adapters/bookingSearchAdapter.js'
 import { serviceDealsProps } from './adapters/serviceDealsAdapter.js'
 import SupportSteps from '../shared/components/SupportSteps.jsx'
 import { supportStepsProps } from './adapters/supportStepsAdapter.js'
@@ -262,6 +264,7 @@ export const sectionRegistry = {
   'seat-choose': { Component: SeatChoose, mapProps: seatChooseProps },
   'seat-plan': { Component: SeatPlan, mapProps: seatPlanProps },
   'info-accordion': { Component: InfoAccordion, mapProps: infoAccordionProps },
+  'terms-and-condition': { Component: InfoAccordion, mapProps: infoAccordionProps },
   'responsibility-sections': { Component: ResponsibilitySections, mapProps: responsibilitySectionsProps },
   'before-you-fly-services': { Component: BeforeYouFlyServices, mapProps: beforeYouFlyServicesProps },
   'journey-stage-next-steps': { Component: JourneyStageNextSteps, mapProps: journeyStageNextStepsProps },
@@ -336,6 +339,8 @@ export const sectionRegistry = {
   // Offers & Deals page (Figma 40951:24297).
   'flight-deals': { Component: FlightDeals, mapProps: flightDealsProps },
   'service-deals': { Component: ServiceDeals, mapProps: serviceDealsProps },
+  // Figma booking box on Offers & Deals (live engine underneath; see BookingSearch).
+  'booking-search': { Component: BookingSearch, mapProps: bookingSearchProps },
   'support-steps': { Component: SupportSteps, mapProps: supportStepsProps },
   'split-cards': { Component: SplitCards, mapProps: splitCardsProps },
   'catalog-cards': { Component: CatalogCards, mapProps: catalogCardsProps },

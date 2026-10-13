@@ -72,7 +72,7 @@ const HomeExtraServices = ({
     >
       <Container className="flex min-w-0 flex-col gap-5 md:gap-7">
         {headerVisible ? (
-          <div className="flex max-w-2xl flex-col gap-1.5 md:gap-2">
+          <div className="flex flex-col gap-1.5 md:gap-2">
             {title ? (
               <h2
                 className={cx('m-0', typography.sectionTitle, 'lg:text-[32px]', CMS_TEXT_HOVER_CLASS)}

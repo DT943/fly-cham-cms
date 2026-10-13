@@ -110,7 +110,7 @@ const NotFoundHero = ({
 
         {showDescription && descriptionText ? (
           <p
-            className={`m-0 max-w-xl opacity-90 ${EYEBROW_SIZE} ${CMS_TEXT_HOVER_CLASS}`}
+            className={`m-0 opacity-90 ${EYEBROW_SIZE} ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(style, 'descriptionColor', '50', 'normal')}
           >
             {descriptionText}

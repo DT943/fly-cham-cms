@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react'
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import chevronLeft from '../../assets/icons/landmark/chevron-left.svg'
 import Container from './Container.jsx'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
+import './landmarkGallery.css'
 
 const IMAGE_RADIUS = {
   none: 'rounded-none',
@@ -19,32 +20,45 @@ const SECTION_PADDING = {
   loose: 'py-14 md:py-20',
 }
 
+const arrowButtonClass =
+  'grid size-[38.4px] cursor-pointer place-items-center rounded-full bg-white/90 p-[7.68px] shadow-[0_6px_4px_rgba(0,0,0,0.25)] transition duration-200 hover:scale-[1.08] hover:bg-white active:scale-[0.94]'
+
+const SLIDE_MS = 950
+
+const motionSide = (direction) => {
+  const rtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
+  if (!rtl) return direction
+  return direction === 'right' ? 'left' : 'right'
+}
+
 /**
- * Dark strip of image thumbnails with round arrows. The active thumb carries a
- * gold border; arrows scroll the row (and nudge the active index). Colours are
- * CMS-driven props defaulting to the source tokens.
+ * Photo, slide controls, and the thumbnail row that sits under that photo.
+ * Arrows, dots, and the count sit on the image; the active thumb has a gold border.
  */
-const ThumbnailStrip = ({
-  images = [],
-  altPrefix = '',
+const LandmarkGallery = ({
+  slides = [],
+  alt = '',
   active = 0,
   onSelect,
-  carouselBg = '50',
-  arrowBg = 'secondary-900',
-  arrowColor = '50',
+  radiusClass,
+  showCarousel = true,
   activeBorderColor = 'primary-2',
+  mediaCell = '',
+  thumbCell = '',
 }) => {
   const { t } = useTranslation()
   const trackRef = useRef(null)
+  const animating = useRef(false)
+  const timer = useRef(null)
+  const [outgoing, setOutgoing] = useState(null)
+  const activeBorder = colorVar(activeBorderColor)
 
-  const select = (index) => {
-    const last = images.length - 1
-    if (last < 0) return
-    const next = Math.min(Math.max(index, 0), last)
-    onSelect?.(next)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+  const count = slides.length
 
+  const revealThumb = (index) => {
     const track = trackRef.current
-    const thumb = track?.children[next]
+    const thumb = track?.children[index]
     if (!track || !thumb) return
     const thumbLeft = thumb.offsetLeft
     const thumbRight = thumbLeft + thumb.offsetWidth
@@ -57,60 +71,119 @@ const ThumbnailStrip = ({
     })
   }
 
-  if (!images.length) return null
+  const goTo = (nextIndex, nextDirection) => {
+    if (!count || nextIndex === active || animating.current) return
+    const wrapped = (nextIndex + count) % count
+    const direction = nextDirection ?? (wrapped > active ? 'right' : 'left')
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!reduce) {
+      animating.current = true
+      setOutgoing({ index: active, direction })
+      window.clearTimeout(timer.current)
+      timer.current = window.setTimeout(() => {
+        animating.current = false
+        setOutgoing(null)
+      }, SLIDE_MS)
+    }
+    onSelect?.(wrapped)
+    revealThumb(wrapped)
+  }
 
-  const arrowStyle = { backgroundColor: colorVar(arrowBg), color: colorVar(arrowColor) }
-  const activeBorder = colorVar(activeBorderColor)
+  if (!slides.length) return null
+  const multiple = showCarousel && slides.length > 1
+  const side = outgoing ? motionSide(outgoing.direction) : null
 
   return (
-    <div
-      className="flex items-center gap-3 rounded-xl p-3 sm:gap-4 sm:p-4"
-      style={{ backgroundColor: colorVar(carouselBg) }}
-    >
-      <button
-        type="button"
-        onClick={() => select(active - 1)}
-        aria-label={t('flightsToDamascus.carousel.prev')}
-        className="grid size-9 shrink-0 place-items-center rounded-full transition-opacity hover:opacity-90 sm:size-10"
-        style={arrowStyle}
-      >
-        <CaretLeft size={16} weight="bold" className="rtl:-scale-x-100" />
-      </button>
-
-      <div
-        ref={trackRef}
-        className="flex flex-1 gap-3 overflow-x-auto scroll-smooth sm:gap-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {images.map((src, index) => (
-          <button
-            type="button"
-            key={`${src}-${index}`}
-            onClick={() => select(index)}
-            aria-label={`${altPrefix} ${index + 1}`.trim()}
-            aria-current={active === index}
-            className="h-20 w-28 shrink-0 overflow-hidden rounded-lg border-[3px] border-solid sm:h-[110px] sm:w-auto sm:flex-1 sm:basis-0"
-            style={{ borderColor: active === index ? activeBorder : 'transparent' }}
-          >
-            <img src={src} alt="" className="size-full object-cover" />
-          </button>
-        ))}
+    <>
+      <div className={mediaCell}>
+        <div className={`relative isolate aspect-[644/454] overflow-hidden bg-[#e8e8e5] lg:h-[454px] lg:aspect-auto ${radiusClass}`}>
+          {outgoing ? (
+            <img
+              src={slides[outgoing.index]}
+              alt=""
+              aria-hidden="true"
+              className={`landmark-slide landmark-slide--exit-${side}`}
+            />
+          ) : null}
+          <img
+            key={active}
+            src={slides[active]}
+            alt={alt}
+            className={`landmark-slide ${outgoing ? `landmark-slide--enter-${side}` : ''}`}
+          />
+          {multiple ? (
+            <>
+              <span className="absolute end-3.5 top-3.5 z-[3] inline-flex h-7 items-center rounded-[6px] bg-white/86 px-2.5 text-xs font-medium leading-none text-[#262e2b]">
+                {active + 1} / {slides.length}
+              </span>
+              <div className="absolute inset-x-0 bottom-3 z-[3] flex items-center justify-center gap-[25.6px]">
+                <button
+                  type="button"
+                  onClick={() => goTo(active - 1, 'left')}
+                  aria-label={t('flightsToDamascus.carousel.prev')}
+                  className={arrowButtonClass}
+                >
+                  <span className="inline-flex rtl:-scale-x-100">
+                    <img src={chevronLeft} alt="" width="23.04" height="23.04" />
+                  </span>
+                </button>
+                <div className="flex items-center gap-[7px] rounded-full bg-black/45 p-[7px] backdrop-blur-[8px]">
+                  {slides.map((src, index) => (
+                    <button
+                      key={`${src}-${index}`}
+                      type="button"
+                      aria-label={`${alt} ${index + 1}`.trim()}
+                      aria-current={active === index}
+                      onClick={() => goTo(index)}
+                      className={`h-[7px] cursor-pointer rounded-full border-0 p-0 transition-[width,background-color] duration-300 ease-out ${
+                        active === index ? 'w-5 bg-white' : 'w-[7px] bg-white/65'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => goTo(active + 1, 'right')}
+                  aria-label={t('flightsToDamascus.carousel.next')}
+                  className={arrowButtonClass}
+                >
+                  <span className="inline-flex rotate-180 rtl:-scale-x-100">
+                    <img src={chevronLeft} alt="" width="23.04" height="23.04" />
+                  </span>
+                </button>
+              </div>
+            </>
+          ) : null}
+        </div>
       </div>
-
-      <button
-        type="button"
-        onClick={() => select(active + 1)}
-        aria-label={t('flightsToDamascus.carousel.next')}
-        className="grid size-9 shrink-0 place-items-center rounded-full transition-opacity hover:opacity-90 sm:size-10"
-        style={arrowStyle}
-      >
-        <CaretRight size={16} weight="bold" className="rtl:-scale-x-100" />
-      </button>
-    </div>
+      {multiple ? (
+        <div
+          ref={trackRef}
+          className={`flex gap-3 overflow-x-auto scroll-smooth [scrollbar-width:none] lg:row-start-2 [&::-webkit-scrollbar]:hidden ${thumbCell}`}
+        >
+          {slides.map((src, index) => (
+            <button
+              type="button"
+              key={`${src}-thumb-${index}`}
+              onClick={() => goTo(index)}
+              aria-label={`${alt} ${index + 1}`.trim()}
+              aria-current={active === index}
+              className={`h-[110px] min-w-[96px] flex-1 basis-[96px] cursor-pointer overflow-hidden rounded-lg border-2 border-solid bg-transparent p-0 transition duration-300 ease-out ${
+                active === index ? 'opacity-100' : 'opacity-50 hover:-translate-y-0.5 hover:opacity-80'
+              }`}
+              style={{ borderColor: active === index ? activeBorder : 'transparent' }}
+            >
+              <img src={src} alt="" className="size-full object-cover" />
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </>
   )
 }
 
-/** One landmark: photo + copy side by side, closed by the thumbnail strip. */
-const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleKeys, showCarousel, carouselProps }) => {
+/** One landmark: copy beside the photo, with the gallery under that photo. */
+const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleKeys, showCarousel, activeBorderColor }) => {
   const banner = item.image || ''
   const thumbs = (Array.isArray(item.thumbnails) ? item.thumbnails : [])
     .map((thumb) => thumb?.url || '')
@@ -126,38 +199,42 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
         : []
 
   const [active, setActive] = useState(0)
-  const currentBanner = slides[active] || banner
   const imageFirst = item.imageFirst === true
+  const columns = imageFirst
+    ? 'lg:grid-cols-[minmax(0,644px)_minmax(0,1fr)]'
+    : 'lg:grid-cols-[minmax(0,1fr)_minmax(0,644px)]'
+  const mediaCell = imageFirst ? 'lg:col-start-1 lg:row-start-1' : 'lg:col-start-2 lg:row-start-1'
+  const copyCell = imageFirst ? 'lg:col-start-2 lg:row-start-1' : 'lg:col-start-1 lg:row-start-1'
+  const thumbCell = imageFirst ? 'lg:col-start-1' : 'lg:col-start-2'
 
   return (
-    <>
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-28">
-        {currentBanner ? (
-          <img
-            src={currentBanner}
-            alt={item.imageAlt || ''}
-            className={`h-64 w-full shrink-0 object-cover sm:h-80 lg:h-[454px] lg:w-[55%] ${radiusClass} ${imageFirst ? '' : 'lg:order-2'}`}
-          />
-        ) : null}
-        <div className={`flex w-full flex-col gap-4 lg:gap-6 ${imageFirst ? '' : 'lg:order-1'}`}>
-          <h2
-            className={`m-0 text-2xl sm:text-3xl lg:text-[40px] ${CMS_TEXT_HOVER_CLASS}`}
-            style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
-          >
-            <LinkedText text={item.title} {...linkProps} />
-          </h2>
-          <p
-            className={`m-0 text-sm leading-[1.6] sm:text-base ${CMS_TEXT_HOVER_CLASS}`}
-            style={getTextStyleVars(bodyStyleKeys, 'bodyColor', '700', 'normal')}
-          >
-            <LinkedText text={item.description} {...linkProps} />
-          </p>
-        </div>
+    <div className={`grid w-full grid-cols-1 items-center gap-x-16 gap-y-5 xl:gap-x-28 ${columns}`}>
+      <LandmarkGallery
+        slides={slides}
+        alt={item.imageAlt || ''}
+        active={Math.min(active, Math.max(slides.length - 1, 0))}
+        onSelect={setActive}
+        radiusClass={radiusClass}
+        showCarousel={showCarousel}
+        activeBorderColor={activeBorderColor}
+        mediaCell={mediaCell}
+        thumbCell={thumbCell}
+      />
+      <div className={`flex w-full max-w-[462px] flex-col gap-4 lg:gap-6 ${copyCell}`}>
+        <h2
+          className={`m-0 text-2xl leading-normal sm:text-3xl lg:text-[40px] ${CMS_TEXT_HOVER_CLASS}`}
+          style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
+        >
+          <LinkedText text={item.title} {...linkProps} />
+        </h2>
+        <p
+          className={`m-0 text-[15px] leading-[1.6] sm:text-base ${CMS_TEXT_HOVER_CLASS}`}
+          style={getTextStyleVars(bodyStyleKeys, 'bodyColor', '700', 'normal')}
+        >
+          <LinkedText text={item.description} {...linkProps} />
+        </p>
       </div>
-      {showCarousel && slides.length > 1 ? (
-        <ThumbnailStrip images={slides} active={active} onSelect={setActive} altPrefix={item.imageAlt || ''} {...carouselProps} />
-      ) : null}
-    </>
+    </div>
   )
 }
 
@@ -207,10 +284,10 @@ const LandmarkFeature = ({
   }
   const titleStyleKeys = { titleColor, titleFontWeight, titleColorHover, titleFontWeightHover }
   const bodyStyleKeys = { bodyColor, bodyFontWeight, bodyColorHover, bodyFontWeightHover }
-  const carouselProps = { carouselBg, arrowBg, arrowColor, activeBorderColor }
+  const carouselProps = { activeBorderColor }
 
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-col gap-6">
       {items.map((item, index) => (
         <section
           key={item.id || index}
@@ -222,7 +299,7 @@ const LandmarkFeature = ({
               : undefined
           }
         >
-          <Container className={`flex flex-col gap-8 lg:gap-10 ${paddingClass}`}>
+          <Container className={paddingClass}>
             <LandmarkCard
               item={item}
               radiusClass={radiusClass}
@@ -230,7 +307,7 @@ const LandmarkFeature = ({
               titleStyleKeys={titleStyleKeys}
               bodyStyleKeys={bodyStyleKeys}
               showCarousel={showCarousel}
-              carouselProps={carouselProps}
+              activeBorderColor={carouselProps.activeBorderColor}
             />
           </Container>
         </section>

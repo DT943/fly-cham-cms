@@ -147,7 +147,7 @@ const MagazineBanner = ({
       </div>
 
       <div className="relative flex h-full flex-col justify-center gap-6 px-6 py-10 md:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-0 lg:ps-16 lg:pe-11.5">
-        <div className="flex flex-col gap-6 lg:min-w-0 lg:max-w-160">
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
           <div className="flex flex-col gap-3">
             <h2
               className={`m-0 text-2xl sm:text-3xl lg:text-4xl ${CMS_TEXT_HOVER_CLASS}`}

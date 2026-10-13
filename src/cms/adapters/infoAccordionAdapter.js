@@ -1,20 +1,22 @@
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
 /**
- * Map a CMS "info-accordion" block to <InfoAccordion /> props — a white card
- * with stacked expandable title/body sections.
+ * Map a CMS "terms-and-condition" block (also the older "info-accordion" id)
+ * to the terms card: a heading and a marked list.
  */
 export function infoAccordionProps(block, lang) {
   const content = pickContent(block.content, lang)
   const style = block.style || {}
 
+  const items = (Array.isArray(content.items) ? content.items : []).map((it, index) => ({
+    id: it?.id || `item-${index + 1}`,
+    heading: (it?.heading || (it?.text ? '' : it?.title) || '').trim(),
+    text: (it?.text || it?.body || '').trim(),
+  })).filter((it) => it.heading || it.text)
+
   return {
-    items: (Array.isArray(content.items) ? content.items : []).map((it, index) => ({
-      id: it?.id || `item-${index + 1}`,
-      title: it?.title || '',
-      body: it?.body || '',
-      defaultOpen: it?.defaultOpen !== false,
-    })),
+    title: (content.title || '').trim() || items.find((it) => it.heading)?.heading || '',
+    items,
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -31,7 +33,7 @@ const STYLE_KEYS = [
   'sectionBg',
   'cardBg',
   'cardRadius',
-  'dividerColor',
+  'listMarker',
   'titleColor',
   'titleFontWeight',
   'titleColorHover',
@@ -40,7 +42,6 @@ const STYLE_KEYS = [
   'bodyFontWeight',
   'bodyColorHover',
   'bodyFontWeightHover',
-  'iconColor',
   'showLinks',
   'linkColor',
   'linkHoverColor',

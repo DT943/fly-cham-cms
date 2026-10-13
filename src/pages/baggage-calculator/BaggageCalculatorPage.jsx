@@ -126,22 +126,14 @@ const BaggageCalculatorPage = () => {
 
         <Container>
           <InfoAccordion
+            title={page.terms?.termsTitle}
             sectionPadding="none"
             cardRadius="sm"
+            listMarker="dots"
             items={[
-              {
-                id: 'terms',
-                title: page.terms?.termsTitle,
-                body: page.terms?.termsBody,
-                defaultOpen: true,
-              },
-              {
-                id: 'more',
-                title: page.terms?.moreTitle,
-                body: page.terms?.moreBody,
-                defaultOpen: true,
-              },
-            ]}
+              { id: 'terms', heading: page.terms?.termsHeading, text: page.terms?.termsBody },
+              { id: 'more', heading: page.terms?.moreTitle, text: page.terms?.moreBody },
+            ].filter((item) => item.heading || item.text)}
           />
         </Container>
       </div>

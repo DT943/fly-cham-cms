@@ -73,7 +73,7 @@ const ComingSoonHero = ({
       </div>
 
       <Container className="relative z-10 flex w-full flex-col justify-start pt-10 pb-16 md:pt-14 lg:pt-20">
-        <div className="flex max-w-xl flex-col gap-3 md:max-w-2xl md:gap-4">
+        <div className="flex flex-col gap-3 md:gap-4">
           {title ? (
             <h1
               className={`m-0 leading-tight tracking-tight ${typography.pageTitle} lg:text-[56px] ${CMS_TEXT_HOVER_CLASS}`}
@@ -84,7 +84,7 @@ const ComingSoonHero = ({
           ) : null}
           {description ? (
             <p
-              className={`m-0 max-w-lg leading-relaxed ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
+              className={`m-0 leading-relaxed ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
               style={descriptionStyle}
             >
               <LinkedText text={description} {...linkProps} />

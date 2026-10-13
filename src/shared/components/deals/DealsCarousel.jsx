@@ -12,7 +12,7 @@ const TRACK_CLASS = {
 // Figma Carousel_Arrow: 40px white circle, #e5e5e0 border, soft drop shadow,
 // 18px primary chevron; centred 14.5px below the card middle on desktop.
 const ARROW_CLASS =
-  'absolute top-1/2 z-[1] hidden size-10 -translate-y-1/2 items-center justify-center rounded-full border border-solid border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)] md:flex lg:top-[calc(50%+14.5px)]'
+  'absolute top-1/2 z-[1] hidden size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-solid border-[#e5e5e0] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.06)] md:flex lg:top-[calc(50%+14.5px)]'
 
 /**
  * Horizontal deal-card row with Figma arrows (md+) and gold dots.

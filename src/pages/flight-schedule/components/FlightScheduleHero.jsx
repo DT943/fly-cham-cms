@@ -22,7 +22,7 @@ const FlightScheduleHero = () => {
         <h1 className="m-0 text-4xl leading-tight font-bold text-primary-1 md:text-5xl">
           {t('flightSchedulePage.title')}
         </h1>
-        <p className="m-0 mt-2 max-w-md text-sm text-700">{t('flightSchedulePage.hero.subtitle')}</p>
+        <p className="m-0 mt-2 text-sm text-700">{t('flightSchedulePage.hero.subtitle')}</p>
       </Container>
     </section>
   )

@@ -236,7 +236,7 @@ const HomeTravelExperience = ({
     >
       <Container className="flex min-w-0 flex-col gap-5 md:gap-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-          <div className="flex max-w-3xl flex-col gap-1.5 md:gap-2">
+          <div className="flex min-w-0 flex-1 flex-col gap-1.5 md:gap-2">
             {title ? (
               <h2
                 className={`m-0 break-words ${typography.sectionTitle} lg:text-[32px] ${CMS_TEXT_HOVER_CLASS}`}

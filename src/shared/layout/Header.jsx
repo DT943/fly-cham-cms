@@ -154,16 +154,12 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     setOpenMenu(id)
     setPinned(true)
   }
-  // Hover previews a menu, except while search is open (it stays until closed).
-  // Switching an already-open menu waits briefly so a pass over Help on the way
-  // to a link does not move the line.
+  // Hover previews a menu, except while search is open (it stays until closed)
+  // or the visitor has clicked a menu open. The preview always waits, so a pass
+  // over Help on the way to another item or a link does not move the line.
   const previewMenu = (id) => {
-    if (openMenu === SEARCH_MENU || openMenu === id) return
+    if (pinned || openMenu === SEARCH_MENU || openMenu === id) return
     cancelPreview()
-    if (!openMenu) {
-      setOpenMenu(id)
-      return
-    }
     previewTimer.current = window.setTimeout(() => {
       previewTimer.current = null
       setOpenMenu(id)

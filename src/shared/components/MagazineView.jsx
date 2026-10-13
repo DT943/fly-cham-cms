@@ -80,7 +80,7 @@ const MagazineView = ({
           {description ? (
             <p
               className={cx(
-                'm-0 max-w-3xl leading-relaxed',
+                'm-0 leading-relaxed',
                 typography.sectionDescription,
                 CMS_TEXT_HOVER_CLASS,
               )}

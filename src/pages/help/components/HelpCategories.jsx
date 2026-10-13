@@ -107,7 +107,7 @@ const HelpCategories = ({
           )}
           {showSectionSubtitle && resolvedSubtitle && (
             <p
-              className={cx(typography.sectionDescription, 'm-0 max-w-3xl', CMS_TEXT_HOVER_CLASS)}
+              className={cx(typography.sectionDescription, 'm-0', CMS_TEXT_HOVER_CLASS)}
               style={getTextStyleVars(sectionSubtitleStyleKeys, 'sectionSubtitleColor', '600', 'normal')}
             >
               <LinkedText text={resolvedSubtitle} {...linkProps} />

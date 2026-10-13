@@ -118,7 +118,7 @@ const IconTiles = ({
     >
       <div className="flex flex-col items-center gap-5 md:gap-8">
         {showHeader !== false && (title || (showSubtitle !== false && subtitle)) ? (
-          <div className="flex max-w-[760px] flex-col items-center gap-2 text-center">
+          <div className="flex flex-col items-center gap-2 text-center">
             {title ? (
               <h2 className={cx('m-0 text-xl leading-snug md:text-2xl md:leading-[normal] lg:text-[28px]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'titleColor', '700', 'semibold')}>
                 <LinkedText text={title} {...linkProps} />

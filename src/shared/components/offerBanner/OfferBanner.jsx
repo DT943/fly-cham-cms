@@ -225,7 +225,7 @@ function OfferCopy({ variant, content, style }) {
           </h2>
         ) : null}
         {style.showDescription !== false && content.description ? (
-          <p className={cx('m-0 max-w-[520px]', BODY_SIZE, body.className)} style={body.style}>
+          <p className={cx('m-0', BODY_SIZE, body.className)} style={body.style}>
             <LinkedText text={content.description} {...linkProps} />
           </p>
         ) : null}

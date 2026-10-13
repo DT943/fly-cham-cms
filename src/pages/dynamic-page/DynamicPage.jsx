@@ -71,8 +71,12 @@ const DynamicPageContent = ({
   const notFound = !slug || error?.response?.status === 404
   if (notFound) return <NotFound />
 
+  const isArabic = language === 'ar'
+
   return (
     <main
+      lang={language || 'en'}
+      dir={isArabic ? 'rtl' : 'ltr'}
       className={
         isLoading ? 'flex min-h-dvh w-full flex-1 flex-col bg-100' : className
       }

@@ -24,13 +24,13 @@ const ComingSoon = () => {
       </div>
 
       <Container className="relative z-10 flex w-full flex-col justify-start pt-10 pb-16 md:pt-14 lg:pt-20">
-        <div className="flex max-w-xl flex-col gap-3 md:max-w-2xl md:gap-4">
+        <div className="flex flex-col gap-3 md:gap-4">
           <h1
             className={`m-0 font-bold leading-tight tracking-tight text-50 ${typography.pageTitle} lg:text-[56px]`}
           >
             {t('comingSoon.title')}
           </h1>
-          <p className={`m-0 max-w-lg font-normal leading-relaxed text-50/90 ${typography.sectionDescription}`}>
+          <p className={`m-0 font-normal leading-relaxed text-50/90 ${typography.sectionDescription}`}>
             {t('comingSoon.description')}
           </p>
         </div>

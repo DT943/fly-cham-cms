@@ -157,7 +157,7 @@ const CargoShipmentTypes = ({
     <section className={cx('w-full min-w-0', SECTION_PADDING[sectionPadding] ?? SECTION_PADDING.default)}>
       <div className="flex min-w-0 flex-col gap-5 md:gap-6 lg:gap-[29px]">
         {headerVisible ? (
-          <div className="flex max-w-3xl flex-col gap-2 md:gap-3 lg:max-w-none lg:gap-[13px]">
+          <div className="flex flex-col gap-2 md:gap-3 lg:gap-[13px]">
             {title ? (
               <h2
                 className={cx('m-0', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}

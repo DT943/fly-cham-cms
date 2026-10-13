@@ -8,7 +8,7 @@ const PlacesWorthDiscovering = () => {
   return (
     <section className="relative isolate overflow-hidden rounded-2xl bg-linear-to-r from-[#01263b] to-primary-1 rtl:bg-linear-to-l">
       <div className="relative flex flex-col gap-5 px-6 py-8 md:px-10 md:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-        <div className="flex max-w-3xl flex-col gap-3 text-50">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 text-50">
           <h2 className="m-0 text-2xl font-semibold lg:text-3xl">
             {t('routeMap.places.title')}
           </h2>

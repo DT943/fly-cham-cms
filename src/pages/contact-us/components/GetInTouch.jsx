@@ -201,7 +201,7 @@ const GetInTouch = ({
         <p
           className={cx(
             typography.caption,
-            'm-0 w-full max-w-3xl leading-relaxed',
+            'm-0 w-full leading-relaxed',
             CMS_TEXT_HOVER_CLASS,
           )}
           style={getTextStyleVars(noteStyleKeys, 'noteColor', '700', 'normal')}

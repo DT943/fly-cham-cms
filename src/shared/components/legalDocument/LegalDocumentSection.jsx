@@ -51,23 +51,25 @@ const LegalDocumentSection = ({
 
   if (variant === 'contact-company') {
     return (
-      <LegalDocumentContact
-        variant="company"
-        title={title}
-        intro={body}
-        company={section.company}
-        department={section.department}
-        emailLabel={section.emailLabel}
-        email={section.email}
-        phoneLabel={section.phoneLabel}
-        phone={section.phone}
-      />
+      <div id={id} className="scroll-mt-24">
+        <LegalDocumentContact
+          variant="company"
+          title={title}
+          intro={body}
+          company={section.company}
+          department={section.department}
+          emailLabel={section.emailLabel}
+          email={section.email}
+          phoneLabel={section.phoneLabel}
+          phone={section.phone}
+        />
+      </div>
     )
   }
 
   if (variant === 'prose') {
     return (
-      <section className="flex flex-col gap-4">
+      <section id={id} className="flex scroll-mt-24 flex-col gap-4">
         {title ? (
           <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-7`}>
             {title}
@@ -82,7 +84,7 @@ const LegalDocumentSection = ({
 
   if (variant === 'tint-stack') {
     return (
-      <section className="flex flex-col gap-4">
+      <section id={id} className="flex scroll-mt-24 flex-col gap-4">
         {title ? (
           <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-7`}>
             {title}
@@ -104,7 +106,7 @@ const LegalDocumentSection = ({
 
   if (variant === 'grid-tiles') {
     return (
-      <section className="flex flex-col gap-4">
+      <section id={id} className="flex scroll-mt-24 flex-col gap-4">
         {title ? (
           <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-7`}>
             {title}
@@ -126,7 +128,7 @@ const LegalDocumentSection = ({
 
   if (variant === 'preferences') {
     return (
-      <section className="flex flex-col gap-4">
+      <section id={id} className="flex scroll-mt-24 flex-col gap-4">
         {title ? (
           <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-7`}>
             {title}
@@ -173,7 +175,7 @@ const LegalDocumentSection = ({
 
   if (variant === 'tint-grid') {
     return (
-      <section className="flex flex-col gap-4">
+      <section id={id} className="flex scroll-mt-24 flex-col gap-4">
         {title ? (
           <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-7`}>
             {title}

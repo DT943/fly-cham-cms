@@ -817,6 +817,22 @@
       },
       "submit": "Track my request",
       "imageAlt": "Passenger tracking a request on a laptop",
+      "result": {
+        "caseNumber": "Case number",
+        "fullName": "Full name",
+        "requestType": "Request type",
+        "requestTypeValue": "Refund Request",
+        "contactEmail": "Contact email",
+        "status": "Under review",
+        "bookingReference": "Booking reference",
+        "bookingReferenceValue": "Y7K2LP",
+        "currentStatus": "Current status",
+        "contactUs": "Contact us",
+        "chatNow": "Chat now",
+        "emailed": "We've emailed you the full details",
+        "notFoundTitle": "We couldn’t find your request",
+        "notFoundBody": "Check your case number and use the email address or last name from your original request."
+      },
       "errors": {
         "required": "This field is required"
       }
@@ -4173,10 +4189,11 @@
       ]
     },
     "terms": {
-      "termsTitle": "Terms and Conditions",
-      "termsBody": "Fly Cham’s crew will meet children using this service at the airport check-in desk, escort them to the gate, and ensure their safe boarding.\n\nUpon arrival, the person meeting the child must have an ID card to prove their identity. This ID card must match the person named on the original booking form. No one else can represent the person named, even if they have the original person's ID card with them as proof.",
-      "moreTitle": "More Information",
-      "moreBody": "Fly Cham does not offer unaccompanied minors on connecting flights"
+      "termsTitle": "Baggage Terms and Conditions",
+      "termsHeading": "Baggage Allowance",
+      "termsBody": "Baggage allowances vary by travel class and fare type. Carry-on baggage must fit in the overhead bin or under the seat in front of you. Checked baggage is subject to size and weight limits, and oversized items may require special handling.",
+      "moreTitle": "Before You Fly",
+      "moreBody": "Please check your ticket or contact our sales offices for the most up-to-date baggage information before your flight."
     }
   },
   "flightSchedulePage": {

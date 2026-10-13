@@ -215,7 +215,7 @@ const CoverSlider = ({
               )}
               {showSubtitle && slide.subtitle && (
                 <p
-                  className={`${subtitleClass || `${typography.sectionDescription} leading-relaxed lg:text-lg`} m-0 max-w-[430px] whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
+                  className={`${subtitleClass || `${typography.sectionDescription} leading-relaxed lg:text-lg`} m-0 whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
                   style={subtitleVars}
                 >
                   <LinkedText text={slide.subtitle} {...linkProps} />
@@ -543,7 +543,7 @@ const PageMediaHero = ({
           )}
           {showSubtitle && subtitle && (
             <p
-              className={`${subtitleClass} m-0 max-w-[430px] whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
+              className={`${subtitleClass} m-0 whitespace-pre-wrap ${CMS_TEXT_HOVER_CLASS}`}
               style={subtitleVars}
             >
               <LinkedText text={subtitle} {...linkProps} />

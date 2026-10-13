@@ -8,12 +8,18 @@ import {
 import LinkedText from './backlinks/LinkedText.jsx'
 import DealCard from './deals/DealCard.jsx'
 import DealsCarousel from './deals/DealsCarousel.jsx'
-import DealsDropdown from './deals/DealsDropdown.jsx'
+import Dropdown from './Dropdown.jsx'
 import { DEAL_CARD_WIDTH, SECTION_PADDING_CLASS } from './deals/dealsStyle.js'
 
 // Figma: title 22px (mobile) / 28px; origin 18px underlined (mobile) / 24px.
 const TITLE_SIZE = 'text-[22px] leading-[normal] lg:text-[28px]'
 const ORIGIN_SIZE = 'text-[18px] leading-[normal] underline lg:text-[24px] lg:no-underline'
+
+// Shared Dropdown triggers restyled to the Figma: the `!` overrides beat the
+// Dropdown's default field look (border, min-height, padding, background).
+// Keep identical with cms2 FlightDealsPanel.
+const ORIGIN_TRIGGER = '!min-h-0 !justify-start !gap-1 !rounded-none !border-0 !bg-transparent !p-0.5 lg:!gap-4 lg:!p-0'
+const CLASS_TRIGGER = '!min-h-0 h-14 !border-0 !p-[10px] lg:h-[58px] lg:!rounded-[12px] lg:!px-4 lg:!py-0'
 
 /** "Round trip | Economy From" for one deal, from the section labels. */
 const buildFareText = (deal, content) => {
@@ -93,27 +99,30 @@ const FlightDeals = ({ content, style = {}, lang = 'en' }) => {
               </h2>
             ) : null}
             {showOrigin ? (
-              <DealsDropdown
+              <Dropdown
                 label={originLabel}
                 options={origins.map((item) => ({ value: item.id, label: item.label }))}
                 value={origin}
                 onChange={setOriginChoice}
-                menuClassName="end-0 lg:end-auto lg:start-0"
-                buttonClassName="inline-flex items-center gap-1 bg-transparent p-0.5 lg:gap-4 lg:p-0"
-              >
-                <span
-                  className={`${ORIGIN_SIZE} ${CMS_TEXT_HOVER_CLASS}`}
-                  style={getTextStyleVars(style, 'originColor', 'primary-1', 'semibold')}
-                >
-                  {originLabel}
-                </span>
-                <CaretDownIcon
-                  size={16}
-                  aria-hidden
-                  className="shrink-0"
-                  style={{ color: colorVar(style.originColor || 'primary-1') }}
-                />
-              </DealsDropdown>
+                className="shrink-0"
+                buttonClassName={ORIGIN_TRIGGER}
+                renderButton={({ open }) => (
+                  <>
+                    <span
+                      className={`${ORIGIN_SIZE} ${CMS_TEXT_HOVER_CLASS}`}
+                      style={getTextStyleVars(style, 'originColor', 'primary-1', 'semibold')}
+                    >
+                      {originLabel}
+                    </span>
+                    <CaretDownIcon
+                      size={16}
+                      aria-hidden
+                      className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+                      style={{ color: colorVar(style.originColor || 'primary-1') }}
+                    />
+                  </>
+                )}
+              />
             ) : null}
           </div>
 
@@ -156,37 +165,39 @@ const FlightDeals = ({ content, style = {}, lang = 'en' }) => {
                 </div>
               ) : null}
               {showClass ? (
-                <DealsDropdown
+                <Dropdown
                   label={content.classLabel}
                   options={cabinOptions}
                   value={cabin}
                   onChange={setCabin}
                   className="w-full lg:w-[259px] lg:shrink-0"
-                  menuClassName="start-0 end-0"
-                  buttonClassName="flex h-14 w-full items-center justify-between gap-3 rounded-lg p-[10px] text-start lg:h-[58px] lg:rounded-[12px] lg:px-4 lg:py-0"
+                  buttonClassName={CLASS_TRIGGER}
                   buttonStyle={{ backgroundColor: filterBg }}
-                >
-                  <span className="flex flex-col gap-[3px] leading-[normal] lg:gap-[6px]">
-                    <span
-                      className={`text-[11px] lg:text-base ${CMS_TEXT_HOVER_CLASS}`}
-                      style={getTextStyleVars(style, 'labelColor', '600', 'normal')}
-                    >
-                      {content.classLabel}
-                    </span>
-                    <span
-                      className={`text-[13px] lg:text-base ${CMS_TEXT_HOVER_CLASS}`}
-                      style={getTextStyleVars(style, 'valueColor', '700', 'medium')}
-                    >
-                      {cabinLabel}
-                    </span>
-                  </span>
-                  <CaretDownIcon
-                    size={16}
-                    aria-hidden
-                    className="shrink-0"
-                    style={{ color: colorVar(style.caretColor || '800') }}
-                  />
-                </DealsDropdown>
+                  renderButton={({ open }) => (
+                    <>
+                      <span className="flex flex-col gap-[3px] leading-[normal] lg:gap-[6px]">
+                        <span
+                          className={`text-[11px] lg:text-base ${CMS_TEXT_HOVER_CLASS}`}
+                          style={getTextStyleVars(style, 'labelColor', '600', 'normal')}
+                        >
+                          {content.classLabel}
+                        </span>
+                        <span
+                          className={`text-[13px] lg:text-base ${CMS_TEXT_HOVER_CLASS}`}
+                          style={getTextStyleVars(style, 'valueColor', '700', 'medium')}
+                        >
+                          {cabinLabel}
+                        </span>
+                      </span>
+                      <CaretDownIcon
+                        size={16}
+                        aria-hidden
+                        className={`shrink-0 transition-transform ${open ? 'rotate-180' : ''}`}
+                        style={{ color: colorVar(style.caretColor || '800') }}
+                      />
+                    </>
+                  )}
+                />
               ) : null}
             </div>
           ) : null}

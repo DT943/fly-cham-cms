@@ -93,7 +93,7 @@ const OverlayCards = ({
   return (
     <section className={cx('flex flex-col gap-4 md:gap-6', padding)}>
       {showHeader && (title || (showSubtitle && subtitle)) ? (
-        <div className={cx('flex max-w-[760px] flex-col gap-2', alignStart ? 'items-start text-start' : 'mx-auto items-center text-center')}>
+        <div className={cx('flex flex-col gap-2', alignStart ? 'items-start text-start' : 'mx-auto items-center text-center')}>
           {title ? (
             <h2 className={cx('m-0 text-2xl leading-tight md:text-[32px] md:leading-[1.1]', CMS_TEXT_HOVER_CLASS)} style={getTextStyleVars(style, 'titleColor', '800', 'semibold')}>
               <LinkedText text={title} links={links} enabled={showLinks} {...linkStyle(style)} />

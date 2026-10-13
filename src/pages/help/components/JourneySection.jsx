@@ -143,7 +143,7 @@ const JourneySection = ({
               <p
                 className={cx(
                   typography.sectionDescription,
-                  'm-0 max-w-4xl',
+                  'm-0',
                   CMS_TEXT_HOVER_CLASS,
                 )}
                 style={getTextStyleVars(subtitleStyleKeys, 'subtitleColor', '600', 'normal')}

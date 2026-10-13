@@ -1,5 +1,3 @@
-import { useId, useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
 import LinkedText from './backlinks/LinkedText.jsx'
@@ -17,91 +15,33 @@ const SECTION_PADDING = {
   loose: 'py-10 md:py-16',
 }
 
+const MARKER_CLASS = {
+  dots: 'list-disc',
+  letters: 'list-[upper-alpha]',
+  numbers: 'list-decimal',
+}
+
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
-const AccordionItem = ({
-  item,
-  showDivider,
-  dividerColor,
-  iconColor,
-  textStyle,
-  linkProps,
-}) => {
-  const [open, setOpen] = useState(item.defaultOpen !== false)
-  const buttonId = useId()
-  const panelId = useId()
-
-  return (
-    <div
-      className={showDivider ? 'border-t border-solid' : ''}
-      style={showDivider ? { borderColor: colorVar(dividerColor) } : undefined}
-    >
-      <h3 className="m-0">
-        <button
-          type="button"
-          id={buttonId}
-          aria-expanded={open}
-          aria-controls={panelId}
-          onClick={() => setOpen((isOpen) => !isOpen)}
-          className={cx(
-            'flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent px-0 py-5 text-start',
-            typography.itemTitle,
-            CMS_TEXT_HOVER_CLASS,
-          )}
-          style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
-        >
-          <span className="min-w-0">
-            <LinkedText text={item.title} {...linkProps} />
-          </span>
-          <CaretDown
-            size={18}
-            weight="regular"
-            className={cx('shrink-0 transition-transform duration-300', open && 'rotate-180')}
-            style={{ color: colorVar(iconColor) }}
-          />
-        </button>
-      </h3>
-      <div
-        id={panelId}
-        role="region"
-        aria-labelledby={buttonId}
-        className={cx(
-          'grid transition-[grid-template-rows] duration-300 ease-in-out',
-          open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
-        )}
-      >
-        <div className="min-h-0 overflow-hidden">
-          {item.body ? (
-            <p
-              className={cx(
-                'm-0 whitespace-pre-line pb-5 leading-relaxed',
-                typography.itemDescription,
-                CMS_TEXT_HOVER_CLASS,
-              )}
-              style={getTextStyleVars(textStyle, 'bodyColor', '600', 'normal')}
-            >
-              <LinkedText text={item.body} {...linkProps} />
-            </p>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  )
+const itemParts = (item) => {
+  const text = typeof item?.text === 'string' ? item.text.trim() : ''
+  const heading = (item?.heading || (text ? '' : item?.title) || '').trim()
+  const body = text || (item?.body || '').trim()
+  return { heading, text: body }
 }
 
 /**
- * Single white card with stacked expandable sections (title + body),
- * separated by dividers. Matches the seat-selection Terms design.
+ * Heading plus a white card of terms. Markers are dots, letters, or numbers.
  */
 const InfoAccordion = ({
+  title = '',
   items = [],
+  listMarker = 'dots',
   sectionPadding = 'default',
   showSectionBg = false,
   sectionBg = '100',
   cardBg = '50',
   cardRadius = 'sm',
-  dividerColor = '200',
-  iconColor = '700',
   links = [],
   showLinks = true,
   linkColor,
@@ -111,7 +51,8 @@ const InfoAccordion = ({
   linkItalic,
   ...textStyle
 }) => {
-  if (!items.length) return null
+  const lines = items.map(itemParts).filter((item) => item.heading || item.text)
+  if (!title && !lines.length) return null
 
   const linkProps = {
     links,
@@ -123,40 +64,57 @@ const InfoAccordion = ({
     linkItalic,
   }
   const radiusClass = CARD_RADIUS[cardRadius] || CARD_RADIUS.sm
+  const markerClass = MARKER_CLASS[listMarker] || MARKER_CLASS.dots
+  const markerPad = listMarker === 'dots' ? 'ps-5' : 'ps-7'
 
   const card = (
-    <div
-      className={cx(
-        'overflow-hidden px-5  sm:px-6',
-        radiusClass,
-      )}
-      style={{ backgroundColor: colorVar(cardBg) }}
-    >
-      {items.map((item, index) => (
-        <AccordionItem
-          key={item.id || index}
-          item={item}
-          showDivider={index > 0}
-          dividerColor={dividerColor}
-          iconColor={iconColor}
-          textStyle={textStyle}
-          linkProps={linkProps}
-        />
-      ))}
+    <div className={cx('flex flex-col gap-4', SECTION_PADDING[sectionPadding] || '')}>
+      {title ? (
+        <h2
+          className={cx('m-0 font-semibold leading-6', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
+          style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+        >
+          <LinkedText text={title} {...linkProps} />
+        </h2>
+      ) : null}
+      {lines.length ? (
+        <div
+          className={cx('px-6 py-5', radiusClass)}
+          style={{ backgroundColor: colorVar(cardBg) }}
+        >
+          <ul
+            className={cx(
+              'm-0 flex list-outside flex-col gap-3',
+              markerClass,
+              markerPad,
+              typography.caption,
+              'leading-relaxed',
+              CMS_TEXT_HOVER_CLASS,
+            )}
+            style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
+          >
+            {lines.map((line, index) => (
+              <li key={items[index]?.id || index} className="whitespace-pre-line">
+                {line.heading ? (
+                  <span
+                    className={cx('block font-semibold', CMS_TEXT_HOVER_CLASS)}
+                    style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+                  >
+                    <LinkedText text={line.heading} {...linkProps} />
+                  </span>
+                ) : null}
+                {line.text ? <LinkedText text={line.text} {...linkProps} /> : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </div>
   )
 
-  const sectionClass = cx(
-    SECTION_PADDING[sectionPadding] || '',
-    showSectionBg ? 'rounded-2xl px-4 md:px-6' : '',
-  )
-
-  if (!sectionClass) return card
+  if (!showSectionBg) return card
   return (
-    <div
-      className={sectionClass}
-      style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
-    >
+    <div className="rounded-2xl px-4 md:px-6" style={{ backgroundColor: colorVar(sectionBg) }}>
       {card}
     </div>
   )

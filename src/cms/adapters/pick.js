@@ -1,5 +1,6 @@
 import { CMS_API_BASE_URL } from '../api/cmsClient.js'
 import { stripLanguage, SUPPORTED_LANGUAGES } from '../../i18n/languages.js'
+import { toOfficialPath } from '../../shared/routing/utils/officialPath.js'
 
 /** Language-scoped CMS content, falling back to the first available language. */
 export function pickContent(content, lang) {
@@ -83,10 +84,5 @@ export function resolveCmsHref(href) {
   let path = trimmed.replace(POS_AND_LANG, '') || '/'
   if (!path.startsWith('/')) path = `/${path}`
   path = stripLanguage(path)
-  // The city-sights page slug is now activities-and-attractions. CMS buttons
-  // saved with the old path still land on the new page.
-  return path.replace(
-    /\/our-destinations\/(?:new-)?city-sights(?=$|[?#])/,
-    '/our-destinations/activities-and-attractions',
-  )
+  return toOfficialPath(path)
 }
