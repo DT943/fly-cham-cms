@@ -168,15 +168,14 @@ const TravelUpdatesAdvisory = ({
                   <div className="flex min-w-0 flex-1 flex-col gap-3">
                     <p className={cx('m-0 text-sm leading-[1.5]', CMS_TEXT_HOVER_CLASS)} style={bodyVars}>
                       {item.label ? (
-                        <>
-                          <span className={CMS_TEXT_HOVER_CLASS} style={labelVars}>
-                            {item.label}
-                          </span>{' '}
-                        </>
+                        <span className={CMS_TEXT_HOVER_CLASS} style={labelVars}>
+                          {item.label}
+                        </span>
                       ) : null}
-                      {item.text}
+                      {item.label && (item.text || item.linkLabel || item.textAfter) ? ' ' : null}
+                      {item.text ? <span>{item.text}</span> : null}
                       <InlineLink label={item.linkLabel} href={item.linkHref} textStyle={textStyle} />
-                      {item.textAfter}
+                      {item.textAfter ? <span>{item.textAfter}</span> : null}
                     </p>
                     {bullets.map((bullet, bi) => (
                       <div key={bullet.id || bi} className="flex items-center gap-1">
@@ -186,13 +185,13 @@ const TravelUpdatesAdvisory = ({
                           style={{ backgroundColor: colorVar(bulletDotColor) }}
                         />
                         <span className={cx('text-sm leading-[1.5]', CMS_TEXT_HOVER_CLASS)} style={bodyVars}>
-                          {bullet.text}
+                          {bullet.text ? <span>{bullet.text}</span> : null}
                           <InlineLink
                             label={bullet.linkLabel}
                             href={bullet.linkHref}
                             textStyle={textStyle}
                           />
-                          {bullet.textAfter}
+                          {bullet.textAfter ? <span>{bullet.textAfter}</span> : null}
                         </span>
                       </div>
                     ))}

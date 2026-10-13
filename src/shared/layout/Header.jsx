@@ -231,7 +231,17 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
       className={`sticky top-0 z-[1000] shrink-0 ${dark ? 'bg-secondary-2' : ''}`}
       style={barBg}
     >
-      {showTravelNotice && <TravelUpdatesNotice />}
+      {showTravelNotice ? (
+        <div
+          className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
+            hidden ? 'grid-rows-[0fr]' : 'grid-rows-[1fr]'
+          }`}
+        >
+          <div className="min-h-0 overflow-hidden" inert={hidden || undefined}>
+            <TravelUpdatesNotice />
+          </div>
+        </div>
+      ) : null}
 
       <div
         className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${
@@ -351,13 +361,13 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
                 >
                   <LocalizedLink
                     to={headerHref(header.login.href)}
+                    aria-label={header.login.label}
                     onFocus={(event) => previewFromKeyboard(event, LOGIN_ITEM)}
                     onClick={closeMenu}
-                    className={`flex items-center gap-1.5 whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${HDR_SELF_HOVER}`}
+                    className={`flex items-center whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${HDR_SELF_HOVER}`}
                     style={navStyle(openMenu === LOGIN_ITEM)}
                   >
                     <UserCircle size={24} weight="regular" className="shrink-0" />
-                    <span className={`${typography.body} font-normal`}>{header.login.label}</span>
                   </LocalizedLink>
                 </span>
               )}

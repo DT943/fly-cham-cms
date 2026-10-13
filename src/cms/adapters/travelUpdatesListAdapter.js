@@ -1,5 +1,28 @@
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
+/** Designed highlight flags. Keep in sync with the cms2 list helper. */
+const DEFAULT_ITEM_ACCENT = {
+  loungeAccess: false,
+  deviceRegulations: true,
+  flightsResume: false,
+  winterSports: false,
+  baggagePolicy: false,
+  checkInWindow: false,
+  visaReminder: true,
+  cabinComfort: false,
+  scheduleAdjustment: false,
+  loyaltyBonus: false,
+  mobileBoarding: false,
+  sustainability: true,
+}
+
+function resolveAccent(item) {
+  if (item?.id && Object.prototype.hasOwnProperty.call(DEFAULT_ITEM_ACCENT, item.id)) {
+    return DEFAULT_ITEM_ACCENT[item.id]
+  }
+  return Boolean(item?.accentTitle)
+}
+
 /**
  * Map a CMS "travel-updates-list" block to <TravelUpdatesList /> props — a
  * paginated feed of travel update cards (date badge, title, description,
@@ -22,7 +45,7 @@ export function travelUpdatesListProps(block, lang) {
       title: it?.title || '',
       description: it?.description || '',
       href: resolveCmsHref(it?.href) || '',
-      accentTitle: Boolean(it?.accentTitle),
+      accentTitle: resolveAccent(it),
     })),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),

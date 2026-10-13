@@ -1,5 +1,20 @@
 import { pick, pickContent, resolveCmsHref } from './pick.js'
 
+/** Same rule as the cms2 Travel Updates Advisory helper. */
+function renderedLine(label, text, linkLabel) {
+  const body = `${text || ''}${linkLabel || ''}`
+  if (label && body) return `${label} ${body}`
+  return `${label || ''}${body}`
+}
+
+function repairTextAfter(label, text, linkLabel, textAfter) {
+  const after = textAfter || ''
+  const line = renderedLine(label, text, linkLabel)
+  if (!after || !line) return after
+  if (after.startsWith(line)) return ''
+  return after
+}
+
 /**
  * Map a CMS "travel-updates-advisory" block to <TravelUpdatesAdvisory /> props —
  * the Travel Updates "Latest Advisories" header + advisory card.
@@ -28,13 +43,13 @@ export function travelUpdatesAdvisoryProps(block, lang) {
       text: it?.text || '',
       linkLabel: it?.linkLabel || '',
       linkHref: resolveCmsHref(it?.linkHref),
-      textAfter: it?.textAfter || '',
+      textAfter: repairTextAfter(it?.label, it?.text, it?.linkLabel, it?.textAfter),
       bullets: (Array.isArray(it?.bullets) ? it.bullets : []).map((b) => ({
         id: b?.id || '',
         text: b?.text || '',
         linkLabel: b?.linkLabel || '',
         linkHref: resolveCmsHref(b?.linkHref),
-        textAfter: b?.textAfter || '',
+        textAfter: repairTextAfter('', b?.text, b?.linkLabel, b?.textAfter),
       })),
     })),
     learnMoreLabel: content.learnMoreLabel || '',
