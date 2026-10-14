@@ -3,6 +3,17 @@ import { CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../../styles/cmsStyle
 import LinkedText from '../backlinks/LinkedText.jsx'
 import { linkify } from './linkify.jsx'
 
+/** "1. WHAT INFORMATION DO WE COLLECT?" → "What information do we collect?" */
+export const readingLabel = (title) => {
+  const stripped =
+    String(title || '').replace(/^\s*(?:[A-Za-z]|\d{1,3})\s*[.)]\s+/, '').trim() ||
+    String(title || '')
+  const letters = stripped.replace(/[^A-Za-z]/g, '')
+  if (!letters || letters !== letters.toUpperCase()) return stripped
+  const lower = stripped.toLowerCase()
+  return lower.charAt(0).toUpperCase() + lower.slice(1)
+}
+
 export const LegalParagraph = ({
   text,
   linkifyText = true,

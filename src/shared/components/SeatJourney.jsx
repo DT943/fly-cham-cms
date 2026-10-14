@@ -43,7 +43,7 @@ const BUTTON_ICON_SIZE = { large: 29, medium: 18 }
 const PROMO_TITLE_SIZE = 'text-[22px] leading-[1.4] lg:text-[28px] lg:leading-[1.5]'
 const PROMO_BODY_SIZE = 'text-sm leading-[1.75] lg:text-base lg:leading-[28px]'
 const PROMO_BUTTON_CLASS =
-  'inline-flex h-12 w-[171px] max-w-full items-center justify-center gap-[10px] self-start rounded-lg px-[10px] py-3 text-base leading-[normal] no-underline transition-colors lg:h-[49px]'
+  'inline-flex h-12 w-max min-w-[171px] max-w-full items-center justify-center gap-[10px] self-start whitespace-nowrap rounded-lg px-[10px] py-3 text-base leading-[normal] no-underline transition-colors lg:h-[49px]'
 
 const CONTENT_ALIGN_CLASS = {
   start: 'lg:items-start',

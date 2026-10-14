@@ -321,6 +321,7 @@ export const sectionRegistry = {
   'cargo-info-cards': { Component: CargoInfoCards, mapProps: cargoInfoCardsProps },
   // Full-screen standalone B2B login (Layout hides header/footer on this path).
   'travel-agent-login': { Component: TravelAgentLogin, mapProps: travelAgentLoginProps, fullBleed: true },
+  // Owns its Container (centered copy + plane). fullBleed keeps PageBlocks from wrapping it again.
   'coming-soon-hero': { Component: ComingSoonHero, mapProps: comingSoonHeroProps, fullBleed: true },
   // Full-screen Cham Miles registration (Layout hides header/footer on this path).
   'cham-miles-register': { Component: ChamMilesRegister, mapProps: chamMilesRegisterProps, fullBleed: true },

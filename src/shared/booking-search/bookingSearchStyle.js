@@ -30,7 +30,7 @@ export const DESKTOP_DATES_GROUP = 'ms-[6.5px] grid min-w-0 flex-1 grid-cols-3 g
 export const DESKTOP_DATE_BOX = 'flex h-full min-w-0 flex-1 cursor-pointer items-center justify-between rounded-[8px] border-0 px-[10px] py-3 text-start'
 export const DESKTOP_PAX_BOX = 'flex h-full min-w-0 flex-1 cursor-pointer items-center justify-center rounded-[8px] border-0 p-[10px] text-start'
 export const DESKTOP_BOTTOM_ROW = 'mt-[25px] flex items-center justify-between ps-[5px]'
-export const DESKTOP_SEARCH = 'inline-flex h-[49px] w-[171px] shrink-0 cursor-pointer items-center justify-center gap-[10px] rounded-[8px] border-0 px-[10px] py-3 text-base leading-[normal] transition-colors disabled:cursor-wait'
+export const DESKTOP_SEARCH = 'inline-flex h-[49px] w-max min-w-[171px] shrink-0 cursor-pointer items-center justify-center gap-[10px] whitespace-nowrap rounded-[8px] border-0 px-[10px] py-3 text-base leading-[normal] transition-colors disabled:cursor-wait'
 
 /** Mobile card (< lg): stacked fields, 16px rhythm. */
 export const MOBILE_CARD =

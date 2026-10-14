@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import {
@@ -88,6 +89,14 @@ const SearchConsole = ({
   const inputId = useId()
   const containerRef = useRef(null)
   const search = useAppSearch({ types, href })
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const initialQuery = searchParams.get('q')
+    if (initialQuery) search.applyQuery(initialQuery)
+    // Pre-fill once from the URL, the same way the old search page did.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const resolvedLabel = label ?? t('help.search.label')
   const resolvedPlaceholder = placeholder ?? t('help.search.placeholder')

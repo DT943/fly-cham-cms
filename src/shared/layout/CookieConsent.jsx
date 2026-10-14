@@ -100,7 +100,6 @@ const CookieConsent = () => {
   }
 
   const accept = () => choose('accepted')
-  const decline = () => choose('declined')
   const dismiss = () => {
     writeCookie(CLOSED_COOKIE, '1')
     hide()
@@ -139,13 +138,6 @@ const CookieConsent = () => {
           </div>
 
           <div className="flex shrink-0 items-center gap-3 self-end md:self-auto">
-            <button
-              type="button"
-              onClick={decline}
-              className="h-10 min-w-30 cursor-pointer rounded-lg border border-solid border-primary-1 bg-transparent px-6 text-sm font-semibold text-primary-1 transition-colors hover:bg-primary-1/5"
-            >
-              {t('cookieConsent.decline')}
-            </button>
             <button
               type="button"
               onClick={accept}

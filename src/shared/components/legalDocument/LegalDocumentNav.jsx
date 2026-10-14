@@ -90,7 +90,7 @@ const LegalDocumentNav = ({ items = [], activeId = '' }) => {
   }
 
   return (
-    <nav className="flex max-h-[calc(100dvh-7rem)] flex-col gap-1 overflow-y-auto rounded-xl bg-50 py-2">
+    <nav className="flex flex-col gap-1 rounded-xl bg-50 py-2">
       {items.map((item, index) => {
         const id = item.id || `nav-${index}`
         const isActive = scrollKey ? id === currentId : Boolean(activeId) && id === activeId

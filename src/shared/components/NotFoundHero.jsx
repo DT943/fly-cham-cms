@@ -90,14 +90,14 @@ const NotFoundHero = ({
       </div>
 
       <div className="relative z-10 flex max-w-3xl flex-col items-center gap-4 px-6 py-24 text-center sm:gap-5 md:gap-6">
-        {/* {showEyebrow && eyebrowText ? (
+        {showEyebrow && eyebrowText ? (
           <p
             className={`m-0 ${EYEBROW_SIZE} ${CMS_TEXT_HOVER_CLASS}`}
             style={getTextStyleVars(style, 'eyebrowColor', '50', 'medium')}
           >
             {eyebrowText}
           </p>
-        ) : null} */}
+        ) : null}
 
         {titleText ? (
           <h1

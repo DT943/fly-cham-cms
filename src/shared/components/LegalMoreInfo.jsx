@@ -1,4 +1,4 @@
-import { ArrowRight, Cookie, Phone, Question, ShieldCheck } from '@phosphor-icons/react'
+import { Phone, Question } from '@phosphor-icons/react'
 import LocalizedLink from './LocalizedLink.jsx'
 import Container from './Container.jsx'
 import { CMS_TEXT_HOVER_CLASS, colorMix, getTextStyleVars } from '../../styles/cmsStyle.js'
@@ -7,13 +7,23 @@ import arrowIcon from '../../assets/icons/legal/arrow-down.svg'
 import cookieIcon from '../../assets/icons/legal/cookie.svg'
 import shieldIcon from '../../assets/icons/legal/shield-check.svg'
 
+const CIRCLE_ICONS = {
+  question: Question,
+  phone: Phone,
+}
+
 const CardIcon = ({ icon }) => {
   if (icon === 'cookie') {
     return <img src={cookieIcon} alt="" width={60} height={60} />
   }
+  const Icon = CIRCLE_ICONS[icon]
   return (
     <span className="flex size-[60px] shrink-0 items-center justify-center rounded-full bg-[#F5F5F4]">
-      <img src={shieldIcon} alt="" width="32.7273" height="32.7273" />
+      {Icon ? (
+        <Icon size={28} weight="regular" className="text-[#3E3E3B]" />
+      ) : (
+        <img src={shieldIcon} alt="" width="32.7273" height="32.7273" />
+      )}
     </span>
   )
 }

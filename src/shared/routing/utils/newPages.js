@@ -178,6 +178,13 @@ export const otherPages = {
     gapClass: 'gap-0',
   }),
   '/about-us': dynamicPage('about-us'),
+  '/search-in-site': dynamicPage('search-in-site', { className: 'bg-100 w-full' }),
+  // Centered hero (owns its container) plus the newsletter band under it.
+  '/coming-soon': dynamicPage('coming-soon', {
+    className: 'flex w-full flex-1 flex-col bg-100',
+    gapClass:
+      'gap-0 [&>*:nth-child(2)]:border-y [&>*:nth-child(2)]:border-solid [&>*:nth-child(2)]:border-200 [&>*:nth-child(2)]:py-6 md:[&>*:nth-child(2)]:py-8',
+  }),
   '/site-map': dynamicPage('site-map', {
     className: 'bg-100 w-full',
     gapClass: 'gap-0',

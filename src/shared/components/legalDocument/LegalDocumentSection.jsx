@@ -4,6 +4,7 @@ import {
   LegalBlock,
   LegalBullets,
   LegalParagraph,
+  readingLabel,
 } from './LegalDocumentBlocks.jsx'
 import LegalDocumentContact from './LegalDocumentContact.jsx'
 
@@ -41,7 +42,7 @@ const LegalDocumentSection = ({
   style = {},
 }) => {
   const variant = section.variant || 'card'
-  const title = section.title || ''
+  const title = readingLabel(section.title || '')
   const body = section.body || ''
   const note = section.note || ''
   const items = section.items || []

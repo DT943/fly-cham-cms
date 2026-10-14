@@ -1,13 +1,12 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
- * Map a CMS "coming-soon-hero" block to <ComingSoonHero /> props — the whole
- * /coming-soon page (photo, wash, title, description).
+ * Map a CMS "coming-soon-hero" block to <ComingSoonHero />.
  *
  * Stores the flat editor shape (cms2 getComingSoonHeroEditorContent):
- * `{ imageUrl, imageAlt, title, description, links }`. The image comes only
- * from the CMS (no bundled fallback). Only style keys the CMS provided are
- * forwarded, so omitted keys keep the component's defaults (the source look).
+ * `{ title, description, ctaLabel, ctaHref, imageUrl, imageAlt, links }`.
+ * Only style keys the CMS provided are forwarded, so omitted keys keep the
+ * component's defaults.
  */
 export function comingSoonHeroProps(block, lang) {
   const content = pickContent(block.content, lang)
@@ -19,6 +18,8 @@ export function comingSoonHeroProps(block, lang) {
     imageAlt: str('imageAlt'),
     title: str('title'),
     description: str('description'),
+    ctaLabel: str('ctaLabel'),
+    ctaHref: resolveCmsHref(str('ctaHref')) || '/',
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }
@@ -31,8 +32,9 @@ function mapBacklinks(links) {
 }
 
 const STYLE_KEYS = [
-  'overlayColor',
-  'overlayOpacity',
+  'backgroundColor',
+  'showButton',
+  'showImage',
   'titleColor',
   'titleFontWeight',
   'titleColorHover',
@@ -41,7 +43,12 @@ const STYLE_KEYS = [
   'descriptionFontWeight',
   'descriptionColorHover',
   'descriptionFontWeightHover',
-  'descriptionOpacity',
+  'buttonBg',
+  'buttonBgHover',
+  'buttonText',
+  'buttonTextFontWeight',
+  'buttonTextHover',
+  'buttonTextFontWeightHover',
   'showLinks',
   'linkColor',
   'linkHoverColor',

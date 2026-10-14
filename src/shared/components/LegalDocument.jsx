@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { typography } from '../../styles/typography.js'
 import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { linkClass } from './legalDocument/linkify.jsx'
-import { LegalBullets, LegalKeyPoint, LegalParagraph } from './legalDocument/LegalDocumentBlocks.jsx'
+import { LegalBullets, LegalKeyPoint, LegalParagraph, readingLabel } from './legalDocument/LegalDocumentBlocks.jsx'
 import LegalDocumentNav from './legalDocument/LegalDocumentNav.jsx'
 import LegalDocumentSection from './legalDocument/LegalDocumentSection.jsx'
 import LegalDocumentContact from './legalDocument/LegalDocumentContact.jsx'
@@ -22,9 +22,52 @@ const PADDING = {
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
-/** Sidebar shows the heading without a leading "A." / "1." counter. */
-const sidebarLabel = (title) =>
-  title.replace(/^\s*(?:[A-Za-z]|\d{1,3})\s*[.)]\s+/, '').trim() || title
+/**
+ * A tall menu stays with the page: scrolling down reveals its lower items and
+ * scrolling up brings the top back. Short menus just pin under the header.
+ * There is no scrollbar inside the box.
+ */
+function useTrackedSticky(ref, active) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !active) return undefined
+    let lastY = window.scrollY
+    let top = null
+
+    const place = () => {
+      const header = document.querySelector('header')
+      const topGap = (header ? Math.max(0, Math.round(header.getBoundingClientRect().height)) : 0) + 16
+      const bottomGap = 16
+      const height = el.offsetHeight
+      const viewport = window.innerHeight
+      const y = window.scrollY
+      const delta = y - lastY
+      lastY = y
+      if (top === null) top = topGap
+      if (height + topGap + bottomGap <= viewport) {
+        top = topGap
+      } else {
+        top = Math.min(topGap, Math.max(viewport - height - bottomGap, top - delta))
+      }
+      el.style.top = `${top}px`
+    }
+
+    place()
+    window.addEventListener('scroll', place, { passive: true })
+    window.addEventListener('resize', place)
+    const observer = new ResizeObserver(place)
+    observer.observe(el)
+    return () => {
+      window.removeEventListener('scroll', place)
+      window.removeEventListener('resize', place)
+      observer.disconnect()
+      el.style.top = ''
+    }
+  }, [active])
+}
+
+/** Sidebar label: drop a leading counter, and sentence-case shouted headings. */
+const sidebarLabel = (title) => readingLabel(title)
 
 /**
  * Reusable legal document body for Terms, Privacy, Booking Terms, and Cookies.
@@ -83,6 +126,8 @@ const LegalDocument = ({
   }, [introTitle, sections])
   const sidebarItems = sectionAnchors.length ? sectionAnchors : navItems
   const showSidebar = layout !== 'sheet' && showNav !== false && sidebarItems.length > 0
+  const asideRef = useRef(null)
+  useTrackedSticky(asideRef, showSidebar)
 
   if (
     !dateLine &&
@@ -154,9 +199,9 @@ const LegalDocument = ({
   ) : null
 
   const summaryNode = hasSummary ? (
-    <section className="flex flex-col gap-4 rounded-[14px] bg-50 p-6">
+    <section className="flex flex-col gap-3 rounded-[14px] bg-50 p-6">
       {summaryTitle ? (
-        <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle}`}>{summaryTitle}</h2>
+        <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle}`}>{readingLabel(summaryTitle)}</h2>
       ) : null}
       {summaryIntro ? <LegalParagraph text={summaryIntro} linkifyText={false} /> : null}
       {summaryPoints.length ? (
@@ -174,9 +219,9 @@ const LegalDocument = ({
   ) : null
 
   const tocNode = hasToc ? (
-    <nav className="flex flex-col gap-4 rounded-[14px] bg-50 p-6">
+    <nav className="flex flex-col gap-3 rounded-[14px] bg-50 p-6">
       {tocTitle ? (
-        <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle}`}>{tocTitle}</h2>
+        <h2 className={`m-0 font-semibold text-700 ${typography.itemTitle}`}>{readingLabel(tocTitle)}</h2>
       ) : null}
       <ol className={`m-0 grid list-none gap-2 p-0 sm:grid-cols-2 ${typography.caption}`}>
         {tocItems.map((item, index) => (
@@ -213,14 +258,16 @@ const LegalDocument = ({
     </>
   )
 
-  // Terms nests intro/cards/contact in an inner gap-6 under a gap-7 column
-  // that also holds the date line.
+  // Terms nests intro/cards/contact in an inner gap-6 under the date line.
+  // Privacy uses that same column, and also keeps its summary and contents boxes.
   const column =
-    layout !== 'sheet' && introTitle ? (
+    layout !== 'sheet' && (introTitle || hasSummary || hasToc) ? (
       <div className={cx('flex min-w-0 flex-1 flex-col', gapClass)}>
         {dateNode}
         <div className="flex flex-col gap-6">
           {introNode}
+          {summaryNode}
+          {tocNode}
           {sectionNodes}
           {contactNode}
         </div>
@@ -240,7 +287,7 @@ const LegalDocument = ({
     >
       {showSidebar ? (
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-6">
-          <aside className="lg:sticky lg:top-24 lg:z-10 lg:w-[280px] lg:shrink-0 lg:self-start">
+          <aside ref={asideRef} className="lg:sticky lg:top-24 lg:z-10 lg:w-[280px] lg:shrink-0 lg:self-start">
             <LegalDocumentNav items={sidebarItems} activeId={activeId} />
           </aside>
           {column}
