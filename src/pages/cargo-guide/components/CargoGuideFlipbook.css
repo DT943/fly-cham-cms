@@ -1,0 +1,32 @@
+.cargo-guide-book .cargo-guide-page {
+  overflow: hidden;
+  background: #fff;
+  user-select: none;
+}
+
+.cargo-guide-book .cargo-guide-page img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+}
+
+.cargo-guide-book .cargo-guide-page__single {
+  left: 0;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* A spread image is two pages wide; each page shows one half of it. */
+.cargo-guide-book .cargo-guide-page__spread {
+  width: 200%;
+}
+
+.cargo-guide-book .cargo-guide-page__spread--left {
+  left: 0;
+}
+
+.cargo-guide-book .cargo-guide-page__spread--right {
+  left: -100%;
+}

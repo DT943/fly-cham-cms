@@ -6,6 +6,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import { stripLanguage } from '../../i18n/languages.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
+import { applyPageBlockOverrides } from '../../cms/utils/pageBlockOverrides.js'
 import NotFound from '../not-found/NotFound.jsx'
 import { cmsSlugFromPath } from './cmsPagePath.js'
 
@@ -78,7 +79,7 @@ const DynamicPageContent = ({
       )}
       {page && (
         <PageBlocks
-          blocks={page.blocks}
+          blocks={applyPageBlockOverrides(slug, page.blocks)}
           lang={language}
           flushBottom={flushBottom}
           {...(gapClass ? { gapClass } : {})}

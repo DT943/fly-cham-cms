@@ -4063,6 +4063,21 @@
     "accept": "Accept",
     "close": "Close cookie notice"
   },
+  "cargoGuide": {
+    "breadcrumbHome": "Home",
+    "breadcrumbCargo": "Cargo",
+    "title": "Cargo Guide",
+    "description": "Flip through our cargo brochure to learn more about our cargo services, accepted shipments and destinations.",
+    "bookLabel": "Fly Cham cargo guide magazine",
+    "pageAlt": "Cargo guide page {{page}}",
+    "pageOf": "Page {{page}} of {{total}}",
+    "previous": "Previous page",
+    "next": "Next page",
+    "download": "Download cargo guide (PDF)",
+    "fullscreen": "View full screen",
+    "exitFullscreen": "Exit full screen",
+    "hint": "Drag a page or its corner to turn it, or use the arrows and your keyboard."
+  },
   "searchInSite": {
     "title": "Search In Site",
     "placeholder": "Search",
