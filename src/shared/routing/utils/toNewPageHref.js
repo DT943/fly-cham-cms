@@ -41,7 +41,11 @@ export const cmsPagePaths = [
   '/travel-experience/on-board/onboard-wi-fi',
   '/travel-experience/traveler-magazine',
   '/our-responsibility',
+  '/book-a-flight',
+  '/flight-status',
+  '/online-check-in',
   '/cargo',
+  '/cargo/cargo-brochure',
   '/about-us',
   '/site-map',
   '/our-fleet',
@@ -55,6 +59,7 @@ export const cmsPagePaths = [
   '/legal/booking-terms-and-conditions',
   '/legal/privacy-policy',
   '/legal/cookies',
+  '/legal/accessibility-statement',
 ]
 
 const cmsPagePathSet = new Set(cmsPagePaths)

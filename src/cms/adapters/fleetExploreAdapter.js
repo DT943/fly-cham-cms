@@ -1,5 +1,34 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
+const LABEL_FALLBACKS = [
+  'Economy',
+  'Business',
+  'Total seats',
+  'الدرجة السياحية',
+  'درجة رجال الأعمال',
+  'إجمالي المقاعد',
+]
+
+/** Drop seat counts that inline editing saved onto the shared card label. */
+function repairLabel(label, fallback) {
+  const value = String(label || fallback)
+  const trimmed = value.trim()
+  for (const known of LABEL_FALLBACKS) {
+    if (trimmed === known) return known
+    if (!trimmed.startsWith(`${known} `)) continue
+    const rest = trimmed.slice(known.length).trim()
+    if (/^\d+(?:\s+\d+)*$/.test(rest)) return known
+  }
+  return value
+}
+
+function repairCount(value) {
+  const text = String(value ?? '').trim()
+  if (!text || /^\d+$/.test(text)) return text
+  const match = text.match(/(\d+)\s*$/)
+  return match ? match[1] : text
+}
+
 /**
  * Map a CMS "fleet-explore" block to <FleetExplore /> props — title, body
  * paragraphs, and the aircraft card grid from the static Our Fleet page.
@@ -14,15 +43,15 @@ export function fleetExploreProps(block, lang) {
       id: it?.id || `p${index + 1}`,
       body: it?.body || '',
     })),
-    economyLabel: content.economyLabel || 'Economy',
-    businessLabel: content.businessLabel || 'Business',
-    totalSeatsLabel: content.totalSeatsLabel || 'Total seats',
+    economyLabel: repairLabel(content.economyLabel, 'Economy'),
+    businessLabel: repairLabel(content.businessLabel, 'Business'),
+    totalSeatsLabel: repairLabel(content.totalSeatsLabel, 'Total seats'),
     cards: (Array.isArray(content.cards) ? content.cards : []).map((card, index) => ({
       id: card?.id || `aircraft-${index + 1}`,
       name: card?.name || '',
-      economy: card?.economy ?? '',
-      business: card?.business ?? '',
-      totalSeats: card?.totalSeats ?? '',
+      economy: repairCount(card?.economy),
+      business: repairCount(card?.business),
+      totalSeats: repairCount(card?.totalSeats),
       image: resolveCmsAsset(card?.imageUrl) || undefined,
       imageAlt: card?.imageAlt || '',
       href: resolveCmsHref(card?.href) || '#',

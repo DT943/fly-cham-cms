@@ -107,11 +107,12 @@ const SeatPlan = ({
             <article
               key={item.id || index}
               className={cx(
-                'group relative flex cursor-pointer flex-col overflow-hidden ',
+                'group relative cursor-pointer transition-shadow duration-300 ease-out hover:shadow-sm',
                 radiusClass,
               )}
               style={{ backgroundColor: colorVar(cardBg) }}
             >
+              <div className={cx('relative flex h-full flex-col overflow-hidden', radiusClass)}>
               <LocalizedLink
                 href={item.href || '#'}
                 className="absolute inset-0 z-1"
@@ -121,7 +122,7 @@ const SeatPlan = ({
                 <img
                   src={src}
                   alt={item.imageAlt || ''}
-                  className="h-49 w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                  className="h-49 w-full object-cover"
                 />
               ) : null}
               <div className="relative z-2 flex flex-1 flex-col gap-3 p-4 pointer-events-none">
@@ -171,6 +172,7 @@ const SeatPlan = ({
                     </span>
                   ) : null}
                 </LocalizedLink>
+              </div>
               </div>
             </article>
           )

@@ -61,10 +61,10 @@ const FleetCard = ({
         style={getTextStyleVars(style, 'cardMetaColor', '700', 'normal')}
       >
         <p className="m-0">
-          {economyLabel} {card.economy}
+          <span>{economyLabel}</span> <span>{card.economy}</span>
         </p>
         <p className="m-0">
-          {businessLabel} {card.business}
+          <span>{businessLabel}</span> <span>{card.business}</span>
         </p>
       </div>
 
@@ -81,7 +81,7 @@ const FleetCard = ({
           className={cx('m-0', typography.itemTitle, CMS_TEXT_HOVER_CLASS)}
           style={getTextStyleVars(style, 'cardTotalColor', '800', 'semibold')}
         >
-          {totalSeatsLabel} {card.totalSeats}
+          <span>{totalSeatsLabel}</span> <span>{card.totalSeats}</span>
         </p>
         {style.showCardArrow !== false ? (
           <LocalizedLink

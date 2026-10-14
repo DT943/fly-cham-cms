@@ -63,6 +63,7 @@ const STYLE_KEYS = [
   'buttonTextFontWeight',
   'buttonTextHover',
   'buttonTextFontWeightHover',
+  'learnMoreAlign',
   'cardBg',
   'arrowBadgeBg',
   'arrowColor',

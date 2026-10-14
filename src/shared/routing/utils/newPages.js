@@ -134,6 +134,7 @@ export const legalPages = {
   ),
   '/legal/privacy-policy': dynamicPage('privacy-policy', NO_BOTTOM_PADDING),
   '/legal/cookies': dynamicPage('cookies', NO_BOTTOM_PADDING),
+  '/legal/accessibility-statement': dynamicPage('accessibility-statement', NO_BOTTOM_PADDING),
   // Legacy `new-*` URLs
   '/new-legal': createLanguageRedirect('/legal'),
   '/legal/new-terms-and-conditions': createLanguageRedirect('/legal/terms-and-conditions'),
@@ -157,7 +158,11 @@ export const otherPages = {
     flushBottom: true,
   }),
   '/travel-updates': dynamicPage('travel-updates'),
+  '/book-a-flight': dynamicPage('book-a-flight'),
+  '/flight-status': dynamicPage('flight-status'),
+  '/online-check-in': dynamicPage('online-check-in'),
   '/cargo': dynamicPage('cargo'),
+  '/cargo/cargo-brochure': dynamicPage('cargo-brochure'),
   '/cargo-stations': dynamicPage('cargo-stations'),
   '/business-center': dynamicPage('business-center'),
   // Full-screen standalone login (Layout.jsx hides header/footer for this path):
