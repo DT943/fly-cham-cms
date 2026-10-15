@@ -1,5 +1,4 @@
 import { createElement } from 'react'
-import BaggageCalculatorPage from '../../../pages/baggage-calculator/BaggageCalculatorPage.jsx'
 import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
 import { createLanguageRedirect } from '../components/OurOfficesRedirect.jsx'
 
@@ -91,7 +90,7 @@ export const travelExperiencePages = {
   '/travel-experience/before-you-fly/prohibited-items': dynamicPage('prohibited-items'),
   '/travel-experience/before-you-fly/unaccompanied-minors': dynamicPage('unaccompanied-minors'),
   '/travel-experience/before-you-fly/oxygen-service': dynamicPage('oxygen-service'),
-  '/travel-experience/before-you-fly/baggage-calculator': BaggageCalculatorPage,
+  '/travel-experience/before-you-fly/baggage-calculator': dynamicPage('baggage-calculator'),
   '/travel-experience/before-you-fly/limousine-service': dynamicPage('limousine-service'),
   '/travel-experience/before-you-fly/transportation-service': dynamicPage('transportation-service'),
   '/travel-experience/before-you-fly/manage-booking': dynamicPage('manage-booking'),

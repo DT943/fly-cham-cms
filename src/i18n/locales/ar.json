@@ -4201,6 +4201,45 @@
       }
     }
   },
+  "baggageCalculator": {
+    "intro": "أدخل تفاصيل رحلتك لحساب وزن الأمتعة المسموح به",
+    "fromLabel": "السفر من",
+    "toLabel": "السفر إلى",
+    "classLabel": "درجة السفر",
+    "tierLabel": "فئة عضوية شام",
+    "fromPlaceholder": "اختر مدينة المغادرة",
+    "toPlaceholder": "اختر الوجهة",
+    "classPlaceholder": "اختر الدرجة",
+    "tierPlaceholder": "غير مشترك",
+    "buttonLabel": "احسب",
+    "noteText": "هل حجزت رحلتك بالفعل؟ اطّلع على وزن الأمتعة المسموح به من خلال",
+    "noteLinkLabel": "إدارة حجزك",
+    "airports": {
+      "DAM": "دمشق",
+      "ALP": "حلب",
+      "DXB": "دبي",
+      "SHJ": "الشارقة",
+      "AUH": "أبوظبي",
+      "KWI": "الكويت",
+      "MCT": "مسقط",
+      "BGW": "بغداد",
+      "EBL": "أربيل",
+      "EVN": "يريفان",
+      "SAW": "إسطنبول",
+      "MJI": "طرابلس"
+    },
+    "classes": {
+      "economy": "الدرجة السياحية",
+      "business": "درجة رجال الأعمال"
+    },
+    "tiers": {
+      "none": "غير مشترك",
+      "classic": "كلاسيك",
+      "silver": "فضية",
+      "gold": "ذهبية",
+      "platinum": "بلاتينية"
+    }
+  },
   "baggageCalculatorPage": {
     "breadcrumbHome": "الرئيسية",
     "breadcrumbTravel": "تجربة السفر",

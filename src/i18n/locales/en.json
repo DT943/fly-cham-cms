@@ -4194,6 +4194,45 @@
       }
     }
   },
+  "baggageCalculator": {
+    "intro": "Enter your travel details to calculate your baggage allowance",
+    "fromLabel": "Flying from",
+    "toLabel": "Flying to",
+    "classLabel": "Travel Class",
+    "tierLabel": "Cham guest tier",
+    "fromPlaceholder": "Select departure",
+    "toPlaceholder": "Select destination",
+    "classPlaceholder": "Select class",
+    "tierPlaceholder": "Not a member",
+    "buttonLabel": "Calculate",
+    "noteText": "Already booked your flight? See your baggage allowance at",
+    "noteLinkLabel": "Manage your booking",
+    "airports": {
+      "DAM": "Damascus",
+      "ALP": "Aleppo",
+      "DXB": "Dubai",
+      "SHJ": "Sharjah",
+      "AUH": "Abu Dhabi",
+      "KWI": "Kuwait",
+      "MCT": "Muscat",
+      "BGW": "Baghdad",
+      "EBL": "Erbil",
+      "EVN": "Yerevan",
+      "SAW": "Istanbul",
+      "MJI": "Tripoli"
+    },
+    "classes": {
+      "economy": "Economy",
+      "business": "Business"
+    },
+    "tiers": {
+      "none": "Not a member",
+      "classic": "Classic",
+      "silver": "Silver",
+      "gold": "Gold",
+      "platinum": "Platinum"
+    }
+  },
   "baggageCalculatorPage": {
     "breadcrumbHome": "Home",
     "breadcrumbTravel": "Travel experience",

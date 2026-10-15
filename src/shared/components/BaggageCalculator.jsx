@@ -29,7 +29,7 @@ const CARD_SHADOW =
   'shadow-[0px_0px_0.865px_0px_rgba(33,37,41,0.32),0px_3.461px_5.192px_0px_rgba(33,37,41,0.2)]'
 const INTRO_SIZE = 'text-xs leading-[normal] md:px-0.5 md:text-base'
 const FIELD_CLASS =
-  'relative flex h-[55px] items-center justify-between gap-3 overflow-hidden rounded-lg px-3 py-1 md:h-[70px]'
+  'relative flex h-[55px] items-center justify-between gap-3 overflow-hidden rounded-lg !border-0 px-3 py-1 md:h-[70px]'
 const LABEL_SIZE = 'text-[10px] leading-[normal] md:text-xs'
 const VALUE_SIZE = 'text-sm leading-5 md:text-base'
 const NOTE_SIZE = 'text-xs leading-5 md:text-sm md:leading-[22px]'

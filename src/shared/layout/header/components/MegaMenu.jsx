@@ -303,7 +303,7 @@ const MegaMenuDestinations = ({ tab, onNavigate, headerStyle: hs }) => (
           )}
           {card.tag && (
             <span
-              className={`${typography.caption} absolute start-0 top-5 px-2.5 py-1 font-semibold`}
+              className={`${typography.caption} absolute start-0 top-5 rounded-e-lg px-2.5 py-1 font-semibold`}
               style={{ backgroundColor: colorVar(hs.tagBg), color: colorVar(hs.tagTextColor) }}
             >
               {card.tag}
