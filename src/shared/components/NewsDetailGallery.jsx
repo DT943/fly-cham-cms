@@ -38,6 +38,8 @@ const fileTypeLabel = (src) => {
  */
 const NewsDetailGallery = ({
   images = [],
+  // Per-photo alt text (aligned with images); falls back to "altPrefix N".
+  alts = [],
   altPrefix = '',
   prevLabel = 'Previous photo',
   nextLabel = 'Next photo',
@@ -132,13 +134,15 @@ const NewsDetailGallery = ({
               >
                 <img
                   src={src}
-                  alt={`${altPrefix} ${index + 1}`.trim()}
+                  alt={alts[index] || `${altPrefix} ${index + 1}`.trim()}
                   className="aspect-[603/387] w-full object-cover"
                 />
                 <button
                   type="button"
                   aria-label={expandLabel}
-                  onClick={() => setExpanded({ src, alt: `${altPrefix} ${index + 1}`.trim() })}
+                  onClick={() =>
+                    setExpanded({ src, alt: alts[index] || `${altPrefix} ${index + 1}`.trim() })
+                  }
                   className="pointer-events-none absolute end-[3%] top-[4.3%] grid size-8 cursor-pointer place-items-center rounded-full bg-black/80 text-white opacity-0 transition-opacity duration-[350ms] ease-[cubic-bezier(0,0,0.58,1)] group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:opacity-100"
                 >
                   <CornersOut size={14} weight="bold" />

@@ -38,6 +38,8 @@ const motionSide = (direction) => {
 const LandmarkGallery = ({
   slides = [],
   alt = '',
+  // Per-slide alt text (falls back to alt).
+  alts = [],
   active = 0,
   onSelect,
   radiusClass,
@@ -108,7 +110,7 @@ const LandmarkGallery = ({
           <img
             key={active}
             src={slides[active]}
-            alt={alt}
+            alt={alts[active] ?? alt}
             className={`landmark-slide ${outgoing ? `landmark-slide--enter-${side}` : ''}`}
           />
           {multiple ? (
@@ -132,7 +134,7 @@ const LandmarkGallery = ({
                     <button
                       key={`${src}-${index}`}
                       type="button"
-                      aria-label={`${alt} ${index + 1}`.trim()}
+                      aria-label={alts[index] || `${alt} ${index + 1}`.trim()}
                       aria-current={active === index}
                       onClick={() => goTo(index)}
                       className={`h-[7px] cursor-pointer rounded-full border-0 p-0 transition-[width,background-color] duration-300 ease-out ${
@@ -166,7 +168,7 @@ const LandmarkGallery = ({
               type="button"
               key={`${src}-thumb-${index}`}
               onClick={() => goTo(index)}
-              aria-label={`${alt} ${index + 1}`.trim()}
+              aria-label={alts[index] || `${alt} ${index + 1}`.trim()}
               aria-current={active === index}
               className={`h-[110px] min-w-[96px] flex-1 basis-[96px] cursor-pointer overflow-hidden rounded-lg border-2 border-solid bg-transparent p-0 transition duration-300 ease-out ${
                 active === index ? 'opacity-100' : 'opacity-50 hover:-translate-y-0.5 hover:opacity-80'
@@ -198,6 +200,14 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
         ? [banner]
         : []
 
+  // Each slide's own alt (main image: imageAlt, thumbnails: their alt —
+  // both set from the media library); the banner fallback uses the main alt.
+  const altBySrc = new Map(
+    (Array.isArray(item.thumbnails) ? item.thumbnails : []).map((thumb) => [thumb?.url, thumb?.alt || '']),
+  )
+  if (item.image) altBySrc.set(item.image, item.imageAlt || '')
+  const slideAlts = slides.map((src) => altBySrc.get(src) ?? (item.imageAlt || ''))
+
   const [active, setActive] = useState(0)
   const imageFirst = item.imageFirst === true
   const columns = imageFirst
@@ -212,6 +222,7 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
       <LandmarkGallery
         slides={slides}
         alt={item.imageAlt || ''}
+        alts={slideAlts}
         active={Math.min(active, Math.max(slides.length - 1, 0))}
         onSelect={setActive}
         radiusClass={radiusClass}

@@ -40,6 +40,7 @@ export function gatewayCardsProps(block, lang) {
       pos: Array.isArray(item?.pos) ? item.pos : [],
     })),
     links: mapBacklinks(content.links),
+    posLabels: content.posLabels && typeof content.posLabels === 'object' ? content.posLabels : {},
     filterByPos: content.filterByPos === true,
     ...pick(style, STYLE_KEYS),
   }

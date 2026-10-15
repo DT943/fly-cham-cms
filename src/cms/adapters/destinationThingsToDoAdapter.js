@@ -23,6 +23,7 @@ export function destinationThingsToDoProps(block, lang) {
     items: (Array.isArray(content.items) ? content.items : []).map((it) => ({
       id: it?.id || '',
       icon: it?.icon || 'binoculars',
+      badgeId: String(it?.badgeId || '').trim(),
       badge: badgeLabel(it, tags),
       title: it?.title || '',
       description: it?.description || '',

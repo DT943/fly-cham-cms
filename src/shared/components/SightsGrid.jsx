@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
+import useDestinationCategories from '../../cms/useDestinationCategories.js'
 import {
   Bank,
   Image,
@@ -124,7 +126,13 @@ const SightsGrid = ({
   linkUnderline,
   linkItalic,
 }) => {
-  const allId = categories[0]?.id
+  const language = useCurrentLanguage()
+  const shared = useDestinationCategories(language)
+  const sourceCategories =
+    shared.status === 'ready' && shared.categories.length
+      ? [{ id: 'all', label: language === 'ar' ? 'الكل' : 'All', icon: 'none' }, ...shared.categories]
+      : categories
+  const allId = sourceCategories[0]?.id
   const [active, setActive] = useState(allId)
 
   if (!items.length) return null
@@ -148,11 +156,11 @@ const SightsGrid = ({
 
   return (
     <section className="flex flex-col gap-6">
-      {categories.length > 0 && (
+      {sourceCategories.length > 0 && (
         // Mobile: one swipeable row. md+: each pill sizes to its label + icon
         // and the row wraps onto a second line when they don't fit.
         <div className="flex flex-nowrap items-center gap-2.5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:flex-wrap md:gap-4 md:overflow-visible">
-          {categories.map((cat, index) => {
+          {sourceCategories.map((cat, index) => {
             const isActive = (active ?? allId) === cat.id
             const Icon = CATEGORY_ICON[cat.icon]
             return (
@@ -204,7 +212,7 @@ const SightsGrid = ({
             item={item}
             cardRadius={radiusClass}
             linkProps={linkProps}
-            categories={categories}
+            categories={sourceCategories}
           />
         ))}
       </div>

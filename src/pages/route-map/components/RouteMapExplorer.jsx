@@ -15,7 +15,7 @@ import RouteBookingDrawer from './RouteBookingDrawer.jsx'
  * Images come from the CMS (route-map-explorer block): `planeUrl` is the
  * flying-plane marker, `cityImages` maps cityKey → destination photo.
  */
-const RouteMapExplorer = ({ planeUrl = '', cityImages = {} }) => {
+const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }) => {
   const { t } = useTranslation()
   const language = useCurrentLanguage()
   const [fromCode, setFromCode] = useState(null)
@@ -112,6 +112,7 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {} }) => {
               findingFlights={findingFlights}
               onFindFlights={findFlights}
               cityImages={cityImages}
+              cityImageAlts={cityImageAlts}
             />
           </div>
         </div>

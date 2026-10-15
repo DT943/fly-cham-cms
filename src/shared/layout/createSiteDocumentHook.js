@@ -1,5 +1,6 @@
-import { useEffect, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useSyncExternalStore } from 'react'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
+import useMediaAltLookup from '../../cms/useMediaAlts.js'
 
 /**
  * Shared client for the CMS "site documents" (header, footer — one JSON
@@ -27,6 +28,8 @@ import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
  * @param {string} options.storagePrefix                 localStorage key prefix (+ lang)
  * @param {(doc: unknown) => boolean} options.isValidDocument  structural check
  * @param {(doc: object, lang: string) => object | null} options.normalizeDocument
+ * @param {(doc: object, lookup: Map, lang: string) => object} [options.applyMediaAlts]
+ *   sets image alts from the shared media-library alt text (cms/mediaAlt.js)
  * @returns {() => object} hook returning the normalised document for the URL language
  */
 const LANGS = ['en', 'ar']
@@ -40,6 +43,7 @@ const createSiteDocumentHook = ({
   storagePrefix,
   isValidDocument,
   normalizeDocument,
+  applyMediaAlts,
 }) => {
   const defaultFor = (lang) => defaults[lang] || defaults.en
 
@@ -170,7 +174,11 @@ const createSiteDocumentHook = ({
       }
     }, [lang])
 
-    return doc
+    const altLookup = useMediaAltLookup()
+    return useMemo(
+      () => (applyMediaAlts ? applyMediaAlts(doc, altLookup, lang) : doc),
+      [doc, altLookup, lang]
+    )
   }
 
   return useSiteDocument

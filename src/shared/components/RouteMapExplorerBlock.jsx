@@ -13,13 +13,13 @@ const RouteMapExplorer = lazy(
  *
  * The map opens the page, so the title is kept for assistive tech and SEO only.
  */
-const RouteMapExplorerBlock = ({ title = '', planeUrl = '', cityImages = {} }) => (
+const RouteMapExplorerBlock = ({ title = '', planeUrl = '', cityImages = {}, cityImageAlts = {} }) => (
   <div className="relative h-full min-h-0 w-full flex-1">
     {title && <h1 className="sr-only">{title}</h1>}
 
     <SearchAnchor hit="route-map-explorer" className="block h-full w-full">
       <Suspense fallback={<div className="h-full w-full bg-100" />}>
-        <RouteMapExplorer planeUrl={planeUrl} cityImages={cityImages} />
+        <RouteMapExplorer planeUrl={planeUrl} cityImages={cityImages} cityImageAlts={cityImageAlts} />
       </Suspense>
     </SearchAnchor>
   </div>

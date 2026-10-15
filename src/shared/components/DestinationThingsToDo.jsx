@@ -17,6 +17,8 @@ import {
 } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getButtonStyle, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
+import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
+import useDestinationCategories from '../../cms/useDestinationCategories.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 
@@ -119,6 +121,13 @@ const DestinationThingsToDo = ({
   linkItalic,
   ...textStyle
 }) => {
+  const language = useCurrentLanguage()
+  const shared = useDestinationCategories(language)
+  const badgeLabel = (item) => {
+    if (shared.status !== 'ready') return item.badge
+    const match = shared.categories.find((category) => category.id && category.id === item.badgeId)
+    return match?.label || item.badge
+  }
   const scrollerRef = useRef(null)
   const isCarousel = items.length > 3
   const [canScroll, setCanScroll] = useState({ prev: false, next: isCarousel })
@@ -260,7 +269,7 @@ const DestinationThingsToDo = ({
                   className={cx(typography.caption, CMS_TEXT_HOVER_CLASS)}
                   style={getTextStyleVars(textStyle, 'badgeText', '50', 'semibold')}
                 >
-                  <LinkedText text={item.badge} {...linkProps} />
+                  <LinkedText text={badgeLabel(item)} {...linkProps} />
                 </span>
                 <BadgeIcon
                   size={18}

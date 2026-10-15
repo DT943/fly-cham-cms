@@ -11,13 +11,17 @@ export function newsDetailGalleryProps(block, lang) {
   const style = block.style || {}
   const items = Array.isArray(content.items) ? content.items : []
 
-  const images = items.map((item) => resolveCmsAsset(item?.imageUrl)).filter(Boolean)
+  const slides = items
+    .map((item) => ({ src: resolveCmsAsset(item?.imageUrl), alt: item?.imageAlt || '' }))
+    .filter((slide) => slide.src)
 
   // Only pass images when we have enough slides (component hides otherwise).
-  const usable = images.length >= MIN_GALLERY_IMAGES ? images : []
+  const usable = slides.length >= MIN_GALLERY_IMAGES ? slides : []
 
   return {
-    images: usable,
+    images: usable.map((slide) => slide.src),
+    // Each photo's media-library alt (aligned with images).
+    alts: usable.map((slide) => slide.alt),
     altPrefix: content.altPrefix || '',
     prevLabel: content.prevLabel || '',
     nextLabel: content.nextLabel || '',

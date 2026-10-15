@@ -6,6 +6,7 @@
       "logoAlt": "Fly Cham",
       "logoHref": "/",
       "followText": "Follow and share your experience with us",
+      "description": "Fly Cham is a private Syrian airline, founded in May 2025 with the UAE, to elevate aviation in Syria and the Middle East.",
       "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
     },
     "social": [
@@ -383,6 +384,7 @@
       "logoAlt": "Fly Cham",
       "logoHref": "/",
       "followText": "تابعنا وشارك تجربتك معنا",
+      "description": "فلاي شام شركة طيران سورية خاصة، تأسست في مايو 2025 بشراكة مع الإمارات، لترتقي بالطيران في سوريا والشرق الأوسط.",
       "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
     },
     "social": [

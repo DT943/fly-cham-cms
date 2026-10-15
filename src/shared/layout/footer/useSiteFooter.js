@@ -1,5 +1,6 @@
 import { getFooter } from '../../../cms/api/getFooter.js'
 import createSiteDocumentHook from '../createSiteDocumentHook.js'
+import { applyMediaAlts } from '../../../cms/mediaAlt.js'
 import defaultFooters from './defaultFooter.json'
 
 /**
@@ -18,6 +19,20 @@ const STORAGE_PREFIX = 'flycham:site-footer:v1:'
 
 const isObj = (value) => value !== null && typeof value === 'object' && !Array.isArray(value)
 const str = (value, fallback = '') => (typeof value === 'string' ? value : fallback)
+
+/** Same marker the footer editor uses to keep the description in the stored follow text. */
+const DESCRIPTION_MARKER = '\n\u2063'
+
+const unpackFooterCopy = (followText, description) => {
+  const raw = str(followText)
+  const at = raw.indexOf(DESCRIPTION_MARKER)
+  const follow = at === -1 ? raw : raw.slice(0, at)
+  const embedded = at === -1 ? '' : raw.slice(at + DESCRIPTION_MARKER.length)
+  return {
+    followText: follow,
+    description: typeof description === 'string' ? description : embedded,
+  }
+}
 const arr = (value) => (Array.isArray(value) ? value : [])
 const optionalArray = (value) => value === undefined || Array.isArray(value)
 
@@ -79,6 +94,10 @@ const normalizeDocument = (doc, lang) => {
   const base = defaultFooters[lang] || defaultFooters.en
   const brand = isObj(doc.brand) ? doc.brand : {}
   const legal = isObj(doc.legal) ? doc.legal : {}
+  const copy = unpackFooterCopy(
+    str(brand.followText, base.brand.followText),
+    Object.prototype.hasOwnProperty.call(brand, 'description') ? str(brand.description, '') : undefined,
+  )
 
   const style = { ...base.style }
   if (isObj(doc.style)) {
@@ -97,7 +116,8 @@ const normalizeDocument = (doc, lang) => {
       logoUrl: str(brand.logoUrl) || base.brand.logoUrl,
       logoAlt: str(brand.logoAlt, base.brand.logoAlt),
       logoHref: str(brand.logoHref) || base.brand.logoHref,
-      followText: str(brand.followText, base.brand.followText),
+      followText: copy.followText,
+      description: copy.description,
       // Empty string = no pattern image.
       patternUrl: str(brand.patternUrl, base.brand.patternUrl),
     },
@@ -120,6 +140,7 @@ const useSiteFooter = createSiteDocumentHook({
   storagePrefix: STORAGE_PREFIX,
   isValidDocument,
   normalizeDocument,
+  applyMediaAlts,
 })
 
 export default useSiteFooter

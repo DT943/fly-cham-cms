@@ -21,14 +21,19 @@ export function routeMapExplorerProps(block, lang) {
   const str = (key) => (typeof content[key] === 'string' ? content[key] : '')
 
   const cityImages = {}
+  // Each photo's media-library alt (`<cityKey>ImageAlt`, set at render time).
+  const cityImageAlts = {}
   CITY_KEYS.forEach((cityKey) => {
     const url = resolveCmsAsset(str(cityImageKey(cityKey)))
     if (url) cityImages[cityKey] = url
+    const alt = str(`${cityImageKey(cityKey)}Alt`)
+    if (alt) cityImageAlts[cityKey] = alt
   })
 
   return {
     title: str('title'),
     planeUrl: resolveCmsAsset(str('planeUrl')),
     cityImages,
+    cityImageAlts,
   }
 }

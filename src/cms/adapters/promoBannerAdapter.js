@@ -1,4 +1,5 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
+import { mediaRefFromUrl } from '../mediaAlt.js'
 
 /**
  * Prefer an absolute uploaded URL (CDN) over a seeded relative path. Blocks
@@ -14,13 +15,21 @@ function pickPromoImageUrl(content = {}) {
   return absolute || candidates[0] || ''
 }
 
-function pickPromoImageAlt(content = {}) {
+function pickPromoImageAlt(content = {}, shownUrl = '') {
   const nested = typeof content.image?.alt === 'string' ? content.image.alt.trim() : ''
   const flat = typeof content.imageAlt === 'string' ? content.imageAlt.trim() : ''
+  // The alt stored beside the image actually shown comes first.
+  const shownIsNested =
+    shownUrl !== (content.imageUrl || '').trim() &&
+    shownUrl === (content.image?.fileUrl || '').trim()
+  const [own, other] = shownIsNested ? [nested, flat] : [flat, nested]
+  // A media-library image has exactly one alt (set from the library).
+  if (mediaRefFromUrl(shownUrl)) return own
   // Prefer a real description over an upload filename like "fleet.webp".
-  if (nested && !/\.(webp|jpe?g|png|gif|svg)$/i.test(nested)) return nested
-  if (flat && !/\.(webp|jpe?g|png|gif|svg)$/i.test(flat)) return flat
-  return nested || flat || ''
+  const isFileName = (alt) => /\.(webp|jpe?g|png|gif|svg)$/i.test(alt)
+  if (own && !isFileName(own)) return own
+  if (other && !isFileName(other)) return other
+  return own || other || ''
 }
 
 /**
@@ -44,7 +53,7 @@ export function promoBannerProps(block, lang) {
     cta: ctaLabel,
     href: resolveCmsHref(ctaHref),
     image: resolveCmsAsset(imageUrl) || undefined,
-    imageAlt: pickPromoImageAlt(content),
+    imageAlt: pickPromoImageAlt(content, imageUrl),
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }

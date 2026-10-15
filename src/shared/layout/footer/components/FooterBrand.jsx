@@ -32,7 +32,17 @@ const FooterBrand = ({ brand, social, style }) => (
         </p>
       ) : null}
     </div>
-    {social.length > 0 ? <FooterSocial social={social} style={style} /> : null}
+    <div className="flex w-full min-w-0 flex-col gap-3 lg:w-max">
+      {brand.description ? (
+        <p
+          className={`m-0 w-full min-w-0 lg:w-0 lg:min-w-full ${typography.caption}`}
+          style={{ color: colorAlpha(style.followTextColor, 90) }}
+        >
+          {brand.description}
+        </p>
+      ) : null}
+      {social.length > 0 ? <FooterSocial social={social} style={style} /> : null}
+    </div>
   </div>
 )
 

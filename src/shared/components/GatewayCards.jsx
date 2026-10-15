@@ -4,12 +4,11 @@ import {
   colorVar,
   getTextStyleVars,
 } from '../../styles/cmsStyle.js'
-import { FLYCHAM_POS } from '../../vendor/shims/next-navigation.jsx'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import Dropdown from './Dropdown.jsx'
-import { GATEWAY_POS_OPTIONS, cardMatchesPos } from './gatewayPos.js'
+import { GATEWAY_POS_OPTIONS, cardMatchesPos, posLabel } from './gatewayPos.js'
 
 const COLUMNS_CLASS = {
   2: 'grid-cols-1 sm:grid-cols-2',
@@ -44,6 +43,7 @@ const GatewayCards = ({
   cardBg = 'background',
   links = [],
   filterByPos = false,
+  posLabels = {},
   showLinks = true,
   linkColor,
   linkHoverColor,
@@ -53,14 +53,12 @@ const GatewayCards = ({
   ...textStyle
 }) => {
   const language = useCurrentLanguage()
-  const [pos, setPos] = useState(
-    GATEWAY_POS_OPTIONS.some((option) => option.value === FLYCHAM_POS) ? FLYCHAM_POS : 'gb',
-  )
+  const [pos, setPos] = useState('all')
   const list = items.filter((item) => item?.title || item?.imageUrl)
   const visible = list.filter((item) => cardMatchesPos(item, pos, filterByPos))
   const posOptions = GATEWAY_POS_OPTIONS.map((option) => ({
     value: option.value,
-    label: language === 'ar' ? option.ar : option.en,
+    label: posLabel(option.value, language, posLabels),
   }))
   if (!title && !list.length) return null
 

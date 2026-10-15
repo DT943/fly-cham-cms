@@ -1,5 +1,6 @@
 import { getHeader } from '../../../cms/api/getHeader.js'
 import createSiteDocumentHook from '../createSiteDocumentHook.js'
+import { applySiteHeaderAlts } from '../../../cms/mediaAlt.js'
 import defaultHeaders from './defaultHeader.json'
 
 /**
@@ -184,6 +185,7 @@ const useSiteHeader = createSiteDocumentHook({
   storagePrefix: STORAGE_PREFIX,
   isValidDocument,
   normalizeDocument,
+  applyMediaAlts: applySiteHeaderAlts,
 })
 
 export default useSiteHeader
