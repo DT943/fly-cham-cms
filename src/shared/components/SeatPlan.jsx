@@ -26,6 +26,11 @@ const SECTION_PADDING = {
   loose: 'py-10 md:py-16',
 }
 
+const HEADER_ALIGN = {
+  start: 'items-start text-start',
+  center: 'items-center text-center',
+}
+
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
@@ -42,6 +47,7 @@ const SeatPlan = ({
   items = [],
   showHeader = true,
   showDescription = true,
+  headerAlign = 'start',
   columns = 3,
   cardGap = 'default',
   cardRadius = 'sm',
@@ -75,12 +81,13 @@ const SeatPlan = ({
   const colKey = String(columns)
   const gapClass = CARD_GAP[cardGap] || CARD_GAP.default
   const radiusClass = CARD_RADIUS[cardRadius] || CARD_RADIUS.sm
+  const alignClass = HEADER_ALIGN[headerAlign] || HEADER_ALIGN.start
   const headerVisible = showHeader && (title || (showDescription && description))
 
   const inner = (
     <section className="flex flex-col gap-5">
       {headerVisible ? (
-        <div className="flex flex-col gap-3">
+        <div className={cx('flex flex-col gap-3', alignClass)}>
           {title ? (
             <h2
               className={cx('m-0', typography.sectionTitle, CMS_TEXT_HOVER_CLASS)}
@@ -122,7 +129,7 @@ const SeatPlan = ({
                 <img
                   src={src}
                   alt={item.imageAlt || ''}
-                  className="h-49 w-full object-cover"
+                  className="h-[196px] w-full object-cover"
                 />
               ) : null}
               <div className="relative z-2 flex flex-1 flex-col gap-3 p-4 pointer-events-none">

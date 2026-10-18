@@ -1,4 +1,16 @@
-import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
+import { pick, pickContent, pickStyle, resolveCmsAsset, resolveCmsHref } from './pick.js'
+
+/** Prefer flat imageUrl; also accept media-picker shapes left over from Airport Service Cards. */
+function resolveItemImage(it) {
+  const raw =
+    it?.imageUrl ||
+    (typeof it?.image === 'string' ? it.image : '') ||
+    it?.image?.fileUrl ||
+    it?.image?.url ||
+    it?.fileUrl ||
+    ''
+  return resolveCmsAsset(raw) || undefined
+}
 
 /**
  * Map a CMS "seat-plan" block to <SeatPlan /> props — a heading and a grid of
@@ -9,7 +21,7 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
  */
 export function seatPlanProps(block, lang) {
   const content = pickContent(block.content, lang)
-  const style = block.style || {}
+  const style = pickStyle(block.style, lang)
 
   return {
     title: content.title || '',
@@ -17,8 +29,8 @@ export function seatPlanProps(block, lang) {
     learnMore: content.learnMore || '',
     items: (Array.isArray(content.items) ? content.items : []).map((it) => ({
       id: it?.id || '',
-      image: resolveCmsAsset(it?.imageUrl) || undefined,
-      imageAlt: it?.imageAlt || '',
+      image: resolveItemImage(it),
+      imageAlt: it?.imageAlt || it?.image?.alt || '',
       title: it?.title || '',
       description: it?.description || '',
       href: resolveCmsHref(it?.href) || '#',
@@ -37,6 +49,7 @@ function mapBacklinks(links) {
 const STYLE_KEYS = [
   'showHeader',
   'showDescription',
+  'headerAlign',
   'columns',
   'cardGap',
   'cardRadius',

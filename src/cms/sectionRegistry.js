@@ -209,8 +209,6 @@ import {
 import ProhibitedItemsGrid from '../shared/components/ProhibitedItemsGrid.jsx'
 import InstructionsCard from '../shared/components/InstructionsCard.jsx'
 import { instructionsCardProps, prohibitedItemsGridProps } from './adapters/prohibitedItemsAdapters.js'
-import AirportServiceCards from '../shared/components/AirportServiceCards.jsx'
-import { airportServiceCardsProps } from './adapters/airportServiceCardsAdapter.js'
 import { businessQuickAccessProps } from './adapters/businessQuickAccessAdapter.js'
 
 /**
@@ -364,7 +362,6 @@ export const sectionRegistry = {
   'baggage-addons': { Component: BaggageAddons, mapProps: baggageAddonsProps },
   'prohibited-items-grid': { Component: ProhibitedItemsGrid, mapProps: prohibitedItemsGridProps },
   'instructions-card': { Component: InstructionsCard, mapProps: instructionsCardProps },
-  'airport-service-cards': { Component: AirportServiceCards, mapProps: airportServiceCardsProps },
   'not-found-hero': { Component: NotFoundHero, mapProps: notFoundHeroProps, fullBleed: true },
   // Offer banners — one shared renderer, seven block types.
   'offer-destination': { Component: OfferBanner, mapProps: offerBannerProps('offer-destination') },
