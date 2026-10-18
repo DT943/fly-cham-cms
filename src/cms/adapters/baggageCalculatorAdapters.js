@@ -131,7 +131,12 @@ export function titleWithListProps(block, lang) {
     items: (Array.isArray(content.items) ? content.items : []).map((item) =>
       typeof item === 'string'
         ? { id: '', text: item, icon: '' }
-        : { id: item?.id || '', text: item?.text || item?.item || '', icon: item?.icon || '' },
+        : {
+            id: item?.id || '',
+            // Keep an explicit empty text. Only read legacy `item` when `text` is absent.
+            text: typeof item?.text === 'string' ? item.text : item?.item || '',
+            icon: item?.icon || '',
+          },
     ),
     links: mapBacklinks(content.links),
     ...pick(style, LIST_STYLE_KEYS),

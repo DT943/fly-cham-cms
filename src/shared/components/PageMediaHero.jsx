@@ -25,8 +25,9 @@ const HERO_HEIGHT = {
 // Text column padding: `slim` sits 24px off the bottom on phones and 10px
 // below centre from md (Figma 40951:24302).
 const HERO_TEXT_PAD = {
-  default: 'pb-8 md:pb-0',
-  slim: 'pb-6 md:pb-0 md:pt-5',
+  // Symmetric padding so vertical centering on small screens isn’t skewed.
+  default: 'py-8 md:py-0',
+  slim: 'py-6 md:pb-0 md:pt-5',
 }
 
 // Width of the text column (cover layout). `default` matches `max-w-[605px]`.
@@ -51,16 +52,147 @@ const DISPLAY_TITLE_CLASS =
 const DISPLAY_SUBTITLE_CLASS = 'text-sm leading-[1.45] lg:text-lg'
 const DISPLAY_COPY_GAP_CLASS = 'gap-2 md:gap-4'
 
-// Cover-layout white fade. Small screens wash up from the bottom so the title
-// sits on white; from `md` the fade comes in from the reading-start edge.
-// `wide` = Travel Updates Figma, `solid` = Offers & Deals (opaque to 34%, clear
-// by 51%; a white wash on phones).
-const OVERLAY_BOTTOM =
-  'bg-[linear-gradient(to_top,rgb(253_253_252)_0%,rgb(253_253_252/0.92)_28%,rgb(253_253_252/0)_62%)]'
-const OVERLAY = {
-  default: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_28%,rgb(253_253_252/0)_55%)]`,
-  wide: `${OVERLAY_BOTTOM} md:bg-[linear-gradient(to_right,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252/0.90)_38.6%,rgb(253_253_252/0)_59.9%)]`,
-  solid: 'bg-[linear-gradient(to_bottom,rgb(255_255_255/0)_15%,rgb(255_255_255/0.81)_66%,rgb(255_255_255)_100%)] md:bg-[linear-gradient(to_right,rgb(253_253_252)_34.077%,rgb(253_253_252/0)_51.328%)] md:rtl:bg-[linear-gradient(to_left,rgb(253_253_252)_34.077%,rgb(253_253_252/0)_51.328%)]',
+/** Clamp the fade strength slider (0 = invisible, 100 = full preset opacity). */
+function clampOverlayStrength(value, fallback = 90) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return fallback
+  return Math.min(100, Math.max(0, Math.round(n)))
+}
+
+/** Horizontal reach: % across the hero where the wash becomes fully clear. */
+function clampOverlayReach(value, fallback = 55) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return fallback
+  return Math.min(100, Math.max(20, Math.round(n)))
+}
+
+function opaqueRatioForWidth(overlayWidth) {
+  if (overlayWidth === 'wide') return 38.6 / 59.9
+  if (overlayWidth === 'solid') return 34.077 / 51.328
+  return 28 / 55
+}
+
+/**
+ * Cover / side white-fade gradients driven by CMS color + strength + reach.
+ * Keep in sync with flychamadmin PageMediaHero/utils/style.js.
+ */
+function buildOverlayGradients({
+  overlayWidth = 'default',
+  colorCss = 'rgb(253, 253, 252)',
+  overlayStrength = 90,
+  overlayReach = 55,
+} = {}) {
+  const s = clampOverlayStrength(overlayStrength) / 100
+  const c = colorCss || 'rgb(253, 253, 252)'
+  const mix = (alpha) => {
+    const a = Math.round(Math.min(1, Math.max(0, alpha * s)) * 100)
+    if (a <= 0) return 'transparent'
+    if (a >= 100) return c
+    return `color-mix(in srgb, ${c} ${a}%, transparent)`
+  }
+
+  const clearStop = clampOverlayReach(overlayReach)
+  const opaqueStop = Math.round(clearStop * opaqueRatioForWidth(overlayWidth) * 10) / 10
+
+  if (overlayWidth === 'solid') {
+    return {
+      mobile: `linear-gradient(to bottom, ${mix(0)} 15%, ${mix(0.81)} 66%, ${mix(1)} 100%)`,
+      desktopLtr: `linear-gradient(to right, ${mix(1)} ${opaqueStop}%, ${mix(0)} ${clearStop}%)`,
+      desktopRtl: `linear-gradient(to left, ${mix(1)} ${opaqueStop}%, ${mix(0)} ${clearStop}%)`,
+    }
+  }
+
+  return {
+    mobile: `linear-gradient(to top, ${mix(1)} 0%, ${mix(0.92)} 28%, ${mix(0)} 62%)`,
+    desktopLtr: `linear-gradient(to right, ${mix(0.9)} ${opaqueStop}%, ${mix(0)} ${clearStop}%)`,
+    desktopRtl: `linear-gradient(to left, ${mix(0.9)} ${opaqueStop}%, ${mix(0)} ${clearStop}%)`,
+  }
+}
+
+function buildSideOverlayGradients({
+  colorCss = 'rgb(253, 253, 252)',
+  overlayStrength = 90,
+  overlayReach = 55,
+} = {}) {
+  const s = clampOverlayStrength(overlayStrength) / 100
+  const c = colorCss || 'rgb(253, 253, 252)'
+  const mix = (alpha) => {
+    const a = Math.round(Math.min(1, Math.max(0, alpha * s)) * 100)
+    if (a <= 0) return 'transparent'
+    if (a >= 100) return c
+    return `color-mix(in srgb, ${c} ${a}%, transparent)`
+  }
+  const clearStop = clampOverlayReach(overlayReach, 48)
+  const midStop = Math.round(clearStop * (18 / 48) * 10) / 10
+  return {
+    desktopLtr: `linear-gradient(to right, ${mix(1)} 0%, ${mix(0.75)} ${midStop}%, ${mix(0)} ${clearStop}%)`,
+    desktopRtl: `linear-gradient(to left, ${mix(1)} 0%, ${mix(0.75)} ${midStop}%, ${mix(0)} ${clearStop}%)`,
+  }
+}
+
+/** White / tinted fade over the hero photo (color + strength + reach from CMS). */
+function HeroOverlay({
+  show = true,
+  layout = 'cover',
+  overlayWidth = 'default',
+  overlayColor = '100',
+  overlayStrength = 90,
+  overlayReach = 55,
+}) {
+  if (!show) return null
+
+  const colorCss = colorVar(overlayColor) || 'rgb(253, 253, 252)'
+  const strength = clampOverlayStrength(overlayStrength)
+  const reach = clampOverlayReach(overlayReach)
+
+  if (layout === 'side') {
+    const g = buildSideOverlayGradients({
+      colorCss,
+      overlayStrength: strength,
+      overlayReach: reach,
+    })
+    return (
+      <>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 hidden md:block md:rtl:hidden"
+          style={{ backgroundImage: g.desktopLtr }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 hidden md:rtl:block"
+          style={{ backgroundImage: g.desktopRtl }}
+        />
+      </>
+    )
+  }
+
+  const g = buildOverlayGradients({
+    overlayWidth,
+    colorCss,
+    overlayStrength: strength,
+    overlayReach: reach,
+  })
+
+  return (
+    <>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 md:hidden"
+        style={{ backgroundImage: g.mobile }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden md:block md:rtl:hidden"
+        style={{ backgroundImage: g.desktopLtr }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden md:rtl:block"
+        style={{ backgroundImage: g.desktopRtl }}
+      />
+    </>
+  )
 }
 
 const HERO_BUTTON = {
@@ -149,7 +281,10 @@ const CoverSlider = ({
   copyGapClass = 'gap-4',
   textPadClass = 'pb-8 md:pb-0',
   showOverlay,
-  overlayClass,
+  overlayWidth,
+  overlayColor,
+  overlayStrength,
+  overlayReach,
   showTitle,
   showSubtitle,
   titleVars,
@@ -190,11 +325,16 @@ const CoverSlider = ({
           />
         ) : null,
       )}
-      {showOverlay && (
-        <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} />
-      )}
+      <HeroOverlay
+        show={showOverlay !== false}
+        layout="cover"
+        overlayWidth={overlayWidth}
+        overlayColor={overlayColor}
+        overlayStrength={overlayStrength}
+        overlayReach={overlayReach}
+      />
 
-      <Container className={`relative flex h-full flex-col justify-end md:justify-center ${textPadClass}`}>
+      <Container className={`relative flex h-full flex-col justify-center ${textPadClass}`}>
         {slides.map((slide, index) => {
           const isActive = index === slider.activeIndex
           return (
@@ -329,6 +469,9 @@ const PageMediaHero = ({
   showSubtitle = true,
   showOverlay = true,
   overlayWidth = 'default',
+  overlayColor = '100',
+  overlayStrength = 90,
+  overlayReach = 55,
   titleColor = 'primary-1',
   subtitleColor = '700',
   titleFontWeight = 'bold',
@@ -444,9 +587,13 @@ const PageMediaHero = ({
               alt=""
               className="w-full h-full object-cover object-[72%_center]"
             />
-            {showOverlay && (
-              <div className="absolute inset-0 bg-gradient-to-r from-100 from-0% via-100/75 via-[18%] to-transparent to-[48%] rtl:bg-gradient-to-l" />
-            )}
+            <HeroOverlay
+              show={showOverlay !== false}
+              layout="side"
+              overlayColor={overlayColor}
+              overlayStrength={overlayStrength}
+              overlayReach={overlayReach}
+            />
           </div>
         )}
       </section>
@@ -461,7 +608,6 @@ const PageMediaHero = ({
     ? CONTENT_WIDTH[contentWidth] || contentClassName
     : contentClassName
   const titleSizeClass = TITLE_SIZE[titleSize] || TITLE_SIZE.default
-  const overlayClass = OVERLAY[overlayWidth] || OVERLAY.default
   const display = titleSize === 'display'
   const titleClass = display
     ? DISPLAY_TITLE_CLASS
@@ -498,7 +644,10 @@ const PageMediaHero = ({
         copyGapClass={copyGapClass}
         textPadClass={textPadClass}
         showOverlay={showOverlay}
-        overlayClass={overlayClass}
+        overlayWidth={overlayWidth}
+        overlayColor={overlayColor}
+        overlayStrength={overlayStrength}
+        overlayReach={overlayReach}
         showTitle={showTitle}
         showSubtitle={showSubtitle}
         titleVars={titleVars}
@@ -525,13 +674,16 @@ const PageMediaHero = ({
           className="absolute inset-0 size-full object-cover"
         />
       ) : null}
-      {showOverlay && (
-        <div
-          className={`pointer-events-none absolute inset-0 ${overlayClass}`}
-        />
-      )}
+      <HeroOverlay
+        show={showOverlay !== false}
+        layout="cover"
+        overlayWidth={overlayWidth}
+        overlayColor={overlayColor}
+        overlayStrength={overlayStrength}
+        overlayReach={overlayReach}
+      />
 
-      <Container className={`relative flex h-full flex-col justify-end md:justify-center ${textPadClass}`}>
+      <Container className={`relative flex h-full flex-col justify-center ${textPadClass}`}>
         <div className={`flex flex-col ${copyGapClass} ${widthClass}`}>
           {showTitle && title && (
             <h1

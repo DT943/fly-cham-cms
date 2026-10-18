@@ -9,12 +9,18 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 export function landmarkFeatureProps(block, lang) {
   const content = pickContent(block.content, lang)
   const style = block.style || {}
+  // Shared copy lives on the block; empty strings hide the heading. Fall back
+  // to per-item copy only for legacy blocks that never stored top-level fields.
+  const sharedTitle = typeof content.title === 'string' ? content.title : null
+  const sharedDescription =
+    typeof content.description === 'string' ? content.description : null
 
   return {
     items: (Array.isArray(content.items) ? content.items : []).map((it) => ({
       id: it?.id || '',
-      title: it?.title || '',
-      description: it?.description || '',
+      title: sharedTitle !== null ? sharedTitle : it?.title || '',
+      description:
+        sharedDescription !== null ? sharedDescription : it?.description || '',
       image: resolveCmsAsset(it?.imageUrl) || undefined,
       imageAlt: it?.imageAlt || '',
       imageFirst: it?.imageFirst === true,

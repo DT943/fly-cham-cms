@@ -346,7 +346,12 @@ export const sectionRegistry = {
   'split-cards': { Component: SplitCards, mapProps: splitCardsProps },
   'catalog-cards': { Component: CatalogCards, mapProps: catalogCardsProps },
   'icon-tiles': { Component: IconTiles, mapProps: iconTilesProps },
-  'split-band': { Component: SplitBand, mapProps: splitBandProps, fullBleed: true },
+  'split-band': {
+    Component: SplitBand,
+    mapProps: splitBandProps,
+    // Drawer "Full width" — edge-to-edge by default; off → page Container.
+    fullBleed: (style) => style.fullWidth !== false,
+  },
   'class-panel': { Component: ClassPanel, mapProps: classPanelProps },
   'booking-lookup': { Component: BookingLookup, mapProps: bookingLookupProps },
   'overlay-cards': { Component: OverlayCards, mapProps: overlayCardsProps },

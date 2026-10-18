@@ -8,6 +8,12 @@ const SECTION_PADDING = {
   loose: 'py-10 md:py-16',
 }
 
+const TEXT_ALIGN = {
+  left: 'text-start',
+  center: 'text-center',
+  right: 'text-end',
+}
+
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
@@ -21,6 +27,7 @@ const PageIntro = ({
   imageAlt = '',
   sectionPadding = 'default',
   leadSize = 'default',
+  textAlign = 'left',
   showSectionBg = false,
   sectionBg = '100',
   links = [],
@@ -34,10 +41,12 @@ const PageIntro = ({
 }) => {
   if (!lead && !body && !imageUrl) return null
 
+  const alignClass = TEXT_ALIGN[textAlign] || TEXT_ALIGN.left
+
   const inner = (
     <div className="flex flex-col gap-6">
       {lead || body ? (
-    <div className="flex flex-col gap-3">
+    <div className={cx('flex flex-col gap-3', alignClass)}>
       {lead ? (
         <p
           className={cx(

@@ -10,12 +10,22 @@ export function infoAccordionProps(block, lang) {
 
   const items = (Array.isArray(content.items) ? content.items : []).map((it, index) => ({
     id: it?.id || `item-${index + 1}`,
-    heading: (it?.heading || (it?.text ? '' : it?.title) || '').trim(),
-    text: (it?.text || it?.body || '').trim(),
+    heading:
+      typeof it?.heading === 'string'
+        ? it.heading.trim()
+        : typeof it?.title === 'string'
+          ? it.title.trim()
+          : '',
+    text:
+      typeof it?.text === 'string'
+        ? it.text.trim()
+        : typeof it?.body === 'string'
+          ? it.body.trim()
+          : '',
   })).filter((it) => it.heading || it.text)
 
   return {
-    title: (content.title || '').trim() || items.find((it) => it.heading)?.heading || '',
+    title: (content.title || '').trim(),
     items,
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),

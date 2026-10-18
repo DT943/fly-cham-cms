@@ -24,10 +24,19 @@ const MARKER_CLASS = {
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 const itemParts = (item) => {
-  const text = typeof item?.text === 'string' ? item.text.trim() : ''
-  const heading = (item?.heading || (text ? '' : item?.title) || '').trim()
-  const body = text || (item?.body || '').trim()
-  return { heading, text: body }
+  const heading =
+    typeof item?.heading === 'string'
+      ? item.heading.trim()
+      : typeof item?.title === 'string'
+        ? item.title.trim()
+        : ''
+  const text =
+    typeof item?.text === 'string'
+      ? item.text.trim()
+      : typeof item?.body === 'string'
+        ? item.body.trim()
+        : ''
+  return { heading, text }
 }
 
 /**
@@ -84,7 +93,7 @@ const InfoAccordion = ({
         >
           <ul
             className={cx(
-              'm-0 flex list-outside flex-col gap-3',
+              'm-0 list-outside space-y-3',
               markerClass,
               markerPad,
               typography.caption,
@@ -94,7 +103,7 @@ const InfoAccordion = ({
             style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
           >
             {lines.map((line, index) => (
-              <li key={items[index]?.id || index} className="whitespace-pre-line">
+              <li key={items[index]?.id || index} className="whitespace-pre-line marker:text-current">
                 {line.heading ? (
                   <span
                     className={cx('block font-semibold', CMS_TEXT_HOVER_CLASS)}

@@ -232,18 +232,22 @@ const LandmarkCard = ({ item, radiusClass, linkProps, titleStyleKeys, bodyStyleK
         thumbCell={thumbCell}
       />
       <div className={`flex w-full max-w-[462px] flex-col gap-4 lg:gap-6 ${copyCell}`}>
-        <h2
-          className={`m-0 text-2xl leading-normal sm:text-3xl lg:text-[40px] ${CMS_TEXT_HOVER_CLASS}`}
-          style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
-        >
-          <LinkedText text={item.title} {...linkProps} />
-        </h2>
-        <p
-          className={`m-0 text-[15px] leading-[1.6] sm:text-base ${CMS_TEXT_HOVER_CLASS}`}
-          style={getTextStyleVars(bodyStyleKeys, 'bodyColor', '700', 'normal')}
-        >
-          <LinkedText text={item.description} {...linkProps} />
-        </p>
+        {item.title ? (
+          <h2
+            className={`m-0 text-2xl leading-normal sm:text-3xl lg:text-[40px] ${CMS_TEXT_HOVER_CLASS}`}
+            style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
+          >
+            <LinkedText text={item.title} {...linkProps} />
+          </h2>
+        ) : null}
+        {item.description ? (
+          <p
+            className={`m-0 text-[15px] leading-[1.6] sm:text-base ${CMS_TEXT_HOVER_CLASS}`}
+            style={getTextStyleVars(bodyStyleKeys, 'bodyColor', '700', 'normal')}
+          >
+            <LinkedText text={item.description} {...linkProps} />
+          </p>
+        ) : null}
       </div>
     </div>
   )

@@ -25,6 +25,7 @@ function mapBacklinks(links) {
 const STYLE_KEYS = [
   'sectionPadding',
   'leadSize',
+  'textAlign',
   'showSectionBg',
   'sectionBg',
   'leadColor',

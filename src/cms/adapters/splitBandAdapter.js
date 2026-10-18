@@ -15,6 +15,8 @@ const text = (colorKey) => {
 const STYLE_KEYS = [
   'imageSide',
   'panelTone',
+  'fullWidth',
+  'bandRadius',
   'showButton',
   'showButtonIcon',
   'buttonBg',

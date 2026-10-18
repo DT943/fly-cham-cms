@@ -173,8 +173,22 @@ const HomeChamMilesBanner = ({
             BANNER_RADIUS[bannerRadius] ?? BANNER_RADIUS.lg,
           )}
         >
+          {/* Photo first on mobile; fixed aspect so object-cover never stretches. */}
           <div
-            className="relative flex min-h-64 flex-col justify-between gap-8 overflow-hidden p-6 sm:min-h-72 sm:p-8 md:p-10 lg:min-h-80"
+            className="relative order-1 aspect-[16/10] overflow-hidden lg:order-2 lg:aspect-auto lg:min-h-full"
+            style={{ backgroundColor: colorVar(photoBg) }}
+          >
+            {photo ? (
+              <img
+                src={photo}
+                alt={photoAlt}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            ) : null}
+          </div>
+
+          <div
+            className="relative order-2 flex flex-col justify-between gap-6 overflow-hidden p-6 sm:gap-8 sm:p-8 md:p-10 lg:order-1 lg:min-h-80"
             style={{ background: GRADIENT }}
           >
             {showMark && mark ? (
@@ -216,11 +230,11 @@ const HomeChamMilesBanner = ({
             </div>
 
             {(showJoinButton && joinLabel) || (showDiscoverButton && discoverLabel) ? (
-              <div className="relative z-10 flex flex-wrap items-center gap-3">
+              <div className="relative z-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 {showJoinButton && joinLabel ? (
                   <LocalizedLink
                     href={joinHref || '#'}
-                    className={cx(buttonBase, 'lowercase', joinBtn.className)}
+                    className={cx(buttonBase, 'w-full lowercase sm:w-auto', joinBtn.className)}
                     style={joinBtn.style}
                   >
                     {joinLabel}
@@ -229,26 +243,13 @@ const HomeChamMilesBanner = ({
                 {showDiscoverButton && discoverLabel ? (
                   <LocalizedLink
                     href={discoverHref || '#'}
-                    className={cx(buttonBase, discoverBtn.className)}
+                    className={cx(buttonBase, 'hidden lg:inline-flex', discoverBtn.className)}
                     style={discoverBtn.style}
                   >
                     {discoverLabel}
                   </LocalizedLink>
                 ) : null}
               </div>
-            ) : null}
-          </div>
-
-          <div
-            className="relative min-h-56 overflow-hidden sm:min-h-64 lg:min-h-full"
-            style={{ backgroundColor: colorVar(photoBg) }}
-          >
-            {photo ? (
-              <img
-                src={photo}
-                alt={photoAlt}
-                className="absolute inset-0 size-full object-cover object-center"
-              />
             ) : null}
           </div>
         </div>

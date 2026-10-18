@@ -13,11 +13,19 @@ const PANEL_BG = {
   navy: '#01263B',
 }
 
+const BAND_RADIUS = {
+  none: 'rounded-none',
+  sm: 'rounded-xl',
+  lg: 'rounded-2xl',
+  full: 'rounded-3xl',
+}
+
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
- * Full-bleed split: a colored text panel beside a photo. `imageSide` "right"
- * puts the panel on the left (Economy meals). "left" puts the photo on the left.
+ * Split: a colored text panel beside a photo. `imageSide` "right" puts the
+ * panel on the left (Economy meals). "left" puts the photo on the left.
+ * `fullWidth` (default) is edge-to-edge; off sits inside the page Container.
  */
 const SplitBand = ({
   title = '',
@@ -29,6 +37,8 @@ const SplitBand = ({
   buttonIcon = 'ArrowRight',
   imageSide = 'right',
   panelTone = 'primary',
+  fullWidth = true,
+  bandRadius = 'none',
   showButton = true,
   showButtonIcon = true,
   links = [],
@@ -37,14 +47,22 @@ const SplitBand = ({
 }) => {
   if (!title && !description && !imageUrl) return null
   const imageFirst = imageSide === 'left'
+  const isFullWidth = fullWidth !== false
+  const radiusClass = BAND_RADIUS[bandRadius] || BAND_RADIUS.none
   const Icon = showButtonIcon !== false ? resolvePhosphorIcon(buttonIcon) || ArrowRightIcon : null
   const showCta = showButton !== false && Boolean(buttonLabel)
   const linkProps = { links, enabled: showLinks }
+  // Full-bleed: align panel copy with the page gutter. Contained: fixed padding.
   const gutter = 'max(1rem, calc((100vw - min(100vw, var(--max-width-page, 1219px))) / 2))'
-  const panelPad = {
-    '--band-ps': imageFirst ? '3rem' : gutter,
-    '--band-pe': imageFirst ? gutter : '4rem',
-  }
+  const panelPad = isFullWidth
+    ? {
+        '--band-ps': imageFirst ? '3rem' : gutter,
+        '--band-pe': imageFirst ? gutter : '4rem',
+      }
+    : {
+        '--band-ps': '1.5rem',
+        '--band-pe': '1.5rem',
+      }
 
   const buttonStyle = getButtonStyle(style, {
     bgKey: 'buttonBg',
@@ -55,7 +73,7 @@ const SplitBand = ({
     weightFallback: 'semibold',
   })
   const buttonClass =
-    'flex h-[52px] w-full items-center justify-between rounded-md px-6 text-sm no-underline'
+    'inline-flex h-[52px] w-fit max-w-full items-center gap-3 self-start rounded-md px-6 text-sm no-underline'
 
   const button = showCta ? (
     buttonHref ? (
@@ -75,6 +93,7 @@ const SplitBand = ({
     <section
       className={cx(
         'flex w-full flex-col-reverse overflow-hidden md:min-h-[480px]',
+        radiusClass,
         imageFirst ? 'md:flex-row-reverse' : 'md:flex-row',
       )}
     >

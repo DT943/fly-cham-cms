@@ -196,14 +196,16 @@ const SightsGrid = ({
         </div>
       )}
 
-      <div className="flex items-center justify-between">
-        <h2
-          className={`m-0 text-xl sm:text-2xl lg:text-[28px] ${CMS_TEXT_HOVER_CLASS}`}
-          style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
-        >
-          <LinkedText text={title} {...linkProps} />
-        </h2>
-      </div>
+      {title ? (
+        <div className="flex items-center justify-between">
+          <h2
+            className={`m-0 text-xl sm:text-2xl lg:text-[28px] ${CMS_TEXT_HOVER_CLASS}`}
+            style={getTextStyleVars(titleStyleKeys, 'titleColor', '700', 'semibold')}
+          >
+            <LinkedText text={title} {...linkProps} />
+          </h2>
+        </div>
+      ) : null}
 
       <div className={`grid ${columnsClass} ${gapClass}`}>
         {visible.map((item, index) => (

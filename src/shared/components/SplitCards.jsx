@@ -13,6 +13,9 @@ const COLUMNS_CLASS = {
   2: 'grid-cols-1 md:grid-cols-2',
 }
 
+/** Image-pair cards: one column until lg so each card’s text isn’t crushed. */
+const PAIR_COLUMNS_CLASS = 'grid-cols-1 lg:grid-cols-2'
+
 const SECTION_PADDING = {
   none: '',
   tight: 'py-4 md:py-6',
@@ -113,7 +116,9 @@ const SplitCards = ({
   }
   const linkProps = { links, enabled: showLinks, linkColor, linkHoverColor, linkFontWeight, linkUnderline, linkItalic }
   const pair = layout === 'pair'
-  const columnsClass = COLUMNS_CLASS[String(columns)] || COLUMNS_CLASS[2]
+  const columnsClass = pair
+    ? PAIR_COLUMNS_CLASS
+    : COLUMNS_CLASS[String(columns)] || COLUMNS_CLASS[2]
   const paddingClass = SECTION_PADDING[sectionPadding] ?? ''
   const surface = pair ? CREAM : colorVar(cardBg)
   const [featured, ...rest] = pair ? [null, ...list] : list
@@ -141,20 +146,20 @@ const SplitCards = ({
         ) : null}
 
         {!pair && featured ? (
-          <article className="flex flex-col overflow-hidden rounded-xl bg-white md:h-[320px] md:flex-row" style={{ backgroundColor: surface }}>
+          <article className="flex min-w-0 flex-col overflow-hidden rounded-xl bg-white md:min-h-[320px] md:flex-row" style={{ backgroundColor: surface }}>
             {featured.imageUrl ? (
-              <div className="h-[220px] w-full shrink-0 md:h-full md:w-[480px]">
+              <div className="h-[220px] w-full shrink-0 md:h-auto md:w-[45%] md:max-w-[480px] md:self-stretch">
                 <img src={featured.imageUrl} alt={featured.imageAlt || ''} className="size-full object-cover" />
               </div>
             ) : null}
-            <div className="flex flex-1 flex-col justify-center gap-4 p-6 md:p-8">
+            <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-6 md:p-8">
               {featured.title ? (
-                <h3 className={`m-0 ${FEATURE_TITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardTitleColor', '700', 'semibold')}>
+                <h3 className={`m-0 break-words ${FEATURE_TITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardTitleColor', '700', 'semibold')}>
                   <LinkedText text={featured.title} {...linkProps} />
                 </h3>
               ) : null}
               {featured.description ? (
-                <p className={`m-0 ${BODY_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardDescriptionColor', '600', 'normal')}>
+                <p className={`m-0 break-words ${BODY_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardDescriptionColor', '600', 'normal')}>
                   <LinkedText text={featured.description} {...linkProps} />
                 </p>
               ) : null}
@@ -168,23 +173,33 @@ const SplitCards = ({
             {gridItems.map((item, index) => (
               <article
                 key={item.id || index}
-                className={`flex flex-col overflow-hidden rounded-xl ${pair ? 'md:h-[284px] md:flex-row' : 'md:h-[180px] md:flex-row'}`}
+                className={`flex min-w-0 flex-col overflow-hidden rounded-xl ${
+                  pair
+                    ? 'lg:min-h-[284px] lg:flex-row'
+                    : 'md:min-h-[180px] md:flex-row'
+                }`}
                 style={{ backgroundColor: surface }}
               >
                 {item.imageUrl ? (
-                  <div className={`w-full shrink-0 ${pair ? 'h-[200px] md:h-full md:w-[288px]' : 'h-[180px] md:size-[180px]'}`}>
+                  <div
+                    className={`w-full shrink-0 ${
+                      pair
+                        ? 'h-[200px] lg:h-auto lg:w-[42%] lg:max-w-[288px] lg:self-stretch'
+                        : 'h-[180px] md:size-[180px] md:shrink-0'
+                    }`}
+                  >
                     <img src={item.imageUrl} alt={item.imageAlt || ''} className="size-full object-cover" />
                   </div>
                 ) : null}
                 <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 p-5">
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex min-w-0 flex-col gap-1.5">
                     {item.title ? (
-                      <h3 className={`m-0 ${pair ? PAIR_TITLE_SIZE : CARD_TITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardTitleColor', '700', 'semibold')}>
+                      <h3 className={`m-0 break-words ${pair ? PAIR_TITLE_SIZE : CARD_TITLE_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardTitleColor', '700', 'semibold')}>
                         <LinkedText text={item.title} {...linkProps} />
                       </h3>
                     ) : null}
                     {item.description ? (
-                      <p className={`m-0 ${pair ? BODY_SIZE : COMPACT_BODY_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardDescriptionColor', pair ? '700' : '600', 'normal')}>
+                      <p className={`m-0 break-words ${pair ? BODY_SIZE : COMPACT_BODY_SIZE} ${CMS_TEXT_HOVER_CLASS}`} style={getTextStyleVars(style, 'cardDescriptionColor', pair ? '700' : '600', 'normal')}>
                         <LinkedText text={item.description} {...linkProps} />
                       </p>
                     ) : null}
