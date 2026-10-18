@@ -148,8 +148,8 @@ const SplitCards = ({
         {!pair && featured ? (
           <article className="flex min-w-0 flex-col overflow-hidden rounded-xl bg-white md:min-h-[320px] md:flex-row" style={{ backgroundColor: surface }}>
             {featured.imageUrl ? (
-              <div className="h-[220px] w-full shrink-0 md:h-auto md:w-[45%] md:max-w-[480px] md:self-stretch">
-                <img src={featured.imageUrl} alt={featured.imageAlt || ''} className="size-full object-cover" />
+              <div className="aspect-[4/3] w-full shrink-0 md:aspect-auto md:h-auto md:w-[45%] md:max-w-[480px] md:self-stretch">
+                <img src={featured.imageUrl} alt={featured.imageAlt || ''} className="size-full object-cover object-center" />
               </div>
             ) : null}
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-6 md:p-8">
@@ -182,13 +182,17 @@ const SplitCards = ({
               >
                 {item.imageUrl ? (
                   <div
-                    className={`w-full shrink-0 ${
+                    className={`w-full shrink-0 overflow-hidden ${
                       pair
-                        ? 'h-[200px] lg:h-auto lg:w-[42%] lg:max-w-[288px] lg:self-stretch'
-                        : 'h-[180px] md:size-[180px] md:shrink-0'
+                        ? 'aspect-[4/3] lg:aspect-auto lg:h-auto lg:w-[42%] lg:max-w-[288px] lg:self-stretch'
+                        : 'aspect-[4/3] md:aspect-auto md:size-[180px] md:shrink-0'
                     }`}
                   >
-                    <img src={item.imageUrl} alt={item.imageAlt || ''} className="size-full object-cover" />
+                    <img
+                      src={item.imageUrl}
+                      alt={item.imageAlt || ''}
+                      className="size-full object-cover object-center"
+                    />
                   </div>
                 ) : null}
                 <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 p-5">

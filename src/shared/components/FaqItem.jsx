@@ -7,11 +7,15 @@ import LinkedText from './backlinks/LinkedText.jsx'
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 const ITEM_RADIUS_CLASS = {
-  none: 'rounded-none',
-  sm: 'rounded-lg',
-  lg: 'rounded-xl',
+  none: 'md:rounded-none',
+  sm: 'md:rounded-lg',
+  lg: 'md:rounded-xl',
 }
 
+/**
+ * Accordion row. On mobile it is a divider row inside the Faqs card; from md
+ * it is its own bordered card (desktop look).
+ */
 const FaqItem = ({
   question,
   answer,
@@ -52,8 +56,17 @@ const FaqItem = ({
 
   return (
     <div
-      className={cx('border transition-colors duration-200', !open && 'hover:!bg-100', radiusClass)}
-      style={{ backgroundColor: colorVar(itemBg), borderColor: colorVar(itemBorderColor) }}
+      className={cx(
+        // Mobile: bare rows; dividers come from the parent `divide-y`.
+        // Desktop: individual bordered cards.
+        'md:border md:transition-colors md:duration-200',
+        !open && 'md:hover:!bg-100',
+        radiusClass,
+      )}
+      style={{
+        backgroundColor: colorVar(itemBg),
+        borderColor: colorVar(itemBorderColor),
+      }}
     >
       <h3 className="m-0">
         <button
@@ -65,7 +78,7 @@ const FaqItem = ({
           className={cx(
             typography.itemTitle,
             CMS_TEXT_HOVER_CLASS,
-            'w-full bg-transparent border-0 flex items-center justify-between gap-4 cursor-pointer px-4 py-4 md:px-6 md:py-5 text-start',
+            'w-full bg-transparent border-0 flex items-center justify-between gap-3 cursor-pointer px-0 py-4 md:gap-4 md:px-6 md:py-5 text-start',
           )}
           style={{
             ...getTextStyleVars(questionStyleKeys, 'questionColor', '700', 'medium'),
@@ -96,7 +109,7 @@ const FaqItem = ({
       >
         <div className="overflow-hidden min-h-0">
           {(paragraphs.length > 0 || extra) && (
-            <div className="flex flex-col gap-3 px-4 pb-4 md:px-6 md:pb-5">
+            <div className="flex flex-col gap-3 px-0 pb-4 md:px-6 md:pb-5">
               {paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
