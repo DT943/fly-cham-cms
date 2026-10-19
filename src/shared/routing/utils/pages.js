@@ -9,6 +9,7 @@ import BookAFlight from '../../../pages/book-a-flight/BookAFlight.jsx'
 import BookFromSchedule from '../../../pages/book-from-schedule/BookFromSchedule.jsx'
 import SearchInSite from '../../../pages/search-in-site/SearchInSite.jsx'
 import CargoGuide from '../../../pages/cargo-guide/CargoGuide.jsx'
+import ChamMilesTerms from '../../../pages/cham-miles-terms/ChamMilesTerms.jsx'
 import ComingSoon from '../../../pages/coming-soon/ComingSoon.jsx'
 import DynamicPage from '../../../pages/dynamic-page/DynamicPage.jsx'
 import { cmsSlugFromPath } from '../../../pages/dynamic-page/cmsPagePath.js'
@@ -44,6 +45,7 @@ export const appPages = {
   '/book-from-schedule': BookFromSchedule,
   '/search-in-site': SearchInSite,
   '/cargo/cargo-guide': CargoGuide,
+  '/legal/cham-miles-terms': ChamMilesTerms,
   '/coming-soon': ComingSoon,
   // Legacy help path aliases → official `/help/contact-us/...`
   '/help/our-gsa': OurGsaRedirect,

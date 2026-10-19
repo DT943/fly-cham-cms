@@ -13,9 +13,9 @@ const ICONS = {
 }
 
 /**
- * Full-bleed "Get more information" band shared by every legal document page.
- * Cards are whole-card links: round icon on top, title, description and a
- * round arrow badge at the bottom-end (the CTA text is its accessible name).
+ * Full-bleed "Get more information" band shared by legal document pages.
+ * Each card is a whole-card link: teal start accent, icon, title, description,
+ * and an end-aligned text CTA with arrow.
  */
 const LegalMoreInfo = ({
   title = '',
@@ -73,15 +73,15 @@ const LegalMoreInfo = ({
                 key={card.id || `${card.href}-${index}`}
                 href={card.href || '#'}
                 aria-label={card.cta ? `${card.title} — ${card.cta}` : undefined}
-                className="group flex min-h-50 flex-col gap-4 rounded-2xl bg-50 p-5 no-underline md:p-6"
+                className="group flex gap-4 overflow-hidden rounded-2xl border-s-4 border-solid border-s-primary-1 bg-50 p-5 no-underline md:gap-5 md:p-6"
               >
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-100 text-700">
-                  <Icon size={24} aria-hidden />
+                <span className="flex size-10 shrink-0 items-center justify-center text-primary-1 md:size-12">
+                  <Icon size={28} aria-hidden />
                 </span>
-                <div className="flex flex-col gap-2">
+                <div className="flex min-w-0 flex-1 flex-col gap-2">
                   <h3
-                    className={`m-0 font-semibold text-700 ${typography.itemTitle} leading-6 ${CMS_TEXT_HOVER_CLASS}`}
-                    style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'semibold')}
+                    className={`m-0 font-semibold text-primary-1 ${typography.itemTitle} leading-6 ${CMS_TEXT_HOVER_CLASS}`}
+                    style={getTextStyleVars(textStyle, 'cardTitleColor', 'primary-1', 'semibold')}
                   >
                     {card.title}
                   </h3>
@@ -96,13 +96,28 @@ const LegalMoreInfo = ({
                   >
                     {card.description}
                   </p>
+                  {card.cta ? (
+                    <span
+                      className={`mt-auto inline-flex items-center gap-1.5 self-end pt-2 font-semibold text-primary-1 ${typography.caption} ${CMS_TEXT_HOVER_CLASS}`}
+                      style={getTextStyleVars(textStyle, 'ctaColor', 'primary-1', 'semibold')}
+                    >
+                      {card.cta}
+                      <ArrowRight
+                        size={14}
+                        weight="bold"
+                        className="transition-transform duration-300 group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+                        aria-hidden
+                      />
+                    </span>
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="mt-auto flex size-8 shrink-0 items-center justify-center self-end rounded-full bg-primary-1 text-50 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+                    >
+                      <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
+                    </span>
+                  )}
                 </div>
-                <span
-                  aria-hidden
-                  className="mt-auto flex size-8 shrink-0 items-center justify-center self-end rounded-full bg-primary-1 text-50 transition-transform duration-300 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-                >
-                  <ArrowRight size={16} weight="bold" className="rtl:-scale-x-100" />
-                </span>
               </LocalizedLink>
             )
           })}

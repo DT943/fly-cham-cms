@@ -4190,6 +4190,64 @@
       }
     }
   },
+  "chamMilesTerms": {
+    "breadcrumb": "شروط برنامج شام مايلز",
+    "title": "شروط برنامج شام مايلز",
+    "hero": {
+      "subtitle": "تعرّف على القواعد والمسؤوليات والمعلومات القانونية المتعلقة باستخدام موقعنا",
+      "imageAlt": "طائرة فلاي شام في الجو"
+    },
+    "moreInfo": {
+      "terms": {
+        "title": "شروط وأحكام الموقع الإلكتروني",
+        "description": "تعرّف على القواعد والإرشادات الخاصة باستخدام موقعنا.",
+        "cta": "اقرأ الشروط والأحكام"
+      },
+      "cookies": {
+        "title": "تعرّف على استخدامنا لملفات تعريف الارتباط",
+        "description": "تعرّف على كيفية استخدامنا لملفات تعريف الارتباط لتحسين وظائف الموقع وتجربتك.",
+        "cta": "استكشف سياسة ملفات تعريف الارتباط"
+      }
+    },
+    "values": {
+      "title": "Lorem ipsum dolor sit",
+      "items": {
+        "hospitality": {
+          "title": "ضيافة أصيلة",
+          "description": "نجسّد كرم الضيافة السورية في كل التفاصيل، لنصنع ذكريات لا تُنسى في الأجواء."
+        },
+        "sustainability": {
+          "title": "الاستدامة",
+          "description": "تمتدّ مسؤوليتنا إلى ما هو أبعد من الحاضر، إذ نبني مستقبلاً أكثر استدامة بيئياً واقتصادياً مع كل خطوة نخطوها."
+        },
+        "customerFocus": {
+          "title": "التركيز على العميل",
+          "description": "نضع رضا العميل وكرم الضيافة وراحة المسافر في المقدّمة."
+        },
+        "excellence": {
+          "title": "التميّز",
+          "description": "نلتزم بالسعي الدائم لتقديم أفضل تجربة سفر لعملائنا، بأداء متميّز واهتمام دقيق بالتفاصيل."
+        }
+      }
+    },
+    "sections": [
+      {
+        "title": "Aliquam erat volutpat.",
+        "paragraphs": [
+          "In hac habitasse platea dictumst. Sed tristique nunc sit amet nunc aliquam, ac faucibus nunc tincidunt. Donec accumsan dui sed purus posuere, id elementum magna fringilla.",
+          "Curabitur non leo nec metus tincidunt sollicitudin. Proin non velit semper, dapibus erat sed, malesuada purus. Vestibulum ac tincidunt enim, ut pulvinar nulla.",
+          "Nunc venenatis odio eget eros malesuada, eu consequat diam ornare. Morbi vitae arcu vel libero mattis scelerisque. Sed non velit ut arcu interdum faucibus."
+        ]
+      },
+      {
+        "title": "Ut bibendum turpis.",
+        "paragraphs": [
+          "Donec in purus non justo euismod condimentum. Nullam bibendum libero eu convallis varius. Integer vitae erat vitae tortor cursus tempus id nec nunc.",
+          "Fusce lacinia justo sed felis cursus, ultricies tempor purus dictum. Praesent non urna quam. Vivamus hendrerit ex et dui fermentum, at porttitor magna volutpat."
+        ]
+      }
+    ]
+  },
   "flightSchedulePage": {
     "title": "جدول الرحلات",
     "range": "من {{from}} إلى {{to}} . {{trip}}",

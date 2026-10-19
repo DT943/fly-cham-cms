@@ -39,6 +39,7 @@ const PAGE_CHIP_KEYS = {
   '/legal/booking-terms-and-conditions': 'legal.bookingTerms.breadcrumb',
   '/legal/privacy-policy': 'legal.privacy.breadcrumb',
   '/legal/cookies': 'legal.cookies.breadcrumb',
+  '/legal/cham-miles-terms': 'chamMilesTerms.breadcrumb',
 }
 
 function resolvePageChipKey(href = '') {

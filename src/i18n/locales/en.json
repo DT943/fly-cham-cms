@@ -4183,6 +4183,64 @@
       }
     }
   },
+  "chamMilesTerms": {
+    "breadcrumb": "Cham Miles Terms",
+    "title": "Cham Miles Terms",
+    "hero": {
+      "subtitle": "Learn More about the Rules, Responsibilities, and Legal Information Related to Using Our Website",
+      "imageAlt": "A Fly Cham aircraft in flight"
+    },
+    "moreInfo": {
+      "terms": {
+        "title": "Website Terms and Conditions",
+        "description": "Understand the rules and guidelines for using our website.",
+        "cta": "Read Terms & Conditions"
+      },
+      "cookies": {
+        "title": "Understand Our Use of Cookies",
+        "description": "Learn how we use cookies to improve website functionality and your experience.",
+        "cta": "Explore Cookies Policy"
+      }
+    },
+    "values": {
+      "title": "Lorem ipsum dolor sit",
+      "items": {
+        "hospitality": {
+          "title": "Authentic Hospitality",
+          "description": "We embody the generosity of Syrian hospitality in every detail, to create unforgettable memories in the skies."
+        },
+        "sustainability": {
+          "title": "Sustainability",
+          "description": "Our responsibility extends beyond the present, as we build a more environmentally and economically sustainable future with every step we take."
+        },
+        "customerFocus": {
+          "title": "Customer Focus",
+          "description": "We place customer satisfaction, hospitality generosity, and passenger comfort first."
+        },
+        "excellence": {
+          "title": "Excellence",
+          "description": "We are committed to constantly striving to provide the best travel experience for our customers, with outstanding performance and meticulous attention to detail."
+        }
+      }
+    },
+    "sections": [
+      {
+        "title": "Aliquam erat volutpat.",
+        "paragraphs": [
+          "In hac habitasse platea dictumst. Sed tristique nunc sit amet nunc aliquam, ac faucibus nunc tincidunt. Donec accumsan dui sed purus posuere, id elementum magna fringilla.",
+          "Curabitur non leo nec metus tincidunt sollicitudin. Proin non velit semper, dapibus erat sed, malesuada purus. Vestibulum ac tincidunt enim, ut pulvinar nulla.",
+          "Nunc venenatis odio eget eros malesuada, eu consequat diam ornare. Morbi vitae arcu vel libero mattis scelerisque. Sed non velit ut arcu interdum faucibus."
+        ]
+      },
+      {
+        "title": "Ut bibendum turpis.",
+        "paragraphs": [
+          "Donec in purus non justo euismod condimentum. Nullam bibendum libero eu convallis varius. Integer vitae erat vitae tortor cursus tempus id nec nunc.",
+          "Fusce lacinia justo sed felis cursus, ultricies tempor purus dictum. Praesent non urna quam. Vivamus hendrerit ex et dui fermentum, at porttitor magna volutpat."
+        ]
+      }
+    ]
+  },
   "flightSchedulePage": {
     "title": "Flight Schedule",
     "range": "From {{from}} to {{to}} . {{trip}}",
