@@ -18,8 +18,13 @@ const STYLE_KEYS = [
   'showSectionBg',
   'sectionBg',
   'showHeader',
+  'showDescription',
+  'showCardLogo',
+  'showCardTitle',
+  'showCardDescription',
   'cardBg',
   ...text('titleColor'),
+  ...text('descriptionColor'),
   ...text('cardTitleColor'),
   ...text('cardDescriptionColor'),
   ...BACKLINK_KEYS,
@@ -30,6 +35,7 @@ export function gatewayCardsProps(block, lang) {
   const style = block.style || {}
   return {
     title: content.title || '',
+    description: content.description || '',
     items: (Array.isArray(content.items) ? content.items : []).map((item) => ({
       id: item?.id || '',
       imageUrl: resolveCmsAsset(item?.imageUrl) || '',

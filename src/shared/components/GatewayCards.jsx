@@ -23,23 +23,30 @@ const SECTION_PADDING = {
 }
 
 const TITLE_SIZE = 'text-2xl leading-[normal] md:text-[28px]'
+const DESCRIPTION_SIZE = 'text-sm leading-normal md:text-base'
 const CARD_TITLE_SIZE = 'text-[22px] leading-[22px]'
 const CARD_DESCRIPTION_SIZE = 'text-sm leading-[1.4]'
 
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
- * Logo grid for payment gateways (Figma 40502:24283): a title over white
- * cards, each a centered logo, title, and optional description.
+ * Logo grid for payment gateways (Figma 40502:24283): optional title +
+ * description over white cards, each a centered logo, title, and optional
+ * card description.
  */
 const GatewayCards = ({
   title = '',
+  description = '',
   items = [],
   columns = '4',
   sectionPadding = 'none',
   showSectionBg = false,
   sectionBg = '100',
   showHeader = true,
+  showDescription = true,
+  showCardLogo = true,
+  showCardTitle = true,
+  showCardDescription = true,
   cardBg = 'background',
   links = [],
   filterByPos = false,
@@ -60,7 +67,14 @@ const GatewayCards = ({
     value: option.value,
     label: posLabel(option.value, language, posLabels),
   }))
-  if (!title && !list.length) return null
+  const headerOn = showHeader !== false
+  const descriptionOn = showDescription !== false
+  const logoOn = showCardLogo !== false
+  const cardTitleOn = showCardTitle !== false
+  const cardDescriptionOn = showCardDescription !== false
+  const headerVisible =
+    (headerOn && (title || (descriptionOn && description))) || filterByPos
+  if (!title && !description && !list.length) return null
 
   const linkProps = {
     links,
@@ -78,26 +92,36 @@ const GatewayCards = ({
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
       <div className="flex min-w-0 flex-col gap-6">
-        {(showHeader !== false && title) || filterByPos ? (
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            {showHeader !== false && title ? (
-              <h2
-                className={cx('m-0', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
-                style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+        {headerVisible ? (
+          <div className="flex min-w-0 flex-col gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              {headerOn && title ? (
+                <h2
+                  className={cx('m-0', TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
+                  style={getTextStyleVars(textStyle, 'titleColor', '700', 'semibold')}
+                >
+                  <LinkedText text={title} {...linkProps} />
+                </h2>
+              ) : (
+                <span />
+              )}
+              {filterByPos ? (
+                <Dropdown
+                  label={language === 'ar' ? 'نقطة البيع' : 'Point of sale'}
+                  value={pos}
+                  onChange={setPos}
+                  options={posOptions}
+                  className="w-full sm:w-[220px]"
+                />
+              ) : null}
+            </div>
+            {headerOn && descriptionOn && description ? (
+              <p
+                className={cx('m-0 max-w-3xl', DESCRIPTION_SIZE, CMS_TEXT_HOVER_CLASS)}
+                style={getTextStyleVars(textStyle, 'descriptionColor', '700', 'normal')}
               >
-                <LinkedText text={title} {...linkProps} />
-              </h2>
-            ) : (
-              <span />
-            )}
-            {filterByPos ? (
-              <Dropdown
-                label={language === 'ar' ? 'نقطة البيع' : 'Point of sale'}
-                value={pos}
-                onChange={setPos}
-                options={posOptions}
-                className="w-full sm:w-[220px]"
-              />
+                <LinkedText text={description} {...linkProps} />
+              </p>
             ) : null}
           </div>
         ) : null}
@@ -106,31 +130,33 @@ const GatewayCards = ({
             {visible.map((item, index) => {
               const body = (
                 <>
-                  {item.imageUrl ? (
+                  {logoOn && item.imageUrl ? (
                     <img
                       src={item.imageUrl}
                       alt={item.imageAlt || ''}
                       className="h-[75px] w-auto max-w-[168px] object-contain"
                     />
                   ) : null}
-                  <div className="flex w-full flex-col gap-2.5 text-center">
-                    {item.title ? (
-                      <h3
-                        className={cx('m-0', CARD_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
-                        style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'medium')}
-                      >
-                        {item.href ? item.title : <LinkedText text={item.title} {...linkProps} />}
-                      </h3>
-                    ) : null}
-                    {item.description ? (
-                      <p
-                        className={cx('m-0', CARD_DESCRIPTION_SIZE, CMS_TEXT_HOVER_CLASS)}
-                        style={getTextStyleVars(textStyle, 'cardDescriptionColor', '800', 'normal')}
-                      >
-                        {item.href ? item.description : <LinkedText text={item.description} {...linkProps} />}
-                      </p>
-                    ) : null}
-                  </div>
+                  {cardTitleOn || cardDescriptionOn ? (
+                    <div className="flex w-full flex-col gap-2.5 text-center">
+                      {cardTitleOn && item.title ? (
+                        <h3
+                          className={cx('m-0', CARD_TITLE_SIZE, CMS_TEXT_HOVER_CLASS)}
+                          style={getTextStyleVars(textStyle, 'cardTitleColor', '700', 'medium')}
+                        >
+                          {item.href ? item.title : <LinkedText text={item.title} {...linkProps} />}
+                        </h3>
+                      ) : null}
+                      {cardDescriptionOn && item.description ? (
+                        <p
+                          className={cx('m-0', CARD_DESCRIPTION_SIZE, CMS_TEXT_HOVER_CLASS)}
+                          style={getTextStyleVars(textStyle, 'cardDescriptionColor', '800', 'normal')}
+                        >
+                          {item.href ? item.description : <LinkedText text={item.description} {...linkProps} />}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </>
               )
               const className = 'flex h-full min-w-0 flex-col items-center justify-center gap-4 rounded-xl px-3.5 pb-6 pt-7'

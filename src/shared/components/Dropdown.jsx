@@ -9,6 +9,7 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
  * follow Fly Cham colours (teal selected row, rounded panel) in every browser.
  *
  * `options` is `{ value, label }[]`. `value` / `onChange` use the option value.
+ * Long lists use the same teal scrollbar + end gutter as the airport picker.
  */
 const Dropdown = ({
   id,
@@ -62,7 +63,10 @@ const Dropdown = ({
   }, [open, activeIndex])
 
   useEffect(() => {
-    if (!open) return undefined
+    if (!open) {
+      setScrollMetrics(null)
+      return undefined
+    }
     const list = listRef.current
     if (!list) return undefined
 
@@ -138,6 +142,22 @@ const Dropdown = ({
     }
   }
 
+  const showScroll =
+    scrollMetrics &&
+    scrollMetrics.scrollHeight > scrollMetrics.clientHeight + 1
+  const thumbHeight = showScroll
+    ? Math.max(
+        28,
+        (scrollMetrics.clientHeight / scrollMetrics.scrollHeight) *
+          scrollMetrics.clientHeight,
+      )
+    : 0
+  const thumbTop = showScroll
+    ? (scrollMetrics.scrollTop /
+        (scrollMetrics.scrollHeight - scrollMetrics.clientHeight)) *
+      (scrollMetrics.clientHeight - thumbHeight)
+    : 0
+
   return (
     <div ref={rootRef} className={cx('relative', className)}>
       {name != null ? <input type="hidden" name={name} value={value ?? ''} /> : null}
@@ -185,66 +205,58 @@ const Dropdown = ({
         )}
       </button>
 
-      {open && (
+      {open ? (
         <div className="absolute inset-x-0 z-30 mt-1 overflow-hidden rounded-lg bg-background shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-        <ul
-          ref={listRef}
-          id={listboxId}
-          role="listbox"
-          aria-labelledby={buttonId}
-          className="dropdown-menu-scroll max-h-60 overflow-y-auto py-1 pe-4"
-          style={{ marginInlineEnd: -24, paddingInlineEnd: 28, scrollbarWidth: 'none' }}
-        >
-          {options.map((option, index) => {
-            const isSelected = option.value === value
-            const isActive = index === activeIndex
+          <ul
+            ref={listRef}
+            id={listboxId}
+            role="listbox"
+            aria-labelledby={buttonId}
+            // pe-2.5 = gutter so the teal thumb sits beside rows, not on them
+            // (same idea as AirportList scrollArea padding-right: 10px).
+            className="dropdown-menu-scroll max-h-60 overflow-y-auto py-1 pe-2.5"
+          >
+            {options.map((option, index) => {
+              const isSelected = option.value === value
+              const isActive = index === activeIndex
 
-            return (
-              <li
-                key={String(option.value)}
-                ref={(node) => {
-                  optionRefs.current[index] = node
-                }}
-                role="option"
-                aria-selected={isSelected}
-                onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => selectIndex(index)}
-                className={cx(
-                  'cursor-pointer px-4 py-2.5 font-medium',
-                  typography.body,
-                  isActive ? 'bg-primary-1 text-50' : 'text-700',
-                )}
-              >
-                {option.label}
-              </li>
-            )
-          })}
-        </ul>
-        {scrollMetrics && scrollMetrics.scrollHeight > scrollMetrics.clientHeight + 1 ? (
-          <div className="pointer-events-none absolute inset-y-1 end-1 w-1.5" aria-hidden>
+              return (
+                <li
+                  key={String(option.value)}
+                  ref={(node) => {
+                    optionRefs.current[index] = node
+                  }}
+                  role="option"
+                  aria-selected={isSelected}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onClick={() => selectIndex(index)}
+                  className={cx(
+                    'cursor-pointer px-4 py-2.5 font-medium',
+                    typography.body,
+                    isActive ? 'bg-primary-1 text-50' : 'text-700',
+                  )}
+                >
+                  {option.label}
+                </li>
+              )
+            })}
+          </ul>
+          {showScroll ? (
             <div
-              className="absolute inset-x-0 rounded-full bg-primary-1"
-              style={{
-                height: Math.max(
-                  28,
-                  (scrollMetrics.clientHeight / scrollMetrics.scrollHeight) * scrollMetrics.clientHeight,
-                ),
-                transform: `translateY(${
-                  ((scrollMetrics.scrollTop /
-                    (scrollMetrics.scrollHeight - scrollMetrics.clientHeight)) *
-                    (scrollMetrics.clientHeight -
-                      Math.max(
-                        28,
-                        (scrollMetrics.clientHeight / scrollMetrics.scrollHeight) *
-                          scrollMetrics.clientHeight,
-                      )))
-                }px)`,
-              }}
-            />
-          </div>
-        ) : null}
+              className="pointer-events-none absolute inset-y-1 end-0.5 w-1.5"
+              aria-hidden
+            >
+              <div
+                className="absolute inset-x-0 rounded-full bg-primary-1"
+                style={{
+                  height: thumbHeight,
+                  transform: `translateY(${thumbTop}px)`,
+                }}
+              />
+            </div>
+          ) : null}
         </div>
-      )}
+      ) : null}
     </div>
   )
 }

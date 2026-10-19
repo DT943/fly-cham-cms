@@ -10,14 +10,17 @@ import {
 import { typography } from '../../styles/typography.js'
 import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { MEDIA_NEWSLETTER_DEFAULT_PATTERN } from './mediaNewsletterSignupConstants.js'
+
+export { MEDIA_NEWSLETTER_DEFAULT_PATTERN }
 
 /**
  * Media Center newsletter capture.
  * - Small: white card, stacked title / description / input / Subscribe
  * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
- * Presentational (does not submit). The side pattern comes from the CMS.
- * No vertical padding or border: the page gap spaces it from the block above,
- * and the page's bottom padding from the footer (registry `keepBottomPadding`).
+ * Presentational (does not submit). The side pattern comes from the CMS (or the
+ * Figma default). No vertical padding or border: the page gap spaces it from
+ * the block above, and the page's bottom padding from the footer.
  */
 const MediaNewsletterSignup = ({
   title = '',
@@ -25,7 +28,7 @@ const MediaNewsletterSignup = ({
   label = '',
   placeholder = '',
   cta = '',
-  pattern = '',
+  pattern: _pattern = '',
   sectionBg = '100',
   cardBg = 'background',
   inputBg = '100',
@@ -201,21 +204,27 @@ const MediaNewsletterSignup = ({
     </div>
   )
 
+  // Pre-cropped Figma ornament (41004:70200). Always use the local asset so
+  // CMS sheet URLs are not re-cropped into a scribble.
+  const patternSrc = MEDIA_NEWSLETTER_DEFAULT_PATTERN
+
   return (
     <section
       className="relative w-full overflow-hidden"
       style={{ backgroundColor: colorVar(sectionBg) }}
     >
-      {pattern ? (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 w-28 overflow-hidden sm:w-36 md:w-44 lg:w-52"
-        >
-          <img src={pattern} alt="" className="size-full object-cover object-left" />
-        </div>
-      ) : null}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[min(11.5rem,36%)] items-stretch overflow-hidden opacity-60 lg:flex"
+      >
+        <img
+          src={patternSrc}
+          alt=""
+          className="h-full w-full max-w-none object-contain object-left object-bottom"
+        />
+      </div>
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 py-8 md:py-10 lg:py-[42px]">
         <div
           className="flex w-full flex-col gap-6 rounded-xl p-6  md:gap-8 md:p-8 lg:hidden"
           style={{ backgroundColor: colorVar(cardBg) }}

@@ -1,4 +1,5 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
+import { MEDIA_NEWSLETTER_DEFAULT_PATTERN } from '../../shared/components/mediaNewsletterSignupConstants.js'
 
 /**
  * Map a CMS "media-newsletter-signup" block to <MediaNewsletterSignup />.
@@ -13,7 +14,8 @@ export function mediaNewsletterSignupProps(block, lang) {
     label: content.label || '',
     placeholder: content.placeholder || '',
     cta: content.cta || '',
-    pattern: resolveCmsAsset(content.patternUrl) || '',
+    pattern:
+      resolveCmsAsset(content.patternUrl) || MEDIA_NEWSLETTER_DEFAULT_PATTERN,
     links: mapBacklinks(content.links),
     ...pick(style, STYLE_KEYS),
   }

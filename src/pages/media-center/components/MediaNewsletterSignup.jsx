@@ -1,9 +1,7 @@
-import { Envelope } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Container from '../../../shared/components/Container.jsx'
+import { MEDIA_NEWSLETTER_DEFAULT_PATTERN } from '../../../shared/components/mediaNewsletterSignupConstants.js'
 import { typography } from '../../../styles/typography.js'
-const newsletterPattern =
-  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/recent-news/pattern.webp'
 
 const copyPrefix = 'mediaCenter.newsletter'
 
@@ -60,8 +58,6 @@ const InlineForm = ({ t }) => (
 
 const MediaNewsletterSignup = ({
   layout = 'inline',
-  backgroundImage,
-  copyPrefix,
 }) => {
   const { t } = useTranslation()
 
@@ -81,19 +77,19 @@ const MediaNewsletterSignup = ({
 
   if (layout === 'fullBleed') {
     return (
-      <section className="relative mt-10 w-full overflow-hidden border border-200 border-e-0 bg-100">
+      <section className="relative mt-10 w-full overflow-hidden bg-100">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 w-28 overflow-hidden sm:w-36 md:w-44 lg:w-52"
+          className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 flex w-[min(11.5rem,36%)] items-stretch overflow-hidden opacity-60"
         >
           <img
-            src={newsletterPattern}
+            src={MEDIA_NEWSLETTER_DEFAULT_PATTERN}
             alt=""
-            className="size-full object-cover object-left"
+            className="h-full w-full max-w-none object-contain object-left object-bottom"
           />
         </div>
 
-        <Container className="relative z-10 py-8 md:py-10">
+        <Container className="relative z-10 py-8 md:py-10 lg:py-[42px]">
           {mobileCard}
           {desktopRow}
         </Container>
