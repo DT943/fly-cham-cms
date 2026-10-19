@@ -9,6 +9,7 @@ import {
   getButtonStyle,
 } from '../../styles/cmsStyle.js'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { trackNewsletterAttempt } from '../analytics/cmsEvents.js'
 
 const clampPercent = (value, fallback) => {
   const n = Number(value)
@@ -120,6 +121,7 @@ const NewsletterSignup = ({
   const submit = (event) => {
     event.preventDefault()
     if (status !== 'idle') return
+    trackNewsletterAttempt({ formLocation: 'newsletter_signup', formId: 'newsletter-signup' })
     setStatus('loading')
     timer.current = window.setTimeout(() => {
       emailInputs.current.forEach((input) => {

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import { fetchB2cFlightAvailByRoute } from '../../../vendor/flycham/lib/b2cAvailability/b2cAvailabilityApi.js'
@@ -7,6 +7,7 @@ import RouteMapCanvas from './RouteMapCanvas.jsx'
 import RouteSearchPanel from './RouteSearchPanel.jsx'
 import DestinationPanel from './DestinationPanel.jsx'
 import RouteBookingDrawer from './RouteBookingDrawer.jsx'
+import { resetRouteSelectionAnalytics, trackRouteSelected } from '../../../shared/analytics/cmsEvents.js'
 
 /**
  * Full-bleed route map: pick From and To (from the fields or by clicking pins),
@@ -59,8 +60,13 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
     return fromCode ? change('to', code) : change('from', code)
   }
 
+  useEffect(() => {
+    if (fromCode && toCode) trackRouteSelected(fromCode, toCode)
+  }, [fromCode, toCode])
+
   const reset = () => {
     findRequestRef.current += 1
+    resetRouteSelectionAnalytics()
     setFromCode(null)
     setToCode(null)
     setDrawerOpen(false)

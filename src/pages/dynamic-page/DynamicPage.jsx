@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
@@ -11,6 +11,10 @@ import PageBlocks from '../../cms/components/PageBlocks.jsx'
 import NotFound from '../not-found/NotFound.jsx'
 import { cmsSlugFromPath } from './cmsPagePath.js'
 import { withDestinationBreadcrumbs } from './destinationBreadcrumbs.js'
+import {
+  destinationAnalyticsFromPath,
+  trackDestinationView,
+} from '../../shared/analytics/cmsEvents.js'
 
 // The ONE page component for every CMS-driven route. It loads the CMS page for
 // `slug` in the URL's language and renders its blocks through the section
@@ -49,7 +53,7 @@ const DynamicPageContent = ({
   blocksClassName,
   fallback,
 }) => {
-  const { pathname } = useLocation()
+  const { pathname, key } = useLocation()
   const { t } = useTranslation()
   const language = useCurrentLanguage()
   const pagePath = stripLanguage(pathname)
@@ -60,6 +64,18 @@ const DynamicPageContent = ({
     () => withDestinationBreadcrumbs(page?.blocks, pagePath, t, language),
     [page?.blocks, pagePath, t, language],
   )
+  const notFound = !slug || error?.response?.status === 404
+
+  useEffect(() => {
+    if (isLoading || !page || notFound) return
+    const destination = destinationAnalyticsFromPath(pagePath)
+    if (!destination) return
+    trackDestinationView({
+      slug: destination.destination_slug,
+      iata: destination.destination_iata,
+      navigationKey: key,
+    })
+  }, [isLoading, page, notFound, pagePath, key])
 
   // `fallback`: what to show whenever the page can't be displayed (missing,
   // failed, or no blocks) — used by the 404 page, which must never fail.
@@ -68,7 +84,6 @@ const DynamicPageContent = ({
   // Unknown slug or draft page (anon can't read it) → not found. A page the API
   // returns with an empty blocks list still opens, so a new page is reachable
   // before any components are added.
-  const notFound = !slug || error?.response?.status === 404
   if (notFound) return <NotFound />
 
   const isArabic = language === 'ar'

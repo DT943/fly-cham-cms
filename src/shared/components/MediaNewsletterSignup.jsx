@@ -10,6 +10,7 @@ import {
 import { typography } from '../../styles/typography.js'
 import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { trackNewsletterAttempt } from '../analytics/cmsEvents.js'
 
 /**
  * Media Center newsletter capture.
@@ -58,6 +59,7 @@ const MediaNewsletterSignup = ({
   const submit = (event) => {
     event.preventDefault()
     if (status !== 'idle') return
+    trackNewsletterAttempt({ formLocation: 'media_newsletter', formId: 'media-newsletter-signup' })
     setStatus('loading')
     timer.current = window.setTimeout(() => {
       emailInputs.current.forEach((input) => {

@@ -12,6 +12,7 @@ import {
   X,
 } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { trackScheduleSearch } from '../../../shared/analytics/cmsEvents.js'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
 import CityBox from '../../../vendor/flycham/app/[pos]/[lang]/Home/booking-box-v2/components/CityBox.jsx'
 import AirportDropdown from '../../../vendor/flycham/app/[pos]/[lang]/Home/booking-box-v2/components/AirportDropdown.jsx'
@@ -340,6 +341,14 @@ const FlightScheduleSearch = ({ airports, destinationsFor, initialValue, onSubmi
     if (roundTrip && (!form.return || form.return < form.departure)) {
       return setError(t('flightSchedulePage.errors.return'))
     }
+    const travelDate = form.departure
+    trackScheduleSearch({
+      originIata: form.from,
+      destinationIata: form.to,
+      travelDate: travelDate instanceof Date
+        ? `${travelDate.getFullYear()}-${String(travelDate.getMonth() + 1).padStart(2, '0')}-${String(travelDate.getDate()).padStart(2, '0')}`
+        : undefined,
+    })
     return onSubmit(form)
   }
 

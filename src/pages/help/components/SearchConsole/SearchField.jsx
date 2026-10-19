@@ -36,8 +36,10 @@ const SearchField = ({
   onQueryChange,
   onFocus,
   onSelect,
+  onCommitSearch,
 }) => {
   const submitFirstResult = () => {
+    onCommitSearch?.(query, results)
     if (results[0]) onSelect(results[0])
   }
 
@@ -94,9 +96,10 @@ const SearchField = ({
           onChange={(event) => onQueryChange(event.target.value, event)}
           onFocus={showSuggestions ? onFocus : undefined}
           onKeyDown={(event) => {
-            if (event.key === 'Enter' && results[0]) {
+            if (event.key === 'Enter') {
               event.preventDefault()
-              onSelect(results[0])
+              onCommitSearch?.(query, results)
+              if (results[0]) onSelect(results[0])
             }
           }}
         />

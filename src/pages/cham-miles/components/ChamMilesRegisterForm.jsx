@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { createSubmitAttemptId, trackChamMilesRegister } from '../../../shared/analytics/cmsEvents.js'
 import { useTranslation } from 'react-i18next'
 import { Eye, EyeSlash } from '@phosphor-icons/react'
 import Dropdown from '../../../shared/components/Dropdown.jsx'
@@ -103,6 +104,11 @@ const RegisterForm = ({ onSwitchToLogin }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    trackChamMilesRegister({
+      eventAction: 'attempt',
+      submitAttemptId: createSubmitAttemptId(),
+      formLocation: 'cham_miles_page',
+    })
   }
 
   return (

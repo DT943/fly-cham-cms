@@ -1,6 +1,7 @@
 import { Envelope } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import Container from '../../../shared/components/Container.jsx'
+import { trackNewsletterAttempt } from '../../../shared/analytics/cmsEvents.js'
 import { typography } from '../../../styles/typography.js'
 const newsletterPattern =
   'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/recent-news/pattern.webp'
@@ -20,7 +21,13 @@ const TitleBlock = ({ t }) => (
 
 const StackedForm = ({ t }) => (
   <form
-    onSubmit={(event) => event.preventDefault()}
+    onSubmit={(event) => {
+      event.preventDefault()
+      trackNewsletterAttempt({
+        formLocation: 'media_center_newsletter',
+        formId: 'media-center-newsletter',
+      })
+    }}
     className="flex w-full flex-col gap-3"
   >
     <input
@@ -40,7 +47,13 @@ const StackedForm = ({ t }) => (
 
 const InlineForm = ({ t }) => (
   <form
-    onSubmit={(event) => event.preventDefault()}
+    onSubmit={(event) => {
+      event.preventDefault()
+      trackNewsletterAttempt({
+        formLocation: 'media_center_newsletter',
+        formId: 'media-center-newsletter',
+      })
+    }}
     className="flex w-full min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-lg bg-background px-4 py-2 md:px-5 md:py-2 lg:max-w-148"
   >
     <input
