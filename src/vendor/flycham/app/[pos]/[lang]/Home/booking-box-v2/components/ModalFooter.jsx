@@ -14,6 +14,7 @@ import { useBookingBoxDropdown } from '../context/BookingBoxDropdownContext';
 import ButtonSpinner from '@/components/Ui/ButtonSpinner';
 import { useBookingBoxContentOptional } from '@/app/[pos]/[lang]/Home/booking-box/content/BookingBoxContent';
 import { trackSearchFlightsClarityEvent } from '@/lib/clarity';
+import { emitValidatedSearchNavigation, releaseSearchSubmissionLock } from '@/lib/searchSubmission';
 
 const ModalFooter = () => {
     const copy = useBookingBoxContentOptional();
@@ -67,10 +68,11 @@ const ModalFooter = () => {
 
     const handleClick = async () => {
         if (isFormInvalid || !href || loading) return;
-    trackSearchFlightsClarityEvent({
+        const submission = trackSearchFlightsClarityEvent({
             ...values,
             modifySearch: Boolean(isModifySearch),
         });
+        if (!submission?.accepted) return;
         setLoading(true);
         setIsNavigating(false);
         navigatingRef.current = false;
@@ -82,16 +84,25 @@ const ModalFooter = () => {
                     // Keep submit locked until route change (same as Stripe payment redirect).
                     setIsNavigating(true);
                     navigatingRef.current = true;
+                } else {
+                    releaseSearchSubmissionLock();
                 }
                 return;
             }
             onCloseMidifySearch();
             handleResetToFirstStep();
+            const external = /^[a-z][a-z0-9+.-]*:\/\//i.test(String(href || ''));
+            try {
+                emitValidatedSearchNavigation({ href, external });
+            } catch (analyticsError) {
+                console.error('Search analytics failed', analyticsError);
+            }
             router.push(href);
             setIsNavigating(true);
             navigatingRef.current = true;
         } catch (err) {
             console.error('Search flights submit failed', err);
+            releaseSearchSubmissionLock();
         } finally {
             if (!navigatingRef.current) {
                 setLoading(false);
