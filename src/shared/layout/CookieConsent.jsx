@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Cookie, X } from '@phosphor-icons/react'
 import Container from '../components/Container.jsx'
 import LocalizedLink from '../components/LocalizedLink.jsx'
-import { COOKIES_BANNER_KEY } from '../../vendor/flycham/lib/analytics.js'
+import { COOKIES_BANNER_KEY, isAnalyticsConsented } from '../../vendor/flycham/lib/analytics.js'
+import { grantAnalyticsConsent, trackCookieConsent, trackPageView } from '../analytics/cmsEvents.js'
 
 // The choice lives in a real cookie so clearing cookies brings the bar back.
 // Analytics reads consent from localStorage (any value under
@@ -99,9 +100,20 @@ const CookieConsent = () => {
     hide()
   }
 
-  const accept = () => choose('accepted')
+  const accept = () => {
+    const alreadyGranted = isAnalyticsConsented()
+    choose('accepted')
+    grantAnalyticsConsent()
+    if (alreadyGranted) return
+    trackPageView({
+      navigationKey: `consent:${window.location.pathname}`,
+      pageTitle: document.title,
+    })
+  }
   const dismiss = () => {
+    const alreadyGranted = isAnalyticsConsented()
     writeCookie(CLOSED_COOKIE, '1')
+    if (alreadyGranted) trackCookieConsent('dismissed')
     hide()
   }
 
