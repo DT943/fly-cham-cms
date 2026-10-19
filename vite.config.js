@@ -7,6 +7,21 @@ const resolvePath = (relative) => fileURLToPath(new URL(relative, import.meta.ur
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: {
+      output: {
+        // Clarity session replay fetches the stylesheet URLs it recorded.
+        // A content hash makes a new file on every build; the deploy then
+        // deletes the previous one and those recordings lose their CSS.
+        // JS and other assets stay hashed. CSS keeps a stable name.
+        assetFileNames(assetInfo) {
+          const sourceName = assetInfo.names?.[0] ?? assetInfo.name ?? ''
+          if (sourceName.endsWith('.css')) return 'assets/[name][extname]'
+          return 'assets/[name]-[hash][extname]'
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       // `src/vendor/flycham` mirrors flychamwebsite's `src/`, so its files keep

@@ -11,8 +11,13 @@
 </IfModule>
 
 # Never cache index.html, so a new deploy shows up immediately.
+# CSS filenames are stable (Clarity replay). Revalidate them so a new
+# build is not stuck behind a cached copy of the same URL.
 <IfModule mod_headers.c>
   <FilesMatch "^index\.html$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.css$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 </IfModule>

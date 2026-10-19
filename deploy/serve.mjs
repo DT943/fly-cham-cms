@@ -3,7 +3,8 @@
 //
 //   - Single-page app: any path that is not a real file gets index.html, so
 //     React Router handles /en/help, /ar/our-destinations, … on reload.
-//   - /assets/* are content-hashed by Vite → cached for a year (immutable);
+//   - Hashed /assets/* (JS, images, fonts) are cached for a year (immutable).
+//     CSS filenames are stable for Clarity replay, so they are revalidated.
 //     index.html is never cached, so a deploy is visible on the next load.
 //   - Text files are gzipped when the browser accepts it.
 //   - GET /healthz → 200 "ok" (used by deploy/update-flycham.sh).
@@ -69,14 +70,19 @@ async function findFile(urlPath) {
 
 function send(req, res, file, status = 200) {
   const type = MIME[extname(file.path).toLowerCase()] || "application/octet-stream";
-  const immutable = file.path.startsWith(join(ROOT, "assets") + sep);
+  const inAssets = file.path.startsWith(join(ROOT, "assets") + sep);
+  // CSS names do not change between builds (see vite.config.js), so a
+  // year-long immutable cache would keep serving the previous stylesheet.
+  const immutable = inAssets && extname(file.path).toLowerCase() !== ".css";
   const headers = {
     "Content-Type": type,
     "Cache-Control": type.startsWith("text/html")
       ? "no-cache"
-      : immutable
-        ? "public, max-age=31536000, immutable"
-        : "public, max-age=3600",
+      : extname(file.path).toLowerCase() === ".css"
+        ? "public, max-age=0, must-revalidate"
+        : immutable
+          ? "public, max-age=31536000, immutable"
+          : "public, max-age=3600",
     "Last-Modified": file.mtime.toUTCString(),
     "X-Content-Type-Options": "nosniff",
     Vary: "Accept-Encoding",
