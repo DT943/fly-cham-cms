@@ -3,9 +3,9 @@
  * All events push to window.dataLayer via src/lib/analytics.js; GTM delivers to GA4 + Clarity.
  * Do not import @microsoft/clarity or call Clarity.event() here.
  */
-import { pushAnalyticsEvent, pushBookingLegacyEvent } from '@/lib/analytics';
+import { isAnalyticsConsented, pushAnalyticsEvent, pushBookingLegacyEvent } from '@/lib/analytics';
+import { beginAcceptedSearchSubmission } from '@/lib/searchSubmission';
 import {
-  buildSearchContextFromFormValues,
   setBookingAnalyticsContext,
   toAnalyticsDateKey,
 } from '@/lib/bookingAnalyticsContext';
@@ -159,26 +159,9 @@ export function getSearchFlightsClarityEvent(values = {}) {
  * @param {{ tripType?: string, cabinClass?: string, modifySearch?: boolean }} values
  */
 export function trackSearchFlightsClarityEvent(values = {}) {
-  const searchContext = buildSearchContextFromFormValues(values);
-  setBookingAnalyticsContext(searchContext);
-
-  const eventName = getSearchFlightsClarityEvent(values);
-  if (eventName) {
-    pushBookingLegacyEvent(eventName, searchContext);
-  }
-
-  pushBookingLegacyEvent(CLARITY_EVENTS.SEARCH_SUBMITTED, {
-    ...searchContext,
-    modify_search: Boolean(values.modifySearch),
-  });
-
-  const isModify = Boolean(values.modifySearch);
-  if (isModify) {
-    pushBookingLegacyEvent(CLARITY_EVENTS.MODIFY_SEARCH, {
-      modify_search: true,
-      ...searchContext,
-    });
-  }
+  const result = beginAcceptedSearchSubmission(values);
+  if (result.accepted) resetPassengerInfoAnalyticsSession();
+  return result;
 }
 
 const TRIP_TYPE_CLARITY_EVENT = {
@@ -313,7 +296,13 @@ export function trackPassengerCountClarityEvent(guestKey, count) {
   });
 }
 
-/** @param {{ cabinType?: string, fareTier?: string }} [meta] */
+/**
+ * One committed flight selection after the authoritative result.
+ * Legacy `booking_flight_selection_accepted` (event_action selection_accepted)
+ * is no longer pushed here. Count booking_flight_selected where event_action=api_success.
+ * Does not emit booking_fare_selected.
+ * @param {{ cabinType?: string, fareTier?: string }} [meta]
+ */
 export function trackFlightSelectionAcceptedClarityEvent(meta = {}) {
   const cabin = String(meta.cabinType ?? '').trim();
   const tier = String(meta.fareTier ?? '').trim().toLowerCase();
@@ -329,8 +318,7 @@ export function trackFlightSelectionAcceptedClarityEvent(meta = {}) {
     selected_cabin: cabin || undefined,
     fare_tier: tier || undefined,
   });
-  pushBookingLegacyEvent(CLARITY_EVENTS.FLIGHT_SELECTION_ACCEPTED, payload);
-  pushBookingLegacyEvent(CLARITY_EVENTS.SELECTED_FLIGHT_SUCCESS, payload);
+  return pushBookingLegacyEvent(CLARITY_EVENTS.SELECTED_FLIGHT_SUCCESS, payload);
 }
 
 const FARE_TIER_CLARITY_EVENT = {
@@ -391,15 +379,10 @@ export function trackPaymentSubmitClarityEvent(meta = {}) {
   });
 }
 
-/** @param {{ pnr?: string, bookingReference?: string }} [meta] */
-export function trackBookingConfirmViewedClarityEvent(meta = {}) {
-  const pnr = String(meta.pnr ?? meta.bookingReference ?? '').trim();
-  setBookingAnalyticsContext({
-    booking_step: '4',
-    booking_reference: pnr || undefined,
-  });
+/** Confirmation screen became visible. A render is not proof of payment. PNR is not sent. */
+export function trackBookingConfirmViewedClarityEvent() {
+  setBookingAnalyticsContext({ booking_step: '4' });
   pushBookingLegacyEvent(CLARITY_EVENTS.BOOKING_CONFIRM_VIEWED, {
-    booking_reference: pnr || undefined,
     booking_step: '4',
   });
 }
@@ -419,6 +402,13 @@ const PASSENGER_INFO_FIELD_EVENT = {
 };
 
 let passengerInfoSessionStarted = false;
+const passengerFieldsEdited = new Set();
+
+/** Call when a new booking flow starts so the started marker is not permanent. */
+export function resetPassengerInfoAnalyticsSession() {
+  passengerInfoSessionStarted = false;
+  passengerFieldsEdited.clear();
+}
 
 /** @param {string} fieldKey @param {{ passengerIndex?: number, section?: string }} [meta] */
 export function trackPassengerInfoFieldClarityEvent(fieldKey, meta = {}) {
@@ -426,6 +416,7 @@ export function trackPassengerInfoFieldClarityEvent(fieldKey, meta = {}) {
   if (!key) return;
 
   if (!passengerInfoSessionStarted) {
+    if (!isAnalyticsConsented()) return;
     passengerInfoSessionStarted = true;
     setBookingAnalyticsContext({ booking_step: '1' });
     pushBookingLegacyEvent(CLARITY_EVENTS.PASSENGER_INFO_STARTED, {
@@ -434,12 +425,15 @@ export function trackPassengerInfoFieldClarityEvent(fieldKey, meta = {}) {
   }
 
   const eventName = PASSENGER_INFO_FIELD_EVENT[key];
+  const fieldScope = `${meta.passengerIndex ?? 0}:${key}`;
+  if (passengerFieldsEdited.has(fieldScope)) return;
   if (eventName) {
-    pushBookingLegacyEvent(eventName, {
+    const pushed = pushBookingLegacyEvent(eventName, {
       field_name: key,
       passenger_index: meta.passengerIndex != null ? meta.passengerIndex : undefined,
       passenger_form_section: meta.section ? String(meta.section) : undefined,
     });
+    if (pushed) passengerFieldsEdited.add(fieldScope);
   }
 }
 
@@ -571,8 +565,77 @@ export function trackLoungePassengerRemovedClarityEvent(meta = {}) {
   });
 }
 
+const availabilityClaims = new Map();
+const paymentTerminal = new Map();
+const downloadClaims = new Set();
+
+const TRANSIENT_PAYMENT_KINDS = new Set([
+  'audit_transport',
+  'network',
+  'timeout',
+  'polling',
+  'transient',
+]);
+
+export function resetBookingFlowDedupeForTests() {
+  availabilityClaims.clear();
+  paymentTerminal.clear();
+  downloadClaims.clear();
+  resetPassengerInfoAnalyticsSession();
+}
+
+function claimAvailability(requestId) {
+  if (!requestId) return true;
+  if (availabilityClaims.has(requestId)) return false;
+  if (!isAnalyticsConsented()) return false;
+  availabilityClaims.set(requestId, true);
+  return true;
+}
+
+/**
+ * One settled availability outcome per logical request.
+ * Callers must pass the final outcome only. A later different outcome is ignored
+ * unless `supersedes` is set after an authoritative correction.
+ */
+export function claimSearchAvailability(requestId, { supersedes = false } = {}) {
+  if (!requestId) return true;
+  if (availabilityClaims.has(requestId) && !supersedes) return false;
+  if (!isAnalyticsConsented()) return false;
+  availabilityClaims.set(requestId, true);
+  return true;
+}
+
+function claimPayment(attemptId, outcome, meta = {}) {
+  if (outcome === 'gateway_failed' && TRANSIENT_PAYMENT_KINDS.has(String(meta.errorKind || ''))) {
+    return false;
+  }
+  if (!attemptId) return true;
+  if (!isAnalyticsConsented()) return false;
+  const previous = paymentTerminal.get(attemptId);
+  if (!previous) {
+    paymentTerminal.set(attemptId, outcome);
+    return true;
+  }
+  if (previous === outcome) return false;
+  if (meta.authoritative) {
+    paymentTerminal.set(attemptId, outcome);
+    return true;
+  }
+  return false;
+}
+
+function claimDownload(downloadAttemptId, phase) {
+  if (!downloadAttemptId) return true;
+  const key = `${downloadAttemptId}:${phase}`;
+  if (downloadClaims.has(key)) return false;
+  if (!isAnalyticsConsented()) return false;
+  downloadClaims.add(key);
+  return true;
+}
+
 /** Availability API returned bookable flights. */
 export function trackSearchApiSuccessClarityEvent(meta = {}) {
+  if (!claimAvailability(meta.requestId)) return false;
   setBookingAnalyticsContext({ booking_step: '0' });
   pushBookingLegacyEvent(CLARITY_EVENTS.SEARCH_API_SUCCESS, {
     direct_flight_count: meta.directCount,
@@ -585,11 +648,13 @@ export function trackSearchApiSuccessClarityEvent(meta = {}) {
     return_date: meta.returnDate,
     cabin_class: meta.cabinClass,
     booking_step: '0',
+    request_id: meta.requestId,
   });
 }
 
-/** Availability API failed (network, HTTP, or business error). */
+/** Final failed availability request. Do not call for an automatic retry that later succeeds. */
 export function trackSearchApiFailedClarityEvent(meta = {}) {
+  if (!claimAvailability(meta.requestId)) return false;
   setBookingAnalyticsContext({ booking_step: '0' });
   pushBookingLegacyEvent(CLARITY_EVENTS.SEARCH_API_FAILED, {
     status_code: meta.statusCode,
@@ -601,11 +666,13 @@ export function trackSearchApiFailedClarityEvent(meta = {}) {
     return_date: meta.returnDate,
     cabin_class: meta.cabinClass,
     booking_step: '0',
+    request_id: meta.requestId,
   });
 }
 
 /** Availability API succeeded but returned zero valid flights. */
 export function trackSearchApiEmptyClarityEvent(meta = {}) {
+  if (!claimAvailability(meta.requestId)) return false;
   setBookingAnalyticsContext({ booking_step: '0' });
   pushBookingLegacyEvent(CLARITY_EVENTS.SEARCH_API_EMPTY, {
     origin_iata: meta.originIata,
@@ -615,6 +682,7 @@ export function trackSearchApiEmptyClarityEvent(meta = {}) {
     return_date: meta.returnDate,
     cabin_class: meta.cabinClass,
     booking_step: '0',
+    request_id: meta.requestId,
   });
 }
 
@@ -691,33 +759,32 @@ export function trackPaymentReturnCallbackClarityEvent(meta = {}) {
   });
 }
 
-/** Backend BookingAudit confirms successful payment and booking. */
+/** Authoritative confirmation that payment and booking succeeded. Not a callback render. */
 export function trackPaymentGatewaySuccessClarityEvent(meta = {}) {
+  if (!claimPayment(meta.paymentAttemptId, 'gateway_success', meta)) return false;
   pushBookingLegacyEvent(CLARITY_EVENTS.PAYMENT_GATEWAY_SUCCESS, {
-    booking_reference: meta.pnr ? String(meta.pnr).trim() : undefined,
-    payment_session_id: meta.paymentSessionId
-      ? String(meta.paymentSessionId).trim()
-      : undefined,
+    payment_attempt_id: meta.paymentAttemptId,
   });
 }
 
-/** Backend BookingAudit or gateway confirms payment / booking failure. */
+/** Authoritative payment failure. Transient audit/network errors are not failures. */
 export function trackPaymentGatewayFailedClarityEvent(meta = {}) {
+  if (!claimPayment(meta.paymentAttemptId, 'gateway_failed', meta)) return false;
   pushBookingLegacyEvent(CLARITY_EVENTS.PAYMENT_GATEWAY_FAILED, {
     error_kind: meta.errorKind,
     redirect_status: meta.redirectStatus,
-    payment_session_id: meta.paymentSessionId
-      ? String(meta.paymentSessionId).trim()
-      : undefined,
+    payment_attempt_id: meta.paymentAttemptId,
   });
 }
 
-/** Payment explicitly cancelled by user or provider (e.g. Stripe redirect_status=canceled). */
+/** Explicit cancellation by the traveller or provider. */
 export function trackPaymentCancelledClarityEvent(meta = {}) {
+  if (!claimPayment(meta.paymentAttemptId, 'cancelled', meta)) return false;
   pushBookingLegacyEvent(CLARITY_EVENTS.PAYMENT_CANCELLED, {
     cancel_source: meta.source,
     redirect_status: meta.redirectStatus,
     payment_method: meta.paymentMethod,
+    payment_attempt_id: meta.paymentAttemptId,
   });
 }
 
@@ -726,11 +793,10 @@ export function trackPaymentCancelledClarityEvent(meta = {}) {
  * @param {{ failureKind?: string, paymentSessionId?: string }} [meta]
  */
 export function trackBookingPostPaymentCreationFailedClarityEvent(meta = {}) {
+  if (!claimPayment(meta.paymentAttemptId, 'creation_failed', meta)) return false;
   pushBookingLegacyEvent(CLARITY_EVENTS.POST_PAYMENT_CREATION_FAILED, {
     failure_kind: meta.failureKind,
-    payment_session_id: meta.paymentSessionId
-      ? String(meta.paymentSessionId).trim()
-      : undefined,
+    payment_attempt_id: meta.paymentAttemptId,
   });
 }
 
@@ -748,7 +814,6 @@ export function trackBookingSessionExpiredClarityEvent(meta = {}) {
 export function trackBookingViewTicketOpenedClarityEvent(meta = {}) {
   pushBookingLegacyEvent(CLARITY_EVENTS.VIEW_TICKET_OPENED, {
     ticket_source: meta.source ?? 'booking_confirm',
-    booking_reference: meta.pnr ? String(meta.pnr).trim() : undefined,
   });
 }
 
@@ -758,9 +823,11 @@ export function trackBookingViewTicketOpenedClarityEvent(meta = {}) {
  */
 export function trackBookingTicketDownloadClarityEvent(meta = {}) {
   const phase = meta.phase === 'success' ? 'success' : 'started';
+  if (!claimDownload(meta.downloadAttemptId, phase)) return false;
   pushBookingLegacyEvent(CLARITY_EVENTS.TICKET_DOWNLOAD, {
     event_action: phase,
     with_price: Boolean(meta.withPrice),
+    download_attempt_id: meta.downloadAttemptId,
   });
 }
 
