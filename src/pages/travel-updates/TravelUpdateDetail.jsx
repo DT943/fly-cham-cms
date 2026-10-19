@@ -61,9 +61,7 @@ const StaticTravelUpdateDetail = () => {
 
   return (
     <main className="w-full min-w-0 bg-100 pb-12 md:pb-16">
-      <Container className="min-w-0 pb-4 pt-5 md:pb-6 md:pt-10">
-        <Breadcrumbs items={breadcrumbs} />
-      </Container>
+      <Breadcrumbs items={breadcrumbs} />
 
       <Container className="flex min-w-0 flex-col gap-8 pt-2 md:gap-10 md:pt-4">
         <TravelUpdateDetailHeader

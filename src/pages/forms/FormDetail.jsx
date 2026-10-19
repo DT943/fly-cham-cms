@@ -31,8 +31,8 @@ const FormDetail = () => {
 
   return (
     <main className="bg-100 w-full">
-      <Container className="py-5 md:py-10 flex flex-col gap-6 md:gap-10">
-        <Breadcrumbs items={breadcrumbs} />
+      <Breadcrumbs items={breadcrumbs} />
+      <Container className="flex flex-col gap-6 py-5 md:gap-10 md:py-10">
         <PageHero title={title} />
       </Container>
     </main>

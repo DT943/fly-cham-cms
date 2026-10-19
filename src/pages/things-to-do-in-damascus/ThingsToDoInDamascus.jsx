@@ -32,9 +32,7 @@ const FlightsToDestination = () => {
 
   return (
     <main className="w-full bg-100">
-      <Container className="min-w-0 pt-5 pb-4 md:pt-10 md:pb-6">
-        <Breadcrumbs items={breadcrumbs} />
-      </Container>
+      <Breadcrumbs items={breadcrumbs} />
 
       <div className="relative">
         <SearchAnchor hit="destination-hero">

@@ -1,11 +1,13 @@
 import { Fragment } from 'react'
 import { CMS_TEXT_HOVER_CLASS, colorVar, getTextStyleVars } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
+import { LOGO_CONTENT_INSET_CLASS } from '../layout/logoContentInset.js'
+import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 
-// Blocks are spaced by the page gap only. `chrome` is kept as a stored value
-// but adds nothing: the page already pads the top under the header.
+// Extra vertical rhythm when the CMS sets sectionPadding; the bar itself always
+// uses a modest py so the trail is not flush against the header border.
 const SECTION_PADDING = {
   none: '',
   chrome: '',
@@ -17,9 +19,9 @@ const SECTION_PADDING = {
 const cx = (...parts) => parts.filter(Boolean).join(' ')
 
 /**
- * Page trail. Static call sites pass `items` only and keep the original
- * caption / 600 / primary-1 look. CMS pages also send style + backlinks.
- * The last crumb always uses Focus color (active page).
+ * Page trail. Owns the page Container + logo optical inset so “Home” lines up
+ * with the drawn header logo (Figma). CMS pages register this as fullBleed so
+ * PageBlocks does not wrap or top-pad it again.
  */
 const Breadcrumbs = ({
   items = [],
@@ -76,16 +78,27 @@ const Breadcrumbs = ({
 
   const focusVars = getTextStyleVars(focusStyle, 'focusColor', 'primary-1', 'semibold')
 
+  // Keep each crumb on one line; wrap whole crumbs to the next row on narrow
+  // viewports (without this, flex shrink stacks words vertically mid-label).
+  const crumbClass = 'shrink-0 whitespace-nowrap'
+
   const nav = (
-    <nav className={cx('flex items-center gap-2', typography.caption)} aria-label={ariaLabel}>
+    <nav
+      className={cx(
+        'flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1',
+        typography.caption,
+      )}
+      aria-label={ariaLabel}
+    >
       {crumbs.map((item, index) => {
         const isFocus = index === crumbs.length - 1
         return (
           <Fragment key={`${item.label}-${index}`}>
             {index > 0 && (
               <span
-                className="text-600 font-medium"
+                className={cx(crumbClass, 'text-600 font-medium')}
                 style={{ color: colorVar(separatorColor) }}
+                aria-hidden
               >
                 {separator}
               </span>
@@ -94,6 +107,7 @@ const Breadcrumbs = ({
               <LocalizedLink
                 href={item.href}
                 className={cx(
+                  crumbClass,
                   typography.caption,
                   'font-medium',
                   crumbUnderline ? 'hover:underline' : '',
@@ -107,6 +121,7 @@ const Breadcrumbs = ({
               <LocalizedLink
                 href={item.href}
                 className={cx(
+                  crumbClass,
                   typography.caption,
                   'font-semibold',
                   crumbUnderline ? 'hover:underline' : '',
@@ -119,7 +134,12 @@ const Breadcrumbs = ({
               </LocalizedLink>
             ) : (
               <span
-                className={cx(typography.caption, 'font-semibold', CMS_TEXT_HOVER_CLASS)}
+                className={cx(
+                  crumbClass,
+                  typography.caption,
+                  'font-semibold',
+                  CMS_TEXT_HOVER_CLASS,
+                )}
                 style={focusVars}
                 aria-current="page"
               >
@@ -133,17 +153,20 @@ const Breadcrumbs = ({
   )
 
   const paddingClass = SECTION_PADDING[sectionPadding] || ''
-  if (!paddingClass && !showSectionBg) return nav
 
   return (
     <div
-      className={cx(
-        paddingClass,
-        'flex min-w-0 items-center justify-between gap-2 sm:gap-4',
-      )}
+      className={cx('w-full', paddingClass)}
       style={showSectionBg ? { backgroundColor: colorVar(sectionBg) } : undefined}
     >
-      {nav}
+      <Container
+        className={cx(
+          'flex min-w-0 items-center py-3 md:py-4',
+          LOGO_CONTENT_INSET_CLASS,
+        )}
+      >
+        {nav}
+      </Container>
     </div>
   )
 }

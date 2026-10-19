@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import useAppSearch from '../../../search/hooks/useAppSearch.js'
+import { LOGO_CONTENT_INSET_CLASS } from '../../logoContentInset.js'
 import { headerHref } from '../headerStyle.js'
 import searchIcon from '../../../../assets/icons/search.svg'
 import searchButtonIcon from '../../../../assets/icons/search-button.svg'
@@ -44,13 +45,10 @@ const HeaderSearch = ({ search, onClose }) => {
   return (
     <div className="bg-background">
       <Container>
-        {/*
-          Starts where the header logo is visibly drawn, not at the container edge:
-          the logo image (241×72) has transparent space around the mark — 23.5px
-          before it, 59.5px after it (the RTL start side) — scaled with the logo
-          box: <lg 160×44, lg 185×72, xl 241×72 (see Header.jsx).
-        */}
-        <div className="flex flex-col gap-[22px] pb-10 ps-[21px] pt-7 lg:pb-[52px] lg:ps-[18px] xl:ps-6 rtl:ps-[43px] rtl:lg:ps-[46px] rtl:xl:ps-[60px]">
+        {/* Align with the drawn logo mark (see LOGO_CONTENT_INSET_CLASS). */}
+        <div
+          className={`flex flex-col gap-[22px] pb-10 pt-7 lg:pb-[52px] ${LOGO_CONTENT_INSET_CLASS}`}
+        >
           <div className="flex items-center gap-4 lg:gap-12">
             <form
               role="search"

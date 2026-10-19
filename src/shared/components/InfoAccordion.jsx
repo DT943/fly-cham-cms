@@ -103,7 +103,16 @@ const InfoAccordion = ({
             style={getTextStyleVars(textStyle, 'bodyColor', '700', 'normal')}
           >
             {lines.map((line, index) => (
-              <li key={items[index]?.id || index} className="whitespace-pre-line marker:text-current">
+              <li
+                key={items[index]?.id || index}
+                className={
+                  // Text-only rows often paste their own • / - lines; hide the
+                  // CSS marker so it does not sit beside those characters.
+                  line.heading
+                    ? 'whitespace-pre-line marker:text-current'
+                    : 'list-none whitespace-pre-line'
+                }
+              >
                 {line.heading ? (
                   <span
                     className={cx('block font-semibold', CMS_TEXT_HOVER_CLASS)}

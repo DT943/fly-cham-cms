@@ -34,16 +34,14 @@ const BaggageCalculatorPage = () => {
   return (
     <main className="w-full bg-100 pb-12 md:pb-16">
       <div className="flex flex-col gap-8 pt-5 md:gap-[60px] md:pt-10">
-        <Container>
-          <Breadcrumbs
-            items={[
-              { label: page.breadcrumbHome, href: '/' },
-              { label: page.breadcrumbTravel, href: '/travel-experience' },
-              { label: page.breadcrumbBefore, href: '/travel-experience/before-you-fly' },
-              { label: page.breadcrumb },
-            ]}
-          />
-        </Container>
+        <Breadcrumbs
+          items={[
+            { label: page.breadcrumbHome, href: '/' },
+            { label: page.breadcrumbTravel, href: '/travel-experience' },
+            { label: page.breadcrumbBefore, href: '/travel-experience/before-you-fly' },
+            { label: page.breadcrumb },
+          ]}
+        />
 
         <PageMediaHero
           image={HERO_IMAGE}

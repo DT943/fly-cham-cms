@@ -68,8 +68,8 @@ const BUTTON_OPTS = {
 /**
  * A single image + text row (heading, paragraph, side photo). CMS-driven:
  * colours/weights/hover, image side, corners and the section background are all
- * controllable, with defaults matching the source design. The photo comes only
- * from the CMS; with no image uploaded the photo column is not rendered.
+ * controllable, with defaults matching the source design. The photo is passed
+ * from the CMS adapter (bucket default when the block has no imageUrl).
  */
 const SeatJourney = ({
   title = '',

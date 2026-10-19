@@ -1,13 +1,16 @@
 import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
+/** Same cms-media default as flychamadmin SeatJourney constants. */
+export const SEAT_JOURNEY_DEFAULT_IMAGE =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/seat-selection/journey.webp'
+
 /**
  * Map a CMS "seat-journey" block to <SeatJourney /> props — a single image + text
  * row (heading, paragraph, side photo).
  *
  * Stores the editor shape: `{ title, description, imageUrl, imageAlt, buttonLabel, buttonHref, links }`.
- * An empty image URL falls back to the app's bundled journey photo in the
- * component. Only style keys the CMS provided are forwarded, so omitted keys keep
- * the component's own defaults (the source look).
+ * An empty image URL uses the bucket default so the public site matches admin
+ * preview. Only style keys the CMS provided are forwarded.
  */
 export function seatJourneyProps(block, lang) {
   const content = pickContent(block.content, lang)
@@ -16,7 +19,8 @@ export function seatJourneyProps(block, lang) {
   return {
     title: content.title || '',
     description: content.description || '',
-    image: resolveCmsAsset(content.imageUrl) || undefined,
+    image:
+      resolveCmsAsset(content.imageUrl) || SEAT_JOURNEY_DEFAULT_IMAGE,
     imageAlt: content.imageAlt || '',
     buttonLabel: content.buttonLabel || '',
     buttonHref: resolveCmsHref(content.buttonHref) || '',

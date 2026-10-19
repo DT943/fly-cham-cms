@@ -22,9 +22,7 @@ const NewsArticleView = ({ article, breadcrumbs }) => {
 
   return (
     <main className="bg-100 w-full overflow-x-clip pb-12 md:pb-16">
-      <Container className="min-w-0 pt-5 pb-4 md:pt-10 md:pb-6">
-        <Breadcrumbs items={breadcrumbs} />
-      </Container>
+      <Breadcrumbs items={breadcrumbs} />
 
       <Container className="flex flex-col gap-8 pt-2 md:gap-10 md:pt-4">
         <NewsDetailHeader

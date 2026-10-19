@@ -157,15 +157,15 @@ const BookFromSchedule = () => {
 
   return (
     <main className="w-full bg-100 pb-12 md:pb-16">
-      <Container className="pt-5 md:pt-10">
-        <Breadcrumbs
-          items={[
-            { label: t('bookFromSchedule.breadcrumbHome'), href: '/' },
-            { label: t('bookFromSchedule.title') },
-          ]}
-        />
+      <Breadcrumbs
+        items={[
+          { label: t('bookFromSchedule.breadcrumbHome'), href: '/' },
+          { label: t('bookFromSchedule.title') },
+        ]}
+      />
 
-        <h1 className={`m-0 mt-6 font-semibold leading-tight text-primary-1 md:mt-8 ${typography.pageTitle}`}>
+      <Container className="pt-5 md:pt-10">
+        <h1 className={`m-0 font-semibold leading-tight text-primary-1 ${typography.pageTitle}`}>
           {t('bookFromSchedule.title')}
         </h1>
         <p className="m-0 mt-3 mb-12 text-base text-700 md:text-lg">{t('bookFromSchedule.description')}</p>

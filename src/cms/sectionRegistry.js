@@ -298,7 +298,13 @@ export const sectionRegistry = {
     mapProps: legalMoreInfoProps,
     fullBleed: true,
   },
-  'breadcrumbs': { Component: Breadcrumbs, mapProps: breadcrumbsProps },
+  // Owns Container + logo inset; fullBleed skips PageBlocks wrap/top pad so the
+  // trail sits flush under the header and aligns with the drawn logo mark.
+  'breadcrumbs': {
+    Component: Breadcrumbs,
+    mapProps: breadcrumbsProps,
+    fullBleed: true,
+  },
   // Marker block: the live booking box; CMS style only sets its vertical offset.
   'booking-widget': {
     Component: BookingWidgetBlock,
