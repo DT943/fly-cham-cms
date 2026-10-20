@@ -118,7 +118,9 @@ const CookieConsent = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-1100 flex flex-col justify-end">
+    <div className="pointer-events-none fixed inset-0 z-1100 flex flex-col justify-end">
+      {/* Visual dim only — aria-modal is false, so the page (header menus, etc.)
+          must stay clickable. The sheet below re-enables pointer events. */}
       <div
         aria-hidden
         className={`absolute inset-0 bg-secondary-2/40 backdrop-blur-[2px] transition-opacity duration-300 motion-reduce:transition-none ${
@@ -130,7 +132,7 @@ const CookieConsent = () => {
         role="dialog"
         aria-modal="false"
         aria-labelledby="cookie-consent-text"
-        className={`relative bg-background shadow-[0_-8px_24px_-12px_rgba(33,37,41,0.25)] transition-transform duration-300 ease-out motion-reduce:transition-none ${
+        className={`pointer-events-auto relative bg-background shadow-[0_-8px_24px_-12px_rgba(33,37,41,0.25)] transition-transform duration-300 ease-out motion-reduce:transition-none ${
           shown ? 'translate-y-0' : 'translate-y-full'
         }`}
       >

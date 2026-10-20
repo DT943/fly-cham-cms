@@ -10,6 +10,7 @@ import useSiteHeader from './header/useSiteHeader.js'
 import MegaMenu from './header/components/MegaMenu.jsx'
 import RegionMenu from './header/components/RegionMenu.jsx'
 import HeaderSearch from './header/components/HeaderSearch.jsx'
+import LoginMenu from './header/components/LoginMenu.jsx'
 import HeaderMobileMenu, { HeaderMenuButton } from './header/components/HeaderMobileMenu.jsx'
 import TravelUpdatesNotice from './header/TravelUpdatesNotice.jsx'
 import useHideOnScroll from './hooks/useHideOnScroll.js'
@@ -154,11 +155,18 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     setOpenMenu(id)
     setPinned(true)
   }
-  // Hover previews a menu, except while search is open (it stays until closed)
-  // or the visitor has clicked a menu open. The preview always waits, so a pass
-  // over Help on the way to another item or a link does not move the line.
+  // Hover previews a menu, except while search/login are open (click-only panels
+  // stay until closed) or the visitor has clicked a menu open. The preview always
+  // waits, so a pass over Help on the way to another item does not move the line.
   const previewMenu = (id) => {
-    if (pinned || openMenu === SEARCH_MENU || openMenu === id) return
+    if (
+      pinned ||
+      openMenu === SEARCH_MENU ||
+      openMenu === LOGIN_ITEM ||
+      openMenu === id
+    ) {
+      return
+    }
     cancelPreview()
     previewTimer.current = window.setTimeout(() => {
       previewTimer.current = null
@@ -352,24 +360,23 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
               )}
 
               {header.login.show && (
-                <span
+                <button
                   ref={(node) => {
                     itemRefs.current[LOGIN_ITEM] = node
                   }}
-                  className="flex h-full items-stretch"
-                  onMouseEnter={() => previewMenu(LOGIN_ITEM)}
+                  type="button"
+                  aria-expanded={openMenu === LOGIN_ITEM}
+                  aria-controls="login-mega-menu"
+                  aria-label={header.login.label}
+                  onMouseEnter={() => {
+                    if (!pinned && openMenu !== LOGIN_ITEM) closeMenu()
+                  }}
+                  onClick={() => toggleMenu(LOGIN_ITEM)}
+                  className={`relative flex cursor-pointer items-center whitespace-nowrap border-0 bg-transparent px-2 outline-none focus:outline-none focus-visible:outline-none ${HDR_SELF_HOVER}`}
+                  style={navStyle(openMenu === LOGIN_ITEM)}
                 >
-                  <LocalizedLink
-                    to={headerHref(header.login.href)}
-                    aria-label={header.login.label}
-                    onFocus={(event) => previewFromKeyboard(event, LOGIN_ITEM)}
-                    onClick={closeMenu}
-                    className={`flex items-center whitespace-nowrap px-2 no-underline outline-none focus:outline-none ${HDR_SELF_HOVER}`}
-                    style={navStyle(openMenu === LOGIN_ITEM)}
-                  >
-                    <UserCircle size={24} weight="regular" className="shrink-0" />
-                  </LocalizedLink>
-                </span>
+                  <UserCircle size={24} weight="regular" className="shrink-0" aria-hidden />
+                </button>
               )}
           </div>
 
@@ -428,15 +435,21 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
         `sticky` on the header makes it the containing block. The max height is
         the viewport minus the bar above it, so a tall panel scrolls internally.
       */}
-      {(activeMenu || openMenu === REGION_MENU || openMenu === SEARCH_MENU) && (
+      {(activeMenu ||
+        openMenu === REGION_MENU ||
+        openMenu === SEARCH_MENU ||
+        openMenu === LOGIN_ITEM) && (
         <div
           id={`${openMenu}-mega-menu`}
-          // Clicking inside the panel (e.g. a tab) keeps it open.
           onPointerEnter={cancelPreview}
           onPointerDown={() => setPinned(true)}
-          // The search panel also opens below lg (mobile icon); mega menus are lg-only.
-          className={`absolute inset-x-0 top-full max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] ${
-            openMenu === SEARCH_MENU ? 'block' : 'hidden lg:block'
+          // Search opens below lg; login card is lg-only here (mobile uses a portal).
+          className={`absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] ${
+            openMenu === SEARCH_MENU
+              ? 'block'
+              : openMenu === LOGIN_ITEM
+                ? 'max-lg:contents lg:block'
+                : 'hidden lg:block'
           }`}
         >
           {activeMenu && (
@@ -449,6 +462,14 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
           )}
           {openMenu === REGION_MENU && <RegionMenu onNavigate={closeFromLink} />}
           {openMenu === SEARCH_MENU && <HeaderSearch search={header.search} onClose={closeMenu} />}
+          {openMenu === LOGIN_ITEM && (
+            <LoginMenu
+              login={header.login}
+              headerStyle={hs || header.style}
+              onNavigate={closeFromLink}
+              onClose={closeMenu}
+            />
+          )}
         </div>
       )}
 
@@ -457,6 +478,10 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
         open={mobileOpen}
         onClose={closeMobile}
         onNavigate={closeMobile}
+        onOpenLogin={() => {
+          setMobileOpen(false)
+          toggleMenu(LOGIN_ITEM)
+        }}
       />
     </header>
   )

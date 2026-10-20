@@ -128,6 +128,43 @@ const normalizeSearch = (search, base) => {
 }
 
 /**
+ * Log-in dropdown (Figma 41671:57278). Older documents only had show/label/href;
+ * the rest is filled from the bundled default so the panel still renders.
+ */
+const normalizeLogin = (login, base) => {
+  const fallback = base.login
+  if (!isObj(login)) return fallback
+  const benefits = Array.isArray(login.benefits)
+    ? login.benefits
+        .filter((item) => isObj(item) && str(item.text))
+        .map((item, index) => ({
+          id: str(item.id) || `benefit-${index}`,
+          text: str(item.text),
+        }))
+    : fallback.benefits
+  return {
+    show: login.show !== false,
+    label: str(login.label, fallback.label),
+    href: str(login.href) || fallback.href,
+    panelTitle: str(login.panelTitle, fallback.panelTitle),
+    panelSubtitle: str(login.panelSubtitle, fallback.panelSubtitle),
+    benefits,
+    panelImageUrl: str(login.panelImageUrl, fallback.panelImageUrl),
+    brandLogoUrl: str(login.brandLogoUrl, fallback.brandLogoUrl),
+    emailLabel: str(login.emailLabel) || fallback.emailLabel,
+    emailPlaceholder: str(login.emailPlaceholder, fallback.emailPlaceholder),
+    passwordLabel: str(login.passwordLabel) || fallback.passwordLabel,
+    passwordPlaceholder: str(login.passwordPlaceholder, fallback.passwordPlaceholder),
+    submitLabel: str(login.submitLabel) || fallback.submitLabel,
+    orLabel: str(login.orLabel) || fallback.orLabel,
+    createAccountLabel: str(login.createAccountLabel, fallback.createAccountLabel),
+    createAccountHref: str(login.createAccountHref) || fallback.createAccountHref,
+    showPasswordLabel: str(login.showPasswordLabel) || fallback.showPasswordLabel,
+    hidePasswordLabel: str(login.hidePasswordLabel) || fallback.hidePasswordLabel,
+  }
+}
+
+/**
  * Validated + normalised document, ready to render: every field present with
  * the right type, missing style/logo/login/region keys filled from the bundled
  * default, hidden menus and empty tabs/menus removed. Returns null if invalid.
@@ -162,11 +199,7 @@ const normalizeDocument = (doc, lang) => {
       href: str(doc.logo?.href) || base.logo.href,
       faviconUrl: str(doc.logo?.faviconUrl) || base.logo.faviconUrl,
     },
-    login: {
-      show: doc.login?.show !== false,
-      label: str(doc.login?.label, base.login.label),
-      href: str(doc.login?.href) || base.login.href,
-    },
+    login: normalizeLogin(doc.login, base),
     region: {
       show: doc.region?.show !== false,
       label: str(doc.region?.label, base.region.label),

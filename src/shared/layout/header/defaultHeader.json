@@ -11,7 +11,35 @@
     "login": {
       "show": true,
       "label": "Log in",
-      "href": "/"
+      "href": "/",
+      "panelTitle": "Welcome to Cham Miles loyalty program",
+      "panelSubtitle": "Join now to unlock special travel benefits",
+      "benefits": [
+        {
+          "id": "offers",
+          "text": "Exclusive offers from Fly Cham and discount"
+        },
+        {
+          "id": "preferences",
+          "text": "Book flights faster with saved preferences"
+        },
+        {
+          "id": "checkin",
+          "text": "Easy online check-in"
+        }
+      ],
+      "panelImageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/login-panel-bg.webp",
+      "brandLogoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/login-cham-miles-logo.webp",
+      "emailLabel": "Email",
+      "emailPlaceholder": "",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "",
+      "submitLabel": "Log in",
+      "orLabel": "OR",
+      "createAccountLabel": "Create account",
+      "createAccountHref": "/cham-miles",
+      "showPasswordLabel": "Show password",
+      "hidePasswordLabel": "Hide password"
     },
     "region": {
       "show": true,
@@ -735,7 +763,23 @@
       "cardTitleFontWeight": "semibold",
       "cardMetaColor": "primary-3",
       "tagBg": "primary-3",
-      "tagTextColor": "700"
+      "tagTextColor": "700",
+      "loginPromoFrom": "primary-1",
+      "loginPromoTo": "secondary-2",
+      "loginTitleColor": "50",
+      "loginSubtitleColor": "50",
+      "loginBenefitColor": "100",
+      "loginCheckColor": "secondary",
+      "loginFormBg": "50",
+      "loginInputBorder": "300",
+      "loginInputLabelColor": "600",
+      "loginInputTextColor": "700",
+      "loginSubmitBg": "primary-1",
+      "loginSubmitText": "50",
+      "loginCreateBorder": "primary-1",
+      "loginCreateText": "primary-1",
+      "loginOrColor": "500",
+      "loginDividerColor": "300"
     }
   },
   "ar": {
@@ -750,7 +794,35 @@
     "login": {
       "show": true,
       "label": "تسجيل الدخول",
-      "href": "/"
+      "href": "/",
+      "panelTitle": "مرحبًا بك في برنامج شام مايلز للولاء",
+      "panelSubtitle": "انضم الآن للاستفادة من مزايا السفر الخاصة",
+      "benefits": [
+        {
+          "id": "offers",
+          "text": "عروض حصرية من فلاي شام وخصومات"
+        },
+        {
+          "id": "preferences",
+          "text": "احجز الرحلات بسرعة أكبر مع التفضيلات المحفوظة"
+        },
+        {
+          "id": "checkin",
+          "text": "تسجيل وصول إلكتروني سهل"
+        }
+      ],
+      "panelImageUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/login-panel-bg.webp",
+      "brandLogoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/login-cham-miles-logo.webp",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "",
+      "submitLabel": "تسجيل الدخول",
+      "orLabel": "أو",
+      "createAccountLabel": "إنشاء حساب",
+      "createAccountHref": "/cham-miles",
+      "showPasswordLabel": "إظهار كلمة المرور",
+      "hidePasswordLabel": "إخفاء كلمة المرور"
     },
     "region": {
       "show": true,
@@ -1474,7 +1546,23 @@
       "cardTitleFontWeight": "semibold",
       "cardMetaColor": "primary-3",
       "tagBg": "primary-3",
-      "tagTextColor": "700"
+      "tagTextColor": "700",
+      "loginPromoFrom": "primary-1",
+      "loginPromoTo": "secondary-2",
+      "loginTitleColor": "50",
+      "loginSubtitleColor": "50",
+      "loginBenefitColor": "100",
+      "loginCheckColor": "secondary",
+      "loginFormBg": "50",
+      "loginInputBorder": "300",
+      "loginInputLabelColor": "600",
+      "loginInputTextColor": "700",
+      "loginSubmitBg": "primary-1",
+      "loginSubmitText": "50",
+      "loginCreateBorder": "primary-1",
+      "loginCreateText": "primary-1",
+      "loginOrColor": "500",
+      "loginDividerColor": "300"
     }
   }
 }

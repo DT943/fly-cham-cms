@@ -44,7 +44,7 @@ export const HeaderMenuButton = ({ open, dark, onClick, label, controlsId }) => 
 )
 
 /** `header` is the normalised site-header document (see useSiteHeader). */
-const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
+const HeaderMobileMenu = ({ header, open, onClose, onNavigate, onOpenLogin }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const currentLocation = findHeaderLocation(header.menus, pathname)
@@ -212,14 +212,17 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate }) => {
             )}
 
             {header.login.show && (
-              <LocalizedLink
-                to={headerHref(header.login.href)}
-                onClick={onNavigate}
-                className={`${typography.body} flex items-center gap-3 py-3 font-medium text-800 no-underline`}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onOpenLogin) onOpenLogin()
+                  else onNavigate?.()
+                }}
+                className={`${typography.body} flex w-full cursor-pointer items-center gap-3 border-0 bg-transparent py-3 text-start font-medium text-800`}
               >
                 <UserCircle size={22} weight="regular" className="shrink-0 text-700" />
                 {header.login.label}
-              </LocalizedLink>
+              </button>
             )}
           </div>
 
