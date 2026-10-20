@@ -9,11 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { encodeSearchToken } from '@/util/searchToken';
 import { toCalendarDateKeyFromAny } from '@/util/calendarDateKey';
 import { saveRecentSearchCookie } from '@/util/recentSearchStorage';
-import { ANALYTICS_EVENTS, pushAnalyticsEvent } from '@/lib/analytics';
-import {
-    buildSearchContextFromFormValues,
-    setBookingAnalyticsContext,
-} from '@/lib/bookingAnalyticsContext';
+import { emitValidatedSearchNavigation } from '@/lib/searchSubmission';
 import {
     getDefaultLegs,
     getFirstLeg,
@@ -237,13 +233,6 @@ export default function useBookingFormik({
             });
 
             saveRecentSearchCookie(data, airPorts?.items);
-            const searchContext = buildSearchContextFromFormValues(values);
-            setBookingAnalyticsContext(searchContext);
-            pushAnalyticsEvent(ANALYTICS_EVENTS.FLIGHT_SEARCH, {
-                event_action: 'search',
-                ...searchContext,
-                promo_code: values?.promoCode || undefined,
-            });
 
             // Persist in redux. In-page modify (search-results) updates searchParams in applySearchParams
             // after fetch — early setSearchParams here desyncs URL vs Redux and can trigger stale refetches.
@@ -275,10 +264,21 @@ export default function useBookingFormik({
 
             if (navigateWithRouter) {
                 searchNavigateLockRef.current = true;
+                const external = /^[a-z][a-z0-9+.-]*:\/\//i.test(String(href || ''));
+                try {
+                    emitValidatedSearchNavigation({ href, external });
+                } catch (analyticsError) {
+                    console.error('Search analytics failed', analyticsError);
+                }
                 startTransition(() => {
                     router.push(href);
                 });
             } else {
+                try {
+                    emitValidatedSearchNavigation({ href, external: false });
+                } catch (analyticsError) {
+                    console.error('Search analytics failed', analyticsError);
+                }
                 searchNavigateLockRef.current = false;
             }
         },

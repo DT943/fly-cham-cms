@@ -7,6 +7,7 @@ import {
   getTextStyleVars,
 } from '../../../styles/cmsStyle.js'
 import LocalizedLink from '../LocalizedLink.jsx'
+import { trackDealSelected } from '../../analytics/cmsEvents.js'
 import LinkedText from '../backlinks/LinkedText.jsx'
 import DealBadge from './DealBadge.jsx'
 import {
@@ -138,6 +139,7 @@ const DealCard = ({
         {showButton ? (
           <LocalizedLink
             href={deal.href || '#'}
+            onClick={() => trackDealSelected(deal, fareText)}
             className={`mt-auto inline-flex w-full items-center justify-center rounded-lg px-[26px] py-3 text-base leading-[normal] no-underline transition-colors ${DEAL_BUTTON_HEIGHT[variant] || DEAL_BUTTON_HEIGHT.flight} ${btn.className}`}
             style={btn.style}
           >

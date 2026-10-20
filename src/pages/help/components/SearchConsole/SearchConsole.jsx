@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../../../styles/typography.js'
 import {
@@ -16,6 +16,8 @@ import LinkedText from '../../../../shared/components/backlinks/LinkedText.jsx'
 import SearchField from './SearchField.jsx'
 import PopularTopics from './PopularTopics.jsx'
 import { cx } from './cx.js'
+import { stripLanguage } from '../../../../i18n/languages.js'
+import { trackHelpSearch } from '../../../../shared/analytics/cmsEvents.js'
 
 const SearchConsole = ({
   label,
@@ -86,6 +88,8 @@ const SearchConsole = ({
     labelFontWeightHover,
   }
   const { t, i18n } = useTranslation()
+  const { pathname } = useLocation()
+  const helpSearch = stripLanguage(pathname).startsWith('/help')
   const inputId = useId()
   const containerRef = useRef(null)
   const search = useAppSearch({ types, href })
@@ -178,6 +182,13 @@ const SearchConsole = ({
           }}
           onFocus={search.handleFocus}
           onSelect={selectHit}
+          onCommitSearch={(value, resultList) => {
+            if (!helpSearch) return
+            trackHelpSearch({
+              queryLength: String(value || '').trim().length,
+              hasResults: Array.isArray(resultList) && resultList.length > 0,
+            })
+          }}
         />
 
         {showPopular && popularItems.length > 0 && (

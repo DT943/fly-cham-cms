@@ -1,4 +1,5 @@
 import { Fragment, useMemo, useState } from 'react'
+import { createSubmitAttemptId, trackChamMilesRegister } from '../analytics/cmsEvents.js'
 import { Eye, EyeSlash } from '@phosphor-icons/react'
 import Dropdown from './Dropdown.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
@@ -118,6 +119,11 @@ const RegisterForm = ({ c, textStyle, ctaVars, ctaMediumVars, continueBtn, onSwi
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    trackChamMilesRegister({
+      eventAction: 'attempt',
+      submitAttemptId: createSubmitAttemptId(),
+      formLocation: 'cham_miles_register',
+    })
   }
 
   return (

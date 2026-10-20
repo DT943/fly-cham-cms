@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createSubmitAttemptId, trackChamMilesRegister } from "../../analytics/cmsEvents.js";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -178,6 +179,7 @@ function JoinFormCard({ c, isAr, href, LinkComponent, onSubmit, onSuccess }) {
     [c.titleOptions]
   );
 
+  const attemptRef = useRef("");
   const formik = useFormik({
     initialValues: INITIAL_VALUES,
     validationSchema,
@@ -192,6 +194,7 @@ function JoinFormCard({ c, isAr, href, LinkComponent, onSubmit, onSuccess }) {
         return;
       }
       try {
+        const attemptId = attemptRef.current || createSubmitAttemptId();
         await onSubmit({
           title: values.title,
           firstName: values.firstName.trim(),
@@ -202,7 +205,19 @@ function JoinFormCard({ c, isAr, href, LinkComponent, onSubmit, onSuccess }) {
           dateOfBirth: values.dateOfBirth,
         });
         onSuccess();
+        trackChamMilesRegister({
+          eventAction: "result",
+          result: "success",
+          submitAttemptId: attemptId,
+          formLocation: "cham_miles_join",
+        });
       } catch (err) {
+        trackChamMilesRegister({
+          eventAction: "result",
+          result: "error",
+          submitAttemptId: attemptRef.current,
+          formLocation: "cham_miles_join",
+        });
         setSubmitError(err?.response?.data?.message || err?.message || c.errorFallback);
       } finally {
         setSubmitting(false);
@@ -219,7 +234,25 @@ function JoinFormCard({ c, isAr, href, LinkComponent, onSubmit, onSuccess }) {
       <form
         className="cmj-form"
         noValidate
-        onSubmit={formik.handleSubmit}
+        onSubmit={(event) => {
+          const attemptId = createSubmitAttemptId();
+          attemptRef.current = attemptId;
+          if (validationSchema.isValidSync(formik.values)) {
+            trackChamMilesRegister({
+              eventAction: "attempt",
+              submitAttemptId: attemptId,
+              formLocation: "cham_miles_join",
+            });
+          } else {
+            trackChamMilesRegister({
+              eventAction: "result",
+              result: "validation_error",
+              submitAttemptId: attemptId,
+              formLocation: "cham_miles_join",
+            });
+          }
+          return formik.handleSubmit(event);
+        }}
         onKeyDown={(event) => {
           // Only the real submit button submits (iOS "Return" would otherwise).
           if (event.key === "Enter" && event.target?.type !== "submit" && event.target?.tagName !== "TEXTAREA") {

@@ -8,6 +8,7 @@ import {
 } from '../../styles/cmsStyle.js'
 import LocalizedLink from './LocalizedLink.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
+import { trackNewsletterAttempt } from '../analytics/cmsEvents.js'
 import useCurrentLanguage from '../hooks/useCurrentLanguage.js'
 
 const BUTTON = {
@@ -158,7 +159,10 @@ const NewsletterForm = ({
     <form
       className="flex w-full min-w-0 flex-col gap-[19px] overflow-x-clip rounded-xl bg-white p-6 md:p-[33px]"
       style={{ backgroundColor: colorVar(cardBg) }}
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={(event) => {
+        event.preventDefault()
+        trackNewsletterAttempt({ formLocation: 'newsletter_form', formId: 'newsletter-form' })
+      }}
     >
       <div className="flex flex-col gap-4">
         {title ? (

@@ -13,6 +13,7 @@ import LinkedText from './backlinks/LinkedText.jsx'
 import { MEDIA_NEWSLETTER_DEFAULT_PATTERN } from './mediaNewsletterSignupConstants.js'
 
 export { MEDIA_NEWSLETTER_DEFAULT_PATTERN }
+import { trackNewsletterAttempt } from '../analytics/cmsEvents.js'
 
 /**
  * Media Center newsletter capture.
@@ -61,6 +62,7 @@ const MediaNewsletterSignup = ({
   const submit = (event) => {
     event.preventDefault()
     if (status !== 'idle') return
+    trackNewsletterAttempt({ formLocation: 'media_newsletter', formId: 'media-newsletter-signup' })
     setStatus('loading')
     timer.current = window.setTimeout(() => {
       emailInputs.current.forEach((input) => {

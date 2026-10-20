@@ -7,6 +7,7 @@ import { useBookingBoxForm } from '../context/BookingBoxFormContext';
 import ButtonSpinner from '@/components/Ui/ButtonSpinner';
 import { useBookingBoxContentOptional } from '@/app/[pos]/[lang]/Home/booking-box/content/BookingBoxContent';
 import { trackSearchFlightsClarityEvent } from '@/lib/clarity';
+import { releaseSearchSubmissionLock } from '@/lib/searchSubmission';
 
 /**
  * SearchFlightsButton – uses Form context for form values, submit state, and search href.
@@ -50,10 +51,11 @@ const SearchFlightsButton = ({
 
   const handleClick = async () => {
     if (isDisabled || !href || loading) return;
-    trackSearchFlightsClarityEvent({
+    const submission = trackSearchFlightsClarityEvent({
       ...formValues,
       modifySearch: Boolean(isModifySearch),
     });
+    if (!submission?.accepted) return;
     setLoading(true);
     setIsNavigating(false);
     navigatingRef.current = false;
@@ -64,10 +66,15 @@ const SearchFlightsButton = ({
         if (shouldLock) {
           setIsNavigating(true);
           navigatingRef.current = true;
+        } else {
+          releaseSearchSubmissionLock();
         }
+      } else {
+        releaseSearchSubmissionLock();
       }
     } catch (err) {
       console.error('Search flights submit failed', err);
+      releaseSearchSubmissionLock();
     } finally {
       if (!navigatingRef.current) {
         setLoading(false);

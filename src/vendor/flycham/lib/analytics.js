@@ -5,6 +5,12 @@
  */
 
 import { getBookingAnalyticsContext } from '@/lib/bookingAnalyticsContext';
+import { getLanguageFromPath, getPosFromPath, stripLanguage } from '../../../i18n/languages.js';
+import {
+  allowsBookingContext,
+  categoryForEvent,
+  pickEventParams,
+} from '@/lib/analyticsPolicy';
 
 /** Matches `useCookiesBanner` / CookieConsentProvider storage key. */
 export const COOKIES_BANNER_KEY = 'flycham_cookie_banner_dismissed';
@@ -52,17 +58,30 @@ export const ANALYTICS_EVENTS = {
   BOOKING_VIEW_TICKET_OPENED: 'booking_view_ticket_opened',
   BOOKING_TICKET_DOWNLOAD: 'booking_ticket_download',
   BOOKING_TICKET_LANGUAGE_CHANGED: 'booking_ticket_language_changed',
+  PAGE_VIEW: 'page_view',
+  COOKIE_CONSENT: 'cookie_consent',
+  LANGUAGE_CHANGED: 'language_changed',
+  OUTBOUND_SEARCH: 'outbound_search',
+  DEAL_SELECTED: 'deal_selected',
+  NEWSLETTER_SUBMITTED: 'newsletter_submitted',
+  CONTACT_SUBMITTED: 'contact_submitted',
+  HELP_SEARCH: 'help_search',
+  SCHEDULE_SEARCH: 'schedule_search',
+  ROUTE_SELECTED: 'route_selected',
+  DESTINATION_VIEW: 'destination_view',
+  CHAM_MILES_REGISTER: 'cham_miles_register',
 };
 
-const PII_PARAM_KEYS = new Set([
-  'email',
-  'contact_email',
-  'phone',
-  'contact_phone',
-  'contact_alt_phone',
-  'card_number',
-  'payment_card',
-]);
+/**
+ * App page_view vs GTM-owned page_view.
+ * `app` (default): this SPA pushes one page_view per committed navigation.
+ * `gtm`: the app does not push page_view; GTM/GA4 must own it.
+ * send_page_view=false does not by itself disable GA4 enhanced-measurement history views.
+ */
+export function appOwnsPageView() {
+  const source = import.meta.env?.VITE_ANALYTICS_PAGE_VIEW_SOURCE || 'app';
+  return source !== 'gtm';
+}
 
 /**
  * Whether analytics events may be pushed (cookie banner accepted).
@@ -78,32 +97,56 @@ export function isAnalyticsConsented() {
   }
 }
 
-function sanitizeAnalyticsParams(params = {}) {
-  const out = {};
-  for (const [key, value] of Object.entries(params)) {
-    if (value == null || value === '') continue;
-    if (PII_PARAM_KEYS.has(key)) continue;
-    if (typeof value === 'boolean') {
-      out[key] = value;
-      continue;
+function pathWithoutQuery(value) {
+  const raw = String(value || '');
+  if (!raw) return undefined;
+  try {
+    if (/^https?:\/\//i.test(raw)) {
+      const url = new URL(raw);
+      return `${url.origin}${url.pathname}`;
     }
-    if (typeof value === 'number' && Number.isFinite(value)) {
-      out[key] = value;
-      continue;
-    }
-    const str = String(value).trim();
-    if (str) out[key] = str;
+  } catch {
+    return undefined;
   }
-  return out;
+  return raw.split('?')[0].split('#')[0] || undefined;
 }
 
-function getRouteContext() {
+export function getRouteContext() {
   if (typeof window === 'undefined') return {};
-  const parts = window.location.pathname.split('/').filter(Boolean);
-  return sanitizeAnalyticsParams({
-    page_path: window.location.pathname,
-    pos: parts[0] ?? undefined,
-    lang: parts[1] ?? undefined,
+  const pathname = window.location.pathname || '/';
+  const lang = getLanguageFromPath(pathname);
+  const pos = getPosFromPath(pathname);
+  const pagePath = stripLanguage(pathname).split('?')[0].split('#')[0] || '/';
+  const referrer = typeof document !== 'undefined' ? pathWithoutQuery(document.referrer) : undefined;
+  return {
+    page_path: pagePath,
+    page_title: typeof document !== 'undefined' ? document.title || undefined : undefined,
+    page_location: `${window.location.origin}${pathname}`,
+    page_referrer: referrer,
+    ...(lang ? { lang } : {}),
+    ...(pos ? { pos } : {}),
+  };
+}
+
+function gtagConsent() {
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  return gtag;
+}
+
+/**
+ * Google consent update. Does not replay earlier denied events.
+ * @param {boolean} granted
+ */
+export function updateGoogleConsent(granted) {
+  if (typeof window === 'undefined') return;
+  gtagConsent()('consent', 'update', {
+    analytics_storage: granted ? 'granted' : 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
   });
 }
 
@@ -115,17 +158,31 @@ function getRouteContext() {
  * @param {Record<string, string|number|boolean|null|undefined>} [params]
  */
 export function pushAnalyticsEvent(eventName, params = {}) {
-  if (typeof window === 'undefined' || !eventName) return;
-  if (!isAnalyticsConsented()) return;
+  if (typeof window === 'undefined' || !eventName) return false;
+  if (!isAnalyticsConsented()) return false;
+
+  const category = categoryForEvent(eventName);
+  const booking = allowsBookingContext(eventName) ? getBookingAnalyticsContext() : {};
+  const payload = pickEventParams(eventName, {
+    ...getRouteContext(),
+    ...booking,
+    ...params,
+    event_category: category,
+  });
 
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: eventName,
-    event_category: params.event_category ?? 'booking',
-    ...getRouteContext(),
-    ...getBookingAnalyticsContext(),
-    ...sanitizeAnalyticsParams(params),
+    ...payload,
   });
+  return true;
+}
+
+export function createSubmitAttemptId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `attempt-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
 /**
@@ -156,7 +213,7 @@ export function mapLegacyClarityEvent(legacyEventName) {
  */
 export function pushBookingLegacyEvent(legacyEventName, extraParams = {}) {
   const { event, event_action, params = {} } = mapLegacyClarityEvent(legacyEventName);
-  pushAnalyticsEvent(event, {
+  return pushAnalyticsEvent(event, {
     event_action,
     clarity_event_name: legacyEventName,
     ...params,

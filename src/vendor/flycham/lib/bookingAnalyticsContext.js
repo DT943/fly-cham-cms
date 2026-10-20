@@ -9,6 +9,27 @@ import { resolveIataByAirportId, getStaticAirportItems } from '@/util/airports/s
 /** @type {Record<string, string|number|boolean>} */
 let bookingAnalyticsContext = {};
 
+/** Replaced as a set on each new search so one-way cannot keep a previous return date. */
+export const SEARCH_CONTEXT_KEYS = [
+  'trip_type',
+  'cabin_class',
+  'origin_iata',
+  'destination_iata',
+  'departure_date',
+  'return_date',
+  'passengers_adult',
+  'passengers_child',
+  'passengers_infant',
+  'passengers_infant_with_seat',
+  'nearby_airports',
+  'fare_tier',
+  'fare_name',
+  'selected_cabin',
+  'search_attempt_id',
+  'modify_search',
+  'booking_step',
+];
+
 function getAirportItems(airPorts) {
   if (!airPorts) return [];
   if (Array.isArray(airPorts)) return airPorts;
@@ -89,6 +110,27 @@ export function clearBookingAnalyticsContext() {
 }
 
 /**
+ * Replace search/itinerary fields for a new attempt. Other keys are kept.
+ * @param {Record<string, string|number|boolean|null|undefined>} partial
+ */
+export function replaceSearchAnalyticsContext(partial = {}) {
+  const next = { ...bookingAnalyticsContext };
+  for (const key of SEARCH_CONTEXT_KEYS) delete next[key];
+  bookingAnalyticsContext = {
+    ...next,
+    ...compactContext(partial),
+  };
+}
+
+function resolveAirportCode(value) {
+  if (value == null || value === '') return undefined;
+  const direct = toIata(value);
+  if (direct && /^[A-Z]{3}$/.test(direct)) return direct;
+  const fromId = resolveIataByAirportId(value, getStaticAirportItems());
+  return fromId || undefined;
+}
+
+/**
  * Snapshot from booking-box Formik values (non-PII).
  * @param {Record<string, unknown>} values
  */
@@ -99,15 +141,18 @@ export function buildSearchContextFromFormValues(values = {}) {
   return compactContext({
     trip_type: values.tripType,
     cabin_class: values.cabinClass,
-    origin_iata: toIata(leg0.source),
-    destination_iata: toIata(leg0.destination),
+    origin_iata: resolveAirportCode(leg0.source),
+    destination_iata: resolveAirportCode(leg0.destination),
     departure_date: toAnalyticsDateKey(leg0.dateStart),
-    return_date: toAnalyticsDateKey(returnDate),
+    return_date:
+      values.tripType === 'OneWay' || values.tripType === 'MultiCity'
+        ? undefined
+        : toAnalyticsDateKey(returnDate),
     passengers_adult: toCount(values.adults),
     passengers_child: toCount(values.children),
     passengers_infant: toCount(values.infants),
     passengers_infant_with_seat: toCount(values.infantsWithSeat),
-    nearby_airports: values.nearby ? true : undefined,
+    nearby_airports: Boolean(values.nearby),
   });
 }
 
@@ -135,7 +180,11 @@ export function buildSearchContextFromKeyParams(keyParams = {}, airPorts) {
       resolveIataByAirportId(keyParams.destination_id, airportList) ??
       toIata(keyParams.destinationCode ?? keyParams.destination),
     departure_date: toAnalyticsDateKey(keyParams.date),
-    return_date: toAnalyticsDateKey(keyParams.date_return),
+    return_date:
+      (keyParams.flighttype ?? keyParams.tripType) === 'OneWay' ||
+      (keyParams.flighttype ?? keyParams.tripType) === 'MultiCity'
+        ? undefined
+        : toAnalyticsDateKey(keyParams.date_return),
     passengers_adult: toCount(keyParams.adults),
     passengers_child: toCount(keyParams.children),
     passengers_infant: toCount(keyParams.infants),
