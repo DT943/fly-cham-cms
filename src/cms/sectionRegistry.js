@@ -196,8 +196,13 @@ import { baggageAllowanceProps, baggageResourceCardsProps } from './adapters/bag
 import ServiceSteps from '../shared/components/ServiceSteps.jsx'
 import { serviceStepsProps } from './adapters/serviceStepsAdapter.js'
 import BaggageCalculator from '../shared/components/BaggageCalculator.jsx'
+import ExcessBaggageCalculator from '../shared/components/ExcessBaggageCalculator.jsx'
 import TitleWithList from '../shared/components/TitleWithList.jsx'
-import { baggageCalculatorProps, titleWithListProps } from './adapters/baggageCalculatorAdapters.js'
+import {
+  baggageCalculatorProps,
+  excessBaggageCalculatorProps,
+  titleWithListProps,
+} from './adapters/baggageCalculatorAdapters.js'
 import BaggageRouteSummary from '../shared/components/BaggageRouteSummary.jsx'
 import BaggageAllowanceBreakdown from '../shared/components/BaggageAllowanceBreakdown.jsx'
 import BaggageAddons from '../shared/components/BaggageAddons.jsx'
@@ -362,6 +367,7 @@ export const sectionRegistry = {
   'gateway-cards': { Component: GatewayCards, mapProps: gatewayCardsProps },
   'service-steps': { Component: ServiceSteps, mapProps: serviceStepsProps },
   'baggage-calculator': { Component: BaggageCalculator, mapProps: baggageCalculatorProps },
+  'excess-baggage-calculator': { Component: ExcessBaggageCalculator, mapProps: excessBaggageCalculatorProps },
   'title-with-list': { Component: TitleWithList, mapProps: titleWithListProps },
   'baggage-route-summary': { Component: BaggageRouteSummary, mapProps: baggageRouteSummaryProps },
   'baggage-allowance-breakdown': { Component: BaggageAllowanceBreakdown, mapProps: baggageAllowanceBreakdownProps },

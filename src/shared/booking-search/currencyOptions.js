@@ -8,7 +8,8 @@ import { setPreferredCurrency } from './preferredCurrency.js'
  * Booking currencies come from the CMS POS list (admin /cms2/pos — the same
  * list as the header country/region picker): each POS's `currency` and flag
  * (no flag → globe), named via `layout.header.currencies.<CODE>` (code when
- * untranslated). Order follows the POS list; duplicates are dropped.
+ * untranslated). Order follows the POS list; duplicates are dropped (`pos` is
+ * the first POS row using that currency).
  */
 export function useCurrencyOptions() {
   const { t } = useTranslation()
@@ -28,6 +29,7 @@ export function useCurrencyOptions() {
           currencyCode: code,
           currencyName: t(`layout.header.currencies.${code}`, { defaultValue: code }),
           flag: pos.flagUrl,
+          pos,
         }
       })
   }, [t, posList])

@@ -60,8 +60,8 @@ const MarhabaIntro = ({
   const inner = (
     <section
       className={cx(
-        'flex flex-col items-center gap-8 lg:justify-between lg:gap-12',
-        imageFirst ? 'lg:flex-row-reverse' : 'lg:flex-row',
+        'flex flex-col items-center gap-8 md:justify-between md:gap-12',
+        imageFirst ? 'md:flex-row-reverse' : 'md:flex-row',
       )}
     >
       <div className="flex max-w-[476px] flex-col gap-4.5">

@@ -14,7 +14,7 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
  *
  * Pass `portal` to render the menu on `document.body` (avoids overflow/z-index
  * clipping). `portalAlign`: `stretch` (default, match trigger width), `end`,
- * or `start`.
+ * or `start` (logical edges — flipped in RTL).
  */
 const Dropdown = ({
   id,
@@ -85,11 +85,15 @@ const Dropdown = ({
       if (!el) return
       const rect = el.getBoundingClientRect()
       const box = { top: rect.bottom + 4, minWidth: rect.width }
-      if (portalAlign === 'end') {
+      // `start` / `end` are logical: in RTL the end edge is the left one.
+      const rtl = getComputedStyle(el).direction === 'rtl'
+      const align =
+        portalAlign === 'stretch' || !rtl ? portalAlign : portalAlign === 'end' ? 'start' : 'end'
+      if (align === 'end') {
         // clientWidth, not innerWidth: `right` is measured from the viewport
         // edge inside the scrollbar.
         box.right = document.documentElement.clientWidth - rect.right
-      } else if (portalAlign === 'start') {
+      } else if (align === 'start') {
         box.left = rect.left
       } else {
         box.left = rect.left

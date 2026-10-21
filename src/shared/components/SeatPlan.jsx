@@ -114,7 +114,7 @@ const SeatPlan = ({
             <article
               key={item.id || index}
               className={cx(
-                'group relative cursor-pointer transition-shadow duration-300 ease-out hover:shadow-sm',
+                'group relative cursor-pointer transition-shadow duration-300 ease-out hover:shadow-[0_6px_18px_rgba(0,0,0,0.18),0_2px_6px_rgba(0,0,0,0.08)]',
                 radiusClass,
               )}
               style={{ backgroundColor: colorVar(cardBg) }}

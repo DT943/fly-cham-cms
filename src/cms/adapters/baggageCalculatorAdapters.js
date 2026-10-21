@@ -142,3 +142,75 @@ export function titleWithListProps(block, lang) {
     ...pick(style, LIST_STYLE_KEYS),
   }
 }
+
+// Union of Object.keys(DEFAULT_EXCESS_BAGGAGE_STYLE) in cms2.
+const EXCESS_STYLE_KEYS = [
+  'sectionPadding',
+  'showSectionBg',
+  'sectionBg',
+  'showTitle',
+  'showSubtitle',
+  'cardBg',
+  'showCardBorder',
+  'cardBorderColor',
+  'showCardShadow',
+  'dividerColor',
+  'showLink',
+  'fieldBg',
+  'fieldBorderColor',
+  'iconColor',
+  ...text('titleColor'),
+  ...text('subtitleColor'),
+  ...text('labelColor'),
+  ...text('valueColor'),
+  ...text('placeholderColor'),
+  ...text('descriptionColor'),
+  ...text('priceColor'),
+  ...text('ctaColor'),
+  'showButtonIcon',
+  'buttonBg',
+  'buttonBgHover',
+  ...text('buttonText'),
+  'disabledBg',
+  'disabledText',
+  ...BACKLINK_KEYS,
+]
+
+const EXCESS_TEXT_KEYS = [
+  'title',
+  'subtitle',
+  'fromLabel',
+  'toLabel',
+  'weightLabel',
+  'fromPlaceholder',
+  'toPlaceholder',
+  'weightPlaceholder',
+  'defaultFrom',
+  'defaultTo',
+  'defaultWeight',
+  'buttonLabel',
+  'buttonIcon',
+  'resultLabel',
+  'unavailableText',
+  'linkLabel',
+]
+
+/**
+ * Map a CMS "excess-baggage-calculator" block to <ExcessBaggageCalculator /> props.
+ * Stored editor shape: the text keys above + `linkHref`, `weights`
+ * (`[{ id, value, label }]`, values in kg) and `links`. From / To options are
+ * the POS list (not content); `defaultFrom` / `defaultTo` are POS codes.
+ */
+export function excessBaggageCalculatorProps(block, lang) {
+  const content = pickContent(block.content, lang)
+  const style = block.style || {}
+
+  return {
+    lang,
+    ...Object.fromEntries(EXCESS_TEXT_KEYS.map((key) => [key, content[key] || ''])),
+    linkHref: resolveCmsHref(content.linkHref) || '',
+    weights: options(content.weights),
+    links: mapBacklinks(content.links),
+    ...pick(style, EXCESS_STYLE_KEYS),
+  }
+}
