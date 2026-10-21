@@ -244,7 +244,7 @@ const DestinationThingsToDo = ({
               )}
             >
               {src ? (
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt={item.imageAlt || ''}
                   className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover/card:scale-105 motion-reduce:transition-none motion-reduce:group-hover/card:scale-100"

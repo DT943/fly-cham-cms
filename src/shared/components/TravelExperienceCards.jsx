@@ -123,7 +123,7 @@ const TravelExperienceCards = ({
               }}
             >
               {src ? (
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt={item.imageAlt || ''}
                   className="absolute inset-0 size-full object-cover"

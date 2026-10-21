@@ -37,7 +37,8 @@ const defaultValues = {
     tripType: 'OneWay',
     nearby: false,
     hasClickCalendar: false,
-    miles: false
+    miles: false,
+    currency: 'SYP',
 };
 
 const formatDate = (date) => {
@@ -81,6 +82,7 @@ export function buildSearchUrl({
         infantsWithSeat = 0,
         tripType,
         nearby = false,
+        currency = '',
     } = values;
 
     const { source, destination, dateStart } = getFirstLeg(values);
@@ -109,6 +111,7 @@ export function buildSearchUrl({
             neirby: false,
             legs,
         };
+        if (currency) data.currency = currency;
         if (Number(infantsWithSeat) > 0) {
             data.infantswithseat = infantsWithSeat;
         }
@@ -139,6 +142,7 @@ export function buildSearchUrl({
         nearby: Boolean(nearby),
         neirby: Boolean(nearby),
     };
+    if (currency) data.currency = currency;
 
     if (tripType === 'Return' && formattedReturn) {
         const depKey = formattedDeparture?.slice(0, 10);

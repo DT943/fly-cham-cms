@@ -78,7 +78,7 @@ const DestinationCard = ({
       }}
     >
       {image ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={image}
           alt={imageAlt}
           className={`absolute inset-0 h-full w-full object-cover transition-transform ${hoverMotion} ${

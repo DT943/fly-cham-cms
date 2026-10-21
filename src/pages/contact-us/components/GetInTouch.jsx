@@ -142,7 +142,7 @@ const GetInTouch = ({
       )}
       {showImage && resolvedImage && (
         <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-background p-1.5 shrink-0">
-          <img
+          <img loading="lazy" decoding="async"
             src={resolvedImage}
             alt={resolvedImageAlt}
             className="w-full h-full rounded-full object-cover object-center"

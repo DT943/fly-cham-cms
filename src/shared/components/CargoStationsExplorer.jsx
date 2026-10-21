@@ -394,7 +394,7 @@ const CargoStationsExplorer = ({
 
       <div className="relative isolate min-h-[480px] w-full overflow-hidden md:min-h-[560px] lg:h-[762px] lg:min-h-0">
         {bgImage ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={bgImage}
             alt={bgAlt}
             style={{ objectPosition: bgFocusToObjectPosition(bgFocus) }}

@@ -168,7 +168,7 @@ const TravelAgentLogin = ({
   return (
     <section className="relative min-h-dvh w-full min-w-0 overflow-x-clip">
       {bgUrl ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={bgUrl}
           alt={bgAlt || ''}
           className="absolute inset-0 size-full object-cover"
@@ -181,7 +181,7 @@ const TravelAgentLogin = ({
           className="pointer-events-none absolute inset-x-0 top-[18%] z-1 flex justify-center px-4 sm:top-[16%] lg:inset-y-auto lg:inset-s-0 lg:inset-e-[40%] lg:top-[14%] lg:bottom-[1%] lg:items-center lg:justify-center lg:px-6 xl:inset-e-[36%] xl:top-[12%]"
           aria-hidden
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={planeUrl}
             alt=""
             className="w-[min(92%,20rem)] object-contain drop-shadow-md sm:w-[min(85%,24rem)] lg:w-[min(100%,34rem)] xl:w-[min(100%,40rem)]"
@@ -191,7 +191,7 @@ const TravelAgentLogin = ({
 
       <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-page flex-col py-5 ps-3 pe-4 sm:ps-5 sm:pe-8 md:py-8 md:ps-6 md:pe-10 xl:ps-2 xl:pe-0">
         <LocalizedLink href={logoHref || '/'} className="inline-flex w-fit shrink-0" aria-label="Fly Cham">
-          <img src={logoUrl || defaultLogo} alt="Fly Cham" className="h-10 w-auto sm:h-10 md:h-10" />
+          <img loading="lazy" decoding="async" src={logoUrl || defaultLogo} alt="Fly Cham" className="h-10 w-auto sm:h-10 md:h-10" />
         </LocalizedLink>
 
         <div className="grid flex-1 grid-cols-1 items-center gap-10 py-8 lg:grid-cols-2 lg:gap-8 xl:gap-12">

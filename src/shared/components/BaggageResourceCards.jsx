@@ -166,7 +166,7 @@ const BaggageResourceCards = ({
                         IMAGE_RADIUS_CLASS[radiusKey],
                       )}
                     >
-                      <img
+                      <img decoding="async"
                         src={item.imageUrl}
                         alt={item.imageAlt || ''}
                         loading="lazy"

@@ -118,7 +118,7 @@ const BaggageRouteSummary = ({
           {tier ? (
             <span className="flex items-center gap-2.5">
               {tier.imageUrl ? (
-                <img src={tier.imageUrl} alt="" className="h-[26px] w-10 rounded-[3px] object-cover" />
+                <img loading="lazy" decoding="async" src={tier.imageUrl} alt="" className="h-[26px] w-10 rounded-[3px] object-cover" />
               ) : null}
               <span
                 className={cx(NAME_SIZE, CMS_TEXT_HOVER_CLASS)}

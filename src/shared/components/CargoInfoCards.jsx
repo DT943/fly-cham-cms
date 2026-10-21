@@ -182,7 +182,7 @@ const CargoInfoCards = ({
             >
               {src ? (
                 <div className="h-[234px] w-full shrink-0 overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={src}
                     alt={card.imageAlt || ''}
                     className={cx('size-full object-cover', IMAGE_MOTION)}

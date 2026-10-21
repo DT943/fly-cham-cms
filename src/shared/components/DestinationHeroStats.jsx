@@ -158,7 +158,7 @@ const DestinationHeroStats = ({
     <div className="w-full">
       <section className={`relative isolate overflow-hidden ${heightClass}`}>
         {heroSrc ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={heroSrc}
             alt={imageAlt}
             className="absolute inset-0 size-full object-cover object-[center_38%]"

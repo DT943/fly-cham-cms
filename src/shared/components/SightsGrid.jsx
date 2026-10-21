@@ -71,7 +71,7 @@ const SightCard = ({ item, cardRadius, linkProps, categories }) => {
         />
       ) : null}
       {src ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={src}
           alt={item.imageAlt || item.name || ''}
           className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"

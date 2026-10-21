@@ -149,7 +149,7 @@ const SplitCards = ({
           <article className="flex min-w-0 flex-col overflow-hidden rounded-xl bg-white md:min-h-[320px] md:flex-row" style={{ backgroundColor: surface }}>
             {featured.imageUrl ? (
               <div className="aspect-[4/3] w-full shrink-0 md:aspect-auto md:h-auto md:w-[45%] md:max-w-[480px] md:self-stretch">
-                <img src={featured.imageUrl} alt={featured.imageAlt || ''} className="size-full object-cover object-center" />
+                <img loading="lazy" decoding="async" src={featured.imageUrl} alt={featured.imageAlt || ''} className="size-full object-cover object-center" />
               </div>
             ) : null}
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-6 md:p-8">
@@ -188,7 +188,7 @@ const SplitCards = ({
                         : 'aspect-[4/3] md:aspect-auto md:size-[180px] md:shrink-0'
                     }`}
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={item.imageUrl}
                       alt={item.imageAlt || ''}
                       className="size-full object-cover object-center"

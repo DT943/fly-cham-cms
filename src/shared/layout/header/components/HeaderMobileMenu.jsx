@@ -121,7 +121,7 @@ const HeaderMobileMenu = ({ header, open, onClose, onNavigate, onOpenLogin }) =>
       {!nested && (
         <div className="relative h-[28vh] min-h-36 max-h-56 shrink-0 overflow-hidden">
           {header.mobile.coverImageUrl ? (
-            <img
+            <img loading="lazy" decoding="async"
               src={header.mobile.coverImageUrl}
               alt={header.mobile.coverAlt}
               className="size-full object-cover object-[center_35%]"

@@ -9,7 +9,7 @@ const FlightScheduleHero = () => {
 
   return (
     <section className="relative isolate h-64 overflow-hidden sm:h-72 md:h-80">
-      <img
+      <img loading="lazy" decoding="async"
         src={HERO_IMAGE}
         alt={t('flightSchedulePage.hero.imageAlt')}
         className="absolute inset-0 size-full object-cover object-right"

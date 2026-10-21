@@ -73,7 +73,7 @@ const DealCard = ({
     >
       <div className="relative h-[260px] w-full shrink-0 overflow-hidden lg:h-[340px]">
         {deal.imageUrl ? (
-          <img
+          <img decoding="async"
             src={deal.imageUrl}
             alt={deal.imageAlt || ''}
             loading="lazy"

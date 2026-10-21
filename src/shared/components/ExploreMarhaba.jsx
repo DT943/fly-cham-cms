@@ -188,7 +188,7 @@ const ExploreMarhaba = ({
                     {/* Figma hover (300ms ease-in): cover zooms ~3.6%, navy wash fades in, and
                         "Read" settles from 24px to 16px as it appears (scale-150 → 100). */}
                     {cover ? (
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={cover}
                         alt=""
                         className={cx('absolute inset-0 size-full object-cover transition-transform group-hover:scale-[1.036]', CARD_HOVER_MOTION)}

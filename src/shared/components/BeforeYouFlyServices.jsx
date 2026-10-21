@@ -98,7 +98,7 @@ const BeforeYouFlyServices = ({
             style={{ borderColor: colorVar(dividerColor) }}
           >
             {src ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={src}
                 alt={item.imageAlt || ''}
                 className={cx('h-48 w-full shrink-0 object-cover sm:h-43 sm:w-82', radiusClass)}

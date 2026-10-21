@@ -4,7 +4,7 @@ import { typography } from '../../../styles/typography.js'
 const NewsDetailHeader = ({ image, imageAlt, date, dateTime, category, title }) => (
   <header className="flex flex-col gap-5 md:gap-6">
     <div className="overflow-hidden rounded-2xl">
-      <img src={image} alt={imageAlt} className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]" />
+      <img loading="lazy" decoding="async" src={image} alt={imageAlt} className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]" />
     </div>
 
     <div className="flex flex-col gap-4 md:gap-5">

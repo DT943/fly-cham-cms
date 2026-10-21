@@ -39,7 +39,7 @@ function CardFace({ item, style, links, showLinks }) {
   return (
     <>
       {item.imageUrl ? (
-        <img src={item.imageUrl} alt={item.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+        <img loading="lazy" decoding="async" src={item.imageUrl} alt={item.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
       ) : (
         <div className="absolute inset-0 bg-200" />
       )}

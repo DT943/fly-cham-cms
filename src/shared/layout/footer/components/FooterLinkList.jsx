@@ -1,10 +1,10 @@
 import { ArrowSquareOut } from '@phosphor-icons/react'
-import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
 import FooterItemIcon from './FooterItemIcon.jsx'
 
-const linkClass = `${typography.caption} inline-flex items-center gap-1.5 no-underline transition-colors ${FTR_HOVER}`
+/** Figma: 16px regular white links, 16px vertical gap, nowrap on desktop. */
+const linkClass = `inline-flex items-center gap-1 text-[13px] leading-normal no-underline transition-colors sm:text-[14px] md:text-[15px] lg:whitespace-nowrap lg:text-[16px] ${FTR_HOVER}`
 
 const FooterLinkList = ({ links, style }) => {
   const normal = roleStyle({
@@ -12,7 +12,6 @@ const FooterLinkList = ({ links, style }) => {
     colorHover: style.linkColorHover,
     weight: style.linkFontWeight,
   })
-  // Highlighted links: highlight colour, semibold; hover → the normal link colour.
   const highlighted = roleStyle({
     color: style.highlightColor,
     colorHover: style.linkColor,
@@ -20,9 +19,9 @@ const FooterLinkList = ({ links, style }) => {
   })
 
   return (
-    <ul className="m-0 flex list-none flex-col gap-2 p-0">
+    <ul className="m-0 flex list-none flex-col gap-4 p-0">
       {links.map((link) => (
-        <li key={link.id}>
+        <li key={link.id} className="min-h-[17px]">
           <LocalizedLink
             href={footerHref(link.href)}
             className={linkClass}
@@ -32,7 +31,7 @@ const FooterLinkList = ({ links, style }) => {
             <FooterItemIcon name={link.icon} />
             {link.label}
             {link.external ? (
-              <ArrowSquareOut size={14} weight="regular" aria-hidden className="shrink-0" />
+              <ArrowSquareOut size={16} weight="regular" aria-hidden className="shrink-0" />
             ) : null}
           </LocalizedLink>
         </li>

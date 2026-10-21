@@ -179,7 +179,7 @@ const HomeChamMilesBanner = ({
             style={{ backgroundColor: colorVar(photoBg) }}
           >
             {photo ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={photo}
                 alt={photoAlt}
                 className="absolute inset-0 h-full w-full object-cover object-center"
@@ -192,7 +192,7 @@ const HomeChamMilesBanner = ({
             style={{ background: GRADIENT }}
           >
             {showMark && mark ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={mark}
                 alt=""
                 aria-hidden

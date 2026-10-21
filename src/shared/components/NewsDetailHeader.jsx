@@ -52,7 +52,7 @@ const NewsDetailHeader = ({
     <header className="flex flex-col gap-5 md:gap-6">
       {image ? (
         <div className={`overflow-hidden ${radiusClass}`}>
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt={imageAlt}
             className="aspect-[16/10] w-full object-cover sm:aspect-[2/1]"

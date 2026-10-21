@@ -383,7 +383,7 @@ function JoinFooter({ c, href, LinkComponent }) {
           <div className="cmj-footer__brand">
             {c.footerLogo ? (
               <SmartLink href={href(c.homeHref)} LinkComponent={LinkComponent} className="cmj-footer__logo-link" aria-label={c.footerLogoAlt}>
-                <img src={c.footerLogo} alt={c.footerLogoAlt} width={180} height={40} className="cmj-footer__logo" decoding="async" />
+                <img loading="lazy" src={c.footerLogo} alt={c.footerLogoAlt} width={180} height={40} className="cmj-footer__logo" decoding="async" />
               </SmartLink>
             ) : null}
             {c.copyright ? <p className="cmj-footer__copyright">{c.copyright.replace(/\{year\}/g, String(year))}</p> : null}

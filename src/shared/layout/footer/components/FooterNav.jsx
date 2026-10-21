@@ -1,57 +1,73 @@
 import { useId, useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
-import { typography } from '../../../../styles/typography.js'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
+import { colorVar } from '../../../../styles/cmsStyle.js'
 import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
 import FooterItemIcon from './FooterItemIcon.jsx'
 import FooterLinkList from './FooterLinkList.jsx'
 
-const headerLinkClass = `m-0 tracking-wide uppercase no-underline transition-colors ${FTR_HOVER} ${typography.caption}`
+/** Figma: gold titles are plain text (not links), 18px semibold. */
+const titleClass =
+  'm-0 text-[14px] font-semibold leading-normal sm:text-[15px] md:text-[16px] lg:text-[18px]'
 
-// Mobile accordion row title (design): title case.
-const mobileTitleClass = `m-0 no-underline transition-colors ${FTR_HOVER} ${typography.caption}`
+const mobileTitleClass = `m-0 min-w-0 flex-1 text-[14px] font-semibold no-underline transition-colors sm:text-[15px] ${FTR_HOVER}`
 
-// Only titles that carry an icon become flex rows, so icon-less titles render exactly as before.
-const withIcon = (icon) => (icon ? " inline-flex items-center gap-1.5" : "")
+const withIcon = (icon) => (icon ? ' inline-flex items-center gap-1.5' : '')
 
-/** Desktop grid columns; a column's sections are the `columns` with that `group`. */
 const DESKTOP_GROUPS = [1, 2, 3, 4]
 
 const ColumnSection = ({ column, style, titleStyle }) => (
-  <div className="flex min-w-0 flex-col gap-3.5">
-    <h2 className="m-0">
-      <LocalizedLink href={footerHref(column.href)} className={`${headerLinkClass}${withIcon(column.icon)}`} style={titleStyle}>
-        <FooterItemIcon name={column.icon} />
-        {column.title}
-      </LocalizedLink>
+  <div className="flex min-w-0 flex-col gap-4">
+    <h2 className={`${titleClass}${withIcon(column.icon)}`} style={titleStyle}>
+      <FooterItemIcon name={column.icon} />
+      {column.title}
     </h2>
     <FooterLinkList links={column.links} style={style} />
   </div>
 )
 
+/**
+ * Figma columns: 4 groups spread across the content track (starts ~0 / 323 / 632 / 1034
+ * on a 1219 track) — space-between, not equal-width grid. Stacked sections in a
+ * group share ~28–32px vertical gap.
+ */
 const DesktopColumns = ({ columns, style }) => {
-  const titleStyle = roleStyle({
-    color: style.columnTitleColor,
-    colorHover: style.columnTitleColorHover,
-    weight: style.columnTitleFontWeight,
-  })
+  const titleStyle = {
+    color: colorVar(style.columnTitleColor || 'primary-3'),
+  }
 
   return (
-    <div className="hidden min-w-0 flex-1 lg:grid lg:grid-cols-4 lg:gap-x-5 lg:gap-y-8 xl:gap-x-8">
-      {DESKTOP_GROUPS.flatMap((group) =>
-        columns
-          .filter((column) => column.group === group)
-          .map((column, index) => (
+    <>
+      <div className="hidden min-w-0 w-full md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-8 lg:hidden">
+        {columns.map((column) => (
+          <div key={column.id} className="min-w-0 self-start">
+            <ColumnSection column={column} style={style} titleStyle={titleStyle} />
+          </div>
+        ))}
+      </div>
+
+      <div className="hidden min-w-0 w-full lg:flex lg:flex-row lg:items-start lg:justify-between lg:gap-x-8 xl:gap-x-10">
+        {DESKTOP_GROUPS.map((group) => {
+          const groupColumns = columns.filter((column) => column.group === group)
+          if (groupColumns.length === 0) return null
+          return (
             <div
-              key={column.id}
-              className="min-w-0 self-start"
-              style={{ gridColumn: group, gridRow: index + 1 }}
+              key={group}
+              className="flex w-max max-w-[15rem] shrink-0 flex-col gap-7 xl:gap-8"
             >
-              <ColumnSection column={column} style={style} titleStyle={titleStyle} />
+              {groupColumns.map((column) => (
+                <ColumnSection
+                  key={column.id}
+                  column={column}
+                  style={style}
+                  titleStyle={titleStyle}
+                />
+              ))}
             </div>
-          )),
-      )}
-    </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 
@@ -69,7 +85,7 @@ const MobileAccordion = ({ columns, style }) => {
   }
 
   return (
-    <div className="flex flex-col divide-y divide-(--ftr-divider-15) border-y border-(--ftr-divider-15) lg:hidden">
+    <div className="flex flex-col divide-y divide-(--ftr-divider-15) border-y border-(--ftr-divider-15) md:hidden">
       {columns.map((column) => {
         const isOpen = openId === column.id
         const panelId = `${baseId}-${column.id}-panel`
@@ -77,10 +93,10 @@ const MobileAccordion = ({ columns, style }) => {
 
         return (
           <div key={column.id} className="min-w-0">
-            <div className="flex items-center gap-2 py-3.5">
+            <div className="flex items-center gap-2 py-3 sm:py-3.5">
               <LocalizedLink
                 href={footerHref(column.href)}
-                className={`min-w-0 flex-1 ${mobileTitleClass}${withIcon(column.icon)}`}
+                className={`${mobileTitleClass}${withIcon(column.icon)}`}
                 style={titleStyle}
               >
                 <FooterItemIcon name={column.icon} />
@@ -120,11 +136,8 @@ const MobileAccordion = ({ columns, style }) => {
   )
 }
 
-/**
- * Footer navigation — desktop column groups, mobile accordion (array order).
- */
 const FooterNav = ({ columns, style }) => (
-  <nav aria-label="Footer" className="min-w-0 flex-1">
+  <nav aria-label="Footer" className="min-w-0 w-full">
     <DesktopColumns columns={columns} style={style} />
     <MobileAccordion columns={columns} style={style} />
   </nav>

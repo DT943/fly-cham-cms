@@ -32,7 +32,7 @@ const HelpCta = ({
   const card = (
     <section className="relative isolate overflow-hidden rounded-xl bg-secondary-2">
       {image ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={image}
           alt={imageAlt ?? t('common.helpCta.imageAlt')}
           style={{ objectPosition }}

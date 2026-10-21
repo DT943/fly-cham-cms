@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CaretDown } from '@phosphor-icons/react'
 import { typography } from '../../styles/typography.js'
 
@@ -10,6 +11,10 @@ const cx = (...parts) => parts.filter(Boolean).join(' ')
  *
  * `options` is `{ value, label }[]`. `value` / `onChange` use the option value.
  * Long lists use the same teal scrollbar + end gutter as the airport picker.
+ *
+ * Pass `portal` to render the menu on `document.body` (avoids overflow/z-index
+ * clipping). `portalAlign`: `stretch` (default, match trigger width), `end`,
+ * or `start`.
  */
 const Dropdown = ({
   id,
@@ -25,17 +30,23 @@ const Dropdown = ({
   buttonClassName = '',
   buttonStyle,
   renderButton,
+  portal = false,
+  portalAlign = 'stretch',
+  menuClassName = '',
 }) => {
   const generatedId = useId()
   const buttonId = id || generatedId
   const listboxId = `${buttonId}-listbox`
   const labelId = `${buttonId}-label`
   const rootRef = useRef(null)
+  const buttonRef = useRef(null)
+  const menuRef = useRef(null)
   const listRef = useRef(null)
   const optionRefs = useRef([])
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const [scrollMetrics, setScrollMetrics] = useState(null)
+  const [menuBox, setMenuBox] = useState(null)
 
   const selectedIndex = options.findIndex((option) => option.value === value)
   const selected = selectedIndex >= 0 ? options[selectedIndex] : null
@@ -45,7 +56,9 @@ const Dropdown = ({
 
     const doc = rootRef.current?.ownerDocument || document
     const handlePointerDown = (event) => {
-      if (!rootRef.current?.contains(event.target)) setOpen(false)
+      const target = event.target
+      if (rootRef.current?.contains(target) || menuRef.current?.contains(target)) return
+      setOpen(false)
     }
 
     doc.addEventListener('pointerdown', handlePointerDown)
@@ -61,6 +74,55 @@ const Dropdown = ({
     if (!open || activeIndex < 0) return
     optionRefs.current[activeIndex]?.scrollIntoView({ block: 'nearest' })
   }, [open, activeIndex])
+
+  useLayoutEffect(() => {
+    if (!open || !portal) {
+      setMenuBox(null)
+      return undefined
+    }
+    const sync = () => {
+      const el = buttonRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const box = { top: rect.bottom + 4, minWidth: rect.width }
+      if (portalAlign === 'end') {
+        // clientWidth, not innerWidth: `right` is measured from the viewport
+        // edge inside the scrollbar.
+        box.right = document.documentElement.clientWidth - rect.right
+      } else if (portalAlign === 'start') {
+        box.left = rect.left
+      } else {
+        box.left = rect.left
+        box.width = rect.width
+      }
+      setMenuBox((prev) => {
+        if (
+          prev &&
+          prev.top === box.top &&
+          prev.minWidth === box.minWidth &&
+          prev.right === box.right &&
+          prev.left === box.left &&
+          prev.width === box.width
+        ) {
+          return prev
+        }
+        return box
+      })
+    }
+    const onScroll = (event) => {
+      // Ignore scrolls inside the portaled menu (they must not reposition /
+      // remount it mid-interaction).
+      if (menuRef.current?.contains(event.target)) return
+      sync()
+    }
+    sync()
+    window.addEventListener('resize', sync)
+    window.addEventListener('scroll', onScroll, true)
+    return () => {
+      window.removeEventListener('resize', sync)
+      window.removeEventListener('scroll', onScroll, true)
+    }
+  }, [open, portal, portalAlign])
 
   useEffect(() => {
     if (!open) {
@@ -78,15 +140,28 @@ const Dropdown = ({
       })
     }
 
+    // Keep wheel / trackpad scrolling inside the menu — never chain to the page.
+    const onWheel = (event) => {
+      event.stopPropagation()
+      const { scrollTop, scrollHeight, clientHeight } = list
+      const atTop = scrollTop <= 0
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1
+      if ((event.deltaY < 0 && atTop) || (event.deltaY > 0 && atBottom) || scrollHeight <= clientHeight) {
+        event.preventDefault()
+      }
+    }
+
     measure()
     list.addEventListener('scroll', measure, { passive: true })
+    list.addEventListener('wheel', onWheel, { passive: false })
     const observer = new ResizeObserver(measure)
     observer.observe(list)
     return () => {
       list.removeEventListener('scroll', measure)
+      list.removeEventListener('wheel', onWheel)
       observer.disconnect()
     }
-  }, [open, options.length])
+  }, [open, options.length, menuBox])
 
   const selectIndex = (index) => {
     const option = options[index]
@@ -158,6 +233,85 @@ const Dropdown = ({
       (scrollMetrics.clientHeight - thumbHeight)
     : 0
 
+  const menuPanel = open ? (
+    <div
+      ref={menuRef}
+      {...(portal ? { 'data-header-portal-menu': '' } : null)}
+      // One position utility only: with `relative` + `fixed` both present,
+      // `relative` wins and the portaled menu lands at the end of <body>.
+      className={cx(
+        'overflow-hidden rounded-lg bg-background shadow-[0_8px_24px_rgba(0,0,0,0.12)]',
+        portal ? 'fixed z-[1200]' : 'absolute inset-x-0 z-30 mt-1',
+        menuClassName,
+      )}
+      style={
+        portal && menuBox
+          ? {
+              top: menuBox.top,
+              ...(menuBox.right != null ? { right: menuBox.right } : null),
+              ...(menuBox.left != null ? { left: menuBox.left } : null),
+              ...(menuBox.width != null ? { width: menuBox.width } : null),
+              minWidth: menuBox.minWidth,
+            }
+          : undefined
+      }
+    >
+      <ul
+        ref={listRef}
+        id={listboxId}
+        role="listbox"
+        aria-labelledby={buttonId}
+        // pe-2.5 = gutter so the teal thumb sits beside rows, not on them
+        // (same idea as AirportList scrollArea padding-right: 10px).
+        className="dropdown-menu-scroll max-h-60 overflow-y-auto overscroll-contain py-1 pe-2.5"
+      >
+        {options.map((option, index) => {
+          const isSelected = option.value === value
+          const isActive = index === activeIndex
+
+          return (
+            <li
+              key={String(option.value)}
+              ref={(node) => {
+                optionRefs.current[index] = node
+              }}
+              role="option"
+              aria-selected={isSelected}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => selectIndex(index)}
+              className={cx(
+                'cursor-pointer px-4 py-2.5 font-medium',
+                typography.body,
+                isActive ? 'bg-primary-1 text-50' : 'text-700',
+              )}
+            >
+              {option.label}
+            </li>
+          )
+        })}
+      </ul>
+      {showScroll ? (
+        <div
+          className="pointer-events-none absolute inset-y-1 end-0.5 w-1.5"
+          aria-hidden
+        >
+          <div
+            className="absolute inset-x-0 rounded-full bg-primary-1"
+            style={{
+              height: thumbHeight,
+              transform: `translateY(${thumbTop}px)`,
+            }}
+          />
+        </div>
+      ) : null}
+    </div>
+  ) : null
+
+  const portaledMenu =
+    portal && menuPanel && menuBox && typeof document !== 'undefined'
+      ? createPortal(menuPanel, document.body)
+      : null
+
   return (
     <div ref={rootRef} className={cx('relative', className)}>
       {name != null ? <input type="hidden" name={name} value={value ?? ''} /> : null}
@@ -170,6 +324,7 @@ const Dropdown = ({
         </span>
       )}
       <button
+        ref={buttonRef}
         type="button"
         id={buttonId}
         disabled={disabled}
@@ -205,58 +360,7 @@ const Dropdown = ({
         )}
       </button>
 
-      {open ? (
-        <div className="absolute inset-x-0 z-30 mt-1 overflow-hidden rounded-lg bg-background shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-          <ul
-            ref={listRef}
-            id={listboxId}
-            role="listbox"
-            aria-labelledby={buttonId}
-            // pe-2.5 = gutter so the teal thumb sits beside rows, not on them
-            // (same idea as AirportList scrollArea padding-right: 10px).
-            className="dropdown-menu-scroll max-h-60 overflow-y-auto py-1 pe-2.5"
-          >
-            {options.map((option, index) => {
-              const isSelected = option.value === value
-              const isActive = index === activeIndex
-
-              return (
-                <li
-                  key={String(option.value)}
-                  ref={(node) => {
-                    optionRefs.current[index] = node
-                  }}
-                  role="option"
-                  aria-selected={isSelected}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onClick={() => selectIndex(index)}
-                  className={cx(
-                    'cursor-pointer px-4 py-2.5 font-medium',
-                    typography.body,
-                    isActive ? 'bg-primary-1 text-50' : 'text-700',
-                  )}
-                >
-                  {option.label}
-                </li>
-              )
-            })}
-          </ul>
-          {showScroll ? (
-            <div
-              className="pointer-events-none absolute inset-y-1 end-0.5 w-1.5"
-              aria-hidden
-            >
-              <div
-                className="absolute inset-x-0 rounded-full bg-primary-1"
-                style={{
-                  height: thumbHeight,
-                  transform: `translateY(${thumbTop}px)`,
-                }}
-              />
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+      {portal ? portaledMenu : menuPanel}
     </div>
   )
 }

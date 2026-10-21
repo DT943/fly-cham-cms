@@ -64,7 +64,7 @@ function BagIllustration({ column, s }) {
   const showDims = s.showDimensions !== false
   return (
     <div className="relative mx-auto h-[337px] w-[240px] shrink-0 md:mx-0">
-      <img
+      <img loading="lazy" decoding="async"
         src={column.imageUrl}
         alt={column.imageAlt || ''}
         className={cx('absolute start-0 top-4 h-[266px] w-[160px] object-contain object-bottom', SHADOW)}
@@ -315,7 +315,7 @@ const BaggageAllowanceBreakdown = ({
           >
             {promoImageUrl ? (
               <div className="relative h-[200px] w-[134px] shrink-0">
-                <img
+                <img loading="lazy" decoding="async"
                   src={promoImageUrl}
                   alt={promoImageAlt || ''}
                   className={cx('h-full w-[118px] object-contain object-bottom', SHADOW)}

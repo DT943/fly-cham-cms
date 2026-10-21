@@ -10,6 +10,7 @@
     },
     "login": {
       "show": true,
+      "showWelcomePanel": true,
       "label": "Log in",
       "href": "/",
       "panelTitle": "Welcome to Cham Miles loyalty program",
@@ -793,6 +794,7 @@
     },
     "login": {
       "show": true,
+      "showWelcomePanel": true,
       "label": "تسجيل الدخول",
       "href": "/",
       "panelTitle": "مرحبًا بك في برنامج شام مايلز للولاء",

@@ -13,7 +13,9 @@ import Dropdown from '../components/Dropdown.jsx'
 import CalendarPanel, { formatFieldDate } from './CalendarPanel.jsx'
 import PassengersPanel, { passengerSummary } from './PassengersPanel.jsx'
 import { Checkbox, DesktopRadio, DismissArea, PopoverPanel, Toggle } from './controls.jsx'
+import CurrencyField from './CurrencyField.jsx'
 import {
+  DESKTOP_BOTTOM_ACTIONS,
   DESKTOP_BOTTOM_ROW,
   DESKTOP_CARD,
   DESKTOP_COLUMN,
@@ -310,16 +312,19 @@ export const DesktopBookPanel = ({ s, labels, theme, show, lang }) => {
         ) : (
           <span />
         )}
-        <button
-          type="button"
-          onClick={s.search}
-          disabled={s.searching}
-          className={`${DESKTOP_SEARCH} ${theme.button.className}`}
-          style={theme.button.style}
-        >
-          <span className="whitespace-nowrap">{s.searching ? labels.searchingLabel : labels.searchLabel}</span>
-          <MagnifyingGlassIcon size={24} aria-hidden className="shrink-0" />
-        </button>
+        <div className={DESKTOP_BOTTOM_ACTIONS}>
+          <CurrencyField s={s} labels={labels} theme={theme} />
+          <button
+            type="button"
+            onClick={s.search}
+            disabled={s.searching}
+            className={`${DESKTOP_SEARCH} ${theme.button.className}`}
+            style={theme.button.style}
+          >
+            <span className="whitespace-nowrap">{s.searching ? labels.searchingLabel : labels.searchLabel}</span>
+            <MagnifyingGlassIcon size={24} aria-hidden className="shrink-0" />
+          </button>
+        </div>
       </div>
     </>
   )

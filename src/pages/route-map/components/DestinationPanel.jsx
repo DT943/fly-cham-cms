@@ -32,7 +32,7 @@ const DestinationPanel = ({
     <article className="w-full max-w-[320px] overflow-hidden rounded-2xl bg-50">
       <div className="relative h-65">
         {image ? (
-          <img src={image} alt={cityImageAlts?.[focus.cityKey] || `${city}, ${country}`} className="absolute inset-0 size-full object-cover" />
+          <img loading="lazy" decoding="async" src={image} alt={cityImageAlts?.[focus.cityKey] || `${city}, ${country}`} className="absolute inset-0 size-full object-cover" />
         ) : (
           <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-primary-1 to-secondary-2 text-3xl font-semibold text-50">
             {focus.code}

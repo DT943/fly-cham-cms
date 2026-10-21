@@ -88,7 +88,7 @@ const PageIntro = ({
     </div>
       ) : null}
       {imageUrl ? (
-        <img src={imageUrl} alt={imageAlt || ''} className="h-[240px] w-full rounded-[24px] object-cover md:h-[504px]" />
+        <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className="h-[240px] w-full rounded-[24px] object-cover md:h-[504px]" />
       ) : null}
     </div>
   )

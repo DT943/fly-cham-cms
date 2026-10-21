@@ -94,7 +94,7 @@ const LatestNews = ({
             >
               {item.image ? (
                 <div className={cx('w-full overflow-hidden lg:w-[min(48%,28rem)] lg:shrink-0 xl:w-[32.5rem]', radiusClass)}>
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.image}
                     alt={item.imageAlt || ''}
                     className="aspect-[4/3] w-full object-cover sm:aspect-[16/10] lg:aspect-[520/375]"

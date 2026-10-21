@@ -27,15 +27,15 @@ const MagazineCluster = ({ cover, spread1, spread2, compact = false, className =
   return (
     <div className={`pointer-events-none relative shrink-0 items-center justify-center ${stageSize} ${className}`}>
       {spread1 ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={spread1}
           alt=""
           className={`absolute z-0 object-cover ${sideSize} -translate-x-[68%] rtl:translate-x-[68%]`}
         />
       ) : null}
-      {cover ? <img src={cover} alt="" className={`relative z-20 object-cover ${centerSize}`} /> : null}
+      {cover ? <img loading="lazy" decoding="async" src={cover} alt="" className={`relative z-20 object-cover ${centerSize}`} /> : null}
       {spread2 ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={spread2}
           alt=""
           className={`absolute z-10 object-cover ${sideSize} translate-x-[68%] rtl:-translate-x-[68%]`}
@@ -129,7 +129,7 @@ const MagazineBanner = ({
         style={{ opacity: 0.9 }}
       >
         {bgSrc ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={bgSrc}
             alt=""
             className="absolute inset-0 size-full rounded-[12px] object-cover opacity-50"

@@ -115,7 +115,7 @@ const SplitBand = ({
       </div>
       {imageUrl ? (
         <div className="relative h-[200px] w-full shrink-0 md:h-auto md:min-h-[480px] md:flex-1">
-          <img src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+          <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
         </div>
       ) : null}
     </section>

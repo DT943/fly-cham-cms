@@ -5,9 +5,9 @@
       "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-logo.svg",
       "logoAlt": "Fly Cham",
       "logoHref": "/",
-      "followText": "Follow and share your experience with us",
-      "description": "Fly Cham is a private Syrian airline, founded in May 2025 with the UAE, to elevate aviation in Syria and the Middle East.",
-      "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
+      "followText": "Choose Excellence",
+      "description": "",
+      "patternUrl": "/images/footer/footer-pattern.svg"
     },
     "social": [
       {
@@ -33,7 +33,7 @@
       },
       {
         "id": "telegram",
-        "icon": "TelegramLogo",
+        "icon": "PaperPlaneTilt",
         "label": "Telegram",
         "href": "https://t.me/flychamchannel",
         "showOnMobile": true
@@ -256,10 +256,46 @@
         ]
       },
       {
+        "id": "cargo",
+        "title": "Cargo",
+        "href": "/cargo",
+        "group": 2,
+        "links": [
+          {
+            "id": "cargoBusinessCenter",
+            "label": "Business Center",
+            "href": "/business-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoB2b",
+            "label": "B2B Platform",
+            "href": "/login-travel-agent",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoDevelopers",
+            "label": "Developer Integrations",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoPartner",
+            "label": "Become a Partner",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
         "id": "business",
         "title": "Business",
         "href": "/business-center",
-        "group": 2,
+        "group": 3,
         "links": [
           {
             "id": "businessCenter",
@@ -295,7 +331,7 @@
         "id": "media",
         "title": "Media & News",
         "href": "/media-center",
-        "group": 3,
+        "group": 4,
         "links": [
           {
             "id": "mediaCenter",
@@ -322,7 +358,7 @@
       }
     ],
     "legal": {
-      "copyright": "© All Rights Reserved. Fly Cham 2025",
+      "copyright": "© 2026 Fly Cham. All Rights Reserved",
       "links": [
         {
           "id": "sitemap",
@@ -359,21 +395,23 @@
     "style": {
       "bg": "primary-1",
       "showPattern": true,
-      "columnTitleColor": "secondary",
+      "columnTitleColor": "primary-3",
       "columnTitleColorHover": "50",
       "columnTitleFontWeight": "semibold",
       "mobileTitleColor": "50",
-      "mobileTitleColorHover": "secondary",
+      "mobileTitleColorHover": "primary-3",
       "mobileTitleFontWeight": "semibold",
       "linkColor": "50",
-      "linkColorHover": "secondary",
+      "linkColorHover": "primary-3",
       "linkFontWeight": "normal",
-      "highlightColor": "secondary",
+      "highlightColor": "primary-3",
       "followTextColor": "50",
-      "socialColor": "gold",
-      "socialColorHover": "primary-2",
+      "socialColor": "100",
+      "socialColorHover": "50",
       "legalColor": "50",
-      "legalColorHover": "primary-2",
+      "legalColorHover": "primary-3",
+      "legalBg": "secondary-2",
+      "backToTopBg": "primary-3",
       "dividerColor": "50"
     }
   },
@@ -383,9 +421,9 @@
       "logoUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-logo.svg",
       "logoAlt": "Fly Cham",
       "logoHref": "/",
-      "followText": "تابعنا وشارك تجربتك معنا",
-      "description": "فلاي شام شركة طيران سورية خاصة، تأسست في مايو 2025 بشراكة مع الإمارات، لترتقي بالطيران في سوريا والشرق الأوسط.",
-      "patternUrl": "https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp"
+      "followText": "اختر التميز",
+      "description": "",
+      "patternUrl": "/images/footer/footer-pattern.svg"
     },
     "social": [
       {
@@ -411,7 +449,7 @@
       },
       {
         "id": "telegram",
-        "icon": "TelegramLogo",
+        "icon": "PaperPlaneTilt",
         "label": "تيليغرام",
         "href": "https://t.me/flychamchannel",
         "showOnMobile": true
@@ -634,10 +672,46 @@
         ]
       },
       {
+        "id": "cargo",
+        "title": "الشحن",
+        "href": "/cargo",
+        "group": 2,
+        "links": [
+          {
+            "id": "cargoBusinessCenter",
+            "label": "مركز الأعمال",
+            "href": "/business-center",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoB2b",
+            "label": "منصة الأعمال B2B",
+            "href": "/login-travel-agent",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoDevelopers",
+            "label": "تكاملات المطورين",
+            "href": "/coming-soon",
+            "external": false,
+            "highlight": false
+          },
+          {
+            "id": "cargoPartner",
+            "label": "كن شريكاً",
+            "href": "/help/contact-us/forms",
+            "external": false,
+            "highlight": false
+          }
+        ]
+      },
+      {
         "id": "business",
         "title": "الأعمال",
         "href": "/business-center",
-        "group": 2,
+        "group": 3,
         "links": [
           {
             "id": "businessCenter",
@@ -673,7 +747,7 @@
         "id": "media",
         "title": "الإعلام والأخبار",
         "href": "/media-center",
-        "group": 3,
+        "group": 4,
         "links": [
           {
             "id": "mediaCenter",
@@ -700,7 +774,7 @@
       }
     ],
     "legal": {
-      "copyright": "© جميع الحقوق محفوظة. فلاي شام 2025",
+      "copyright": "© 2026 فلاي شام. جميع الحقوق محفوظة",
       "links": [
         {
           "id": "sitemap",
@@ -737,21 +811,23 @@
     "style": {
       "bg": "primary-1",
       "showPattern": true,
-      "columnTitleColor": "secondary",
+      "columnTitleColor": "primary-3",
       "columnTitleColorHover": "50",
       "columnTitleFontWeight": "semibold",
       "mobileTitleColor": "50",
-      "mobileTitleColorHover": "secondary",
+      "mobileTitleColorHover": "primary-3",
       "mobileTitleFontWeight": "semibold",
       "linkColor": "50",
-      "linkColorHover": "secondary",
+      "linkColorHover": "primary-3",
       "linkFontWeight": "normal",
-      "highlightColor": "secondary",
+      "highlightColor": "primary-3",
       "followTextColor": "50",
-      "socialColor": "gold",
-      "socialColorHover": "primary-2",
+      "socialColor": "100",
+      "socialColorHover": "50",
       "legalColor": "50",
-      "legalColorHover": "primary-2",
+      "legalColorHover": "primary-3",
+      "legalBg": "secondary-2",
+      "backToTopBg": "primary-3",
       "dividerColor": "50"
     }
   }

@@ -166,7 +166,7 @@ const SeatJourney = ({
       </div>
       {src ? (
         <div className={cx('order-first w-full overflow-hidden lg:order-none lg:w-[621px] lg:shrink-0', radiusClass)}>
-          <img src={src} alt={imageAlt || ''} className="block h-[216px] w-full object-cover lg:h-[375px]" />
+          <img loading="lazy" decoding="async" src={src} alt={imageAlt || ''} className="block h-[216px] w-full object-cover lg:h-[375px]" />
         </div>
       ) : null}
     </section>
@@ -241,7 +241,7 @@ const SeatJourney = ({
       </div>
       {src ? (
         <div className={cx('order-2 w-full overflow-hidden lg:order-none lg:w-[615px] lg:shrink-0', radiusClass)}>
-          <img
+          <img loading="lazy" decoding="async"
             src={src}
             alt={imageAlt || ''}
             className="aspect-[615/375] w-full object-cover"

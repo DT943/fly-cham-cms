@@ -219,7 +219,7 @@ const MediaNewsletterSignup = ({
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[min(11.5rem,36%)] items-stretch overflow-hidden opacity-60 lg:flex"
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={patternSrc}
           alt=""
           className="h-full w-full max-w-none object-contain object-left object-bottom"

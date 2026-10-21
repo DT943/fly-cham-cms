@@ -1160,11 +1160,28 @@
         "saudiArabia": "Saudi Arabia",
         "armenia": "Armenia",
         "global": "Global"
+      },
+      "currencyLabel": "Currency",
+      "currencies": {
+        "SYP": "Syrian Pound",
+        "AED": "UAE Dirham",
+        "KWD": "Kuwaiti Dinar",
+        "IQD": "Iraqi Dinar",
+        "OMR": "Omani Rial",
+        "TRY": "Turkish Lira",
+        "LYD": "Libyan Dinar",
+        "SAR": "Saudi Riyal",
+        "AMD": "Armenian Dram",
+        "USD": "US Dollar"
       }
     },
     "footer": {
       "copyright": "© All Rights Reserved. Fly Cham 2025",
       "follow": "Follow and share your experience with us",
+      "downloadApp": "Download our app",
+      "appStore": "Download on the App Store",
+      "googlePlay": "Get it on Google Play",
+      "backToTop": "Back to top",
       "legal": {
         "sitemap": "Site Map",
         "terms": "Website Terms and Conditions",

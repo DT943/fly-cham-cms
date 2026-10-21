@@ -105,7 +105,7 @@ const CatalogCards = ({
               <article key={item.id || index} className="flex min-w-0 flex-col items-center gap-6 text-center">
                 {item.imageUrl ? (
                   <div className="relative h-[220px] w-full overflow-hidden rounded-3xl md:h-[292px]">
-                    <img src={item.imageUrl} alt={item.imageAlt || ''} className="size-full object-cover" />
+                    <img loading="lazy" decoding="async" src={item.imageUrl} alt={item.imageAlt || ''} className="size-full object-cover" />
                     {BadgeIcon ? (
                       <span
                         className="absolute left-1/2 top-1/2 flex size-[34px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"

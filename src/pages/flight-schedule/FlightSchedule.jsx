@@ -125,7 +125,7 @@ const FlightDetailsDialog = ({ flight, from, to, date, onClose }) => {
           </div>
           <div className="py-6">
             <p className="m-0 flex items-center gap-2 text-sm text-500">
-              <img src={planeMark} alt="" className="w-4" />
+              <img loading="lazy" decoding="async" src={planeMark} alt="" className="w-4" />
               {flight.number}
             </p>
             <ul className="m-0 mt-3 flex w-full max-w-[18rem] list-none flex-col gap-2 rounded-lg bg-primary-100/35 px-3 py-3">
@@ -195,7 +195,7 @@ const FlightRow = ({ flight, from, to, dates, selectedDate, open, onToggle }) =>
               <span className="size-2.5 shrink-0 rounded-full bg-primary-1" />
               <span className="mx-1 flex-1 border-t-2 border-dotted border-primary-1" />
               <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary-1">
-                <img src={planeMark} alt="" className="w-6" />
+                <img loading="lazy" decoding="async" src={planeMark} alt="" className="w-6" />
               </span>
               <span className="mx-1 flex-1 border-t-2 border-dotted border-primary-1" />
               <span className="size-2.5 shrink-0 rounded-full border-2 border-primary-1 bg-white" />
@@ -216,7 +216,7 @@ const FlightRow = ({ flight, from, to, dates, selectedDate, open, onToggle }) =>
 
         <div className="shrink-0 text-sm lg:w-32">
           <p className="m-0 flex items-center gap-2 text-800">
-            <img src={planeMark} alt="" className="w-5" />
+            <img loading="lazy" decoding="async" src={planeMark} alt="" className="w-5" />
             {flight.number}
           </p>
           <button
@@ -274,7 +274,7 @@ const JourneySection = ({ journey, initialNearby }) => {
             {t(journey.labelKey)}
           </h2>
           <div className="mt-3 flex flex-wrap items-center gap-4">
-            {to.image ? <img src={to.image} alt="" className="size-12 rounded-full object-cover" /> : null}
+            {to.image ? <img loading="lazy" decoding="async" src={to.image} alt="" className="size-12 rounded-full object-cover" /> : null}
             <div className="flex flex-wrap items-center gap-5">
               <div>
                 <p className="m-0 text-xl font-bold text-800">{from.city}</p>

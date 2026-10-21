@@ -111,7 +111,7 @@ const SeatChoose = ({
               )}
             >
               {src ? (
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt=""
                   className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"

@@ -296,7 +296,7 @@ const OfferBanner = ({ variant = 'offer-one-way', content = {}, style: rawStyle 
     style.layout === 'overlay' ? (
       <article className={cx('relative isolate flex w-full overflow-hidden', radiusClass, heightClass)} style={cardStyle}>
         {src ? (
-          <img src={src} alt={content.imageAlt || ''} className="absolute inset-0 -z-[1] h-full w-full object-cover" />
+          <img loading="lazy" decoding="async" src={src} alt={content.imageAlt || ''} className="absolute inset-0 -z-[1] h-full w-full object-cover" />
         ) : null}
         <div aria-hidden className="absolute inset-0 -z-[1] md:hidden" style={{ backgroundColor: mix(style.cardBg, 82) }} />
         <div
@@ -323,7 +323,7 @@ const OfferBanner = ({ variant = 'offer-one-way', content = {}, style: rawStyle 
         <div className="flex flex-1 flex-col justify-center px-6 py-8 md:px-12 md:py-12">{copy}</div>
         {src ? (
           <div className="relative order-first h-[220px] w-full shrink-0 sm:h-[280px] lg:order-none lg:h-auto lg:w-[46%]">
-            <img src={src} alt={content.imageAlt || ''} className="absolute inset-0 h-full w-full object-cover" />
+            <img loading="lazy" decoding="async" src={src} alt={content.imageAlt || ''} className="absolute inset-0 h-full w-full object-cover" />
           </div>
         ) : null}
       </article>

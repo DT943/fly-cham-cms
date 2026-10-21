@@ -62,7 +62,7 @@ const StackCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProps, 
   >
     {image ? (
       <div className="aspect-[16/9] w-full overflow-hidden">
-        <img src={image} alt={card.imageAlt || ''} className="size-full object-cover" />
+        <img loading="lazy" decoding="async" src={image} alt={card.imageAlt || ''} className="size-full object-cover" />
       </div>
     ) : null}
     <div className="flex flex-col gap-2.5 p-4">
@@ -87,7 +87,7 @@ const RowCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProps, ar
   >
     <div className="relative min-h-0 min-w-0 overflow-hidden">
       {image ? (
-        <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+        <img loading="lazy" decoding="async" src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
       ) : null}
     </div>
     <div className="flex min-w-0 flex-col gap-3 p-4 xl:p-5">
@@ -112,7 +112,7 @@ const FeaturedCard = ({ card, image, cardBg, learnMoreLabel, textStyle, linkProp
   >
     {image ? (
       <div className="relative min-h-[200px] w-full shrink-0 basis-[54%] overflow-hidden">
-        <img src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+        <img loading="lazy" decoding="async" src={image} alt={card.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
       </div>
     ) : null}
     <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 p-5 xl:p-6">

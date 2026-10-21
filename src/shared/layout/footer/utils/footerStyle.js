@@ -37,9 +37,9 @@ export const socialStyle = (style) => ({
   borderColor: colorVar(style.socialColor),
 })
 
-/** Legal bar text (links + copyright) at the design's 85% opacity. */
+/** Legal bar text — Figma uses solid #f5f5f4 / white (full opacity). */
 export const legalStyle = (style) => ({
-  color: colorAlpha(style.legalColor, 85),
+  color: colorVar(style.legalColor || '50'),
   '--cms-hc': colorVar(style.legalColorHover || style.legalColor),
 })
 

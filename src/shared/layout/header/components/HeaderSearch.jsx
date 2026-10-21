@@ -81,7 +81,7 @@ const HeaderSearch = ({ search, onClose }) => {
                 className="flex h-14 shrink-0 cursor-pointer items-center justify-center gap-2.5 rounded-lg border-0 bg-secondary px-4 text-[18px] font-semibold leading-[normal] text-700 transition-colors hover:bg-secondary-800 lg:h-[70px] lg:w-[151px]"
               >
                 <span className="hidden sm:inline">{search.buttonLabel}</span>
-                <img src={searchButtonIcon} alt="" aria-hidden width={18} height={18} className="block shrink-0" />
+                <img loading="lazy" decoding="async" src={searchButtonIcon} alt="" aria-hidden width={18} height={18} className="block shrink-0" />
               </button>
             </form>
 
@@ -108,7 +108,7 @@ const HeaderSearch = ({ search, onClose }) => {
                       }`}
                     >
                       <span className="flex size-5 shrink-0 items-center justify-center">
-                        <img src={searchIcon} alt="" aria-hidden width={18} height={18} className="block" />
+                        <img loading="lazy" decoding="async" src={searchIcon} alt="" aria-hidden width={18} height={18} className="block" />
                       </span>
                       <span className="min-w-0 truncate text-[16px] font-medium leading-[normal] text-700">
                         {hit.title?.[language] || hit.title?.en}

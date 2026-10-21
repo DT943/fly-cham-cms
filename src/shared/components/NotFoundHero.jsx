@@ -75,7 +75,7 @@ const NotFoundHero = ({
       }`}
     >
       <div className="absolute inset-0">
-        <img
+        <img loading="lazy" decoding="async"
           src={photo}
           alt={imageAlt ?? t('notFound.imageAlt')}
           className="size-full object-cover"

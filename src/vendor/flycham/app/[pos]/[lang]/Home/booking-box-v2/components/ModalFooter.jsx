@@ -15,6 +15,7 @@ import ButtonSpinner from '@/components/Ui/ButtonSpinner';
 import { useBookingBoxContentOptional } from '@/app/[pos]/[lang]/Home/booking-box/content/BookingBoxContent';
 import { trackSearchFlightsClarityEvent } from '@/lib/clarity';
 import { emitValidatedSearchNavigation, releaseSearchSubmissionLock } from '@/lib/searchSubmission';
+import BookingWidgetCurrency from '../../../../../../../../shared/booking-search/BookingWidgetCurrency.jsx';
 
 const ModalFooter = () => {
     const copy = useBookingBoxContentOptional();
@@ -113,13 +114,17 @@ const ModalFooter = () => {
     return (
         <>
             <Divider />
-            <div className="flex items-center justify-end my-4">
+            <div className="flex flex-wrap items-center justify-end gap-3 my-4">
                 {/* <CustomCheckbox
                     checked={values.nearby}
                     onChange={() => setFieldValue("nearby", !values.nearby)}
                     label={copy.airportSelector.includeNearbyAirports}
                 /> */}
-                <></>
+                {/* new_fly_cham: same currency dropdown as the booking-search block */}
+                <BookingWidgetCurrency
+                    value={values.currency}
+                    onChange={(code) => setFieldValue('currency', code)}
+                />
                 <button
                     id={BUTTON_CONFIG.SEARCH_FLIGHTS.ID}
                     type="button"

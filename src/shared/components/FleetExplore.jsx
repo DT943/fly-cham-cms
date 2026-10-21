@@ -69,7 +69,7 @@ const FleetCard = ({
       </div>
 
       {style.showCardImage !== false && imageSrc ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={imageSrc}
           alt={card.imageAlt || card.name || ''}
           className="my-2 h-24 w-full object-contain md:h-28"

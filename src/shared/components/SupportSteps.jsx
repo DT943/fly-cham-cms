@@ -167,7 +167,7 @@ const SupportSteps = ({
         </div>
         {imageUrl ? (
           <div className={cx('relative h-[240px] w-full overflow-hidden lg:h-[420px] lg:w-[484px] lg:shrink-0', radiusClass)}>
-            <img src={imageUrl} alt={imageAlt || ''} className={cx('size-full object-cover', radiusClass)} />
+            <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className={cx('size-full object-cover', radiusClass)} />
             {imageCaption ? (
               <p
                 className="absolute bottom-8 right-8 m-0 -rotate-6 text-[28px] leading-none text-white rtl:left-8 rtl:right-auto rtl:rotate-6"

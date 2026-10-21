@@ -131,7 +131,7 @@ const GatewayCards = ({
               const body = (
                 <>
                   {logoOn && item.imageUrl ? (
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={item.imageUrl}
                       alt={item.imageAlt || ''}
                       className="h-[75px] w-auto max-w-[168px] object-contain"

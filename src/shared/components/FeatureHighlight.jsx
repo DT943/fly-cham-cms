@@ -134,7 +134,7 @@ const FeatureHighlight = ({
         </div>
         {imageUrl ? (
           <div className={cx('relative h-[200px] w-full overflow-hidden lg:h-auto lg:min-h-[320px] lg:w-[621px] lg:shrink-0', radiusClass)}>
-            <img src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+            <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className="absolute inset-0 size-full object-cover" />
           </div>
         ) : null}
       </div>

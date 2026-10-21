@@ -195,7 +195,7 @@ const NewsletterForm = ({
 
       <div className="flex min-w-0 flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:gap-[89px]">
         {image ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt={imageAlt}
             className="aspect-[537/583] w-full min-w-0 rounded-xl object-cover lg:h-[583px] lg:w-[min(537px,46%)] lg:shrink"

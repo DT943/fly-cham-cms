@@ -148,7 +148,7 @@ const PromoBanner = ({
         )}
       >
         {image && !showOverlay ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt={imageAlt || ''}
             className="absolute inset-0 h-full w-full object-cover"
@@ -166,7 +166,7 @@ const PromoBanner = ({
             style={{ opacity: 0.9 }}
           >
             <div className="absolute inset-0 rounded-[12px]" aria-hidden>
-              <img
+              <img loading="lazy" decoding="async"
                 src={image}
                 alt=""
                 className="absolute inset-0 size-full rounded-[12px] object-cover"

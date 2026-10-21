@@ -318,6 +318,8 @@ const CoverSlider = ({
             src={slide.image}
             alt={index === slider.activeIndex ? slide.imageAlt : ''}
             aria-hidden={index !== slider.activeIndex}
+            loading="lazy"
+            decoding="async"
             style={{ objectPosition: slide.objectPosition }}
             className={`absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out ${
               index === slider.activeIndex ? 'opacity-100' : 'opacity-0'
@@ -379,7 +381,7 @@ const CoverSlider = ({
         >
           <Container className="flex justify-center">
             <div
-              className="flex items-center gap-2.5 rounded-xl bg-white px-3 py-1.5 shadow-[0_4px_16px_rgba(40,40,38,0.12)]"
+              className="flex items-center gap-1.5 rounded-xl bg-white px-2.5 py-1 shadow-[0_4px_16px_rgba(40,40,38,0.12)] sm:gap-2 sm:px-3 sm:py-1.5 md:gap-2.5"
               role="group"
               aria-label={t('home.hero.controlsLabel')}
             >
@@ -387,12 +389,12 @@ const CoverSlider = ({
                 type="button"
                 onClick={() => slider.setPaused((value) => !value)}
                 aria-label={slider.paused ? t('home.hero.play') : t('home.hero.pause')}
-                className="grid size-7 cursor-pointer place-items-center rounded-full border-0 bg-transparent p-0"
+                className="grid size-7 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent p-0"
                 style={{ color: accent }}
               >
                 {slider.paused ? <Play size={16} /> : <Pause size={16} />}
               </button>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
                 {slides.map((slide, index) =>
                   index === slider.activeIndex ? (
                     <button
@@ -401,7 +403,7 @@ const CoverSlider = ({
                       aria-label={t('home.hero.goToSlide', { index: index + 1 })}
                       aria-current="true"
                       onClick={() => slider.goTo(index)}
-                      className="relative h-2 w-[60px] cursor-pointer overflow-hidden rounded-full border-0 p-0"
+                      className="relative h-1.5 w-6 shrink-0 cursor-pointer overflow-hidden rounded-full border-0 p-0 sm:h-2 sm:w-8 md:w-[60px]"
                       style={{ backgroundColor: trackColor }}
                     >
                       <span
@@ -415,9 +417,14 @@ const CoverSlider = ({
                       type="button"
                       aria-label={t('home.hero.goToSlide', { index: index + 1 })}
                       onClick={() => slider.goTo(index)}
-                      className="size-2 shrink-0 cursor-pointer rounded-full border-0 p-0"
-                      style={{ backgroundColor: trackColor }}
-                    />
+                      className="-m-2 flex size-1.5 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-2 sm:size-2"
+                    >
+                      <span
+                        className="block size-1.5 rounded-full sm:size-2"
+                        style={{ backgroundColor: trackColor }}
+                        aria-hidden
+                      />
+                    </button>
                   ),
                 )}
               </div>
@@ -572,7 +579,7 @@ const PageMediaHero = ({
           </div>
 
           {image && (
-            <img
+            <img loading="lazy" decoding="async"
               src={image}
               alt={imageAlt}
               className="md:hidden w-full h-auto rounded-2xl object-cover object-[center_30%] aspect-[380/180]"
@@ -582,7 +589,7 @@ const PageMediaHero = ({
 
         {image && (
           <div className="hidden md:block absolute inset-y-0 end-0 w-[58%] lg:w-[80%] pointer-events-none">
-            <img
+            <img loading="lazy" decoding="async"
               src={image}
               alt=""
               className="w-full h-full object-cover object-[72%_center]"
@@ -667,7 +674,7 @@ const PageMediaHero = ({
   return (
     <section className={`relative isolate overflow-hidden ${heightClass}`}>
       {image ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={image}
           alt={imageAlt}
           style={{ objectPosition }}

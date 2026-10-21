@@ -187,7 +187,7 @@ const InstructionsCard = ({
                 RADIUS_CLASS[imageRadius] ?? RADIUS_CLASS.md,
               )}
             >
-              <img
+              <img decoding="async"
                 src={imageUrl}
                 alt={imageAlt || ''}
                 loading="lazy"

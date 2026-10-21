@@ -15,10 +15,21 @@ import defaultFooters from './defaultFooter.json'
  *     any other failure keeps whatever is showing, silently.
  */
 
-const STORAGE_PREFIX = 'flycham:site-footer:v1:'
+const STORAGE_PREFIX = 'flycham:site-footer:v6:'
+
+/** Figma 41944:18827 word mark — local SVG replaces the old CMS webp. */
+const FIGMA_FOOTER_PATTERN = '/images/footer/footer-pattern.svg'
+const LEGACY_FOOTER_PATTERN =
+  'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/cms-media/layout/footer-pattern.webp'
 
 const isObj = (value) => value !== null && typeof value === 'object' && !Array.isArray(value)
 const str = (value, fallback = '') => (typeof value === 'string' ? value : fallback)
+
+const resolvePatternUrl = (value, fallback) => {
+  const url = str(value, fallback)
+  if (!url || url === LEGACY_FOOTER_PATTERN) return FIGMA_FOOTER_PATTERN
+  return url
+}
 
 /** Same marker the footer editor uses to keep the description in the stored follow text. */
 const DESCRIPTION_MARKER = '\n\u2063'
@@ -118,8 +129,10 @@ const normalizeDocument = (doc, lang) => {
       logoHref: str(brand.logoHref) || base.brand.logoHref,
       followText: copy.followText,
       description: copy.description,
-      // Empty string = no pattern image.
-      patternUrl: str(brand.patternUrl, base.brand.patternUrl),
+      // Empty string = no pattern image. Legacy CMS webp → Figma SVG.
+      patternUrl: Object.prototype.hasOwnProperty.call(brand, 'patternUrl') && brand.patternUrl === ''
+        ? ''
+        : resolvePatternUrl(brand.patternUrl, base.brand.patternUrl),
     },
     social: arr(doc.social).filter(isObj).map(normalizeSocial),
     columns: doc.columns.map(normalizeColumn),

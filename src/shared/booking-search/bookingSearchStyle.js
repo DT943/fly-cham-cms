@@ -29,7 +29,13 @@ export const DESKTOP_SWAP = 'absolute start-[279.738px] top-[17px] z-[2] flex h-
 export const DESKTOP_DATES_GROUP = 'ms-[6.5px] grid min-w-0 flex-1 grid-cols-3 grid-rows-[63px] gap-[9px]'
 export const DESKTOP_DATE_BOX = 'flex h-full min-w-0 flex-1 cursor-pointer items-center justify-between rounded-[8px] border-0 px-[10px] py-3 text-start'
 export const DESKTOP_PAX_BOX = 'flex h-full min-w-0 flex-1 cursor-pointer items-center justify-center rounded-[8px] border-0 p-[10px] text-start'
-export const DESKTOP_BOTTOM_ROW = 'mt-[25px] flex items-center justify-between ps-[5px]'
+export const DESKTOP_BOTTOM_ROW = 'mt-[25px] flex items-center justify-between gap-3 ps-[5px]'
+export const DESKTOP_BOTTOM_ACTIONS = 'flex shrink-0 items-center gap-[10px]'
+/** Currency field on the bottom row (left of Search) — compact flag + name + code pill. */
+export const DESKTOP_CURRENCY_TRIGGER =
+  'inline-flex h-[49px] w-[188px] shrink-0 cursor-pointer items-center gap-[8px] rounded-[8px] border-0 px-[12px] py-[8px] text-start transition-[box-shadow]'
+export const MOBILE_CURRENCY_TRIGGER =
+  'flex w-full cursor-pointer items-center gap-[10px] rounded-[8px] border-0 px-3 py-2.5 text-start transition-[box-shadow]'
 export const DESKTOP_SEARCH = 'inline-flex h-[49px] w-max min-w-[171px] shrink-0 cursor-pointer items-center justify-center gap-[10px] whitespace-nowrap rounded-[8px] border-0 px-[10px] py-3 text-base leading-[normal] transition-colors disabled:cursor-wait'
 
 /** Mobile card (< lg): stacked fields, 16px rhythm. */

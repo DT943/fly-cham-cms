@@ -10,12 +10,27 @@
 export const SUPPORTED_LANGUAGES = ['en', 'ar']
 export const DEFAULT_LANGUAGE = 'en'
 
-/** POS codes, one per country in the header's region menu (`gl` = Global). */
+/**
+ * POS codes, one per country in the header's region menu (`gl` = Global).
+ * The CMS POS list (shared/pos/posList.js) replaces this at runtime — and at
+ * startup from its localStorage cache — so a POS added in the admin also gets
+ * working `/<pos>/` URLs. This bundled set is the offline fallback.
+ */
 export const SUPPORTED_POS = ['sy', 'ae', 'kw', 'iq', 'om', 'tr', 'ly', 'sa', 'am', 'gl']
 export const DEFAULT_POS = 'sy'
 
+let supportedPos = new Set(SUPPORTED_POS)
+
+/** Replace the valid POS codes (the default POS always stays valid). */
+export function setSupportedPos(codes) {
+  const next = (Array.isArray(codes) ? codes : [])
+    .map((code) => String(code || '').toLowerCase())
+    .filter((code) => /^[a-z]{2}$/.test(code))
+  if (next.length) supportedPos = new Set([...next, DEFAULT_POS])
+}
+
 export function isSupportedPos(value) {
-  return SUPPORTED_POS.includes(value)
+  return supportedPos.has(value)
 }
 
 export function isSupportedLanguage(value) {

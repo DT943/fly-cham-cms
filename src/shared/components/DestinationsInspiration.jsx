@@ -136,7 +136,7 @@ const DestinationsInspiration = ({
       style={{ backgroundColor: bannerCss }}
     >
       {showBgImage && bgSrc ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={bgSrc}
           alt=""
           className="pointer-events-none absolute inset-0 size-full object-cover object-[60%_center] opacity-60 rtl:-scale-x-100"
@@ -188,21 +188,21 @@ const DestinationsInspiration = ({
         {hasStack ? (
           <div className="relative flex h-64 w-full max-w-88 shrink-0 items-center justify-center sm:h-72 sm:max-w-96 lg:h-60 lg:max-w-104">
             {coastSrc ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={coastSrc}
                 alt={coastImageAlt}
                 className={cx(stackPhotoClass, 'relative z-0 -me-5 h-[80%] w-[37%] sm:-me-4 sm:h-[75%] sm:w-[34%]')}
               />
             ) : null}
             {fallsSrc ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={fallsSrc}
                 alt={fallsImageAlt}
                 className={cx(stackPhotoClass, 'relative z-10 h-full w-[46%] sm:w-[42%]')}
               />
             ) : null}
             {citySrc ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={citySrc}
                 alt={cityImageAlt}
                 className={cx(stackPhotoClass, 'relative z-0 -ms-5 h-[80%] w-[37%] sm:-ms-4 sm:h-[75%] sm:w-[34%]')}

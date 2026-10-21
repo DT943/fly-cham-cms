@@ -90,7 +90,7 @@ const ComingSoonHero = ({
         ) : null}
 
         {showImage !== false && imageUrl ? (
-          <img
+          <img loading="lazy" decoding="async"
             src={imageUrl}
             alt={imageAlt}
             className="mt-8 block h-auto w-full max-w-140 md:mt-6"

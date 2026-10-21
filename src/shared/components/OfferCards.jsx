@@ -110,7 +110,7 @@ const OfferCards = ({
                 <article key={item.id || index} className="group flex min-w-0 flex-col gap-5">
                   {item.imageUrl ? (
                     <div className={cx('relative aspect-square w-full overflow-hidden', radiusClass)}>
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={item.imageUrl}
                         alt={item.imageAlt || ''}
                         className={cx('size-full object-cover', radiusClass, IMAGE_MOTION)}

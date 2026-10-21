@@ -132,7 +132,7 @@ const NewsDetailGallery = ({
                 ref={index === 0 ? slideRef : null}
                 className={`group ${SLIDE_WIDTH} relative overflow-hidden ${radiusClass}`}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt={alts[index] || `${altPrefix} ${index + 1}`.trim()}
                   className="aspect-[603/387] w-full object-cover"

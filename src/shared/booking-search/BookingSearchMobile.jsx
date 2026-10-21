@@ -13,8 +13,10 @@ import Dropdown from '../components/Dropdown.jsx'
 import CalendarPanel, { formatFieldDate } from './CalendarPanel.jsx'
 import PassengersPanel, { passengerSummary } from './PassengersPanel.jsx'
 import { Checkbox, DismissArea, MobileRadio, PopoverPanel, Toggle } from './controls.jsx'
+import CurrencyField from './CurrencyField.jsx'
 import {
   INK,
+  MOBILE_CURRENCY_TRIGGER,
   MOBILE_DATE_INPUT,
   MOBILE_FIELD,
   MOBILE_FIELD_TRIGGER,
@@ -251,6 +253,7 @@ export const MobileBookPanel = ({ s, labels, theme, show, lang }) => {
           {labels.nearbyLabel}
         </button>
       ) : null}
+      <CurrencyField s={s} labels={labels} theme={theme} className="w-full" triggerClassName={MOBILE_CURRENCY_TRIGGER} />
       <button
         type="button"
         onClick={s.search}

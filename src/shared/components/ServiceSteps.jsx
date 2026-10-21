@@ -182,7 +182,7 @@ const ServiceSteps = ({
       </div>
       {hasImage ? (
         <div className={cx('w-full min-w-0 overflow-hidden lg:h-[400px] lg:flex-1', radiusClass)}>
-          <img
+          <img loading="lazy" decoding="async"
             src={imageUrl}
             alt={imageAlt || ''}
             className="aspect-[607/400] w-full object-cover lg:aspect-auto lg:h-full"

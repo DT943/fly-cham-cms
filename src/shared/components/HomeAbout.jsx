@@ -108,7 +108,7 @@ const HomeAbout = ({
                 <article key={card.id || index} className="flex min-w-0 flex-col gap-3 md:gap-4">
                   {src ? (
                     <div className={cx('aspect-4/3 w-full overflow-hidden', radiusClass)}>
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={src}
                         alt={card.imageAlt || ''}
                         className="size-full object-cover"

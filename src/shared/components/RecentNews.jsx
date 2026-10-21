@@ -388,7 +388,7 @@ const RecentNews = ({
                     >
                       {cover ? (
                         <LocalizedLink href={href} className="block no-underline">
-                          <img
+                          <img loading="lazy" decoding="async"
                             src={cover}
                             alt={article.imageAlt || ''}
                             className="aspect-[4/3] w-full object-cover"

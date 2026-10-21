@@ -41,7 +41,7 @@ function createPlaneIcon(angle, planeUrl) {
     iconAnchor: [size / 2, size / 2],
     html: `<span style="display:block;width:${size}px;height:${size}px;transform:rotate(${angle}deg);
       filter:drop-shadow(0 1px 3px rgba(1,38,59,0.35));">
-      <img src="${escapeAttr(planeUrl)}" alt="" style="width:100%;height:100%;object-fit:contain;display:block;" />
+      <img loading="lazy" decoding="async" src="${escapeAttr(planeUrl)}" alt="" style="width:100%;height:100%;object-fit:contain;display:block;" />
     </span>`,
   })
 }

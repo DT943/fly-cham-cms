@@ -558,7 +558,7 @@ const ChamMilesRegister = ({
   return (
     <section className="relative min-h-dvh w-full min-w-0 overflow-x-clip">
       {bgUrl ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={bgUrl}
           alt={bgAlt || ''}
           className="absolute inset-0 size-full object-cover"
@@ -573,7 +573,7 @@ const ChamMilesRegister = ({
             className="inline-flex w-fit shrink-0"
             aria-label={logoAlt || undefined}
           >
-            <img src={logoUrl} alt={logoAlt} className="w-auto object-contain" />
+            <img loading="lazy" decoding="async" src={logoUrl} alt={logoAlt} className="w-auto object-contain" />
           </LocalizedLink>
         ) : null}
 

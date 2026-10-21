@@ -100,14 +100,14 @@ const LandmarkGallery = ({
       <div className={mediaCell}>
         <div className={`relative isolate aspect-[644/454] overflow-hidden bg-[#e8e8e5] lg:h-[454px] lg:aspect-auto ${radiusClass}`}>
           {outgoing ? (
-            <img
+            <img loading="lazy" decoding="async"
               src={slides[outgoing.index]}
               alt=""
               aria-hidden="true"
               className={`landmark-slide landmark-slide--exit-${side}`}
             />
           ) : null}
-          <img
+          <img loading="lazy" decoding="async"
             key={active}
             src={slides[active]}
             alt={alts[active] ?? alt}
@@ -126,7 +126,7 @@ const LandmarkGallery = ({
                   className={arrowButtonClass}
                 >
                   <span className="inline-flex rtl:-scale-x-100">
-                    <img src={chevronLeft} alt="" width="23.04" height="23.04" />
+                    <img loading="lazy" decoding="async" src={chevronLeft} alt="" width="23.04" height="23.04" />
                   </span>
                 </button>
                 <div className="flex items-center gap-[7px] rounded-full bg-black/45 p-[7px] backdrop-blur-[8px]">
@@ -150,7 +150,7 @@ const LandmarkGallery = ({
                   className={arrowButtonClass}
                 >
                   <span className="inline-flex rotate-180 rtl:-scale-x-100">
-                    <img src={chevronLeft} alt="" width="23.04" height="23.04" />
+                    <img loading="lazy" decoding="async" src={chevronLeft} alt="" width="23.04" height="23.04" />
                   </span>
                 </button>
               </div>
@@ -175,7 +175,7 @@ const LandmarkGallery = ({
               }`}
               style={{ borderColor: active === index ? activeBorder : 'transparent' }}
             >
-              <img src={src} alt="" className="size-full object-cover" />
+              <img loading="lazy" decoding="async" src={src} alt="" className="size-full object-cover" />
             </button>
           ))}
         </div>

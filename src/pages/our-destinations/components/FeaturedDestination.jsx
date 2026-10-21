@@ -77,7 +77,7 @@ const FeaturedDestination = ({
       onPointerUp={onPointerUp}
     >
       {slides.map((src, index) => (
-        <img
+        <img loading="lazy" decoding="async"
           key={`${src}-${index}`}
           src={src}
           alt={index === 0 ? imageAlt : ''}

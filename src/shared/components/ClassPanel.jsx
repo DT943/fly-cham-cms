@@ -60,7 +60,7 @@ const ClassPanel = ({
 
   const photo = imageUrl ? (
     <div className="aspect-[580/375] w-full shrink-0 overflow-hidden rounded-2xl lg:aspect-auto lg:h-[375px] lg:w-[580px]">
-      <img src={imageUrl} alt={imageAlt || ''} className="size-full object-cover" />
+      <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className="size-full object-cover" />
     </div>
   ) : null
 

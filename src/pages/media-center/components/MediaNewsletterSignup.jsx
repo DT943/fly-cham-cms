@@ -95,7 +95,7 @@ const MediaNewsletterSignup = ({
           aria-hidden
           className="pointer-events-none absolute inset-y-0 inset-s-0 z-0 flex w-[min(11.5rem,36%)] items-stretch overflow-hidden opacity-60"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={MEDIA_NEWSLETTER_DEFAULT_PATTERN}
             alt=""
             className="h-full w-full max-w-none object-contain object-left object-bottom"

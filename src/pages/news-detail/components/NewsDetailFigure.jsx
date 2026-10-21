@@ -18,7 +18,7 @@ const NewsDetailFigure = ({ image, imageAlt, video, poster }) => (
         aria-label={imageAlt}
       />
     ) : (
-      <img src={image} alt={imageAlt} className="aspect-[122/63] w-full object-cover" />
+      <img loading="lazy" decoding="async" src={image} alt={imageAlt} className="aspect-[122/63] w-full object-cover" />
     )}
   </figure>
 )

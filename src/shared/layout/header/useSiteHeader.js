@@ -2,6 +2,11 @@ import { getHeader } from '../../../cms/api/getHeader.js'
 import createSiteDocumentHook from '../createSiteDocumentHook.js'
 import { applySiteHeaderAlts } from '../../../cms/mediaAlt.js'
 import defaultHeaders from './defaultHeader.json'
+import {
+  HIDE_WELCOME_PANEL_ID,
+  loginShowsWelcomePanel,
+  visibleLoginBenefits,
+} from './loginWelcome.js'
 
 /**
  * CMS-driven site header document (see HEADER-CONTRACT §4).
@@ -134,21 +139,30 @@ const normalizeSearch = (search, base) => {
 const normalizeLogin = (login, base) => {
   const fallback = base.login
   if (!isObj(login)) return fallback
-  const benefits = Array.isArray(login.benefits)
+  const rawBenefits = Array.isArray(login.benefits)
     ? login.benefits
-        .filter((item) => isObj(item) && str(item.text))
+        .filter(
+          (item) =>
+            isObj(item) &&
+            (item.id === HIDE_WELCOME_PANEL_ID || str(item.text)),
+        )
         .map((item, index) => ({
           id: str(item.id) || `benefit-${index}`,
           text: str(item.text),
         }))
     : fallback.benefits
+  const showWelcomePanel = loginShowsWelcomePanel({
+    showWelcomePanel: login.showWelcomePanel,
+    benefits: rawBenefits,
+  })
   return {
     show: login.show !== false,
+    showWelcomePanel,
     label: str(login.label, fallback.label),
     href: str(login.href) || fallback.href,
     panelTitle: str(login.panelTitle, fallback.panelTitle),
     panelSubtitle: str(login.panelSubtitle, fallback.panelSubtitle),
-    benefits,
+    benefits: visibleLoginBenefits(rawBenefits),
     panelImageUrl: str(login.panelImageUrl, fallback.panelImageUrl),
     brandLogoUrl: str(login.brandLogoUrl, fallback.brandLogoUrl),
     emailLabel: str(login.emailLabel) || fallback.emailLabel,

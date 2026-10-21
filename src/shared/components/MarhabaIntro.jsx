@@ -89,7 +89,7 @@ const MarhabaIntro = ({
       </div>
 
       {src ? (
-        <img
+        <img loading="lazy" decoding="async"
           src={src}
           alt={imageAlt || ''}
           className={cx(

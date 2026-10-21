@@ -57,7 +57,7 @@ function ItemIcon({ item, iconSize, iconColor, iconWeight }) {
 
   if (item.iconSource === 'image' && item.iconUrl) {
     return (
-      <img
+      <img decoding="async"
         src={item.iconUrl}
         alt={item.iconAlt || ''}
         loading="lazy"

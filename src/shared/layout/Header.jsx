@@ -79,7 +79,16 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
     }
 
     const handlePointerDown = (event) => {
-      if (!headerRef.current?.contains(event.target)) close()
+      const target = event.target
+      // Portaled overlays (mobile login, currency dropdown) live on document.body
+      // but still belong to the open header menu — don't close on their presses.
+      if (
+        target instanceof Element &&
+        target.closest('[data-header-login-sheet], [data-header-portal-menu]')
+      ) {
+        return
+      }
+      if (!headerRef.current?.contains(target)) close()
     }
 
     const handleKeyDown = (event) => {
@@ -88,7 +97,9 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
 
     // Scrolling the page down (not the panel itself) closes a hovered menu,
     // measured from the highest point since it opened (scrolling up keeps it
-    // open). A clicked (pinned) menu stays open while the page scrolls.
+    // open). Clicked mega-menus stay open while scrolling; login/search close.
+    const closeOnScroll =
+      !pinned || openMenu === LOGIN_ITEM || openMenu === SEARCH_MENU
     let topY = window.scrollY
     const handleScroll = () => {
       const y = window.scrollY
@@ -98,7 +109,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
 
     document.addEventListener('mousedown', handlePointerDown)
     document.addEventListener('keydown', handleKeyDown)
-    if (!pinned) window.addEventListener('scroll', handleScroll, { passive: true })
+    if (closeOnScroll) window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('keydown', handleKeyDown)
@@ -278,7 +289,7 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
             }}
             onClick={closeMenu}
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={dark ? header.logo.lightUrl : header.logo.darkUrl}
               alt={header.logo.alt}
               // First visit: stay hidden until the CMS header loads, so the
@@ -444,7 +455,13 @@ const Header = ({ dark = false, hideOnScroll = true, showTravelNotice = false })
           onPointerEnter={cancelPreview}
           onPointerDown={() => setPinned(true)}
           // Search opens below lg; login card is lg-only here (mobile uses a portal).
-          className={`absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-74px)] overflow-y-auto shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)] ${
+          className={`absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-74px)] overflow-y-auto ${
+            // Login is a right-aligned card — no full-width shadow, and let
+            // clicks beside the card pass through so "outside" closes it.
+            openMenu === LOGIN_ITEM
+              ? 'pointer-events-none'
+              : 'shadow-[0_10px_24px_-8px_rgba(33,37,41,0.18)]'
+          } ${
             openMenu === SEARCH_MENU
               ? 'block'
               : openMenu === LOGIN_ITEM

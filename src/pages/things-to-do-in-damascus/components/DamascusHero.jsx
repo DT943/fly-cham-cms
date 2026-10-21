@@ -6,7 +6,7 @@ const DestinationHero = ({ title, country, image, imageAlt }) => {
 
   return (
     <section className="relative isolate overflow-hidden h-70 sm:h-90 md:h-110 lg:h-125">
-      <img
+      <img loading="lazy" decoding="async"
         src={image}
         alt={imageAlt}
         className="absolute inset-0 size-full object-cover object-[center_38%]"

@@ -10,7 +10,7 @@ const DestinationNarratives = ({ i18nKey, narratives }) => {
           key={id}
           className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt={t(`${i18nKey}.narratives.${id}.imageAlt`)}
             className={`h-55 w-full shrink-0 rounded-2xl object-cover sm:h-70 lg:h-80 lg:w-140 ${

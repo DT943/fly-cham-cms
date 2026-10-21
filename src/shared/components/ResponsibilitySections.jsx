@@ -74,7 +74,7 @@ const ResponsibilitySections = ({
           >
             {src ? (
               <div className={cx('w-full overflow-hidden lg:w-[607px] lg:shrink-0', radiusClass)}>
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt={item.imageAlt || ''}
                   className="aspect-[607/375] w-full object-cover"

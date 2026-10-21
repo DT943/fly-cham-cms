@@ -203,7 +203,7 @@ const TrackRequest = ({
 
   const imageCol = hasImage ? (
     <div className="relative w-full overflow-hidden rounded-xl md:w-1/2 md:shrink-0">
-      <img
+      <img loading="lazy" decoding="async"
         src={imageSrc}
         alt={imageAlt || ''}
         className="h-full min-h-[240px] w-full object-cover md:min-h-[360px]"
@@ -281,7 +281,7 @@ const TrackRequest = ({
   const resultCard = result ? (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full items-start gap-3 overflow-hidden rounded-lg border border-[#B00300] bg-[#FFF2F0] p-4">
-        <img src={noMatchIcon} alt="" width={24} height={24} />
+        <img loading="lazy" decoding="async" src={noMatchIcon} alt="" width={24} height={24} />
         <div className="flex min-w-0 flex-1 flex-col gap-2 text-[#3E3E3B]">
           <p className="m-0 text-base font-semibold leading-normal">
             {t('forms.track.result.notFoundTitle')}
@@ -347,21 +347,21 @@ const TrackRequest = ({
               href="/help/contact-us"
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-lg bg-[#006080] p-2.5 text-base font-semibold leading-none text-white no-underline sm:flex-1"
             >
-              <img src={phoneIcon} alt="" width={24} height={24} />
+              <img loading="lazy" decoding="async" src={phoneIcon} alt="" width={24} height={24} />
               {t('forms.track.result.contactUs')}
             </LocalizedLink>
             <button
               type="button"
               className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-lg border border-[#006080] bg-white p-2.5 text-base font-semibold leading-none text-[#006080] sm:flex-1"
             >
-              <img src={chatDotsIcon} alt="" width={24} height={24} />
+              <img loading="lazy" decoding="async" src={chatDotsIcon} alt="" width={24} height={24} />
               {t('forms.track.result.chatNow')}
             </button>
           </div>
         </div>
         <p className="m-0 flex items-center justify-center">
           <span className="inline-flex items-center gap-1 rounded-[44px] bg-[rgba(83,147,200,0.15)] px-[21px] py-2.5 text-lg font-semibold leading-normal text-[#5393C8]">
-            <img src={checkCircleIcon} alt="" width={24} height={24} />
+            <img loading="lazy" decoding="async" src={checkCircleIcon} alt="" width={24} height={24} />
             {t('forms.track.result.emailed')}
           </span>
         </p>

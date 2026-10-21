@@ -22,6 +22,9 @@ import { mapFlightAvailToScheduleRows } from '../../vendor/flycham/lib/b2cAvaila
 import { FLYCHAM_POS } from '../../vendor/shims/next-navigation.jsx'
 import { FLYCHAM_SITE_URL } from '../../vendor/flycham/lib/flychamSite.js'
 import { toDateKey } from './CalendarPanel.jsx'
+import { DEFAULT_CURRENCY, normalizeCurrencyCode } from './currenciesService.js'
+import { useCurrencyOptions } from './currencyOptions.js'
+import { setPreferredCurrency, usePreferredCurrency } from './preferredCurrency.js'
 
 const BOOKING_WINDOW_DAYS = 360
 
@@ -74,6 +77,9 @@ export default function useBookingSearch({ language, labels }) {
     staleTime: 5 * 60_000,
     refetchOnWindowFocus: false,
   })
+  // Same list as the header country/region picker (one region → one currency).
+  const currencies = useCurrencyOptions()
+  const preferredCurrency = usePreferredCurrency()
   const { routeRows } = useBookingPreviewV2AllRoutes(true)
 
   useEffect(() => {
@@ -141,6 +147,28 @@ export default function useBookingSearch({ language, labels }) {
   useEffect(() => {
     if (Boolean(values.nearby) !== nearby) setFieldValue('nearby', nearby)
   }, [values.nearby, nearby, setFieldValue])
+
+  const currency = normalizeCurrencyCode(values.currency) || preferredCurrency || DEFAULT_CURRENCY
+  // Keep the booking form in sync with the header POS currency preference.
+  useEffect(() => {
+    const next = preferredCurrency || DEFAULT_CURRENCY
+    if (normalizeCurrencyCode(values.currency) !== next) setFieldValue('currency', next)
+  }, [preferredCurrency, values.currency, setFieldValue])
+
+  const selectedCurrency = useMemo(() => {
+    const match = currencies.find((item) => item.currencyCode === currency)
+    return match || { currencyCode: currency, currencyName: currency, flag: '' }
+  }, [currencies, currency])
+
+  const setCurrency = useCallback(
+    (code) => {
+      const next = normalizeCurrencyCode(code) || DEFAULT_CURRENCY
+      setPreferredCurrency(next)
+      setFieldValue('currency', next)
+      setOpen(null)
+    },
+    [setFieldValue],
+  )
 
   const close = useCallback(() => setOpen(null), [])
   const toggle = useCallback((name) => setOpen((current) => (current === name ? null : name)), [])
@@ -332,6 +360,11 @@ export default function useBookingSearch({ language, labels }) {
       setMiles((current) => !current)
       setFieldValue('miles', !miles)
     },
+    currency,
+    currencies,
+    currenciesLoading: false,
+    selectedCurrency,
+    setCurrency,
     searching,
     search,
   }

@@ -73,7 +73,7 @@ const MediaCards = ({
             className="relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden rounded-2xl p-8 md:p-10"
           >
             {src ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={src}
                 alt={imageAlt}
                 className="absolute inset-0 -z-10 size-full object-cover"

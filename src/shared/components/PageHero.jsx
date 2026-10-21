@@ -44,7 +44,7 @@ const maskStyle = (mask) => ({
 
 const PageHeroImage = ({ image, mask, imageAlt, radius }) => (
   <div className="w-full">
-    <img
+    <img loading="lazy" decoding="async"
       src={image}
       alt={imageAlt}
       className={`w-full h-auto ${IMAGE_RADIUS[radius] || IMAGE_RADIUS.lg} object-cover object-[center_20%] aspect-[380/180] ${mask ? 'md:hidden' : ''}`}

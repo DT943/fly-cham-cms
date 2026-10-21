@@ -73,7 +73,7 @@ export function GalleryLightbox({ image, onClose, closeLabel = 'Close' }) {
       >
         <X size={18} weight="bold" />
       </button>
-      <img
+      <img loading="lazy" decoding="async"
         src={image.src}
         alt={image.alt}
         className="max-h-[90vh] max-w-[92vw] rounded-2xl object-contain"

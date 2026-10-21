@@ -6,7 +6,7 @@ const MagazinePage = forwardRef(({ src, alt, pageNumber, isCover = false }, ref)
     data-density={isCover ? 'hard' : 'soft'}
     className="magazine-page relative h-full w-full overflow-hidden bg-background"
   >
-    <img
+    <img loading="lazy"
       src={src}
       alt={alt}
       draggable={false}

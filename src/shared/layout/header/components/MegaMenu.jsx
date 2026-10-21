@@ -156,7 +156,7 @@ const MegaMenuPromo = ({ tab, onNavigate, headerStyle: hs }) => {
         onClick={onNavigate}
         className="group relative flex w-full flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:w-[300px]"
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={tab.imageUrl}
           alt={tab.imageAlt}
           className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -295,7 +295,7 @@ const MegaMenuDestinations = ({ tab, onNavigate, headerStyle: hs }) => (
           className="group relative flex h-56 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
         >
           {card.imageUrl && (
-            <img
+            <img loading="lazy" decoding="async"
               src={card.imageUrl}
               alt=""
               className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -343,7 +343,7 @@ const MegaMenuActivities = ({ tab, onNavigate, headerStyle: hs }) => (
           className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none"
         >
           {card.imageUrl && (
-            <img
+            <img loading="lazy" decoding="async"
               src={card.imageUrl}
               alt=""
               className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -385,7 +385,7 @@ const MegaMenuMap = ({ tab, onNavigate, headerStyle: hs }) => (
       onClick={onNavigate}
       className="block h-64 overflow-hidden rounded-[24px] no-underline outline-none focus:outline-none lg:h-80"
     >
-      <img src={tab.imageUrl} alt={tab.imageAlt} className="size-full object-cover" />
+      <img loading="lazy" decoding="async" src={tab.imageUrl} alt={tab.imageAlt} className="size-full object-cover" />
     </LocalizedLink>
     <MegaMenuInlineCta tab={tab} onNavigate={onNavigate} headerStyle={hs} />
   </div>

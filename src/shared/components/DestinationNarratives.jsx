@@ -63,7 +63,7 @@ const DestinationNarratives = ({
             className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
           >
             {src ? (
-              <img
+              <img loading="lazy" decoding="async"
                 src={src}
                 alt={item.imageAlt || ''}
                 className={`h-55 w-full shrink-0 object-cover sm:h-70 lg:h-80 lg:w-140 ${radiusClass} ${imageFirst ? '' : 'lg:order-2'}`}

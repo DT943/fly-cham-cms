@@ -13,15 +13,15 @@ const flag = (code) => `${FLAGS_URL}/${code}.svg`
  * `global` renders the globe icon instead of a flag.
  */
 export const regions = [
-  { id: 'syria', code: 'SY', flag: flag('sy'), langs: ['en', 'ar'] },
-  { id: 'uae', code: 'AE', flag: flag('ae'), langs: ['en', 'ar'] },
-  { id: 'kuwait', code: 'KW', flag: flag('kw'), langs: ['en', 'ar'] },
-  { id: 'iraq', code: 'IQ', flag: flag('iq'), langs: ['en', 'ar'] },
-  { id: 'oman', code: 'OM', flag: flag('om'), langs: ['en', 'ar'] },
-  { id: 'turkey', code: 'TR', flag: flag('tr'), langs: ['en', 'ar'] },
-  { id: 'libya', code: 'LY', flag: flag('ly'), langs: ['en', 'ar'] },
-  { id: 'saudiArabia', code: 'SA', flag: flag('sa'), langs: ['en', 'ar'] },
-  { id: 'armenia', code: 'AM', flag: flag('am'), langs: ['en'] },
-  { id: 'global', code: 'GL', global: true, langs: ['en', 'ar'] },
+  { id: 'syria', code: 'SY', flag: flag('sy'), currency: 'SYP', langs: ['en', 'ar'] },
+  { id: 'uae', code: 'AE', flag: flag('ae'), currency: 'AED', langs: ['en', 'ar'] },
+  { id: 'kuwait', code: 'KW', flag: flag('kw'), currency: 'KWD', langs: ['en', 'ar'] },
+  { id: 'iraq', code: 'IQ', flag: flag('iq'), currency: 'IQD', langs: ['en', 'ar'] },
+  { id: 'oman', code: 'OM', flag: flag('om'), currency: 'OMR', langs: ['en', 'ar'] },
+  { id: 'turkey', code: 'TR', flag: flag('tr'), currency: 'TRY', langs: ['en', 'ar'] },
+  { id: 'libya', code: 'LY', flag: flag('ly'), currency: 'LYD', langs: ['en', 'ar'] },
+  { id: 'saudiArabia', code: 'SA', flag: flag('sa'), currency: 'SAR', langs: ['en', 'ar'] },
+  { id: 'armenia', code: 'AM', flag: flag('am'), currency: 'AMD', langs: ['en'] },
+  { id: 'global', code: 'GL', global: true, currency: 'USD', langs: ['en', 'ar'] },
 ]
 

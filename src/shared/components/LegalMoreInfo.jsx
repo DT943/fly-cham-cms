@@ -14,7 +14,7 @@ const CIRCLE_ICONS = {
 
 const CardIcon = ({ icon }) => {
   if (icon === 'cookie') {
-    return <img src={cookieIcon} alt="" width={60} height={60} />
+    return <img loading="lazy" decoding="async" src={cookieIcon} alt="" width={60} height={60} />
   }
   const Icon = CIRCLE_ICONS[icon]
   return (
@@ -22,7 +22,7 @@ const CardIcon = ({ icon }) => {
       {Icon ? (
         <Icon size={28} weight="regular" className="text-[#3E3E3B]" />
       ) : (
-        <img src={shieldIcon} alt="" width="32.7273" height="32.7273" />
+        <img loading="lazy" decoding="async" src={shieldIcon} alt="" width="32.7273" height="32.7273" />
       )}
     </span>
   )
@@ -109,7 +109,7 @@ const LegalMoreInfo = ({
                   </p>
                 </div>
               </div>
-              <img
+              <img loading="lazy" decoding="async"
                 src={arrowIcon}
                 alt=""
                 width={33}

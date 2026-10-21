@@ -116,7 +116,7 @@ const LoungeCards = ({
                 return (
                   <article key={item.id || index} data-lounge-card className={cx('relative h-[240px] shrink-0 snap-start overflow-hidden md:h-[320px]', basisClass, radiusClass)}>
                     {item.imageUrl ? (
-                      <img src={item.imageUrl} alt={item.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
+                      <img loading="lazy" decoding="async" src={item.imageUrl} alt={item.imageAlt || ''} className="absolute inset-0 size-full object-cover" />
                     ) : (
                       <span className="absolute inset-0 bg-secondary-2" />
                     )}

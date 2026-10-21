@@ -126,7 +126,7 @@ const SeatPlan = ({
                 aria-label={item.title || learnMore || 'Learn more'}
               />
               {src ? (
-                <img
+                <img loading="lazy" decoding="async"
                   src={src}
                   alt={item.imageAlt || ''}
                   className="h-[196px] w-full object-cover"

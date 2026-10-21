@@ -19,20 +19,20 @@ const ChamMiles = () => {
 
   return (
     <main className="relative min-h-dvh w-full min-w-0 overflow-x-clip">
-      <img
+      <img loading="lazy" decoding="async"
         src={backgroundImage}
         alt=""
         className="absolute inset-0 size-full object-cover"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-page flex-col py-5 ps-3 pe-4 sm:ps-5 sm:pe-8 md:py-8 md:ps-6 md:pe-10 xl:ps-2 xl:pe-0">
+      <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-page flex-col py-5 ps-3 pe-4 sm:ps-5 sm:pe-8 md:py-2 md:ps-6 md:pe-10 xl:ps-2 xl:pe-0">
         <LocalizedLink
           href="/"
           className="inline-flex w-fit shrink-0"
           aria-label={t('chamMiles.logoAlt')}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={chamMilesLogo}
             alt={t('chamMiles.logoAlt')}
             className="w-auto object-contain"

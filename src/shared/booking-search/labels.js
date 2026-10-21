@@ -35,6 +35,7 @@ export const DEFAULT_LABELS = {
   doneLabel: 'Done',
   flight2Label: 'Flight 2',
   nearbyLabel: 'Include nearby airports',
+  currencyLabel: 'Currency',
   searchLabel: 'Search flights',
   searchingLabel: 'Searching…',
   loadingLabel: 'Loading…',
