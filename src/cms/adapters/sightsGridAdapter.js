@@ -2,8 +2,9 @@ import { pick, pickContent, resolveCmsAsset, resolveCmsHref } from './pick.js'
 
 /**
  * Map a CMS "sights-grid" block to <SightsGrid /> props — a filterable grid of
- * sight cards with category pills. Each item carries an assigned `category` id
- * that the pills filter on. Images come only from
+ * sight cards with category pills. Each item carries an assigned `category`
+ * slug that the pills filter on; the pills themselves come from the
+ * destination_categories table (SightsGrid loads them). Images come only from
  * the CMS; an empty image renders nothing.
  */
 export function sightsGridProps(block, lang) {
@@ -12,11 +13,6 @@ export function sightsGridProps(block, lang) {
 
   return {
     title: content.title || '',
-    categories: (Array.isArray(content.categories) ? content.categories : []).map((cat) => ({
-      id: cat?.id || '',
-      label: cat?.label || '',
-      icon: cat?.icon || 'none',
-    })),
     items: (Array.isArray(content.items) ? content.items : []).map((it) => ({
       id: it?.id || '',
       name: it?.name || '',

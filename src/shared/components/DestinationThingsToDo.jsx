@@ -123,11 +123,9 @@ const DestinationThingsToDo = ({
 }) => {
   const language = useCurrentLanguage()
   const shared = useDestinationCategories(language)
-  const badgeLabel = (item) => {
-    if (shared.status !== 'ready') return item.badge
-    const match = shared.categories.find((category) => category.id && category.id === item.badgeId)
-    return match?.label || item.badge
-  }
+  // A card's badge is its destination category's label (shared with Sights Grid).
+  const badgeLabel = (item) =>
+    shared.categories.find((category) => category.id && category.id === item.badgeId)?.label || ''
   const scrollerRef = useRef(null)
   const isCarousel = items.length > 3
   const [canScroll, setCanScroll] = useState({ prev: false, next: isCarousel })

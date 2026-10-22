@@ -14,6 +14,7 @@ import {
   Storefront,
 } from '@phosphor-icons/react'
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars } from '../../styles/cmsStyle.js'
+import { resolvePhosphorIcon } from '../../cms/adapters/phosphorIcons.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 import LocalizedLink from './LocalizedLink.jsx'
 
@@ -29,6 +30,13 @@ const CATEGORY_ICON = {
   camera: Camera,
   mountains: Mountains,
   storefront: Storefront,
+}
+
+// Curated keys first (seeded categories); any other name is a Phosphor icon
+// picked in the admin ("MapPin"). "none"/empty — the "All" pill — has no icon.
+const getCategoryIcon = (name) => {
+  if (!name || name === 'none') return null
+  return CATEGORY_ICON[name] || resolvePhosphorIcon(name)
 }
 
 const COLUMNS = {
@@ -103,13 +111,13 @@ const SightCard = ({ item, cardRadius, linkProps, categories }) => {
 }
 
 /**
- * Filterable sights grid with category pills. Defaults reproduce the static
- * city-sights grid; the CMS (via the section registry) overrides the title,
- * categories, items (each with an assigned `category`), colours and backlinks.
+ * Filterable sights grid with category pills. The pills are "All" + the
+ * destination categories from the CMS database; the CMS block (via the section
+ * registry) supplies the title, items (each with an assigned `category` slug),
+ * colours and backlinks.
  */
 const SightsGrid = ({
   title = '',
-  categories = [],
   items = [],
   columns = '4',
   cardGap = 'default',
@@ -128,10 +136,13 @@ const SightsGrid = ({
 }) => {
   const language = useCurrentLanguage()
   const shared = useDestinationCategories(language)
-  const sourceCategories =
-    shared.status === 'ready' && shared.categories.length
-      ? [{ id: 'all', label: language === 'ar' ? 'الكل' : 'All', icon: 'none' }, ...shared.categories]
-      : categories
+  // The table is shared with Things to Do, so only the categories this grid's
+  // sights use become pills.
+  const used = new Set(items.map((item) => item.category).filter(Boolean))
+  const pills = shared.categories.filter((category) => used.has(category.id))
+  const sourceCategories = pills.length
+    ? [{ id: 'all', label: language === 'ar' ? 'الكل' : 'All', icon: 'none' }, ...pills]
+    : []
   const allId = sourceCategories[0]?.id
   const [active, setActive] = useState(allId)
 
@@ -162,7 +173,7 @@ const SightsGrid = ({
         <div className="flex flex-nowrap items-center gap-2.5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:flex-wrap md:gap-4 md:overflow-visible">
           {sourceCategories.map((cat, index) => {
             const isActive = (active ?? allId) === cat.id
-            const Icon = CATEGORY_ICON[cat.icon]
+            const Icon = getCategoryIcon(cat.icon)
             return (
               <div
                 key={cat.id || index}
