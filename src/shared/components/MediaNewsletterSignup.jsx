@@ -17,19 +17,19 @@ export { MEDIA_NEWSLETTER_DEFAULT_PATTERN }
 
 /**
  * Media Center newsletter banner (Figma 41004:70191 — Stay Connected):
- * copy + form on the start side; cropped geometric ornament on the end.
+ * copy + Subscribe CTA on the start side; pattern on the end (desktop only).
  */
 const MediaNewsletterSignup = ({
   title = '',
   description = '',
-  label = '',
-  placeholder = '',
+  label: _label = '',
+  placeholder: _placeholder = '',
   cta = '',
   pattern: _pattern = '',
   sectionBg = '100',
-  cardBg = 'background',
-  inputBg = '100',
-  inputText = '700',
+  cardBg: _cardBg = 'background',
+  inputBg: _inputBg = '100',
+  inputText: _inputText = '700',
   buttonBg = 'secondary',
   buttonHoverBg,
   links = [],
@@ -42,12 +42,9 @@ const MediaNewsletterSignup = ({
   ...textStyle
 }) => {
   const { t } = useTranslation()
-  const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
   const [signedUp, setSignedUp] = useState(false)
-  const [formKey, setFormKey] = useState(0)
   const timer = useRef(null)
-  const emailInput = useRef(null)
 
   useEffect(
     () => () => {
@@ -64,16 +61,10 @@ const MediaNewsletterSignup = ({
     trackNewsletterAttempt({ formLocation: 'media_newsletter', formId: 'media-newsletter-signup' })
     setStatus('loading')
     timer.current = window.setTimeout(() => {
-      if (emailInput.current) {
-        emailInput.current.value = ''
-        emailInput.current.blur()
-      }
-      setEmail('')
       setSignedUp(true)
       setStatus('success')
       timer.current = window.setTimeout(() => {
         setStatus('idle')
-        setFormKey((key) => key + 1)
       }, 1000)
     }, 2000)
   }
@@ -107,7 +98,6 @@ const MediaNewsletterSignup = ({
     },
   )
 
-  // Pre-cropped Figma 41004:70200 ornament (flipped) — local asset, not CMS sheet URLs.
   const patternSrc = MEDIA_NEWSLETTER_DEFAULT_PATTERN
 
   return (
@@ -115,7 +105,6 @@ const MediaNewsletterSignup = ({
       className="relative w-full overflow-hidden"
       style={{ backgroundColor: colorVar(sectionBg) }}
     >
-      {/* Pattern — end edge, dense toward outer corner (Figma 41004:70200) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -end-0 -top-6 z-0 hidden h-[min(100%,23rem)] w-[min(21.5rem,40%)] opacity-60 lg:block lg:w-[min(22rem,36%)]"
@@ -150,23 +139,7 @@ const MediaNewsletterSignup = ({
             </p>
           ) : null}
 
-          <form onSubmit={submit} className="mt-1 flex w-full flex-col gap-4 sm:max-w-sm">
-            <input
-              ref={emailInput}
-              key={formKey}
-              type="email"
-              autoComplete="off"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              aria-label={label}
-              placeholder={placeholder}
-              className={`newsletter-email h-11 w-full rounded-lg border-0 px-4 placeholder:text-600 focus:outline-none focus:ring-0 ${typography.body}`}
-              style={{
-                backgroundColor: colorVar(cardBg || inputBg),
-                color: colorVar(inputText),
-                '--cms-input-text': colorVar(inputText),
-              }}
-            />
+          <form onSubmit={submit} className="mt-1 flex w-full flex-col gap-3">
             {successNote}
             {status === 'success' ? (
               <span className="inline-flex h-11 items-center" aria-hidden>

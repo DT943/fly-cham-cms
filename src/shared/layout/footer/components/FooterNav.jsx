@@ -82,7 +82,8 @@ const DesktopColumns = ({ columns, style }) => {
 
 const MobileAccordion = ({ columns, style }) => {
   const baseId = useId()
-  const [openId, setOpenId] = useState(null)
+  // All sections open by default; users can still collapse individually.
+  const [openIds, setOpenIds] = useState(() => new Set(columns.map((column) => column.id)))
   const titleStyle = roleStyle({
     color: style.mobileTitleColor,
     colorHover: style.mobileTitleColorHover,
@@ -90,13 +91,20 @@ const MobileAccordion = ({ columns, style }) => {
   })
 
   const toggle = (id) => {
-    setOpenId((current) => (current === id ? null : id))
+    setOpenIds((current) => {
+      const next = new Set(current)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
   }
 
+  // No bottom border: the footer's own divider follows the last section, and a
+  // second line under it read as a double divider.
   return (
-    <div className="flex flex-col divide-y divide-(--ftr-divider-15) border-y border-(--ftr-divider-15) md:hidden">
+    <div className="flex flex-col divide-y divide-(--ftr-divider-15) border-t border-(--ftr-divider-15) md:hidden">
       {columns.map((column) => {
-        const isOpen = openId === column.id
+        const isOpen = openIds.has(column.id)
         const panelId = `${baseId}-${column.id}-panel`
         const buttonId = `${baseId}-${column.id}-button`
 

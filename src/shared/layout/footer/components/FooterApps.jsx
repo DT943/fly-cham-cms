@@ -37,7 +37,7 @@ const FooterApps = ({ social, style }) => {
               <img
                 loading="lazy"
                 decoding="async"
-                src="/images/footer/app-store.png"
+                src="/images/footer/app-store.png?v=2"
                 alt={t('layout.footer.appStore')}
                 width={134}
                 height={38}
@@ -53,7 +53,7 @@ const FooterApps = ({ social, style }) => {
               <img
                 loading="lazy"
                 decoding="async"
-                src="/images/footer/google-play.png"
+                src="/images/footer/google-play.png?v=2"
                 alt={t('layout.footer.googlePlay')}
                 width={134}
                 height={38}

@@ -8,7 +8,7 @@ const copyPrefix = 'mediaCenter.newsletter'
 
 /**
  * Static media-center newsletter band — same layout as the CMS block
- * (Figma 41004:70191): copy + form on the start side, pattern on the end.
+ * (Figma 41004:70191): copy + Subscribe CTA, pattern on desktop only.
  */
 const MediaNewsletterSignup = () => {
   const { t } = useTranslation()
@@ -47,14 +47,8 @@ const MediaNewsletterSignup = () => {
                 formId: 'media-center-newsletter',
               })
             }}
-            className="mt-1 flex w-full flex-col gap-4 sm:max-w-sm"
+            className="mt-1"
           >
-            <input
-              type="email"
-              aria-label={t(`${copyPrefix}.label`)}
-              placeholder={t(`${copyPrefix}.placeholder`)}
-              className={`h-11 w-full rounded-lg border-0 bg-background px-4 text-700 placeholder:text-600 focus:outline-none focus:ring-0 ${typography.body}`}
-            />
             <button
               type="submit"
               className={`flex h-11 w-fit min-w-[8.375rem] cursor-pointer items-center justify-center rounded-lg border-0 bg-secondary px-6 font-semibold text-btn transition-colors hover:bg-secondary-800 ${typography.button}`}
