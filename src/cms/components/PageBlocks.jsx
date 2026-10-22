@@ -55,7 +55,7 @@ const withBreadcrumbsFirst = (blocks) => {
  * `gapClass`: the vertical spacing between blocks. Every page uses the
  * default — 32px, then 60px from the md breakpoint, same as the page builder
  * canvas; blocks add no outer padding of their own. Only single-block
- * full-screen pages override it (`gap-0`).
+ * full-screen pages override it (`gap-0`). Never applied under breadcrumbs.
  */
 const PageBlocks = ({
   blocks = [],
@@ -80,17 +80,38 @@ const PageBlocks = ({
   const bottomClass = trailFullBleed ? '' : 'pb-5 md:pb-10'
   const paddingClass = `${topClass} ${bottomClass}`.trim()
 
+  const renderBlock = (block) => {
+    const section = getSection(block.sectionId)
+    const rendered = <BlockRenderer key={block.uid} block={block} lang={lang} />
+    // Unregistered (renders null) or full-bleed → no Container wrapper.
+    if (!section || isFullBleed(section, block, lang)) return rendered
+    return <Container key={block.uid}>{rendered}</Container>
+  }
+
+  // Breadcrumbs sit directly on the block below them (no page gap between the
+  // two): the pair shares one flex child.
+  const items = []
+  for (let index = 0; index < sorted.length; index += 1) {
+    const block = sorted[index]
+    const next = sorted[index + 1]
+    if (block?.sectionId === 'breadcrumbs' && next) {
+      items.push(
+        <div key={block.uid} className="flex flex-col">
+          {renderBlock(block)}
+          {renderBlock(next)}
+        </div>,
+      )
+      index += 1
+    } else {
+      items.push(renderBlock(block))
+    }
+  }
+
   // Empty wrappers (a block that renders nothing yet, e.g. baggage results
   // before Calculate) are hidden so they don't add a second gap.
   return (
     <div className={`flex flex-col [&>*:empty]:hidden ${gapClass} ${paddingClass} ${className}`.trim()}>
-      {sorted.map((block) => {
-        const section = getSection(block.sectionId)
-        const rendered = <BlockRenderer key={block.uid} block={block} lang={lang} />
-        // Unregistered (renders null) or full-bleed → no Container wrapper.
-        if (!section || isFullBleed(section, block, lang)) return rendered
-        return <Container key={block.uid}>{rendered}</Container>
-      })}
+      {items}
     </div>
   )
 }

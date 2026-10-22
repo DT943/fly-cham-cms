@@ -11,17 +11,13 @@ import { typography } from '../../styles/typography.js'
 import Container from './Container.jsx'
 import LinkedText from './backlinks/LinkedText.jsx'
 import { MEDIA_NEWSLETTER_DEFAULT_PATTERN } from './mediaNewsletterSignupConstants.js'
-
-export { MEDIA_NEWSLETTER_DEFAULT_PATTERN }
 import { trackNewsletterAttempt } from '../analytics/cmsEvents.js'
 
+export { MEDIA_NEWSLETTER_DEFAULT_PATTERN }
+
 /**
- * Media Center newsletter capture.
- * - Small: white card, stacked title / description / input / Subscribe
- * - Large: side-by-side — copy left, inline email bar with Subscribe on the right
- * Presentational (does not submit). The side pattern comes from the CMS (or the
- * Figma default). No vertical padding or border: the page gap spaces it from
- * the block above, and the page's bottom padding from the footer.
+ * Media Center newsletter banner (Figma 41004:70191 — Stay Connected):
+ * copy + form on the start side; cropped geometric ornament on the end.
  */
 const MediaNewsletterSignup = ({
   title = '',
@@ -51,11 +47,14 @@ const MediaNewsletterSignup = ({
   const [signedUp, setSignedUp] = useState(false)
   const [formKey, setFormKey] = useState(0)
   const timer = useRef(null)
-  const emailInputs = useRef([])
+  const emailInput = useRef(null)
 
-  useEffect(() => () => {
-    if (timer.current) window.clearTimeout(timer.current)
-  }, [])
+  useEffect(
+    () => () => {
+      if (timer.current) window.clearTimeout(timer.current)
+    },
+    [],
+  )
 
   if (!title && !description) return null
 
@@ -65,10 +64,10 @@ const MediaNewsletterSignup = ({
     trackNewsletterAttempt({ formLocation: 'media_newsletter', formId: 'media-newsletter-signup' })
     setStatus('loading')
     timer.current = window.setTimeout(() => {
-      emailInputs.current.forEach((input) => {
-        input.value = ''
-        input.blur()
-      })
+      if (emailInput.current) {
+        emailInput.current.value = ''
+        emailInput.current.blur()
+      }
       setEmail('')
       setSignedUp(true)
       setStatus('success')
@@ -79,55 +78,12 @@ const MediaNewsletterSignup = ({
     }, 2000)
   }
 
-  // The check replaces the button on its own. The note follows once that check is gone.
-  const successNote = signedUp && status === 'idle' ? (
-    <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
-      {t('common.signedUp')}
-    </p>
-  ) : null
-
-  const emailField = (className, style) => (
-    <input
-      ref={(node) => {
-        if (node && !emailInputs.current.includes(node)) emailInputs.current.push(node)
-      }}
-      type="email"
-      autoComplete="off"
-      value={email}
-      onChange={(event) => setEmail(event.target.value)}
-      aria-label={label}
-      placeholder={placeholder}
-      className={`newsletter-email ${className}`}
-      style={{ ...style, '--cms-input-text': colorVar(inputText) }}
-    />
-  )
-
-  const subscribeControl = (className) => {
-    if (status === 'success') {
-      return (
-        <span className={`${className} bg-transparent`} aria-hidden>
-          <CheckCircle size={32} weight="fill" className="text-[#16803C]" />
-        </span>
-      )
-    }
-
-    return (
-      <button
-        key={formKey}
-        type="submit"
-        disabled={status === 'loading'}
-        aria-busy={status === 'loading'}
-        className={className}
-        style={buttonStyle.style}
-      >
-        {status === 'loading' ? (
-          <CircleNotch size={20} className="animate-spin" aria-hidden />
-        ) : (
-          cta
-        )}
-      </button>
-    )
-  }
+  const successNote =
+    signedUp && status === 'idle' ? (
+      <p className="m-0 text-sm font-medium text-[#16803C]" role="status">
+        {t('common.signedUp')}
+      </p>
+    ) : null
 
   const linkProps = {
     links,
@@ -151,63 +107,7 @@ const MediaNewsletterSignup = ({
     },
   )
 
-  const titleBlock = (
-    <div className="flex flex-col gap-3 lg:max-w-100 lg:shrink-0">
-      {title ? (
-        <h2
-          className={`m-0 ${typography.sectionTitle} ${CMS_TEXT_HOVER_CLASS}`}
-          style={getTextStyleVars(textStyle, 'titleColor', '800', 'semibold')}
-        >
-          <LinkedText text={title} {...linkProps} />
-        </h2>
-      ) : null}
-      {description ? (
-        <p
-          className={`m-0 leading-relaxed ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
-          style={getTextStyleVars(textStyle, 'descriptionColor', '700', 'normal')}
-        >
-          <LinkedText text={description} {...linkProps} />
-        </p>
-      ) : null}
-    </div>
-  )
-
-  const stackedForm = (
-    <form onSubmit={submit} className="flex w-full flex-col gap-3">
-      <div className="flex flex-col gap-2">
-        {emailField(
-          `h-12 w-full rounded-lg border-0 px-4 placeholder:text-600 focus:outline-none focus:ring-0 md:h-14 md:text-base ${typography.body}`,
-          { backgroundColor: colorVar(inputBg), color: colorVar(inputText) },
-        )}
-        {successNote}
-      </div>
-      {subscribeControl(
-        `flex h-12 w-full cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-14 md:w-auto md:self-start md:px-8 ${typography.button} ${buttonStyle.className}`,
-      )}
-    </form>
-  )
-
-  const inlineForm = (
-    <div className="flex w-full min-w-0 flex-1 flex-col gap-2 lg:max-w-148">
-      <form
-        onSubmit={submit}
-        className="flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-2 md:px-5 md:py-2"
-        style={{ backgroundColor: colorVar(cardBg) }}
-      >
-        {emailField(
-          `min-w-0 flex-1 border-0 bg-transparent p-0 placeholder:text-600 focus:outline-none focus:ring-0 md:text-base ${typography.body}`,
-          { color: colorVar(inputText) },
-        )}
-        {subscribeControl(
-          `flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait md:h-12 md:px-8 lg:min-w-35 ${typography.button} ${buttonStyle.className}`,
-        )}
-      </form>
-      {successNote}
-    </div>
-  )
-
-  // Pre-cropped Figma ornament (41004:70200). Always use the local asset so
-  // CMS sheet URLs are not re-cropped into a scribble.
+  // Pre-cropped Figma 41004:70200 ornament (flipped) — local asset, not CMS sheet URLs.
   const patternSrc = MEDIA_NEWSLETTER_DEFAULT_PATTERN
 
   return (
@@ -215,29 +115,79 @@ const MediaNewsletterSignup = ({
       className="relative w-full overflow-hidden"
       style={{ backgroundColor: colorVar(sectionBg) }}
     >
+      {/* Pattern — end edge, dense toward outer corner (Figma 41004:70200) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[min(11.5rem,36%)] items-stretch overflow-hidden opacity-60 lg:flex"
+        className="pointer-events-none absolute -end-0 -top-6 z-0 hidden h-[min(100%,23rem)] w-[min(21.5rem,40%)] opacity-60 lg:block lg:w-[min(22rem,36%)]"
       >
-        <img loading="lazy" decoding="async"
+        <img
+          loading="lazy"
+          decoding="async"
           src={patternSrc}
           alt=""
-          className="h-full w-full max-w-none object-contain object-left object-bottom"
+          width={680}
+          height={766}
+          className="h-full w-full max-w-none origin-center object-cover object-right object-top rotate-[0.4deg] skew-x-[4.5deg] rtl:-scale-x-100 rtl:object-left"
         />
       </div>
 
       <Container className="relative z-10 py-8 md:py-10 lg:py-[42px]">
-        <div
-          className="flex w-full flex-col gap-6 rounded-xl p-6  md:gap-8 md:p-8 lg:hidden"
-          style={{ backgroundColor: colorVar(cardBg) }}
-        >
-          {titleBlock}
-          {stackedForm}
-        </div>
+        <div className="relative z-10 flex w-full max-w-xl flex-col gap-3 md:max-w-[40rem] lg:max-w-[48rem]">
+          {title ? (
+            <h2
+              className={`m-0 ${typography.sectionTitle} ${CMS_TEXT_HOVER_CLASS}`}
+              style={getTextStyleVars(textStyle, 'titleColor', '800', 'semibold')}
+            >
+              <LinkedText text={title} {...linkProps} />
+            </h2>
+          ) : null}
+          {description ? (
+            <p
+              className={`m-0 leading-6 ${typography.sectionDescription} ${CMS_TEXT_HOVER_CLASS}`}
+              style={getTextStyleVars(textStyle, 'descriptionColor', '700', 'normal')}
+            >
+              <LinkedText text={description} {...linkProps} />
+            </p>
+          ) : null}
 
-        <div className="hidden lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-          {titleBlock}
-          {inlineForm}
+          <form onSubmit={submit} className="mt-1 flex w-full flex-col gap-4 sm:max-w-sm">
+            <input
+              ref={emailInput}
+              key={formKey}
+              type="email"
+              autoComplete="off"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              aria-label={label}
+              placeholder={placeholder}
+              className={`newsletter-email h-11 w-full rounded-lg border-0 px-4 placeholder:text-600 focus:outline-none focus:ring-0 ${typography.body}`}
+              style={{
+                backgroundColor: colorVar(cardBg || inputBg),
+                color: colorVar(inputText),
+                '--cms-input-text': colorVar(inputText),
+              }}
+            />
+            {successNote}
+            {status === 'success' ? (
+              <span className="inline-flex h-11 items-center" aria-hidden>
+                <CheckCircle size={32} weight="fill" className="text-[#16803C]" />
+              </span>
+            ) : (
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                aria-busy={status === 'loading'}
+                className={`flex h-11 w-fit min-w-[8.375rem] cursor-pointer items-center justify-center rounded-lg border-0 px-6 disabled:cursor-wait ${typography.button} ${buttonStyle.className}`}
+                style={buttonStyle.style}
+              >
+                {status === 'loading' ? (
+                  <CircleNotch size={20} className="animate-spin" aria-hidden />
+                ) : (
+                  cta
+                )}
+              </button>
+            )}
+          </form>
         </div>
       </Container>
     </section>

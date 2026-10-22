@@ -145,6 +145,20 @@ html {
 .cms-ftr-hover-color:hover {
   color: var(--cms-hc) !important;
 }
+/*
+ * Footer back-to-top (Figma 41944:18924): once the footer's end gutter fits it
+ * (footer ≥ 1440px → gutter ≥ 110px), it leaves the content track and sits
+ * 50px from the footer edge, centred on the apps row. `100%` is the apps row
+ * (content track), `100cqw` the footer (`@container`). Narrower: in flow.
+ */
+@container (min-width: 1440px) {
+  .cms-ftr-top {
+    position: absolute;
+    inset-block: 0;
+    margin-block: auto;
+    inset-inline-end: calc(50px - (100cqw - 100%) / 2);
+  }
+}
 /* Button Normal/Hover background (see getButtonStyle in styles/cmsStyle.js). */
 .cms-btn-hover {
   transition:

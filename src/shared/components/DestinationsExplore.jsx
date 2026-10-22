@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { typography } from '../../styles/typography.js'
 import {
@@ -20,6 +21,34 @@ const SECTION_PADDING_CLASS = {
 }
 
 const GRID_CLASS = 'lg:grid-cols-2 xl:grid-cols-3'
+
+// Cards per grid page when pagination is on — the source design's 3 × 4 grid.
+const DEFAULT_PAGE_SIZE = 12
+
+const resolvePageSize = (value) => {
+  const n = parseInt(value, 10)
+  return Number.isFinite(n) && n > 0 ? n : DEFAULT_PAGE_SIZE
+}
+
+// `ofLabel` is the word before the page count. Older blocks stored it with a
+// hard-coded count ("of 25"); the count is dropped so the real total shows.
+const ofWord = (label) => String(label || '').replace(/\s*\d+\s*$/, '').trim()
+
+/**
+ * Grid pagination. Off (or everything fits on one page) → all cards, one page.
+ * `page` is clamped so a shrinking card list or a bigger page size never
+ * leaves the grid on an empty page.
+ */
+const paginateCards = (cards, { enabled, pageSize, page }) => {
+  const list = Array.isArray(cards) ? cards : []
+  const paginate = Boolean(enabled) && list.length > pageSize
+  const totalPages = paginate ? Math.ceil(list.length / pageSize) : 1
+  const currentPage = Math.min(Math.max(Number(page) || 1, 1), totalPages)
+  const visible = paginate
+    ? list.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    : list
+  return { paginate, totalPages, currentPage, visible }
+}
 
 const linkStyle = (style) => ({
   linkColor: style.linkColor,
@@ -48,6 +77,7 @@ const DestinationsExplore = ({
   showSubtitle = true,
   showFeatured = true,
   showPagination = true,
+  pageSize = String(DEFAULT_PAGE_SIZE),
   showSectionBg = false,
   sectionBg = '100',
   sectionPadding = 'default',
@@ -69,8 +99,25 @@ const DestinationsExplore = ({
   featuredButtonTextFontWeightHover,
   ...rest
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const style = { showLinks, ...rest }
+  const [page, setPage] = useState(1)
+  const gridRef = useRef(null)
+  // The featured card is separate content; only the grid cards are paged.
+  const { paginate, totalPages, currentPage, visible } = paginateCards(cards, {
+    enabled: showPagination,
+    pageSize: resolvePageSize(pageSize),
+    page,
+  })
+  const ofText = `${ofWord(pagination.ofLabel) || (i18n.dir() === 'rtl' ? 'من' : 'of')} ${totalPages}`
+
+  const goToPage = (next) => {
+    setPage(next)
+    // Paging from the pager below the grid: bring the grid's top back into view.
+    if (gridRef.current?.getBoundingClientRect().top < 0) {
+      gridRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   // Card CTA (destination guide): the card hover reveals it. Its own fill stays put.
   const cardBtn = getButtonStyle(
@@ -147,7 +194,7 @@ const DestinationsExplore = ({
         </div>
       ) : null}
 
-      <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+      <div ref={gridRef} className="flex scroll-mt-24 flex-col lg:flex-row gap-4 items-stretch">
         {showFeatured && (
           <FeaturedDestination
             country={featured.country}
@@ -173,7 +220,7 @@ const DestinationsExplore = ({
             {t('destinations.explore.routes')}
           </h3>
           <div className={cx('grid grid-cols-1', GRID_CLASS, 'gap-4')}>
-          {cards.map((card, index) => (
+          {visible.map((card, index) => (
             <div
               key={card.id || index}
               className="animate-[fadeUp_0.4s_ease-out_both] motion-reduce:animate-none"
@@ -203,13 +250,14 @@ const DestinationsExplore = ({
         </div>
       </div>
 
-      {showPagination && (
+      {paginate && (
         <DestinationsPagination
-          currentPage={pagination.currentPage}
-          totalPages={pagination.totalPages}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={goToPage}
           previousLabel={pagination.previousLabel}
           nextLabel={pagination.nextLabel}
-          ofLabel={pagination.ofLabel}
+          ofText={ofText}
         />
       )}
     </section>

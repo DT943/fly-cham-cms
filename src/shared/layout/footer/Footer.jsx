@@ -8,11 +8,13 @@ import { colorVar, dividerAlpha } from './utils/footerStyle.js'
 
 /**
  * Site footer — Figma 41944:18826 (1920).
- * Brand → columns → divider (content track) → apps row (extends into right gutter)
- * → dark legal bar.
+ * Brand → columns → divider (content track) → apps row (back-to-top in the end
+ * gutter, see `.cms-ftr-top`) → dark legal bar.
  *
- * Background pattern: Figma word layer 41944:18827 — right -448 / top -199 /
- * 1530.8×1047.7 at 10% opacity on the 1920 frame.
+ * Background pattern: Figma word layer 41944:18827 — constrained Right/Top, so
+ * it keeps its 1530.8×1047.7 size and sits right -448 / top -199 at every width
+ * (10% opacity). Pinned to the physical right in RTL too: the wing shape is not
+ * mirrored, and inline-end would push its tip into the middle of the footer.
  */
 const Footer = () => {
   const footer = useSiteFooter()
@@ -20,7 +22,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative isolate shrink-0 overflow-hidden text-50"
+      className="@container relative isolate shrink-0 overflow-hidden text-50"
       style={{
         backgroundColor: colorVar(style.bg),
         '--ftr-divider-15': dividerAlpha(style.dividerColor, 15),
@@ -34,13 +36,11 @@ const Footer = () => {
           aria-hidden
           className="pointer-events-none absolute z-0 hidden opacity-10 sm:block"
           style={{
-            insetInlineEnd: '-23.333%',
-            top: '-22.562%',
-            width: '79.731%',
+            right: '-448px',
+            top: '-199px',
+            width: '1530.84px',
             maxWidth: 'none',
             height: 'auto',
-            objectFit: 'contain',
-            objectPosition: 'right top',
           }}
         />
       ) : null}
@@ -51,15 +51,15 @@ const Footer = () => {
           <FooterNav columns={footer.columns} style={style} />
         </div>
 
-        {/* Figma: ~73px below tallest column stack, 1217px content track */}
+        {/* Figma: 48px below the tallest column stack, full content track */}
         <div
-          className="mt-10 h-px w-full sm:mt-12 md:mt-14 lg:mt-16 xl:mt-[72px]"
+          className="mt-10 h-px w-full sm:mt-12"
           style={{ backgroundColor: 'var(--ftr-divider-20)' }}
           aria-hidden
         />
 
-        {/* Figma: 51px below divider; row extends into the page gutter (~50px from viewport edge) */}
-        <div className="relative mt-8 w-full pb-8 sm:mt-10 sm:pb-10 md:mt-11 md:pb-10 lg:pb-11 xl:mt-[51px] xl:me-[calc(-1*min(18.8rem,max(0px,(100vw-var(--max-width-page))/2-3.125rem)))] xl:pb-12">
+        {/* Figma 41944:18895: 51px below the divider, 46px above the legal bar */}
+        <div className="mt-8 w-full pb-8 sm:mt-10 sm:pb-10 md:mt-11 lg:pb-11 xl:mt-[51px] xl:pb-[46px]">
           <FooterApps social={footer.social} style={style} />
         </div>
       </Container>

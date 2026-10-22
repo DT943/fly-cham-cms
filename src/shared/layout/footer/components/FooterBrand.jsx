@@ -23,7 +23,7 @@ const FooterBrand = ({ brand, style }) => (
     </LocalizedLink>
     {brand.followText ? (
       <p
-        className="m-0 whitespace-nowrap text-[16px] font-medium leading-normal sm:text-[17px] lg:text-[18px]"
+        className="m-0 text-[16px] font-medium leading-[normal] sm:text-[17px] lg:text-[18px]"
         style={{ color: colorVar(style.followTextColor || '50') }}
       >
         {brand.followText}

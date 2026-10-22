@@ -83,6 +83,7 @@ const STYLE_KEYS = [
   'showSubtitle',
   'showFeatured',
   'showPagination',
+  'pageSize',
   'showSectionBg',
   'sectionBg',
   'sectionPadding',

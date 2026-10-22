@@ -6,9 +6,9 @@ import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
 import FooterItemIcon from './FooterItemIcon.jsx'
 import FooterLinkList from './FooterLinkList.jsx'
 
-/** Figma: gold titles are plain text (not links), 18px semibold. */
+/** Figma: gold titles are plain text (not links), 18px semibold, line-height normal. */
 const titleClass =
-  'm-0 text-[14px] font-semibold leading-normal sm:text-[15px] md:text-[16px] lg:text-[18px]'
+  'm-0 text-[14px] font-semibold leading-[normal] sm:text-[15px] md:text-[16px] lg:whitespace-nowrap lg:text-[18px]'
 
 const mobileTitleClass = `m-0 min-w-0 flex-1 text-[14px] font-semibold no-underline transition-colors sm:text-[15px] ${FTR_HOVER}`
 
@@ -16,8 +16,19 @@ const withIcon = (icon) => (icon ? ' inline-flex items-center gap-1.5' : '')
 
 const DESKTOP_GROUPS = [1, 2, 3, 4]
 
-const ColumnSection = ({ column, style, titleStyle }) => (
-  <div className="flex min-w-0 flex-col gap-4">
+/**
+ * Figma column starts on the 1220 content track: 0 / 323 / 632 / 1034. Tracks
+ * keep those proportions at every width and only grow past them when a label
+ * needs the room (min `auto` = widest nowrap label).
+ */
+const DESKTOP_GRID = {
+  gridTemplateColumns: [323, 309, 402, 186]
+    .map((share) => `minmax(auto, ${share}fr)`)
+    .join(' '),
+}
+
+const ColumnSection = ({ column, style, titleStyle, className = '', gridStyle }) => (
+  <div className={`flex flex-col gap-4 ${className}`} style={gridStyle}>
     <h2 className={`${titleClass}${withIcon(column.icon)}`} style={titleStyle}>
       <FooterItemIcon name={column.icon} />
       {column.title}
@@ -27,9 +38,9 @@ const ColumnSection = ({ column, style, titleStyle }) => (
 )
 
 /**
- * Figma columns: 4 groups spread across the content track (starts ~0 / 323 / 632 / 1034
- * on a 1219 track) — space-between, not equal-width grid. Stacked sections in a
- * group share ~28–32px vertical gap.
+ * Figma: sections sit in rows across the 4 groups — every group's 2nd section
+ * starts on the same line, 28px below the tallest 1st section — so each section
+ * is placed on grid row = its index in the group, column = its group.
  */
 const DesktopColumns = ({ columns, style }) => {
   const titleStyle = {
@@ -46,26 +57,24 @@ const DesktopColumns = ({ columns, style }) => {
         ))}
       </div>
 
-      <div className="hidden min-w-0 w-full lg:flex lg:flex-row lg:items-start lg:justify-between lg:gap-x-8 xl:gap-x-10">
-        {DESKTOP_GROUPS.map((group) => {
-          const groupColumns = columns.filter((column) => column.group === group)
-          if (groupColumns.length === 0) return null
-          return (
-            <div
-              key={group}
-              className="flex w-max max-w-[15rem] shrink-0 flex-col gap-7 xl:gap-8"
-            >
-              {groupColumns.map((column) => (
-                <ColumnSection
-                  key={column.id}
-                  column={column}
-                  style={style}
-                  titleStyle={titleStyle}
-                />
-              ))}
-            </div>
-          )
-        })}
+      <div
+        className="hidden min-w-0 w-full lg:grid lg:items-start lg:gap-y-7"
+        style={DESKTOP_GRID}
+      >
+        {DESKTOP_GROUPS.flatMap((group) =>
+          columns
+            .filter((column) => column.group === group)
+            .map((column, index) => (
+              <ColumnSection
+                key={column.id}
+                column={column}
+                style={style}
+                titleStyle={titleStyle}
+                className="pe-4"
+                gridStyle={{ gridColumn: group, gridRow: index + 1 }}
+              />
+            ))
+        )}
       </div>
     </>
   )

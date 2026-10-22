@@ -159,12 +159,13 @@ const OfficeCard = ({ office, isSelected, onSelect, openMapLabel, style, linkPro
   const linkTextColor = colorVar(style.linkTextColor)
   const arrowColor = colorVar(style.arrowColor)
   const hours = Array.isArray(office.hours) ? office.hours : []
+  const mapsHref = toMapsHref(office.lat, office.lng)
   return (
     <article
       role="button"
       tabIndex={0}
       aria-pressed={isSelected}
-      className={cx('rounded-lg p-5 flex flex-col gap-4 cursor-pointer border', !isSelected && '')}
+      className={cx('group rounded-lg p-5 flex flex-col gap-4 cursor-pointer border')}
       style={{ backgroundColor: colorVar(style.cardBg), borderColor: isSelected ? colorVar(style.selectedBorderColor) : 'transparent' }}
       onClick={() => onSelect()}
       onKeyDown={(event) => {
@@ -178,20 +179,25 @@ const OfficeCard = ({ office, isSelected, onSelect, openMapLabel, style, linkPro
           </h3>
           {office.city && <p className={cx(typography.caption, 'm-0')} style={{ color: colorVar(style.cityColor) }}>{office.city}</p>}
         </div>
-        {isSelected && toMapsHref(office.lat, office.lng) && (
+        {mapsHref ? (
           <a
-            href={toMapsHref(office.lat, office.lng)}
+            href={mapsHref}
             target="_blank"
             rel="noreferrer"
             onClick={(event) => event.stopPropagation()}
             aria-label={openMapLabel || 'Open in maps'}
-            className="w-8 h-8 shrink-0 no-underline grid place-items-center"
+            className={cx(
+              'w-8 h-8 shrink-0 no-underline grid place-items-center transition-opacity',
+              isSelected
+                ? 'opacity-100'
+                : 'opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto',
+            )}
           >
             <span className="w-6 h-6 border rotate-45 grid place-items-center" style={{ borderColor: arrowColor }}>
               <ArrowRight size={14} weight="bold" className="-rotate-45 rtl:-scale-x-100" style={{ color: arrowColor }} />
             </span>
           </a>
-        )}
+        ) : null}
       </div>
       <div className="flex flex-col gap-2">
         {office.address && (

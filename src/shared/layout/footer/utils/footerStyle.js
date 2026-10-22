@@ -31,10 +31,13 @@ export const colorAlpha = (token, opacity) =>
 export const dividerAlpha = (token, opacity) =>
   colorAlpha(!token || token === '50' ? 'white' : token, opacity)
 
-/** Social icon button: icon and border in the same colour (flychamwebsite footer). */
+/**
+ * Social icon button: icon and border (`border-current`) in one colour, like
+ * the flychamwebsite footer; hover colour via `--cms-hc` (FTR_HOVER_COLOR).
+ */
 export const socialStyle = (style) => ({
-  color: colorVar(style.socialColor),
-  borderColor: colorVar(style.socialColor),
+  color: colorVar(style.socialColor || 'gold'),
+  '--cms-hc': colorVar(style.socialColorHover || style.socialColor || 'gold'),
 })
 
 /** Legal bar text — Figma uses solid #f5f5f4 / white (full opacity). */
