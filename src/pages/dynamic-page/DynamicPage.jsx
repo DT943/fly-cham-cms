@@ -8,6 +8,7 @@ import useCurrentLanguage from '../../shared/hooks/useCurrentLanguage.js'
 import { stripLanguage } from '../../i18n/languages.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
+import { getSection } from '../../cms/sectionRegistry.js'
 import NotFound from '../not-found/NotFound.jsx'
 import { cmsSlugFromPath } from './cmsPagePath.js'
 import { withDestinationBreadcrumbs } from './destinationBreadcrumbs.js'
@@ -66,6 +67,18 @@ const DynamicPageContent = ({
   )
   const notFound = !slug || error?.response?.status === 404
 
+  // A trailing full-bleed band (e.g. legal-more-info) paints its own
+  // background, so the page's bottom padding would leave an empty strip
+  // between the band and the footer — drop it so the band sits flush.
+  const lastBlock = blocks[blocks.length - 1]
+  const lastSection = lastBlock ? getSection(lastBlock.sectionId) : null
+  const trailBand = Boolean(
+    lastSection?.fullBleed === true && !lastSection.keepBottomPadding,
+  )
+  const mainClassName = trailBand
+    ? className.replace(/\b(?:md:)?pb-\d+\b/g, '').trim()
+    : className
+
   useEffect(() => {
     if (isLoading || !page || notFound) return
     const destination = destinationAnalyticsFromPath(pagePath)
@@ -93,7 +106,7 @@ const DynamicPageContent = ({
       lang={language || 'en'}
       dir={isArabic ? 'rtl' : 'ltr'}
       className={
-        isLoading ? 'flex min-h-dvh w-full flex-1 flex-col bg-100' : className
+        isLoading ? 'flex min-h-dvh w-full flex-1 flex-col bg-100' : mainClassName
       }
     >
       {isLoading && <PageSkeleton />}
@@ -108,7 +121,7 @@ const DynamicPageContent = ({
         <PageBlocks
           blocks={blocks}
           lang={language}
-          flushBottom={flushBottom}
+          flushBottom={flushBottom || trailBand}
           {...(gapClass ? { gapClass } : {})}
           {...(blocksClassName ? { className: blocksClassName } : {})}
         />
