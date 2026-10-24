@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER_COLOR, footerHref, legalStyle } from '../utils/footerStyle.js'
 import { colorVar } from '../../../../styles/cmsStyle.js'
@@ -18,6 +19,8 @@ const LegalLinks = ({ links, className, textStyle }) => (
 )
 
 const FooterLegal = ({ legal, style }) => {
+  const { i18n } = useTranslation()
+  const isArabic = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar')
   const textStyle = legalStyle(style)
   const copyright = legal.copyright ? (
     <p
@@ -30,7 +33,8 @@ const FooterLegal = ({ legal, style }) => {
 
   return (
     <div
-      className="relative z-10 w-full"
+      dir={isArabic ? 'rtl' : 'ltr'}
+      className="relative z-10 w-full text-start"
       style={{ backgroundColor: colorVar(style.legalBg || 'secondary-2') }}
     >
       <div className="mx-auto flex w-full max-w-page flex-col gap-4 px-4 py-5 sm:px-6 sm:py-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8 md:py-6 lg:px-10 lg:py-6 xl:px-0 xl:py-6">
@@ -43,7 +47,7 @@ const FooterLegal = ({ legal, style }) => {
           {copyright}
         </div>
 
-        <div className="hidden w-full xl:flex xl:flex-row xl:items-center xl:justify-between xl:gap-6">
+        <div className={`hidden w-full xl:flex xl:items-center xl:justify-between xl:gap-6 ${isArabic ? 'xl:flex-row-reverse' : 'xl:flex-row'}`}>
           {copyright}
           <LegalLinks
             links={legal.links}
