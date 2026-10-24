@@ -74,7 +74,7 @@ const DesktopColumns = ({ columns, style }) => {
 
 const MobileAccordion = ({ columns, style }) => {
   const baseId = useId()
-  const [openId, setOpenId] = useState(null)
+  const [closedIds, setClosedIds] = useState(() => new Set())
   const titleStyle = roleStyle({
     color: style.mobileTitleColor,
     colorHover: style.mobileTitleColorHover,
@@ -82,13 +82,18 @@ const MobileAccordion = ({ columns, style }) => {
   })
 
   const toggle = (id) => {
-    setOpenId((current) => (current === id ? null : id))
+    setClosedIds((current) => {
+      const next = new Set(current)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
   }
 
   return (
     <div className="flex flex-col divide-y divide-(--ftr-divider-15) border-y border-(--ftr-divider-15) md:hidden">
       {columns.map((column) => {
-        const isOpen = openId === column.id
+        const isOpen = !closedIds.has(column.id)
         const panelId = `${baseId}-${column.id}-panel`
         const buttonId = `${baseId}-${column.id}-button`
 
