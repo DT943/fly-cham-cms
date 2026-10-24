@@ -41,7 +41,7 @@ const FooterApps = ({ social, style }) => {
                 alt={t('layout.footer.appStore')}
                 width={120}
                 height={40}
-                className="block h-auto w-full"
+                className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
               />
             </a>
             <a
@@ -55,7 +55,7 @@ const FooterApps = ({ social, style }) => {
                 alt={t('layout.footer.googlePlay')}
                 width={135}
                 height={40}
-                className="block h-auto w-full"
+                className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
               />
             </a>
             <img
@@ -65,7 +65,7 @@ const FooterApps = ({ social, style }) => {
               alt={badgeLanguage === 'ar' ? 'هواوي AppGallery' : 'Huawei AppGallery'}
               width={134}
               height={40}
-              className="block h-auto w-full"
+              className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
             />
           </div>
         </div>
