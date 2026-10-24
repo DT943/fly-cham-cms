@@ -21,40 +21,52 @@ const FooterApps = ({ social, style }) => {
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
       <div className="flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-10 md:gap-y-5 lg:flex-nowrap xl:gap-x-[min(19.7rem,12vw)]">
-        {/* Download label + store badges stay on one horizontal row (Figma) */}
-        <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 md:gap-7 lg:gap-9">
+        {/* Keep the three store images together, scaling down as one row on narrow screens. */}
+        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 md:gap-7 lg:gap-9">
           <p className="m-0 shrink-0 text-[14px] font-medium leading-normal text-50 sm:text-[15px] md:text-[16px]">
             {t('layout.footer.downloadApp')}
           </p>
-          <div className="flex shrink-0 flex-nowrap items-center gap-3 sm:gap-4">
+          <div
+            className="grid w-[319px] max-w-full shrink-0 items-center gap-3"
+            style={{ gridTemplateColumns: 'minmax(0, 119.66407fr) minmax(0, 134.87371fr) minmax(0, 40fr)' }}
+          >
             <a
               href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex min-w-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img loading="lazy" decoding="async"
                 src="/images/footer/app-store-en.svg"
                 alt={t('layout.footer.appStore')}
                 width={120}
                 height={40}
-                className="block h-10 w-auto"
+                className="block h-auto w-full"
               />
             </a>
             <a
               href={PLAY_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex min-w-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img loading="lazy" decoding="async"
                 src={`/images/footer/google-play-${badgeLanguage}.svg`}
                 alt={t('layout.footer.googlePlay')}
                 width={135}
                 height={40}
-                className="block h-10 w-auto"
+                className="block h-auto w-full"
               />
             </a>
+            <img
+              loading="lazy"
+              decoding="async"
+              src="/images/footer/huawei-appgallery.svg"
+              alt={badgeLanguage === 'ar' ? 'هواوي AppGallery' : 'Huawei AppGallery'}
+              width={40}
+              height={40}
+              className="block h-auto w-full"
+            />
           </div>
         </div>
 
