@@ -11,7 +11,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.flycha
  * [Download + badges side-by-side] …… [social] …… [back-to-top]
  */
 const FooterApps = ({ social, style }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const badgeLanguage = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar') ? 'ar' : 'en'
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -30,28 +31,28 @@ const FooterApps = ({ social, style }) => {
               href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img loading="lazy" decoding="async"
-                src="/images/footer/app-store.png"
+                src="/images/footer/app-store-en.svg"
                 alt={t('layout.footer.appStore')}
-                width={134}
-                height={38}
-                className="block h-[38px] w-[134px] object-contain"
+                width={120}
+                height={40}
+                className="block h-10 w-auto"
               />
             </a>
             <a
               href={PLAY_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img loading="lazy" decoding="async"
-                src="/images/footer/google-play.png"
+                src={`/images/footer/google-play-${badgeLanguage}.svg`}
                 alt={t('layout.footer.googlePlay')}
-                width={134}
-                height={38}
-                className="block h-[38px] w-[134px] object-contain"
+                width={135}
+                height={40}
+                className="block h-10 w-auto"
               />
             </a>
           </div>
