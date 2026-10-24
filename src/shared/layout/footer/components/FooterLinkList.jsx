@@ -3,8 +3,8 @@ import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER, footerHref, roleStyle } from '../utils/footerStyle.js'
 import FooterItemIcon from './FooterItemIcon.jsx'
 
-/** Figma: 16px regular white links, 16px vertical gap, nowrap on desktop. */
-const linkClass = `inline-flex items-center gap-1 text-[13px] leading-normal no-underline transition-colors sm:text-[14px] md:text-[15px] lg:whitespace-nowrap lg:text-[16px] ${FTR_HOVER}`
+/** Figma: 16px regular white links, 16px vertical gap; long labels wrap within their column. */
+const linkClass = `inline-flex max-w-full items-center gap-1 text-[13px] leading-normal no-underline transition-colors sm:text-[14px] md:text-[15px] whitespace-normal break-words lg:text-[16px] ${FTR_HOVER}`
 
 const FooterLinkList = ({ links, style }) => {
   const normal = roleStyle({
