@@ -26,15 +26,19 @@ const ColumnSection = ({ column, style, titleStyle }) => (
   </div>
 )
 
-/**
- * Figma columns: 4 groups spread across the content track (starts ~0 / 323 / 632 / 1034
- * on a 1219 track) — space-between, not equal-width grid. Stacked sections in a
- * group share ~28–32px vertical gap.
- */
+/** Align grouped sections into shared rows so shorter columns cannot pull the
+ * second row upward. Keep CMS group placement and inherited RTL direction. */
 const DesktopColumns = ({ columns, style }) => {
   const titleStyle = {
     color: colorVar(style.columnTitleColor || 'primary-3'),
   }
+
+  const groups = DESKTOP_GROUPS.map((group) =>
+    columns.filter((column) => column.group === group),
+  )
+  const rows = Array.from({ length: Math.max(0, ...groups.map((group) => group.length)) },
+    (_, index) => groups.map((group) => group[index]),
+  )
 
   return (
     <>
@@ -46,26 +50,23 @@ const DesktopColumns = ({ columns, style }) => {
         ))}
       </div>
 
-      <div className="hidden min-w-0 w-full lg:flex lg:flex-row lg:items-start lg:justify-between lg:gap-x-8 xl:gap-x-10">
-        {DESKTOP_GROUPS.map((group) => {
-          const groupColumns = columns.filter((column) => column.group === group)
-          if (groupColumns.length === 0) return null
-          return (
-            <div
-              key={group}
-              className="flex w-max max-w-[15rem] shrink-0 flex-col gap-7 xl:gap-8"
-            >
-              {groupColumns.map((column) => (
-                <ColumnSection
-                  key={column.id}
-                  column={column}
-                  style={style}
-                  titleStyle={titleStyle}
-                />
-              ))}
-            </div>
-          )
-        })}
+      <div className="hidden min-w-0 w-full lg:block">
+        {rows.map((row, index) => (
+          <div
+            key={index}
+            className={`grid min-w-0 grid-cols-4 gap-x-8 xl:gap-x-10 ${
+              index > 0 ? 'mt-8 border-t border-(--ftr-divider-20) pt-8' : ''
+            }`}
+          >
+            {row.map((column, groupIndex) => (
+              <div key={column?.id || `empty-${groupIndex}`} className="min-w-0">
+                {column ? (
+                  <ColumnSection column={column} style={style} titleStyle={titleStyle} />
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </>
   )
