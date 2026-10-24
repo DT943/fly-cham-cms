@@ -10,7 +10,7 @@ const BRAND_ICONS = {
 }
 
 const FooterSocial = ({ social, style }) => (
-  <div className="flex w-full min-w-0 flex-wrap items-center gap-3">
+  <div className="flex w-full min-w-0 flex-wrap items-center gap-2">
     {social.map((item) => {
       const Icon = BRAND_ICONS[item.icon] || socialIcon(item.icon)
       const url = footerHref(item.href)
@@ -20,10 +20,10 @@ const FooterSocial = ({ social, style }) => (
           href={url}
           aria-label={item.label || undefined}
           {...(/^https?:\/\//.test(url) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          className={`${item.showOnMobile ? 'flex' : 'hidden md:flex'} size-[60px] shrink-0 items-center justify-center rounded-full border no-underline transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
+          className={`${item.showOnMobile ? 'flex' : 'hidden md:flex'} size-[39px] shrink-0 items-center justify-center rounded-full border no-underline transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
           style={socialStyle(style)}
         >
-          <Icon size={28} className="block shrink-0" aria-hidden />
+          <Icon size={18} className="block shrink-0" aria-hidden />
         </LocalizedLink>
       )
     })}

@@ -14,9 +14,9 @@ const FooterApps = ({ social, style }) => {
 
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
-      <div className="flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-10 md:gap-y-5 lg:flex-wrap xl:gap-x-8">
+      <div dir="ltr" className="flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-10 md:gap-y-5 lg:flex-nowrap xl:gap-x-8">
         {/* Keep the three store images together, scaling down as one row on narrow screens. */}
-        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 md:gap-7 lg:gap-9">
+        <div dir={badgeLanguage === 'ar' ? 'rtl' : 'ltr'} className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 md:gap-7 lg:gap-9">
           <p className="m-0 shrink-0 text-[14px] font-medium leading-normal text-50 sm:text-[15px] md:text-[16px]">
             {t('layout.footer.downloadApp')}
           </p>
@@ -65,14 +65,12 @@ const FooterApps = ({ social, style }) => {
         </div>
 
         {social.length > 0 ? (
-          <div className="min-w-0 max-w-full">
+          <div dir={badgeLanguage === 'ar' ? 'rtl' : 'ltr'} className="min-w-0 max-w-full lg:shrink-0">
             <FooterSocial social={social} style={style} />
           </div>
         ) : null}
       </div>
 
-      {/* Preserve the approved row spacing without a visible or focusable control. */}
-      <div aria-hidden="true" className="ms-auto size-11 shrink-0 sm:size-[44px] md:ms-0" />
     </div>
   )
 }
