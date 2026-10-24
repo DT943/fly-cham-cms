@@ -197,6 +197,32 @@ const normalizeDocument = (doc, lang) => {
     }))
     .filter((menu) => menu.tabs.length > 0)
 
+
+  // Temporary published-site migration while CMS write access is unavailable.
+  // Only replace the original destination targets; later CMS selections win.
+  const destinations = menus.find((menu) => menu.id === 'whereWeFly')
+    ?.tabs.find((tab) => tab.id === 'ourDestinations')
+  if (destinations) {
+    const replacements = {
+      '/our-destinations/flights-to-dammam': {
+        id: 'jeddah', name: lang === 'ar' ? 'جدة' : 'Jeddah', code: 'JED',
+        href: '/our-destinations/flights-to-jeddah',
+        imageUrl: 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/destination-images/jeddah/jeddah-illuminated-waterfront-skyline.webp',
+      },
+      '/our-destinations/flights-to-damascus': {
+        id: 'medina', name: lang === 'ar' ? 'المدينة المنورة' : 'Medina', code: 'MED',
+        href: '/our-destinations/flights-to-medina',
+        imageUrl: 'https://xbqrfakpcisqunyugrqt.supabase.co/storage/v1/object/public/destination-images/medina/medina-prophets-mosque-green-dome.webp',
+      },
+    }
+    destinations.cards = destinations.cards.map((card) => {
+      const replacement = replacements[card.href]
+      return replacement
+        ? { ...card, ...replacement, location: '', tag: lang === 'ar' ? 'جديد' : 'New' }
+        : card
+    })
+  }
+
   const style = { ...base.style }
   if (isObj(doc.style)) {
     for (const [key, value] of Object.entries(doc.style)) {
