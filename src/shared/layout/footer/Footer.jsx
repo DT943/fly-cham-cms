@@ -53,13 +53,13 @@ const Footer = () => {
 
         {/* Figma: ~73px below tallest column stack, 1217px content track */}
         <div
-          className="mt-10 h-px w-full sm:mt-12 md:mt-14 lg:mt-16 xl:mt-[72px]"
+          className="hidden h-px w-full md:mt-14 md:block lg:mt-16 xl:mt-[72px]"
           style={{ backgroundColor: 'var(--ftr-divider-20)' }}
           aria-hidden
         />
 
         {/* Figma: 51px below divider; row extends into the page gutter (~50px from viewport edge) */}
-        <div className="relative mt-8 w-full pb-8 sm:mt-10 sm:pb-10 md:mt-11 md:pb-10 lg:pb-11 xl:mt-[51px] xl:me-[calc(-1*min(18.8rem,max(0px,(100vw-var(--max-width-page))/2-3.125rem)))] xl:pb-12">
+        <div className="relative mt-6 w-full pb-8 sm:pb-10 md:mt-11 md:pb-10 lg:pb-11 xl:mt-[51px] xl:me-[calc(-1*min(18.8rem,max(0px,(100vw-var(--max-width-page))/2-3.125rem)))] xl:pb-12">
           <FooterApps social={footer.social} style={style} />
         </div>
       </Container>
