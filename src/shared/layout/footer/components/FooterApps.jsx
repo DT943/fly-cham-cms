@@ -27,8 +27,8 @@ const FooterApps = ({ social, style }) => {
             {t('layout.footer.downloadApp')}
           </p>
           <div
-            className="grid w-[319px] max-w-full shrink-0 items-center gap-3"
-            style={{ gridTemplateColumns: 'minmax(0, 119.66407fr) minmax(0, 134.87371fr) minmax(0, 40fr)' }}
+            className="grid w-[413px] min-w-0 max-w-full items-center gap-3"
+            style={{ gridTemplateColumns: 'minmax(0, 119.66407fr) minmax(0, 134.87371fr) minmax(0, 134.28571fr)' }}
           >
             <a
               href={APP_STORE_URL}
@@ -61,9 +61,9 @@ const FooterApps = ({ social, style }) => {
             <img
               loading="lazy"
               decoding="async"
-              src="/images/footer/huawei-appgallery.svg"
+              src="/images/footer/huawei-appgallery-badge.svg"
               alt={badgeLanguage === 'ar' ? 'هواوي AppGallery' : 'Huawei AppGallery'}
-              width={40}
+              width={134}
               height={40}
               className="block h-auto w-full"
             />
