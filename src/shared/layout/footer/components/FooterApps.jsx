@@ -8,13 +8,13 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.flycha
  * Figma 41944:18895 apps row:
  * [Download + badges side-by-side] …… [social]
  */
-const FooterApps = ({ social }) => {
+const FooterApps = ({ social, style }) => {
   const { t, i18n } = useTranslation()
   const badgeLanguage = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar') ? 'ar' : 'en'
 
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
-      <div className="flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-10 md:gap-y-5 lg:flex-nowrap xl:gap-x-8">
+      <div className="flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-10 md:gap-y-5 lg:flex-wrap xl:gap-x-8">
         {/* Keep the three store images together, scaling down as one row on narrow screens. */}
         <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 md:gap-7 lg:gap-9">
           <p className="m-0 shrink-0 text-[14px] font-medium leading-normal text-50 sm:text-[15px] md:text-[16px]">
@@ -65,8 +65,8 @@ const FooterApps = ({ social }) => {
         </div>
 
         {social.length > 0 ? (
-          <div className="min-w-0 shrink-0">
-            <FooterSocial social={social} />
+          <div className="min-w-0 max-w-full">
+            <FooterSocial social={social} style={style} />
           </div>
         ) : null}
       </div>
