@@ -1,6 +1,4 @@
-import { ArrowUp } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import { colorVar } from '../../../../styles/cmsStyle.js'
 import FooterSocial from './FooterSocial.jsx'
 
 const APP_STORE_URL = 'https://apps.apple.com/app/flycham'
@@ -8,15 +6,11 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.flycha
 
 /**
  * Figma 41944:18895 apps row:
- * [Download + badges side-by-side] …… [social] …… [back-to-top]
+ * [Download + badges side-by-side] …… [social]
  */
-const FooterApps = ({ social, style }) => {
+const FooterApps = ({ social }) => {
   const { t, i18n } = useTranslation()
   const badgeLanguage = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar') ? 'ar' : 'en'
-
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
 
   return (
     <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-center md:justify-between md:gap-8">
@@ -77,15 +71,8 @@ const FooterApps = ({ social, style }) => {
         ) : null}
       </div>
 
-      <button
-        type="button"
-        onClick={scrollTop}
-        aria-label={t('layout.footer.backToTop')}
-        className="ms-auto flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 text-secondary-2 transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50 sm:size-[44px] md:ms-0"
-        style={{ backgroundColor: colorVar(style?.backToTopBg || 'primary-3') }}
-      >
-        <ArrowUp size={20} weight="bold" aria-hidden />
-      </button>
+      {/* Preserve the approved row spacing without a visible or focusable control. */}
+      <div aria-hidden="true" className="ms-auto size-11 shrink-0 sm:size-[44px] md:ms-0" />
     </div>
   )
 }
