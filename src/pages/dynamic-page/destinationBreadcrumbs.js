@@ -99,6 +99,27 @@ export function mediaCenterBreadcrumbItems(path, t) {
   return crumbs
 }
 
+const LEGAL_PATH = /^\/legal\/([^/]+)$/
+
+/**
+ * Home / Legal Information / {page hero title}
+ * Legal document pages created in the admin carry no breadcrumbs block of
+ * their own, so the trail is built from the page's hero title.
+ */
+export function legalBreadcrumbItems(path, t, blocks, language) {
+  const match = String(path || '').match(LEGAL_PATH)
+  if (!match) return null
+
+  const hero = (blocks || []).find((block) => block.sectionId === 'page-media-hero')
+  const title = hero ? pickContent(hero.content, language).title : ''
+
+  return [
+    { label: t('common.home'), href: '/' },
+    { label: t('legal.hub.breadcrumb'), href: '/legal' },
+    { label: title || titleFromSlug(match[1]) },
+  ]
+}
+
 function blockHasCrumbs(block, language) {
   if (block?.sectionId !== 'breadcrumbs') return false
   const items = pickContent(block.content, language).items
@@ -112,7 +133,8 @@ export function withDestinationBreadcrumbs(blocks, path, t, language) {
 
   const items =
     destinationBreadcrumbItems(path, t, language) ||
-    mediaCenterBreadcrumbItems(path, t)
+    mediaCenterBreadcrumbItems(path, t) ||
+    legalBreadcrumbItems(path, t, list, language)
   if (!items) return list
 
   return [

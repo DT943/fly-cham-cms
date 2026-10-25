@@ -197,6 +197,7 @@ const normalizeDocument = (doc, lang) => {
     }))
     .filter((menu) => menu.tabs.length > 0)
 
+
   const style = { ...base.style }
   if (isObj(doc.style)) {
     for (const [key, value] of Object.entries(doc.style)) {

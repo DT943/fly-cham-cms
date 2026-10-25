@@ -1,6 +1,4 @@
-import { ArrowUp } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
-import { colorVar } from '../../../../styles/cmsStyle.js'
 import FooterSocial from './FooterSocial.jsx'
 
 const APP_STORE_URL = 'https://apps.apple.com/app/flycham'
@@ -14,11 +12,8 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.flycha
  * (`.cms-ftr-top`), or after social when the gutter is too narrow.
  */
 const FooterApps = ({ social, style }) => {
-  const { t } = useTranslation()
-
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const { t, i18n } = useTranslation()
+  const badgeLanguage = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar') ? 'ar' : 'en'
 
   return (
     <div className="relative flex flex-col gap-5 sm:gap-6 md:min-h-[44px] md:flex-row md:items-center md:justify-between md:gap-8">
@@ -27,39 +22,51 @@ const FooterApps = ({ social, style }) => {
           <p className="m-0 shrink-0 text-[14px] font-medium leading-normal text-50 sm:text-[15px] md:text-[16px]">
             {t('layout.footer.downloadApp')}
           </p>
-          <div className="flex shrink-0 flex-nowrap items-center gap-3 sm:gap-4">
+          <div
+            className="grid w-[413px] min-w-0 max-w-full items-center gap-3"
+            style={{ gridTemplateColumns: 'minmax(0, 119.66407fr) minmax(0, 134.87371fr) minmax(0, 134.28571fr)' }}
+          >
             <a
               href={APP_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex min-w-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img
                 loading="lazy"
                 decoding="async"
                 src="/images/footer/app-store.png?v=2"
                 alt={t('layout.footer.appStore')}
-                width={134}
-                height={38}
-                className="block h-[38px] w-[134px] object-contain"
+                width={120}
+                height={40}
+                className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
               />
             </a>
             <a
               href={PLAY_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
+              className="inline-flex min-w-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-50"
             >
               <img
                 loading="lazy"
                 decoding="async"
                 src="/images/footer/google-play.png?v=2"
                 alt={t('layout.footer.googlePlay')}
-                width={134}
-                height={38}
-                className="block h-[38px] w-[134px] object-contain"
+                width={135}
+                height={40}
+                className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
               />
             </a>
+            <img
+              loading="lazy"
+              decoding="async"
+              src="/images/footer/huawei-appgallery-badge.svg"
+              alt={badgeLanguage === 'ar' ? 'هواوي AppGallery' : 'Huawei AppGallery'}
+              width={134}
+              height={40}
+              className="block h-auto max-h-10 w-full max-w-[135px] object-contain"
+            />
           </div>
         </div>
 

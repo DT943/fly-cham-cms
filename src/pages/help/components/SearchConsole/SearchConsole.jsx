@@ -56,7 +56,7 @@ const SearchConsole = ({
   chipTextColorHover,
   chipTextFontWeightHover,
   chipBorderColor = '50',
-  popularLabelColor = '50',
+  popularLabelColor = 'primary-3',
   popularLabelColorHover,
   popularLabelFontWeightHover,
   gradientFrom = 'primary-1',

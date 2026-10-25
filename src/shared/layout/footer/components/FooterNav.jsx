@@ -47,6 +47,13 @@ const DesktopColumns = ({ columns, style }) => {
     color: colorVar(style.columnTitleColor || 'primary-3'),
   }
 
+  const groups = DESKTOP_GROUPS.map((group) =>
+    columns.filter((column) => column.group === group),
+  )
+  const rows = Array.from({ length: Math.max(0, ...groups.map((group) => group.length)) },
+    (_, index) => groups.map((group) => group[index]),
+  )
+
   return (
     <>
       <div className="hidden min-w-0 w-full md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-8 lg:hidden">

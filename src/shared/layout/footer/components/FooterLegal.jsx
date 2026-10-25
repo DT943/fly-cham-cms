@@ -13,7 +13,7 @@ const linkClass = `block text-[12px] leading-[1.5] no-underline transition-color
 const LegalLinks = ({ links, className, textStyle }) => (
   <ul className={className}>
     {links.map((link) => (
-      <li key={link.id}>
+      <li key={link.id} className="max-w-full">
         <LocalizedLink href={footerHref(link.href)} className={linkClass} style={textStyle}>
           {link.label}
         </LocalizedLink>
@@ -23,6 +23,8 @@ const LegalLinks = ({ links, className, textStyle }) => (
 )
 
 const FooterLegal = ({ legal, style }) => {
+  const { i18n } = useTranslation()
+  const isArabic = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar')
   const textStyle = legalStyle(style)
   const copyright = legal.copyright ? (
     <p
@@ -35,7 +37,8 @@ const FooterLegal = ({ legal, style }) => {
 
   return (
     <div
-      className="relative z-10 w-full"
+      dir={isArabic ? 'rtl' : 'ltr'}
+      className="relative z-10 w-full text-start"
       style={{ backgroundColor: colorVar(style.legalBg || 'secondary-2') }}
     >
       {/* Same gutters as the footer content above, so both share one left edge */}
@@ -43,7 +46,7 @@ const FooterLegal = ({ legal, style }) => {
         <div className="flex flex-col gap-3 md:hidden">
           <LegalLinks
             links={legal.links.filter((link) => link.showOnMobile)}
-            className="m-0 flex list-none flex-col gap-2.5 p-0"
+            className="m-0 flex list-none flex-wrap items-center gap-x-4 gap-y-2.5 p-0"
             textStyle={textStyle}
           />
           {copyright}
