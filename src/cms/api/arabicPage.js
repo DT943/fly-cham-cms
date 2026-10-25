@@ -276,6 +276,15 @@ export function localizeArabicBlocks(blocks = [], englishBlocks = []) {
       const socialLinks = arabicContent.socialLinks ?? englishContent?.socialLinks
       if (Array.isArray(socialLinks)) localizedContent.socialLinks = structuredClone(socialLinks)
     }
+    // Category slugs and icon keys drive lookups; only their display labels translate.
+    if (['destination-things-to-do', 'sights-grid'].includes(block.sectionId)) {
+      localizedContent.items?.forEach((item, index) => {
+        for (const key of ['badgeId', 'category', 'icon']) {
+          const value = arabicContent.items?.[index]?.[key] ?? englishContent?.items?.[index]?.[key]
+          if (value !== undefined) item[key] = value
+        }
+      })
+    }
     const style = localeObject(block.style, 'ar')
     const hasStyle = style && Object.keys(style).length > 0
     return {
