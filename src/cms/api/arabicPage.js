@@ -270,12 +270,18 @@ export function localizeArabicBlocks(blocks = [], englishBlocks = []) {
     if (match) used.add(match.uid)
     const arabicContent = localeObject(block.content, 'ar')
     const englishContent = match ? localeObject(match.content, 'en') : null
+    const localizedContent = fillArabicContent(structuredClone(arabicContent), englishContent)
+    // Cham Miles social entries are icon identifiers and URLs, not translatable copy.
+    if (block.sectionId === 'cham-miles-join') {
+      const socialLinks = arabicContent.socialLinks ?? englishContent?.socialLinks
+      if (Array.isArray(socialLinks)) localizedContent.socialLinks = structuredClone(socialLinks)
+    }
     const style = localeObject(block.style, 'ar')
     const hasStyle = style && Object.keys(style).length > 0
     return {
       ...block,
       languages: ['ar'],
-      content: { ar: fillArabicContent(structuredClone(arabicContent), englishContent) },
+      content: { ar: localizedContent },
       style: { ar: hasStyle ? mirrorPhysical(structuredClone(style)) : style },
     }
   })
