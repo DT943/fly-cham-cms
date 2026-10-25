@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Container from '../../../components/Container.jsx'
 import LocalizedLink from '../../../components/LocalizedLink.jsx'
 import { FTR_HOVER_COLOR, footerHref, legalStyle } from '../utils/footerStyle.js'

@@ -1,4 +1,6 @@
+import { ArrowUp } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
+import { colorVar } from '../../../../styles/cmsStyle.js'
 import FooterSocial from './FooterSocial.jsx'
 
 const APP_STORE_URL = 'https://apps.apple.com/app/flycham'
@@ -14,6 +16,10 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.flycha
 const FooterApps = ({ social, style }) => {
   const { t, i18n } = useTranslation()
   const badgeLanguage = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('ar') ? 'ar' : 'en'
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <div className="relative flex flex-col gap-5 sm:gap-6 md:min-h-[44px] md:flex-row md:items-center md:justify-between md:gap-8">
