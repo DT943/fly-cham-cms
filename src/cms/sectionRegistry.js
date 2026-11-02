@@ -22,6 +22,7 @@ import LandmarkFeature from '../shared/components/LandmarkFeature.jsx'
 import SightsGrid from '../shared/components/SightsGrid.jsx'
 import MagazineBanner from '../shared/components/MagazineBanner.jsx'
 import MagazineView from '../shared/components/MagazineView.jsx'
+import CargoGuideView from '../shared/components/CargoGuideView.jsx'
 import NewsletterSignup from '../shared/components/NewsletterSignup.jsx'
 import OfficeDirectory from '../pages/our-offices/components/OfficeDirectory.jsx'
 import GetHelp from '../pages/our-offices/components/GetHelp.jsx'
@@ -117,6 +118,7 @@ import { landmarkFeatureProps } from './adapters/landmarkFeatureAdapter.js'
 import { sightsGridProps } from './adapters/sightsGridAdapter.js'
 import { magazineBannerProps } from './adapters/magazineBannerAdapter.js'
 import { magazineViewProps } from './adapters/magazineViewAdapter.js'
+import { cargoGuideViewProps } from './adapters/cargoGuideViewAdapter.js'
 import { newsletterSignupProps } from './adapters/newsletterSignupAdapter.js'
 import { officeDirectoryProps } from './adapters/officeDirectoryAdapter.js'
 import { getHelpProps } from './adapters/getHelpAdapter.js'
@@ -250,6 +252,7 @@ export const sectionRegistry = {
   'sights-grid': { Component: SightsGrid, mapProps: sightsGridProps },
   'magazine-banner': { Component: MagazineBanner, mapProps: magazineBannerProps },
   'magazine-view': { Component: MagazineView, mapProps: magazineViewProps },
+  'cargo-guide-view': { Component: CargoGuideView, mapProps: cargoGuideViewProps },
   // Full-bleed only in the photo-banner variant (the gradient card sits in the Container).
   'newsletter-signup': {
     Component: NewsletterSignup,

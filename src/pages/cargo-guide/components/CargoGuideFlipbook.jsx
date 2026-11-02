@@ -161,7 +161,7 @@ const CargoGuideFlipbook = ({ pages }) => {
     const book = document.createElement('div')
     host.appendChild(book)
     const elements = pages.map((page, index) =>
-      createPageElement(page, t('cargoGuide.pageAlt', { page: index + 1 })),
+      createPageElement(page, page.alt || t('cargoGuide.pageAlt', { page: index + 1 })),
     )
 
     const flip = new PageFlip(book, {

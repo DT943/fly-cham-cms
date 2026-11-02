@@ -163,6 +163,7 @@ export const otherPages = {
   '/cargo': dynamicPage('cargo'),
   // Renamed Cargo landing page in the CMS (builtin:cargo → air-cargo-service).
   '/air-cargo-service': dynamicPage('air-cargo-service'),
+  '/air-cargo-service/cargo-guide': dynamicPage('cargo-guide'),
   '/cargo/cargo-brochure': dynamicPage('cargo-brochure'),
   '/cargo-stations': dynamicPage('cargo-stations'),
   '/business-center': dynamicPage('business-center'),
