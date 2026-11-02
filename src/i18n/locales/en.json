@@ -4314,6 +4314,21 @@
       "moreBody": "Please check your ticket or contact our sales offices for the most up-to-date baggage information before your flight."
     }
   },
+  "cargoGuide": {
+    "breadcrumbHome": "Home",
+    "breadcrumbCargo": "Cargo",
+    "title": "Cargo Guide",
+    "description": "Flip through our cargo brochure to learn more about our cargo services, accepted shipments and destinations.",
+    "bookLabel": "Fly Cham cargo guide magazine",
+    "pageAlt": "Cargo guide page {{page}}",
+    "pageOf": "Page {{page}} of {{total}}",
+    "previous": "Previous page",
+    "next": "Next page",
+    "download": "Download cargo guide (PDF)",
+    "fullscreen": "View full screen",
+    "exitFullscreen": "Exit full screen",
+    "hint": "Drag a page or its corner to turn it, or use the arrows and your keyboard."
+  },
   "flightSchedulePage": {
     "title": "Flight Schedule",
     "range": "From {{from}} to {{to}} . {{trip}}",

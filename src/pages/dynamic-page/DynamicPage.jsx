@@ -9,6 +9,7 @@ import { stripLanguage } from '../../i18n/languages.js'
 import usePage from '../../cms/hooks/usePage.js'
 import PageBlocks from '../../cms/components/PageBlocks.jsx'
 import { getSection } from '../../cms/sectionRegistry.js'
+import { applyPageBlockOverrides } from '../../cms/utils/pageBlockOverrides.js'
 import NotFound from '../not-found/NotFound.jsx'
 import { cmsSlugFromPath } from './cmsPagePath.js'
 import { withDestinationBreadcrumbs } from './destinationBreadcrumbs.js'
@@ -62,8 +63,14 @@ const DynamicPageContent = ({
   const { data: page, isLoading, isError, error } = usePage(slug, language)
   const hasBlocks = page?.blocks?.length > 0
   const blocks = useMemo(
-    () => withDestinationBreadcrumbs(page?.blocks, pagePath, t, language),
-    [page?.blocks, pagePath, t, language],
+    () =>
+      withDestinationBreadcrumbs(
+        applyPageBlockOverrides(slug, page?.blocks),
+        pagePath,
+        t,
+        language,
+      ),
+    [page?.blocks, pagePath, t, language, slug],
   )
   const notFound = !slug || error?.response?.status === 404
 

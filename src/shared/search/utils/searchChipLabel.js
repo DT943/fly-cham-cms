@@ -39,6 +39,7 @@ const PAGE_CHIP_KEYS = {
   '/legal/booking-terms-and-conditions': 'legal.bookingTerms.breadcrumb',
   '/legal/privacy-policy': 'legal.privacy.breadcrumb',
   '/legal/cookies': 'legal.cookies.breadcrumb',
+  '/air-cargo-service/cargo-guide': 'cargoGuide.title',
 }
 
 function resolvePageChipKey(href = '') {

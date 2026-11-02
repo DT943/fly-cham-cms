@@ -45,6 +45,8 @@ export const cmsPagePaths = [
   '/flight-status',
   '/online-check-in',
   '/cargo',
+  '/air-cargo-service',
+  '/air-cargo-service/cargo-guide',
   '/cargo/cargo-brochure',
   '/about-us',
   '/site-map',
