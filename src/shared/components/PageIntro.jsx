@@ -1,5 +1,6 @@
 import { CMS_TEXT_HOVER_CLASS, getTextStyleVars, colorVar } from '../../styles/cmsStyle.js'
 import { typography } from '../../styles/typography.js'
+import { LOGO_CONTENT_INSET_CLASS } from '../layout/logoContentInset.js'
 import LinkedText from './backlinks/LinkedText.jsx'
 
 const SECTION_PADDING = {
@@ -42,53 +43,106 @@ const PageIntro = ({
   if (!lead && !body && !imageUrl) return null
 
   const alignClass = TEXT_ALIGN[textAlign] || TEXT_ALIGN.left
+  // Match breadcrumbs + route-map overlays (search/card) to the drawn logo mark.
+  const leadIsPageTitle = leadSize === 'lg'
 
   const inner = (
-    <div className="flex flex-col gap-6">
+    <div
+      className={cx(
+        'flex flex-col gap-6',
+        // Page-title intros (e.g. route-map) share the logo optical inset with
+        // breadcrumbs and the map search/card overlays.
+        leadIsPageTitle ? LOGO_CONTENT_INSET_CLASS : '',
+      )}
+    >
       {lead || body ? (
-    <div className={cx('flex flex-col gap-3', alignClass)}>
-      {lead ? (
-        <p
+        <div
           className={cx(
-            'm-0 whitespace-pre-line',
-            leadSize === 'lg' ? 'text-xl leading-7 md:text-2xl' : 'text-base leading-[normal] md:text-lg',
-            CMS_TEXT_HOVER_CLASS,
+            'flex flex-col',
+            leadIsPageTitle ? 'gap-2 md:gap-3' : 'gap-3',
+            alignClass,
           )}
-          style={getTextStyleVars(textStyle, 'leadColor', '700', 'semibold')}
         >
-          <LinkedText
-            text={lead}
-            links={links}
-            enabled={showLinks}
-            linkColor={linkColor}
-            linkHoverColor={linkHoverColor}
-            linkFontWeight={linkFontWeight}
-            linkUnderline={linkUnderline}
-            linkItalic={linkItalic}
-          />
-        </p>
-      ) : null}
-      {body ? (
-        <p
-          className={cx('m-0 whitespace-pre-line font-normal leading-relaxed', typography.body, CMS_TEXT_HOVER_CLASS)}
-          style={getTextStyleVars(textStyle, 'bodyColor', '800', 'normal')}
-        >
-          <LinkedText
-            text={body}
-            links={links}
-            enabled={showLinks}
-            linkColor={linkColor}
-            linkHoverColor={linkHoverColor}
-            linkFontWeight={linkFontWeight}
-            linkUnderline={linkUnderline}
-            linkItalic={linkItalic}
-          />
-        </p>
-      ) : null}
-    </div>
+          {lead ? (
+            leadIsPageTitle ? (
+              <h1
+                className={cx(
+                  'm-0 whitespace-pre-line font-bold',
+                  typography.pageTitle,
+                  CMS_TEXT_HOVER_CLASS,
+                )}
+                style={getTextStyleVars(textStyle, 'leadColor', 'secondary-2', 'bold')}
+              >
+                <LinkedText
+                  text={lead}
+                  links={links}
+                  enabled={showLinks}
+                  linkColor={linkColor}
+                  linkHoverColor={linkHoverColor}
+                  linkFontWeight={linkFontWeight}
+                  linkUnderline={linkUnderline}
+                  linkItalic={linkItalic}
+                />
+              </h1>
+            ) : (
+              <p
+                className={cx(
+                  'm-0 whitespace-pre-line text-base leading-[normal] md:text-lg',
+                  CMS_TEXT_HOVER_CLASS,
+                )}
+                style={getTextStyleVars(textStyle, 'leadColor', '700', 'semibold')}
+              >
+                <LinkedText
+                  text={lead}
+                  links={links}
+                  enabled={showLinks}
+                  linkColor={linkColor}
+                  linkHoverColor={linkHoverColor}
+                  linkFontWeight={linkFontWeight}
+                  linkUnderline={linkUnderline}
+                  linkItalic={linkItalic}
+                />
+              </p>
+            )
+          ) : null}
+          {body ? (
+            <p
+              className={cx(
+                'm-0 whitespace-pre-line font-normal leading-relaxed',
+                leadIsPageTitle
+                  ? 'max-w-3xl text-base text-700 md:text-lg'
+                  : typography.body,
+                CMS_TEXT_HOVER_CLASS,
+              )}
+              style={getTextStyleVars(
+                textStyle,
+                'bodyColor',
+                leadIsPageTitle ? '700' : '800',
+                'normal',
+              )}
+            >
+              <LinkedText
+                text={body}
+                links={links}
+                enabled={showLinks}
+                linkColor={linkColor}
+                linkHoverColor={linkHoverColor}
+                linkFontWeight={linkFontWeight}
+                linkUnderline={linkUnderline}
+                linkItalic={linkItalic}
+              />
+            </p>
+          ) : null}
+        </div>
       ) : null}
       {imageUrl ? (
-        <img loading="lazy" decoding="async" src={imageUrl} alt={imageAlt || ''} className="h-[240px] w-full rounded-[24px] object-cover md:h-[504px]" />
+        <img
+          loading="lazy"
+          decoding="async"
+          src={imageUrl}
+          alt={imageAlt || ''}
+          className="h-[240px] w-full rounded-[24px] object-cover md:h-[504px]"
+        />
       ) : null}
     </div>
   )

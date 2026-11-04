@@ -57,7 +57,7 @@ export const ourDestinationsPages = {
     'activities-and-attractions',
     NO_BOTTOM_PADDING,
   ),
-  // Route map: breadcrumbs + intro + interactive map card (CMS route-map-explorer).
+  // Route map: CMS breadcrumbs + page-intro, then map-only route-map-explorer.
   '/our-destinations/route-map': dynamicPage('route-map', {
     className: 'bg-100 w-full',
     gapClass: 'gap-0',

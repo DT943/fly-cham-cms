@@ -9,12 +9,13 @@ export const cityImageKey = (cityKey) => `${cityKey}Image`
 
 /**
  * Map a CMS "route-map-explorer" block to <RouteMapExplorerBlock /> props — the
- * full-screen interactive route map of /our-destinations/route-map.
+ * interactive route map of /our-destinations/route-map (map only; page chrome
+ * comes from `breadcrumbs` + `page-intro`).
  *
  * Stores the flat editor shape (cms2 getRouteMapExplorerEditorContent):
- * `title` (sr-only page heading), `planeUrl` (flying-plane marker) and one
- * `<cityKey>Image` URL per city. Images come only from the CMS: an empty plane
- * URL draws no plane, an empty city photo shows the card's branded header.
+ * `planeUrl` (flying-plane marker) and one `<cityKey>Image` URL per city.
+ * Images come only from the CMS: an empty plane URL draws no plane, an empty
+ * city photo shows the card's branded header.
  */
 export function routeMapExplorerProps(block, lang) {
   const content = pickContent(block.content, lang)
@@ -31,8 +32,7 @@ export function routeMapExplorerProps(block, lang) {
   })
 
   return {
-    title: str('title'),
-    description: str('description') || str('subtitle'),
+    // Title/description live on the page's `breadcrumbs` + `page-intro` blocks.
     planeUrl: resolveCmsAsset(str('planeUrl')),
     cityImages,
     cityImageAlts,
