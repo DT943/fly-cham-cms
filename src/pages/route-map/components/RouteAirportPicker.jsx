@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Provider as ReduxProvider, useDispatch } from 'react-redux'
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
-import { CaretDown } from '@phosphor-icons/react'
+import { AirplaneLanding, AirplaneTakeoff, CaretDown } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 import useCurrentLanguage from '../../../shared/hooks/useCurrentLanguage.js'
-import { typography } from '../../../styles/typography.js'
 import { store } from '../../../vendor/flycham/store/index.js'
 import { setAirports } from '../../../vendor/flycham/store/flightSlice.js'
 import AirportDropdownPanel from '../../../vendor/flycham/app/[pos]/[lang]/Home/booking-box-v2/components/AirportDropdownPanel.jsx'
 import { useAirportState } from '../../../vendor/flycham/app/[pos]/[lang]/Home/booking-box-v2/hooks/useAirportState.jsx'
 import { TRIP_TYPES } from '../../../vendor/flycham/app/[pos]/[lang]/Home/booking-box-v2/constants/bookingBoxConstants.js'
 import { getManifestFilteredAirportList } from '../../../vendor/flycham/util/airports/index.js'
-import { airportsByCode } from '../utils/routeNetwork.js'
 
 /** Its own cache, matching how BookingWidget isolates the booking box. */
 const queryClient = new QueryClient({
@@ -20,15 +18,7 @@ const queryClient = new QueryClient({
 
 const FIELD = { from: 'source', to: 'destination' }
 
-const PickerInner = ({
-  from,
-  to,
-  onChange,
-  onReset,
-  onSearch,
-  searching = false,
-  cityImages = {},
-}) => {
+const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const language = useCurrentLanguage()
@@ -89,71 +79,50 @@ const PickerInner = ({
   const value = (field) => (field === 'from' ? from : to)
   const canSearch = Boolean(from && to)
 
-  const thumbFor = (code) => {
-    const airport = airportsByCode[code]
-    return airport ? cityImages?.[airport.cityKey] || '' : ''
-  }
-
   const renderField = (field) => {
     const isOpen = openField === field
     const code = value(field)
     const selected = items?.find((item) => (item.iataCode || '').toUpperCase() === code)
     const city = selected?.airPortTranslations?.[0]?.city
-    const thumb = code ? thumbFor(code) : ''
+    const FieldIcon = field === 'from' ? AirplaneTakeoff : AirplaneLanding
 
     return (
-      <button
-        type="button"
-        aria-expanded={isOpen}
-        aria-label={code ? `${label(field)} ${city || code} (${code})` : label(field)}
-        onClick={() => {
-          setSearch('')
-          setOpenField(isOpen ? null : field)
-        }}
-        className={`flex min-w-0 flex-1 cursor-pointer items-center gap-2 border-0 bg-transparent px-3 py-2.5 text-start ${
-          code ? '' : ''
-        }`}
-      >
-        {thumb ? (
-          <img
-            src={thumb}
-            alt=""
-            className="size-8 shrink-0 rounded-full object-cover"
-            loading="lazy"
-            decoding="async"
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="text-xs font-medium text-600">{label(field)}</span>
+        <button
+          type="button"
+          aria-expanded={isOpen}
+          aria-label={code ? `${label(field)} ${city || code}` : label(field)}
+          onClick={() => {
+            setSearch('')
+            setOpenField(isOpen ? null : field)
+          }}
+          className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md border border-solid border-300 bg-background px-2.5 text-start transition-colors hover:border-primary-1"
+        >
+          <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary-3 text-50">
+            <FieldIcon size={13} weight="fill" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1 truncate text-sm font-medium text-secondary-2">
+            {code ? city || code : t('routeMap.search.select')}
+          </span>
+          <CaretDown
+            size={12}
+            weight="bold"
+            className={`shrink-0 text-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            aria-hidden
           />
-        ) : (
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-100 text-[10px] font-semibold uppercase text-600">
-            {code || '—'}
-          </span>
-        )}
-        <span className="flex min-w-0 flex-1 flex-col items-start gap-0.5">
-          <span className={`${typography.caption} text-600`}>{label(field)}</span>
-          <span className="flex w-full items-center justify-between gap-1.5">
-            <span className={`${typography.body} truncate font-semibold text-secondary-2`}>
-              {code ? city || code : t('routeMap.search.select')}
-            </span>
-            <CaretDown
-              size={14}
-              weight="bold"
-              className={`shrink-0 text-secondary-2 ${isOpen ? 'rotate-180' : ''}`}
-            />
-          </span>
-        </span>
-      </button>
+        </button>
+      </div>
     )
   }
 
   return (
     <div className="relative">
-      <div className="flex flex-wrap items-stretch gap-2 rounded-2xl border border-solid border-200 bg-background p-2 shadow-[0_8px_24px_rgba(1,38,59,0.08)] sm:flex-nowrap sm:gap-0 sm:p-0">
-        <div className="flex min-w-0 flex-1 items-stretch rounded-xl border border-solid border-200 bg-background sm:rounded-none sm:border-0">
-          {renderField('from')}
-          <span className="my-2 w-px shrink-0 bg-200" aria-hidden="true" />
-          {renderField('to')}
-        </div>
+      <div className="flex flex-col gap-3 rounded-2xl bg-background p-4 shadow-[0_8px_28px_rgba(1,38,59,0.12)] sm:flex-row sm:items-end sm:gap-3 sm:p-5">
+        {renderField('from')}
+        {renderField('to')}
 
-        <div className="flex w-full items-center gap-3 px-1 sm:w-auto sm:shrink-0 sm:px-3">
+        <div className="flex shrink-0 items-center gap-3 pb-0.5 sm:ps-1">
           <button
             type="button"
             onClick={() => {
@@ -161,18 +130,18 @@ const PickerInner = ({
               onSearch?.()
             }}
             disabled={!canSearch || searching}
-            className="inline-flex flex-1 cursor-pointer items-center justify-center rounded-lg border-0 bg-primary-1 px-5 py-2.5 text-sm font-medium text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none"
+            className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-lg border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none sm:min-w-24"
           >
             {t('routeMap.search.search')}
           </button>
-          {onReset && (from || to) ? (
+          {onReset ? (
             <button
               type="button"
               onClick={() => {
                 setOpenField(null)
                 onReset()
               }}
-              className="cursor-pointer border-0 bg-transparent px-1 py-2 text-sm font-medium text-primary-1 underline-offset-2 transition-colors hover:underline"
+              className="cursor-pointer border-0 bg-transparent px-0.5 py-1.5 text-sm font-medium text-secondary-1 underline underline-offset-2 transition-opacity hover:opacity-80"
             >
               {t('routeMap.search.reset')}
             </button>

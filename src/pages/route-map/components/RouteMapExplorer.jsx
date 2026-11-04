@@ -112,7 +112,7 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
       />
 
       <div className="pointer-events-none absolute inset-0 z-[500]">
-        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,40rem)]">
+        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,44rem)]">
           <RouteSearchPanel
             from={from}
             to={to}
@@ -120,7 +120,6 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
             onReset={reset}
             onSearch={findFlights}
             searching={findingFlights}
-            cityImages={cityImages}
           />
         </div>
 
