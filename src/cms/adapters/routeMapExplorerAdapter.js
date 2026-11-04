@@ -32,6 +32,7 @@ export function routeMapExplorerProps(block, lang) {
 
   return {
     title: str('title'),
+    description: str('description') || str('subtitle'),
     planeUrl: resolveCmsAsset(str('planeUrl')),
     cityImages,
     cityImageAlts,

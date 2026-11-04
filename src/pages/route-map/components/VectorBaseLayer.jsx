@@ -1,27 +1,36 @@
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
-import { useTranslation } from 'react-i18next'
 import L from 'leaflet'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import '@maplibre/maplibre-gl-leaflet'
 
-// OpenFreeMap's Liberty style — OSM-like colours, fully free, no API key.
+// OpenFreeMap Liberty — free vector tiles, no API key. Colours are overridden
+// below to match the route-map theme (cream land, soft blue water, no labels).
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty'
 
-// The only text labels we keep: countries, continents and water bodies (seas,
-// gulfs). Everything else — cities, towns, states, roads, POIs — is hidden so
-// the map reads as "country names only", matching the reference.
-const KEEP_LABEL = /country|continent|water|ocean|sea|marine|bay|strait/i
+const THEME = {
+  land: '#FFF8E7',
+  water: '#D6E4F0',
+  waterway: '#C5D8E8',
+  border: '#2C4B5F',
+  disputed: '#5A7385',
+}
+
+/** Layers whose geometry we keep but recolour to flat land. */
+const LAND_FILL = /^(background|park|landuse_|landcover_|aeroway_fill)/i
+
+/** Water fills / lines. */
+const WATER = /^(water$|waterway_)/i
+
+/** Country / admin borders. */
+const BORDER = /^boundary_/i
 
 /**
- * Renders the OpenFreeMap vector basemap inside the existing Leaflet map (so all
- * the route overlays keep working) and trims its labels down to country names,
- * localised to the active language.
+ * Flat cream-and-blue basemap with country borders only — no country, city,
+ * road or water labels. Route pins stay on the Leaflet overlay.
  */
 const VectorBaseLayer = () => {
   const map = useMap()
-  const { i18n } = useTranslation()
-  const language = (i18n.language || 'en').split('-')[0]
 
   useEffect(() => {
     const glLayer = L.maplibreGL({
@@ -31,27 +40,76 @@ const VectorBaseLayer = () => {
     }).addTo(map)
 
     const glMap = glLayer.getMaplibreMap()
-    const nameField = [
-      'coalesce',
-      ['get', `name:${language}`],
-      ['get', 'name:latin'],
-      ['get', 'name'],
-    ]
 
-    const applyLabels = () => {
+    const applyTheme = () => {
       const style = glMap.getStyle()
       if (!style?.layers) return
 
       style.layers.forEach((layer) => {
-        if (layer.type !== 'symbol') return
+        const id = layer.id
         try {
-          if (KEEP_LABEL.test(layer.id)) {
-            // Keep it, but show the name in the current language.
-            if (layer.layout && 'text-field' in layer.layout) {
-              glMap.setLayoutProperty(layer.id, 'text-field', nameField)
+          // No labels of any kind (countries, cities, water, roads, …).
+          if (layer.type === 'symbol') {
+            glMap.setLayoutProperty(id, 'visibility', 'none')
+            return
+          }
+
+          // Drop the Natural Earth raster underlay — it fights the flat palette.
+          if (layer.type === 'raster' || id === 'natural_earth') {
+            glMap.setLayoutProperty(id, 'visibility', 'none')
+            return
+          }
+
+          // Hide roads, rails, buildings, patterns — keep land/water/borders only.
+          if (
+            /^(road_|tunnel_|bridge_|building|housenumber|ferry|cable|aerialway|highway)/i.test(
+              id,
+            )
+          ) {
+            glMap.setLayoutProperty(id, 'visibility', 'none')
+            return
+          }
+
+          if (layer.type === 'background' || LAND_FILL.test(id)) {
+            if (layer.type === 'background') {
+              glMap.setPaintProperty(id, 'background-color', THEME.land)
+            } else if (layer.type === 'fill') {
+              glMap.setPaintProperty(id, 'fill-color', THEME.land)
+              if (layer.paint && 'fill-opacity' in layer.paint) {
+                glMap.setPaintProperty(id, 'fill-opacity', 1)
+              }
+            } else if (layer.type === 'line') {
+              glMap.setPaintProperty(id, 'line-color', THEME.land)
             }
-          } else {
-            glMap.setLayoutProperty(layer.id, 'visibility', 'none')
+            return
+          }
+
+          if (WATER.test(id)) {
+            if (layer.type === 'fill') {
+              glMap.setPaintProperty(id, 'fill-color', THEME.water)
+              if (layer.paint && 'fill-opacity' in layer.paint) {
+                glMap.setPaintProperty(id, 'fill-opacity', 1)
+              }
+            } else if (layer.type === 'line') {
+              glMap.setPaintProperty(id, 'line-color', THEME.waterway)
+            }
+            return
+          }
+
+          if (BORDER.test(id)) {
+            if (layer.type === 'line') {
+              glMap.setPaintProperty(
+                id,
+                'line-color',
+                /disputed/i.test(id) ? THEME.disputed : THEME.border,
+              )
+              glMap.setPaintProperty(id, 'line-opacity', 0.9)
+              // Keep country borders readable without dominating the pins.
+              if (id === 'boundary_2') {
+                glMap.setPaintProperty(id, 'line-width', 0.8)
+              }
+            }
+            return
           }
         } catch {
           /* layer without the expected props — leave it as-is */
@@ -59,29 +117,24 @@ const VectorBaseLayer = () => {
       })
     }
 
-    // The route-map canvas is absolutely positioned and measures 0×0 for the
-    // first frames; the GL map paints nothing until it is resized to the real
-    // box. Resize it exactly when the container's size changes (0 → full), which
-    // a ResizeObserver reports reliably regardless of the plugin's own throttle.
     const repaint = () => {
       try {
         glMap.resize()
       } catch {
-        /* GL map not ready yet — the load handler covers that case */
+        /* GL map not ready yet */
       }
     }
 
-    if (glMap.isStyleLoaded()) applyLabels()
-    glMap.on('styledata', applyLabels)
+    if (glMap.isStyleLoaded()) applyTheme()
+    glMap.on('styledata', applyTheme)
     glMap.once('load', () => {
-      applyLabels()
+      applyTheme()
       repaint()
     })
 
     const observer = new ResizeObserver(repaint)
     observer.observe(map.getContainer())
 
-    // Browsers pause WebGL while the tab is hidden; repaint when it returns.
     const onVisible = () => {
       if (document.visibilityState === 'visible') repaint()
     }
@@ -90,10 +143,10 @@ const VectorBaseLayer = () => {
     return () => {
       observer.disconnect()
       document.removeEventListener('visibilitychange', onVisible)
-      glMap.off('styledata', applyLabels)
+      glMap.off('styledata', applyTheme)
       glLayer.remove()
     }
-  }, [map, language])
+  }, [map])
 
   return null
 }

@@ -15,7 +15,7 @@ const Layout = () => {
   const language = getLanguageFromPath(pathname)
   const pagePath = stripLanguage(pathname)
   const hideChrome = pagePath === '/login-travel-agent' || pagePath === '/cham-miles'
-  const hideFooter = hideChrome || pagePath === '/our-destinations/route-map'
+  const hideFooter = hideChrome
   const previousLanguage = useRef(undefined)
 
   useSearchHit()

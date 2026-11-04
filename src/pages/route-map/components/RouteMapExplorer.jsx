@@ -7,14 +7,13 @@ import RouteMapCanvas from './RouteMapCanvas.jsx'
 import RouteSearchPanel from './RouteSearchPanel.jsx'
 import DestinationPanel from './DestinationPanel.jsx'
 import RouteBookingDrawer from './RouteBookingDrawer.jsx'
+import RouteMapLegend from './RouteMapLegend.jsx'
 import { resetRouteSelectionAnalytics, trackRouteSelected } from '../../../shared/analytics/cmsEvents.js'
 
 /**
- * Full-bleed route map: pick From and To (from the fields or by clicking pins),
- * see the leg drawn, then open the booking drawer to finish the search.
- *
- * Images come from the CMS (route-map-explorer block): `planeUrl` is the
- * flying-plane marker, `cityImages` maps cityKey → destination photo.
+ * Interactive route map card: From/To search, hover photo pins, destination
+ * detail card, and booking drawer. Images come from the CMS route-map-explorer
+ * block (`planeUrl`, `cityImages`).
  */
 const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }) => {
   const { t } = useTranslation()
@@ -33,7 +32,7 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
         country: t(`destinations.countries.${airport.countryKey}`),
         airportName: t(`routeMap.airports.${airport.code}`),
       })),
-    [t]
+    [t],
   )
 
   const byCode = (code) => airports.find((airport) => airport.code === code) || null
@@ -53,7 +52,6 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
     setFindingFlights(false)
   }
 
-  // Clicking a pin fills whichever end is still empty.
   const selectFromMap = (code) => {
     if (code === fromCode) return setFromCode(null)
     if (code === toCode) return setToCode(null)
@@ -69,6 +67,13 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
     resetRouteSelectionAnalytics()
     setFromCode(null)
     setToCode(null)
+    setDrawerOpen(false)
+    setFindingFlights(false)
+  }
+
+  const clearFocus = () => {
+    if (toCode) setToCode(null)
+    else if (fromCode) setFromCode(null)
     setDrawerOpen(false)
     setFindingFlights(false)
   }
@@ -92,37 +97,46 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
   }
 
   return (
-    <section className="relative h-full w-full">
+    <section className="relative h-[min(70dvh,44rem)] min-h-[28rem] w-full overflow-hidden rounded-2xl border border-solid border-200 bg-100 shadow-[0_12px_40px_rgba(1,38,59,0.1)] md:h-[min(72dvh,48rem)]">
       <RouteMapCanvas
         className="absolute inset-0 h-full w-full"
         fromCode={fromCode}
         toCode={toCode}
         onSelect={selectFromMap}
         planeUrl={planeUrl}
+        cityImages={cityImages}
+        cityNameFor={(airport) => t(`destinations.cities.${airport.cityKey}.name`)}
         labelFor={(airport) =>
           `${t(`destinations.cities.${airport.cityKey}.name`)} (${airport.code})`
         }
       />
 
-      {/* Transparent to pointer events so the map stays draggable underneath. */}
-      <div className="pointer-events-none absolute inset-0 left-15 z-[500]">
-        {/* Search + destination card, pinned to the left edge and made wider. */}
-        <div className="pointer-events-auto absolute start-0 top-0 flex max-h-full w-full max-w-[540px] flex-col gap-3 p-3 md:p-4">
-          <RouteSearchPanel from={from} to={to} onChange={change} onReset={reset} />
+      <div className="pointer-events-none absolute inset-0 z-[500]">
+        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,40rem)]">
+          <RouteSearchPanel
+            from={from}
+            to={to}
+            onChange={change}
+            onReset={reset}
+            onSearch={findFlights}
+            searching={findingFlights}
+            cityImages={cityImages}
+          />
+        </div>
 
-          {/* The destination card for the end you are travelling to. */}
-          <div className="hidden min-h-0 mt-6 flex-1 overflow-y-auto lg:block">
+        {(from || to) && (
+          <div className="pointer-events-auto absolute inset-x-3 bottom-3 z-[510] md:inset-x-4 md:bottom-4 lg:end-auto lg:w-[min(100%,52rem)]">
             <DestinationPanel
               from={from}
               to={to}
-              findingFlights={findingFlights}
-              onFindFlights={findFlights}
+              onClear={clearFocus}
               cityImages={cityImages}
               cityImageAlts={cityImageAlts}
             />
           </div>
-        </div>
+        )}
 
+        <RouteMapLegend />
       </div>
 
       <RouteBookingDrawer

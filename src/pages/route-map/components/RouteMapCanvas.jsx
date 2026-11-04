@@ -1,33 +1,71 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, Marker, Polyline, Tooltip, ZoomControl, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, ZoomControl, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { airportsByCode, arcBetween, legsFor } from '../utils/routeNetwork.js'
 import VectorBaseLayer from './VectorBaseLayer.jsx'
 
 const HUB = '#baa981'
 const PIN = '#006080'
-const PIN_BORDER = '#5393c8'
-
-/** Inline styles rather than utility classes — this markup is built outside React. */
-function createPin({ hub, selected, dimmed }) {
-  const size = selected ? 22 : hub ? 18 : 14
-  const color = PIN
-  const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
-
-  return L.divIcon({
-    className: 'route-map-pin',
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-    html: `<span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;
-      background:${color};border:2.5px solid ${PIN_BORDER};opacity:${dimmed ? 0.35 : 1};
-      transition:opacity .2s ease;${ring}"></span>`,
-  })
-}
+const PIN_BORDER = '#01263b'
 
 /** Escape a URL for use inside a double-quoted HTML attribute. */
 const escapeAttr = (value) =>
   String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+
+const escapeHtml = (value) =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+
+/** Default teardrop pin — network teal or new-route gold. */
+function createPin({ selected, dimmed, isNew }) {
+  const size = selected ? 20 : 16
+  const color = isNew ? HUB : PIN
+  const tip = Math.round(size * 0.45)
+  const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
+
+  return L.divIcon({
+    className: 'route-map-pin',
+    iconSize: [size, size + tip],
+    iconAnchor: [size / 2, size + tip - 2],
+    html: `<span style="display:flex;flex-direction:column;align-items:center;opacity:${dimmed ? 0.35 : 1};transition:opacity .2s ease;${ring}">
+      <span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;
+        background:${color};border:2.5px solid ${PIN_BORDER};box-sizing:border-box;"></span>
+      <span style="width:0;height:0;border-left:${Math.round(size * 0.28)}px solid transparent;
+        border-right:${Math.round(size * 0.28)}px solid transparent;border-top:${tip}px solid ${PIN_BORDER};
+        margin-top:-2px;"></span>
+    </span>`,
+  })
+}
+
+/** Hover / focus pin: circular city photo with the city name under it. */
+function createHoverPin({ imageUrl, label, isNew }) {
+  const size = 64
+  const color = isNew ? HUB : PIN
+  const safeLabel = escapeHtml(label)
+  const photo = imageUrl
+    ? `<img loading="lazy" decoding="async" src="${escapeAttr(imageUrl)}" alt=""
+        style="width:100%;height:100%;object-fit:cover;display:block;border-radius:9999px;" />`
+    : `<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:9999px;
+        background:${color};color:#fdfdfc;font-size:12px;font-weight:700;">${safeLabel.slice(0, 3)}</span>`
+
+  return L.divIcon({
+    className: 'route-map-pin route-map-pin--hover',
+    iconSize: [size, size + 28],
+    iconAnchor: [size / 2, size / 2],
+    html: `<span style="display:flex;flex-direction:column;align-items:center;gap:6px;width:${size}px;">
+      <span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;overflow:hidden;
+        border:3px solid ${color};box-shadow:0 8px 20px rgba(1,38,59,0.28);background:#fdfdfc;box-sizing:border-box;">
+        ${photo}
+      </span>
+      <span style="white-space:nowrap;font-size:13px;font-weight:700;color:#333333;
+        text-shadow:0 1px 0 #fff,0 0 6px #fff;">${safeLabel}</span>
+    </span>`,
+  })
+}
 
 /**
  * A small plane sitting on the route line, rotated to face along it. The image
@@ -46,12 +84,6 @@ function createPlaneIcon(angle, planeUrl) {
   })
 }
 
-/**
- * Position and screen-space heading at fraction `t` (0 → 1) along the arc. Web
- * Mercator is conformal so the angle is zoom-invariant; the cos(lat) term
- * corrects for the projection's vertical stretch, and +90 aligns the plane art
- * (which points north) with the direction of travel.
- */
 function planeAtFraction(arc, t) {
   const f = t * (arc.length - 1)
   const i = Math.min(Math.floor(f), arc.length - 2)
@@ -65,7 +97,6 @@ function planeAtFraction(arc, t) {
   return { position: [lat, lng], angle }
 }
 
-/** Flies the plane marker from origin to destination along the arc, on a loop. */
 const FlyingPlane = ({ arc, planeUrl }) => {
   const map = useMap()
 
@@ -77,10 +108,9 @@ const FlyingPlane = ({ arc, planeUrl }) => {
       icon: createPlaneIcon(first.angle, planeUrl),
       interactive: false,
       keyboard: false,
-      zIndexOffset: 1100,
     }).addTo(map)
 
-    const DURATION = 5000 // ms for one origin → destination pass
+    const DURATION = 5000
     let raf = 0
     let start = null
 
@@ -112,7 +142,7 @@ function createChip(label) {
     html: `<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
       transform:translateX(-50%);background:#fdfdfc;color:#01263b;border:1px solid #e5e5e3;
       border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;
-      box-shadow:0 4px 12px rgba(1,38,59,0.22);">${label}</span>`,
+      box-shadow:0 4px 12px rgba(1,38,59,0.22);">${escapeHtml(label)}</span>`,
   })
 }
 
@@ -121,13 +151,6 @@ const MapSync = ({ points, zoomIn }) => {
   const [box, setBox] = useState(null)
   const sizeRef = useRef(null)
 
-  /*
-   * The canvas is absolutely positioned, so it can measure 0x0 before layout
-   * settles — and fitting bounds on a zero-size map yields a NaN centre that
-   * throws. Observe the element, re-measure on every change (this also covers
-   * breakpoints, which a one-shot invalidateSize misses), and only report ready
-   * once it actually has a box.
-   */
   useEffect(() => {
     const container = map.getContainer()
     let frame = 0
@@ -139,22 +162,15 @@ const MapSync = ({ points, zoomIn }) => {
       const h = container.clientHeight
       if (w === 0 || h === 0) return false
 
-      // Bail unless the box genuinely changed: the observer also fires while the
-      // fly animation resizes panes, and invalidateSize() there cancels the
-      // flight mid-way, stranding the view short of the padded target.
       const previous = sizeRef.current
       if (previous && previous.w === w && previous.h === h) return true
 
       sizeRef.current = { w, h }
       map.invalidateSize()
-      // Drives the refit, whose padding differs per breakpoint.
       setBox({ w, h })
       return true
     }
 
-    // The container is 0x0 for the first frames, and a single ResizeObserver
-    // notification can be missed entirely — poll until it has a box so the
-    // opening fit always runs, then leave later resizes to the observer.
     const poll = () => {
       if (cancelled || measure() || attempts > 120) return
       attempts += 1
@@ -178,30 +194,12 @@ const MapSync = ({ points, zoomIn }) => {
     const bounds = L.latLngBounds(points)
     if (!bounds.isValid()) return
 
-    /*
-     * The search panel floats over the map, so fit into the part that is
-     * actually visible: below lg it sits at the top, at lg it is a side column
-     * (which swaps sides under RTL).
-     */
     const { w: width, h: height } = box
     const isDesktop = width >= 1024
-    const rtl = getComputedStyle(document.body).direction === 'rtl'
 
-    // The search/card panel is pinned to the left edge (max-w-440 + padding), so
-    // keep the framed route clear of it. Narrow desktops get a proportionally
-    // smaller panel, capped at the panel's own max width.
-    const sidePanel = Math.round(Math.min(480, width - 48) + 28)
+    const topLeft = isDesktop ? [40, 96] : [24, 120]
+    const bottomRight = isDesktop ? [40, 120] : [24, Math.round(height * 0.36) + 24]
 
-    const topLeft = isDesktop ? [rtl ? 40 : sidePanel, 40] : [24, 72]
-    const bottomRight = isDesktop
-      ? [rtl ? sidePanel : 40, 40]
-      : [24, Math.round(height * 0.48) + 24]
-    /*
-     * fitBounds, not flyToBounds: flyTo drives itself with requestAnimationFrame,
-     * so if rAF is throttled (background tab, hidden view) the flight stalls and
-     * the opening view never arrives. fitBounds resolves through setView, which
-     * always lands on target and still eases when animation is available.
-     */
     map.fitBounds(bounds, {
       paddingTopLeft: topLeft,
       paddingBottomRight: bottomRight,
@@ -214,28 +212,63 @@ const MapSync = ({ points, zoomIn }) => {
   return null
 }
 
+const AirportMarker = ({
+  airport,
+  isChosen,
+  dimmed,
+  hovered,
+  onHover,
+  onSelect,
+  label,
+  cityName,
+  imageUrl,
+}) => {
+  const icon = useMemo(() => {
+    if (hovered && !isChosen) {
+      return createHoverPin({ imageUrl, label: cityName, isNew: airport.isNew })
+    }
+    return createPin({
+      selected: isChosen,
+      dimmed,
+      isNew: airport.isNew,
+    })
+  }, [hovered, isChosen, dimmed, airport.isNew, imageUrl, cityName])
+
+  return (
+    <Marker
+      position={[airport.lat, airport.lng]}
+      zIndexOffset={hovered || isChosen ? 1000 : airport.hub ? 500 : 0}
+      icon={icon}
+      eventHandlers={{
+        click: () => onSelect(airport.code),
+        mouseover: () => onHover(airport.code),
+        mouseout: () => onHover(null),
+      }}
+      title={label}
+    />
+  )
+}
+
 const RouteMapCanvas = ({
   fromCode,
   toCode,
   onSelect,
   labelFor,
+  cityNameFor,
   planeUrl = '',
+  cityImages = {},
   className = '',
 }) => {
+  const [hoveredCode, setHoveredCode] = useState(null)
   const from = fromCode ? airportsByCode[fromCode] : null
   const to = toCode ? airportsByCode[toCode] : null
   const chosen = useMemo(
     () => [fromCode, toCode].filter(Boolean),
-    [fromCode, toCode]
+    [fromCode, toCode],
   )
 
-  // A single line is drawn only once both ends are chosen.
   const drawnLeg = from && to ? arcBetween(from, to) : null
 
-  /*
-   * What the view frames: the chosen leg once both ends are set, everywhere a
-   * single chosen airport flies while only one is set, otherwise the network.
-   */
   const fitPoints = useMemo(() => {
     if (from && to) return [from, to].map((a) => [a.lat, a.lng])
 
@@ -266,17 +299,10 @@ const RouteMapCanvas = ({
         attributionControl={false}
         className="route-map-canvas h-full w-full bg-100 z-0"
       >
-        {/* Zoom sits on the right so it clears the left-edge search panel. */}
         <ZoomControl position="topright" />
-        {/*
-         * OpenFreeMap vector basemap (OSM-like colours) with every label except
-         * country / continent / water names hidden — so the map keeps its
-         * original colours but shows country names only, no cities.
-         */}
         <VectorBaseLayer />
         <MapSync points={fitPoints} zoomIn={chosen.length > 0} />
 
-        {/* The one line: the chosen origin → destination, and nothing else. */}
         {drawnLeg && (
           <Polyline
             positions={drawnLeg}
@@ -284,32 +310,30 @@ const RouteMapCanvas = ({
           />
         )}
 
-        {/* A plane flying the route, origin → destination, on a smooth loop. */}
-        {/* The plane image comes from the CMS; no plane is drawn when it is empty. */}
         {drawnLeg && planeUrl && <FlyingPlane arc={drawnLeg} planeUrl={planeUrl} />}
 
         {Object.values(airportsByCode).map((airport) => {
           const isChosen = chosen.includes(airport.code)
           const dimmed = chosen.length > 0 && !isChosen
+          const cityName = cityNameFor?.(airport) || airport.code
+          const label = labelFor?.(airport) || cityName
 
           return (
-            <Marker
+            <AirportMarker
               key={airport.code}
-              position={[airport.lat, airport.lng]}
-              zIndexOffset={isChosen ? 1000 : airport.hub ? 500 : 0}
-              icon={createPin({ hub: airport.hub, selected: isChosen, dimmed })}
-              eventHandlers={{ click: () => onSelect(airport.code) }}
-            >
-              {!isChosen && (
-                <Tooltip direction="top" offset={[0, -12]} opacity={1} className="route-map-tooltip">
-                  {labelFor(airport)}
-                </Tooltip>
-              )}
-            </Marker>
+              airport={airport}
+              isChosen={isChosen}
+              dimmed={dimmed}
+              hovered={hoveredCode === airport.code}
+              onHover={setHoveredCode}
+              onSelect={onSelect}
+              label={label}
+              cityName={cityName}
+              imageUrl={cityImages?.[airport.cityKey] || ''}
+            />
           )
         })}
 
-        {/* Endpoint chips, matching the reference's labelled pins. */}
         {[from, to].filter(Boolean).map((airport) => (
           <Marker
             key={`chip-${airport.code}`}

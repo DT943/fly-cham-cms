@@ -1960,10 +1960,16 @@
     }
   },
   "routeMap": {
-    "breadcrumb": "Our Route Map",
+    "breadcrumb": "Route Map",
+    "whereWeFly": "Where We Fly",
     "hero": {
-      "title": "Our Route Map",
-      "description": "Explore our route map, find the cities and airports we serve, and continue directly to flight search when you’re ready to plan your journey."
+      "title": "Where Will You Fly Next?",
+      "description": "Select a city on the map to explore your destination."
+    },
+    "legend": {
+      "label": "Map legend",
+      "network": "Our network",
+      "newRoutes": "new routes"
     },
     "panel": {
       "hub": "Hub",
@@ -1971,6 +1977,7 @@
       "links": {
         "guide": "Destination Guide",
         "activities": "Activities to Do",
+        "thingsToDo": "Things to do",
         "schedule": "View Flight Schedule"
       },
       "clear": "Close",
@@ -2024,10 +2031,12 @@
     "search": {
       "from": "From",
       "to": "To",
+      "select": "Select",
       "label": "Search airports",
       "placeholder": "Search by city, country or airport",
       "empty": "No airports match your search.",
       "reset": "Reset",
+      "search": "Search",
       "findFlights": "Find Flights"
     },
     "drawer": {

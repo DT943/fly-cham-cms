@@ -57,13 +57,10 @@ export const ourDestinationsPages = {
     'activities-and-attractions',
     NO_BOTTOM_PADDING,
   ),
-  // Full-screen interactive map (one full-bleed route-map-explorer block):
-  // <main> fills the viewport under the header (Layout hides the footer here).
+  // Route map: breadcrumbs + intro + interactive map card (CMS route-map-explorer).
   '/our-destinations/route-map': dynamicPage('route-map', {
-    className: 'bg-100 h-[calc(100dvh-65px)] w-full overflow-hidden md:h-[calc(100dvh-73px)]',
-    flushBottom: true,
+    className: 'bg-100 w-full',
     gapClass: 'gap-0',
-    blocksClassName: 'h-full',
   }),
   // Legacy `new-*` URLs
   '/new-our-destinations': createLanguageRedirect('/our-destinations'),
