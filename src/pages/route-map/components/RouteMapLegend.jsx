@@ -9,7 +9,7 @@ const RouteMapLegend = () => {
 
   return (
     <aside
-      className="pointer-events-none absolute bottom-3 end-3 z-[450] rounded-lg border border-solid border-200 bg-50 px-3 py-2 shadow-[0_4px_16px_rgba(1,38,59,0.12)] md:bottom-4 md:end-4"
+      className="pointer-events-none absolute start-3 top-3 z-[450] rounded-lg border border-solid border-200 bg-50 px-3 py-2 shadow-[0_4px_16px_rgba(1,38,59,0.12)] md:start-auto md:top-auto md:bottom-4 md:end-4"
       aria-label={t('routeMap.legend.label')}
     >
       <ul className="m-0 flex list-none flex-col gap-1.5 p-0 text-xs font-medium text-700">

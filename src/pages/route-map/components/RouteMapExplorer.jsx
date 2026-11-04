@@ -11,8 +11,9 @@ import RouteMapLegend from './RouteMapLegend.jsx'
 import { resetRouteSelectionAnalytics, trackRouteSelected } from '../../../shared/analytics/cmsEvents.js'
 
 /**
- * Interactive route map card: From/To search, hover photo pins, destination
- * detail card, and booking drawer. Images come from the CMS route-map-explorer
+ * Interactive route map: From/To search, hover photo pins, destination detail
+ * card, and booking drawer. On mobile the search bar sits above the map; from
+ * md up it floats over the map. Images come from the CMS route-map-explorer
  * block (`planeUrl`, `cityImages`).
  */
 const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }) => {
@@ -97,54 +98,57 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
   }
 
   return (
-    <section className="relative h-[min(70dvh,44rem)] min-h-[28rem] w-full overflow-hidden rounded-2xl border border-solid border-200 bg-100 shadow-[0_12px_40px_rgba(1,38,59,0.1)] md:h-[min(72dvh,48rem)] lg:h-[min(75dvh,52rem)] xl:h-[min(78dvh,56rem)]">
-      <RouteMapCanvas
-        className="absolute inset-0 h-full w-full"
-        fromCode={fromCode}
-        toCode={toCode}
-        onSelect={selectFromMap}
-        planeUrl={planeUrl}
-        cityImages={cityImages}
-        cityNameFor={(airport) => t(`destinations.cities.${airport.cityKey}.name`)}
-        labelFor={(airport) =>
-          `${t(`destinations.cities.${airport.cityKey}.name`)} (${airport.code})`
-        }
-      />
-
-      <div className="pointer-events-none absolute inset-0 z-[500]">
-        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,48rem)]">
-          <RouteSearchPanel
-            from={from}
-            to={to}
-            onChange={change}
-            onReset={reset}
-            onSearch={findFlights}
-            searching={findingFlights}
-          />
-        </div>
-
-        {(from || to) && (
-          <div className="pointer-events-auto absolute inset-x-3 bottom-3 z-[510] md:inset-x-4 md:bottom-4 lg:end-auto lg:w-[min(100%,52rem)]">
-            <DestinationPanel
-              from={from}
-              to={to}
-              onClear={clearFocus}
-              cityImages={cityImages}
-              cityImageAlts={cityImageAlts}
-            />
-          </div>
-        )}
-
-        <RouteMapLegend />
+    <div className="relative w-full">
+      {/* Mobile: in normal flow above the map. Desktop: floats over the map. */}
+      <div className="relative z-[520] mb-3 md:absolute md:inset-x-4 md:top-4 md:mb-0 lg:start-4 lg:end-auto lg:w-[min(100%,48rem)]">
+        <RouteSearchPanel
+          from={from}
+          to={to}
+          onChange={change}
+          onReset={reset}
+          onSearch={findFlights}
+          searching={findingFlights}
+        />
       </div>
 
-      <RouteBookingDrawer
-        open={drawerOpen}
-        from={from}
-        to={to}
-        onClose={() => setDrawerOpen(false)}
-      />
-    </section>
+      <section className="route-map-shell relative h-[min(62dvh,36rem)] min-h-[22rem] w-full overflow-hidden rounded-2xl border border-solid border-200 bg-100 shadow-[0_12px_40px_rgba(1,38,59,0.1)] md:h-[min(72dvh,48rem)] md:min-h-[28rem] lg:h-[min(75dvh,52rem)] xl:h-[min(78dvh,56rem)]">
+        <RouteMapCanvas
+          className="absolute inset-0 h-full w-full"
+          fromCode={fromCode}
+          toCode={toCode}
+          onSelect={selectFromMap}
+          planeUrl={planeUrl}
+          cityImages={cityImages}
+          cityNameFor={(airport) => t(`destinations.cities.${airport.cityKey}.name`)}
+          labelFor={(airport) =>
+            `${t(`destinations.cities.${airport.cityKey}.name`)} (${airport.code})`
+          }
+        />
+
+        <div className="pointer-events-none absolute inset-0 z-[500]">
+          {(from || to) && (
+            <div className="pointer-events-auto absolute inset-x-3 bottom-3 z-[510] md:inset-x-4 md:bottom-4 lg:end-auto lg:w-[min(100%,52rem)]">
+              <DestinationPanel
+                from={from}
+                to={to}
+                onClear={clearFocus}
+                cityImages={cityImages}
+                cityImageAlts={cityImageAlts}
+              />
+            </div>
+          )}
+
+          <RouteMapLegend />
+        </div>
+
+        <RouteBookingDrawer
+          open={drawerOpen}
+          from={from}
+          to={to}
+          onClose={() => setDrawerOpen(false)}
+        />
+      </section>
+    </div>
   )
 }
 

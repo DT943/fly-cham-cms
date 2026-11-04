@@ -1978,7 +1978,8 @@
         "guide": "Destination Guide",
         "activities": "Activities to Do",
         "thingsToDo": "Things to do",
-        "schedule": "View Flight Schedule"
+        "schedule": "View Flight Schedule",
+        "scheduleShort": "Flight Schedule"
       },
       "clear": "Close",
       "new": "New",

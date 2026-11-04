@@ -383,10 +383,16 @@ body {
   background: #d6e4f0 !important;
 }
 
-/* Zoom control top-right; clear the floating search bar on small screens. */
+/* Zoom control top-right inside the map (above the destination card on mobile). */
 .route-map-canvas .leaflet-top.leaflet-right {
   margin-top: 12px;
   margin-right: 12px;
+}
+
+@media (min-width: 768px) {
+  .route-map-canvas .leaflet-top.leaflet-right {
+    margin-top: 12px;
+  }
 }
 
 .route-map-pin--hover {

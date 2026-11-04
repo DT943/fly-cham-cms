@@ -116,13 +116,32 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
     )
   }
 
+  const resetButton = onReset ? (
+    <button
+      type="button"
+      onClick={() => {
+        setOpenField(null)
+        onReset()
+      }}
+      className="cursor-pointer border-0 bg-transparent px-0.5 py-1.5 text-sm font-medium text-secondary-1 underline underline-offset-2 transition-opacity hover:opacity-80"
+    >
+      {t('routeMap.search.reset')}
+    </button>
+  ) : null
+
   return (
     <div className="relative">
-      <div className="flex flex-col gap-3 rounded-2xl bg-background p-4 shadow-[0_8px_28px_rgba(1,38,59,0.12)] sm:flex-row sm:items-end sm:gap-3 sm:p-5">
-        {renderField('from')}
-        {renderField('to')}
+      <div className="flex flex-col gap-3 rounded-2xl bg-background p-4 shadow-[0_8px_28px_rgba(1,38,59,0.12)] md:flex-row md:items-end md:gap-3 md:p-5">
+        <div className="flex min-w-0 flex-1 gap-2.5 md:contents">
+          {renderField('from')}
+          {renderField('to')}
+        </div>
 
-        <div className="flex shrink-0 items-center gap-3 pb-0.5 sm:ps-1">
+        {/* Mobile: Reset centered under the fields (no Search). */}
+        {resetButton ? <div className="flex justify-center md:hidden">{resetButton}</div> : null}
+
+        {/* Desktop: Search + Reset beside the fields. */}
+        <div className="hidden shrink-0 items-center gap-3 pb-0.5 md:flex md:ps-1">
           <button
             type="button"
             onClick={() => {
@@ -130,22 +149,11 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
               onSearch?.()
             }}
             disabled={!canSearch || searching}
-            className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-lg border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 sm:flex-none sm:min-w-24"
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-lg border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 md:min-w-24"
           >
             {t('routeMap.search.search')}
           </button>
-          {onReset ? (
-            <button
-              type="button"
-              onClick={() => {
-                setOpenField(null)
-                onReset()
-              }}
-              className="cursor-pointer border-0 bg-transparent px-0.5 py-1.5 text-sm font-medium text-secondary-1 underline underline-offset-2 transition-opacity hover:opacity-80"
-            >
-              {t('routeMap.search.reset')}
-            </button>
-          ) : null}
+          {resetButton}
         </div>
       </div>
 
