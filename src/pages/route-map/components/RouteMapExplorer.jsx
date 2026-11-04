@@ -97,7 +97,7 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
   }
 
   return (
-    <section className="relative h-[min(70dvh,44rem)] min-h-[28rem] w-full overflow-hidden rounded-2xl border border-solid border-200 bg-100 shadow-[0_12px_40px_rgba(1,38,59,0.1)] md:h-[min(72dvh,48rem)]">
+    <section className="relative h-[min(70dvh,44rem)] min-h-[28rem] w-full overflow-hidden rounded-2xl border border-solid border-200 bg-100 shadow-[0_12px_40px_rgba(1,38,59,0.1)] md:h-[min(72dvh,48rem)] lg:h-[min(75dvh,52rem)] xl:h-[min(78dvh,56rem)]">
       <RouteMapCanvas
         className="absolute inset-0 h-full w-full"
         fromCode={fromCode}
@@ -112,7 +112,7 @@ const RouteMapExplorer = ({ planeUrl = '', cityImages = {}, cityImageAlts = {} }
       />
 
       <div className="pointer-events-none absolute inset-0 z-[500]">
-        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,44rem)]">
+        <div className="pointer-events-auto absolute inset-x-3 top-3 md:inset-x-4 md:top-4 lg:start-4 lg:end-auto lg:w-[min(100%,48rem)]">
           <RouteSearchPanel
             from={from}
             to={to}

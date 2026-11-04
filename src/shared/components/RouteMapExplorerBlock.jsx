@@ -36,7 +36,7 @@ const RouteMapExplorerBlock = ({
     <div className="flex w-full flex-col gap-4 pb-8 md:gap-6 md:pb-12">
       <Breadcrumbs items={crumbs} />
 
-      <Container className="flex flex-col gap-3 md:gap-4">
+      <Container className="flex flex-col gap-2 md:gap-3">
         <header className="flex flex-col gap-2">
           <h1 className={`m-0 font-bold text-secondary-2 ${typography.pageTitle}`}>
             {heading}
@@ -48,11 +48,14 @@ const RouteMapExplorerBlock = ({
             <p className="m-0 max-w-3xl text-base text-700 md:text-lg">{subtitle}</p>
           ) : null}
         </header>
+      </Container>
 
+      {/* Wider than the page container on large screens so the map can breathe. */}
+      <div className="mx-auto w-full max-w-[min(100%,90rem)] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <SearchAnchor hit="route-map-explorer" className="block w-full">
           <Suspense
             fallback={
-              <div className="h-[min(70dvh,44rem)] min-h-[28rem] w-full rounded-2xl bg-100" />
+              <div className="h-[min(70dvh,44rem)] min-h-112 w-full rounded-2xl bg-100 lg:h-[min(75dvh,52rem)]" />
             }
           >
             <RouteMapExplorer
@@ -62,7 +65,7 @@ const RouteMapExplorerBlock = ({
             />
           </Suspense>
         </SearchAnchor>
-      </Container>
+      </div>
     </div>
   )
 }
