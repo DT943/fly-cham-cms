@@ -132,7 +132,7 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
   return (
     <div className="relative">
       <div className="flex flex-col gap-3 rounded-2xl bg-background p-4 shadow-[0_8px_28px_rgba(1,38,59,0.12)] md:flex-row md:items-end md:gap-3 md:p-5">
-        <div className="flex min-w-0 flex-1 gap-2.5 md:contents">
+        <div className="flex min-w-0 flex-1 items-end gap-2.5 md:contents">
           {renderField('from')}
           {renderField('to')}
         </div>
@@ -149,7 +149,7 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
               onSearch?.()
             }}
             disabled={!canSearch || searching}
-            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 md:min-w-24"
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:bg-300 disabled:text-500 disabled:opacity-100 md:min-w-24"
           >
             {t('routeMap.search.search')}
           </button>

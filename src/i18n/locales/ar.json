@@ -1985,6 +1985,7 @@
       "new": "جديد",
       "nonStop": "رحلة مباشرة",
       "duration": "مدة الرحلة {{time}}",
+      "departingFrom": "المغادرة من {{code}}",
       "perWeek_zero": "لا رحلات أسبوعياً",
       "perWeek_one": "رحلة واحدة أسبوعياً",
       "perWeek_two": "رحلتان أسبوعياً",

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, Marker, Polyline, ZoomControl, useMap } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Tooltip, ZoomControl, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { airportsByCode, arcBetween, legsFor } from '../utils/routeNetwork.js'
 import VectorBaseLayer from './VectorBaseLayer.jsx'
@@ -20,49 +20,22 @@ const escapeHtml = (value) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
 
-/** Default teardrop pin — network teal or new-route gold. */
+/** Default teardrop pin — network teal or new-route gold. No selection glow/box. */
 function createPin({ selected, dimmed, isNew }) {
-  const size = selected ? 20 : 16
+  const size = selected ? 18 : 16
   const color = isNew ? HUB : PIN
   const tip = Math.round(size * 0.45)
-  const ring = selected ? `box-shadow:0 0 0 6px ${color}33,0 0 0 12px ${color}1a;` : ''
 
   return L.divIcon({
     className: 'route-map-pin',
     iconSize: [size, size + tip],
     iconAnchor: [size / 2, size + tip - 2],
-    html: `<span style="display:flex;flex-direction:column;align-items:center;opacity:${dimmed ? 0.35 : 1};transition:opacity .2s ease;${ring}">
+    html: `<span style="display:flex;flex-direction:column;align-items:center;opacity:${dimmed ? 0.35 : 1};transition:opacity .2s ease;">
       <span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;
         background:${color};border:2.5px solid ${PIN_BORDER};box-sizing:border-box;"></span>
       <span style="width:0;height:0;border-left:${Math.round(size * 0.28)}px solid transparent;
         border-right:${Math.round(size * 0.28)}px solid transparent;border-top:${tip}px solid ${PIN_BORDER};
         margin-top:-2px;"></span>
-    </span>`,
-  })
-}
-
-/** Hover / focus pin: circular city photo with the city name under it. */
-function createHoverPin({ imageUrl, label, isNew }) {
-  const size = 64
-  const color = isNew ? HUB : PIN
-  const safeLabel = escapeHtml(label)
-  const photo = imageUrl
-    ? `<img loading="lazy" decoding="async" src="${escapeAttr(imageUrl)}" alt=""
-        style="width:100%;height:100%;object-fit:cover;display:block;border-radius:9999px;" />`
-    : `<span style="display:grid;place-items:center;width:100%;height:100%;border-radius:9999px;
-        background:${color};color:#fdfdfc;font-size:12px;font-weight:700;">${safeLabel.slice(0, 3)}</span>`
-
-  return L.divIcon({
-    className: 'route-map-pin route-map-pin--hover',
-    iconSize: [size, size + 28],
-    iconAnchor: [size / 2, size / 2],
-    html: `<span style="display:flex;flex-direction:column;align-items:center;gap:6px;width:${size}px;">
-      <span style="display:block;width:${size}px;height:${size}px;border-radius:9999px;overflow:hidden;
-        border:3px solid ${color};box-shadow:0 8px 20px rgba(1,38,59,0.28);background:#fdfdfc;box-sizing:border-box;">
-        ${photo}
-      </span>
-      <span style="white-space:nowrap;font-size:13px;font-weight:700;color:#333333;
-        text-shadow:0 1px 0 #fff,0 0 6px #fff;">${safeLabel}</span>
     </span>`,
   })
 }
@@ -134,15 +107,13 @@ const FlyingPlane = ({ arc, planeUrl }) => {
   return null
 }
 
+/** Selected-endpoint label chip above the pin (white card + caret). */
 function createChip(label) {
   return L.divIcon({
     className: 'route-map-chip',
     iconSize: [0, 0],
-    iconAnchor: [0, 34],
-    html: `<span style="display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
-      transform:translateX(-50%);background:#fdfdfc;color:#01263b;border:1px solid #e5e5e3;
-      border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;
-      box-shadow:0 4px 12px rgba(1,38,59,0.22);">${escapeHtml(label)}</span>`,
+    iconAnchor: [0, 38],
+    html: `<span class="route-map-label-chip"><span class="route-map-label-chip__text">${escapeHtml(label)}</span></span>`,
   })
 }
 
@@ -212,40 +183,33 @@ const MapSync = ({ points, zoomIn }) => {
   return null
 }
 
-const AirportMarker = ({
-  airport,
-  isChosen,
-  dimmed,
-  hovered,
-  onHover,
-  onSelect,
-  label,
-  cityName,
-  imageUrl,
-}) => {
-  const icon = useMemo(() => {
-    if (hovered && !isChosen) {
-      return createHoverPin({ imageUrl, label: cityName, isNew: airport.isNew })
-    }
-    return createPin({
-      selected: isChosen,
-      dimmed,
-      isNew: airport.isNew,
-    })
-  }, [hovered, isChosen, dimmed, airport.isNew, imageUrl, cityName])
+const AirportMarker = ({ airport, isChosen, dimmed, onSelect, label }) => {
+  const icon = useMemo(
+    () =>
+      createPin({
+        selected: isChosen,
+        dimmed,
+        isNew: airport.isNew,
+      }),
+    [isChosen, dimmed, airport.isNew],
+  )
 
   return (
     <Marker
       position={[airport.lat, airport.lng]}
-      zIndexOffset={hovered || isChosen ? 1000 : airport.hub ? 500 : 0}
+      zIndexOffset={isChosen ? 1000 : airport.hub ? 500 : 0}
       icon={icon}
       eventHandlers={{
         click: () => onSelect(airport.code),
-        mouseover: () => onHover(airport.code),
-        mouseout: () => onHover(null),
       }}
-      title={label}
-    />
+    >
+      {/* Hover label: City (CODE) — no photo pin. */}
+      {!isChosen && (
+        <Tooltip direction="top" offset={[0, -16]} opacity={1} className="route-map-label">
+          {label}
+        </Tooltip>
+      )}
+    </Marker>
   )
 }
 
@@ -254,12 +218,9 @@ const RouteMapCanvas = ({
   toCode,
   onSelect,
   labelFor,
-  cityNameFor,
   planeUrl = '',
-  cityImages = {},
   className = '',
 }) => {
-  const [hoveredCode, setHoveredCode] = useState(null)
   const from = fromCode ? airportsByCode[fromCode] : null
   const to = toCode ? airportsByCode[toCode] : null
   const chosen = useMemo(
@@ -315,8 +276,7 @@ const RouteMapCanvas = ({
         {Object.values(airportsByCode).map((airport) => {
           const isChosen = chosen.includes(airport.code)
           const dimmed = chosen.length > 0 && !isChosen
-          const cityName = cityNameFor?.(airport) || airport.code
-          const label = labelFor?.(airport) || cityName
+          const label = labelFor?.(airport) || airport.code
 
           return (
             <AirportMarker
@@ -324,12 +284,8 @@ const RouteMapCanvas = ({
               airport={airport}
               isChosen={isChosen}
               dimmed={dimmed}
-              hovered={hoveredCode === airport.code}
-              onHover={setHoveredCode}
               onSelect={onSelect}
               label={label}
-              cityName={cityName}
-              imageUrl={cityImages?.[airport.cityKey] || ''}
             />
           )
         })}

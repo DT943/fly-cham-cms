@@ -1985,6 +1985,7 @@
       "new": "New",
       "nonStop": "Non-stop flight",
       "duration": "{{time}} flight",
+      "departingFrom": "Departing from {{code}}",
       "perWeek_one": "{{count}} flight per week",
       "perWeek_other": "{{count}} flights per week",
       "connections_one": "{{count}} direct route",

@@ -365,6 +365,17 @@ body {
 .route-map-pin {
   background: transparent !important;
   border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.route-map-pin:focus,
+.route-map-pin:focus-visible,
+.leaflet-marker-icon.route-map-pin {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 /*
@@ -430,8 +441,76 @@ body {
   border-bottom: 0 !important;
 }
 
-.route-map-pin--hover {
-  z-index: 1300 !important;
+/* Hover / selected city label: white chip with a caret pointing at the pin. */
+.route-map-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #01263b !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+.route-map-label::before {
+  display: none !important;
+}
+
+.route-map-label .route-map-label-chip,
+.route-map-label-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  color: #01263b;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 4px 14px rgba(1, 38, 59, 0.18);
+  white-space: nowrap;
+}
+
+.route-map-label .route-map-label-chip::after,
+.route-map-label-chip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #ffffff;
+  filter: drop-shadow(0 2px 2px rgba(1, 38, 59, 0.08));
+}
+
+/* Leaflet tooltip wraps text in a child — style that child as the chip. */
+.leaflet-tooltip.route-map-label {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 5px 10px !important;
+  box-shadow: 0 4px 14px rgba(1, 38, 59, 0.18) !important;
+  color: #01263b !important;
+}
+
+.leaflet-tooltip.route-map-label::before {
+  display: block !important;
+  border: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 6px solid transparent !important;
+  border-right: 6px solid transparent !important;
+  border-top: 6px solid #ffffff !important;
+  bottom: -6px !important;
+  margin: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 /*
