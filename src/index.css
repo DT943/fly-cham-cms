@@ -383,16 +383,51 @@ body {
   background: #d6e4f0 !important;
 }
 
-/* Zoom control top-right inside the map (above the destination card on mobile). */
+/* Zoom control: white vertical pill, soft shadow only — no border / divider. */
 .route-map-canvas .leaflet-top.leaflet-right {
   margin-top: 12px;
   margin-right: 12px;
 }
 
-@media (min-width: 768px) {
-  .route-map-canvas .leaflet-top.leaflet-right {
-    margin-top: 12px;
-  }
+.route-map-canvas .leaflet-control-zoom.leaflet-bar,
+.route-map-canvas .leaflet-control-zoom {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(1, 38, 59, 0.16) !important;
+}
+
+.route-map-canvas .leaflet-bar a,
+.route-map-canvas .leaflet-control-zoom a {
+  display: grid !important;
+  place-items: center;
+  width: 40px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #01263b !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.route-map-canvas .leaflet-control-zoom a:hover,
+.route-map-canvas .leaflet-control-zoom a:focus {
+  background: rgba(1, 38, 59, 0.04) !important;
+  color: #01263b !important;
+}
+
+.route-map-canvas .leaflet-control-zoom-in {
+  border-bottom: 0 !important;
 }
 
 .route-map-pin--hover {

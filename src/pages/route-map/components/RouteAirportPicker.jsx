@@ -97,18 +97,18 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
             setSearch('')
             setOpenField(isOpen ? null : field)
           }}
-          className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-md border border-solid border-300 bg-background px-2.5 text-start transition-colors hover:border-primary-1"
+          className="flex h-10 w-full cursor-pointer items-center gap-2 rounded-xl border border-solid border-[#E0E0DE] bg-50 px-2.5 text-start shadow-none outline-none transition-colors hover:border-[#C9C9C6]"
         >
           <span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary-3 text-50">
             <FieldIcon size={13} weight="fill" aria-hidden />
           </span>
-          <span className="min-w-0 flex-1 truncate text-sm font-medium text-secondary-2">
+          <span className="min-w-0 flex-1 truncate text-sm font-medium text-[#4A4A4A]">
             {code ? city || code : t('routeMap.search.select')}
           </span>
           <CaretDown
             size={12}
-            weight="bold"
-            className={`shrink-0 text-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            weight="regular"
+            className={`shrink-0 text-[#6B6B6B] transition-transform ${isOpen ? 'rotate-180' : ''}`}
             aria-hidden
           />
         </button>
@@ -149,7 +149,7 @@ const PickerInner = ({ from, to, onChange, onReset, onSearch, searching = false 
               onSearch?.()
             }}
             disabled={!canSearch || searching}
-            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-lg border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 md:min-w-24"
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border-0 bg-primary-1 px-5 text-sm font-semibold text-50 transition-colors hover:bg-primary-1/90 disabled:cursor-not-allowed disabled:opacity-50 md:min-w-24"
           >
             {t('routeMap.search.search')}
           </button>
